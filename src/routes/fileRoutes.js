@@ -1,8 +1,8 @@
 import express from "express";
 import { File, Category, Subcategory, sequelize } from "../models/index.js";
 import { upload, getUploadPath } from "../upload/multerConfig.js";  // ✅ `multerConfig.js` 가져오기
-import path from "path";
-import fs from "fs";
+import path, {join} from "path";
+import fs from "fs/promises";
 import sanitizeHtml from "sanitize-html"; // 🔥 sanitize-html 라이브러리 추가
 
 const router = express.Router();
@@ -124,8 +124,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         const uploadDir = await getUploadPath(category_id, subcategory_id);
         const fileName = `${Date.now()}${path.extname(req.file.originalname)}`;
         const filePath = path.join(uploadDir, fileName);
-
-        fs.writeFileSync(filePath, req.file.buffer);
+        await fs.writeFile(filePath, req.file.buffer);
 
         // ✅ DB에 정확한 카테고리명과 서브카테고리명을 저장
         const fileData = await File.create({
@@ -297,13 +296,18 @@ router.delete("/:id", async (req, res) => {
   
         // 2) 실제 파일 경로에서 파일명만 분리
         const relativePath = fileRecord.file_path.replace(/^\/+/, ""); 
-        const absolutePath = path.join(process.cwd(), relativePath);
+        const absolutePath = join(__dirname, "..", "..", relativePath);
+
+        console.log("삭제 시도 파일 경로:", absolutePath);
   
         // ▶ 파일이 실제로 존재하면 삭제, 아니면 무시
         if (fs.existsSync(absolutePath)) {
-            fs.unlink(absolutePath, err => {
-            if (err) console.warn("파일 삭제 중 오류:", err);
-            });
+            try{
+                await fs.promises.unlink(absolutePath);
+                console.log("파일 삭제 성공:", absolutePath);
+            } catch (err) {
+                console.warn("파일 삭제 중 오류:", err);
+              }
         } else {
             console.warn("삭제 대상 파일이 없습니다:", absolutePath);
         }
