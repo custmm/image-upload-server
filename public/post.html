@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>휴욱슈욱 >> 게시물</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 라이트 모드 기본 스타일 */
+    body {
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+    }
+    /* ✅ 로딩 화면 스타일 */
+    .loading-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+        display: none; /* 기본적으로 숨김 */
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; /* 이미지 + 텍스트 세로 정렬 */
+        z-index: 9999; /* 다른 요소 위에 표시 */
+        text-align: center;
+    }
+    /* ✅ 로딩 이미지 크기 */
+    .loading-image {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px; /* 이미지 아래 여백 */
+    }
+
+    /* ✅ 로딩 텍스트 스타일 */
+    .loading-text {
+        font-size: 16px;
+        color: white;
+    }
+
+    .post-container{
+        display: flex;
+        background-color: #ffffff;
+        border-radius: 10px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 500px;
+        margin: 20px auto;
+    }
+    .postcategory-container{
+      display: flex;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: flex;
+      height: auto;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+    .postcategory-container > div {
+        margin: 0 10px;
+    }
+    .postcategory-container > div > img {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+    }
+    .postcategory-container > div > span {
+        font-size: 16px;
+    }
+    /* ✅ 클릭 가능한 스타일 추가 */
+    .clickable-category {
+        cursor: pointer;
+        color: black;
+    }
+
+    .clickable-category:hover {
+        color: darkblue;
+    }
+    /* ✅ 게시물 이미지 */
+    .post-image {
+        max-width: 100%;
+        max-height: 50vh;
+        object-fit: contain;
+    }
+
+    /* ✅ 게시물 설명 */
+    .post-description {
+        font-size: 16px;
+        text-align: left;
+        white-space: pre-wrap; /* newline 문자 보존 */
+    }
+    .post-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .button {
+      font-size: 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #755a6a;
+    }
+    /* 토글 스위치 (다크 모드) */
+    .toggle-switch {
+      position: absolute;
+      top: 10px;
+      right: 30px;
+      width: 50px;
+      height: 25px;
+      display: inline-block;
+    }
+    .toggle-switch input {
+      display: none;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      background-color: #cbcbcb;
+      border-radius: 20px;
+      transition: background-color 0.3s;
+    }
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      bottom: 2px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .toggle-switch input:checked + .slider {
+      background-color: #cbcbcb;
+    }
+    .toggle-switch input:checked + .slider::before {
+      transform: translateX(25px);
+    }
+    /* 🌙 다크 모드 스타일 */
+    .dark-mode {
+      background-color: #222;
+      color: #fff;
+    }
+    .dark-mode .post-container{
+        background-color: #444444;
+    }
+    .dark-mode .clickable-category {
+        cursor: pointer;
+        color: white;
+    }
+</style>
+</head>
+<body>
+    <h1>게시물</h1>    
+    <!-- ✅ 로딩 화면 추가 -->
+    <div id="loadingIndicator" class="loading-indicator">
+      <img src="images/loading.gif" alt="로딩 중..." class="loading-image">
+      <p class="loading-text">게시물을 불러오는 중...</p>
+  </div>
+
+    <div class="post-container">
+      <img id="postImage" class="post-image" src="" alt="게시물 이미지">
+        <!-- ✅ 카테고리 & 서브카테고리 표시 공간 추가 -->
+        <div class="postcategory-container">
+          <div class="post-category">
+            <span id="postCategory" class="clickable-category"></span> ▶ <span id="postSubcategory"></span>
+          </div>
+      </div>
+      <p id="postDescription" class="post-description"></p>
+    </div>
+<!-- ✅ 버튼 추가 -->
+<div class="post-buttons">
+  <button id="backToListButton" class="button">목록으로</button>
+  <button id="shareButton" class="button">공유</button>
+</div>
+      <!-- 다크 모드 토글 스위치 -->
+  <div class="toggle-switch">
+    <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
+    <label class="slider" for="themeToggle"></label>
+  </div>
+
+  <script>
+    // ✅ 로딩 화면 표시 함수
+    function showLoading() {
+        document.getElementById("loadingIndicator").style.display = "flex";
+    }
+
+    // ✅ 로딩 화면 숨김 함수
+    function hideLoading() {
+        setTimeout(() => {
+            document.getElementById("loadingIndicator").style.display = "none";
+        }, 500); // 0.5초 후 숨김
+    }
+
+// ✅ URL에서 파라미터 가져오기 (기본값을 사용하지 않음)
+function getParamsFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        category: params.get("category") ? decodeURIComponent(params.get("category")).trim() : null,
+        subcategory: params.get("subcategory") ? decodeURIComponent(params.get("subcategory")).trim() : null,
+        file: params.get("file") ? decodeURIComponent(params.get("file")).trim() : null
+    };
+}
+
+    // ✅ 서버에서 데이터 가져오기
+    async function loadPostData() {
+        let { category, subcategory, file } = getParamsFromURL();
+
+        if (!file) {
+            document.getElementById("postDescription").innerHTML = "🚨 올바른 게시물을 찾을 수 없습니다.";
+            return;
+        }
+
+        console.log(`📌 요청할 파일 정보: ${category} / ${subcategory} / ${file}`);
+
+        // 🔥 로딩 시작
+        showLoading();
+
+        try {
+          const apiURL = `/api/files/file?category=${encodeURIComponent(category)}&subcategory=${encodeURIComponent(subcategory)}&file=${encodeURIComponent(file)}`;
+          console.log("📌 요청 URL:", apiURL);
+
+          const response = await fetch(apiURL);
+
+          if (!response.ok) {
+              throw new Error(`❌ 서버 응답 오류: ${response.status} - ${response.statusText}`);
+          }
+
+          const postData = await response.json();
+          console.log("✅ 서버에서 불러온 게시물 데이터:", postData);
+
+          // ✅ 이미지 및 설명 적용
+          document.getElementById("postImage").src = `${postData.file_path}`;
+          document.getElementById("postCategory").textContent = postData.category_name || "카테고리 없음";
+          // ✅ 카테고리 클릭 시 preview.html로 이동
+          document.getElementById("postCategory").addEventListener("click", () => {
+              if (postData.category_name) {
+                  const categoryParam = encodeURIComponent(postData.category_name);
+                  window.location.href = `preview.html?category=${categoryParam}`;
+              }
+          });
+          document.getElementById("postSubcategory").textContent = postData.subcategory_name || "서브카테고리 없음";
+          
+          // ✅ 설명 필터링 후 적용 (HTML 태그 유지)
+          document.getElementById("postDescription").innerHTML = (postData.file_description || "설명 없음")
+            .replace(/\n/g, "<br>");
+        } catch (error) {
+            console.error("🚨 게시물 불러오기 오류:", error);
+            document.getElementById("postDescription").innerHTML = "🚨 게시물을 불러오는 중 오류 발생";
+        } finally {
+            // 🔥 로딩 완료
+            hideLoading();
+        }
+    }
+    // ✅ HTML 태그 유지 및 불필요한 태그 제거
+    function sanitizeDescription(html) {
+    // 글자 효과를 위해 필요한 태그를 추가할 수 있습니다.
+    const allowedTags = ["b", "strong", "i", "em", "s", "strike", "u", "br", "span", "div", "p"];
+    let doc = new DOMParser().parseFromString(html, "text/html");
+
+    doc.body.querySelectorAll("*").forEach(node => {
+        if (!allowedTags.includes(node.tagName.toLowerCase())) {
+            node.replaceWith(document.createTextNode(node.innerText));
+        }
+    });
+
+    // 줄바꿈 관련 치환 제거 – 엔터 1번으로 생성된 <br>가 그대로 유지됨
+    return doc.body.innerHTML.trim();
+  }
+
+    // ✅ 페이지 로드 시 데이터 불러오기
+    document.addEventListener("DOMContentLoaded", loadPostData);
+
+    // ✅ "목록으로" 버튼 클릭 시 이전 페이지로 이동
+    document.getElementById("backToListButton").addEventListener("click", () => {
+      window.history.back(); // 🔥 이전 페이지로 이동
+    });
+
+    // ✅ "공유" 버튼 클릭 시 현재 페이지 URL 복사
+    document.getElementById("shareButton").addEventListener("click", async () => {
+      try {
+          const postURL = window.location.href;
+          await navigator.clipboard.writeText(postURL);
+          alert("📌 링크가 클립보드에 복사되었습니다!");
+      } catch (err) {
+          console.error("🚨 공유 실패:", err);
+          alert("❌ 링크 복사에 실패했습니다.");
+        }
+    });
+
+    // ✅ 다크 모드 토글 함수
+    function toggleTheme() {
+      var body = document.body;
+      body.classList.toggle("dark-mode");
+    }
+</script>
+  </body>
+  </html>
+

@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>후욱슈욱 >> 관리자페이지</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+        background: radial-gradient(circle, #FFDF00 0%, 	#D4AF37 25%, #CFB53B 50%, #C5B358 75%, #b8860b 100%);
+        background-attachment: fixed; /* 스크롤해도 배경 유지 */
+        background-size: 200% 200%;
+        animation: goldGlow 6s infinite alternate; /* ✨ 부드럽게 빛나는 효과 */
+    }
+    /* ✨ 황금빛이 부드럽게 퍼지는 애니메이션 */
+    @keyframes goldGlow {
+        0% {
+            background-size: 180% 180%;
+            background-position: center;
+        }
+        100% {
+            background-size: 200% 200%;
+            background-position: center;
+        }
+    }
+    /* 🔥 왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
+    .left-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    /* 🔥 사이드바 열기 버튼 */
+    .sidebar-toggle {
+        position: fixed; /* ✅ 화면에 고정 */        
+        background-color: #444;
+        color: white;
+        padding: 15px 19px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.5s, transform 0.5s ease-in-out;
+        position: relative; /* ✅ 다른 요소에 가려지지 않도록 변경 */
+        z-index: 1000; /* ✅ 다른 요소 위에 배치 */
+    }
+    .sidebar-toggle:hover {
+        background-color: #666;
+    }
+    /* 🔥 사이드바 스타일 */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px; /* 🔥 기본적으로 숨김 */
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8); /* 🔥 어두운 투명 배경 */
+        color: white;
+        padding-right: 70px;
+        padding-left: 30px;
+        padding-top:40px;
+        transition: left 0.5s ease-in-out; /* 🔥 부드러운 애니메이션 */
+    }
+
+    /* 🔥 사이드바 열렸을 때 */
+    .sidebar.open {
+        left: 0;
+    }
+
+    /* 🔥 닫기 버튼 */
+    .close-sidebar {
+        position: absolute; /* ✅ 버튼을 절대 위치로 변경 */
+        top: 15px; /* 🔥 상단 여백 조정 */
+        right: 15px; /* 🔥 오른쪽 정렬 */
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    /* 🔥 사이드바 메뉴 */
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .sidebar ul li {
+        margin: 15px 0;
+    }
+
+    .sidebar ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .sidebar ul li a:hover {
+        text-decoration: underline;
+    }    
+    h1 {
+        margin-bottom: 20px;
+    }
+    /* 🟡 투명 배경을 포함한 컨테이너 스타일 */
+    .adminbar-container {
+        position: absolute; /* 📌 고정 위치 */
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100vw; /* 🔥 전체 너비 확장 */
+        height: 110px;
+        background: rgba(255, 255, 255, 0.2); /* 🔥 반투명 흰색 */
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* 🔥 살짝 입체감 */
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* 🔥 부드러운 이동 효과 */
+    }
+    /* 🔥 사이드바 열리면 adminbar-container 내부 요소들이 위로 사라짐 */
+    .adminbar-container.hidden {
+        transform: translateY(-100px); /* 🔥 위로 이동 */
+        opacity: 0; /* 🔥 투명하게 */
+    }
+    /* 🟡 중앙 텍스트 스타일 */
+    .adminbar-container h1 {
+        flex-grow: 1;
+        text-align: center;
+        color: white; /* 글씨 색상 조정 */
+        margin: 0;
+    }
+    .back-button {
+        background: rgba(255, 255, 255, 0.2);
+        color: black;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }    
+    .logout-button {
+        background: rgba(255, 255, 255, 0.2);
+        color: black;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        position: absolute;
+        top: 10px;
+        right:65px;
+    }    
+    .back-button:hover, 
+    .logout-button:hover,
+    #saveEdit:hover,
+    #closeEdit:hover {
+        background-color: #755a6a;
+    }    
+    /* 🔥 텍스트 모드 - 버튼 */
+    .post-item .buttons {
+        display: flex;
+        gap: 5px;
+    }
+    /* 오버레이 (showpopup) */
+    .popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1500;
+    }
+
+    /* 일반 팝업 컨테이너 */
+    .popup-container {
+    background-color: white;
+    color: #000;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    }
+
+    /* 일반 팝업 버튼 */
+    .popup-container button {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 7px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    }
+
+    /* 수정/삭제 확인 팝업 컨테이너 */
+    .popup-edit-container {
+    position: fixed;
+    top: 50%; left: 50%;
+    width: 250px;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    z-index: 10001;
+    text-align: center;
+    }
+
+    /* edit 팝업 내부 문단 여백 */
+    .popup-edit-container p {
+    margin-bottom: 20px;
+    }
+
+    /* edit 팝업 버튼 */
+    .popup-edit-container button {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 7px 15px;
+    cursor: pointer;
+    }
+    /* 팝업 확인 버튼 스타일 */
+    .popup-confirm-button {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 7px 15px;
+        margin-top: 10px;       /* 기존 inline 마진 */
+        background-color: #fff; /* 필요시 배경색 지정 */
+        color: #000;            /* 필요시 글자색 지정 */
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.2s;
+    }
+    .popup-confirm-button:hover {
+        background-color: aqua;
+    }
+
+    /* edit 팝업 취소 버튼 간격 */
+    .popup-edit-cancel {
+    margin-left: 10px;
+    }
+
+    /* 🔥 수정/삭제 버튼 */
+    .edit-button, .delete-button {
+        padding: 5px 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        color: white;
+    }
+
+    .edit-button {
+        background-color: #007bff;
+    }
+    .edit-button:hover{
+        background-color: #00ffb394;
+        transition-duration:0.5s
+    }
+    #popup-ok{
+        padding: 8px 15px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    #popup-ok:hover{
+        background-color: #adf5dfb2;
+        transition-duration:0.5s       
+    }
+    #popup-cancel{
+        padding: 8px 15px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    #popup-cancel:hover{
+        background-color: #f5adadb2;
+        transition-duration:0.5s       
+    }
+
+    .delete-button {
+        background-color: #dc3545;
+    }
+    .delete-button:hover {
+        background-color: #dcc335a7;
+        transition-duration:0.5s
+    }
+    #saveEdit{
+        background-color: #000000;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+        color: white;
+    }
+    #closeEdit{
+        background-color: #000000;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+        color: white;
+
+    }    
+    /* 🔥 버튼을 일렬로 배치 */
+    .button-group {
+        display: flex;
+        gap: 10px; /* ✅ 버튼 사이 간격 */
+        margin-right: 55px;
+    }
+    .change-button {
+        width: 40px;
+        height: 40px;
+        background: none;       /* 배경 제거 */
+        border: none;           /* 테두리 제거 */
+        padding: 0;             /* 내부 여백 제거 */
+        margin: 0;              /* 외부 여백 제거 */
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.3s ease-in-out;
+    }
+
+    /* 🔥 버튼 기본 아이콘 색상 */
+    .change-button i {
+        font-size: 24px;
+        color: #444; /* ✅ 기본 아이콘 색상 */
+        transition: color 0.3s ease-in-out, transform 0.1s ease-out;
+    }
+
+    /* 🔥 클릭 후 아이콘 색상 변경 */
+    .change-button.active i {
+        color: #007bff; /* ✅ 아이콘 색상 변경 */
+        transform: scale(1.2); /* ✅ 클릭 시 아이콘 커짐 */
+    }
+    .post-form-container{
+        display: flex;
+        flex-wrap: wrap;
+        object-fit: cover;  /* 🔥 이미지 비율 유지 */
+        width: 80%;
+        max-height: 400px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #ffffff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        justify-content: center; /* ✅ 내부 요소 가로 중앙 정렬 */
+        align-items: center; /* ✅ 내부 요소 세로 중앙 정렬 */
+        text-align: center; /* ✅ 텍스트 중앙 정렬 */
+        transition: all 0.3s ease-in-out; /* ✅ 크기 변화가 부드럽게 적용 */
+        overflow-y: auto; /* 🚨 스크롤 강제 유지 */
+    }
+    /* 🔥 이미지 모드: 한 줄에 6개씩 정렬 */
+    .post-form-container.image-mode {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr); /* ✅ 6개씩 가로 정렬 */
+        gap: 10px;
+        object-fit: cover;  /* 🔥 이미지 비율 유지 */
+        justify-items: center; /* 이미지 정렬을 중앙으로 설정 */
+        align-items: center; /* 이미지 정렬을 중앙으로 설정 */
+    }
+    /* 🔥 이미지 스타일 */
+    .post-image {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 5px;
+        width: 10vw;
+        height: 10vw;
+        object-fit: cover; /* 이미지 비율 유지, 영역을 채우도록 자름 */
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .post-image:hover {
+        transform: scale(1.01);
+        border: 4px solid #007bff;
+        transition: transform 0.5s ease-in-out; /* ✅ 크기 변화가 부드럽게 적용 */
+    }
+    /* 🔥 텍스트 모드: 가로 정렬 */
+    .post-form-container.text-mode {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 🔥 텍스트 모드 내부 아이템 */
+    .post-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    /* 🔥 텍스트 모드 - 이미지 */
+    .post-item img {
+        width: 80px; /* ✅ 왼쪽 이미지 크기 */
+        height: 80px;
+        border-radius: 5px;
+    }
+
+    /* 🔥 텍스트 모드 - 파일명 */
+    .post-item .file-name {
+        flex-grow: 1;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .post-chart-container{
+        display: flex;
+        position: relative;
+        flex-wrap: wrap;
+        width: 80%;
+        height: 400px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #ffffff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        justify-content: center; /* ✅ 내부 요소 가로 중앙 정렬 */
+        align-items: center; /* ✅ 내부 요소 세로 중앙 정렬 */
+        text-align: center; /* ✅ 텍스트 중앙 정렬 */
+        transition: all 0.3s ease-in-out; /* ✅ 크기 변화가 부드럽게 적용 */
+        margin-bottom: 15px;
+    }
+    #post-chart-container {
+        position: relative;
+        width: 400px;
+        height: 400px;
+    }
+    canvas {
+        width: 400px;
+        height: 400px;
+    }
+    #chart-controls {
+        position: absolute;
+        top: 10px;   /* 위쪽 여백 조절 */
+        right: 10px; /* 오른쪽 여백 조절 */
+        z-index: 10; /* 다른 요소보다 위에 표시 */
+    }
+    .function-container{
+        width: 80%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #ffffff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .function-container img{
+        width: auto; /* 원하는 크기로 조정 */
+        height: 10vw;
+        justify-self: center;
+        object-fit: cover; /* 이미지 비율 유지하면서 크롭 */
+        border-radius: 5px; /* 이미지 모서리 둥글게 */
+        transition: transform 0.3s ease; /* 부드러운 확대 효과 */
+    }
+    .function-container img:hover {
+        transform: scale(1.1); /* 마우스 올리면 확대 */
+    }
+    .sorting-wrapper {
+        display: flex;
+        flex-direction: column; /* 세로 방향으로 정렬 */
+        align-items: center; /* 중앙 정렬 */
+        gap: 10px; /* 컨테이너 간격 */
+    }
+    .sorting-container {
+        display: flex;
+        justify-content: center; /* 가로 중앙 정렬 */
+        margin: 10px 11px;
+        gap: 10px; /* 이미지 사이 여백 */
+        white-space: nowrap; /* 줄 바꿈 방지 */
+        padding: 10px;
+    }
+    /* 🔥 그림 그리기 팝업창 스타일 */
+    .drawing-popup {
+        display: none;
+        border-radius: 5px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        height: 400px;
+        background: #c0c0c0;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .popup-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 10px;
+    }
+
+    .close-popup {
+        color: red;
+        border: none;
+        cursor: pointer;
+    }
+
+    #drawingCanvas {
+        width: 100%;
+        height: 300px;
+        background: #fff;
+        border: 1px solid #000;
+        cursor: crosshair;
+    }
+
+    .popup-footer {
+        margin-top: 10px;
+    }
+
+    .popup-footer button {
+        margin: 5px;
+        border-radius: 5px;
+        padding: 8px 12px;
+        border: none;
+        cursor: pointer;
+    }
+
+    #clearCanvas {
+        background: #5b6b48;
+        border: 1px solid #000;
+        color: white;
+    }
+    #clearCanvas:hover {
+        background: #9d9f5a;
+
+    }
+    /* 🔥 제목과 버튼을 한 줄로 정렬 */
+    .section-header {
+        display: flex;
+        align-items: center; /* ✅ 세로 중앙 정렬 */
+        justify-content: space-between; /* ✅ 좌우 정렬 */
+        width: 100%; /* ✅ 전체 너비 확장 */
+    }
+    /* 🔥 h2를 가운데 정렬하기 위해 flex-grow 사용 */
+    .section-title {
+        flex-grow: 1; /* ✅ h2가 가능한 공간을 모두 차지하도록 설정 */
+        text-align: center; /* ✅ 텍스트 중앙 정렬 */
+    }
+    .custom-button{
+        background: rgba(255, 255, 255, 0.2);
+        color: black;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .custom-button:hover{
+        background-color: #755a6a;
+    }
+    .section-container{
+        position: relative;
+        display: flex;
+        flex-direction: column; /* ✅ 세로 방향 정렬 */
+        justify-content: center; /* ✅ 세로 중앙 정렬 */
+        flex-wrap: wrap;
+        align-items: center; /* ✅ 가로 중앙 정렬 */
+        font-weight: bold;
+        margin-top: 110px; /* 🔥 adminbar-container 높이만큼 아래에 위치 */
+        width: 100%; /* 🔥 전체 너비 확장 */
+        min-height: 450px;
+        height: auto;
+        background: rgba(255, 255, 255, 0.5);
+        z-index: 1; /* ✅ 다른 요소보다 뒤에 배치 */
+        transition: transform 0.3s ease-in-out, left 0.3s ease-in-out; /* 🔥 부드러운 이동 애니메이션 */
+    }
+    /* 🔥 만약 내부 요소를 중앙 정렬하려면 추가 */
+    .section-container.flex-center {
+        display: flex;
+        align-items: center; /* ✅ 세로 방향 중앙 정렬 */
+        justify-content: center; /* ✅ 가로 방향 중앙 정렬 */
+        text-align: center; /* ✅ 텍스트 가운데 정렬 */
+    }
+    /* 🔥 첫 번째 section만 margin-top 110px 유지 */
+    .section-container:first-of-type {
+        margin-top: 110px;
+    }
+
+    /* 🔥 두 번째 이후 section부터 margin-top을 5px로 줄이기 */
+    .section-container + .section-container {
+        margin-top: 5px;
+    }    
+    /* 🔥 사이드바 열릴 때 section-container 이동 */
+    .section-container.shifted {
+        margin-left: 210px;
+        margin-top: 0px;
+        margin-bottom: 5px;
+        width: calc(100% - 210px);  /* 컨테이너 폭을 사이드바 폭만큼 줄임 */
+        box-sizing: border-box;     /* 패딩/보더 포함해서 계산 */
+    }
+    /* 🔥 불필요한 body 여백 제거 */
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
+    }
+    </style>
+    </head>
+    <body>
+        <div class="adminbar-container">
+            <div class="left-section">
+                <button class="back-button" onclick="window.location.href='mode-selection.html'">뒤로가기</button>
+                <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button> <!-- 🔥 사이드바 여는 버튼 추가 -->
+            </div>
+            <h1>관리자페이지에 오신걸 환영합니다!</h1>
+            <button class="logout-button" onclick="window.location.href='admin-login.html'">나가기</button>
+        </div>
+            <div id="section1" class="section-container">
+                <div class="section-header">
+                <h2 class="section-title">게시물 정보</h2>
+                <div class="button-group">                    
+                    <button class="change-button" id="text-mode">
+                        <i class="fas fa-file-alt"></i> <!-- 📝 텍스트 모드 아이콘 -->
+                    </button>
+                    <button class="change-button" id="image-mode">
+                        <i class="fas fa-images"></i> <!-- 🖼️ 이미지 모드 아이콘 -->          
+                    </button>
+                </div>
+            </div>
+            <div class="post-form-container">                    
+        </div>                
+    </div>
+    <div id="section2" class="section-container">
+        <div class="section-header">
+            <h2 class="section-title">게시물 비율</h2>
+            </div>
+            <div class="post-chart-container">                
+                <canvas id="donutChart"></canvas>
+                <canvas id="radarChart" style="display:none;"></canvas>   
+                <div id="chart-controls">
+                    <button id="showDonut" class="custom-button" style="padding: 2px 10px;">도넛 차트</button>
+                    <button id="showRadar" class="custom-button" style="padding: 2px 10px;">막대그래프</button>
+                  </div>
+            </div>
+        </div>
+    <div id="section3" class="section-container">
+        <div class="section-header">
+            <h2 class="section-title">이미지 표시기</h2>
+        </div>
+            <div class="function-container">
+                <div class="sorting-wrapper">
+                    <div class="sorting-container">
+                        <img src="images/preview-gunff_1.png" alt="Preview 1">
+                        <img src="images/preview-gunff_2.png" alt="Preview 2">
+                        <img src="images/preview-gunff_3.png" alt="Preview 3">
+                        <img src="images/preview-gunff_4.png" alt="Preview 4">
+                    </div>
+                    <div class="sorting-container">
+                        <img src="images/preview-gunff_5.png" alt="Preview 5">
+                        <img src="images/preview-gunff_6.png" alt="Preview 6">
+                        <img src="images/preview-gunff_7.png" alt="Preview 7">
+                        <img src="images/preview-gunff_8.png" alt="Preview 8">
+                    </div>
+                    <div class="sorting-container">
+                        <img src="images/preview-gunff_9.png" alt="Preview 9">
+                        <img src="images/preview-gunff_10.png" alt="Preview 10">
+                        <img src="images/preview-gunff_11.png" alt="Preview 11">
+                    </div>
+                </div>
+            </div>
+            <div class="button-group" style="margin-top: 15px; margin-bottom: 20px;">
+                <button id="hide-indicator" class="custom-button">표시기 제거</button>
+                <button id="show-indicator" class="custom-button" style="display:none;">표시기 나타내기</button>
+                <button id="picture" class="custom-button">그리기</button>
+            </div>
+            <!-- 🔥 그림 그리기 팝업 -->
+            <div id="drawing-popup" class="drawing-popup">
+                <div class="popup-header">
+                    <span>그리기</span>
+                    <button id="close-drawing" class="close-popup">✖</button>
+                </div>
+                <canvas id="drawingCanvas"></canvas>
+                <div class="popup-footer">
+                    <button id="clearCanvas">지우기</button>
+                </div>
+            </div>
+            <!-- 🔥 사이드바 추가 -->
+        <div id="sidebar" class="sidebar">
+                <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
+                <ul>
+                    <li><a href="#section1">게시물 정보</a></li>
+                    <li><a href="#section2">게시물 비율</a></li>
+                    <li><a href="#section3">이미지 표시기</a></li>
+                </ul>
+            </div>
+        <script src="admin-dashboard.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>            
+    </body>
+    </html>

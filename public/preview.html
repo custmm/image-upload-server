@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>휴욱슈욱 >> 업로드된 이미지</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 🌞 라이트 모드 기본 스타일 */
+    body {
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    /* 뒤로가기 버튼 */
+    .back-button {
+      transition: background-color 0.3s;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .back-button:hover {
+      background-color: #755a6a;
+    }
+    .pagination-button{
+      background: none;
+      color: black;
+    }    
+    .pagination-button:hover{
+      background: none;
+      color: aqua;
+      
+    }
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+    }
+    /* 로딩 화면 스타일 */
+    .loading-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* 더 어두운 반투명 배경 */
+      display: none; /* 기본적으로 숨김 */
+      justify-content: center;
+      align-items: center;
+      color: white;
+      z-index: 9999; /* 다른 콘텐츠 위에 표시 */
+      flex-direction: column; /* 이미지와 텍스트가 세로로 정렬되도록 설정 */
+      text-align: center; /* 텍스트 가운데 정렬 */
+    }
+
+    .loading-image {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .loading-text {
+        font-size: 16px; /* 텍스트 크기 설정 */
+        margin-top: 10px; /* 텍스트 위에 여백 추가 (이미지와의 간격) */
+    }
+    /* 메인 탭 컨테이너 (큰 카테고리) */
+    .tab-design {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      width: 100%;
+      display: flex;
+      flex-wrap: nowrap;
+      text-align: center;
+    }
+    .preview-images {
+      position: absolute;
+      top: -100px;
+      right: 10px;    /* ← 뷰포트 오른쪽에서 10px 안쪽으로 고정 */
+      left: 85vw;     /* ← left 속성 초기화 */
+      display: flex;
+      cursor: grab; /* 기본 커서 */
+      align-items: center;
+    }
+
+
+    .preview-images img {
+      display: block;
+      width: auto; /* 원하는 크기로 조정 */
+      height: 75px;
+      border-radius: 5px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      z-index: 9999;
+    }
+
+    .preview-images img:hover {
+      transform: scale(1.2); /* 호버 시 확대 효과 */
+    }
+
+    .tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      background-color: #e9ecef;
+      border: none;
+      border-radius: 0;
+      border-right: 1px solid #ddd;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      box-sizing: border-box;
+    }    
+    /* 활성화된 탭 */
+    .tab-btn.active {
+      background-color: #007bff;
+      color: white;
+      border-bottom: 5px solid #0056b3;
+    }
+    /* 마우스 호버 효과 */
+    .tab-btn:hover {
+      background-color: #c2dff7;
+      color: #007bff;
+    }
+    /* 마지막 탭의 구분선 제거 */
+    .tab-btn:last-child {
+      border-right: none;
+    }  
+    /* 새로 추가한 래퍼로 남은 공간을 채우고 중앙 정렬 */
+    .sub-tab-wrapper {
+      flex-wrap: nowrap;
+      flex: 1;           /* currentCategory 이후 남은 공간 모두 차지 */
+      text-align: center; /* 내부의 sub-tab-container를 중앙에 배치 */
+    }  
+    /* 서브 탭 컨테이너 (작은 카테고리) */
+    .sub-tab-container {
+      position: absolute;
+      flex-wrap: nowrap; /* ✅ 창이 작아지면 자동으로 줄바꿈 */
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      padding: 20px 0;
+      margin-bottom: 0px;
+    }
+    /* 서브 탭 (작은 카테고리) */
+    .sub-tab {
+      display: flex;
+      flex-wrap: nowrap;
+      padding: 10px 10px;
+      text-align: center;
+      align-items: center;
+      color: #555;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    /* 활성화된 서브 탭 */
+    .sub-tab.active {
+      flex-wrap: nowrap;
+      background-color: #007bff;
+      color: #fff;
+      border-color: #0056b3;
+    }
+    /* 서브 탭 마우스 호버 효과 */
+    .sub-tab:hover {
+      flex-wrap: nowrap;
+      background-color: #c9e1fa;
+      color: #007bff;
+    }
+
+    .marge-container{
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: column; /* 세로로 정렬 (원한다면 row로 변경 가능) */
+      gap: 20px;             /* 내부 요소 간격 */
+      border: 5px solid #0056b3; /* 테두리 색상 */
+      background-color: #f8f9fa;
+
+    }
+    .category-subtab-container {
+      display: flex;        
+      width: 100%;
+      height: auto;        
+      margin-bottom: 20px;       /* 필요에 따라 여백 조절 */
+      align-items: center;       /* 수직 가운데 정렬 */
+    }
+    /* 카테고리 제목 스타일 */
+    #currentCategory {
+      font-size: 30px;
+      color: #0066cc;
+      margin-top: 25px;     /* 상하 여백 */
+      margin-bottom: 15px;  /* 상하 여백 */
+      padding-left: 20px;
+      z-index: 1;  /* 겹침을 방지하기 위해 높임 */
+    }
+    /* ✅ 이미지 갤러리 중앙 정렬 */
+    .image-gallery-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;  /* 🔥 수평 중앙 정렬 */
+        align-items: center;      /* 🔥 수직 중앙 정렬 */
+        height: auto;
+        margin-top: 20px;  /* 🔥 위쪽 여백 */
+        overflow-x: hidden; /* 혹시 남는 부분 잘라내기 */
+    }
+  /* ✅ 이미지 갤러리 (4x5 배열) */
+  .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* 🔥 최소 100px, 최대 1fr */
+      grid-template-rows: auto;
+      gap: 10px; /* ✅ 이미지 간격 */
+      padding: 10px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      align-items: center;
+  }
+      /* ✅ 반응형 이미지 크기 조정 */
+      .gallery-image {
+        width: 15vw;  /* 🔥 화면 너비의 15% */
+        height: 20vw; /* 🔥 화면 너비의 20% */
+        object-fit: cover;  /* 🔥 이미지 비율 유지 */
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
+    }
+
+    /* ✅ 이미지 호버 효과 */
+    .gallery-image:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        border-color: #0066cc;
+    }
+    #pagination-container{
+      text-align: center; 
+      margin-top: 10px; 
+      margin-bottom: 10px;
+    }
+
+    /* ✅ 이미지가 있을 때 (4x5 그리드) */
+    .grid-layout {
+        display: grid;
+        gap: 10px; /* ✅ 이미지 간격 */
+        padding: 10px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 90%;
+    }
+
+    /* ✅ 이미지가 없을 때 (중앙 정렬) */
+    .flex-center {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        height: 300px; /* 🔥 이미지가 없을 때 최소 높이 */
+    }
+
+    /* ✅ 이미지가 없을 때 메시지 스타일 */
+    .no-image-message {
+        font-size: 18px;
+        font-weight: bold;
+        color: #555;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* 토글 스위치 (다크 모드) */
+    .toggle-switch {
+      position: absolute;
+      top: 10px;
+      right: 30px;
+      width: 50px;
+      height: 25px;
+      display: inline-block;
+    }
+    .toggle-switch input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 2; /* 필요시 클릭 우선순위 */
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      background-color: #cbcbcb;
+      border-radius: 20px;
+      transition: background-color 0.3s;
+    }
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      bottom: 2px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .toggle-switch input:checked + .slider {
+      background-color: #cbcbcb;
+    }
+    .toggle-switch input:checked + .slider::before {
+      transform: translateX(25px);
+    }
+    /* 🌙 다크 모드 스타일 */
+    .dark-mode {
+      background-color: #222;
+      color: #fff;
+    }
+    .dark-mode .back-button {
+      background-color: #ffffff;
+      color: #000;
+    }
+    .dark-mode .tab-design {
+      background-color: #444444;
+      border-color: #ddd;
+    }
+    .dark-mode .tab-btn {
+      background-color: #333333;
+      color: #fff;
+      border-right: 1px solid #ddd;
+    }
+    .dark-mode .tab-btn.active {
+      background-color: #8d9494;
+      border-bottom-color: #bcdcff;
+    }
+    .dark-mode .sub-tab {
+      background-color: #0d223551;
+      color: #fff;
+      border: 1px solid #ddd;
+    }
+    .dark-mode .sub-tab.active {
+      background-color: #b1c2d3;
+      border-color: #007bff;
+    }
+    .dark-mode .image-gallery {
+      border-color: #bcdcff;
+    }
+    .dark-mode .image-container {
+      background-color: #323232;
+    }
+    .dark-mode .marge-container{
+      background-color: #444444;
+      border-color: #bcdcff;
+    }
+    .dark-mode .image-item {
+      background-color: #00000089;  /* 🔥 배경색 추가 */
+    }
+      /* ✅ 이미지 갤러리 (4x5 배열) */
+    .dark-mode .image-gallery {
+      background-color: #323232;
+    }
+    body, html {
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <button class="back-button" onclick="window.location.href='index.html'">뒤로가기</button>
+  <h1>어서오세요</h1>
+<!-- ✅ 로딩 화면 (초기에는 숨김 상태) -->
+<div id="loadingIndicator" class="loading-indicator">
+  <img src="images/loading.gif" alt="로딩 중..." class="loading-image">
+  <p class="loading-text">로딩 중...</p>
+</div>
+  <!-- 메인 카테고리 탭 (큰 카테고리) -->
+  <div class="tab-design"></div>
+  <div class="preview-images" id="previewImagesContainer"></div>    
+<!-- 서브 카테고리 탭 (작은 카테고리) -->
+<div class="marge-container" id="marge-container">
+  <div class="category-subtab-container">
+      <h2 id="currentCategory"></h2>
+      <div class="sub-tab-wrapper">
+          <div class="sub-tab-container" id="subTabContainer">
+              <!-- 선택한 카테고리의 서브 탭이 동적으로 생성됩니다 -->
+          </div>
+      </div>
+  </div>
+
+  <!-- ✅ 이미지 갤러리를 감싸는 컨테이너 (중앙 정렬) -->
+  <div class="image-gallery-wrapper">
+      <div id="imageGallery" class="image-gallery">
+          <!-- ✅ 동적으로 이미지 추가 -->
+      </div>    
+        </div>      
+        <div id="pagination-container"></div>
+    </div>
+  <!-- 다크 모드 토글 스위치 -->
+  <div class="toggle-switch">
+    <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
+    <label class="slider" for="themeToggle"></label>
+  </div>
+  <script src="preview.js"></script>
+</body>
+</html>

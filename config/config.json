@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "33cc@42k",
+    "database": "image_upload",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "33cc@42k",
+    "database": "image_upload_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "33cc@42k",
+    "database": "image_upload_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
