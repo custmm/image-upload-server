@@ -31,3 +31,4 @@ npx
 -p
 pm2
 curl
+"node_modules/" 
