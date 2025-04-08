@@ -1,7 +1,5 @@
 import dotenv from "dotenv";
 import express from "express"; // ✅ 추가: express 가져오기
-import fs from "fs";
-import https from "https";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import app from "./app.js"; // ✅ `app.js` 불러오기
@@ -22,13 +20,8 @@ app.get("/", (req, res) => {
     res.sendFile(join(__dirname, "..", "public", "index.html"));
 });
 
-// ✅ SSL 인증서 로드
-const sslOptions = {
-    key: fs.readFileSync(process.env.SSL_KEY_PATH),
-    cert: fs.readFileSync(process.env.SSL_CERT_PATH),
-};
 
 // ✅ 서버 실행
-https.createServer(sslOptions, app).listen(PORT, () => {
-    console.log(`🚀 서버 실행 중: https://localhost:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`🚀 서버 실행 중: http://localhost:${PORT}`);
 });
