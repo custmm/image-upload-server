@@ -5,13 +5,10 @@ dotenv.config(); // .env 파일에서 환경 변수 로드
 
 
 // ✅ PlanetScale URL 기반 Sequelize 인스턴스 생성
-const sequelize = new Sequelize(process.env.DB_URL, {
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT || 3306,
   dialect: "mysql",
-  dialectOptions: {
-    ssl: {
-      rejectUnauthorized: true // PlanetScale은 SSL 필수
-    }
-  },
   logging: process.env.DB_LOGGING === "true" ? console.log : false,
   define: {
     freezeTableName: true,
@@ -29,12 +26,12 @@ const sequelize = new Sequelize(process.env.DB_URL, {
 async function testDBConnection() {
   try {
     await sequelize.authenticate();
-    console.log("✅ PlanetScale 연결 성공!");
+    console.log("✅ IONOS MySQL 연결 성공!");
 
     await sequelize.sync({ alter: false });
     console.log("✅ 모델 동기화 완료");
   } catch (error) {
-    console.error("❌ PlanetScale 연결 실패:", error);
+    console.error("❌ IONOS MySQL 연결 실패:", error);
   }
 }
 

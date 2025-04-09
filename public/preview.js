@@ -390,10 +390,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             previewContainer.innerHTML = "";
             previewContainer.style.position = "relative";
     
+            // _cut 버전을 지원하는 번호 배열
+            const allowedCutIndices = [1, 2, 3, 4, 5, 7, 8, 9, 11];
+
             const totalPreviews = 11;
             const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
+
             const selectedImage = `images/preview-gunff_${randomIndex}.png`;
-        
             localStorage.setItem("selectedImage", selectedImage);
         
             const img = document.createElement("img");
@@ -404,11 +407,20 @@ document.addEventListener("DOMContentLoaded", async () => {
             img.style.left = "0px";  // 초기 좌표 설정
             img.style.top = "0px";   // 초기 좌표 설정
 
+            // 클릭 시 _cut 버전으로 변경 (단, allowedCutIndices에 포함된 번호일 경우에만)
+            img.addEventListener("click", () => {
+                if (allowedCutIndices.includes(randomIndex)) {
+                    const cutImage = `images/preview-gunff_${randomIndex}_cut.png`;
+                    img.src = cutImage;
+                    localStorage.setItem("selectedImage", cutImage);
+                } else {
+                    console.warn(`No _cut version for index ${randomIndex}`);
+                }
+            });
         
             let isDragging = false; 
             let offsetX = 0; 
             let offsetY = 0;
-
             let animationFrameId = null;
 
             function startOverlapCheckLoop(img) {
@@ -435,7 +447,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 offsetY = e.clientY - rect.top;
                 img.style.cursor = "grabbing";
                 e.preventDefault();
-
                 startOverlapCheckLoop(img); // 👈 겹침 감지 루프 시작
             });
         
@@ -446,7 +457,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 let top = e.clientY - containerRect.top - offsetY;
                 img.style.left = left + "px";
                 img.style.top = top + "px";
-
                 checkOverlap(img); // 👈 실시간 감지용 강제 호출 추가!
             });
         
@@ -463,8 +473,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             };
         
             previewContainer.appendChild(img);
-
-            // ✅ 변수 선언 후 호출하도록 아래로 이동
             checkOverlap(img);
         }
 

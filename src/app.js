@@ -30,6 +30,11 @@ app.get("/favicon.ico", (req, res) => {
     res.sendFile(path.join(__dirname, "..", "public", "favicon.ico"));
 });
 
+app.get("/api/health", (req, res) => {
+    res.status(200).send("Server is alive");
+  });
+  
+  
 // ✅ 라우트 등록
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
