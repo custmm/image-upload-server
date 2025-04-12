@@ -119,7 +119,22 @@
         canvas.width = 500;
         canvas.height = 300;
 
-        // 그리기 시작
+        function getCanvasCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            if (e.touches) {
+                return {
+                    x: e.touches[0].clientX - rect.left,
+                    y: e.touches[0].clientY - rect.top
+                };
+            } else {
+                return {
+                    x: e.offsetX,
+                    y: e.offsetY
+                };
+            }
+        }
+
+        // 마우스 이벤트
         canvas.addEventListener("mousedown", function (e) {
             isDrawing = true;
             ctx.beginPath();
@@ -139,6 +154,27 @@
         });
 
         canvas.addEventListener("mouseleave", function () {
+            isDrawing = false;
+        });
+
+         // 터치 이벤트
+        canvas.addEventListener("touchstart", function (e) {
+            isDrawing = true;
+            const { x, y } = getCanvasCoordinates(e);
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            e.preventDefault();
+        }, { passive: false });
+
+        canvas.addEventListener("touchmove", function (e) {
+            if (!isDrawing) return;
+            const { x, y } = getCanvasCoordinates(e);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            e.preventDefault();
+        }, { passive: false });
+
+        canvas.addEventListener("touchend", function () {
             isDrawing = false;
         });
 
