@@ -1220,17 +1220,40 @@
             delete keysPressed[event.key];
         });
 
+        const activeTouches = new Map();
+
         // 모바일 키패드 터치 → 키보드 이벤트로 변환
         document.querySelectorAll('#mobile-keypad button').forEach(btn => {
+            const key = btn.dataset.key;
+
             btn.addEventListener('touchstart', e => {
-                const key = btn.dataset.key;
-                document.dispatchEvent(new KeyboardEvent('keydown', { key, code: key }));
                 e.preventDefault();
+                if (activeTouches.has(key)) return; // 중복 방지
+
+                const interval = setInterval(() => {
+                    document.dispatchEvent(new KeyboardEvent('keydown', { key, code: key }));
+                }, 50); // 50ms 간격으로 keydown 반복 발생
+
+                activeTouches.set(key, interval);
             });
+
             btn.addEventListener('touchend', e => {
-                const key = btn.dataset.key;
-                document.dispatchEvent(new KeyboardEvent('keyup', { key, code: key }));
                 e.preventDefault();
+                document.dispatchEvent(new KeyboardEvent('keyup', { key, code: key }));
+
+                if (activeTouches.has(key)) {
+                    clearInterval(activeTouches.get(key));
+                    activeTouches.delete(key);
+                }
+            });
+            btn.addEventListener('touchcancel', e => {
+                e.preventDefault();
+                document.dispatchEvent(new KeyboardEvent('keyup', { key, code: key }));
+
+                if (activeTouches.has(key)) {
+                    clearInterval(activeTouches.get(key));
+                    activeTouches.delete(key);
+                }
             });
         });
     });
