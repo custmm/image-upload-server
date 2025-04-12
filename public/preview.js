@@ -467,6 +467,37 @@ document.addEventListener("DOMContentLoaded", async () => {
                     stopOverlapCheckLoop(); // 👈 루프 멈추기
                 }
             });
+
+            // 터치 이벤트 추가
+            img.addEventListener("touchstart", (e) => {
+                isDragging = true;
+                const touch = e.touches[0];
+                const rect = img.getBoundingClientRect();
+                offsetX = touch.clientX - rect.left;
+                offsetY = touch.clientY - rect.top;
+                img.style.cursor = "grabbing";
+                startOverlapCheckLoop(img);
+                e.preventDefault();
+            });
+
+            document.addEventListener("touchmove", (e) => {
+                if (!isDragging) return;
+                const touch = e.touches[0];
+                const containerRect = previewContainer.getBoundingClientRect();
+                let left = touch.clientX - containerRect.left - offsetX;
+                let top = touch.clientY - containerRect.top - offsetY;
+                img.style.left = left + "px";
+                img.style.top = top + "px";
+                checkOverlap(img);
+            });
+
+            document.addEventListener("touchend", () => {
+                if (isDragging) {
+                    isDragging = false;
+                    img.style.cursor = "grab";
+                    stopOverlapCheckLoop();
+                }
+            });
         
             img.onerror = function () {
                 console.error(`이미지 로드 실패: ${img.src}`);
