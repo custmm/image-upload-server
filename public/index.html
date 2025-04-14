@@ -6,6 +6,12 @@
     <title>후욱슈욱</title>
     <link rel="stylesheet" href="style.css">
     <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+    }
     body{
         display: flex;
         justify-content: center;
@@ -506,7 +512,7 @@ function triggerEasterEgg() {
     function createCircles() {
         const numCircles = 5;
         const minViewport = Math.min(window.innerWidth, window.innerHeight);
-        const radius = minViewport * 0.35;  // 화면 크기에 비례한 반지름
+        const radius = Math.min(window.innerWidth, window.innerHeight) * 0.35;  // 화면 크기에 비례한 반지름
 
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
