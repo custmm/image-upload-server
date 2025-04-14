@@ -527,10 +527,11 @@ function triggerEasterEgg() {
     }
     function createCircles() {
         const numCircles = 5;
-        const radius = 288;
-        const rect = modeSelection.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+        const minViewport = Math.min(window.innerWidth, window.innerHeight);
+        const radius = minViewport * 0.35;  // 화면 크기에 비례한 반지름
+
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
 
         document.querySelectorAll(".glow-circle").forEach(circle => circle.remove());
 
