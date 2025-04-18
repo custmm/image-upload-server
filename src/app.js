@@ -23,7 +23,8 @@ app.use(express.urlencoded({ extended: true })); // ✅ FormData 파싱 미들�
 
 // ✅ 정적 파일 제공
 app.use(express.static(join(__dirname, "..", "public")));
-app.use("/uploads", express.static("uploads"));
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+
 
 // ✅ Favicon 직접 서빙 (필요 시)
 app.get("/favicon.ico", (req, res) => {
