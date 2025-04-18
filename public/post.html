@@ -279,7 +279,7 @@ function getParamsFromURL() {
           console.log("✅ 서버에서 불러온 게시물 데이터:", postData);
 
           // ✅ 이미지 및 설명 적용
-          document.getElementById("postImage").src = window.location.origin + '/' + postData.file_path;
+          document.getElementById("postImage").src = `${postData.file_path}`;
           document.getElementById("postCategory").textContent = postData.category_name || "카테고리 없음";
           // ✅ 카테고리 클릭 시 preview.html로 이동
           document.getElementById("postCategory").addEventListener("click", () => {
