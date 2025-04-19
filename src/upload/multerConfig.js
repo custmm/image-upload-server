@@ -19,15 +19,9 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => {
     try{
-    // 🔧 fallback: multipart form field parsing이 안될 경우 대비
-    let category_id = req.body?.category_id;
-    let subcategory_id = req.body?.subcategory_id;
-    
-    // ✅ form-data body가 비어있을 수 있으므로 URL query fallback 처리
-    if (!category_id && req.query?.category_id) {
-      category_id = req.query.category_id;
-      subcategory_id = req.query.subcategory_id;
-    }
+    // ✅ req.query 에서 값 읽기
+    const category_id = req.query.category_id;
+    const subcategory_id = req.query.subcategory_id;
     
     if (!category_id) throw new Error("카테고리 ID가 누락되었습니다.");
 
