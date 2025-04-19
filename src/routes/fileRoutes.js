@@ -3,6 +3,7 @@ import { File, Category, Subcategory, sequelize } from "../models/index.js";
 import { upload } from "../upload/multerConfig.js";  // ✅ `multerConfig.js` 가져오기
 import path, {join} from "path";
 import fs from "fs/promises";
+import * as fsSync from "fs";  // ← 추가
 import sanitizeHtml from "sanitize-html"; // 🔥 sanitize-html 라이브러리 추가
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -301,9 +302,9 @@ router.delete("/:id", async (req, res) => {
         console.log("삭제 시도 파일 경로:", absolutePath);
   
         // ▶ 파일이 실제로 존재하면 삭제, 아니면 무시
-        if (fs.existsSync(absolutePath)) {
+        if (fsSync.existsSync(absolutePath)) {
             try{
-                await fs.promises.unlink(absolutePath);
+                await fs.unlink(absolutePath);
                 console.log("파일 삭제 성공:", absolutePath);
             } catch (err) {
                 console.warn("파일 삭제 중 오류:", err);
