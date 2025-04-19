@@ -1,6 +1,6 @@
 import express from "express";
 import { File, Category, Subcategory, sequelize } from "../models/index.js";
-import { upload, getUploadPath } from "../upload/multerConfig.js";  // ✅ `multerConfig.js` 가져오기
+import { upload } from "../upload/multerConfig.js";  // ✅ `multerConfig.js` 가져오기
 import path, {join} from "path";
 import fs from "fs/promises";
 import sanitizeHtml from "sanitize-html"; // 🔥 sanitize-html 라이브러리 추가
