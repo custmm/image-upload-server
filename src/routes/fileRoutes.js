@@ -120,16 +120,11 @@ router.post("/upload", upload.single("file"), async (req, res) => {
             .replace(/\n/g, "<br>")  
             .replace(/&amp;/g, "&");  // ✅ `<br>` 제거 X
         }
-               
-        const uploadDir = await getUploadPath(category_id, subcategory_id);
-        const fileName = `${Date.now()}${path.extname(req.file.originalname)}`;
-        const filePath = path.join(uploadDir, fileName);
-        await fs.writeFile(filePath, req.file.buffer);
 
         // ✅ DB에 정확한 카테고리명과 서브카테고리명을 저장
         const fileData = await File.create({
-            file_name: fileName,
-            file_path: `/${filePath}`,
+            file_name: req.file.filename || req.file.originalname,
+            file_path: req.file.path, // ← Cloudinary의 URL
             category_id: category.id,
             subcategory_id,
             category_name, // ✅ 올바른 카테고리명 저장
