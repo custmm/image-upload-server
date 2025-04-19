@@ -4,6 +4,11 @@ import { upload } from "../upload/multerConfig.js";  // ✅ `multerConfig.js` �
 import path, {join} from "path";
 import fs from "fs/promises";
 import sanitizeHtml from "sanitize-html"; // 🔥 sanitize-html 라이브러리 추가
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const router = express.Router();
 
