@@ -18,7 +18,10 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => {
+    try{
     const { category_id, subcategory_id } = req.body;
+    if (!category_id) throw new Error("카테고리 ID가 누락되었습니다.");
+
     const category = await Category.findByPk(category_id);
     if (!category) throw new Error("❌ 존재하지 않는 카테고리입니다.");
 
@@ -32,12 +35,16 @@ const storage = new CloudinaryStorage({
       folder += `/${subcategoryName}`;
     }
 
-    return {
-      folder,
-      use_filename: true,
-      unique_filename: true,
-      allowed_formats: ["jpg", "jpeg", "png", "webp"]
-    };
+      return {
+        folder,
+        use_filename: true,
+        unique_filename: true,
+        allowed_formats: ["jpg", "jpeg", "png", "webp"]
+      };
+    } catch (err) {
+      console.error("🚨 CloudinaryStorage 설정 중 오류:", err.message);
+      throw err;
+    }
   }
 });
 

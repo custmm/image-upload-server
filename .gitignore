@@ -11,6 +11,9 @@ yarn-error.log*
 # 업로드 파일 (사용자 파일이므로 Git에 저장하면 안 됨)
 uploads/
 
+scripts/
+
+
 # SSL 인증서 (보안 위험)
 *.pem
 
