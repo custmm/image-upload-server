@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ◀ Prev 버튼
     const prev = document.createElement("button");
     prev.classList.add("pagination-button");
-    prev.textContent = "‹";                // 버튼 레이블 추가
+    prev.textContent = "◀";                // 버튼 레이블 추가
     prev.disabled = page === 0;
     prev.onclick  = () => {
         page--;
@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ▶ Next 버튼
     const next = document.createElement("button");
     next.classList.add("pagination-button");
-    next.textContent = "›";                // 버튼 레이블 추가
+    next.textContent = "▶";                // 버튼 레이블 추가
     next.disabled = (page+1) >= totalPages;
     next.onclick  = () => {
         page++;
