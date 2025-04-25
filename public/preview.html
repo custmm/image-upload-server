@@ -14,6 +14,31 @@
       position: relative;
       transition: background-color 0.3s, color 0.3s;
     }
+    .page-footer {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  color: #333;
+  text-align: center;
+  font-size: 14px;
+  border-top: 1px solid #ccc;
+}
+
+.page-footer a {
+  color: #007bff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.page-footer a:hover {
+  text-decoration: underline;
+}
+
+.dark-mode .page-footer {
+  background-color: #222;
+  color: #ccc;
+  border-color: #444;
+}
     /* 뒤로가기 버튼 */
     .back-button {
       transition: background-color 0.3s;
@@ -411,6 +436,13 @@
     <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
     <label class="slider" for="themeToggle"></label>
   </div>
+  <footer class="page-footer">
+    <p>© 2025 휴욱슈욱. All rights reserved.</p>
+    <p>
+      <a href="https://github.com/custmm/image-upload-server" target="_blank">GitHub</a> |
+      <a href="xx00bki924@gmail.com">Contact</a>
+    </p>
+  </footer>
   <script src="preview.js"></script>
 </body>
 </html>
