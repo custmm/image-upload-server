@@ -711,7 +711,11 @@
 
         // 도넛 차트 생성
         const donutCtx = document.getElementById("donutChart").getContext("2d");
+
+        // 기존 차트 제거
         if (window.donutChartInstance) window.donutChartInstance.destroy();
+
+        // 새 차트 생성
         window.donutChartInstance = new Chart(donutCtx, {
             type: "doughnut",
             data: chartData,
@@ -727,6 +731,23 @@
                                 return `${value}%`; // % 붙이기
                             }
                         }
+                    }
+                },
+                onClick: (evt, elements) => { // 🔥 여기 onClick 이벤트 추가
+                    if (elements.length > 0) {
+                        const firstElement = elements[0];
+                        const datasetIndex = firstElement.datasetIndex;
+                        const dataIndex = firstElement.index;
+        
+                        const label = window.donutChartInstance.data.labels[dataIndex];
+                        const value = window.donutChartInstance.data.datasets[datasetIndex].data[dataIndex];
+        
+                        // 표 출력 함수 호출
+                        showSelectedCategoryInfo(label, value);
+        
+                        // 도넛 차트 왼쪽 정렬
+                        const chartContainer = document.querySelector(".post-chart-container");
+                        chartContainer.style.justifyContent = "flex-start";
                     }
                 }
             }
@@ -799,4 +820,36 @@ function autoResize(textarea) {
     // 텍스트의 내용에 따라 높이 자동 조정
     textarea.style.height = 'auto';  // 높이를 초기화
     textarea.style.height = (textarea.scrollHeight,50) + 'px';  // 내용에 맞게 높이 조정
+}
+
+function showSelectedCategoryInfo(label, value) {
+    // 이미 존재하는 테이블 삭제
+    const existingTable = document.getElementById("categoryInfoTable");
+    if (existingTable) existingTable.remove();
+
+    // 테이블 새로 생성
+    const table = document.createElement("table");
+    table.id = "categoryInfoTable";
+    table.style.marginLeft = "20px";
+    table.style.backgroundColor = "#fff";
+    table.style.border = "1px solid #ccc";
+    table.style.borderRadius = "8px";
+    table.style.padding = "10px";
+    table.style.marginTop = "20px";
+
+    const headerRow = document.createElement("tr");
+    headerRow.innerHTML = `
+        <th style="padding:8px;">카테고리명</th>
+        <th style="padding:8px;">게시물 개수</th>
+    `;
+    table.appendChild(headerRow);
+
+    const dataRow = document.createElement("tr");
+    dataRow.innerHTML = `
+        <td style="padding:8px;">${label}</td>
+        <td style="padding:8px;">${value}개</td>
+    `;
+    table.appendChild(dataRow);
+
+    document.querySelector(".post-chart-container").appendChild(table);
 }
