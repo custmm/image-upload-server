@@ -737,15 +737,15 @@
                         }
                     }
                 },
-                onClick: (evt, elements) => {
+                onClick: async (evt, elements) => {
                     if (elements.length > 0) {
                         const firstElement = elements[0];
                         const dataIndex = firstElement.index;
+                        const categoryName = window.donutChartInstance.data.labels[dataIndex];
                 
-                        const label = window.donutChartInstance.data.labels[dataIndex];
-                        const postCount = window.originalCounts[dataIndex]; // 🔥 퍼센트가 아니라 '게시물 개수' 가져오기
-                
-                        showSelectedCategoryInfo(label, postCount); // 🔥 정수로 표 표시
+                        const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
+
+                        showSubcategoryTable(subcategoryData);
                 
                         const chartContainer = document.querySelector(".post-chart-container");
                         chartContainer.style.justifyContent = "flex-start";
@@ -823,7 +823,7 @@ function autoResize(textarea) {
     textarea.style.height = (textarea.scrollHeight,50) + 'px';  // 내용에 맞게 높이 조정
 }
 
-function showSelectedCategoryInfo(label, value) {
+function showSubcategoryTable(subcategories) {
     // 이미 존재하는 테이블 삭제
     const existingTable = document.getElementById("categoryInfoTable");
     if (existingTable) existingTable.remove();
@@ -840,17 +840,28 @@ function showSelectedCategoryInfo(label, value) {
 
     const headerRow = document.createElement("tr");
     headerRow.innerHTML = `
-        <th style="padding:8px;">카테고리명</th>
-        <th style="padding:8px;">게시물 개수</th>
+        <th style="padding:8px;">서브카테고리명</th>
+        <th style="padding:8px;">게시물 수</th>
     `;
     table.appendChild(headerRow);
 
     const dataRow = document.createElement("tr");
     dataRow.innerHTML = `
-        <td style="padding:8px;">${label}</td>
-        <td style="padding:8px;">${value}개</td>
+        <td style="padding:8px;">${sub.subcategory_name}</td>
+        <td style="padding:8px;">${sub.count}개</td>
     `;
     table.appendChild(dataRow);
 
     document.querySelector(".post-chart-container").appendChild(table);
+}
+
+async function fetchSubcategoryCountsByCategory(categoryName) {
+    try {
+        const res = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`);
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error("서브카테고리 데이터 가져오기 실패", error);
+        return [];
+    }
 }
