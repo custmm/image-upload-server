@@ -692,12 +692,16 @@
 
     // 차트를 렌더링하는 함수
     async function renderCharts() {
-        const categoryData = await fetchCategoryCounts();
+        const categoryData = await fetchCategoryCounts(); // 서버에서 category_name, count 받아옴
         const categories = categoryData.map(item => item.category_name);
-        const counts = categoryData.map(item => Number(item.count));
-        const total = counts.reduce((acc, val) => acc + val, 0);
+        const counts = categoryData.map(item => Number(item.count)); // 🔥 게시물 개수 (정수)
+        const total = counts.reduce((acc, val) => acc + val, 0);      // 전체 게시물 개수
+
         const probabilities = counts.map(count => ((count / total) * 100).toFixed(2));
     
+        // ⭐️ 원본 데이터 따로 저장
+        window.originalCounts = counts;
+
         // 도넛 차트 데이터 구성
         const chartData = {
             labels: categories,
@@ -727,25 +731,22 @@
                     tooltip: { // ✅ 툴팁 수정
                         callbacks: {
                             label: function (context) {
-                                let value = context.raw; // 숫자 값 가져오기
-                                return `${value}%`; // % 붙이기
+                                const percent = context.raw; // 숫자 값 가져오기
+                                return `${percent}%`; // % 붙이기
                             }
                         }
                     }
                 },
-                onClick: (evt, elements) => { // 🔥 여기 onClick 이벤트 추가
+                onClick: (evt, elements) => {
                     if (elements.length > 0) {
                         const firstElement = elements[0];
-                        const datasetIndex = firstElement.datasetIndex;
                         const dataIndex = firstElement.index;
-        
+                
                         const label = window.donutChartInstance.data.labels[dataIndex];
-                        const value = window.donutChartInstance.data.datasets[datasetIndex].data[dataIndex];
-        
-                        // 표 출력 함수 호출
-                        showSelectedCategoryInfo(label, value);
-        
-                        // 도넛 차트 왼쪽 정렬
+                        const postCount = window.originalCounts[dataIndex]; // 🔥 퍼센트가 아니라 '게시물 개수' 가져오기
+                
+                        showSelectedCategoryInfo(label, postCount); // 🔥 정수로 표 표시
+                
                         const chartContainer = document.querySelector(".post-chart-container");
                         chartContainer.style.justifyContent = "flex-start";
                     }
