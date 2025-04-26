@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
         adminButton.textContent = "관리자 모드";
         adminButton.classList.add("admin-styled-button");
         adminButton.onclick = function () {
-            showPopup("관리자 모드로 이동합니다.", function() {
+            showPopup("관리자 모드로 이동합니다.", "success", function() {
                 window.location.href = "mode-selection.html"; // 관리자 페이지로 이동
             });
         };
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-function showPopup(message, type, callback) {
+function showPopup(message, type="info", callback=null) {
     // ✅ 기존 팝업 제거 (중복 방지)
     const existingPopup = document.querySelector(".popup-message");
     if (existingPopup) existingPopup.remove();
