@@ -834,7 +834,6 @@ function showSubcategoryTable(subcategories) {
     table.style.marginLeft = "20px";
     table.style.backgroundColor = "#fff";
     table.style.border = "1px solid #ccc";
-    table.style.borderRadius = "8px";
     table.style.padding = "10px";
     table.style.marginTop = "20px";
 
@@ -847,8 +846,8 @@ function showSubcategoryTable(subcategories) {
     for (const item of subcategories) {
         const dataRow = document.createElement("tr");
         dataRow.innerHTML = `
-            <td style="padding:8px;">${sub.subcategory_name}</td>
-            <td style="padding:8px;">${sub.count}개</td>
+            <td style="padding:8px;">${item.subcategory_name}</td>
+            <td style="padding:8px;">${item.count}개</td>
         `;
         table.appendChild(dataRow);
     }
