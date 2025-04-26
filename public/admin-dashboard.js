@@ -844,13 +844,14 @@ function showSubcategoryTable(subcategories) {
         <th style="padding:8px;">게시물 수</th>
     `;
     table.appendChild(headerRow);
-
-    const dataRow = document.createElement("tr");
-    dataRow.innerHTML = `
-        <td style="padding:8px;">${sub.subcategory_name}</td>
-        <td style="padding:8px;">${sub.count}개</td>
-    `;
-    table.appendChild(dataRow);
+    for (const item of subcategories) {
+        const dataRow = document.createElement("tr");
+        dataRow.innerHTML = `
+            <td style="padding:8px;">${sub.subcategory_name}</td>
+            <td style="padding:8px;">${sub.count}개</td>
+        `;
+        table.appendChild(dataRow);
+    }
 
     document.querySelector(".post-chart-container").appendChild(table);
 }

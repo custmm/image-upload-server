@@ -324,4 +324,38 @@ router.delete("/:id", async (req, res) => {
         res.status(500).json({ success: false, error: "서버 오류로 삭제에 실패했습니다." });
         }
   });
+
+  // ✅ 특정 카테고리의 서브카테고리별 게시물 수 조회 API (NEW!)
+router.get("/subcategory-counts", async (req, res) => {
+    try {
+        const { category_name } = req.query;
+
+        if (!category_name) {
+            return res.status(400).json({ error: "❌ category_name 파라미터가 필요합니다." });
+        }
+
+        // 1. category_name으로 category_id 찾기
+        const category = await Category.findOne({ where: { name: category_name } });
+        if (!category) {
+            return res.status(404).json({ error: "❌ 해당 카테고리를 찾을 수 없습니다." });
+        }
+
+        // 2. 해당 category_id로 서브카테고리별 게시물 수 집계
+        const subcategoryCounts = await File.findAll({
+            where: { category_id: category.id },
+            attributes: [
+                "subcategory_name",
+                [sequelize.fn("COUNT", sequelize.col("subcategory_name")), "count"]
+            ],
+            group: ["subcategory_name"],
+            raw: true
+        });
+
+        res.json(subcategoryCounts);
+    } catch (error) {
+        console.error("🚨 서브카테고리 게시물 수 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
+
 export default router;
