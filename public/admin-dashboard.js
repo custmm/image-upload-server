@@ -748,7 +748,7 @@
                         showSubcategoryTable(subcategoryData);
                 
                         const chartContainer = document.querySelector(".post-chart-container");
-                        chartContainer.style.justifyContent = "flex-start";
+                        chartContainer.style.justifyContent = "center";
                     }
                 }
             }
