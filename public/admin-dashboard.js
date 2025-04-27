@@ -831,7 +831,7 @@ function autoResize(textarea) {
     textarea.style.height = (textarea.scrollHeight,50) + 'px';  // 내용에 맞게 높이 조정
 }
 
-function showSubcategoryTable(subcategories) {
+function showSubcategoryTable(subcategories, categoryName) {
     // 이미 존재하는 테이블 삭제
     const existingTable = document.getElementById("categoryInfoTable");
     if (existingTable) existingTable.remove();
@@ -851,6 +851,7 @@ function showSubcategoryTable(subcategories) {
         <th style="padding:8px;">게시물 수</th>
     `;
     table.appendChild(headerRow);
+    
     for (const item of subcategories) {
         const dataRow = document.createElement("tr");
         dataRow.innerHTML = `

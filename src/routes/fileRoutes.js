@@ -345,9 +345,11 @@ router.get("/subcategory-counts", async (req, res) => {
             where: { category_id: category.id },
             attributes: [
                 "subcategory_name",
+                "subcategory_id",
                 [sequelize.fn("COUNT", sequelize.col("subcategory_name")), "count"]
             ],
-            group: ["subcategory_name"],
+            group: ["subcategory_name", "subcategory_id"], // ✅ group에 추가
+            order: [["subcategory_id", "ASC"]], // ✅ 추가: subcategory_id 오름차순 정렬
             raw: true
         });
 
