@@ -749,6 +749,14 @@
                 
                         const chartContainer = document.querySelector(".post-chart-container");
                         chartContainer.style.justifyContent = "center";
+                        
+                        chartContainer.addEventListener("click", function() {
+                            const existingTable = document.getElementById("categoryInfoTable");
+                            if (existingTable) {
+                                existingTable.remove();
+                                console.log("✅ categoryInfoTable 제거 완료");
+                            }
+                        });
                     }
                 }
             }
