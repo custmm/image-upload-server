@@ -745,11 +745,11 @@
                 
                         const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
 
-                        showSubcategoryTable(subcategoryData);
+                        showSubcategoryTable(subcategoryData, categoryName);
                 
                         const chartContainer = document.querySelector(".post-chart-container");
                         chartContainer.style.justifyContent = "center";
-                        
+
                         chartContainer.addEventListener("click", function() {
                             const existingTable = document.getElementById("categoryInfoTable");
                             if (existingTable) {
