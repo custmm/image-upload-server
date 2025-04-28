@@ -225,6 +225,33 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         });
     }
+
+    async function fetchIndicatorStatus() {
+        try {
+            const res = await fetch("/api/indicator-status");
+            if (!res.ok) throw new Error("Indicator 상태 가져오기 실패");
+    
+            const data = await res.json();
+            const previewVisible = data.visible ? "visible" : "hidden";
+            localStorage.setItem("previewVisible", previewVisible);
+            updateButtonState(); // 버튼 업데이트
+        } catch (error) {
+            console.error("🚨 Indicator 상태 가져오기 오류:", error);
+        }
+    }
+    
+    async function updateIndicatorStatusOnServer(visible) {
+        try {
+            await fetch("/api/indicator-status", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ visible })
+            });
+        } catch (error) {
+            console.error("🚨 Indicator 서버 업데이트 오류:", error);
+        }
+    }
+    
         
     function bindIndicatorEvents(){
         const showindicatorBtn = document.getElementById("show-indicator");
@@ -242,25 +269,25 @@
             }
         }
         
-        hideindicatorBtn.addEventListener("click", function() {            
+        hideindicatorBtn.addEventListener("click", async function() {            
             localStorage.setItem("previewVisible", "hidden"); // 상태 저장
+            await updateIndicatorStatusOnServer(false); // 서버 반영
             updateButtonState();
             showpopup("이미지 표시기가 제거되었습니다."); // 팝업 추가
-
-            // 🔥 `storage` 이벤트를 강제로 발생시키기
-            window.dispatchEvent(new Event("storage"));
         });
 
-        showindicatorBtn.addEventListener("click",function() {
+        showindicatorBtn.addEventListener("click",async function() {
             localStorage.setItem("previewVisible","visible");
+            await updateIndicatorStatusOnServer(true); // 서버 반영
             updateButtonState();
             showpopup("이미지 표시기가 나타났습니다."); // 팝업 추가
-
-            // 🔥 `storage` 이벤트를 강제로 발생시키기
-            window.dispatchEvent(new Event("storage"));
         });
 
-        updateButtonState();
+    // 최초 상태 동기화
+    fetchIndicatorStatus();
+
+    // 주기적으로 서버 상태 확인 (ex: 5초마다)
+    setInterval(fetchIndicatorStatus, 5000);
     }    
 
     async function fetchImages(mode = "image") {
