@@ -507,7 +507,23 @@ document.addEventListener("DOMContentLoaded", async () => {
             checkOverlap(img);
         }
 
+    // ✅ 서버에서 Indicator 상태 가져오기 함수 추가
+    async function fetchIndicatorStatus() {
+        try {
+            const res = await fetch("/api/indicator-status");
+            if (!res.ok) throw new Error("서버 응답 오류");
 
+            const data = await res.json();
+            if (data.visible) {
+                localStorage.setItem("previewVisible", "visible");
+            } else {
+                localStorage.setItem("previewVisible", "hidden");
+            }
+            updatePreviewVisibility(); // ✅ 가져온 상태로 표시 업데이트
+        } catch (error) {
+            console.error("🚨 Indicator 상태 가져오기 오류:", error);
+        }
+    }
     // 표시기 상태 업데이트 함수
     function updatePreviewVisibility() {
         const previewState = localStorage.getItem("previewVisible");
@@ -637,9 +653,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     setInterval(updatePreviewImage, 30000);
     applySavedTheme();
     loadCategories();
+    await fetchIndicatorStatus();  // 추가된 부분
+    setInterval(fetchIndicatorStatus, 5000); // 추가된 부분
     // 초기 상태 반영
     updatePreviewVisibility();
-
-    // localStorage 변경 감지 (admin-dashboard에서 변경되면 자동 반영)
-    window.addEventListener("storage", updatePreviewVisibility);
 });
