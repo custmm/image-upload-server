@@ -226,6 +226,20 @@
         });
     }
 
+    function updateButtonState(){       
+        const showindicatorBtn = document.getElementById("show-indicator");
+        const hideindicatorBtn = document.getElementById("hide-indicator");
+        const previewState = localStorage.getItem("previewVisible");
+
+        if (previewState === "hidden") {
+            hideindicatorBtn.style.display = "none";
+            showindicatorBtn.style.display = "inline-block";
+        }else{
+            hideindicatorBtn.style.display = "inline-block";
+            showindicatorBtn.style.display = "none";
+        }
+    }   
+
     async function fetchIndicatorStatus() {
         try {
             const res = await fetch("/api/indicator-status");
@@ -252,23 +266,11 @@
         }
     }
     
-        
+
     function bindIndicatorEvents(){
         const showindicatorBtn = document.getElementById("show-indicator");
         const hideindicatorBtn = document.getElementById("hide-indicator");
-
-        function updateButtonState(){
-            const previewState = localStorage.getItem("previewVisible");
-
-            if (previewState === "hidden") {
-                hideindicatorBtn.style.display = "none";
-                showindicatorBtn.style.display = "inline-block";
-            }else{
-                hideindicatorBtn.style.display = "inline-block";
-                showindicatorBtn.style.display = "none";
-            }
-        }
-        
+ 
         hideindicatorBtn.addEventListener("click", async function() {            
             localStorage.setItem("previewVisible", "hidden"); // 상태 저장
             await updateIndicatorStatusOnServer(false); // 서버 반영
