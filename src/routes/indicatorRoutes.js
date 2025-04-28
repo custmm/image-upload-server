@@ -5,6 +5,21 @@ import path from "path";
 const router = express.Router();
 const INDICATOR_FILE = path.resolve("./indicator-status.json"); // 상태 저장 파일
 
+// ✅ 서버 시작할 때 파일이 없으면 생성
+async function ensureIndicatorFileExists() {
+    try {
+        await fs.access(INDICATOR_FILE);
+        console.log("✅ indicator-status.json 파일 존재 확인 완료");
+    } catch (error) {
+        // 파일이 없으면 기본 visible:true 생성
+        console.log("⚡ indicator-status.json 파일 없음. 기본 생성 중...");
+        await fs.writeFile(INDICATOR_FILE, JSON.stringify({ visible: true }), "utf8");
+    }
+}
+
+// 서버 초기화 시 호출
+ensureIndicatorFileExists();
+
 // ✅ 표시기 상태 가져오기
 router.get("/indicator-status", async (req, res) => {
     try {

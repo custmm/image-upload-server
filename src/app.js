@@ -9,6 +9,7 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import fileRoutes from "./routes/fileRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import indicatorRoutes from "./routes/indicatorRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -42,7 +43,7 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/files", fileRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/admin", adminRoutes);
-
+app.use("/api", indicatorRoutes); 
 
 // ✅ MySQL 연결
 sequelize.sync({ alter: true })
