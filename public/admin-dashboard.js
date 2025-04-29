@@ -326,7 +326,7 @@
     
             // ✅ 기존 데이터 유지하면서 추가
             if (mode === "image") {
-                renderImageMode(images);
+                renderImageMode(images, false);
             } else {
                 renderTextMode(images);
             }
@@ -339,11 +339,14 @@
         }
     }
 
-    function renderImageMode(images) {
+    function renderImageMode(images, append = false) {
         const container = document.querySelector(".post-form-container");
         container.classList.add("image-mode");
         container.classList.remove("text-mode");
-        container.innerHTML = "";  // 🔥 내부 요소 초기화
+
+        if (!append) {
+            container.innerHTML = "";  // ✅ append가 false일 때만 초기화
+        }
       
         const fragment = document.createDocumentFragment(); // ✅ DocumentFragment 사용
         images.forEach(image => {
@@ -368,11 +371,15 @@
         container.appendChild(fragment); // ✅ 한 번에 DOM 업데이트
     
         // 이미지 모드에서 그리드 스타일 적용
-        container.style.display = "grid"; // 그리드 레이아웃 사용
-        container.style.gridTemplateColumns = "repeat(6, 1fr)"; // 자동 열 크기 조정
-        container.style.gap = "10px"; // 이미지 간 간격
-        container.style.overflowY = "auto"; // 스크롤 활성화
-        container.style.minHeight = "400px"; 
+        if (!append) {
+            Object.assign(container.style, {
+                display: "grid", // 그리드 레이아웃 사용
+                gridTemplateColumns: "repeat(6, 1fr)", // 자동 열 크기 조정
+                gap: "10px", // 이미지 간 간격
+                overflowY: "auto", // 스크롤 활성화
+                minHeight: "400px"
+            });
+        } 
     }
 
     function renderTextMode(images) {
