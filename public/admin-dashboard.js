@@ -292,7 +292,7 @@
     setInterval(fetchIndicatorStatus, 5000);
     }    
 
-    async function fetchImages(mode = "image") {
+    async function fetchImages(mode = "image",append = false) {
         if (isLoading || noMoreImages) return;
         isLoading = true;
     
@@ -326,9 +326,9 @@
     
             // ✅ 기존 데이터 유지하면서 추가
             if (mode === "image") {
-                renderImageMode(images, false);
+                renderImageMode(images, append);
             } else {
-                renderTextMode(images);
+                renderTextMode(images, append);
             }
     
             loadedImages += images.length;
@@ -382,12 +382,14 @@
         } 
     }
 
-    function renderTextMode(images) {
+    function renderTextMode(images, append = false) {
         const container = document.querySelector(".post-form-container");
         container.classList.add("text-mode");
         container.classList.remove("image-mode");
-        container.innerHTML = "";  // 🔥 내부 요소 초기화
-
+        if(!append){
+            container.innerHTML = "";  // 🔥 내부 요소 초기화
+        }
+ 
         images.forEach(image => {
             const postItem = document.createElement("div");
             postItem.classList.add("post-item");
@@ -433,12 +435,14 @@
             container.appendChild(postItem);
         });
         // 텍스트 모드 스타일 적용
-        Object.assign(container.style, {
-            display : "block", // 블록 레벨 요소로 설정
-            marginBottom : "20px", // 각 항목 간의 간격 추가
-            minHeight : "400px", 
-            overflowY : "auto"
-        });
+        if (!append) {
+            Object.assign(container.style, {
+                display: "block",
+                marginBottom: "20px",
+                minHeight: "400px",
+                overflowY: "auto"
+            });
+        }
     }
 
     async function updatePostDescription(postId, newDescription) {
