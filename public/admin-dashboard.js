@@ -343,6 +343,7 @@
         const container = document.querySelector(".post-form-container");
         container.classList.add("image-mode");
         container.classList.remove("text-mode");
+        container.innerHTML = "";  // 🔥 내부 요소 초기화
       
         const fragment = document.createDocumentFragment(); // ✅ DocumentFragment 사용
         images.forEach(image => {
@@ -378,6 +379,7 @@
         const container = document.querySelector(".post-form-container");
         container.classList.add("text-mode");
         container.classList.remove("image-mode");
+        container.innerHTML = "";  // 🔥 내부 요소 초기화
 
         images.forEach(image => {
             const postItem = document.createElement("div");
