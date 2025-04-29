@@ -6,20 +6,22 @@
     let currentMode = "image"; // ✅ 기본 모드는 이미지 모드
     let isPopupOpen = false;  // ✅ 팝업 상태 변수 추가
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                if (img.dataset.loaded === "false") {
-                    img.src = img.dataset.src;
-                    img.dataset.loaded = "true";
-                    observer.unobserve(img);
+    if(!window.observer){
+        window.observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.loaded === "false") {
+                        img.src = img.dataset.src;
+                        img.dataset.loaded = "true";
+                        observer.unobserve(img);
+                    }
                 }
-            }
+            });
+        }, {
+            rootMargin: "0px 0px 200px 0px" // 로딩되는 시점을 조정 (200px 만큼 미리 로드)
         });
-    }, {
-        rootMargin: "0px 0px 200px 0px" // 로딩되는 시점을 조정 (200px 만큼 미리 로드)
-    });
+    }
 
     function showpopup(message){
         if (isPopupOpen) return;  // ✅ 팝업이 열려 있으면 실행 중단
@@ -365,7 +367,7 @@
             });
                     
             fragment.appendChild(img);
-            observer.observe(img); // ✅ Intersection Observer 적용
+            window.observer.observe(img); // ✅ Intersection Observer 적용
         });
     
         container.appendChild(fragment); // ✅ 한 번에 DOM 업데이트
