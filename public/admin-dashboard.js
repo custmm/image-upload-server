@@ -320,6 +320,9 @@
                 console.warn(`⚠️ ${mode} 모드 갤러리 컨테이너가 없습니다. 새로 생성합니다.`);
                 galleryContainer = document.createElement("div");
                 galleryContainer.id = mode === "image" ? "imageGallery" : "textGallery";
+      
+                // ✅ 여기에 삽입
+                document.querySelector(".post-form-container").appendChild(galleryContainer);
             }
     
             // ✅ 기존 데이터 유지하면서 추가
