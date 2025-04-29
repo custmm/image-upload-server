@@ -688,7 +688,17 @@
         document.getElementById("image-mode").addEventListener("click", () => {
             currentMode = "image";
             loadedImages = 0; // ✅ 초기화
-            clearContainer(document.querySelector(".post-form-container"));
+            noMoreImages = false;
+
+            const container = document.querySelector(".post-form-container");
+            clearContainer(container);
+
+            // ✅ 이미지 모드일 때 필요한 DOM 요소 다시 생성
+            const imageGallery = document.createElement("div");
+            imageGallery.id = "imageGallery";
+            imageGallery.classList.add("gallery-container");
+            container.appendChild(imageGallery);
+
             fetchImages("image");
         });
 
@@ -696,12 +706,16 @@
             currentMode = "text";
             loadedImages = 0; // ✅ 초기화
             noMoreImages = false; // ✅ 더 이상 이미지 없음 상태 초기화
-            clearContainer(document.querySelector(".post-form-container"));
+
+            const container = document.querySelector(".post-form-container");
+            clearContainer(container);
+
             // ✅ 새 컨테이너 추가
             const textGallery = document.createElement("div");
             textGallery.id = "textGallery";
             textGallery.classList.add("gallery-container");
-            document.querySelector(".post-form-container").appendChild(textGallery);
+            container.appendChild(textGallery);
+
             fetchImages("text");
         });
     }
