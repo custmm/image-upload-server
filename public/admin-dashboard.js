@@ -700,6 +700,9 @@
             const container = document.querySelector(".post-form-container");
             clearContainer(container);
 
+            container.classList.add("image-mode");        // ✅ 추가
+            container.classList.remove("text-mode");      // ✅ 추가
+
             // ✅ 이미지 모드일 때 필요한 DOM 요소 다시 생성
             const imageGallery = document.createElement("div");
             imageGallery.id = "imageGallery";
@@ -716,6 +719,9 @@
 
             const container = document.querySelector(".post-form-container");
             clearContainer(container);
+
+            container.classList.add("text-mode");
+            container.classList.remove("image-mode");
 
             // ✅ 새 컨테이너 추가
             const textGallery = document.createElement("div");
