@@ -91,6 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         loadingDiv.style.height = "100%";
         loadingDiv.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
         loadingDiv.style.display = "flex";
+        loadingDiv.style.flexDirection = "column";  // 🔥 수직 정렬
         loadingDiv.style.justifyContent = "center";
         loadingDiv.style.alignItems = "center";
         loadingDiv.style.color = "#fff";
