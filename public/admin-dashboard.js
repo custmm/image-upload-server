@@ -85,11 +85,10 @@
     document.addEventListener("DOMContentLoaded", () => {
         console.log("📌 모든 카테고리에서 이미지 로드 시작");
         currentCategoryId = null; // ✅ 모든 카테고리 로드
-        fetchImages(currentMode); // ✅ 페이지 로드 시 이미지 불러오기
+        fetchImages(currentMode,true); // ✅ 페이지 로드 시 이미지 불러오기
 
         // 스크롤 이벤트에 throttle 적용
         const container = document.querySelector(".post-form-container");
-        if(container){
             container.addEventListener("scroll", throttle(() => {
                 if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
                     if (!isLoading && !noMoreImages) {
@@ -97,9 +96,6 @@
                     }
                 }
             }, 700));
-        } else {
-            console.warn("⚠️ .post-form-container not found in DOM at the time of scroll binding.");
-        }
         renderCharts();
         bindDrawingEvents();
         bindIndicatorEvents();
@@ -294,7 +290,7 @@
     setInterval(fetchIndicatorStatus, 5000);
     }    
 
-    async function fetchImages(mode = "image",append = false) {
+    async function fetchImages(mode = "image", append = false) {
         if (isLoading || noMoreImages) return;
         isLoading = true;
     
@@ -714,7 +710,7 @@
             imageGallery.classList.add("gallery-container");
             container.appendChild(imageGallery);
 
-            fetchImages("image");
+            fetchImages("image", false);
         });
 
         document.getElementById("text-mode").addEventListener("click", () => {
@@ -731,7 +727,7 @@
             textGallery.classList.add("gallery-container");
             container.appendChild(textGallery);
 
-            fetchImages("text");
+            fetchImages("text", false);
         });
     }
 
