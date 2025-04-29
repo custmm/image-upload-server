@@ -358,20 +358,20 @@
     }
     /* 🔥 이미지 모드: 한 줄에 6개씩 정렬 */
     .post-form-container.image-mode {
-        display: grid;
+        display: flex;
+        flex-wrap: wrap;
         grid-template-columns: repeat(6, 1fr); /* ✅ 6개씩 가로 정렬 */
         gap: 10px;
         object-fit: cover;  /* 🔥 이미지 비율 유지 */
-        justify-items: center; /* 이미지 정렬을 중앙으로 설정 */
-        align-items: center; /* 이미지 정렬을 중앙으로 설정 */
+        justify-items: flex-start; /* 이미지 정렬을 중앙으로 설정 */
+        align-items: flex-start; /* 이미지 정렬을 중앙으로 설정 */
     }
     /* 🔥 이미지 스타일 */
     .post-image {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 5px;
         width: 10vw;
         height: 10vw;
+        display: flex;
+        margin: 5px;
         object-fit: cover; /* 이미지 비율 유지, 영역을 채우도록 자름 */
         border-radius: 5px;
         cursor: pointer;
