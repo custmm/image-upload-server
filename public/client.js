@@ -102,9 +102,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         loadingImg.alt = "로딩 중...";
         loadingImg.style.width = "100px"; // 🔥 원하는 크기로 조절
         loadingImg.style.height = "100px";
-        loadingImg.style.marginBottom = "10px"; // 🔥 텍스트와 간격 조정
+        loadingImg.style.marginBottom = "15px"; // 🔥 텍스트와 간격 조정
+
+        const loadingText = document.createElement("p");
+        loadingText.textContent = "업로드 중입니다...";
+        loadingText.style.margin = "0";
+        loadingText.style.padding = "0";
+        loadingText.style.color = "#fff";
+        loadingText.style.fontSize = "20px";
 
         loadingDiv.appendChild(loadingImg);
+        loadingDiv.appendChild(loadingText);
     
         document.body.appendChild(loadingDiv);
     }
