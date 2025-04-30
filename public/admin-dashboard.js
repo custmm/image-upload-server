@@ -708,6 +708,15 @@
             imageGallery.id = "imageGallery";
             imageGallery.classList.add("gallery-container");
 
+            // ✅ grid 스타일을 직접 지정
+            Object.assign(imageGallery.style, {
+                display: "grid",
+                gridTemplateColumns: "repeat(6, 1fr)",
+                gap: "10px",
+                justifyItems: "center",
+                alignItems: "center"
+            });
+
             container.appendChild(imageGallery);
 
             fetchImages("image", false);
