@@ -351,11 +351,13 @@
             gallery = document.createElement("div");
             gallery.id = "imageGallery";
             gallery.classList.add("gallery-container");
-            
-            Object.assign(container.style, {
+
+            Object.assign(gallery.style, {
                 display: "grid", // 그리드 레이아웃 사용
                 gridTemplateColumns: "repeat(6, 1fr)", // 자동 열 크기 조정
                 gap: "10px", // 이미지 간 간격
+                justifyItems: "center",
+                alignItems: "center",
                 overflowY: "auto", // 스크롤 활성화
                 minHeight: "400px"
             });
@@ -384,7 +386,7 @@
             fragment.appendChild(img);
             window.observer.observe(img); // ✅ Intersection Observer 적용
         });
-        container.appendChild(fragment); // ✅ 한 번에 DOM 업데이트
+        gallery.appendChild(fragment); // ✅ 한 번에 DOM 업데이트
     }
 
     function renderTextMode(images, append = false) {
