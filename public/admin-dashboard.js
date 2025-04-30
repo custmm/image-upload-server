@@ -89,16 +89,13 @@
 
         // 스크롤 이벤트에 throttle 적용
         const container = document.querySelector(".post-form-container");
-        container.classList.add("image-mode");
-
-        container.addEventListener("scroll", throttle(() => {
-            if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
-                if (!isLoading && !noMoreImages) {
-                    fetchImagesDebounced(currentMode);
+            container.addEventListener("scroll", throttle(() => {
+                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
+                    if (!isLoading && !noMoreImages) {
+                        fetchImagesDebounced(currentMode);
+                    }
                 }
-            }
-        }, 700));
-        
+            }, 700));
         renderCharts();
         bindDrawingEvents();
         bindIndicatorEvents();
@@ -347,29 +344,7 @@
         const container = document.querySelector(".post-form-container");
         container.classList.add("image-mode");
         container.classList.remove("text-mode");
-
-        // 이미지 모드에서 그리드 스타일 적용
-        let gallery = document.getElementById("imageGallery");
-        if (!gallery) {
-            gallery = document.createElement("div");
-            gallery.id = "imageGallery";
-            gallery.classList.add("gallery-container");
-
-            Object.assign(gallery.style, {
-                display: "grid", // 그리드 레이아웃 사용
-                gridTemplateColumns: "repeat(6, 1fr)", // 자동 열 크기 조정
-                gap: "10px", // 이미지 간 간격
-                justifyItems: "center",
-                alignItems: "center",
-                overflowY: "auto", // 스크롤 활성화
-                minHeight: "400px"
-            });
-
-            container.appendChild(gallery); // ✅ 기존 이미지 제거 후 새로 추가
-        } 
-
-        if (!append) gallery.innerHTML = ""; // append가 false일 때만 초기화
-
+      
         const fragment = document.createDocumentFragment(); // ✅ DocumentFragment 사용
         images.forEach(image => {
             const img = document.createElement("img"); // ✅ img 변수를 `forEach` 내부에서 선언
@@ -389,7 +364,19 @@
             fragment.appendChild(img);
             window.observer.observe(img); // ✅ Intersection Observer 적용
         });
-        gallery.appendChild(fragment); // ✅ 한 번에 DOM 업데이트
+    
+        container.appendChild(fragment); // ✅ 한 번에 DOM 업데이트
+    
+        // 이미지 모드에서 그리드 스타일 적용
+        if (!append) {
+            Object.assign(container.style, {
+                display: "grid", // 그리드 레이아웃 사용
+                gridTemplateColumns: "repeat(6, 1fr)", // 자동 열 크기 조정
+                gap: "10px", // 이미지 간 간격
+                overflowY: "auto", // 스크롤 활성화
+                minHeight: "400px"
+            });
+        } 
     }
 
     function renderTextMode(images, append = false) {
