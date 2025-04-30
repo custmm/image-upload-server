@@ -372,6 +372,8 @@
                 display: "grid", // 그리드 레이아웃 사용
                 gridTemplateColumns: "repeat(6, 1fr)", // 자동 열 크기 조정
                 gap: "10px", // 이미지 간 간격
+                justifyItems: "center", // 아이템 수평 가운데 정렬
+                alignItems: "center",    // 아이템 수직 가운데 정렬
                 overflowY: "auto", // 스크롤 활성화
                 minHeight: "400px"
             });
