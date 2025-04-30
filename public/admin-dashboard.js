@@ -85,17 +85,34 @@
     document.addEventListener("DOMContentLoaded", () => {
         console.log("📌 모든 카테고리에서 이미지 로드 시작");
         currentCategoryId = null; // ✅ 모든 카테고리 로드
-        fetchImages(currentMode,true); // ✅ 페이지 로드 시 이미지 불러오기
-
+        
         // 스크롤 이벤트에 throttle 적용
         const container = document.querySelector(".post-form-container");
-            container.addEventListener("scroll", throttle(() => {
-                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
-                    if (!isLoading && !noMoreImages) {
-                        fetchImagesDebounced(currentMode);
-                    }
+        container.classList.add("image-mode");
+        container.classList.remove("text-mode");
+
+        const imageGallery = document.createElement("div");
+        imageGallery.id = "imageGallery";
+        imageGallery.classList.add("gallery-container");
+        Object.assign(imageGallery.style, {
+            display: "grid",
+            gridTemplateColumns: "repeat(6, 1fr)",
+            gap: "10px",
+            justifyItems: "center",
+            alignItems: "center"
+        });
+        container.appendChild(imageGallery);
+
+        fetchImages(currentMode,true); // ✅ 페이지 로드 시 이미지 불러오기
+        // 스크롤 이벤트에 throttle 적용
+        container.addEventListener("scroll", throttle(() => {
+            if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
+                if (!isLoading && !noMoreImages) {
+                    fetchImagesDebounced(currentMode);
                 }
-            }, 700));
+            }
+        }, 700));
+
         renderCharts();
         bindDrawingEvents();
         bindIndicatorEvents();
