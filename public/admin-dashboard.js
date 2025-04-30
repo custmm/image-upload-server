@@ -88,7 +88,7 @@
         fetchImages(currentMode,true); // ✅ 페이지 로드 시 이미지 불러오기
 
         // 스크롤 이벤트에 throttle 적용
-        const container = document.querySelector(".post-form-container");
+        const container = document.querySelector(".post-form-container").classList.add("image-mode");
             container.addEventListener("scroll", throttle(() => {
                 if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
                     if (!isLoading && !noMoreImages) {
