@@ -358,13 +358,12 @@
     }
     /* 🔥 이미지 모드: 한 줄에 6개씩 정렬 */
     .post-form-container.image-mode {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
         grid-template-columns: repeat(6, 1fr); /* ✅ 6개씩 가로 정렬 */
         gap: 10px;
         object-fit: cover;  /* 🔥 이미지 비율 유지 */
-        justify-items: flex-start; /* 이미지 정렬을 중앙으로 설정 */
-        align-items: flex-start; /* 이미지 정렬을 중앙으로 설정 */
+        justify-items: center; /* 각 셀 내에서 중앙 정렬 */
+        align-items: center;
     }
     /* 🔥 이미지 스타일 */
     .post-image {
