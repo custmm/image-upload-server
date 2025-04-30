@@ -344,6 +344,22 @@
         const container = document.querySelector(".post-form-container");
         container.classList.add("image-mode");
         container.classList.remove("text-mode");
+
+        let gallery = document.querySelector("#imageGallery");
+        if (!gallery) {
+            gallery = document.createElement("div");
+            gallery.id = "imageGallery";
+            gallery.classList.add("gallery-container");
+
+            Object.assign(container.style, {
+                display: "grid", // 그리드 레이아웃 사용
+                gridTemplateColumns: "repeat(6, 1fr)", // 자동 열 크기 조정
+                gap: "10px", // 이미지 간 간격
+                overflowY: "auto", // 스크롤 활성화
+                minHeight: "400px"
+            });
+            container.appendChild(gallery);
+        }
       
         const fragment = document.createDocumentFragment(); // ✅ DocumentFragment 사용
         images.forEach(image => {
@@ -365,18 +381,8 @@
             window.observer.observe(img); // ✅ Intersection Observer 적용
         });
     
-        container.appendChild(fragment); // ✅ 한 번에 DOM 업데이트
-    
-        // 이미지 모드에서 그리드 스타일 적용
-        if (!append) {
-            Object.assign(container.style, {
-                display: "grid", // 그리드 레이아웃 사용
-                gridTemplateColumns: "repeat(6, 1fr)", // 자동 열 크기 조정
-                gap: "10px", // 이미지 간 간격
-                overflowY: "auto", // 스크롤 활성화
-                minHeight: "400px"
-            });
-        } 
+        gallery.appendChild(fragment); // ✅ 한 번에 DOM 업데이트
+
     }
 
     function renderTextMode(images, append = false) {
