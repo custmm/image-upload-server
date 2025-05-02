@@ -251,8 +251,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     prev.classList.add("pagination-button");
     prev.textContent = "◀";                // 버튼 레이블 추가
     prev.style.padding = "0px";
-    prev.disabled = page === 0;
+
     prev.onclick  = () => {
+        if (page <= 0) {
+            showPopupMessage("첫 페이지입니다.");
+            return;
+        }
         page--;
         loadPage(selectedCategory, selectedSubcategory);
     };
