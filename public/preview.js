@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     next.classList.add("pagination-button");
     next.textContent = "▶";                // 버튼 레이블 추가
     next.style.padding = "0px";
-    next.disabled = (page+1) >= totalPages;
+
     next.onclick  = () => {
         if ((page + 1) >= totalPages) {
             showPopupMessage("마지막 페이지입니다.");
