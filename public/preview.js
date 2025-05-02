@@ -11,7 +11,29 @@ window.prevPage = async function() {
       await loadPage(selectedCategory, selectedSubcategory);
     }
   };
-  
+  function showPopupMessage(msg) {
+    const popup = document.createElement("div");
+    popup.textContent = msg;
+    Object.assign(popup.style, {
+        position: "fixed",
+        bottom: "30px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        backgroundColor: "#333",
+        color: "#fff",
+        padding: "10px 20px",
+        borderRadius: "5px",
+        zIndex: "9999",
+        opacity: "0",
+        transition: "opacity 0.3s ease-in-out"
+    });
+    document.body.appendChild(popup);
+    requestAnimationFrame(() => popup.style.opacity = "1");
+    setTimeout(() => {
+        popup.style.opacity = "0";
+        setTimeout(() => popup.remove(), 300);
+    }, 2000);
+}
 document.addEventListener("DOMContentLoaded", async () => {
     const categoryTabContainer = document.querySelector(".tab-design"); // 메인 카테고리 탭
     const subTabContainer = document.getElementById("subTabContainer"); // 서브 카테고리 탭
@@ -248,6 +270,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     next.style.padding = "0px";
     next.disabled = (page+1) >= totalPages;
     next.onclick  = () => {
+        if ((page + 1) >= totalPages) {
+            showPopupMessage("마지막 페이지입니다.");
+            return;
+        }
         page++;
         loadPage(selectedCategory, selectedSubcategory);
     };
