@@ -330,13 +330,19 @@
       border-radius: 20px;
       transition: background-color 0.3s;
     }
-    .slider #themeIcon {
+    /* ✅ 이모지 스타일 (동그란 핸들 안에 위치) */
+    #themeIcon {
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      bottom: 2px;
       font-size: 14px;
+      text-align: center;
+      line-height: 20px;
       pointer-events: none;
+      transition: transform 0.3s;
+      z-index: 1;
     }
     .slider::before {
       content: "";
@@ -348,11 +354,14 @@
       background-color: white;
       border-radius: 50%;
       transition: transform 0.3s;
+      z-index: 0;
     }
-    .toggle-switch input:checked + .slider {
-      background-color: #cbcbcb;
-    }
+    /* 다크 모드 시: 핸들과 아이콘 오른쪽으로 이동 */
     .toggle-switch input:checked + .slider::before {
+      transform: translateX(25px);
+    }
+
+    .toggle-switch input:checked + .slider #themeIcon {
       transform: translateX(25px);
     }
     /* 🌙 다크 모드 스타일 */
