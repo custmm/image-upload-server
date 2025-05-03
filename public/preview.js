@@ -361,26 +361,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.toggleTheme = function () {
         const body = document.body;
         const isDarkMode = body.classList.toggle("dark-mode"); // ✅ 다크 모드 토글
+        const themeIcon = document.getElementById("themeIcon");
     
         if (isDarkMode) {
             localStorage.setItem("theme", "dark");
             themeToggle.checked = true;
+            if (themeIcon) themeIcon.textContent = "💤";
         } else {
             localStorage.setItem("theme", "light");
             themeToggle.checked = false;
+            if (themeIcon) themeIcon.textContent = "☀️";
         }
     };
     
     /** ✅ 페이지 로드 시 저장된 다크 모드 적용 */
     function applySavedTheme() {
         const savedTheme = localStorage.getItem("theme") || "light";
+        const themeIcon = document.getElementById("themeIcon");
     
         if (savedTheme === "dark") {
             document.body.classList.add("dark-mode");
             if (themeToggle) themeToggle.checked = true;
+            if (themeIcon) themeIcon.textContent = "💤";
         } else {
             document.body.classList.remove("dark-mode");
             if (themeToggle) themeToggle.checked = false;
+            if (themeIcon) themeIcon.textContent = "☀️";
         }
     }
 

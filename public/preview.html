@@ -330,6 +330,14 @@
       border-radius: 20px;
       transition: background-color 0.3s;
     }
+    .slider #themeIcon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 14px;
+      pointer-events: none;
+    }
     .slider::before {
       content: "";
       position: absolute;
@@ -433,7 +441,9 @@
   <!-- 다크 모드 토글 스위치 -->
   <div class="toggle-switch">
     <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
-    <label class="slider" for="themeToggle"></label>
+    <label class="slider" for="themeToggle">
+      <span id="themeIcon">☀️</span> <!-- 이모지용 span 추가 -->
+    </label>
   </div>
   <footer class="page-footer">
     <p>아이콘은 AutoCAD로제작했으며 이미지는 마음대로 다운하셔도됩니다.</p>
