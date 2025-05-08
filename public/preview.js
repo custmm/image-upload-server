@@ -35,6 +35,7 @@ window.prevPage = async function() {
     }, 2000);
 }
 document.addEventListener("DOMContentLoaded", async () => {
+    const welcomeEl = document.getElementById("welcomeMessage");
     const categoryTabContainer = document.querySelector(".tab-design"); // 메인 카테고리 탭
     const subTabContainer = document.getElementById("subTabContainer"); // 서브 카테고리 탭
     const imageGallery = document.getElementById("imageGallery"); // 이미지 갤러리
@@ -51,6 +52,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const limit       = 20;    // 5×4
     let noMoreImages  = false;
     
+
+    if (welcomeEl) {
+        welcomeEl.style.cursor = "pointer"; // 손가락 모양
+        welcomeEl.addEventListener("click", () => {
+          window.location.href = "hidden.txt"; // 연결할 페이지 주소
+        });
+      }
 
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
     const categoryMappings = {
