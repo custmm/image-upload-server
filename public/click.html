@@ -19,8 +19,19 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+    /* 뒤로가기 버튼 */
+    .back-button {
+      transition: background-color 0.3s;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .back-button:hover {
+      background-color: #755a6a;
+    }
 </style>
 <body>
+    <button class="back-button" onclick="window.location.href='preview.html'">뒤로가기</button>
     <div class="explan-container">
         <h1>숨겨진기능</h1>
         <p>
