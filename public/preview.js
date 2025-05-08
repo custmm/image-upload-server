@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (welcomeEl) {
         welcomeEl.style.cursor = "pointer"; // 손가락 모양
         welcomeEl.addEventListener("click", () => {
-          window.location.href = "hidden.txt"; // 연결할 페이지 주소
+          window.location.href = "click.html"; // 연결할 페이지 주소
         });
       }
 
