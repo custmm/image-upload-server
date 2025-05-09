@@ -53,10 +53,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const limit       = 20;    // 5×4
     let noMoreImages  = false;
     
-    if (!isExplanMode) {
-        setTimeout(() => initializeCategorySelection(), 300);
-      } else {
-        console.log("📌 #explan 모드 - 카테고리 자동 선택 스킵됨");
+    if (isExplanMode) {
+        // URL에 붙은 ?category= 제거
+        const url = new URL(window.location.href);
+        url.search = "";  // 쿼리스트링 제거
+        window.history.replaceState({}, "", url);
+        console.log("📌 #explan 모드: ?category 제거 완료");
       }
 
     if (welcomeEl) {
