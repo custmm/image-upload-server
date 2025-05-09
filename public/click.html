@@ -35,6 +35,7 @@
       font-size: 12px;
       padding: 4px 8px;
       cursor: pointer;
+      background: none;
     }
 
     .detail-content {
@@ -52,7 +53,7 @@
             <p>
                 preview.html기능
                 <a href="preview.html">체험하기</a>
-                <button class="detail-toggle">더보기</button>
+                <button class="detail-toggle">▽</button>
             </p>
             <div class="detail-content">
                 <p>①카테고리탭의 우측상단에 아이콘이 있는데 마우스로 끌고 움직일수있음</p>
@@ -64,7 +65,7 @@
             <p>
                 index.html기능
                 <a href="index.html">체험하기</a>
-                <button class="detail-toggle">더보기</button>
+                <button class="detail-toggle">▽</button>
             </p>
             <div class="detail-content">
                 <p>①웹사이트의 첫페이지로 모드선택  영역 주위에 원래배경보다 조금 밝게 보이는 블러처리된 원이 있는데 그걸 누르면 cyan색으로 변함→찾아서 전부 누르면 마법진이 그려짐</p>
@@ -78,7 +79,7 @@
             <p>
                 admin-login기능
                 <a href="admin-login.html">체험하기</a>
-                <button class="detail-toggle">더보기</button>
+                <button class="detail-toggle">▽</button>
             </p>
             <div class="detail-content">
                 <p>①아무것도 입력하지않고 "로그인" 버튼 누르면 랜덤으로 이동함</p>
@@ -95,7 +96,7 @@
           const detail = button.closest(".plus_container").querySelector(".detail-content");
           const isVisible = detail.style.display === "block";
           detail.style.display = isVisible ? "none" : "block";
-          button.textContent = isVisible ? "자세히 보기" : "간단히 보기";
+          button.textContent = isVisible ? "▽" : "△";
         });
       });
     });
