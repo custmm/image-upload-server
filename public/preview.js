@@ -225,8 +225,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         // 기존 loadImages 반복문 내용
         const imgContainer = document.createElement("div");
         imgContainer.classList.add("image-container");
+
         const placeholder = document.createElement("div");
         placeholder.classList.add("image-placeholder");
+
         const img = document.createElement("img");
         img.dataset.src = image.file_path;
         img.alt = "Uploaded Image";
@@ -236,7 +238,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         const cat  = encodeURIComponent(image.category_name  || "uncategorized");
         const sub  = encodeURIComponent(image.subcategory_name || "general");
         const file = encodeURIComponent(image.file_name);
-        img.onclick = () => window.location.href = `post.html?category=${cat}&subcategory=${sub}&file=${file}`;
+
+        // ✅ post.html 이동 차단
+        img.onclick = () => {
+            if (isExplanMode) return; // 🔒 체험모드에서는 클릭 차단
+            window.location.href = `post.html?category=${cat}&subcategory=${sub}&file=${file}`;
+        };
 
         imgContainer.appendChild(placeholder);
         imgContainer.appendChild(img);
@@ -354,7 +361,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 img.onclick = () => {
                     if (isExplanMode) return; // 🔒 체험모드에서는 클릭 무시
                     console.log(`✅ 이동할 URL: ${postURL}`);
-                    window.location.href = `post.html?category=${cat}&subcategory=${sub}&file=${file}`;
+                    window.location.href = postURL;
                 };
             
                 imgContainer.appendChild(placeholder);
