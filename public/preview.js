@@ -53,13 +53,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const limit       = 20;    // 5×4
     let noMoreImages  = false;
     
-    if (isExplanMode) {
-        // URL에 붙은 ?category= 제거
-        const url = new URL(window.location.href);
-        url.search = "";  // 쿼리스트링 제거
-        window.history.replaceState({}, "", url);
-        console.log("📌 #explan 모드: ?category 제거 완료");
-      }
 
     if (welcomeEl) {
         welcomeEl.style.cursor = "pointer"; // 손가락 모양
@@ -100,6 +93,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 1) 카테고리 로드
   async function loadCategories() {
+    if (!isExplanMode) {
+        setTimeout(() => initializeCategorySelection(), 300);
+      }
       try {
         const response = await fetch("/api/categories");
         if (!response.ok) throw new Error("카테고리를 가져오는 데 실패함");
@@ -132,8 +128,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // ✅ URL 업데이트 (브라우저 히스토리 변경)
     const newCategoryName = tabButton.textContent.trim();
-    const newURL = `preview.html?category=${encodeURIComponent(newCategoryName)}`;
-
+    if (!isExplanMode) {
+        const newURL = `preview.html?category=${encodeURIComponent(newCategoryName)}`;
+        if (window.location.search !== `?category=${encodeURIComponent(newCategoryName)}`) {
+            history.pushState({ category: newCategoryName }, "", newURL);
+          }
+        }
     // ✅ 같은 상태를 중복으로 저장하지 않도록 검사 후 pushState()
     if (window.location.search !== `?category=${encodeURIComponent(newCategoryName)}`) {
         history.pushState({ category: newCategoryName }, "", newURL); // 🔥 URL 변경
@@ -357,7 +357,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const postURL = `post.html?category=${categoryName}&subcategory=${subcategoryName}&file=${fileName}`;
             
                 img.onclick = () => {
-                    if (isExplanMode) return; // #explan이면 클릭 무시
+                    if (isExplanMode) return; // 🔒 체험모드에서는 클릭 무시
                     console.log(`✅ 이동할 URL: ${postURL}`);
                     window.location.href = postURL;
                 };
@@ -638,7 +638,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // ✅ 모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
     async function initializeCategorySelection(retryCount = 5) {
-
         const urlParams = new URLSearchParams(window.location.search);
         let categoryParam = urlParams.get("category");
 
