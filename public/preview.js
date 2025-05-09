@@ -35,6 +35,7 @@ window.prevPage = async function() {
     }, 2000);
 }
 document.addEventListener("DOMContentLoaded", async () => {
+    const isExplanMode = window.location.hash.includes("explan");
     const welcomeEl = document.getElementById("welcomeMessage");
     const categoryTabContainer = document.querySelector(".tab-design"); // 메인 카테고리 탭
     const subTabContainer = document.getElementById("subTabContainer"); // 서브 카테고리 탭
@@ -349,6 +350,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const postURL = `post.html?category=${categoryName}&subcategory=${subcategoryName}&file=${fileName}`;
             
                 img.onclick = () => {
+                    if (isExplanMode) return; // #explan이면 클릭 무시
                     console.log(`✅ 이동할 URL: ${postURL}`);
                     window.location.href = postURL;
                 };
@@ -629,6 +631,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // ✅ 모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
     async function initializeCategorySelection(retryCount = 5) {
+        if (!isExplanMode) {
+            await initializeCategorySelection();
+        }
         const urlParams = new URLSearchParams(window.location.search);
         let categoryParam = urlParams.get("category");
 

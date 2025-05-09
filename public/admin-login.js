@@ -1,6 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     const loginButton = document.getElementById("loginButton");
     const passwordInput = document.getElementById("password");
+    const isExplanMode = window.location.hash.includes("explan");
+    
+    if (isExplanMode) {
+        const backBtn = document.querySelector(".back-button");
+        if (backBtn) {
+            backBtn.onclick = () => window.location.href = "click.html";
+        }
+    }
 
     function moveButtonRandomly() {
         const maxX = window.innerWidth - loginButton.offsetWidth;

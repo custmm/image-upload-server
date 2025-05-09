@@ -418,7 +418,7 @@
   </style>
 </head>
 <body>
-  <button class="back-button" onclick="window.location.href='index.html'">뒤로가기</button>
+  <button class="back-button" onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기</button>
   <span id="welcomeMessage">어서오세요</span>
 <!-- ✅ 로딩 화면 (초기에는 숨김 상태) -->
 <div id="loadingIndicator" class="loading-indicator">
