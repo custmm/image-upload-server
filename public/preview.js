@@ -53,7 +53,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const limit       = 20;    // 5×4
     let noMoreImages  = false;
     
-
+    if (!isExplanMode) {
+        await initializeCategorySelection(); // 🔥 해시가 'explan'일 경우 실행 X
+    } else {
+        console.log("📌 #explan 모드 - 자동 카테고리 초기화 생략됨");
+    }
+    
     if (welcomeEl) {
         welcomeEl.style.cursor = "pointer"; // 손가락 모양
         welcomeEl.addEventListener("click", () => {
@@ -628,10 +633,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     };
 
-        if (!isExplanMode) {
-            await initializeCategorySelection();
-        }
-        
+
     // ✅ 모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
     async function initializeCategorySelection(retryCount = 5) {
 
