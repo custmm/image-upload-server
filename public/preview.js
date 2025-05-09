@@ -628,12 +628,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     };
 
-
-    // ✅ 모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
-    async function initializeCategorySelection(retryCount = 5) {
         if (!isExplanMode) {
             await initializeCategorySelection();
         }
+        
+    // ✅ 모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
+    async function initializeCategorySelection(retryCount = 5) {
+
         const urlParams = new URLSearchParams(window.location.search);
         let categoryParam = urlParams.get("category");
 
