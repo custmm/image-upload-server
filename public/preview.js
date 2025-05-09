@@ -54,11 +54,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     let noMoreImages  = false;
     
     if (!isExplanMode) {
-        await initializeCategorySelection(); // 🔥 해시가 'explan'일 경우 실행 X
-    } else {
-        console.log("📌 #explan 모드 - 자동 카테고리 초기화 생략됨");
-    }
-    
+        setTimeout(() => initializeCategorySelection(), 300);
+      } else {
+        console.log("📌 #explan 모드 - 카테고리 자동 선택 스킵됨");
+      }
+
     if (welcomeEl) {
         welcomeEl.style.cursor = "pointer"; // 손가락 모양
         welcomeEl.addEventListener("click", () => {
