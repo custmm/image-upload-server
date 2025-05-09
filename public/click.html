@@ -53,7 +53,7 @@
         <div class="plus_container">
             <p>
                 preview.html기능
-                <a href="preview.html">체험하기</a>
+                <a href="preview.html#explan">체험하기</a>
                 <button class="detail-toggle">▽</button>
             </p>
             <div class="detail-content">
@@ -65,7 +65,7 @@
         <div class="plus_container">
             <p>
                 index.html기능
-                <a href="index.html">체험하기</a>
+                <a href="index.html#explan">체험하기</a>
                 <button class="detail-toggle">▽</button>
             </p>
             <div class="detail-content">
@@ -79,7 +79,7 @@
         <div class="plus_container">
             <p>
                 admin-login기능
-                <a href="admin-login.html">체험하기</a>
+                <a href="admin-login.html#explan">체험하기</a>
                 <button class="detail-toggle">▽</button>
             </p>
             <div class="detail-content">
@@ -100,6 +100,12 @@
           button.textContent = isVisible ? "▽" : "△";
         });
       });
+        // 체험하기 링크에 #explan 자동 붙이기
+        document.querySelectorAll('.plus_container a').forEach(link => {
+            if (!link.href.includes('#explan')) {
+            link.href += '#explan';
+            }
+        });
     });
   </script>
 </body>
