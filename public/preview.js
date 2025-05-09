@@ -354,7 +354,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 img.onclick = () => {
                     if (isExplanMode) return; // 🔒 체험모드에서는 클릭 무시
                     console.log(`✅ 이동할 URL: ${postURL}`);
-                    window.location.href = postURL;
+                    window.location.href = `post.html?category=${cat}&subcategory=${sub}&file=${file}`;
                 };
             
                 imgContainer.appendChild(placeholder);
