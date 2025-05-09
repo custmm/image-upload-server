@@ -134,10 +134,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             history.pushState({ category: newCategoryName }, "", newURL);
           }
         }
-    // ✅ 같은 상태를 중복으로 저장하지 않도록 검사 후 pushState()
-    if (window.location.search !== `?category=${encodeURIComponent(newCategoryName)}`) {
-        history.pushState({ category: newCategoryName }, "", newURL); // 🔥 URL 변경
-    }
 
     selectedCategory = categoryId;
     selectedSubcategory = null;
@@ -299,7 +295,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
     pag.appendChild(next);
   }
-
 
     /** ✅ 이미지 불러오기 (4x5 배열 적용) */
     async function loadImages(categoryId, subcategoryId = null) {
