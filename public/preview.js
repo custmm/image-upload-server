@@ -70,7 +70,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             ? `해당 카테고리의 작품: [${subTabNames.join(", ")}]`
             : `해당 카테고리의 작품이 없습니다.`;
 
-        const message = `📌 현재 선택된 탭은 [${tabName}] 입니다.\n${subText}`;
+        const message = `현재 선택된 탭은 [${tabName}] 입니다.`+
+                        `\n${subText}`;
         showPopupMessage(message);
         });
     } else {
