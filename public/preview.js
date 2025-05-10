@@ -56,14 +56,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (welcomeEl) {
         welcomeEl.style.cursor = "pointer"; // 손가락 모양
+
         if (isExplanMode) {
         welcomeEl.addEventListener("click", () => {
             const activeTab = document.querySelector(".tab-btn.active");
             const tabName = activeTab?.textContent.trim() || "알 수 없음";
 
             // 해당 큰 카테고리에 속한 작은 카테고리들 찾기
-            const subTabNodes = document.querySelectorAll(`.sub-tab-btn[data-category="${tabName}"]`);
-            const subTabNames = Array.from(subTabNodes).map(el => el.textContent.trim());
+            let subTabNames =[];
+            const parentSection = activeTab?.closest(".category-section");
+            if(parentSection){
+            const subTabs = parentSection.querySelectorAll(".sub-tab-btn");
+            subTabNames = Array.from(subTabs).map(el => el.textContent.trim());
+        }
 
             const subText = subTabNames.length > 0
             ? `해당 카테고리의 작품: [${subTabNames.join(", ")}]`
