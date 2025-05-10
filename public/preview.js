@@ -54,32 +54,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     let noMoreImages  = false;
     
 
-    if (welcomeEl) {
-    welcomeEl.style.cursor = "pointer";
-
-    if (isExplanMode) {
-        welcomeEl.addEventListener("click", () => {
-        const activeTab = document.querySelector(".tab-btn.active");
-        const tabName = activeTab?.textContent.trim() || "알 수 없음";
-
-        // 서브카테고리는 subTabContainer 아래의 .sub-tab 요소
-        const subTabs = subTabContainer.querySelectorAll(".sub-tab");
-        const subTabNames = Array.from(subTabs).map(el => el.textContent.trim());
-
-        const subText = subTabNames.length > 0
-            ? `해당 카테고리의 작품: [${subTabNames.join(", ")}]`
-            : `해당 카테고리의 작품이 없습니다.`;
-
-        const message = "현재 선택된 탭은 [" + tabName + "] 입니다.\n" + subText;
-        showPopupMessage(message);
-        });
-    } else {
-        welcomeEl.addEventListener("click", () => {
-        window.location.href = "click.html";
-        });
-        }
-    }
-
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
     const categoryMappings = {
         "puzzle": "퍼즐",
@@ -109,7 +83,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (categoryParam && categoryMappings[categoryParam]) {
         categoryParam = categoryMappings[categoryParam];
     }
+    
+    if (welcomeEl) {
+    welcomeEl.style.cursor = "pointer";
 
+    if (isExplanMode) {
+        welcomeEl.addEventListener("click", () => {
+        const activeTab = document.querySelector(".tab-btn.active");
+        const tabName = activeTab?.textContent.trim() || "알 수 없음";
+
+        // 서브카테고리는 subTabContainer 아래의 .sub-tab 요소
+        const subTabs = subTabContainer.querySelectorAll(".sub-tab");
+        const subTabNames = Array.from(subTabs).map(el => el.textContent.trim());
+
+        const subText = subTabNames.length > 0
+            ? `해당 카테고리의 작품: [${subTabNames.join(", ")}]`
+            : `해당 카테고리의 작품이 없습니다.`;
+
+        const message = "현재 선택된 탭은 [" + tabName + "] 입니다.\n" + subText;
+        showPopupMessage(message);
+        });
+    } else {
+        welcomeEl.addEventListener("click", () => {
+        window.location.href = "click.html";
+        });
+        }
+    }
   // 1) 카테고리 로드
   async function loadCategories() {
     if (!isExplanMode) {
