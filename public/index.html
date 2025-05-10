@@ -292,6 +292,7 @@ body {
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const body = document.body;
+        const isExplanMode = window.location.hash.includes("explan");
         const adminModeButton = document.getElementById("adminModeButton");
         const userModeButton = document.getElementById("userModeButton");
         const doorContainer = document.getElementById("door-container");
@@ -331,7 +332,18 @@ body {
         }
         if(userModeButton) {
             userModeButton.addEventListener("click", () => {
-                openDoorAndRedirect("preview.html");
+                if(isExplanMode){
+                    if(adminModeButton.style.display === "block"){
+                        // 관리자 찾은 후 → 사용자 버튼 클릭 → 초기화
+                        location.reload();
+                    }else{
+                        // 일반 사용자 → click.html로 이동
+                        openDoorAndRedirect("click.html");
+                    }
+                }else{
+                    // 일반 모드에서는 preview.html로 이동
+                    openDoorAndRedirect("preview.html");
+                }
             });
         }
     
