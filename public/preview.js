@@ -13,7 +13,10 @@ window.prevPage = async function() {
   };
   function showPopupMessage(msg) {
     const popup = document.createElement("div");
-    popup.textContent = msg;
+
+    // ✅ 줄바꿈 지원을 위해 innerHTML + <br> 변환
+    popup.innerHTML = msg.replace(/\n/g, "<br>");
+
     Object.assign(popup.style, {
         position: "fixed",
         bottom: "30px",
@@ -28,7 +31,9 @@ window.prevPage = async function() {
         transition: "opacity 0.3s ease-in-out"
     });
     document.body.appendChild(popup);
+
     requestAnimationFrame(() => popup.style.opacity = "1");
+    
     setTimeout(() => {
         popup.style.opacity = "0";
         setTimeout(() => popup.remove(), 300);
@@ -83,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (categoryParam && categoryMappings[categoryParam]) {
         categoryParam = categoryMappings[categoryParam];
     }
-    
+
     if (welcomeEl) {
     welcomeEl.style.cursor = "pointer";
 
