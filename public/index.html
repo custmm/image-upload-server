@@ -292,7 +292,6 @@ body {
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const body = document.body;
-        const isExplanMode = window.location.hash.includes("explan");
         const adminModeButton = document.getElementById("adminModeButton");
         const userModeButton = document.getElementById("userModeButton");
         const doorContainer = document.getElementById("door-container");
@@ -332,6 +331,8 @@ body {
         }
         if(userModeButton) {
             userModeButton.addEventListener("click", () => {
+                const isExplanMode = window.location.hash.includes("explan");
+                
                 if(isExplanMode){
                     if(adminModeButton.style.display === "block"){
                         // 관리자 찾은 후 → 사용자 버튼 클릭 → 초기화
