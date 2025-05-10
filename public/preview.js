@@ -60,8 +60,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             welcomeEl.addEventListener("click", () => {
                 const activeTab = document.querySelector(".tab-btn.active");
                 const tabName = activeTab?.textContent.trim() || "알 수 없음";
+
+                // 해당 큰 카테고리에 속한 작은 카테고리들 찾기
+                const subTabNodes = document.querySelectorAll(`.sub-tab-btn[data-category="${tabName}"]`);
+                const subTabNames = Array.from(subTabNodes).map(el => el.textContent.trim());
+
+                const subText = subTabNames.length > 0
+                    ? `해당 카테고리의 작품: [${subTabNames.join(", ")}]`
+                    : `해당 카테고리의 작품이 없습니다.`;
+
                 const message = `📌 현재 선택된 탭은 [${tabName}] 입니다.
-                                \n해당 카테고리의 작품을 감상할 수 있습니다.`;
+                                \n해당 카테고리의 작품[${subText}]을 감상할 수 있습니다.`;
                 showPopupMessage(message);
             });
         }else{
