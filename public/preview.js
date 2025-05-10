@@ -55,34 +55,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     
 
     if (welcomeEl) {
-        welcomeEl.style.cursor = "pointer"; // 손가락 모양
+    welcomeEl.style.cursor = "pointer";
 
-        if (isExplanMode) {
+    if (isExplanMode) {
         welcomeEl.addEventListener("click", () => {
-            const activeTab = document.querySelector(".tab-btn.active");
-            const tabName = activeTab?.textContent.trim() || "알 수 없음";
+        const activeTab = document.querySelector(".tab-btn.active");
+        const tabName = activeTab?.textContent.trim() || "알 수 없음";
 
-            // 해당 큰 카테고리에 속한 작은 카테고리들 찾기
-            let subTabNames =[];
-            const parentSection = activeTab?.closest(".category-section");
-            if(parentSection){
-            const subTabs = parentSection.querySelectorAll(".sub-tab-btn");
-            subTabNames = Array.from(subTabs).map(el => el.textContent.trim());
-        }
+        // 서브카테고리는 subTabContainer 아래의 .sub-tab 요소
+        const subTabs = subTabContainer.querySelectorAll(".sub-tab");
+        const subTabNames = Array.from(subTabs).map(el => el.textContent.trim());
 
-            const subText = subTabNames.length > 0
+        const subText = subTabNames.length > 0
             ? `해당 카테고리의 작품: [${subTabNames.join(", ")}]`
             : `해당 카테고리의 작품이 없습니다.`;
 
-            const message = `📌 현재 선택된 탭은 [${tabName}] 입니다.\n${subText}`;
-            showPopupMessage(message);
+        const message = `📌 현재 선택된 탭은 [${tabName}] 입니다.\n${subText}`;
+        showPopupMessage(message);
         });
-        }else{
-            welcomeEl.addEventListener("click", () => {
-                window.location.href = "click.html"; // 연결할 페이지 주소
-                });
-            }
+    } else {
+        welcomeEl.addEventListener("click", () => {
+        window.location.href = "click.html";
+        });
         }
+    }
 
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
     const categoryMappings = {
