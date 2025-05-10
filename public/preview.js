@@ -56,10 +56,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (welcomeEl) {
         welcomeEl.style.cursor = "pointer"; // 손가락 모양
-        welcomeEl.addEventListener("click", () => {
-          window.location.href = "click.html"; // 연결할 페이지 주소
-        });
-      }
+        if (isExplanMode) {
+            welcomeEl.addEventListener("click", () => {
+                const activeTab = document.querySelector(".tab-btn.active");
+                const tabName = activeTab?.textContent.trim() || "알 수 없음";
+                const message = `📌 현재 선택된 탭은 [${tabName}] 입니다.\n해당 카테고리의 작품을 감상할 수 있습니다.`;
+                showPopupMessage(message);
+            });
+        }else{
+            welcomeEl.addEventListener("click", () => {
+                window.location.href = "click.html"; // 연결할 페이지 주소
+                });
+            }
+        }
 
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
     const categoryMappings = {
