@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     let page          = 0;
     const limit       = 20;    // 5×4
     let noMoreImages  = false;
+    let isCut = false; // ✅ 이미지 상태 저장
     
 
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
@@ -489,12 +490,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             // 클릭 시 _cut 버전으로 변경 (단, allowedCutIndices에 포함된 번호일 경우에만)
             img.addEventListener("click", () => {
-                if (allowedCutIndices.includes(randomIndex)) {
+                if (!allowedCutIndices.includes(randomIndex)) {
+                    console.warn(`No _cut version for index ${randomIndex}`);
+                    return;
+                }
+
+                if (!isCut) {
+                    // 🔁 일반 → 컷 이미지로 전환
                     const cutImage = `images/preview-gunff_${randomIndex}_cut.png`;
                     img.src = cutImage;
                     localStorage.setItem("selectedImage", cutImage);
+                    isCut = true;
                 } else {
-                    console.warn(`No _cut version for index ${randomIndex}`);
+                    // 🔁 컷 이미지 → 일반 이미지로 복귀
+                    const normalImage = `images/preview-gunff_${randomIndex}.png`;
+                    img.src = normalImage;
+                    localStorage.setItem("selectedImage", normalImage);
+                    isCut = false;
                 }
             });
         
