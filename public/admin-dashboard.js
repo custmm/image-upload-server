@@ -393,7 +393,7 @@
                 const category = image.category.name;
                 const subcategory = encodeURIComponent(image.subcategory.name); // URL 인코딩 필수
                 const file = image.file_name;
-                window.location.href = `/post.html?category=${category}&subcategory=${subcategory}&file=${file}`;
+                window.location.href = `/post?category=${category}&subcategory=${subcategory}&file=${file}`;
             });
                     
             fragment.appendChild(img);
