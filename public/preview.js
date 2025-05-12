@@ -266,7 +266,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // ✅ post.html 이동 차단
         img.onclick = () => {
             if (isExplanMode) return; // 🔒 체험모드에서는 클릭 차단
-            window.location.href = `post.html?category=${cat}&subcategory=${sub}&file=${file}`;
+            window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
         };
 
         imgContainer.appendChild(placeholder);
@@ -380,7 +380,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const categoryName = image.category_name ? encodeURIComponent(image.category_name) : "uncategorized";
                 const subcategoryName = image.subcategory_name ? encodeURIComponent(image.subcategory_name) : "general";
                 const fileName = encodeURIComponent(image.file_name);
-                const postURL = `post.html?category=${categoryName}&subcategory=${subcategoryName}&file=${fileName}`;
+                const postURL = `post?category=${categoryName}&subcategory=${subcategoryName}&file=${fileName}`;
             
                 img.onclick = () => {
                     if (isExplanMode) return; // 🔒 체험모드에서는 클릭 무시
