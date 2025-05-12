@@ -312,7 +312,7 @@ function getParamsFromURL() {
           document.getElementById("postCategory").addEventListener("click", () => {
               if (postData.category_name) {
                   const categoryParam = encodeURIComponent(postData.category_name);
-                  window.location.href = `preview.html?category=${categoryParam}`;
+                  window.location.href = `preview?category=${categoryParam}`;
               }
           });
           document.getElementById("postSubcategory").textContent = postData.subcategory_name || "서브카테고리 없음";
