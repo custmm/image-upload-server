@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ✅ URL 업데이트 (브라우저 히스토리 변경)
     const newCategoryName = tabButton.textContent.trim();
     if (!isExplanMode) {
-        const newURL = `preview.html?category=${encodeURIComponent(newCategoryName)}`;
+        const newURL = `preview?category=${encodeURIComponent(newCategoryName)}`;
         if (window.location.search !== `?category=${encodeURIComponent(newCategoryName)}`) {
             history.pushState({ category: newCategoryName }, "", newURL);
           }
