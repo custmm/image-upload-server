@@ -13,7 +13,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // ✅ 정적 파일 제공 (public 폴더가 src 밖에 있음)
-app.use(express.static(join(__dirname, "..", "public"))); 
+app.use(express.static(join(__dirname, "..", "public"),{
+    extensions: ['html']
+})); 
 
 // ✅ 기본 페이지 요청 시 `index.html` 제공
 app.get("/", (req, res) => {
