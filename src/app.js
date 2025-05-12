@@ -22,8 +22,19 @@ app.use(cors());
 app.use(express.json()); // ✅ JSON 데이터 파싱 미들웨어
 app.use(express.urlencoded({ extended: true })); // ✅ FormData 파싱 미들웨어
 
+// ✅ ① .html → 없는 버전으로 리디렉션 처리
+app.use((req, res, next) => {
+    if (req.url.endsWith(".html")) {
+        const newUrl = req.url.replace(/\.html$/, "");
+        return res.redirect(301, newUrl);
+    }
+    next();
+});
+
 // ✅ 정적 파일 제공
-app.use(express.static(join(__dirname, "..", "public")));
+app.use(express.static(join(__dirname, "..", "public"),{
+    extensions: ['html']
+}));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 
