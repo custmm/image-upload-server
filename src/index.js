@@ -12,6 +12,15 @@ const PORT = process.env.PORT || 42057;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// ✅ .html 주소로 접근 시 → .html 없는 주소로 리디렉션
+app.use((req, res, next) => {
+  if (req.url.endsWith(".html")) {
+    const newUrl = req.url.replace(/\.html$/, "");
+    return res.redirect(301, newUrl);
+  }
+  next();
+});
+
 // ✅ 정적 파일 제공 (public 폴더가 src 밖에 있음)
 app.use(express.static(join(__dirname, "..", "public"),{
     extensions: ['html']
