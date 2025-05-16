@@ -2,6 +2,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const loginButton = document.getElementById("loginButton");
     const passwordInput = document.getElementById("password");
     const isExplanMode = window.location.hash.includes("explan");
+    const container = document.querySelector(".login-container");
+    const savedOpacity = localStorage.getItem("sharedOpacity");
+    if (savedOpacity && container) {
+        container.style.opacity = savedOpacity;
+    }
     
     if (isExplanMode) {
         const backBtn = document.querySelector(".back-button");

@@ -95,12 +95,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         welcomeEl.style.cursor = "pointer";
 
     if (opacitySlider) {
+        // 슬라이더 조작 시
         opacitySlider.addEventListener("input", () => {
             const value = opacitySlider.value;
+
+            // 대상 요소에 적용
             document.querySelector(".tab-design").style.opacity = value;
             document.querySelector(".marge-container").style.opacity = value;
+                
+            // 전역 공유: localStorage에 저장
+            localStorage.setItem("sharedOpacity", value);
         });
-    }
+
+        // 페이지 로드 시 localStorage 값 불러오기
+        const savedOpacity = localStorage.getItem("sharedOpacity");
+            if (savedOpacity) {
+                opacitySlider.value = savedOpacity;
+                document.querySelector(".tab-design").style.opacity = savedOpacity;
+                document.querySelector(".marge-container").style.opacity = savedOpacity;
+            }
+        }
 
     if (isExplanMode) {
         welcomeEl.addEventListener("click", () => {

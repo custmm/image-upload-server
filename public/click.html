@@ -108,6 +108,12 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const toggleButtons = document.querySelectorAll(".detail-toggle");
+      const container = document.querySelector(".explan-container");
+      const savedOpacity = localStorage.getItem("sharedOpacity");
+      
+      if (savedOpacity && container) {
+        container.style.opacity = savedOpacity;
+      }
 
       toggleButtons.forEach(button => {
         button.addEventListener("click", () => {
