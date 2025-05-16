@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const currentCategory = document.getElementById("currentCategory"); // 현재 카테고리 표시
     const previewContainer = document.getElementById("previewImagesContainer");
     const paginationContainer = document.getElementById("pagination-container");
+    const opacitySlider = document.getElementById("opacitySlider");
 
     let selectedCategory = null;
     let selectedSubcategory = null;
@@ -91,7 +92,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (welcomeEl) {
-    welcomeEl.style.cursor = "pointer";
+        welcomeEl.style.cursor = "pointer";
+
+    if (opacitySlider) {
+        opacitySlider.addEventListener("input", () => {
+            const value = opacitySlider.value;
+            document.querySelector(".tab-design").style.opacity = value;
+            document.querySelector(".marge-container").style.opacity = value;
+        });
+    }
 
     if (isExplanMode) {
         welcomeEl.addEventListener("click", () => {
