@@ -1,6 +1,9 @@
 body{
     font-family: Arial, sans-serif;
-    background-color: #c0c0c0;
+    background-image: url("/images/background.png");
+    background-repeat: repeat;
+    background-size: contain;
+    background-attachment: fixed;
 }
 button{
     background-color: #000000;
