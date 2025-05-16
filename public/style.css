@@ -6,6 +6,13 @@ body{
     background-attachment: fixed;
     background-size: 100px 100px;
 }
+body.dark-mode{
+    background-image: url("/images/background_dark.png");
+    background-repeat: repeat;
+    background-size: contain;
+    background-attachment: fixed;
+    background-size: 100px 100px;
+}
 button{
     background-color: #000000;
     padding: 10px 20px;
