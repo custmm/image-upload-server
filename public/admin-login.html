@@ -71,6 +71,23 @@
         transition: transform 0.3s ease-in-out;
         border-radius: 5px;
     }
+    .login-row {
+        display: flex;
+        gap: 5px;
+        margin-top: 10px;
+        flex-wrap: nowrap;
+    }
+
+    .login-row input[type="password"] {
+        flex: 1;
+        min-width: 0;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .login-row button {
+        flex-shrink: 0;
+        border-radius: 0 5px 5px 0;
+    }
     @keyframes pulse {
         0% {
             transform: scale(1);
@@ -173,8 +190,10 @@
         <h1>관리자 로그인</h1>
         <form id="loginForm">
             <label for="password">관리자 암호:</label>
-            <input type="password" id="password" placeholder="">
-            <button id="loginButton" type="submit">로그인</button>
+                <div class="login-row">
+                    <input type="password" id="password" placeholder="">
+                    <button id="loginButton" type="submit">로그인</button>
+                </div>
             <p id="error-message"></p>
         </form>
     </div>
