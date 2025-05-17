@@ -91,6 +91,34 @@
     .clickable-category:hover {
         color: darkblue;
     }
+    .popup-message {
+      position: fixed;
+      width: 240px;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      color: #000;
+      padding: 18px 20px;
+      border-radius: 10px;
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+      z-index: 10000;
+      text-align: center;
+      display: none;
+    }
+    .popup-message .popup-button {
+      margin-top: 15px;
+      padding: 6px 16px;
+      background-color: #000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .popup-message .popup-button:hover {
+      background-color: #755a6a;
+    }
+
     /* ✅ 게시물 이미지 */
     .post-image {
         max-width: 100%;
@@ -242,11 +270,19 @@
       </div>
       <p id="postDescription" class="post-description"></p>
     </div>
+
 <!-- ✅ 버튼 추가 -->
 <div class="post-buttons">
   <button id="backToListButton" class="button">목록으로</button>
   <button id="shareButton" class="button">공유</button>
 </div>
+
+    <!-- ✅ 팝업 메시지 컨테이너 -->
+<div id="popupMessage" class="popup-message" style="display: none;">
+  <p id="popupText"></p>
+  <button class="popup-button" onclick="closePopup()">확인</button>
+</div>
+
       <!-- 다크 모드 토글 스위치 -->
   <div class="toggle-switch">
     <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
@@ -268,15 +304,27 @@
         }, 500); // 0.5초 후 숨김
     }
 
-// ✅ URL에서 파라미터 가져오기 (기본값을 사용하지 않음)
-function getParamsFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    return {
-        category: params.get("category") ? decodeURIComponent(params.get("category")).trim() : null,
-        subcategory: params.get("subcategory") ? decodeURIComponent(params.get("subcategory")).trim() : null,
-        file: params.get("file") ? decodeURIComponent(params.get("file")).trim() : null
-    };
-}
+    function showPopupMessage(message) {
+      const popup = document.getElementById("popupMessage");
+      const popupText = document.getElementById("popupText");
+
+      popupText.textContent = message;
+      popup.style.display = "block";
+    }
+
+    function closePopup() {
+      document.getElementById("popupMessage").style.display = "none";
+    }
+
+    // ✅ URL에서 파라미터 가져오기 (기본값을 사용하지 않음)
+    function getParamsFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            category: params.get("category") ? decodeURIComponent(params.get("category")).trim() : null,
+            subcategory: params.get("subcategory") ? decodeURIComponent(params.get("subcategory")).trim() : null,
+            file: params.get("file") ? decodeURIComponent(params.get("file")).trim() : null
+        };
+      }
 
     // ✅ 서버에서 데이터 가져오기
     async function loadPostData() {
@@ -357,10 +405,10 @@ function getParamsFromURL() {
       try {
           const postURL = window.location.href;
           await navigator.clipboard.writeText(postURL);
-          alert("📌 링크가 클립보드에 복사되었습니다!");
+          showPopupMessage("📌 링크가 클립보드에 복사되었습니다!");
       } catch (err) {
           console.error("🚨 공유 실패:", err);
-          alert("❌ 링크 복사에 실패했습니다.");
+          showPopupMessage("❌ 링크 복사에 실패했습니다.");
         }
     });
 
