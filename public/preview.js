@@ -49,6 +49,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const previewContainer = document.getElementById("previewImagesContainer");
     const paginationContainer = document.getElementById("pagination-container");
     const opacitySlider = document.getElementById("opacitySlider");
+    const opacityToggleBtn = document.getElementById("opacityToggleBtn");
+    const opacityControl = document.getElementById("opacityControl");
 
     let selectedCategory = null;
     let selectedSubcategory = null;
@@ -59,7 +61,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const limit       = 20;    // 5×4
     let noMoreImages  = false;
     let isCut = false; // ✅ 이미지 상태 저장
-    
+
+    // 초기 기본 투명도 값
+    const defaultOpacity = "0.825";
+
 
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
     const categoryMappings = {
@@ -115,6 +120,27 @@ document.addEventListener("DOMContentLoaded", async () => {
                 document.querySelector(".marge-container").style.opacity = savedOpacity;
             }
         }
+
+        // 토글 클릭 시 슬라이더 표시/숨김 처리
+        if (opacityToggleBtn && opacityControl && opacitySlider) {
+            let isVisible = true;
+
+        opacityToggleBtn.addEventListener("click", () => {
+            isVisible = !isVisible;
+
+            if (isVisible) {
+            opacityControl.style.display = "block";
+
+            // 투명도 기본값 복원
+            opacitySlider.value = defaultOpacity;
+            tabDesign.style.opacity = defaultOpacity;
+            margeContainer.style.opacity = defaultOpacity;
+            localStorage.setItem("sharedOpacity", defaultOpacity);
+            } else {
+            opacityControl.style.display = "none";
+            }
+        });
+    }
 
     if (isExplanMode) {
         welcomeEl.addEventListener("click", () => {

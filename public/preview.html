@@ -415,10 +415,15 @@
 <body>
   <button class="back-button" onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기</button>
   <span id="welcomeMessage">어서오세요</span>
-  <div id="opacityControl" style="margin-top: 10px;">
-  <label for="opacitySlider"></label>
-  <input type="range" id="opacitySlider" min="0.2" max="1" step="0.025" value="0.825">
-</div>
+  <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;">
+    <div id="opacityControl">
+      <label for="opacitySlider"></label>
+      <input type="range" id="opacitySlider" min="0.2" max="1" step="0.025" value="0.825">
+    </div>
+    <!-- 👁️ 이미지 버튼 (눈 아이콘) -->
+    <img id="opacityToggleBtn" src="images/toggle_leaf.png" alt="Toggle Opacity Slider"
+        style="width: 30px; height: 30px; cursor: pointer;">
+  </div>
 <!-- ✅ 로딩 화면 (초기에는 숨김 상태) -->
 <div id="loadingIndicator" class="loading-indicator">
   <img src="images/loading.gif" alt="로딩 중..." class="loading-image">
