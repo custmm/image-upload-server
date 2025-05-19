@@ -62,8 +62,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     let noMoreImages  = false;
     let isCut = false; // ✅ 이미지 상태 저장
 
-    // 초기 기본 투명도 값
-    const defaultOpacity = "0.825";
 
 
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
@@ -125,22 +123,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (opacityToggleBtn && opacityControl && opacitySlider) {
             let isVisible = true;
 
-        opacityToggleBtn.addEventListener("click", () => {
-            isVisible = !isVisible;
+            opacityToggleBtn.addEventListener("click", () => {
+                isVisible = !isVisible;
 
-            if (isVisible) {
-            opacityControl.style.display = "block";
+                if (isVisible) {
+                    // 슬라이더 다시 표시
+                    opacityControl.style.display = "block";
 
-            // 투명도 기본값 복원
-            opacitySlider.value = defaultOpacity;
-            tabDesign.style.opacity = defaultOpacity;
-            margeContainer.style.opacity = defaultOpacity;
-            localStorage.setItem("sharedOpacity", defaultOpacity);
-            } else {
-            opacityControl.style.display = "none";
-            }
-        });
-    }
+                    // 초기 기본 투명도 값
+                    const defaultOpacity = "0.825";
+                    opacitySlider.value = defaultOpacity;
+
+                    // 투명도 기본값 복원
+                    if (tabDesign) tabDesign.style.opacity = defaultOpacity;
+                    if (margeContainer) margeContainer.style.opacity = defaultOpacity;
+
+                    // 전역 공유: localStorage에 저장
+                    localStorage.setItem("sharedOpacity", defaultOpacity);
+                } else {
+                    // 슬라이더 숨기기
+                    opacityControl.style.display = "none";
+                }
+            });
+        }
 
     if (isExplanMode) {
         welcomeEl.addEventListener("click", () => {
