@@ -51,6 +51,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const opacitySlider = document.getElementById("opacitySlider");
     const opacityToggleBtn = document.getElementById("opacityToggleBtn");
     const opacityControl = document.getElementById("opacityControl");
+    const tabDesign = document.querySelector(".tab-design");
+    const margeContainer = document.querySelector(".marge-container");
 
     let selectedCategory = null;
     let selectedSubcategory = null;
@@ -121,6 +123,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // 토글 클릭 시 슬라이더 표시/숨김 처리
         if (opacityToggleBtn && opacityControl && opacitySlider) {
+            const tabDesign = document.querySelector(".tab-design");
+            const margeContainer = document.querySelector(".marge-container");
+            const defaultOpacity = "0.825";
             let isVisible = true;
 
             opacityToggleBtn.addEventListener("click", () => {
@@ -131,7 +136,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                     opacityControl.style.display = "block";
 
                     // 초기 기본 투명도 값
-                    const defaultOpacity = "0.825";
                     opacitySlider.value = defaultOpacity;
 
                     // 투명도 기본값 복원
