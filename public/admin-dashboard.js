@@ -933,6 +933,7 @@ function showSubcategoryTable(subcategories, categoryName) {
     table.style.backgroundColor = "#fff";
     table.style.border = "1px solid #ccc";
     table.style.borderRadius = "8px";
+    table.style.borderCollapse = "collapse"; // ✅ 셀 간 경계선 간격 제거
 
     const headerRow = document.createElement("tr");
     headerRow.innerHTML = `
@@ -941,12 +942,20 @@ function showSubcategoryTable(subcategories, categoryName) {
     `;
     table.appendChild(headerRow);
     
-    for (const item of subcategories) {
+    for (let i = 0; i < subcategories.length; i++) {
+        const item = subcategories[i];
+        const isLast = i === subcategories.length - 1;
+
         const dataRow = document.createElement("tr");
         dataRow.innerHTML = `
             <td style="padding:8px;">${item.subcategory_name}</td>
             <td style="padding:8px;">${item.count}개</td>
         `;
+        
+        if (!isLast) {
+            dataRow.style.borderBottom = "1px dashed #ccc"; // ✅ 점선 구분선
+        }
+
         table.appendChild(dataRow);
     }
 
