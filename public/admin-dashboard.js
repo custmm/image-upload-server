@@ -958,6 +958,8 @@ function showSubcategoryTable(subcategories, categoryName) {
         
         if (!isLast) {
             dataRow.style.borderBottom = "1px dashed #ccc"; // ✅ 점선 구분선
+            dataRow.style.paddingright= "7px";
+            dataRow.style.paddingleft= "7px";
         }
 
         table.appendChild(dataRow);
