@@ -206,6 +206,37 @@
             }
         });
     });
+        // ✅ 다크 모드 토글 함수
+    function toggleTheme() {
+      const body = document.body;
+      const isDarkMode = body.classList.toggle("dark-mode");
+      const themeIcon = document.getElementById("themeIcon");
+
+      if (isDarkMode) {
+        localStorage.setItem("theme", "dark");
+        themeToggle.checked = true;
+        if (themeIcon) themeIcon.textContent = "💤";
+    } else {
+        localStorage.setItem("theme", "light");
+        themeToggle.checked = false;
+        if (themeIcon) themeIcon.textContent = "☀️";
+      }
+    }
+
+  function applySavedTheme() {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    const themeIcon = document.getElementById("themeIcon");
+
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-mode");
+      themeToggle.checked = true;
+      if (themeIcon) themeIcon.textContent = "💤";
+    } else {
+      document.body.classList.remove("dark-mode");
+      themeToggle.checked = false;
+      if (themeIcon) themeIcon.textContent = "☀️";
+    }
+  }
   </script>
 </body>
 </html>
