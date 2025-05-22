@@ -934,13 +934,12 @@ function showSubcategoryTable(subcategories, categoryName) {
     table.style.backgroundColor = "#fff";
     table.style.border = "1px solid #ccc";
     table.style.borderRadius = "8px";
-    table.style.padding = "10px";
     table.style.marginTop = "20px";
 
     const headerRow = document.createElement("tr");
     headerRow.innerHTML = `
-        <th style="padding:8px;">서브카테고리명</th>
-        <th style="padding:8px;">게시물 수</th>
+        <th style="padding:8px; background-color:#e6ffe6;">서브카테고리명</th>
+        <th style="padding:8px; background-color:#e6ffe6;">게시물 수</th>
     `;
     table.appendChild(headerRow);
     
