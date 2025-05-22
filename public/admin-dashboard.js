@@ -933,6 +933,7 @@ function showSubcategoryTable(subcategories, categoryName) {
     table.style.marginLeft = "20px";
     table.style.backgroundColor = "#fff";
     table.style.border = "1px solid #ccc";
+    table.style.borderRadius = "8px";
     table.style.padding = "10px";
     table.style.marginTop = "20px";
 
