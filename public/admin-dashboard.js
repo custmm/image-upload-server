@@ -930,11 +930,9 @@ function showSubcategoryTable(subcategories, categoryName) {
     // 테이블 새로 생성
     const table = document.createElement("table");
     table.id = "categoryInfoTable";
-    table.style.marginLeft = "20px";
     table.style.backgroundColor = "#fff";
     table.style.border = "1px solid #ccc";
     table.style.borderRadius = "8px";
-    table.style.marginTop = "20px";
 
     const headerRow = document.createElement("tr");
     headerRow.innerHTML = `
