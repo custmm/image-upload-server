@@ -495,11 +495,18 @@
         align-items: center;
         padding: 5px 10px;
     }
+    .popup-title {
+        flex-grow: 1;
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+    }
 
     .close-popup {
         color: red;
         border: none;
         cursor: pointer;
+        font-size: 18px;
     }
 
     #drawingCanvas {
@@ -674,7 +681,7 @@
             <!-- 🔥 그림 그리기 팝업 -->
             <div id="drawing-popup" class="drawing-popup">
                 <div class="popup-header">
-                    <span style="text-align: center;">그리기</span>
+                    <div class="popup-title">그리기</div>
                     <button id="close-drawing" class="close-popup">✖</button>
                 </div>
                 <canvas id="drawingCanvas"></canvas>
