@@ -927,12 +927,16 @@ function showSubcategoryTable(subcategories, categoryName) {
     const existingTable = document.getElementById("categoryInfoTable");
     if (existingTable) existingTable.remove();
 
+    // 래퍼 div 생성
+    const wrapper = document.createElement("div");
+    wrapper.style.border = "1px solid #ccc";
+    wrapper.style.borderRadius = "8px";
+    wrapper.style.overflow = "hidden"; // ✅ border-radius 적용되도록
+
     // 테이블 새로 생성
     const table = document.createElement("table");
     table.id = "categoryInfoTable";
     table.style.backgroundColor = "#fff";
-    table.style.border = "1px solid #ccc";
-    table.style.borderRadius = "8px";
     table.style.borderCollapse = "collapse"; // ✅ 셀 간 경계선 간격 제거
 
     const headerRow = document.createElement("tr");
@@ -959,7 +963,8 @@ function showSubcategoryTable(subcategories, categoryName) {
         table.appendChild(dataRow);
     }
 
-    document.querySelector(".post-chart-container").appendChild(table);
+    wrapper.appendChild(table);
+    document.querySelector(".post-chart-container").appendChild(wrapper);
 }
 
 async function fetchSubcategoryCountsByCategory(categoryName) {
