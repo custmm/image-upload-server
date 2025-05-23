@@ -402,6 +402,7 @@
         confirmButton.addEventListener("click", () => {
             overlay.remove();
             isPopupOpen = false;  // ✅ 팝업 닫힘 상태로 변경
+            window.location.href = "preview.html"; // ✅ 이동 추가
         });
         popup.appendChild(confirmButton);
     
