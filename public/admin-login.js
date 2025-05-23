@@ -26,6 +26,16 @@ document.addEventListener("DOMContentLoaded", function () {
         loginButton.style.left = `${randomX}px`;
         loginButton.style.top = `${randomY}px`;
     }
+    
+    passwordInput.addEventListener("input", () => {
+        const isBarPhone = window.innerWidth <= 480; // 바형 기준 (가로폭 작을 때)
+
+        if (isBarPhone && passwordInput.value.length > 0) {
+            container.style.width = "85%"; // 넓게
+        } else {
+            container.style.width = "45%"; // 원래대로
+        }
+    });
 
     loginButton.addEventListener("click", async function (event) {
         event.preventDefault(); // 기본 클릭 동작 방지
