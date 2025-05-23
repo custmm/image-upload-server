@@ -419,15 +419,15 @@
       const themeIcon = document.getElementById("themeIcon");
 
       if (isDarkMode) {
-    localStorage.setItem("theme", "dark");
-    themeToggle.checked = true;
-    if (themeIcon) themeIcon.textContent = "💤";
-  } else {
-    localStorage.setItem("theme", "light");
-    themeToggle.checked = false;
-    if (themeIcon) themeIcon.textContent = "☀️";
-  }
-}
+        localStorage.setItem("theme", "dark");
+        themeToggle.checked = true;
+        if (themeIcon) themeIcon.textContent = "💤";
+    } else {
+        localStorage.setItem("theme", "light");
+        themeToggle.checked = false;
+        if (themeIcon) themeIcon.textContent = "☀️";
+      }
+    }
 
 function applySavedTheme() {
   const savedTheme = localStorage.getItem("theme") || "light";
