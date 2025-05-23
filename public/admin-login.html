@@ -62,6 +62,7 @@
         background-color: aliceblue;
         width: 45%;
         margin: 40px auto;
+        box-sizing: border-box; /* ✅ 너비 계산 안정화 */
         transition: width 0.5s ease-in-out; /* ✅ 부드러운 너비 변경 */
     }
 
@@ -79,11 +80,13 @@
         margin-right: 25px;
         margin-top: 10px;
         flex-wrap: nowrap;
+         overflow: hidden; /* ✅ 넘침 방지 */
     }
 
     .login-row input[type="password"] {
         flex: 1;
         min-width: 0;
+        min-width: 60%; /* ✅ 최소 너비 고정 */
         border-radius: 5px;
     }
 
