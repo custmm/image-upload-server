@@ -112,7 +112,8 @@
         padding: 8px 16px;
         cursor: pointer;
     }
-    .hint-overlay {
+    .hint-overlay, 
+    .game-overlay {
         position: fixed;
         top: 0;
         left: 0;
@@ -125,7 +126,8 @@
         z-index: 1500;
     }
 
-    .hint-popup {
+    .hint-popup, 
+    .game-popup {
         background-color: white;
         color: #000;
         padding: 30px;
@@ -136,7 +138,8 @@
         height: auto;       /* auto로 수정 */
     }
 
-    .hint-popup p {
+    .hint-popup p, 
+    .game-popup p {
         margin: 0 0 30px;
     }
 
@@ -375,38 +378,72 @@
 
     let isPopupOpen = false;  // ✅ 팝업 열려 있는지 여부를 추적하는 변수
 
+    function gamepopup(message){
+        if (isPopupOpen) return;  // ✅ 팝업이 열려 있으면 실행 중단
+        isPopupOpen = true;  // ✅ 팝업 열림 상태로 변경
+
+        // 팝업 오버레이(배경 컨테이너) 생성
+        const overlay = document.createElement("div");
+        overlay.classList.add("hint-overlay");
+    
+        // 팝업 메시지 컨테이너 생성 (오버레이 내부에 위치)
+        const popup = document.createElement("hintPopup");
+        popup.classList.add("game-popup");
+
+        // 메시지 요소 생성
+        const messageEl = document.createElement("p");
+        messageEl.textContent = message;
+        popup.appendChild(messageEl);
+    
+        // 확인 버튼 생성 (팝업 컨테이너 안으로 넣음)
+        const confirmButton = document.createElement("button");
+        confirmButton.classList.add("hint-confirm-button");
+        confirmButton.textContent = "확인";
+        confirmButton.addEventListener("click", () => {
+            overlay.remove();
+            isPopupOpen = false;  // ✅ 팝업 닫힘 상태로 변경
+        });
+        popup.appendChild(confirmButton);
+    
+        // 팝업 컨테이너를 오버레이에 추가
+        overlay.appendChild(popup);
+    
+        // 오버레이를 문서에 추가하여 표시
+        document.body.appendChild(overlay);
+    }
+
     function hintpopup(message){
         if (isPopupOpen) return;  // ✅ 팝업이 열려 있으면 실행 중단
         isPopupOpen = true;  // ✅ 팝업 열림 상태로 변경
 
-            // 팝업 오버레이(배경 컨테이너) 생성
-            const overlay = document.createElement("div");
-            overlay.classList.add("hint-overlay");
+        // 팝업 오버레이(배경 컨테이너) 생성
+        const overlay = document.createElement("div");
+        overlay.classList.add("hint-overlay");
     
-            // 팝업 메시지 컨테이너 생성 (오버레이 내부에 위치)
-            const popup = document.createElement("hintPopup");
-            popup.classList.add("hint-popup");
+        // 팝업 메시지 컨테이너 생성 (오버레이 내부에 위치)
+        const popup = document.createElement("hintPopup");
+        popup.classList.add("hint-popup");
 
-            // 메시지 요소 생성
-            const messageEl = document.createElement("p");
-            messageEl.textContent = message;
-            popup.appendChild(messageEl);
+        // 메시지 요소 생성
+        const messageEl = document.createElement("p");
+        messageEl.textContent = message;
+        popup.appendChild(messageEl);
     
-            // 확인 버튼 생성 (팝업 컨테이너 안으로 넣음)
-            const confirmButton = document.createElement("button");
-            confirmButton.classList.add("hint-confirm-button");
-            confirmButton.textContent = "확인";
-            confirmButton.addEventListener("click", () => {
-                overlay.remove();
-                isPopupOpen = false;  // ✅ 팝업 닫힘 상태로 변경
-            });
-            popup.appendChild(confirmButton);
+        // 확인 버튼 생성 (팝업 컨테이너 안으로 넣음)
+        const confirmButton = document.createElement("button");
+        confirmButton.classList.add("hint-confirm-button");
+        confirmButton.textContent = "확인";
+        confirmButton.addEventListener("click", () => {
+            overlay.remove();
+            isPopupOpen = false;  // ✅ 팝업 닫힘 상태로 변경
+        });
+        popup.appendChild(confirmButton);
     
-            // 팝업 컨테이너를 오버레이에 추가
-            overlay.appendChild(popup);
+        // 팝업 컨테이너를 오버레이에 추가
+        overlay.appendChild(popup);
     
-            // 오버레이를 문서에 추가하여 표시
-            document.body.appendChild(overlay);
+        // 오버레이를 문서에 추가하여 표시
+        document.body.appendChild(overlay);
         }
         
     document.addEventListener("DOMContentLoaded", function () {
@@ -571,7 +608,7 @@
             console.log(`🔥 체력 감소! 현재 체력: ${health}%`);
             
             if (health === 0) {
-                alert("💀 체력이 0이 되었습니다! 이동 불가!");
+                gamepopup("💀 체력이 0이 되었습니다! 이동 불가!");
                 canMove = false;
                 isGameOver = true;
             }
@@ -1149,7 +1186,7 @@
             return;
         }
         if (isGameOver) {
-            console.log("❌ 체력이 0이 되어 더 이상 조작할 수 없습니다!");
+            gamepopup("❌ 체력이 0이 되어 더 이상 조작할 수 없습니다!");
             return;
         }
             
