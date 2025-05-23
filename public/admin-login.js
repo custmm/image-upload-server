@@ -45,11 +45,12 @@ document.addEventListener("DOMContentLoaded", function () {
     loginButton.addEventListener("click", async function (event) {
         event.preventDefault(); // 기본 클릭 동작 방지
         const password = passwordInput.value.trim()
+
         if (password === "") {
-            event.preventDefault(); // 기본 클릭 동작 방지
             moveButtonRandomly(); // 버튼 이동
             return;
         }
+
         // 서버로 비밀번호 전송 후 확인
         try {
             const response = await fetch("/api/auth/login", {
@@ -58,25 +59,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: JSON.stringify({ password }),
             });
 
-        // 응답 상태 확인
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                showPopup("로그인 성공!", "success", () => {
+                    showAdminButton();
+                });
+            } else {
+                showPopup("로그인 실패!", "error");
+            }
+        } catch (error) {
+            console.error("서버 자체 오류:", error);
+            showPopup("서버 오류 발생!", "error");
+            }
+        });
+        
+    function showAdminButton() {
+        if (document.querySelector(".admin-styled-button")) {
+            showPopup("이미 관리자모드 버튼이 있습니다.", "info");
+            return;
         }
 
-        const result = await response.json();
-        if (result.success) {
-            showPopup("로그인 성공!", "success", () => {
-                showAdminButton();
-            });
-        } else {
-            showPopup("로그인 실패!", "error");
-        }
-    } catch (error) {
-        console.error("서버 오류:", error);
-        showPopup("서버 오류 발생!", "error");
-        }
-    });
-    function showAdminButton() {
         const adminButton = document.createElement("button");
         adminButton.textContent = "관리자 모드";
         adminButton.classList.add("admin-styled-button");
