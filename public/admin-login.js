@@ -26,15 +26,20 @@ document.addEventListener("DOMContentLoaded", function () {
         loginButton.style.left = `${randomX}px`;
         loginButton.style.top = `${randomY}px`;
     }
-    
+
     passwordInput.addEventListener("input", () => {
         const isBarPhone = window.innerWidth <= 480; // 바형 기준 (가로폭 작을 때)
+        if(!isBarPhone) return;
 
-        if (isBarPhone && passwordInput.value.length > 0) {
-            container.style.width = "85%"; // 넓게
-        } else {
-            container.style.width = "45%"; // 원래대로
-        }
+        const length = passwordInput.value.length;
+
+        // 최소 너비 45%, 최대 90%, 글자 수에 따라 선형 증가
+        const minWidth = 45;
+        const maxWidth = 90;
+        const maxLength = 10; // 10자까지 확장, 그 이상은 고정
+
+        const targetWidth = minWidth + ((Math.min(length, maxLength) / maxLength) * (maxWidth - minWidth));
+        container.style.width = `${targetWidth}%`;
     });
 
     loginButton.addEventListener("click", async function (event) {
