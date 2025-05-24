@@ -871,10 +871,6 @@ async function renderCharts() {
         }
     };
 
-    if (window.donutChartInstance) {
-        window.donutChartInstance.destroy();
-    }
-
     window.donutChartInstance = new Chart(donutCtx, {
         type: "doughnut",
         data: chartData,
