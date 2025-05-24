@@ -424,8 +424,6 @@
         text-align: center; /* ✅ 텍스트 중앙 정렬 */
         transition: all 0.3s ease-in-out; /* ✅ 크기 변화가 부드럽게 적용 */
         margin-bottom: 15px;
-        padding-left: 30px;
-        padding-right: 30px;
     }
     #post-chart-container {
         position: relative;
@@ -610,12 +608,11 @@
     }
 @media (max-width: 480px) {
     .post-chart-container {
-        display: flex;
-        flex-direction: row;        /* ✅ 수평 정렬로 변경 */
+        display: flex !important;
+        flex-direction: row !important;        /* ✅ 수평 정렬로 변경 */
         overflow-x: auto;           /* ✅ 좌우 스크롤 허용 */
         gap: 10px;                  /* ✅ 요소 간 여백 */
         padding: 10px !important;
-        height: auto !important;
         align-items: flex-start;
     }
 
