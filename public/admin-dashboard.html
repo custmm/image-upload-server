@@ -608,6 +608,37 @@
         width: 100%;
         overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
     }
+    @media (max-width: 480px) {
+    .post-chart-container {
+        width: 95vw !important;
+        padding: 10px !important;
+        flex-direction: column;
+        height: auto !important;
+    }
+
+    canvas {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100%;
+    }
+
+    #chart-controls {
+        position: static;
+        margin-top: 10px;
+    }
+
+    #categoryInfoTable {
+        width: 100% !important;
+        font-size: 14px;
+    }
+
+    #categoryInfoTable th, #categoryInfoTable td {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+    }
+
     </style>
     </head>
     <body>

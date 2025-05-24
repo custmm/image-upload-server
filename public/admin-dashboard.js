@@ -789,7 +789,14 @@
         const total = counts.reduce((acc, val) => acc + val, 0);      // 전체 게시물 개수
 
         const probabilities = counts.map(count => ((count / total) * 100).toFixed(2));
-    
+        const isMobile = window.innerWidth <= 480;
+        if (isMobile) {
+            donutCtx.canvas.width = 300;
+            donutCtx.canvas.height = 300;
+            barCtx.canvas.width = 300;
+            barCtx.canvas.height = 300;
+        }
+
         // ⭐️ 원본 데이터 따로 저장
         window.originalCounts = counts;
 
