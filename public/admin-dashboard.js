@@ -782,139 +782,143 @@
         }
     }
 
-    // 차트를 렌더링하는 함수
-    async function renderCharts() {
-        const categoryData = await fetchCategoryCounts(); // 서버에서 category_name, count 받아옴
-        const categories = categoryData.map(item => item.category_name);
-        const counts = categoryData.map(item => Number(item.count)); // 🔥 게시물 개수 (정수)
-        const total = counts.reduce((acc, val) => acc + val, 0);      // 전체 게시물 개수
+async function renderCharts() {
+    const categoryData = await fetchCategoryCounts();
+    const categories = categoryData.map(item => item.category_name);
+    const counts = categoryData.map(item => Number(item.count));
+    const total = counts.reduce((acc, val) => acc + val, 0);
+    const probabilities = counts.map(count => ((count / total) * 100).toFixed(2));
 
-        const probabilities = counts.map(count => ((count / total) * 100).toFixed(2));
-        // ⭐️ 원본 데이터 따로 저장
-        window.originalCounts = counts;
+    // 도넛 차트 데이터 구성
+    const chartData = {
+        labels: categories,
+        datasets: [{
+            label: "게시물 비율",
+            data: probabilities,
+            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
+            hoverOffset: 10
+        }]
+    };
 
-        // 도넛 차트 데이터 구성
-        const chartData = {
-            labels: categories,
-            datasets: [{
-                label: "게시물 비율",
-                data: probabilities,
-                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
-                hoverOffset: 10
-            }]
-        };
+    // 원본 데이터/옵션 저장
+    window.originalDonutChartData = JSON.parse(JSON.stringify(chartData));
+    window.originalDonutChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: { position: "right" },
+            title: { display: true },
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        const percent = context.raw;
+                        return `${percent}%`;
+                    }
+                }
+            }
+        }
+    };
 
-        // 도넛 차트 생성
-        const donutCtx = document.getElementById("donutChart").getContext("2d");
+    const donutCtx = document.getElementById("donutChart").getContext("2d");
+    if (window.donutChartInstance) window.donutChartInstance.destroy();
 
-        // 기존 차트 제거
-        if (window.donutChartInstance) window.donutChartInstance.destroy();
+    const donutOptions = {
+        ...window.originalDonutChartOptions,
+        onClick: async (evt, elements) => {
+            if (evt.native) evt.native.stopPropagation();
 
-        // 새 차트 생성
-        window.donutChartInstance = new Chart(donutCtx, {
-            type: "doughnut",
-            data: chartData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: "right" },
-                    title: { display: true},
-                    tooltip: { // ✅ 툴팁 수정
-                        callbacks: {
-                            label: function (context) {
-                                const percent = context.raw; // 숫자 값 가져오기
-                                return `${percent}%`; // % 붙이기
+            window.donutChartInstance.setActiveElements([]);
+            window.donutChartInstance.update();
+
+            if (elements.length > 0) {
+                const firstElement = elements[0];
+                const dataIndex = firstElement.index;
+
+                window.donutChartInstance.setActiveElements([{
+                    datasetIndex: firstElement.datasetIndex,
+                    index: dataIndex
+                }]);
+                window.donutChartInstance.update();
+
+                const categoryName = window.donutChartInstance.data.labels[dataIndex];
+                const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
+                showSubcategoryTable(subcategoryData, categoryName);
+            }
+
+            if (!chartClickHandlerRegistered) {
+                document.addEventListener("click", function (event) {
+                    const table = document.getElementById("categoryInfoTable");
+                    if (table && !table.contains(event.target)) {
+                        table.remove();
+
+                        // 🧼 도넛 차트 완전 초기화
+                        if (window.donutChartInstance) {
+                            window.donutChartInstance.destroy();
+                        }
+
+                        const ctx = document.getElementById("donutChart").getContext("2d");
+                        window.donutChartInstance = new Chart(ctx, {
+                            type: "doughnut",
+                            data: JSON.parse(JSON.stringify(window.originalDonutChartData)),
+                            options: {
+                                ...window.originalDonutChartOptions,
+                                onClick: donutOptions.onClick // 다시 연결
                             }
+                        });
+                    }
+                });
+                chartClickHandlerRegistered = true;
+            }
+        }
+    };
+
+    window.donutChartInstance = new Chart(donutCtx, {
+        type: "doughnut",
+        data: chartData,
+        options: donutOptions
+    });
+
+    // 막대 그래프 그대로 유지
+    const barCtx = document.getElementById("radarChart").getContext("2d");
+    if (window.barChartInstance) window.barChartInstance.destroy();
+
+    const barChartDatasets = categories.map((category, index) => ({
+        label: category,
+        data: [probabilities[index]],
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][index % 5],
+    }));
+
+    window.barChartInstance = new Chart(barCtx, {
+        type: "bar",
+        data: {
+            datasets: barChartDatasets,
+            labels: ["게시물 비율"]
+        },
+        options: {
+            scales: {
+                x: { grid: { display: false } },
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: { display: false },
+                    ticks: { callback: value => value + "%" }
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: { position: "right" },
+                title: { display: true },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return `${context.raw}%`;
                         }
                     }
-                },
-        
-
-                onClick: async (evt, elements) => {
-                    if(evt.native) evt.native.stopPropagation();
-
-                    // 🔁 항상 기존 하이라이트 제거
-                    window.donutChartInstance.setActiveElements([]);
-                    window.donutChartInstance.update();
-
-                    if (elements.length > 0) {
-                        const firstElement = elements[0];
-                        const dataIndex = firstElement.index;
-
-                        // ✅ 새 하이라이트 지정
-                        window.donutChartInstance.setActiveElements([{
-                            datasetIndex: firstElement.datasetIndex,
-                            index: dataIndex
-                        }]);
-                        window.donutChartInstance.update();
-
-                        // ✅ 테이블 갱신
-                        const categoryName = window.donutChartInstance.data.labels[dataIndex];
-                        const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
-                        showSubcategoryTable(subcategoryData, categoryName);
-                    }
-
-                // ✅ 외부 클릭 감지는 전역에서 딱 한 번만 등록
-                if (!chartClickHandlerRegistered) {
-                    document.addEventListener("click", function(event) {
-                        const table = document.getElementById("categoryInfoTable");
-
-                        // 테이블이 존재하고, 클릭한 대상이 테이블 내부가 아니면
-                        if (table && !table.contains(event.target)) {
-                            table.remove();
-                            window.donutChartInstance.setActiveElements([]);
-                            window.donutChartInstance.update();
-                        }
-                    });
-                    chartClickHandlerRegistered = true;
                 }
             }
         }
     });
-    
-        // 막대그래프 생성
-        const barCtx = document.getElementById("radarChart").getContext("2d");
-        if (window.barChartInstance) window.barChartInstance.destroy();
-        // ✅ 막대그래프에서 개별 항목별 범례를 만들기 위해 개별 데이터셋 생성
-        const barChartDatasets = categories.map((category, index) => ({
-            label: category,  // ✅ 각 카테고리명이 범례로 표시됨
-            data: [probabilities[index]],  // ✅ 개별 데이터셋으로 변환
-            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][index % 5],
-        }));
+}
 
-        window.barChartInstance = new Chart(barCtx, {
-            type: "bar",
-            data: {
-                datasets: barChartDatasets,
-                labels: ["게시물 비율"]
-                
-            },
-            options: {
-                scales: {
-                    x: {grid: { display: false }},
-                    y:{
-                        beginAtZero: true,
-                        max:100,
-                        grid:{display:false},
-                        ticks:{ callback: value => value +"%" }
-                    }
-                },                
-                responsive: true,
-                plugins: {
-                    legend: { position: "right" },
-                    title: { display: true },
-                    tooltip: { // ✅ 툴팁 수정
-                        callbacks: {
-                            label: function (context) {
-                                let value = context.raw;
-                                return `${value}%`; // % 붙이기
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
     
     document.getElementById("showDonut").addEventListener("click", () => {
         document.getElementById("donutChart").style.display = "block";
