@@ -609,6 +609,36 @@
         width: 100%;
         overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
     }
+    .subcategory-wrapper {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        align-self: center;
+        flex-shrink: 0;
+        min-width: 220px;
+        background-color: #fff;
+    }
+
+    #categoryInfoTable {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        font-size: 14px;
+    }
+
+    #categoryInfoTable th {
+        padding: 8px;
+        background-color: #e6ffe6;
+    }
+
+    #categoryInfoTable td {
+        padding: 8px;
+    }
+
+    #categoryInfoTable tr:not(:last-child) {
+        border-bottom: 1px dashed #ccc;
+    }
+
     </style>
     </head>
     <body>

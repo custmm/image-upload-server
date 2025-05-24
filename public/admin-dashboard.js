@@ -922,45 +922,30 @@ function autoResize(textarea) {
 }
 
 function showSubcategoryTable(subcategories, categoryName) {
-    // 이미 존재하는 테이블 삭제
     const existingTable = document.getElementById("categoryInfoTable");
     if (existingTable) existingTable.remove();
 
-    // 래퍼 div 생성
     const wrapper = document.createElement("div");
-    wrapper.style.borderRadius = "8px";
-    wrapper.style.overflow = "hidden"; // ✅ border-radius 적용되도록
-    wrapper.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.1)"; // ✅ 그림자 효과
+    wrapper.className = "subcategory-wrapper";
 
-    // 테이블 새로 생성
     const table = document.createElement("table");
     table.id = "categoryInfoTable";
-    table.style.backgroundColor = "#fff";
-    table.style.borderCollapse = "collapse"; // ✅ 셀 간 경계선 간격 제거
 
     const headerRow = document.createElement("tr");
     headerRow.innerHTML = `
-        <th style="padding:8px; background-color:#e6ffe6;">서브카테고리명</th>
-        <th style="padding:8px; background-color:#e6ffe6;">게시물 수</th>
+        <th>서브카테고리명</th>
+        <th>게시물 수</th>
     `;
     table.appendChild(headerRow);
-    
-    for (let i = 0; i < subcategories.length; i++) {
-        const item = subcategories[i];
-        const isLast = i === subcategories.length - 1;
 
+    subcategories.forEach((item, index) => {
         const dataRow = document.createElement("tr");
         dataRow.innerHTML = `
-            <td style="padding:8px;">${item.subcategory_name}</td>
-            <td style="padding:8px;">${item.count}개</td>
+            <td>${item.subcategory_name}</td>
+            <td>${item.count}개</td>
         `;
-        
-        if (!isLast) {
-            dataRow.style.borderBottom = "1px dashed #ccc"; // ✅ 점선 구분선
-        }
-
         table.appendChild(dataRow);
-    }
+    });
 
     wrapper.appendChild(table);
     document.querySelector(".post-chart-container").appendChild(wrapper);
