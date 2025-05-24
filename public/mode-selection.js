@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         // 팝업 창에 요소 추가
-        popupBox.appendChild(popupMessage);
-        popupBox.appendChild(confirmButton);
-        popupOverlay.appendChild(popupBox);
+        popup.appendChild(popupMessage);
+        popup.appendChild(confirmButton);
+        popupOverlay.appendChild(popup);
         document.body.appendChild(popupOverlay);
     }
 
