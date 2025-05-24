@@ -796,6 +796,14 @@
         const donutCtx = donutCanvas.getContext("2d");
         const barCtx = barCanvas.getContext("2d");
 
+        // ✅ 모바일 크기 대응
+        if (isMobile) {
+            donutCanvas.width = 300;
+            donutCanvas.height = 300;
+            barCanvas.width = 300;
+            barCanvas.height = 300;
+        }
+
         // ⭐️ 원본 데이터 따로 저장
         window.originalCounts = counts;
 
