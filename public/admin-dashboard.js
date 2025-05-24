@@ -838,11 +838,17 @@
                 
                         const chartContainer = document.querySelector(".post-chart-container");
 
-                        chartContainer.addEventListener("click", function() {
+                        chartContainer.addEventListener("click", function(event) {
                             const existingTable = document.getElementById("categoryInfoTable");
                             if (existingTable) {
                                 existingTable.remove();
                                 console.log("✅ categoryInfoTable 제거 완료");
+
+                                // 선택된 도넛 섹터 비활성화
+                                if (window.donutChartInstance) {
+                                    window.donutChartInstance.setActiveElements([]);
+                                    window.donutChartInstance.update();
+                                }
                             }
                         });
                     }
