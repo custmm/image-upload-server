@@ -798,10 +798,11 @@
 
         // ✅ 모바일 크기 대응
         if (isMobile) {
-            donutCanvas.width = 300;
-            donutCanvas.height = 300;
-            barCanvas.width = 300;
-            barCanvas.height = 300;
+            donutCanvas.width = 250;
+            donutCanvas.height = 250;
+        } else {
+            donutCanvas.width = 400;
+            donutCanvas.height = 400;
         }
 
         // ⭐️ 원본 데이터 따로 저장
