@@ -867,8 +867,8 @@ async function renderCharts() {
                         }
 
                         const ctx = document.getElementById("donutChart").getContext("2d");
-                        ctx.canvas.width = auto; // 🔁 재생성 전에도 크기 재지정
-                        ctx.canvas.height = auto;
+                        ctx.canvas.width = 300; // 🔁 재생성 전에도 크기 재지정
+                        ctx.canvas.height = 300;
 
                         window.donutChartInstance = new Chart(ctx, {
                             type: "doughnut",
