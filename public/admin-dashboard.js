@@ -921,7 +921,13 @@ async function renderCharts() {
             },
             responsive: true,
             plugins: {
-                legend: { position: "right" },
+                legend: { 
+                    position: "right",
+                    labels: {
+                        boxWidth: 20,
+                        padding: 10
+                    }
+                 },
                 title: { display: true },
                 tooltip: {
                     callbacks: {
@@ -929,6 +935,12 @@ async function renderCharts() {
                             return `${context.raw}%`;
                         }
                     }
+                }
+            },
+            layout: {
+                padding: {
+                    left: 30,
+                    right: 30
                 }
             }
         }
