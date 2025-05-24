@@ -5,6 +5,7 @@
     let noMoreImages = false; // 더 이상 이미지가 없는지 여부
     let currentMode = "image"; // ✅ 기본 모드는 이미지 모드
     let isPopupOpen = false;  // ✅ 팝업 상태 변수 추가
+    let chartClickHandlerRegistered = false;
 
     if(!window.observer){
         window.observer = new IntersectionObserver((entries, observer) => {
@@ -827,37 +828,49 @@
                         }
                     }
                 },
+        
+
                 onClick: async (evt, elements) => {
                     if(evt.native) evt.native.stopPropagation();
+
+                    // 🔁 항상 기존 하이라이트 제거
+                    window.donutChartInstance.setActiveElements([]);
+                    window.donutChartInstance.update();
 
                     if (elements.length > 0) {
                         const firstElement = elements[0];
                         const dataIndex = firstElement.index;
+
+                        // ✅ 새 하이라이트 지정
+                        window.donutChartInstance.setActiveElements([{
+                            datasetIndex: firstElement.datasetIndex,
+                            index: dataIndex
+                        }]);
+                        window.donutChartInstance.update();
+
+                        // ✅ 테이블 갱신
                         const categoryName = window.donutChartInstance.data.labels[dataIndex];
-                
                         const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
                         showSubcategoryTable(subcategoryData, categoryName);
-                
-                        const chartContainer = document.querySelector(".post-chart-container");
-
-                        chartContainer.addEventListener("click", function(event) {
-                            const table = document.getElementById("categoryInfoTable");
-
-                            // 테이블이 존재하고, 클릭한 대상이 테이블 내부가 아니면
-                            if (table && !table.contains(event.target)) {
-                                table.remove();
-
-                                // 선택된 도넛 섹터 비활성화
-                                if (window.donutChartInstance) {
-                                    window.donutChartInstance.setActiveElements([]);
-                                    window.donutChartInstance.update();
-                                }
-                            }
-                        });
                     }
+
+                // ✅ 외부 클릭 감지는 전역에서 딱 한 번만 등록
+                if (!chartClickHandlerRegistered) {
+                    document.addEventListener("click", function(event) {
+                        const table = document.getElementById("categoryInfoTable");
+
+                        // 테이블이 존재하고, 클릭한 대상이 테이블 내부가 아니면
+                        if (table && !table.contains(event.target)) {
+                            table.remove();
+                            window.donutChartInstance.setActiveElements([]);
+                            window.donutChartInstance.update();
+                        }
+                    });
+                    chartClickHandlerRegistered = true;
                 }
             }
-        });
+        }
+    });
     
         // 막대그래프 생성
         const barCtx = document.getElementById("radarChart").getContext("2d");
