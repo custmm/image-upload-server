@@ -787,15 +787,14 @@
         const categories = categoryData.map(item => item.category_name);
         const counts = categoryData.map(item => Number(item.count)); // 🔥 게시물 개수 (정수)
         const total = counts.reduce((acc, val) => acc + val, 0);      // 전체 게시물 개수
-
         const probabilities = counts.map(count => ((count / total) * 100).toFixed(2));
         const isMobile = window.innerWidth <= 480;
-        if (isMobile) {
-            donutCtx.canvas.width = 300;
-            donutCtx.canvas.height = 300;
-            barCtx.canvas.width = 300;
-            barCtx.canvas.height = 300;
-        }
+
+        // 🎯 먼저 canvas 요소와 context 정의
+        const donutCanvas = document.getElementById("donutChart");
+        const barCanvas = document.getElementById("radarChart");
+        const donutCtx = donutCanvas.getContext("2d");
+        const barCtx = barCanvas.getContext("2d");
 
         // ⭐️ 원본 데이터 따로 저장
         window.originalCounts = counts;
@@ -810,9 +809,6 @@
                 hoverOffset: 10
             }]
         };
-
-        // 도넛 차트 생성
-        const donutCtx = document.getElementById("donutChart").getContext("2d");
 
         // 기존 차트 제거
         if (window.donutChartInstance) window.donutChartInstance.destroy();
@@ -861,7 +857,6 @@
         });
     
         // 막대그래프 생성
-        const barCtx = document.getElementById("radarChart").getContext("2d");
         if (window.barChartInstance) window.barChartInstance.destroy();
         // ✅ 막대그래프에서 개별 항목별 범례를 만들기 위해 개별 데이터셋 생성
         const barChartDatasets = categories.map((category, index) => ({
