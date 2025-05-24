@@ -842,7 +842,7 @@
 
                         chartContainer.addEventListener("click", function(event) {
                             const table = document.getElementById("categoryInfoTable");
-                            
+
                             // 테이블이 존재하고, 클릭한 대상이 테이블 내부가 아니면
                             if (table && !table.contains(event.target)) {
                                 table.remove();
@@ -929,8 +929,9 @@ function autoResize(textarea) {
 }
 
 function showSubcategoryTable(subcategories, categoryName) {
-    const existingTable = document.getElementById("categoryInfoTable");
-    if (existingTable) existingTable.remove();
+    // 기존 wrapper 제거
+    const oldWrapper = document.querySelector(".subcategory-wrapper");
+    if (oldWrapper) oldWrapper.remove();
 
     const wrapper = document.createElement("div");
     wrapper.className = "subcategory-wrapper";
