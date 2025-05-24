@@ -874,11 +874,7 @@ async function renderCharts() {
     window.donutChartInstance = new Chart(donutCtx, {
         type: "doughnut",
         data: chartData,
-        options: {
-            responsive: false, // 크기 고정
-            maintainAspectRatio: false,
-            donutOptions
-        }
+        options: donutOptions
     });
 
     // 막대 그래프 그대로 유지
