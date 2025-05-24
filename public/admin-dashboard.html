@@ -611,9 +611,11 @@
         overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
     }
     #donutChart {
-        flex-grow: 1;       /* ✅ 남은 공간 차지 (자동 축소 가능) */
-        max-width: 100%;
+        width: auto;             /* CSS 너비 제거 또는 자동 */
         height: auto;
+        max-width: 100%;
+        display: block;
+        flex-grow: 1;
     }
     .subcategory-wrapper {
         border-radius: 8px;
