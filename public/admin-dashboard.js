@@ -834,7 +834,6 @@
                         const categoryName = window.donutChartInstance.data.labels[dataIndex];
                 
                         const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
-
                         showSubcategoryTable(subcategoryData, categoryName);
                 
                         const chartContainer = document.querySelector(".post-chart-container");
