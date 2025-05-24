@@ -838,7 +838,7 @@
                         showSubcategoryTable(subcategoryData, categoryName);
                 
                         const chartContainer = document.querySelector(".post-chart-container");
-                        chartContainer.style.justifyContent = "center";
+                        chartContainer.style.justifyContent = "flex-start";
 
                         chartContainer.addEventListener("click", function() {
                             const existingTable = document.getElementById("categoryInfoTable");
