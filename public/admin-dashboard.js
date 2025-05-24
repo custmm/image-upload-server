@@ -870,11 +870,22 @@ async function renderCharts() {
             }
         }
     };
+    const donutCanvas = document.getElementById("donutChart");
+    donutCanvas.width = 300;
+    donutCanvas.height = 300;
+
+    if (window.donutChartInstance) {
+        window.donutChartInstance.destroy();
+    }
 
     window.donutChartInstance = new Chart(donutCtx, {
         type: "doughnut",
         data: chartData,
-        options: donutOptions
+        options: {
+            responsive: false, // 크기 고정
+            maintainAspectRatio: false,
+            donutOptions
+        }
     });
 
     // 막대 그래프 그대로 유지
