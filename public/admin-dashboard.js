@@ -828,6 +828,7 @@
                     }
                 },
                 onClick: async (evt, elements) => {
+                    evt.stopPropagation();
                     if (elements.length > 0) {
                         const firstElement = elements[0];
                         const dataIndex = firstElement.index;
@@ -839,10 +840,10 @@
                         const chartContainer = document.querySelector(".post-chart-container");
 
                         chartContainer.addEventListener("click", function(event) {
-                            const existingTable = document.getElementById("categoryInfoTable");
-                            if (existingTable) {
-                                existingTable.remove();
-                                console.log("✅ categoryInfoTable 제거 완료");
+                            const table = document.getElementById("categoryInfoTable");
+                            // 테이블이 존재하고, 클릭한 대상이 테이블 내부가 아니면
+                            if (table && !table.contains(event.target)) {
+                                table.remove();
 
                                 // 선택된 도넛 섹터 비활성화
                                 if (window.donutChartInstance) {
