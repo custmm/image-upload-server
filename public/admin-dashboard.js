@@ -828,7 +828,8 @@
                     }
                 },
                 onClick: async (evt, elements) => {
-                    if(evt.native) evt.stopPropagation();
+                    if(evt.native) evt.native.stopPropagation();
+
                     if (elements.length > 0) {
                         const firstElement = elements[0];
                         const dataIndex = firstElement.index;
@@ -841,6 +842,7 @@
 
                         chartContainer.addEventListener("click", function(event) {
                             const table = document.getElementById("categoryInfoTable");
+                            
                             // 테이블이 존재하고, 클릭한 대상이 테이블 내부가 아니면
                             if (table && !table.contains(event.target)) {
                                 table.remove();
