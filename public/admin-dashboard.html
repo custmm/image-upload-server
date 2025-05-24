@@ -610,10 +610,24 @@
     }
     @media (max-width: 480px) {
     .post-chart-container {
-        width: 95vw !important;
-        padding: 10px !important;
-        flex-direction: column;
-        height: auto !important;
+        display: flex;
+        flex-direction: row;        /* ✅ 수평 정렬 유지 */
+        overflow-x: auto;           /* ✅ 좌우 스크롤 허용 */
+        gap: 10px;
+        padding: 10px;
+        align-items: flex-start;
+    }
+
+    .post-chart-container canvas {
+        flex-shrink: 0;
+        min-width: 300px;
+        height: auto;
+    }
+
+    #categoryInfoTable {
+        flex-shrink: 0;
+        min-width: 220px;
+        font-size: 14px;
     }
 
     canvas {
@@ -626,16 +640,13 @@
         margin-top: 10px;
     }
 
-    #categoryInfoTable {
-        width: 100% !important;
-        font-size: 14px;
-    }
 
     #categoryInfoTable th, #categoryInfoTable td {
         display: block;
         width: 100%;
         text-align: left;
-    }
+        white-space: nowrap;
+        }
     }
 
     </style>
