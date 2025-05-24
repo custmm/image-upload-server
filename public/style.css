@@ -24,3 +24,6 @@ button{
 button:hover{
     background-color: #755a6a;
 }
+.dark-mode .button:hover{
+    background-color: #755a6a;
+}
