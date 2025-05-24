@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
         popupOverlay.className = "popup-overlay";
 
         // 팝업 창 생성
-        const popupBox = document.createElement("div");
-        popupBox.className = "popup-box";
+        const popup = document.createElement("div");
+        popup.className = "popup";
 
         // 팝업 메시지 추가
         const popupMessage = document.createElement("p");
