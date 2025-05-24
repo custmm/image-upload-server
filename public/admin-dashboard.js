@@ -798,6 +798,15 @@
         const donutCtx = donutCanvas.getContext("2d");
         const barCtx = barCanvas.getContext("2d");
 
+        // ✅ 모바일 크기 대응
+        if (isMobile) {
+            donutCanvas.width = 250;
+            donutCanvas.height = 250;
+        } else {
+            donutCanvas.width = 400;
+            donutCanvas.height = 400;
+        }
+
         // ⭐️ 원본 데이터 따로 저장
         window.originalCounts = counts;
 
@@ -934,7 +943,6 @@ function showSubcategoryTable(subcategories, categoryName) {
     // 래퍼 div 생성
     const wrapper = document.createElement("div");
     wrapper.className = "subcategory-wrapper";
-    wrapper.style.flexShrink = "0"; // ✅ 차트 비율 보존 위해 표 너비 고정
 
     // 테이블 새로 생성
     const table = document.createElement("table");
