@@ -787,27 +787,8 @@
         const categories = categoryData.map(item => item.category_name);
         const counts = categoryData.map(item => Number(item.count)); // 🔥 게시물 개수 (정수)
         const total = counts.reduce((acc, val) => acc + val, 0);      // 전체 게시물 개수
+
         const probabilities = counts.map(count => ((count / total) * 100).toFixed(2));
-        const isMobile = window.innerWidth <= 480;
-
-
-        // 🎯 먼저 canvas 요소와 context 정의
-        const donutCanvas = document.getElementById("donutChart");
-        const barCanvas = document.getElementById("radarChart");
-        const donutCtx = donutCanvas.getContext("2d");
-        const barCtx = barCanvas.getContext("2d");
-        
-        donutCanvas.width = isMobile ? 250 : 350;
-        donutCanvas.height = isMobile ? 250 : 350;
-        // ✅ 모바일 크기 대응
-        if (isMobile) {
-            donutCanvas.width = 250;
-            donutCanvas.height = 250;
-        } else {
-            donutCanvas.width = 400;
-            donutCanvas.height = 400;
-        }
-
         // ⭐️ 원본 데이터 따로 저장
         window.originalCounts = counts;
 
@@ -821,6 +802,9 @@
                 hoverOffset: 10
             }]
         };
+
+        // 도넛 차트 생성
+        const donutCtx = document.getElementById("donutChart").getContext("2d");
 
         // 기존 차트 제거
         if (window.donutChartInstance) window.donutChartInstance.destroy();
@@ -869,6 +853,7 @@
         });
     
         // 막대그래프 생성
+        const barCtx = document.getElementById("radarChart").getContext("2d");
         if (window.barChartInstance) window.barChartInstance.destroy();
         // ✅ 막대그래프에서 개별 항목별 범례를 만들기 위해 개별 데이터셋 생성
         const barChartDatasets = categories.map((category, index) => ({
@@ -943,28 +928,39 @@ function showSubcategoryTable(subcategories, categoryName) {
 
     // 래퍼 div 생성
     const wrapper = document.createElement("div");
-    wrapper.className = "subcategory-wrapper";
+    wrapper.style.borderRadius = "8px";
+    wrapper.style.overflow = "hidden"; // ✅ border-radius 적용되도록
+    wrapper.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.1)"; // ✅ 그림자 효과
 
     // 테이블 새로 생성
     const table = document.createElement("table");
     table.id = "categoryInfoTable";
+    table.style.backgroundColor = "#fff";
+    table.style.borderCollapse = "collapse"; // ✅ 셀 간 경계선 간격 제거
 
     const headerRow = document.createElement("tr");
     headerRow.innerHTML = `
-        <th>서브카테고리명</th>
-        <th>게시물 수</th>
+        <th style="padding:8px; background-color:#e6ffe6;">서브카테고리명</th>
+        <th style="padding:8px; background-color:#e6ffe6;">게시물 수</th>
     `;
     table.appendChild(headerRow);
     
-    subcategories.forEach((item, index) => {
+    for (let i = 0; i < subcategories.length; i++) {
+        const item = subcategories[i];
+        const isLast = i === subcategories.length - 1;
+
         const dataRow = document.createElement("tr");
         dataRow.innerHTML = `
-            <td>${item.subcategory_name}</td>
-            <td>${item.count}개</td>
+            <td style="padding:8px;">${item.subcategory_name}</td>
+            <td style="padding:8px;">${item.count}개</td>
         `;
+        
+        if (!isLast) {
+            dataRow.style.borderBottom = "1px dashed #ccc"; // ✅ 점선 구분선
+        }
 
         table.appendChild(dataRow);
-    });
+    }
 
     wrapper.appendChild(table);
     document.querySelector(".post-chart-container").appendChild(wrapper);
