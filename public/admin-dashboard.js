@@ -942,6 +942,7 @@ function showSubcategoryTable(subcategories, categoryName) {
     wrapper.style.borderRadius = "8px";
     wrapper.style.overflow = "hidden"; // ✅ border-radius 적용되도록
     wrapper.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.1)"; // ✅ 그림자 효과
+    wrapper.style.alignSelf = "flex-start"; // ✅ 추가: 위 정렬 방지
 
     // 테이블 새로 생성
     const table = document.createElement("table");
