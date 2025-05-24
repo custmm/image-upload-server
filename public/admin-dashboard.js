@@ -870,9 +870,6 @@ async function renderCharts() {
             }
         }
     };
-    const donutCanvas = document.getElementById("donutChart");
-    donutCanvas.width = 300;
-    donutCanvas.height = 300;
 
     if (window.donutChartInstance) {
         window.donutChartInstance.destroy();
