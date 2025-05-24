@@ -789,15 +789,16 @@
         const total = counts.reduce((acc, val) => acc + val, 0);      // 전체 게시물 개수
         const probabilities = counts.map(count => ((count / total) * 100).toFixed(2));
         const isMobile = window.innerWidth <= 480;
-        donutCanvas.width = isMobile ? 250 : 350;
-        donutCanvas.height = isMobile ? 250 : 350;
+
 
         // 🎯 먼저 canvas 요소와 context 정의
         const donutCanvas = document.getElementById("donutChart");
         const barCanvas = document.getElementById("radarChart");
         const donutCtx = donutCanvas.getContext("2d");
         const barCtx = barCanvas.getContext("2d");
-
+        
+        donutCanvas.width = isMobile ? 250 : 350;
+        donutCanvas.height = isMobile ? 250 : 350;
         // ✅ 모바일 크기 대응
         if (isMobile) {
             donutCanvas.width = 250;
