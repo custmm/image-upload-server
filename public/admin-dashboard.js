@@ -828,7 +828,7 @@
                     }
                 },
                 onClick: async (evt, elements) => {
-                    evt.stopPropagation();
+                    if(evt.native) evt.stopPropagation();
                     if (elements.length > 0) {
                         const firstElement = elements[0];
                         const dataIndex = firstElement.index;
