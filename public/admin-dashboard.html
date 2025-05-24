@@ -608,30 +608,20 @@
         width: 100%;
         overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
     }
-    @media (max-width: 480px) {
+@media (max-width: 480px) {
     .post-chart-container {
         display: flex;
-        flex-direction: row;        /* ✅ 수평 정렬 유지 */
+        flex-direction: row;        /* ✅ 수평 정렬로 변경 */
         overflow-x: auto;           /* ✅ 좌우 스크롤 허용 */
-        gap: 10px;
-        padding: 10px;
+        gap: 10px;                  /* ✅ 요소 간 여백 */
+        padding: 10px !important;
+        height: auto !important;
         align-items: flex-start;
     }
 
-    .post-chart-container canvas {
-        flex-shrink: 0;
-        min-width: 300px;
-        height: auto;
-    }
-
-    #categoryInfoTable {
-        flex-shrink: 0;
-        min-width: 220px;
-        font-size: 14px;
-    }
-
     canvas {
-        width: 100% !important;
+        flex-shrink: 0;             /* ✅ 크기 줄어들지 않게 */
+        min-width: 300px;
         height: auto !important;
         max-width: 100%;
     }
@@ -640,14 +630,19 @@
         margin-top: 10px;
     }
 
-
-    #categoryInfoTable th, #categoryInfoTable td {
-        display: block;
-        width: 100%;
-        text-align: left;
-        white-space: nowrap;
-        }
+    #categoryInfoTable {
+        flex-shrink: 0;             /* ✅ 차트 옆에 고정 유지 */
+        min-width: 220px;
+        font-size: 14px;
     }
+
+    #categoryInfoTable th,
+    #categoryInfoTable td {
+        display: table-cell;        /* ✅ block 대신 원래 구조 유지 */
+        padding: 8px;
+        text-align: left;
+    }
+}
 
     </style>
     </head>
