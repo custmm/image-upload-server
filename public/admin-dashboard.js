@@ -821,8 +821,8 @@ async function renderCharts() {
     const donutCanvas = document.getElementById("donutChart");
 
     // ⛔ Chart.js는 canvas 크기를 자동 계산하기 때문에 명시적으로 고정 필요
-    donutCanvas.width = auto;
-    donutCanvas.height = auto;
+    donutCanvas.width = 300;
+    donutCanvas.height = 300;
 
     const donutCtx = donutCanvas.getContext("2d");
 
