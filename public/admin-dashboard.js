@@ -818,11 +818,22 @@ async function renderCharts() {
         }
     };
 
-    const donutCtx = document.getElementById("donutChart").getContext("2d");
-    if (window.donutChartInstance) window.donutChartInstance.destroy();
+    const donutCanvas = document.getElementById("donutChart");
+
+    // ⛔ Chart.js는 canvas 크기를 자동 계산하기 때문에 명시적으로 고정 필요
+    donutCanvas.width = 300;
+    donutCanvas.height = 300;
+
+    const donutCtx = donutCanvas.getContext("2d");
+
+    if (window.donutChartInstance) {
+        window.donutChartInstance.destroy();
+    }
 
     const donutOptions = {
         ...window.originalDonutChartOptions,
+        responsive: true,
+        maintainAspectRatio: false, // 🔥 반드시 false
         onClick: async (evt, elements) => {
             if (evt.native) evt.native.stopPropagation();
 
@@ -856,11 +867,16 @@ async function renderCharts() {
                         }
 
                         const ctx = document.getElementById("donutChart").getContext("2d");
+                        ctx.canvas.width = 300; // 🔁 재생성 전에도 크기 재지정
+                        ctx.canvas.height = 300;
+
                         window.donutChartInstance = new Chart(ctx, {
                             type: "doughnut",
                             data: JSON.parse(JSON.stringify(window.originalDonutChartData)),
                             options: {
                                 ...window.originalDonutChartOptions,
+                                responsive: true,
+                                maintainAspectRatio: false,
                                 onClick: donutOptions.onClick // 다시 연결
                             }
                         });
