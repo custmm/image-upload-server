@@ -616,12 +616,7 @@
         width: calc(100% - 210px);  /* 컨테이너 폭을 사이드바 폭만큼 줄임 */
         box-sizing: border-box;     /* 패딩/보더 포함해서 계산 */
     }
-    @media (max-width: 480px) {
-        .section-container.shifted {
-            width: 100vw !important;   /* ✅ 모바일에서는 줄이지 않음 */
-            margin-left: 0 !important;
-        }
-    }
+
     /* 🔥 불필요한 body 여백 제거 */
     body, html {
         margin: 0;
