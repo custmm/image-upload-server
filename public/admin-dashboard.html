@@ -410,7 +410,10 @@
         font-weight: bold;
     }
     .post-chart-container{
-        display: flex;
+        display: flex;        
+        justify-content: center; /* ✅ 내부 요소 가로 중앙 정렬 */
+        align-items: center; /* ✅ 내부 요소 세로 중앙 정렬 */
+        text-align: center; /* ✅ 텍스트 중앙 정렬 */
         position: relative;
         flex-wrap: wrap;
         width: 80%;
@@ -419,11 +422,9 @@
         border-radius: 5px;
         background-color: #ffffff;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        justify-content: center; /* ✅ 내부 요소 가로 중앙 정렬 */
-        align-items: center; /* ✅ 내부 요소 세로 중앙 정렬 */
-        text-align: center; /* ✅ 텍스트 중앙 정렬 */
-        transition: all 0.3s ease-in-out; /* ✅ 크기 변화가 부드럽게 적용 */
         margin-bottom: 15px;
+        overflow-x: auto;          /* ✅ 모바일 대응 */
+        transition: all 0.3s ease-in-out; /* ✅ 크기 변화가 부드럽게 적용 */
     }
     .chart-area {
         display: flex;
@@ -431,6 +432,7 @@
         align-items: center;     /* ✅ 중앙 정렬로 변경 */
         justify-content: center;
         gap: 20px;
+        flex-shrink: 0;
     }
     
     #post-chart-container {
@@ -618,14 +620,15 @@
         overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
     }
     .subcategory-wrapper {
+        min-width: 220px;
+        align-self: center; /* ✅ 개별 중앙 정렬 */
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         flex-shrink: 0;
-        min-width: 220px;
         background-color: #fff;
         margin-left: 15px;
-        align-self: center; /* ✅ 개별 중앙 정렬 */
+        
     }
 
     #categoryInfoTable {
@@ -663,8 +666,6 @@
     }
 
     .chart-wrapper {
-        padding-left: 30px;
-        padding-right: 30px;
         box-sizing: border-box;
         }
 
