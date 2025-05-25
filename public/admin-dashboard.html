@@ -425,6 +425,14 @@
         transition: all 0.3s ease-in-out; /* ✅ 크기 변화가 부드럽게 적용 */
         margin-bottom: 15px;
     }
+    .chart-area {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 20px;
+    }
+    
     #post-chart-container {
         position: relative;
         width: 400px;
@@ -698,12 +706,14 @@
             <h2 class="section-title">게시물 비율</h2>
             </div>
             <div class="post-chart-container">
-                <div class="chart-wrapper">
-                    <canvas id="donutChart"></canvas>
-                </div>                
+                <div class="chart-area" id="chartArea"> <!-- ✅ 도넛차트 + 표 묶을 wrapper -->
+                    <div class="chart-wrapper">
+                        <canvas id="donutChart"></canvas>
+                    </div>                
                 
-                <div class="chart-wrapper">
-                    <canvas id="radarChart" style="display:none;"></canvas>
+                    <div class="chart-wrapper">
+                        <canvas id="radarChart" style="display:none;"></canvas>
+                    </div>
                 </div>
                    
                 <div id="chart-controls">

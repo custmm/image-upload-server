@@ -983,6 +983,7 @@ function showSubcategoryTable(subcategories, categoryName) {
     const oldWrapper = document.querySelector(".subcategory-wrapper");
     if (oldWrapper) oldWrapper.remove();
 
+    // 새 wrapper 생성
     const wrapper = document.createElement("div");
     wrapper.className = "subcategory-wrapper";
 
@@ -996,7 +997,7 @@ function showSubcategoryTable(subcategories, categoryName) {
     `;
     table.appendChild(headerRow);
 
-    subcategories.forEach((item, index) => {
+    subcategories.forEach((item) => {
         const dataRow = document.createElement("tr");
         dataRow.innerHTML = `
             <td>${item.subcategory_name}</td>
@@ -1006,7 +1007,9 @@ function showSubcategoryTable(subcategories, categoryName) {
     });
 
     wrapper.appendChild(table);
-    document.querySelector(".post-chart-container").appendChild(wrapper);
+
+    // ✅ chartArea 내에 표 추가 (도넛 차트 옆에 붙도록)
+    document.getElementById("chartArea").appendChild(wrapper);
 }
 
 async function fetchSubcategoryCountsByCategory(categoryName) {
