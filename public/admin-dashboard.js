@@ -912,8 +912,8 @@ async function renderCharts() {
     const barCtx = document.getElementById("radarChart").getContext("2d");
     const isMobile = window.innerWidth <= 480;
     barCtx.canvas.width = isMobile ? 300 : 500;
-    barCtx.canvas.height = isMobile ? 300 : 400;
-    
+    barCtx.canvas.height = isMobile ? 300 : 500;
+
     if (window.barChartInstance) window.barChartInstance.destroy();
 
     const barChartDatasets = categories.map((category, index) => ({
@@ -941,7 +941,7 @@ async function renderCharts() {
             responsive: true,
             plugins: {
                 legend: { 
-                    position: "right",
+                    position: "bottom",
                     labels: {
                         boxWidth: 20,
                         padding: 10
@@ -958,8 +958,10 @@ async function renderCharts() {
             },
             layout: {
                 padding: {
-                    left: 30,
-                    right: 30
+                    top: 20,
+                    right: 20,
+                    bottom: 30,
+                    left: 20
                 }
             }
         }
