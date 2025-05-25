@@ -851,7 +851,7 @@ async function renderCharts() {
                 showSubcategoryTable(subcategoryData, categoryName);
 
                 // ✅ 표가 생기면 차트 정렬 왼쪽으로
-                document.querySelector(".post-chart-container").style.justifyContent = "center";
+                document.querySelector(".post-chart-container").style.justifyContent = "flex-start";
             }
 
             if (!chartClickHandlerRegistered) {
