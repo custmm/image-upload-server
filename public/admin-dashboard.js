@@ -849,6 +849,9 @@ async function renderCharts() {
                 const categoryName = window.donutChartInstance.data.labels[dataIndex];
                 const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
                 showSubcategoryTable(subcategoryData, categoryName);
+
+                // ✅ 표가 생기면 차트 정렬 왼쪽으로
+                document.querySelector(".post-chart-container").style.justifyContent = "flex-start";
             }
 
             if (!chartClickHandlerRegistered) {
@@ -856,6 +859,9 @@ async function renderCharts() {
                     const table = document.getElementById("categoryInfoTable");
                     if (table && !table.contains(event.target)) {
                         table.remove();
+
+                        // ✅ 표가 사라지면 차트 정렬을 다시 중앙으로
+                        document.querySelector(".post-chart-container").style.justifyContent = "center";
 
                         // 🧼 도넛 차트 완전 초기화
                         if (window.donutChartInstance) {
