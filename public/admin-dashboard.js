@@ -860,16 +860,21 @@ async function renderCharts() {
                     if (table && !table.contains(event.target)) {
                         table.remove();
 
-                        // ✅ 표가 사라지면 차트 정렬을 다시 중앙으로
-                        document.querySelector(".post-chart-container").style.justifyContent = "center";
+                        // ✅ 다시 중앙 정렬
+                        const chartContainer = document.querySelector(".post-chart-container");
+                        chartContainer.style.justifyContent = "center";
 
-                        // 🧼 도넛 차트 완전 초기화
+                        // ✅ donutChart의 margin 초기화
+                        const donutCanvas = document.getElementById("donutChart");
+                        donutCanvas.style.margin = "0 auto";
+                        donutCanvas.style.alignSelf = "center";
+
+                        // ✅ 도넛 차트 재생성
                         if (window.donutChartInstance) {
                             window.donutChartInstance.destroy();
                         }
 
-                        const ctx = document.getElementById("donutChart").getContext("2d");
-
+                        const ctx = donutCanvas.getContext("2d");
                         window.donutChartInstance = new Chart(ctx, {
                             type: "doughnut",
                             data: JSON.parse(JSON.stringify(window.originalDonutChartData)),
