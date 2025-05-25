@@ -857,17 +857,27 @@ async function renderCharts() {
             if (!chartClickHandlerRegistered) {
                 document.addEventListener("click", function (event) {
                     const table = document.getElementById("categoryInfoTable");
-                    if (table && !table.contains(event.target)) {
-                        table.remove();
+                    const chartArea = document.getElementById("chartArea");
 
-                        // ✅ 다시 중앙 정렬
-                        const chartContainer = document.querySelector(".post-chart-container");
-                        chartContainer.style.justifyContent = "center";
+                    const isClickInsideChart = chartArea.contains(event.target);
 
-                        // ✅ donutChart의 margin 초기화
+                    if (table && !isClickInsideChart) {
+                        // ✅ 서브카테고리 래퍼 제거
+                        const wrapper = chartArea.querySelector(".subcategory-wrapper");
+                        if (wrapper) wrapper.remove();
+
+                        // ✅ chartArea 중앙 정렬 복원
+                        chartArea.style.justifyContent = "center";
+        
+                        // ✅ donutChart 재삽입 (필요 시)
                         const donutCanvas = document.getElementById("donutChart");
-                        donutCanvas.style.margin = "0 auto";
-                        donutCanvas.style.alignSelf = "center";
+                        if(!chartArea.contains(donutCanvas)){
+                            chartArea.innerHTML = ""; // chartArea 초기화
+                            const canvasWrapper = document.createElement("div");
+                            canvasWrapper.className = "chart-wrapper";
+                            canvasWrapper.appendChild(donutCanvas);
+                            chartArea.appendChild(canvasWrapper);
+                        }
 
                         // ✅ 도넛 차트 재생성
                         if (window.donutChartInstance) {
