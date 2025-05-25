@@ -427,11 +427,15 @@
     }
     .chart-area {
         display: flex;
+        width: 100%;
+        max-width: 100%;
+        flex-wrap: wrap;                  /* ✅ 내부 요소 줄바꿈 허용 */
         flex-direction: row;
         align-items: center;     /* ✅ 중앙 정렬로 변경 */
         justify-content: center;
         gap: 20px;
         align-self: center;      /* ✅ 핵심: 부모 내 중앙 배치 */
+        overflow-x: hidden;              /* ✅ 내부에서 넘치는 걸 막음 */
         margin: 0 auto; /* ✅ 완전 중앙 정렬 */
     }
     
@@ -576,6 +580,7 @@
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
+        overflow-x: hidden;
         position: relative;
         display: flex;
         flex-direction: column; /* ✅ 세로 방향 정렬 */
@@ -620,7 +625,8 @@
         margin: 0;
         padding: 0;
         width: 100%;
-        overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
+        overflow-x: hidden !important; /* ✅ 가로 스크롤 방지 */
+        box-sizing: border-box;
     }
     .subcategory-wrapper {
         min-width: 220px;
