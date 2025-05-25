@@ -910,6 +910,10 @@ async function renderCharts() {
 
     // 막대 그래프 그대로 유지
     const barCtx = document.getElementById("radarChart").getContext("2d");
+    const isMobile = window.innerWidth <= 480;
+    barCtx.canvas.width = isMobile ? 300 : 500;
+    barCtx.canvas.height = isMobile ? 300 : 400;
+    
     if (window.barChartInstance) window.barChartInstance.destroy();
 
     const barChartDatasets = categories.map((category, index) => ({
