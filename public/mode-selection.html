@@ -46,7 +46,7 @@
         z-index: 1;
     }
     .mode-selection-container{
-        width: 45%;
+        width: 40%;
         height: 200px;
         background-color: #ffffff;
         border-radius: 8px;
@@ -56,7 +56,12 @@
         align-items: center;
         gap: 30px; /* 버튼 간격 */
         margin: 0 auto;
-
+    }
+    /* ✅ 바형 스마트폰 대응 */
+    @media (max-width: 480px) {
+        .mode-selection-container {
+            width: 95% !important;
+        }
     }
     /* 버튼 그룹 스타일 */
     .button-group {
