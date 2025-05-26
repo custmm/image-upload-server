@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const isExplanMode = window.location.hash.includes("explan");
 
             const message = isExplanMode
-                    ? "당신은 함정에 빠졌습니다. YOU JUST ACTIVATED MY TRAP CARD"
+                    ? "버튼을 누르고 기대하세요"
                     : "관리자 모드로 이동합니다.";
             
                 const redirectUrl = window.location.hash.includes("explan")
