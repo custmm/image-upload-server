@@ -977,6 +977,14 @@ async function renderCharts() {
       document.getElementById("showRadar").addEventListener("click", () => {
         document.getElementById("donutChart").style.display = "none";
         document.getElementById("radarChart").style.display = "block";
+            
+        // ✅ 서브카테고리 표 제거
+        const wrapper = document.querySelector(".subcategory-wrapper");
+        if (wrapper) wrapper.remove();
+
+        // ✅ 중앙 정렬 복원
+        const chartArea = document.getElementById("chartArea");
+        chartArea.style.justifyContent = "center";
       });
     // 페이지 로드 시 차트 렌더링
     document.addEventListener("DOMContentLoaded", renderCharts);
