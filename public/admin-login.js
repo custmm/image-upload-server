@@ -66,7 +66,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     showAdminButton();
                 });
             } else {
-                showPopup("로그인 실패!", "error");
+                showPopup("로그인 실패!", "error", () => {
+                    showAdminButton();
+                });
             }
         } catch (error) {
             console.error("서버 자체 오류:", error);
@@ -85,7 +87,10 @@ document.addEventListener("DOMContentLoaded", function () {
         adminButton.classList.add("admin-styled-button");
         adminButton.onclick = function () {
             showPopup("관리자 모드로 이동합니다.", "success", function() {
-                window.location.href = "mode-selection.html"; // 관리자 페이지로 이동
+                const redirectUrl = window.location.hash.includes("explan")
+                    ? "https://karisdify.site/index#explan"
+                    : "mode-selection.html";
+                window.location.href = redirectUrl; // 관리자 페이지로 이동
             });
         };
         document.body.appendChild(adminButton);
