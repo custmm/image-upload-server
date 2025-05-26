@@ -88,11 +88,18 @@ document.addEventListener("DOMContentLoaded", function () {
         adminButton.textContent = "관리자 모드";
         adminButton.classList.add("admin-styled-button");
         adminButton.onclick = function () {
-            showPopup("관리자 모드로 이동합니다.", "success", function() {
+            const isExplanMode = window.location.hash.includes("explan");
+
+            const message = isExplanMode
+                    ? "당신은 함정에 빠졌습니다. YOU JUST ACTIVATED MY TRAP CARD"
+                    : "관리자 모드로 이동합니다.";
+            
                 const redirectUrl = window.location.hash.includes("explan")
                     ? "https://karisdify.site/index#explan"
                     : "mode-selection.html";
-                window.location.href = redirectUrl; // 관리자 페이지로 이동
+                    
+                showPopup(message, "success", function() {
+                    window.location.href = redirectUrl; // 관리자 페이지로 이동
             });
         };
         document.body.appendChild(adminButton);
