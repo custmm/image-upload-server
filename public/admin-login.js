@@ -67,7 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             } else {
                 showPopup("로그인 실패!", "error", () => {
-                    showAdminButton();
+                     if (window.location.hash === "#explan") {
+                        showAdminButton(); // ✅ 설명용 링크일 때만 표시
+                    }
                 });
             }
         } catch (error) {
