@@ -64,6 +64,7 @@
         align-items: center;
         gap: 15px; /* 버튼 간격 조절 */
         width: 90%;
+        box-sizing: border-box;
     }
     .upload-selection-button, 
     .preview-selection-button, 
@@ -156,6 +157,13 @@
 
     .popup-confirm:hover {
         background-color: aqua;
+    }
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden; /* ✅ 강제 좌우 스크롤 제거 */
+        box-sizing: border-box;
     }
 </style>
 </head>
