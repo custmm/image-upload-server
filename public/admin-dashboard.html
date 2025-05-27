@@ -341,7 +341,8 @@
         display: flex;
         flex-wrap: wrap;
         object-fit: cover;  /* 🔥 이미지 비율 유지 */
-        width: 90vw;
+        width: 100%;
+        max-width: 100%;
         max-height: 400px;
         margin-bottom: 15px;
         border: 1px solid #ccc;
@@ -361,6 +362,8 @@
         object-fit: cover;  /* 🔥 이미지 비율 유지 */
         justify-items: center; /* 각 셀 내에서 중앙 정렬 */
         align-items: center;
+        width: 100%;
+        max-width: 100%;
     }
     /* 🔥 이미지 스타일 */
     .post-image {
@@ -415,8 +418,8 @@
         text-align: center; /* ✅ 텍스트 중앙 정렬 */
         position: relative;
         flex-wrap: wrap;
-        width: 90vw;
-        max-width: 100vw;
+        width: 100%;
+        max-width: 100%;
         height: auto;
         padding: 10px;
         box-sizing: border-box;
@@ -464,6 +467,7 @@
     }
     .function-container img{
         width: auto; /* 원하는 크기로 조정 */
+        max-width: 100%;
         height: 10vw;
         justify-self: center;
         object-fit: cover; /* 이미지 비율 유지하면서 크롭 */
@@ -619,6 +623,8 @@
         margin-top: 0px;
         margin-bottom: 5px;
         width: calc(100% - 210px);  /* 컨테이너 폭을 사이드바 폭만큼 줄임 */
+        max-width: 100%;           /* ✅ 최대 폭 제한 */
+        overflow-x: hidden;         /* ✅ 가로 스크롤 방지 */
         box-sizing: border-box;     /* 패딩/보더 포함해서 계산 */
     }
 

@@ -637,7 +637,13 @@
 
                 // ✅ 모든 section-container 원래 위치로 복귀
                 sectionContainers.forEach(section => {
-                    section.classList.remove("shifted");
+                    section.classList.toggle("shifted");
+
+                    // 내부 요소 강제 폭 제한 (선택적)
+                    const chart = section.querySelector(".post-chart-container");
+                    if (chart) {
+                        chart.style.maxWidth = "100%";
+                    }
                 });
             });
         });
