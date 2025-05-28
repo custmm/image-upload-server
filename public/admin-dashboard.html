@@ -567,6 +567,13 @@
         justify-content: space-between; /* ✅ 좌우 정렬 */
         width: 100%; /* ✅ 전체 너비 확장 */
     }
+    .change-button-group {
+        display: flex;
+        flex-direction: row;     /* ✅ 가로 정렬 */
+        justify-content: center; /* ✅ 가운데 정렬 (또는 space-between 등도 가능) */
+        align-items: center;     /* ✅ 세로 중앙 정렬 */
+        gap: 10px;               /* ✅ 버튼 간 간격 */
+    }
     /* 🔥 h2를 가운데 정렬하기 위해 flex-grow 사용 */
     .section-title {
         flex-grow: 1; /* ✅ h2가 가능한 공간을 모두 차지하도록 설정 */
