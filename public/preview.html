@@ -136,16 +136,17 @@
       cursor: pointer;
       transition: background-color 0.3s, color 0.3s;
       box-sizing: border-box;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 25px;
     }    
     /* 활성화된 탭 */
     .tab-btn.active {
-      background-color: #007bff;
+      background-color: #e7c2f7;
       color: white;
-      border-bottom: 5px solid #0056b3;
     }
     /* 마우스 호버 효과 */
     .tab-btn:hover {
-      background-color: #c2dff7;
+      background-color: #e7c2f7;
       color: #007bff;
     }
     /* 마지막 탭의 구분선 제거 */
@@ -203,8 +204,9 @@
       flex-wrap: nowrap;
       flex-direction: column; /* 세로로 정렬 (원한다면 row로 변경 가능) */
       gap: 20px;             /* 내부 요소 간격 */
-      border: 5px solid #0056b3; /* 테두리 색상 */
-      background-color: #f8f9fa;
+      background-color: #e7c2f7;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
 
     }
     .category-subtab-container {
