@@ -528,7 +528,7 @@
                     background: #fff; box-shadow: none; outline: none; text-shadow: none; text-decoration: none; 
                     font-style: normal; overflow-y: auto; text-align:left"></div>
 
-                    <div style="margin-top: 20px;">
+                    <div style="margin-top: 20px; display:flex; align-items: center; justify-content: center;">
                         <button id="saveEdit" style="margin-right: 10px;">저장</button>
                         <div class="button-separator"></div> <!-- ✅ 선 -->
                         <button id="closeEdit">취소</button>
