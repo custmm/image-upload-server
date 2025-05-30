@@ -197,6 +197,10 @@
         // 팝업 열기
         openDrawingBtn.addEventListener("click", function () {
             drawingPopup.style.display = "block";
+
+            // 🔥 canvas 크기를 화면 표시 크기에 맞춰 재설정
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
         });
 
         // 팝업 닫기
