@@ -530,6 +530,7 @@
 
                     <div style="margin-top: 20px;">
                         <button id="saveEdit" style="margin-right: 10px;">저장</button>
+                        <div class="button-separator"></div> <!-- ✅ 선 -->
                         <button id="closeEdit">취소</button>
                     </div>
                 </div>
