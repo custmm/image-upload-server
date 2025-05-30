@@ -515,12 +515,12 @@
             });
 
             modal.innerHTML = `
-                <div style="background: #c0c0c0; padding: 20px; border-radius: 5px; min-width: 400px;">
+                <div style="background: #c0c0c065; padding: 20px; border-radius: 5px; width: 85%;">
                     <h2 style="margin: 10px;">게시물 수정</h2>
 
                     <!-- contenteditable div로 HTML 적용된 상태로 표시 -->
                     <div id="editContent" contenteditable="true" 
-                    style="width: 450px; min-height: 150px; border: 1px solid #000; border-radius: 5px; 
+                    style="width: 100%; min-height: 150px; border: 1px solid #000; border-radius: 5px; 
                     background: #fff; box-shadow: none; outline: none; text-shadow: none; text-decoration: none; 
                     font-style: normal; overflow-y: auto; text-align:left"></div>
 
