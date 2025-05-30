@@ -602,6 +602,18 @@
     .custom-button:hover{
         background-color: #755a6a;
     }
+    .custom-chart-button{
+        background: #00000000;
+        color: black;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border:1px solid #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .custom-chart-button:hover{
+        background-color: aqua;
+    }
     .section-container{
         width: 100%;
         max-width: 100%;
@@ -755,8 +767,8 @@
                         <canvas id="radarChart" style="display:none;"></canvas>
                     </div>
                     <div id="chart-controls">
-                        <button id="showDonut" class="custom-button" style="padding: 2px 10px;">도넛 차트</button>
-                        <button id="showRadar" class="custom-button" style="padding: 2px 10px;">막대그래프</button>
+                        <button id="showDonut" class="custom-chart-button" style="padding: 2px 10px;">도넛 차트</button>
+                        <button id="showRadar" class="custom-chart-button" style="padding: 2px 10px;">막대그래프</button>
                     </div>
                 </div>
             </div>
