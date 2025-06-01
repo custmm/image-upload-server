@@ -432,7 +432,7 @@
         flex-wrap: wrap;
         width: 100%;
         max-width: 100%;
-        height: 400px;
+        height: auto;
         padding: 10px;
         box-sizing: border-box;
         border: 1px solid #ccc;
@@ -445,14 +445,14 @@
     }
     .chart-area {
         display: flex;
-        flex-direction: row; 
+        flex-wrap: wrap;                  /* ✅ 내부 요소 줄바꿈 허용 */
+        flex-direction: row;
         justify-content: center;
         align-items: center;     /* ✅ 중앙 정렬로 변경 */
-        gap: 20px;
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
-        
+        gap: 20px;
     }
     
     #post-chart-container {
@@ -611,9 +611,6 @@
         cursor: pointer;
         transition: background-color 0.3s;
     }
-    .custom-chart-button.active{
-        background-color: rgba(0, 255, 255, 0.45);
-    }
     .custom-chart-button:hover{
         background-color: aqua;
     }
@@ -707,23 +704,21 @@
     #donutChart{
         width: 350px !important;
         height: 350px !important;
+        max-width: 100%;
         display: block;
         margin: 0 auto;
     }
-    #radarChart,
-    #lineChart {
-        width: 100% !important;
-        height: 100% !important;
+    #radarChart{
+        width: 350px !important;
+        height: 350px !important;
         max-width: 100%;
         display: block;
+        margin: 0 auto;
     }
-    #lineChart {
-        display: none;         /* 처음엔 숨김 */
-        background: transparent;
-    }
+
     .chart-wrapper {
         box-sizing: border-box;
-    }
+        }
 
     .chart-legend-right .chartjs-legend {
         display: flex !important;
@@ -765,18 +760,12 @@
             </div>
             <div class="post-chart-container">
                 <div class="chart-area" id="chartArea">
-                    <!-- 도넛 차트 -->
-                    <div class="chart-wrapper" style="height: 350px; width: 350px;">
+                    <div class="chart-wrapper">
                         <canvas id="donutChart"></canvas>
+                    </div>                
+                    <div class="chart-wrapper">
+                        <canvas id="radarChart" style="display:none;"></canvas>
                     </div>
-
-                    <!-- 막대/선 차트 -->                
-                    <div class="chart-wrapper"  style="display:block; position: relative;">
-                        <canvas id="radarChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
-                        <canvas id="lineChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
-                    </div>
-
-                    <!-- 차트 버튼 -->
                     <div id="chart-controls">
                         <button id="showDonut" class="custom-chart-button" style="padding: 2px 10px;">도넛 차트</button>
                         <button id="showRadar" class="custom-chart-button" style="padding: 2px 10px;">막대그래프</button>
