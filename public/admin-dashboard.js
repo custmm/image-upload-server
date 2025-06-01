@@ -1052,6 +1052,7 @@ async function renderCharts() {
       });
       
       document.getElementById("showRadar").addEventListener("click", () => {
+        document.getElementById("donutChart").style.display = "none";
         document.getElementById("radarChart").style.display = "block";
         document.getElementById("lineChart").style.display = "none"; // ✅ 추가
             
