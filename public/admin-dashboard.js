@@ -1051,18 +1051,31 @@ async function renderCharts() {
         document.getElementById("radarChart").style.display = "none";
       });
       
-      document.getElementById("showRadar").addEventListener("click", () => {
+    document.getElementById("showRadar").addEventListener("click", () => {
+        const chartArea = document.getElementById("chartArea");
+
+        // ✅ 차트 표시 전환
+        document.getElementById("donutChart").style.display = "none";
+        document.getElementById("lineChart").style.display = "none";
         document.getElementById("radarChart").style.display = "block";
-        document.getElementById("lineChart").style.display = "none"; // ✅ 추가
-            
+
         // ✅ 서브카테고리 표 제거
-        const wrapper = document.querySelector(".subcategory-wrapper");
+        const wrapper = chartArea.querySelector(".subcategory-wrapper");
         if (wrapper) wrapper.remove();
 
-        // ✅ 중앙 정렬 복원
-        const chartArea = document.getElementById("chartArea");
+        // ✅ chartArea 안의 캔버스 wrapper 재정렬
         chartArea.style.justifyContent = "center";
-      });
+
+        // ✅ 필요 시 donutChart wrapper 복원
+        const donutCanvas = document.getElementById("donutChart");
+        if (!chartArea.contains(donutCanvas)) {
+            const canvasWrapper = document.createElement("div");
+            canvasWrapper.className = "chart-wrapper";
+            canvasWrapper.appendChild(donutCanvas);
+            chartArea.appendChild(canvasWrapper);
+        }
+    });
+
     // 페이지 로드 시 차트 렌더링
     document.addEventListener("DOMContentLoaded", renderCharts);
   
