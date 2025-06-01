@@ -977,63 +977,6 @@ async function renderCharts() {
             }
         }
     });
-    document.getElementById("radarChart").onclick = function (evt) {
-        const points = window.barChartInstance.getElementsAtEventForMode(evt, "nearest", { intersect: true }, false);
-        if (points.length > 0) {
-            const clickedIndex = points[0].datasetIndex;
-            const clickedLabel = categories[clickedIndex];
-            const clickedValue = Number(probabilities[clickedIndex]);
-
-            // 비교 대상 데이터 준비
-            const comparisonData = categories
-            .filter((_, idx) => idx !== clickedIndex)
-            .map((label, idx) => {
-                const otherValue = Number(probabilities[idx >= clickedIndex ? idx + 1 : idx]);
-                return {
-                label,
-                value: ((clickedValue / otherValue) * 100).toFixed(2)
-                };
-            });
-
-            // 꺾은선 차트 데이터 구성
-            const lineLabels = comparisonData.map(d => d.label);
-            const lineValues = comparisonData.map(d => d.value);
-
-            const lineCtx = document.getElementById("lineChart").getContext("2d");
-            document.getElementById("lineChart").style.display = "block";
-            document.getElementById("donutChart").style.display = "none";
-            document.getElementById("radarChart").style.display = "none";
-
-            if (window.lineChartInstance) window.lineChartInstance.destroy();
-
-            window.lineChartInstance = new Chart(lineCtx, {
-            type: "line",
-            data: {
-                labels: lineLabels,
-                datasets: [{
-                label: `${clickedLabel} 대비 비율(%)`,
-                data: lineValues,
-                borderColor: "rgba(75, 192, 192, 1)",
-                fill: false,
-                tension: 0.3
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                legend: { position: "top" },
-                title: { display: true, text: `${clickedLabel} 대비 타 카테고리 비율` }
-                },
-                scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: { callback: value => `${value}%` }
-                }
-                }
-            }
-        });
-        }
-    };
 }
 
     
