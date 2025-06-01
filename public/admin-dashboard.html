@@ -725,8 +725,14 @@
     }
 
     .chart-wrapper {
-        box-sizing: border-box;
-        }
+        position: relative;
+        width: 350px;
+        height: 350px;
+        min-height: 300px; /* ✅ 최소 높이 지정 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
     .chart-legend-right .chartjs-legend {
         display: flex !important;
