@@ -975,8 +975,76 @@ async function renderCharts() {
                     left: 20
                 }
             }
+            
         }
+        
     });
+    // 🔥 꺾은선그래프 캔버스 가져오기
+    const lineCanvas = document.getElementById("lineChart");
+    const lineCtx = lineCanvas.getContext("2d");
+    let lineChartInstance = null;
+
+    // ✅ 막대그래프 클릭 이벤트
+    document.getElementById("radarChart").onclick = function(evt) {
+        const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, false);
+        if (points.length) {
+            const clickedIndex = points[0].datasetIndex;
+
+            const targetCategory = categories[clickedIndex];
+            const targetValue = parseFloat(probabilities[clickedIndex]);
+
+            // 비교 데이터 생성 (타 카테고리 대비 비율)
+            const compareValues = probabilities.map((prob, i) => {
+                if (i === clickedIndex) return 100;
+                return ((parseFloat(prob) / targetValue) * 100).toFixed(2);
+            });
+
+            const lineData = {
+                labels: categories,
+                datasets: [{
+                    label: `${targetCategory} 대비 상대 비율`,
+                    data: compareValues,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false,
+                    tension: 0.1
+                }]
+            };
+
+            // 이전 꺾은선 그래프 제거
+            if (lineChartInstance) {
+                lineChartInstance.destroy();
+            }
+
+            // 꺾은선 차트 생성
+            lineChartInstance = new Chart(lineCtx, {
+                type: 'line',
+                data: lineData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: "bottom" },
+                        title: {
+                            display: true,
+                            text: `${targetCategory} 대비 타 카테고리 상대 비율`
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => `${value}%`
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 차트 표시 조절
+            document.getElementById("lineChart").style.display = "block";
+            document.getElementById("radarChart").style.display = "none";
+        }
+    };
 }
 
     
@@ -988,6 +1056,7 @@ async function renderCharts() {
       document.getElementById("showRadar").addEventListener("click", () => {
         document.getElementById("donutChart").style.display = "none";
         document.getElementById("radarChart").style.display = "block";
+        document.getElementById("lineChart").style.display = "none"; // ✅ 추가
             
         // ✅ 서브카테고리 표 제거
         const wrapper = document.querySelector(".subcategory-wrapper");
