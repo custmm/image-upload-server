@@ -445,7 +445,7 @@
     }
     .chart-area {
         display: flex;
-        flex-direction: row; 
+        flex-direction: column; 
         justify-content: center;
         align-items: center;     /* ✅ 중앙 정렬로 변경 */
         gap: 20px;
@@ -764,13 +764,18 @@
             </div>
             <div class="post-chart-container">
                 <div class="chart-area" id="chartArea">
+                    <!-- 도넛 차트 -->
                     <div class="chart-wrapper">
                         <canvas id="donutChart"></canvas>
-                    </div>                
-                        <div class="chart-wrapper" style="position: relative; width: 350px; height: 350px; margin: 0 auto;">
-                            <canvas id="radarChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
-                            <canvas id="lineChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
-                        </div>
+                    </div>
+
+                    <!-- 막대/선 차트 -->                
+                    <div class="chart-wrapper" style="position: relative; width: 350px; height: 350px; margin: 0 auto;">
+                        <canvas id="radarChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
+                        <canvas id="lineChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
+                    </div>
+
+                    <!-- 차트 버튼 -->
                     <div id="chart-controls">
                         <button id="showDonut" class="custom-chart-button" style="padding: 2px 10px;">도넛 차트</button>
                         <button id="showRadar" class="custom-chart-button" style="padding: 2px 10px;">막대그래프</button>
