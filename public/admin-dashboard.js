@@ -861,8 +861,9 @@ async function renderCharts() {
                 const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
                 showSubcategoryTable(subcategoryData, categoryName);
 
-                // ✅ 표가 생기면 차트 정렬 왼쪽으로
-                document.querySelector(".post-chart-container").style.justifyContent = "flex-start";
+                // ✅ 아래처럼 고정
+                document.getElementById("chartArea").style.justifyContent = "center";
+                document.getElementById("chartArea").style.alignItems = "center";
             }
 
             if (!chartClickHandlerRegistered) {
