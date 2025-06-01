@@ -708,19 +708,17 @@
         display: block;
         margin: 0 auto;
     }
-    #radarChart{
-        width: 350px !important;
-        height: 350px !important;
+    #radarChart,
+    #lineChart {
+        width: 100% !important;
+        height: 100% !important;
         max-width: 100%;
         display: block;
-        margin: 0 auto;
     }
     #lineChart {
-        width: 350px !important;
-        height: 350px !important;
-        max-width: 100%;
-        display: none;
-        margin: 0 auto;
+        display: none;         /* 처음엔 숨김 */
+        z-index: 2;
+        background: transparent;
     }
     .chart-wrapper {
         box-sizing: border-box;
