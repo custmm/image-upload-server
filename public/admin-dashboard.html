@@ -445,14 +445,14 @@
     }
     .chart-area {
         display: flex;
-        flex-wrap: wrap;                  /* ✅ 내부 요소 줄바꿈 허용 */
-        flex-direction: row;
+        flex-direction: column; 
         justify-content: center;
         align-items: center;     /* ✅ 중앙 정렬로 변경 */
+        gap: 20px;
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
-        gap: 20px;
+        
     }
     
     #post-chart-container {

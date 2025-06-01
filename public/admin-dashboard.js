@@ -1100,6 +1100,7 @@ function showSubcategoryTable(subcategories, categoryName) {
     // 새 wrapper 생성
     const wrapper = document.createElement("div");
     wrapper.className = "subcategory-wrapper";
+    wrapper.style.alignSelf = "center";  // ✅ 중앙 정렬 명시
 
     const table = document.createElement("table");
     table.id = "categoryInfoTable";
