@@ -445,7 +445,7 @@
     }
     .chart-area {
         display: flex;
-        flex-direction: row; 
+        flex-direction: column; 
         justify-content: center;
         align-items: center;     /* ✅ 중앙 정렬로 변경 */
         gap: 20px;
@@ -769,7 +769,7 @@
                     </div>
 
                     <!-- 막대/선 차트 -->                
-                    <div class="chart-wrapper" style="position: relative; width: 350px; height: 350px; margin: 0 auto;">
+                    <div class="chart-wrapper">
                         <canvas id="radarChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
                         <canvas id="lineChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
                     </div>
