@@ -988,8 +988,6 @@ async function renderCharts() {
         }     
     });
 
-    // 다시 숨기기 (초기 로딩 시 도넛 차트만 보이게 하려면)
-    radarCanvas.style.display = "none";
 
     // 🔥 꺾은선그래프 캔버스 가져오기
     const lineCanvas = document.getElementById("lineChart");
