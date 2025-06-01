@@ -979,8 +979,11 @@ async function renderCharts() {
         }
         
     });
+
     // 🔥 꺾은선그래프 캔버스 가져오기
     const lineCanvas = document.getElementById("lineChart");
+    lineCanvas.style.display = "block";
+
     const lineCtx = lineCanvas.getContext("2d");
     let lineChartInstance = null;
 
