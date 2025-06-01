@@ -1059,7 +1059,13 @@ async function renderCharts() {
         // ✅ 차트 표시 전환
         document.getElementById("donutChart").style.display = "none";
         document.getElementById("lineChart").style.display = "none";
-        document.getElementById("radarChart").style.display = "block";
+        
+        const radarCanvas = document.getElementById("radarChart");
+        radarCanvas.style.display = "block";
+
+        // ✅ 캔버스 리사이즈 강제
+        radarCanvas.width = radarCanvas.clientWidth;
+        radarCanvas.height = radarCanvas.clientHeight;
 
         // ✅ 서브카테고리 표 제거
         const wrapper = chartArea.querySelector(".subcategory-wrapper");
