@@ -715,10 +715,16 @@
         display: block;
         margin: 0 auto;
     }
-
+    #lineChart {
+        width: 350px !important;
+        height: 350px !important;
+        max-width: 100%;
+        display: none;
+        margin: 0 auto;
+    }
     .chart-wrapper {
         box-sizing: border-box;
-        }
+    }
 
     .chart-legend-right .chartjs-legend {
         display: flex !important;
@@ -764,6 +770,7 @@
                         <canvas id="donutChart"></canvas>
                     </div>                
                     <div class="chart-wrapper">
+                        <canvas id="lineChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
                         <canvas id="radarChart" style="display:none;"></canvas>
                     </div>
                     <div id="chart-controls">
