@@ -861,9 +861,10 @@ async function renderCharts() {
                 const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
                 showSubcategoryTable(subcategoryData, categoryName);
 
-                // ✅ 아래처럼 고정
-                document.getElementById("chartArea").style.justifyContent = "center";
-                document.getElementById("chartArea").style.alignItems = "center";
+                // ✅ 대체
+                const chartArea = document.getElementById("chartArea");
+                chartArea.style.justifyContent = "center";
+                chartArea.style.alignItems = "center";
             }
 
             if (!chartClickHandlerRegistered) {
