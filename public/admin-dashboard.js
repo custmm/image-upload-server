@@ -999,35 +999,33 @@ async function renderCharts() {
 
             // ✅ 꺾은선 데이터: 기준 대비 상대 비율
             const compareValues = filteredValues.map(prob => ((parseFloat(prob) / targetValue) * 100).toFixed(2));
-
-            const lineData = {
-                labels: filteredLabels,
-                datasets: [{
-                    label: `${targetCategory} 대비 상대 비율`,
-                    data: compareValues,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    fill: false,
-                    tension: 0.1
-                }]
-            };
-
+            
             // 기존 꺾은선 차트 제거
-            if (lineChartInstance) {
-                lineChartInstance.destroy();
+            if (window.lineChartInstance) {
+                window.lineChartInstance.destroy();
             }
 
-            lineChartInstance = new Chart(lineCtx, {
+            window.lineChartInstance = new Chart(lineCtx, {
                 type: 'line',
-                data: lineData,
+                data: {
+                    labels: filteredLabels,
+                    datasets: [{
+                        label: `${targetCategory} 대비 상대 비율`,
+                        data: compareValues,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        fill: false,
+                        tension: 0.1
+                    }]
+                },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: "bottom" },
                         title: {
                             display: true,
                             text: `${targetCategory} 대비 타 카테고리 상대 비율`
-                        }
+                        },
+                        legend: { position: "bottom" }
                     },
                     scales: {
                         y: {
