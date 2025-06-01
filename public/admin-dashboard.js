@@ -923,25 +923,30 @@ async function renderCharts() {
 
     // 막대 그래프 그대로 유지
     const radarCanvas = document.getElementById("radarChart");
-    radarCanvas.style.display = "block";  // ✅ 강제 노출
-    
+
+    // 일시적으로 보여주기
+    radarCanvas.style.display = "block";
+
+    // context 얻기
     const barCtx = radarCanvas.getContext("2d");
+
+    // canvas 크기 강제 설정
     const isMobile = window.innerWidth <= 480;
     barCtx.canvas.width = isMobile ? 300 : 500;
     barCtx.canvas.height = isMobile ? 300 : 500;
 
+    // 기존 차트 제거
     if (window.barChartInstance) window.barChartInstance.destroy();
 
-    const barChartDatasets = categories.map((category, index) => ({
-        label: category,
-        data: [probabilities[index]],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][index % 5],
-    }));
-
+    // 차트 생성
     window.barChartInstance = new Chart(barCtx, {
         type: "bar",
         data: {
-            datasets: barChartDatasets,
+            datasets: categories.map((category, index) => ({
+                label: category,
+                data: [probabilities[index]],
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][index % 5],
+            })),
             labels: ["게시물 비율"]
         },
         options: {
@@ -980,9 +985,12 @@ async function renderCharts() {
                     left: 20
                 }
             }
-        }
-        
+        }     
     });
+
+    // 다시 숨기기 (초기 로딩 시 도넛 차트만 보이게 하려면)
+    radarCanvas.style.display = "none";
+
     // 🔥 꺾은선그래프 캔버스 가져오기
     const lineCanvas = document.getElementById("lineChart");
     const lineCtx = lineCanvas.getContext("2d");
