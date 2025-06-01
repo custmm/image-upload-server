@@ -936,7 +936,9 @@ async function renderCharts() {
     barCtx.canvas.height = isMobile ? 300 : 500;
 
     // 기존 차트 제거
-    if (window.barChartInstance) window.barChartInstance.destroy();
+    if (window.barChartInstance){
+        window.barChartInstance.destroy();
+    } 
 
     // 차트 생성
     window.barChartInstance = new Chart(barCtx, {
@@ -961,19 +963,11 @@ async function renderCharts() {
             },
             responsive: true,
             plugins: {
-                legend: { 
-                    position: "bottom",
-                    labels: {
-                        boxWidth: 20,
-                        padding: 10
-                    }
-                 },
-                title: { display: true },
+                legend: {  position: "bottom"},
+                title: { display: true },               
                 tooltip: {
                     callbacks: {
-                        label: function (context) {
-                            return `${context.raw}%`;
-                        }
+                        label: context => `${context.raw}%`
                     }
                 }
             },
@@ -987,6 +981,9 @@ async function renderCharts() {
             }
         }     
     });
+
+    // 처음엔 다시 숨기기
+    radarCanvas.style.display = "none";
 
 
     // 🔥 꺾은선그래프 캔버스 가져오기
