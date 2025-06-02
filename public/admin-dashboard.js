@@ -947,7 +947,7 @@ async function renderCharts() {
         tension: 0.1,
         yAxisID: 'y1'
     };
-    
+
     // 초기 차트 생성
     window.barChartInstance = new Chart(barCtx, {
         data: {
@@ -956,6 +956,7 @@ async function renderCharts() {
         },
         options: {
             responsive: true,
+            resizeDelay: 100,  // 🔧 resize 반영 시간 약간 늦춤
             maintainAspectRatio: false,
             plugins: {
                 legend: { 
@@ -1070,6 +1071,9 @@ async function renderCharts() {
       });
     // 페이지 로드 시 차트 렌더링
     document.addEventListener("DOMContentLoaded", renderCharts);
+      setTimeout(() => {
+    renderCharts();
+  }, 100);
   
 // ── [유틸리티 함수] ───────────────────────────────
 function stripHtmlTags(html) {
