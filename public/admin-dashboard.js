@@ -975,6 +975,9 @@ async function renderCharts() {
                 }
             },
             scales: {
+                x: {
+                    display: false  // ✅ x축 자체를 완전히 숨김
+                },
                 y: {
                     beginAtZero: true,
                     max: 100,
