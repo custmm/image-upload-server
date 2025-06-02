@@ -368,7 +368,7 @@
     <script>
     // 1. 진입 시 localStorage에 preview 이미지 경로 설정 (만약 없으면)
     if (!localStorage.getItem("selectedImage")) {
-        const totalPreviews = 11;
+        const totalPreviews = 12;
         const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
         localStorage.setItem("selectedImage", `images/preview-gunff_${randomIndex}.png`);
     }
