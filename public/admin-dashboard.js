@@ -1014,7 +1014,7 @@ async function renderCharts() {
     document.getElementById("radarChart").onclick = function(evt) {
         const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, false);
         if (points.length) {
-            const clickedIndex = points[0].datasetIndex;
+            const clickedIndex = points[0].Index;
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
