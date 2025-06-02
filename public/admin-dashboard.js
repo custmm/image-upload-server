@@ -1025,16 +1025,17 @@ async function renderCharts() {
             const compareValues = filteredValues.map(prob => ((parseFloat(prob) / targetValue) * 100).toFixed(2));
 
             // ✅ 막대 데이터셋에서 해당 항목 제거
-            const filteredBarDatasets = filteredLabels.map((label, i) => ({
+            const barChartDatasets = filteredLabels.map((label, i) => ({
                 type: 'bar',
                 label: label,
-                data: [filteredValues[i]],
+                data: [probabilities[index]],
                 backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5],
-                yAxisID: 'y'
+                yAxisID: 'y',
+                hiddenLegend: false
             }));
 
             // ✅ 꺾은선 데이터셋 업데이트
-            const newLineDataset = {
+            const lineDataset = {
                 type: 'line',
                 label: `${targetCategory} 대비 상대 비율`,
                 data: compareValues,
