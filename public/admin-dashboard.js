@@ -1016,19 +1016,27 @@ async function renderCharts() {
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            // ✅ 꺾은선 데이터 생성
-            const compareValues = categories.map((_, i) =>
-                i === clickedIndex ? null : ((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2)
-            );
+            // ✅ filteredLabels 정의
+            const filteredLabels = categories.filter((_, i) => i !== clickedIndex);
+
+            // ✅ 막대 데이터셋: 선택된 항목 제거
+            const barData = probabilities.filter((_, i) => i !== clickedIndex);
 
             // ✅ 막대 데이터셋: 클릭한 항목만 null
-            const updatedBarDatasets = categories.map((cat, i) => ({
+            const barChartDataset = {
                 type: 'bar',
-                label: cat,
-                data: [i === clickedIndex ? null : parseFloat(probabilities[i])],
-                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5],
+                label: '카테고리별 게시물 비율',
+                data: barData,
+                backgroundColor: filteredLabels.map((_, i) =>
+                    ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
+                ),
                 yAxisID: 'y'
-            }));
+            };
+
+            // ✅ 비교 비율 계산
+            const compareValues = filteredLabels.map((_, i) => (
+                ((parseFloat(probabilities[categories.indexOf(filteredLabels[i])]) / targetValue) * 100).toFixed(2)
+            ));
 
             // ✅ 꺾은선 데이터셋
             const newLineDataset = {
@@ -1043,7 +1051,7 @@ async function renderCharts() {
 
             // ✅ 차트 갱신
             window.barChartInstance.data.labels = filteredLabels;
-            window.barChartInstance.data.datasets = [...updatedBarDatasets, newLineDataset];
+            window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
             window.barChartInstance.update();
         }
     };
