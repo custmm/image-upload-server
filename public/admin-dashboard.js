@@ -976,7 +976,13 @@ async function renderCharts() {
             },
             scales: {
                 x: {
-                    display: false  // ✅ x축 자체를 완전히 숨김
+                    grid: { display: false },
+                    ticks: { autoSkip: false },
+                    offset: true,
+                    title: {
+                        display: true,
+                        text: "카테고리"
+                    }
                 },
                 y: {
                     beginAtZero: true,
