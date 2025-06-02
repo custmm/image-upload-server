@@ -1011,14 +1011,13 @@ async function renderCharts() {
                     data: compareValues,
                     borderColor: 'rgba(75, 192, 192, 1)',
                     fill: false,
-                    tension: 0.1
+                    tension: 0.1,
+                    yAxisID: 'y1'
                 }]
             };
 
             // 이전 꺾은선 그래프 제거
-            if (lineChartInstance) {
-                lineChartInstance.destroy();
-            }
+            if (lineChartInstance) lineChartInstance.destroy();
 
             // 꺾은선 차트 생성
             lineChartInstance = new Chart(lineCtx, {
@@ -1036,9 +1035,20 @@ async function renderCharts() {
                     },
                     scales: {
                         y: {
+                            display: false // ✅ 기본 축 숨기기
+                        },
+                        y1: {
+                            position: 'right',
                             beginAtZero: true,
                             ticks: {
                                 callback: value => `${value}%`
+                            },
+                            grid: {
+                                drawOnChartArea: false // ✅ 보조축 그리드 제거
+                            },
+                            title: {
+                                display: true,
+                                text: '상대 비율 (%)'
                             }
                         }
                     }
