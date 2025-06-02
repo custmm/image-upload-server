@@ -928,8 +928,8 @@ async function renderCharts() {
     // 기존 차트 제거
     if (window.barChartInstance) window.barChartInstance.destroy();
 
-    // 막대 데이터셋
-    const barDatasets = categories.map((category, index) => ({
+    // ✅ 초기 막대 데이터셋 정의
+    const barChartDatasets = categories.map((category, index) => ({
         type: 'bar',
         label: category,
         data: [probabilities[index]],
@@ -937,17 +937,17 @@ async function renderCharts() {
         yAxisID: 'y'
     }));
 
-    // 빈 꺾은선 데이터셋
+    // ✅ 초기 꺾은선 데이터셋
     const lineDataset = {
         type: 'line',
-        label: '', // 초기엔 없음
+        label: '',
         data: [],
         borderColor: 'rgba(75, 192, 192, 1)',
         fill: false,
         tension: 0.1,
         yAxisID: 'y1'
     };
-
+    
     // 초기 차트 생성
     window.barChartInstance = new Chart(barCtx, {
         data: {
@@ -979,10 +979,7 @@ async function renderCharts() {
                     grid: { display: false },
                     ticks: { autoSkip: false },
                     offset: true,
-                    title: {
-                        display: true,
-                        text: "카테고리"
-                    }
+                    title: {display: true, text: "카테고리"}
                 },
                 y: {
                     beginAtZero: true,
@@ -1014,28 +1011,27 @@ async function renderCharts() {
         const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, false);
         if (points.length) {
             const clickedIndex = points[0].datasetIndex;
-
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
             // ✅ 기준 항목 제외
             const filteredLabels = categories.filter((_, i) => i !== clickedIndex);
-            const filteredValues = probabilities.filter((_, i) => i !== clickedIndex);
+            const compareValues = probabilities
+                .map((prob, i) => i === clickedIndex ? null : ((parseFloat(prob) / targetValue) * 100).toFixed(2))
+                .filter(val => val !== null);
 
-            const compareValues = filteredValues.map(prob => ((parseFloat(prob) / targetValue) * 100).toFixed(2));
 
             // ✅ 막대 데이터셋에서 해당 항목 제거
-            const barChartDatasets = filteredLabels.map((label, i) => ({
+            const filteredBarDatasets = filteredLabels.map((label, i) => ({
                 type: 'bar',
                 label: label,
-                data: [probabilities[index]],
+                data: [probabilities[categories.indexOf(label)]],
                 backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5],
-                yAxisID: 'y',
-                hiddenLegend: false
+                yAxisID: 'y'
             }));
 
             // ✅ 꺾은선 데이터셋 업데이트
-            const lineDataset = {
+            const newLineDataset = {
                 type: 'line',
                 label: `${targetCategory} 대비 상대 비율`,
                 data: compareValues,
@@ -1048,7 +1044,6 @@ async function renderCharts() {
             // ✅ 차트 업데이트
             window.barChartInstance.data.labels = filteredLabels;
             window.barChartInstance.data.datasets = [...filteredBarDatasets, newLineDataset];
-
             window.barChartInstance.update();
         }
     };
