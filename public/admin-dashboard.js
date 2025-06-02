@@ -952,7 +952,7 @@ async function renderCharts() {
     window.barChartInstance = new Chart(barCtx, {
         data: {
             labels: categories, // ✅ 전체 카테고리 사용
-            datasets: [barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
+            datasets: [...barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
         },
         options: {
             responsive: true,
