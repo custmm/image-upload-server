@@ -925,60 +925,63 @@ async function renderCharts() {
     barCtx.canvas.width = isMobile ? 300 : 500;
     barCtx.canvas.height = isMobile ? 300 : 500;
 
+    // 기존 차트 제거
     if (window.barChartInstance) window.barChartInstance.destroy();
 
-    const barChartDatasets = categories.map((category, index) => ({
+    // 막대 데이터셋
+    const barDatasets = categories.map((category, index) => ({
+        type: 'bar',
         label: category,
         data: [probabilities[index]],
         backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][index % 5],
+        yAxisID: 'y'
     }));
 
+    // 빈 꺾은선 데이터셋
+    const lineDataset = {
+        type: 'line',
+        label: '', // 초기엔 없음
+        data: [],
+        borderColor: 'rgba(75, 192, 192, 1)',
+        fill: false,
+        tension: 0.1,
+        yAxisID: 'y1'
+    };
+
+    // 통합 차트 생성
     window.barChartInstance = new Chart(barCtx, {
-        type: "bar",
         data: {
-            datasets: barChartDatasets,
-            labels: ["게시물 비율"]
+            labels: categories,
+            datasets: [...barDatasets, lineDataset]
         },
         options: {
-            scales: {
-                x: { grid: { display: false } },
-                y: {
-                    beginAtZero: true,
-                    max: 100,
-                    grid: { display: false },
-                    ticks: { callback: value => value + "%" }
-                }
-            },
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
-                legend: { 
-                    position: "bottom",
-                    labels: {
-                        boxWidth: 20,
-                        padding: 10
-                    }
-                 },
-                title: { display: true },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            return `${context.raw}%`;
-                        }
-                    }
+            legend: { position: "bottom" },
+                title: {
+                    display: true,
+                    text: "게시물 비율 및 카테고리 상대 비교"
                 }
             },
-            layout: {
-                padding: {
-                    top: 20,
-                    right: 20,
-                    bottom: 30,
-                    left: 20
+            scales: {
+            y: {
+                beginAtZero: true,
+                max: 100,
+                title: { display: true, text: "게시물 비율 (%)" },
+                ticks: { callback: value => `${value}%` }
+            },
+            y1: {
+                    position: 'right',
+                    beginAtZero: true,
+                    grid: { drawOnChartArea: false },
+                    title: { display: true, text: "상대 비율 (%)" },
+                    ticks: { callback: value => `${value}%` }
                 }
             }
-            
         }
-        
     });
+
 
     // 🔥 꺾은선그래프 캔버스 가져오기
     const lineCanvas = document.getElementById("lineChart");
@@ -993,71 +996,19 @@ async function renderCharts() {
         if (points.length) {
             const clickedIndex = points[0].datasetIndex;
 
-            // ✅ 기준값
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            // ✅ 기준 항목 제외한 카테고리 및 비율 구성
-            const filteredLabels = categories.filter((_, i) => i !== clickedIndex);
-            const filteredValues = probabilities.filter((_, i) => i !== clickedIndex);
+            const filteredLabels = categories;
+            const compareValues = probabilities.map((prob, i) =>
+            i === clickedIndex ? null : ((parseFloat(prob) / targetValue) * 100).toFixed(2)
+            );
 
-            // ✅ 꺾은선 데이터: 기준 대비 상대 비율
-            const compareValues = filteredValues.map(prob => ((parseFloat(prob) / targetValue) * 100).toFixed(2));
+            const lineDataset = window.barChartInstance.data.datasets.find(ds => ds.type === 'line');
+            lineDataset.label = `${targetCategory} 대비 상대 비율`;
+            lineDataset.data = compareValues;
 
-            const lineData = {
-                labels: filteredLabels,   // ✅ 기준 제외한 카테고리만 표시
-                datasets: [{
-                    label: `${targetCategory} 대비 상대 비율`,
-                    data: compareValues,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    fill: false,
-                    tension: 0.1,
-                    yAxisID: 'y1'
-                }]
-            };
-
-            // 이전 꺾은선 그래프 제거
-            if (lineChartInstance) lineChartInstance.destroy();
-
-            // 꺾은선 차트 생성
-            lineChartInstance = new Chart(lineCtx, {
-                type: 'line',
-                data: lineData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: "bottom" },
-                        title: {
-                            display: true,
-                            text: `${targetCategory} 대비 타 카테고리 상대 비율`
-                        }
-                    },
-                    scales: {
-                        y: {
-                            display: false // ✅ 기본 축 숨기기
-                        },
-                        y1: {
-                            position: 'right',
-                            beginAtZero: true,
-                            ticks: {
-                                callback: value => `${value}%`
-                            },
-                            grid: {
-                                drawOnChartArea: false // ✅ 보조축 그리드 제거
-                            },
-                            title: {
-                                display: true,
-                                text: '상대 비율 (%)'
-                            }
-                        }
-                    }
-                }
-            });
-
-            // 차트 표시 조절
-            document.getElementById("lineChart").style.display = "block";
-            document.getElementById("radarChart").style.display = "none";
+            window.barChartInstance.update();
         }
     };
 }
