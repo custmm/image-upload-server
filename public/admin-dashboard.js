@@ -948,49 +948,49 @@ async function renderCharts() {
         yAxisID: 'y1'
     };
 
-    // 통합 차트 생성
+    // 초기 차트 생성
     window.barChartInstance = new Chart(barCtx, {
         data: {
-            labels: filteredLabels, // ✅ 반드시 데이터 수와 동일
-            datasets: [...filteredBarDatasets, lineDataset]
+            labels: categories, // ✅ 전체 카테고리 사용
+            datasets: [...barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-            legend: { 
-                position: "bottom",
-                labels:{
-                    boxWidth: 20,
-                    padding: 10,
-                    filter: function (legendItem, chartData) {
-                        const dataset = chartData.datasets[legendItem.datasetIndex];
-                        return !dataset.hiddenLegend;
+                legend: { 
+                    position: "bottom",
+                    labels: {
+                        boxWidth: 20,
+                        padding: 10,
+                        filter: function (legendItem, chartData) {
+                            const dataset = chartData.datasets[legendItem.datasetIndex];
+                            return !dataset.hiddenLegend;
+                        }
                     }
-                } 
-            },
-            title: {
-                display: true,
-                text: "게시물 비율 및 카테고리 상대 비교"
-            }
-        },
-        scales: {
-            x: {
-                grid: { display: false },
-                ticks: { autoSkip: false }, // ✅ 라벨 전부 표시
-                offset: true, // ✅ 양쪽 여백 확보
+                },
                 title: {
                     display: true,
-                    text: "카테고리"
+                    text: "게시물 비율 및 카테고리 상대 비교"
                 }
             },
-            y: {
-                beginAtZero: true,
-                max: 100,
-                title: { display: true, text: "게시물 비율 (%)" },
-                ticks: { callback: value => `${value}%` }
-            },
-            y1: {
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { autoSkip: false },
+                    offset: true,
+                    title: {
+                        display: true,
+                        text: "카테고리"
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: { display: true, text: "게시물 비율 (%)" },
+                    ticks: { callback: value => `${value}%` }
+                },
+                y1: {
                     position: 'right',
                     beginAtZero: true,
                     grid: { drawOnChartArea: false },
