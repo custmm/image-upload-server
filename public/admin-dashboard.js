@@ -1007,19 +1007,40 @@ async function renderCharts() {
             const targetIndex = categories.indexOf(targetLabel);
             const targetValue = parseFloat(probabilities[targetIndex]);
 
-            // ✅ 꺾은선용 비율 계산
-            const compareValues = categories.map((_, i) =>
-                i === targetIndex ? null : ((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2)
-            );
+            // ✅ X축 라벨: 선택된 항목 제외
+            const filteredLabels = categories.filter((_, i) => i !== clickedIndex);
 
-            // ✅ 라인 데이터셋만 교체
-            const lineDataset = window.barChartInstance.data.datasets.find(ds => ds.type === 'line');
-            lineDataset.label = `${targetLabel} 대비 상대 비율`;
-            lineDataset.data = compareValues;
+            // ✅ 막대 데이터셋: 선택된 항목 제거
+            const barData = probabilities.filter((_, i) => i !== clickedIndex);
 
-            // ✅ 선택한 막대 null로 바꾸기
-            window.barChartInstance.data.datasets[clickedIndex].data = [null];
+            const barChartDatasets = {
+                type: 'bar',
+                label: '카테고리별 게시물 비율',
+                data: barData,
+                backgroundColor: filteredLabels.map((_, i) =>
+                    ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
+                ),
+                yAxisID: 'y'
+            };
 
+            // ✅ 꺾은선: 기준 항목만 기준으로 비율 계산
+            const compareValues = filteredLabels.map((_, i) => (
+                ((parseFloat(probabilities[categories.indexOf(filteredLabels[i])]) / targetValue) * 100).toFixed(2)
+            ));
+
+            const newLineDataset = {
+                type: 'line',
+                label: `${targetCategory} 대비 상대 비율`,
+                data: compareValues,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                fill: false,
+                tension: 0.1,
+                yAxisID: 'y1'
+            };
+
+            // ✅ 차트 갱신
+            window.barChartInstance.data.labels = filteredLabels;
+            window.barChartInstance.data.datasets = [barChartDatasets, newLineDataset];
             window.barChartInstance.update();
         }
     };
