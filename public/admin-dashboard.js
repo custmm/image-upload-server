@@ -1018,23 +1018,31 @@ async function renderCharts() {
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            // ✅ 클릭된 항목 제거
-            const filteredLabels = categories.filter((_, i) => i !== clickedIndex);
-            const filteredValues = probabilities.filter((_, i) => i !== clickedIndex);
+            // ✅ 전체 labels 유지
+            const filteredLabels = categories;
 
-            const compareValues = probabilities
-                .map((prob, i) => i === clickedIndex ? null : ((parseFloat(prob) / targetValue) * 100).toFixed(2))
-                .filter(val => val !== null);
+            // ✅ 꺾은선 그래프 데이터: 선택 제외 비율
+            const compareValues = categories.map((_, i) =>
+                i === clickedIndex ? null : ((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2)
+            );
 
 
-            // ✅ 막대 데이터셋에서 해당 항목 제거
-            const filteredBarDatasets = filteredLabels.map((label, i) => ({
+            // ✅ 막대 그래프 데이터: 선택 항목 null로 바꾸기
+            const barData = categories.map((_, i) =>
+                i === clickedIndex ? null : parseFloat(probabilities[i])
+            );
+
+
+            // ✅ 새로운 통합 데이터셋 구성
+            const filteredBarDatasets = [{
                 type: 'bar',
-                label,
-                data: [filteredValues[i]],  // 정확한 값 매핑
-                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5],
+                label: '카테고리별 게시물 비율',
+                data: barData,
+                backgroundColor: categories.map((_, i) =>
+                    ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
+                ),
                 yAxisID: 'y'
-            }));
+            }];
 
             // ✅ 꺾은선 데이터셋 업데이트
             const newLineDataset = {
