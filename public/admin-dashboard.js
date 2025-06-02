@@ -928,22 +928,20 @@ async function renderCharts() {
     // 기존 차트 제거
     if (window.barChartInstance) window.barChartInstance.destroy();
 
-    // ✅ 초기 막대 데이터셋 정의
-    const barChartDataset = {
+    // ✅ 초기 개별 막대 데이터셋 정의
+    const barChartDatasets = categories.map((cat, i) => ({
         type: 'bar',
-        label: '카테고리별 게시물 비율',
-        data: probabilities,
-        backgroundColor: categories.map((_, index) =>
-            ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][index % 5]
-        ),
+        label: cat,
+        data: [parseFloat(probabilities[i])],
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5],
         yAxisID: 'y'
-    };
+    }));
 
     // ✅ 초기 꺾은선 데이터셋
     const lineDataset = {
         type: 'line',
         label: '',
-        data: [],
+        data: Array(categories.length).fill(null),
         borderColor: 'rgba(75, 192, 192, 1)',
         fill: false,
         tension: 0.1,
@@ -954,21 +952,15 @@ async function renderCharts() {
     window.barChartInstance = new Chart(barCtx, {
         data: {
             labels: categories, // ✅ 전체 카테고리 사용
-            datasets: [barChartDataset, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
+            datasets: [...barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
                 legend: { 
-                    position: "bottom",
-                    labels: {
-                        filter: function (legendItem, chartData) {
-                            const dataset = chartData.datasets[legendItem.datasetIndex];
-                            return !dataset.hiddenLegend;
-                        }
-                    }
-                },
+                    position: "bottom"
+                },                
                 title: {
                     display: true,
                     text: "게시물 비율 및 카테고리 상대 비교"
@@ -978,12 +970,8 @@ async function renderCharts() {
                 x: {
                     grid: { display: false },
                     offset: true,
-                    ticks: {
-                        display: false // ✅ 레이블 숨김
-                    },
-                    title: { 
-                        display: false 
-                    } // ✅ 제목도 숨김
+                    ticks: { display: false },// ✅ 레이블 숨김
+                    title: { display: false } // ✅ 제목도 숨김
                 },
                 y: {
                     beginAtZero: true,
@@ -1014,44 +1002,24 @@ async function renderCharts() {
     document.getElementById("radarChart").onclick = function(evt) {
         const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, false);
         if (points.length) {
-            const clickedIndex = points[0].index;
-            const targetCategory = categories[clickedIndex];
-            const targetValue = parseFloat(probabilities[clickedIndex]);
+            const clickedIndex = points[0].datasetIndex;
+            const targetLabel = window.barChartInstance.data.datasets[clickedIndex].label;
+            const targetIndex = categories.indexOf(targetLabel);
+            const targetValue = parseFloat(probabilities[targetIndex]);
 
-            // ✅ X축 라벨: 선택된 항목 제외
-            const filteredLabels = categories.filter((_, i) => i !== clickedIndex);
+            // ✅ 꺾은선용 비율 계산
+            const compareValues = categories.map((_, i) =>
+                i === targetIndex ? null : ((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2)
+            );
 
-            // ✅ 막대 데이터셋: 선택된 항목 제거
-            const barData = probabilities.filter((_, i) => i !== clickedIndex);
+            // ✅ 라인 데이터셋만 교체
+            const lineDataset = window.barChartInstance.data.datasets.find(ds => ds.type === 'line');
+            lineDataset.label = `${targetLabel} 대비 상대 비율`;
+            lineDataset.data = compareValues;
 
-            const barChartDataset = {
-                type: 'bar',
-                label: '카테고리별 게시물 비율',
-                data: barData,
-                backgroundColor: filteredLabels.map((_, i) =>
-                    ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
-                ),
-                yAxisID: 'y'
-            };
+            // ✅ 선택한 막대 null로 바꾸기
+            window.barChartInstance.data.datasets[clickedIndex].data = [null];
 
-            // ✅ 꺾은선: 기준 항목만 기준으로 비율 계산
-            const compareValues = filteredLabels.map((_, i) => (
-                ((parseFloat(probabilities[categories.indexOf(filteredLabels[i])]) / targetValue) * 100).toFixed(2)
-            ));
-
-            const newLineDataset = {
-                type: 'line',
-                label: `${targetCategory} 대비 상대 비율`,
-                data: compareValues,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false,
-                tension: 0.1,
-                yAxisID: 'y1'
-            };
-
-            // ✅ 차트 갱신
-            window.barChartInstance.data.labels = filteredLabels;
-            window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
             window.barChartInstance.update();
         }
     };
