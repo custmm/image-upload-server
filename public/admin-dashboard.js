@@ -979,10 +979,11 @@ async function renderCharts() {
                     grid: { display: false },
                     offset: true,
                     ticks: {
-                        autoSkip: false,
                         display: false // ✅ 레이블 숨김
                     },
-                    title: { display: false } // ✅ 제목도 숨김
+                    title: { 
+                        display: false 
+                    } // ✅ 제목도 숨김
                 },
                 y: {
                     beginAtZero: true,
