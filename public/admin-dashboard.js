@@ -1030,7 +1030,7 @@ async function renderCharts() {
 
             const newLineDataset = {
                 type: 'line',
-                label: `${targetCategory} 대비 상대 비율`,
+                label: `${targetIndex} 대비 상대 비율`,
                 data: compareValues,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 fill: false,
