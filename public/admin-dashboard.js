@@ -929,13 +929,15 @@ async function renderCharts() {
     if (window.barChartInstance) window.barChartInstance.destroy();
 
     // ✅ 초기 막대 데이터셋 정의
-    const barChartDatasets = categories.map((category, index) => ({
+    const barChartDataset = {
         type: 'bar',
-        label: category,
-        data: [probabilities[index]],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][index % 5],
+        label: '카테고리별 게시물 비율',
+        data: probabilities,
+        backgroundColor: categories.map((_, index) =>
+            ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][index % 5]
+        ),
         yAxisID: 'y'
-    }));
+    };
 
     // ✅ 초기 꺾은선 데이터셋
     const lineDataset = {
@@ -952,18 +954,15 @@ async function renderCharts() {
     window.barChartInstance = new Chart(barCtx, {
         data: {
             labels: categories, // ✅ 전체 카테고리 사용
-            datasets: [...barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
+            datasets: [...barChartDataset, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
         },
         options: {
             responsive: true,
-            resizeDelay: 100,  // 🔧 resize 반영 시간 약간 늦춤
             maintainAspectRatio: false,
             plugins: {
                 legend: { 
                     position: "bottom",
                     labels: {
-                        boxWidth: 20,
-                        padding: 10,
                         filter: function (legendItem, chartData) {
                             const dataset = chartData.datasets[legendItem.datasetIndex];
                             return !dataset.hiddenLegend;
@@ -976,8 +975,11 @@ async function renderCharts() {
                 }
             },
             scales: {
-                  x: {
-                    display: false  // ✅ x축 자체를 완전히 숨김
+                x: {
+                    grid: { display: false },
+                    offset: true,
+                    ticks: { autoSkip: false },
+                    title: { display: true, text: "카테고리" }
                 },
                 y: {
                     beginAtZero: true,
