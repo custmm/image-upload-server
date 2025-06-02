@@ -976,6 +976,9 @@ async function renderCharts() {
                 }
             },
             scales: {
+                  x: {
+                    display: false  // ✅ x축 자체를 완전히 숨김
+                },
                 y: {
                     beginAtZero: true,
                     max: 100,
@@ -1009,8 +1012,10 @@ async function renderCharts() {
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            // ✅ 기준 항목 제외
+            // ✅ 클릭된 항목 제거
             const filteredLabels = categories.filter((_, i) => i !== clickedIndex);
+            const filteredValues = probabilities.filter((_, i) => i !== clickedIndex);
+
             const compareValues = probabilities
                 .map((prob, i) => i === clickedIndex ? null : ((parseFloat(prob) / targetValue) * 100).toFixed(2))
                 .filter(val => val !== null);
@@ -1019,8 +1024,8 @@ async function renderCharts() {
             // ✅ 막대 데이터셋에서 해당 항목 제거
             const filteredBarDatasets = filteredLabels.map((label, i) => ({
                 type: 'bar',
-                label: label,
-                data: [probabilities[categories.indexOf(label)]],
+                label,
+                data: [filteredValues[i]],  // 정확한 값 매핑
                 backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5],
                 yAxisID: 'y'
             }));
