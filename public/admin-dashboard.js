@@ -958,13 +958,23 @@ async function renderCharts() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-            legend: { position: "bottom" },
-                title: {
-                    display: true,
-                    text: "게시물 비율 및 카테고리 상대 비교"
-                }
+            legend: { 
+                position: "bottom",
+                labels:{
+                    boxWidth: 20,
+                    padding: 10,
+                    filter: function (legendItem, chartData) {
+                        const dataset = chartData.datasets[legendItem.datasetIndex];
+                        return !dataset.hiddenLegend;
+                    }
+                } 
             },
-            scales: {
+            title: {
+                display: true,
+                text: "게시물 비율 및 카테고리 상대 비교"
+            }
+        },
+        scales: {
             y: {
                 beginAtZero: true,
                 max: 100,
@@ -999,14 +1009,24 @@ async function renderCharts() {
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            const filteredLabels = categories;
+            // 상대 비율 계산
             const compareValues = probabilities.map((prob, i) =>
-            i === clickedIndex ? null : ((parseFloat(prob) / targetValue) * 100).toFixed(2)
-            );
+                i === clickedIndex ? null : ((parseFloat(prob) / targetValue) * 100).toFixed(2)
+            );    
 
+            // 꺾은선 데이터셋 업데이트
             const lineDataset = window.barChartInstance.data.datasets.find(ds => ds.type === 'line');
             lineDataset.label = `${targetCategory} 대비 상대 비율`;
             lineDataset.data = compareValues;
+
+            // ✅ 모든 막대 데이터셋 hiddenLegend 초기화
+            window.barChartInstance.data.datasets.forEach(ds => {
+                if (ds.type === 'bar') ds.hiddenLegend = false;
+            });
+
+            // ✅ 클릭된 막대 데이터셋만 hiddenLegend 처리
+            const clickedDataset = window.barChartInstance.data.datasets[clickedIndex];
+            clickedDataset.hiddenLegend = true;
 
             window.barChartInstance.update();
         }
