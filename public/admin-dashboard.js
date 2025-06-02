@@ -1002,24 +1002,26 @@ async function renderCharts() {
                 return ((parseFloat(prob) / targetValue) * 100).toFixed(2);
             });
 
+            const lineData = {
+                labels: categories,
+                datasets: [{
+                    label: `${targetCategory} 대비 상대 비율`,
+                    data: compareValues,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false,
+                    tension: 0.1
+                }]
+            };
+
             // 이전 꺾은선 그래프 제거
             if (lineChartInstance) {
                 lineChartInstance.destroy();
             }
 
             // 꺾은선 차트 생성
-            window.lineChartInstance = new Chart(lineCtx, {
+            lineChartInstance = new Chart(lineCtx, {
                 type: 'line',
-                data: {
-                    labels: categories,
-                    datasets: [{
-                        label: `${targetCategory} 대비 상대 비율`,
-                        data: compareValues,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        fill: false,
-                        tension: 0.1
-                    }]
-                },
+                data: lineData,
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
@@ -1035,17 +1037,8 @@ async function renderCharts() {
                             beginAtZero: true,
                             ticks: {
                                 callback: value => `${value}%`
-                            },
-                            display: false // 왼쪽 y축은 꺾은선에선 숨김
-                        },
-                        y2:{
-                            beginAtZero: true,
-                            position: 'right',  // 🔥 오른쪽에 축 표시
-                            grid: { drawOnChartArea: false }, // 격자 제거
-                            ticks: {
-                                callback: value => `${value}%`
                             }
-                        }    
+                        }
                     }
                 }
             });
