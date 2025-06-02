@@ -951,7 +951,7 @@ async function renderCharts() {
     // 통합 차트 생성
     window.barChartInstance = new Chart(barCtx, {
         data: {
-            labels: categories,
+            labels: filteredLabels, // ✅ 반드시 데이터 수와 동일
             datasets: [...barDatasets, lineDataset]
         },
         options: {
@@ -975,6 +975,15 @@ async function renderCharts() {
             }
         },
         scales: {
+            x: {
+                grid: { display: false },
+                ticks: { autoSkip: false }, // ✅ 라벨 전부 표시
+                offset: true, // ✅ 양쪽 여백 확보
+                title: {
+                    display: true,
+                    text: "카테고리"
+                }
+            },
             y: {
                 beginAtZero: true,
                 max: 100,
