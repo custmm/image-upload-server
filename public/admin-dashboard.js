@@ -975,12 +975,6 @@ async function renderCharts() {
                 }
             },
             scales: {
-                x: {
-                    grid: { display: false },
-                    offset: true,
-                    ticks: { autoSkip: false },
-                    title: { display: true, text: "카테고리" }
-                },
                 y: {
                     beginAtZero: true,
                     max: 100,
