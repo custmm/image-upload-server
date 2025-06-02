@@ -977,12 +977,12 @@ async function renderCharts() {
             scales: {
                 x: {
                     grid: { display: false },
-                    ticks: { autoSkip: false },
                     offset: true,
-                    title: {
-                        display: true,
-                        text: "카테고리"
-                    }
+                    ticks: {
+                        autoSkip: false,
+                        display: false // ✅ 레이블 숨김
+                    },
+                    title: { display: false } // ✅ 제목도 숨김
                 },
                 y: {
                     beginAtZero: true,
