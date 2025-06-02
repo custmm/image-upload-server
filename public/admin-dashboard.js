@@ -941,7 +941,7 @@ async function renderCharts() {
     const lineDataset = {
         type: 'line',
         label: '',
-        data: Array(categories.length).fill(null),
+        data: [],
         borderColor: 'rgba(75, 192, 192, 1)',
         fill: false,
         tension: 0.1,
@@ -952,15 +952,21 @@ async function renderCharts() {
     window.barChartInstance = new Chart(barCtx, {
         data: {
             labels: categories, // ✅ 전체 카테고리 사용
-            datasets: [...barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
+            datasets: [barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
                 legend: { 
-                    position: "bottom"
-                },                
+                    position: "bottom",
+                    labels: {
+                        filter: function (legendItem, chartData) {
+                            const dataset = chartData.datasets[legendItem.datasetIndex];
+                            return !dataset.hiddenLegend;
+                        }
+                    }
+                },
                 title: {
                     display: true,
                     text: "게시물 비율 및 카테고리 상대 비교"
@@ -970,8 +976,12 @@ async function renderCharts() {
                 x: {
                     grid: { display: false },
                     offset: true,
-                    ticks: { display: false },// ✅ 레이블 숨김
-                    title: { display: false } // ✅ 제목도 숨김
+                    ticks: {
+                        display: false // ✅ 레이블 숨김
+                    },
+                    title: { 
+                        display: false 
+                    } // ✅ 제목도 숨김
                 },
                 y: {
                     beginAtZero: true,
@@ -1002,10 +1012,9 @@ async function renderCharts() {
     document.getElementById("radarChart").onclick = function(evt) {
         const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, false);
         if (points.length) {
-            const clickedIndex = points[0].datasetIndex;
-            const targetLabel = window.barChartInstance.data.datasets[clickedIndex].label;
-            const targetIndex = categories.indexOf(targetLabel);
-            const targetValue = parseFloat(probabilities[targetIndex]);
+            const clickedIndex = points[0].index;
+            const targetCategory = categories[clickedIndex];
+            const targetValue = parseFloat(probabilities[clickedIndex]);
 
             // ✅ X축 라벨: 선택된 항목 제외
             const filteredLabels = categories.filter((_, i) => i !== clickedIndex);
@@ -1030,7 +1039,7 @@ async function renderCharts() {
 
             const newLineDataset = {
                 type: 'line',
-                label: `${targetIndex} 대비 상대 비율`,
+                label: `${targetCategory} 대비 상대 비율`,
                 data: compareValues,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 fill: false,
