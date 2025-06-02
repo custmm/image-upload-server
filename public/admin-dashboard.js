@@ -952,7 +952,7 @@ async function renderCharts() {
     window.barChartInstance = new Chart(barCtx, {
         data: {
             labels: filteredLabels, // ✅ 반드시 데이터 수와 동일
-            datasets: [...barDatasets, lineDataset]
+            datasets: [...filteredBarDatasets, lineDataset]
         },
         options: {
             responsive: true,
@@ -1025,7 +1025,13 @@ async function renderCharts() {
             const compareValues = filteredValues.map(prob => ((parseFloat(prob) / targetValue) * 100).toFixed(2));
 
             // ✅ 막대 데이터셋에서 해당 항목 제거
-            const filteredBarDatasets = barDatasets.filter((_, i) => i !== clickedIndex);
+            const filteredBarDatasets = filteredLabels.map((label, i) => ({
+                type: 'bar',
+                label: label,
+                data: [filteredValues[i]],
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5],
+                yAxisID: 'y'
+            }));
 
             // ✅ 꺾은선 데이터셋 업데이트
             const newLineDataset = {
