@@ -1026,12 +1026,10 @@ async function renderCharts() {
                 i === clickedIndex ? null : ((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2)
             );
 
-
             // ✅ 막대 그래프 데이터: 선택 항목 null로 바꾸기
             const barData = categories.map((_, i) =>
                 i === clickedIndex ? null : parseFloat(probabilities[i])
             );
-
 
             // ✅ 새로운 통합 데이터셋 구성
             const filteredBarDatasets = [{
@@ -1044,7 +1042,6 @@ async function renderCharts() {
                 yAxisID: 'y'
             }];
 
-            // ✅ 꺾은선 데이터셋 업데이트
             const newLineDataset = {
                 type: 'line',
                 label: `${targetCategory} 대비 상대 비율`,
@@ -1055,7 +1052,7 @@ async function renderCharts() {
                 yAxisID: 'y1'
             };
 
-            // ✅ 차트 업데이트
+            // ✅ 차트 갱신
             window.barChartInstance.data.labels = filteredLabels;
             window.barChartInstance.data.datasets = [...filteredBarDatasets, newLineDataset];
             window.barChartInstance.update();
