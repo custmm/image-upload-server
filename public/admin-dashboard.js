@@ -929,7 +929,7 @@ async function renderCharts() {
     if (window.barChartInstance) window.barChartInstance.destroy();
 
     // ✅ 초기 막대 데이터셋 정의
-    const barChartDatasets = {
+    const barChartDataset = {
         type: 'bar',
         label: '카테고리별 게시물 비율',
         data: probabilities,
@@ -954,7 +954,7 @@ async function renderCharts() {
     window.barChartInstance = new Chart(barCtx, {
         data: {
             labels: categories, // ✅ 전체 카테고리 사용
-            datasets: [...barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
+            datasets: [barChartDataset, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
         },
         options: {
             responsive: true,
