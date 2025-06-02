@@ -993,17 +993,19 @@ async function renderCharts() {
         if (points.length) {
             const clickedIndex = points[0].datasetIndex;
 
+            // ✅ 기준값
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            // 비교 데이터 생성 (타 카테고리 대비 비율)
-            const compareValues = probabilities.map((prob, i) => {
-                if (i === clickedIndex) return 100;
-                return ((parseFloat(prob) / targetValue) * 100).toFixed(2);
-            });
+            // ✅ 기준 항목 제외한 카테고리 및 비율 구성
+            const filteredLabels = categories.filter((_, i) => i !== clickedIndex);
+            const filteredValues = probabilities.filter((_, i) => i !== clickedIndex);
+
+            // ✅ 꺾은선 데이터: 기준 대비 상대 비율
+            const compareValues = filteredValues.map(prob => ((parseFloat(prob) / targetValue) * 100).toFixed(2));
 
             const lineData = {
-                labels: categories,
+                labels: filteredLabels,   // ✅ 기준 제외한 카테고리만 표시
                 datasets: [{
                     label: `${targetCategory} 대비 상대 비율`,
                     data: compareValues,
