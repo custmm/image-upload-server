@@ -38,16 +38,15 @@
 </head>
 <body>
     <button class="back-button" onclick="window.location.href='preview.html'">뒤로가기</button>
-  <h2>#{{tag}} 관련 게시물</h2>
-
-  <ul class="post-list">
-    {{#each posts}}
-      <li>
-        <a href="/post/{{this.id}}">
-          {{this.file_description}}
-        </a>
-      </li>
-    {{/each}}
-  </ul>
-</body>
+        <h2>#{{tag}} 관련 게시물</h2>
+    <ul class="post-list">
+        {{#each posts}}
+        <li>
+            <a href="/post/{{this.id}}">
+            {{this.file_description}}
+            </a>
+        </li>
+        {{/each}}
+        </ul>
+    </body>
 </html>

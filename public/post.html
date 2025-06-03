@@ -149,6 +149,14 @@
     .button:hover {
       background-color: #755a6a;
     }
+    .hashtag-link {
+      color: #1da1f2;
+      text-decoration: none;
+    }
+
+    .hashtag-link:hover {
+      text-decoration: underline;
+    }
     /* 토글 스위치 (다크 모드) */
     .toggle-switch {
       position: absolute;
@@ -327,6 +335,13 @@
         };
       }
 
+    function convertHashtagsToLinks(text) {
+      return text.replace(/#([\w가-힣]+)/g, (match, tag) => {
+        const encoded = encodeURIComponent(tag);
+        return `<a href="/search?tag=${encoded}" class="hashtag-link">#${tag}</a>`;
+      });
+    }
+    
     // ✅ 서버에서 데이터 가져오기
     async function loadPostData() {
         let { category, subcategory, file } = getParamsFromURL();
@@ -367,8 +382,8 @@
           document.getElementById("postSubcategory").textContent = postData.subcategory_name || "서브카테고리 없음";
           
           // ✅ 설명 필터링 후 적용 (HTML 태그 유지)
-          document.getElementById("postDescription").innerHTML = (postData.file_description || "설명 없음")
-            .replace(/\n/g, "<br>");
+          const convertedDescription = convertHashtagsToLinks(postData.file_description || "설명 없음");
+          document.getElementById("postDescription").innerHTML = convertedDescription.replace(/\n/g, "<br>");
         } catch (error) {
             console.error("🚨 게시물 불러오기 오류:", error);
             document.getElementById("postDescription").innerHTML = "🚨 게시물을 불러오는 중 오류 발생";
@@ -377,6 +392,7 @@
             hideLoading();
         }
     }
+    
     // ✅ HTML 태그 유지 및 불필요한 태그 제거
     function sanitizeDescription(html) {
     // 글자 효과를 위해 필요한 태그를 추가할 수 있습니다.
