@@ -1010,7 +1010,7 @@ async function renderCharts() {
 
     // ✅ 막대그래프 클릭 이벤트
     document.getElementById("radarChart").onclick = function(evt) {
-        const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, false);
+        const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: false }, false);
         if (points.length) {
             const clickedIndex = points[0].index;
             const targetCategory = categories[clickedIndex];
