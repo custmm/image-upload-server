@@ -167,47 +167,120 @@
         display: flex;
         gap: 5px;
     }
+    .edit-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    }
+
+    .edit-modal-content {
+        background: #c0c0c065;
+        padding: 20px;
+        border-radius: 5px;
+        width: 85%;
+    }
+
+    .editor-buttons {
+        margin-bottom: 10px;
+    }
+
+    .editor-buttons button {
+        margin-right: 5px;
+    }
+
+    .edit-content {
+        width: 100%;
+        min-height: 150px;
+        border: 1px solid #000;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: none;
+        outline: none;
+        text-shadow: none;
+        text-decoration: none;
+        font-style: normal;
+        overflow-y: auto;
+        text-align: left;
+        padding: 8px;
+    }
+    .edit-container{
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+    }
+
+    .edit-button-group {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #descriptionCounter {
+        margin-top: 8px;
+        text-align: right;
+    }
+
+    .button-separator {
+        width: 10px;
+    }
+
     /* 오버레이 (showpopup) */
     .popup-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1500;
+        position: fixed;
+        top: 0; 
+        left: 0;
+        width: 100%; 
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1500;
     }
     /* 일반 팝업 컨테이너 */
     .popup-container {
-    background-color: white;
-    color: #000;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
+        background-color: white;
+        color: #000;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
     }
 
     /* 일반 팝업 버튼 */
     .popup-container button {
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    padding: 7px 15px;
-    margin-top: 10px;
-    cursor: pointer;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 7px 15px;
+        margin-top: 10px;
+        cursor: pointer;
     }
 
     /* 수정/삭제 확인 팝업 컨테이너 */
     .popup-edit-container {
-    position: fixed;
-    top: 50%; left: 50%;
-    width: 250px;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    z-index: 10001;
-    text-align: center;
+        position: fixed;
+        top: 50%; 
+        left: 50%;
+        width: 250px;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        z-index: 10001;
+        text-align: center;
     }
 
     /* edit 팝업 내부 문단 여백 */
