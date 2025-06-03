@@ -597,6 +597,21 @@
 
         modal.style.display = "flex";
     }
+            descriptionEditor.addEventListener("input", () => {
+            // ✅ HTML 태그를 제외하고 순수한 텍스트 길이만 계산
+            let text = descriptionEditor.innerText.trim(); // 🔥 innerText 사용
+            let length = text.length;
+    
+            // ✅ 글자 수 업데이트
+            descriptionCounter.textContent = `${length} / 500`;
+    
+            // ✅ 500자 초과 시 경고 스타일 적용
+            if (length > 500) {
+                descriptionCounter.style.color = "red";
+            } else {
+                descriptionCounter.style.color = "gray";
+            }
+        });
     async function deletePost(id) {
         // 1) 사용자 확인
         showeditpopup('게시물을 삭제하시겠습니까?',async() => {
