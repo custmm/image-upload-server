@@ -522,14 +522,16 @@
                 <div class="edit-modal">
                     <div class="edit-modal-content">
                         <h2>게시물 수정</h2>
-                        <div class="editor-buttons">
-                            <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
-                            <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
-                            <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
-                            <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                        <div class="edit-container">
+                            <div class="editor-buttons">
+                                <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                                <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                                <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
+                                <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                            <div id="editContent" contenteditable="true" class="edit-content"></div>
+                                <p id="descriptionCounter">0 / 500</p>
+                            </div>
                         </div>
-                        <div id="editContent" contenteditable="true" class="edit-content"></div>
-                        <p id="descriptionCounter">0 / 500</p>
                         <div class="edit-button-group">
                             <button id="saveEdit">저장</button>
                             <div class="button-separator"></div>
