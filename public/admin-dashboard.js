@@ -558,11 +558,11 @@
         editContent.addEventListener("input", () => {
             const rawText = editContent.innerText;
 
-            // 해시태그 추출
-            const hashtags = rawText.match(/#\w+/g) || [];
+            // ✅ 한글 해시태그까지 포함
+            const hashtags = rawText.match(/#[\w가-힣]+/g) || [];
 
             // 해시태그 제거 후 글자 수 계산
-            const textWithoutTags = rawText.replace(/#\w+/g, '').trim();
+            const textWithoutTags = rawText.replace(/#[\w가-힣]+/g, '').trim();
             const charCount = textWithoutTags.length;
 
             // 카운터 표시 업데이트
