@@ -46,9 +46,9 @@ app.get("/favicon.ico", (req, res) => {
 app.get("/api/health", (req, res) => {
     res.status(200).send("Server is alive");
   });
-  
+
   // ✅ 검색 라우트: /search?tag=레고
-app.get("/search", async (req, res) => {
+app.get("/api/search", async (req, res) => {
     const tag = req.query.tag;
 
     try {
@@ -60,8 +60,7 @@ app.get("/search", async (req, res) => {
             }
         );
 
-        res.sendFile(path.join(__dirname, "..", "public", "tagResults.html"));
-        // 또는 res.render("tagResults", { tag, posts }); ← 템플릿 쓰는 경우
+        res.render({ tag, posts });
     } catch (err) {
         console.error("❌ 검색 실패:", err);
         res.status(500).send("검색 오류");

@@ -48,5 +48,25 @@
         </li>
         {{/each}}
         </ul>
+        <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+        const params = new URLSearchParams(location.search);
+        const tag = params.get("tag");
+
+        if (!tag) return;
+
+        try {
+            const res = await fetch(`/api/search?tag=${encodeURIComponent(tag)}`);
+            const data = await res.json();
+
+            const container = document.getElementById("tagResultsContainer");
+            container.innerHTML = `<h2>#${tag} 관련 게시물</h2><ul>` +
+            data.posts.map(post => `<li>${post.file_description}</li>`).join('') +
+            `</ul>`;
+        } catch (err) {
+            console.error("❌ 클라이언트 오류:", err);
+        }
+        });
+        </script>
     </body>
 </html>
