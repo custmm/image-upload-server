@@ -528,18 +528,19 @@
                                 <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
                                 <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
                                 <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
-                            <div id="editContent" contenteditable="true" class="edit-content"></div>
-                                <p id="descriptionCounter">0 / 500</p>
+                            <hr class="dashed-line"> 
+                                <div id="editContent" contenteditable="true" class="edit-content"></div>
+                                    <p id="descriptionCounter">0 / 500</p>
+                                </div>
+                            </div>
+                            <div class="edit-button-group">
+                                <button id="saveEdit">저장</button>
+                                <div class="button-separator"></div>
+                                <button id="closeEdit">취소</button>
                             </div>
                         </div>
-                        <div class="edit-button-group">
-                            <button id="saveEdit">저장</button>
-                            <div class="button-separator"></div>
-                            <button id="closeEdit">취소</button>
-                        </div>
                     </div>
-                </div>
-            `;
+                `;
 
             document.body.appendChild(modal);
         }else{
