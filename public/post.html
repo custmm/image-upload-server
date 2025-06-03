@@ -338,7 +338,7 @@
     function convertHashtagsToLinks(text) {
       return text.replace(/#([\w가-힣]+)/g, (match, tag) => {
         const encoded = encodeURIComponent(tag);
-        return `<a href="tagResults.html?tag=${encoded}" class="hashtag-link">#${tag}</a>`;
+        return `<a href="tagResults?tag=${encoded}" class="hashtag-link">#${tag}</a>`;
       });
     }
 
