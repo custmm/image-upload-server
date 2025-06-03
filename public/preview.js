@@ -530,7 +530,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             previewContainer.style.position = "relative";
     
             // _cut 버전을 지원하는 번호 배열
-            const allowedCutIndices = [1, 2, 3, 4, 5, 7, 8, 9, 11,12];
+            const allowedCutIndices = [1, 2, 3, 4, 5, 8, 9, 11,12];
             const totalPreviews = 12;
             const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
             const selectedImage = `images/preview-gunff_${randomIndex}.png`;
