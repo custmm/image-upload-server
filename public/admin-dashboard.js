@@ -530,7 +530,7 @@
                                 <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
                             <hr class="dashed-line"> 
                                 <div id="editContent" contenteditable="true" class="edit-content"></div>
-                                    <p id="descriptionCounter">0 / 500</p>
+                                    <p><span id="editHashtagDisplay"></span><span id="descriptionCounter">0 / 500</span></p>
                                 </div>
                             </div>
                             <div class="edit-button-group">
@@ -552,6 +552,7 @@
         const editContent = modal.querySelector("#editContent");
         const descriptionCounter = modal.querySelector("#descriptionCounter");
         editContent.innerHTML = image.file_description || "";
+        const hashtagDisplay = modal.querySelector("#editHashtagDisplay");
 
         // ✅ 입력 시 실시간 글자 수 업데이트
         editContent.addEventListener("input", () => {
@@ -566,6 +567,10 @@
 
             // 카운터 표시 업데이트
             descriptionCounter.textContent = `${charCount} / 500`;
+            
+            // ✅ 해시태그 표시에도 사용
+            hashtagDisplay.textContent = hashtags.join(' ');
+
         });
 
 
