@@ -209,7 +209,10 @@
         <!-- ✅ 점선 구분선 추가 -->
         <hr class="dashed-line">       
             <div id="descriptionEditor" contenteditable="true"  class="text-editor"></div>
-            <p id="descriptionCounter">0 / 500</p> <!-- 🔥 글자 수 표시 -->
+            <p style="display: flex; justify-content: space-between; width: 100%;">
+                <span id="hashtagDisplay" style="font-size: 14px; color: #333;"></span>
+                <span id="descriptionCounter">0 / 500</span>
+            </p> <!-- 🔥 글자 수 표시 -->
         </div>
     <button id="uploadButton" class="upload-button">업로드</button>
 </div>

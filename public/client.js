@@ -151,18 +151,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (descriptionEditor && descriptionCounter) {
         descriptionEditor.addEventListener("input", () => {
-            // ✅ HTML 태그를 제외하고 순수한 텍스트 길이만 계산
-            let text = descriptionEditor.innerText.trim(); // 🔥 innerText 사용
-            let length = text.length;
-    
-            // ✅ 글자 수 업데이트
+            const rawText = descriptionEditor.innerText.trim();
+
+            // ✅ 한글 포함 해시태그 추출
+            const hashtags = rawText.match(/#[\w가-힣]+/g) || [];
+
+            // ✅ 해시태그 제거한 텍스트 길이 계산
+            const textWithoutTags = rawText.replace(/#[\w가-힣]+/g, '').trim();
+            const length = textWithoutTags.length;
+
+            // ✅ 글자 수 표시
             descriptionCounter.textContent = `${length} / 500`;
-    
-            // ✅ 500자 초과 시 경고 스타일 적용
-            if (length > 500) {
-                descriptionCounter.style.color = "red";
-            } else {
-                descriptionCounter.style.color = "gray";
+            descriptionCounter.style.color = length > 500 ? "red" : "gray";
+
+            // ✅ 해시태그 표시 (왼쪽)
+            const hashtagDisplay = document.getElementById("hashtagDisplay");
+            if (hashtagDisplay) {
+                hashtagDisplay.textContent = hashtags.join(' ');
             }
         });
         
