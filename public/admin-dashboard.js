@@ -550,7 +550,24 @@
 
         // ✅ 항상 최신 내용 설정
         const editContent = modal.querySelector("#editContent");
+        const descriptionCounter = modal.querySelector("#descriptionCounter");
         editContent.innerHTML = image.file_description || "";
+
+        // ✅ 입력 시 실시간 글자 수 업데이트
+        editContent.addEventListener("input", () => {
+            const rawText = editContent.innerText;
+
+            // 해시태그 추출
+            const hashtags = rawText.match(/#\w+/g) || [];
+
+            // 해시태그 제거 후 글자 수 계산
+            const textWithoutTags = rawText.replace(/#\w+/g, '').trim();
+            const charCount = textWithoutTags.length;
+
+            // 카운터 표시 업데이트
+            descriptionCounter.textContent = `${charCount} / 500`;
+        });
+
 
         // ✅ 저장 버튼
         const saveButton = modal.querySelector("#saveEdit");
@@ -597,21 +614,6 @@
 
         modal.style.display = "flex";
     }
-            descriptionEditor.addEventListener("input", () => {
-            // ✅ HTML 태그를 제외하고 순수한 텍스트 길이만 계산
-            let text = descriptionEditor.innerText.trim(); // 🔥 innerText 사용
-            let length = text.length;
-    
-            // ✅ 글자 수 업데이트
-            descriptionCounter.textContent = `${length} / 500`;
-    
-            // ✅ 500자 초과 시 경고 스타일 적용
-            if (length > 500) {
-                descriptionCounter.style.color = "red";
-            } else {
-                descriptionCounter.style.color = "gray";
-            }
-        });
     async function deletePost(id) {
         // 1) 사용자 확인
         showeditpopup('게시물을 삭제하시겠습니까?',async() => {
