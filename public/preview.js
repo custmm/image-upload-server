@@ -531,10 +531,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     
             // _cut 버전을 지원하는 번호 배열
             const allowedCutIndices = [1, 2, 3, 4, 5, 7, 8, 9, 11,12];
-
             const totalPreviews = 12;
             const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
-
             const selectedImage = `images/preview-gunff_${randomIndex}.png`;
             localStorage.setItem("selectedImage", selectedImage);
         
@@ -546,32 +544,28 @@ document.addEventListener("DOMContentLoaded", async () => {
             img.style.left = "0px";  // 초기 좌표 설정
             img.style.top = "0px";   // 초기 좌표 설정
 
-            // 클릭 시 _cut 버전으로 변경 (단, allowedCutIndices에 포함된 번호일 경우에만)
-            img.addEventListener("click", () => {
-                if (!allowedCutIndices.includes(randomIndex)) {
-                    console.warn(`No _cut version for index ${randomIndex}`);
-                    return;
-                }
-
+            // 🔁 클릭/터치 시 이미지 전환 로직 함수화
+            let isCut = false;
+            function togglePreviewImage() {
+                if (!allowedCutIndices.includes(randomIndex)) return;
                 if (!isCut) {
-                    // 🔁 일반 → 컷 이미지로 전환
-                    const cutImage = `images/preview-gunff_${randomIndex}_cut.png`;
-                    img.src = cutImage;
-                    localStorage.setItem("selectedImage", cutImage);
-                    isCut = true;
+                    img.src = `images/preview-gunff_${randomIndex}_cut.png`;
+                    localStorage.setItem("selectedImage", img.src);
                 } else {
-                    // 🔁 컷 이미지 → 일반 이미지로 복귀
-                    const normalImage = `images/preview-gunff_${randomIndex}.png`;
-                    img.src = normalImage;
-                    localStorage.setItem("selectedImage", normalImage);
-                    isCut = false;
+                    img.src = `images/preview-gunff_${randomIndex}.png`;
+                    localStorage.setItem("selectedImage", img.src);
                 }
-            });
+                isCut = !isCut;
+            }
+
+            img.addEventListener("click", togglePreviewImage);
         
+            // 🧠 드래그 상태 추적
             let isDragging = false; 
             let offsetX = 0; 
             let offsetY = 0;
             let animationFrameId = null;
+            let touchMoved = false;
 
             function startOverlapCheckLoop(img) {
                 function loop() {
@@ -621,6 +615,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // 터치 이벤트 추가
             img.addEventListener("touchstart", (e) => {
                 isDragging = true;
+                touchMoved = false;
                 const touch = e.touches[0];
                 const rect = img.getBoundingClientRect();
                 offsetX = touch.clientX - rect.left;
@@ -632,6 +627,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             document.addEventListener("touchmove", (e) => {
                 if (!isDragging) return;
+                touchMoved = true;
                 const touch = e.touches[0];
                 const containerRect = previewContainer.getBoundingClientRect();
                 let left = touch.clientX - containerRect.left - offsetX;
@@ -646,6 +642,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     isDragging = false;
                     img.style.cursor = "grab";
                     stopOverlapCheckLoop();
+
+                    // ✅ 드래그 안 했을 때만 클릭 취급
+                    if (!touchMoved) {
+                        togglePreviewImage();
+                    }
                 }
             });
         
