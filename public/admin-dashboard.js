@@ -521,18 +521,20 @@
             modal.innerHTML = `
                 <div style="background: #c0c0c065; padding: 20px; border-radius: 5px; width: 85%;">
                     <h2 style="margin: 10px;">게시물 수정</h2>
-                    <div class="editor-buttons">
-                        <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
-                        <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
-                        <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
-                        <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
-                    </div>
+
 
                     <!-- contenteditable div로 HTML 적용된 상태로 표시 -->
                     <div id="editContent" contenteditable="true" 
                     style="width: 100%; min-height: 150px; border: 1px solid #000; border-radius: 5px; 
                     background: #fff; box-shadow: none; outline: none; text-shadow: none; text-decoration: none; 
-                    font-style: normal; overflow-y: auto; text-align:left"></div>
+                    font-style: normal; overflow-y: auto; text-align:left">                    
+                        <div class="editor-buttons">
+                            <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                            <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                            <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
+                            <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                        </div>
+                    </div>
 
                     <div style="margin-top: 20px; display:flex; align-items: center; justify-content: center;">
                         <button id="saveEdit" style="margin-right: 10px;">저장</button>
