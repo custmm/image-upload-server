@@ -546,8 +546,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             // 🔁 클릭/터치 시 이미지 전환 로직 함수화
             let isCut = false;
+
             function togglePreviewImage() {
                 if (!allowedCutIndices.includes(randomIndex)) return;
+
                 if (!isCut) {
                     img.src = `images/preview-gunff_${randomIndex}_cut.png`;
                     localStorage.setItem("selectedImage", img.src);
@@ -643,10 +645,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     img.style.cursor = "grab";
                     stopOverlapCheckLoop();
 
-                    // ✅ 드래그 안 했을 때만 클릭 취급
-                    if (!touchMoved) {
-                        togglePreviewImage();
-                    }
+                    togglePreviewImage();
                 }
             });
         
