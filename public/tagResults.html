@@ -51,7 +51,8 @@
         <script>
         document.addEventListener("DOMContentLoaded", async () => {
         const params = new URLSearchParams(location.search);
-        const tag = params.get("tag");
+        const tag = new URLSearchParams(location.search).get("tag");
+
 
         if (!tag) return;
 

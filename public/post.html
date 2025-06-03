@@ -338,10 +338,10 @@
     function convertHashtagsToLinks(text) {
       return text.replace(/#([\w가-힣]+)/g, (match, tag) => {
         const encoded = encodeURIComponent(tag);
-        return `<a href="/search?tag=${encoded}" class="hashtag-link">#${tag}</a>`;
+        return `<a href="tagResults.html?tag=${encoded}" class="hashtag-link">#${tag}</a>`;
       });
     }
-    
+
     // ✅ 서버에서 데이터 가져오기
     async function loadPostData() {
         let { category, subcategory, file } = getParamsFromURL();
