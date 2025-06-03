@@ -1017,10 +1017,10 @@ async function renderCharts() {
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
             // ✅ filteredLabels 정의
-            const filteredLabels = categories.filter((_, i) => i !== clickedIndex);
+            const filteredLabels = categories; // ❗전체 그대로 사용
 
             // ✅ 막대 데이터셋: 선택된 항목 제거
-            const barData = probabilities.filter((_, i) => i !== clickedIndex);
+            const barData = probabilities.map((val, i) => i === clickedIndex ? null : val);
 
             // ✅ 막대 데이터셋: 클릭한 항목만 null
             const barChartDataset = {
