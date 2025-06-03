@@ -521,6 +521,12 @@
             modal.innerHTML = `
                 <div style="background: #c0c0c065; padding: 20px; border-radius: 5px; width: 85%;">
                     <h2 style="margin: 10px;">게시물 수정</h2>
+                    <div class="editor-buttons">
+                        <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                        <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                        <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
+                        <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                    </div>
 
                     <!-- contenteditable div로 HTML 적용된 상태로 표시 -->
                     <div id="editContent" contenteditable="true" 
