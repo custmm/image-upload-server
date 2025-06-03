@@ -535,6 +535,7 @@
                     font-style: normal; overflow-y: auto; text-align:left">                    
                     </div>
 
+                    <p id="descriptionCounter">0 / 500</p> <!-- 🔥 글자 수 표시 -->
                     <div style="margin-top: 20px; display:flex; align-items: center; justify-content: center;">
                         <button id="saveEdit" style="margin-right: 10px;">저장</button>
                         <div class="button-separator"></div> <!-- ✅ 선 -->
