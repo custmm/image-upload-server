@@ -47,6 +47,27 @@ app.get("/api/health", (req, res) => {
     res.status(200).send("Server is alive");
   });
   
+  // ✅ 검색 라우트: /search?tag=레고
+app.get("/search", async (req, res) => {
+    const tag = req.query.tag;
+
+    try {
+        const [posts] = await sequelize.query(
+            "SELECT id, file_description FROM posts WHERE file_description LIKE :search",
+            {
+                replacements: { search: `%#${tag}%` },
+                type: sequelize.QueryTypes.SELECT
+            }
+        );
+
+        res.sendFile(path.join(__dirname, "..", "public", "tagResults.html"));
+        // 또는 res.render("tagResults", { tag, posts }); ← 템플릿 쓰는 경우
+    } catch (err) {
+        console.error("❌ 검색 실패:", err);
+        res.status(500).send("검색 오류");
+    }
+});
+
   
 // ✅ 라우트 등록
 app.use("/api/auth", authRoutes);

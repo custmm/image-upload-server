@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>#{{tag}} 관련 게시물</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #1da1f2;
+    }
+
+    .post-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .post-list li {
+      background: #f7f7f7;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-left: 5px solid #1da1f2;
+    }
+
+    .post-list li a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    .post-list li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>#{{tag}} 관련 게시물</h2>
+
+  <ul class="post-list">
+    {{#each posts}}
+      <li>
+        <a href="/post/{{this.id}}">
+          {{this.file_description}}
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+
+  <a href="/" style="display: inline-block; margin-top: 20px;">← 메인으로 돌아가기</a>
+</body>
+</html>
