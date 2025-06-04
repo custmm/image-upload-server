@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>Ɐ휴욱슈욱Ɐ >> #{{tag}} 관련 게시물</title>
+  <title>Ɐ휴욱슈욱Ɐ >> 태그결과과</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -12,6 +12,7 @@
 
     h2 {
       color: #1da1f2;
+      margin-bottom: 20px;
     }
 
     .post-list {
@@ -24,6 +25,7 @@
       padding: 15px;
       margin-bottom: 10px;
       border-left: 5px solid #1da1f2;
+      border-radius: 4px;
     }
 
     .post-list li a {
@@ -38,36 +40,43 @@
 </head>
 <body>
     <button class="back-button" onclick="window.location.href='preview.html'">뒤로가기</button>
-        <h2>#{{tag}} 관련 게시물</h2>
-    <ul class="post-list">
-        {{#each posts}}
-        <li>
-            <a href="/post/{{this.id}}">
-            {{this.file_description}}
-            </a>
-        </li>
-        {{/each}}
-        </ul>
-        <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-        const params = new URLSearchParams(location.search);
+      <h2 id="tagTitle">#태그 관련 게시물</h2>
+    <ul class="post-list" id="postList"></ul>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
         const tag = new URLSearchParams(location.search).get("tag");
+        const tagTitle = document.getElementById("tagTitle");
+        const postList = document.getElementById("postList");
 
+        if (!tag) {
+          tagTitle.textContent = "❌ 태그 없음";
+          return;
+        }
 
-        if (!tag) return;
+        tagTitle.textContent = `#${tag} 관련 게시물`;
 
         try {
-            const res = await fetch(`/api/search?tag=${encodeURIComponent(tag)}`);
-            const data = await res.json();
+          const res = await fetch(`/api/search?tag=${encodeURIComponent(tag)}`);
+          const data = await res.json();
 
-            const container = document.getElementById("tagResultsContainer");
-            container.innerHTML = `<h2>#${tag} 관련 게시물</h2><ul>` +
-            data.posts.map(post => `<li>${post.file_description}</li>`).join('') +
-            `</ul>`;
+          if (!data.posts || data.posts.length === 0) {
+            postList.innerHTML = "<li>관련 게시물이 없습니다.</li>";
+            return;
+          }
+
+          postList.innerHTML = data.posts.map(post => `
+            <li>
+              <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
+                ${post.file_description}
+              </a>
+            </li>
+          `).join('');
         } catch (err) {
-            console.error("❌ 클라이언트 오류:", err);
+          console.error("❌ 검색 중 오류:", err);
+          postList.innerHTML = "<li>검색 오류가 발생했습니다.</li>";
         }
-        });
-        </script>
+      });
+    </script>
     </body>
 </html>
