@@ -53,7 +53,16 @@ app.get("/api/search", async (req, res) => {
 
   try {
     const [posts] = await sequelize.query(
-      "SELECT id, file_description, file_name, category_name, subcategory_name FROM posts WHERE file_description LIKE :search",
+      `
+      SELECT 
+        id,
+        file_description,
+        file_name,
+        category_name,
+        subcategory_name
+      FROM posts
+      WHERE file_description LIKE :search
+      `,
       {
         replacements: { search: `%#${tag}%` },
         type: sequelize.QueryTypes.SELECT
