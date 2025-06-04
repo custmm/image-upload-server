@@ -153,7 +153,7 @@
         postList.innerHTML = posts.map(post => `
           <div class="post-item">
             <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
-              <img src="image.file_path;" alt="미리보기 이미지">
+              <img src="${image.file_path}" alt="미리보기 이미지">
             </a>
             <div class="post-meta">
               <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
