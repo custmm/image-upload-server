@@ -39,7 +39,7 @@
   </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='preview.html'">뒤로가기</button>
+    <button id="backToListButton" class="back-button">뒤로가기</button>
       <h2 id="tagTitle">#태그 관련 게시물</h2>
     <ul class="post-list" id="postList"></ul>
 
@@ -76,6 +76,10 @@
           console.error("❌ 검색 중 오류:", err);
           postList.innerHTML = "<li>검색 오류가 발생했습니다.</li>";
         }
+      });
+      // ✅ "목록으로" 버튼 클릭 시 이전 페이지로 이동
+      document.getElementById("backToListButton").addEventListener("click", () => {
+        window.history.back(); // 🔥 이전 페이지로 이동
       });
     </script>
     </body>
