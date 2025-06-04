@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="kMxKqlA9cKbHdJGw51M2sE21fjyzL3SvY1ryWISJMT0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ɐ휴욱슈욱Ɐ >> 태그결과</title>
   <link rel="stylesheet" href="style.css">
   <style>
@@ -9,12 +11,61 @@
       font-family: Arial, sans-serif;
       padding: 20px;
       position: relative;
+      margin: 0;
     }
 
     h2 {
       color: #1da1f2;
       margin-bottom: 20px;
+      font-size: 1.2rem;
       text-align: center;
+    }
+    .post-item {
+      display: flex;
+      align-items: center;
+      background: #f9f9f9;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-left: 4px solid #1da1f2;
+      border-radius: 8px;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .post-item img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .post-meta {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .category {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .desc {
+      color: #444;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .post-meta a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .post-meta a:hover {
+      text-decoration: underline;
     }
 
     .post-list {
@@ -38,6 +89,27 @@
     .post-list li a:hover {
       text-decoration: underline;
     }
+      @media (max-width: 600px) {
+    .post-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .post-item img {
+      width: 100%;
+      height: auto;
+      max-width: 240px;
+      margin-bottom: 10px;
+    }
+
+    .category {
+      font-size: 1rem;
+    }
+
+    .desc {
+      font-size: 0.9rem;
+    }
+  }
   </style>
 </head>
 <body>
@@ -73,22 +145,29 @@
           }
         }
 
-          if (!data.posts || data.posts.length === 0) {
+          if (posts.length === 0) {
             postList.innerHTML = "<li>관련 게시물이 없습니다.</li>";
             return;
           }
 
-        // ✅ 여기!! data.posts ❌ → posts ✅
         postList.innerHTML = posts.map(post => `
-          <li>
+          <div class="post-item">
             <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
-              ${post.file_description}
+              <img src="/uploads/${post.file_name}" alt="미리보기 이미지">
             </a>
-          </li>
+            <div class="post-meta">
+              <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
+              <div class="desc">
+                <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
+                  ${post.file_description.replace(/(<([^>]+)>)/gi, "").slice(0, 50)}...
+                </a>
+              </div>
+            </div>
+          </div>
         `).join('');
       } catch (err) {
         console.error("❌ 검색 중 오류:", err);
-        postList.innerHTML = "<li>검색 오류가 발생했습니다.</li>";
+        postList.innerHTML = "<p>검색 오류가 발생했습니다.</p>";
       }
     });
       // ✅ "목록으로" 버튼 클릭 시 이전 페이지로 이동

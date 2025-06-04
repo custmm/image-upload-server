@@ -52,7 +52,7 @@ app.get("/api/health", (req, res) => {
         const tag = req.query.tag;
 
         try {
-            const [posts] = await sequelize.query(
+            const posts = await sequelize.query(
             `
             SELECT 
                 id,
