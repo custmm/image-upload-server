@@ -63,9 +63,15 @@
           const data = await res.json();
 
           let posts = data.posts;
-          if (!Array.isArray(posts)) {
-            posts = [posts]; // ✅ 단일 객체일 경우 배열로 변환
+
+        // ✅ 단일 객체 혹은 빈 객체일 때 배열로 처리
+        if (!Array.isArray(posts)) {
+          if (!posts || Object.keys(posts).length === 0) {
+            posts = [];
+          } else {
+            posts = [posts];
           }
+        }
 
           if (!data.posts || data.posts.length === 0) {
             postList.innerHTML = "<li>관련 게시물이 없습니다.</li>";
