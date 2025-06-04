@@ -49,22 +49,22 @@ app.get("/api/health", (req, res) => {
 
   // ✅ 검색 라우트: /search?tag=레고
 app.get("/api/search", async (req, res) => {
-    const tag = req.query.tag;
+  const tag = req.query.tag;
 
-    try {
-        const [posts] = await sequelize.query(
-            "SELECT id, file_description FROM posts WHERE file_description LIKE :search",
-            {
-                replacements: { search: `%#${tag}%` },
-                type: sequelize.QueryTypes.SELECT
-            }
-        );
+  try {
+    const [posts] = await sequelize.query(
+      "SELECT id, file_description, file_name, category_name, subcategory_name FROM posts WHERE file_description LIKE :search",
+      {
+        replacements: { search: `%#${tag}%` },
+        type: sequelize.QueryTypes.SELECT
+      }
+    );
 
-        res.render({ tag, posts });
-    } catch (err) {
-        console.error("❌ 검색 실패:", err);
-        res.status(500).send("검색 오류");
-    }
+    res.json({ tag, posts }); // ✅ JSON 응답 필수
+  } catch (err) {
+    console.error("❌ API 검색 실패:", err);
+    res.status(500).json({ error: "검색 오류" }); // ✅ 반드시 JSON 형태로 보내야 함
+  }
 });
 
   
