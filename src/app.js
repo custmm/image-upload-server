@@ -55,16 +55,13 @@ app.get("/api/health", (req, res) => {
             const [posts] = await sequelize.query(
             `
             SELECT 
-                p.id,
-                p.file_description,
-                f.name AS file_name,
-                c.name AS category_name,
-                s.name AS subcategory_name
-            FROM posts p
-            JOIN files f ON p.file_id = f.id
-            JOIN categories c ON p.category_id = c.id
-            JOIN subcategories s ON p.subcategory_id = s.id
-            WHERE p.file_description LIKE :search
+                id,
+                file_description,
+                file_name,
+                category_name,
+                subcategory_name
+            FROM files
+            WHERE file_description LIKE :search
             `,
                 {
                     replacements: { search: `%#${tag}%` },
