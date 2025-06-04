@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>Ɐ휴욱슈욱Ɐ >> 태그결과과</title>
+  <title>Ɐ휴욱슈욱Ɐ >> 태그결과</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -78,18 +78,19 @@
             return;
           }
 
-          postList.innerHTML = data.posts.map(post => `
-            <li>
-              <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
-                ${post.file_description}
-              </a>
-            </li>
-          `).join('');
-        } catch (err) {
-          console.error("❌ 검색 중 오류:", err);
-          postList.innerHTML = "<li>검색 오류가 발생했습니다.</li>";
-        }
-      });
+        // ✅ 여기!! data.posts ❌ → posts ✅
+        postList.innerHTML = posts.map(post => `
+          <li>
+            <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
+              ${post.file_description}
+            </a>
+          </li>
+        `).join('');
+      } catch (err) {
+        console.error("❌ 검색 중 오류:", err);
+        postList.innerHTML = "<li>검색 오류가 발생했습니다.</li>";
+      }
+    });
       // ✅ "목록으로" 버튼 클릭 시 이전 페이지로 이동
       document.getElementById("backToListButton").addEventListener("click", () => {
         window.history.back(); // 🔥 이전 페이지로 이동
