@@ -60,7 +60,7 @@ app.get("/api/health", (req, res) => {
                 file_name,
                 category_name,
                 subcategory_name,
-                CONCAT('/uploads/', file_name, '.png') AS file_path
+                file_path
             FROM files
             WHERE file_description LIKE :search
             `,
