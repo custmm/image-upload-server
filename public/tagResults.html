@@ -71,6 +71,8 @@
     .post-list {
       list-style: none;
       padding: 0;
+      margin-left: 50px;
+      margin-right:50px;
     }
 
     .post-list li {
@@ -89,25 +91,29 @@
     .post-list li a:hover {
       text-decoration: underline;
     }
-      @media (max-width: 600px) {
+  @media (max-width: 600px) {
     .post-item {
-      flex-direction: column;
+      flex-direction: row;
       align-items: flex-start;
     }
 
     .post-item img {
-      width: 15%;
-      height: auto;
-      max-width: 240px;
-      margin-bottom: 10px;
+      width: 60px;  /* ⬇️ 모바일에 맞게 크기 축소 */
+      height: 60px;
+    }
+    .post-list{
+      list-style: none;
+      padding: 0;
+      margin-left: 10px;
+      margin-right: 10px;
     }
 
     .category {
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     .desc {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
   }
   </style>
