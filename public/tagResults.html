@@ -135,7 +135,7 @@
       const nextPosts = allPosts.slice(currentIndex, currentIndex + pageSize);
       const postList = document.getElementById("postList");
 
-      postList.innerHTML = posts.map(post => `
+      postList.innerHTML = nextPosts.map(post => `
         <div class="post-item">
           <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
             <img src="${post.file_path}" alt="미리보기 이미지">
@@ -171,7 +171,7 @@
 
       allPosts = Array.isArray(data.posts) ? data.posts : [data.posts].filter(Boolean);
 
-      if (posts.length === 0) {
+      if (allPosts.length === 0) {
         postList.innerHTML = "<li>관련 게시물이 없습니다.</li>";
         return;
       }
@@ -184,7 +184,10 @@
           renderNextPosts();
         }
       });
-      observer.observe(document.getElementById("scrollTrigger"));
+        const scrollTrigger = document.createElement("div");
+        scrollTrigger.id = "scrollTrigger";
+        document.body.appendChild(scrollTrigger);
+        observer.observe(scrollTrigger);
     }catch (err) {
           console.error("❌ 검색 중 오류:", err);
           postList.innerHTML = "<p>검색 오류가 발생했습니다.</p>";
