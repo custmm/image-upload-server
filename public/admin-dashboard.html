@@ -159,7 +159,11 @@
         background-color: #755a6a;
     }
     #saveEdit:hover,
-    #closeEdit:hover{
+    #closeEdit:hover,
+    .popup-confirm-button:hover,
+    .edit-button:hover,
+    #clearCanvas:hover,
+    .custom-chart-button:hover{
         background-color: aqua;
     }   
     /* 🔥 텍스트 모드 - 버튼 */
@@ -307,7 +311,6 @@
     /* edit 팝업 버튼 */
     .popup-edit-container button {
         border-radius: 5px;
-        border: 1px solid #ccc;
         padding: 7px 15px;
         cursor: pointer;
     }
@@ -316,15 +319,12 @@
         border-radius: 5px;
         padding: 7px 15px;
         margin-top: 10px;       /* 기존 inline 마진 */
-        background-color: none;
+        background: none;
         color: #000;            /* 필요시 글자색 지정 */
         cursor: pointer;
         font-size: 1rem;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
         transition: background-color 0.2s;
-    }
-    .popup-confirm-button:hover {
-        background-color: aqua;
     }
 
     /* edit 팝업 취소 버튼 간격 */
@@ -333,7 +333,8 @@
     }
 
     /* 🔥 수정/삭제 버튼 */
-    .edit-button, .delete-button {
+    .edit-button, 
+    .delete-button {
         padding: 5px 10px;
         cursor: pointer;
         border: none;
@@ -344,11 +345,8 @@
     .edit-button {
         background-color: #007bff;
     }
-    .edit-button:hover{
-        background-color: #00ffb394;
-        transition-duration:0.5s
-    }
-    #popup-ok{
+    #popup-ok,
+    #popup-cancel{
         padding: 8px 15px;
         cursor: pointer;
         border: none;
@@ -359,14 +357,6 @@
     #popup-ok:hover{
         background-color: #adf5dfb2;
         transition-duration:0.5s       
-    }
-    #popup-cancel{
-        padding: 8px 15px;
-        cursor: pointer;
-        border: none;
-        background: none;
-        border-radius: 5px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     }
     #popup-cancel:hover{
         background-color: #f5adadb2;
@@ -657,10 +647,6 @@
         border: none;
         color: black;
     }
-    #clearCanvas:hover {
-        background: aqua;
-
-    }
     /* 🔥 제목과 버튼을 한 줄로 정렬 */
     .section-header {
         display: flex;
@@ -700,9 +686,6 @@
         border:1px solid #ccc;
         cursor: pointer;
         transition: background-color 0.3s;
-    }
-    .custom-chart-button:hover{
-        background-color: aqua;
     }
     .section-container{
         width: 100%;
