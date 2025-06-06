@@ -447,7 +447,10 @@
   }
 
     // ✅ 페이지 로드 시 데이터 불러오기
-    document.addEventListener("DOMContentLoaded", loadPostData);
+    document.addEventListener("DOMContentLoaded",()=>{
+      loadPostData();
+      bindDrawingEvents();        // 🔥 이 줄 추가
+    });
 
     // ✅ "목록으로" 버튼 클릭 시 이전 페이지로 이동
     document.getElementById("backToListButton").addEventListener("click", () => {
