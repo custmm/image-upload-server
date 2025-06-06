@@ -130,27 +130,53 @@
     let allPosts = [];
     let currentIndex = 0;
     const pageSize = 10;
+    let isLoading = false;
+
+    function showLoadingSpinner() {
+      let spinner = document.getElementById("loadingSpinner");
+      if (!spinner) {
+        spinner = document.createElement("div");
+        spinner.id = "loadingSpinner";
+        spinner.innerHTML = `<img src="images/loading.gif" alt="로딩 중..." style="width: 60px;">`;
+        spinner.style.textAlign = "center";
+        spinner.style.marginTop = "20px";
+        document.getElementById("postList").appendChild(spinner);
+      }
+    }
+
+    function hideLoadingSpinner() {
+      const spinner = document.getElementById("loadingSpinner");
+      if (spinner) spinner.remove();
+    }
+
 
     function renderNextPosts() {
+      if (isLoading) return;
+      isLoading = true;
+      showLoadingSpinner();
+
       const nextPosts = allPosts.slice(currentIndex, currentIndex + pageSize);
       const postList = document.getElementById("postList");
-
-      postList.innerHTML = nextPosts.map(post => `
-        <div class="post-item">
-          <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
-            <img src="${post.file_path}" alt="미리보기 이미지">
-          </a>
-          <div class="post-meta">
-            <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
-              <div class="desc">
-                <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
-                  ${post.file_description.replace(/(<([^>]+)>)/gi, "").slice(0, 50)}...
-                </a>
+      setTimeout(() => {
+        postList.innerHTML = nextPosts.map(post => `
+          <div class="post-item">
+            <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
+              <img src="${post.file_path}" alt="미리보기 이미지">
+            </a>
+            <div class="post-meta">
+              <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
+                <div class="desc">
+                  <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
+                    ${post.file_description.replace(/(<([^>]+)>)/gi, "").slice(0, 50)}...
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        `).join('');
-        currentIndex += pageSize;
+          `).join('');
+          currentIndex += pageSize;
+          hideLoadingSpinner();
+          isLoading = false;
+        },500);
       }
 
   document.addEventListener("DOMContentLoaded", async () => {
