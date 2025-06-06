@@ -583,23 +583,6 @@
         white-space: nowrap; /* 줄 바꿈 방지 */
         padding: 10px;
     }
-    /* 🔥 그림 그리기 팝업창 스타일 */
-    .drawing-popup {
-        display: none;
-        border-radius: 5px;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 85%;
-        height: 400px;
-        background: #c0c0c065;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-        text-align: center;
-        padding: 10px;
-        border: 1px solid #ccc;
-    }
 
     .popup-header {
         display: flex;
@@ -891,19 +874,6 @@
             <div class="button-group" style="margin-top: 15px; margin-bottom: 20px;">
                 <button id="hide-indicator" class="custom-button">표시기 제거</button>
                 <button id="show-indicator" class="custom-button" style="display:none;">표시기 나타내기</button>
-                <div class="button-separator"></div>
-                <button id="picture" class="custom-button">그리기</button>
-            </div>
-            <!-- 🔥 그림 그리기 팝업 -->
-            <div id="drawing-popup" class="drawing-popup">
-                <div class="popup-header">
-                    <div class="popup-title">그리기</div>
-                    <button id="close-drawing" class="close-popup">✖</button>
-                </div>
-                <canvas id="drawingCanvas"></canvas>
-                <div class="popup-footer">
-                    <button id="clearCanvas">지우기</button>
-                </div>
             </div>
             <!-- 🔥 사이드바 추가 -->
         <div id="sidebar" class="sidebar">

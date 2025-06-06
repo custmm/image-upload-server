@@ -17,6 +17,23 @@
       text-align: center;
       margin: 20px 0;
     }
+    /* 🔥 그림 그리기 팝업창 스타일 */
+    .drawing-popup {
+        display: none;
+        border-radius: 5px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 85%;
+        height: 400px;
+        background: #c0c0c065;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        text-align: center;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
     /* ✅ 로딩 화면 스타일 */
     .loading-indicator {
         position: fixed;
@@ -114,11 +131,20 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+    }    
+    .custom-button {
+      background-color: #fff;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
-    .popup-button:hover {
+    .popup-button:hover,
+    .custom-button:hover {
       background-color: aqua;
     }
-
     /* ✅ 게시물 이미지 */
     .post-image {
         max-width: 100%;
@@ -261,7 +287,19 @@
 </style>
 </head>
 <body>
-    <h1>게시물</h1>    
+    <h1>게시물</h1>
+      <button id="picture" class="custom-button">그리기</button>
+            <!-- 🔥 그림 그리기 팝업 -->
+            <div id="drawing-popup" class="drawing-popup">
+                <div class="popup-header">
+                    <div class="popup-title">그리기</div>
+                    <button id="close-drawing" class="close-popup">✖</button>
+                </div>
+                <canvas id="drawingCanvas"></canvas>
+                <div class="popup-footer">
+                    <button id="clearCanvas">지우기</button>
+                </div>
+            </div>    
     <!-- ✅ 로딩 화면 추가 -->
     <div id="loadingIndicator" class="loading-indicator">
       <img src="images/loading.gif" alt="로딩 중..." class="loading-image">
@@ -427,6 +465,130 @@
           showPopupMessage("❌ 링크 복사에 실패했습니다.");
         }
     });
+      function bindDrawingEvents(){
+        const drawingPopup = document.getElementById("drawing-popup");
+        const openDrawingBtn = document.getElementById("picture");
+        const closeDrawingBtn = document.getElementById("close-drawing");
+        const clearCanvasBtn = document.getElementById("clearCanvas");
+        const canvas = document.getElementById("drawingCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let isDrawing = false;
+
+        // 캔버스 크기 설정
+        canvas.width = 500;
+        canvas.height = 300;
+
+        function getCanvasCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            if (e.touches) {
+                return {
+                    x: e.touches[0].clientX - rect.left,
+                    y: e.touches[0].clientY - rect.top
+                };
+            } else {
+                return {
+                    x: e.offsetX,
+                    y: e.offsetY
+                };
+            }
+        }
+
+        // 마우스 이벤트
+        canvas.addEventListener("mousedown", function (e) {
+            isDrawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+
+        // 그리기 중
+        canvas.addEventListener("mousemove", function (e) {
+            if (!isDrawing) return;
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+        });        
+        
+        // 그리기 종료
+        canvas.addEventListener("mouseup", function () {
+            isDrawing = false;
+        });
+
+        canvas.addEventListener("mouseleave", function () {
+            isDrawing = false;
+        });
+
+         // 터치 이벤트
+        canvas.addEventListener("touchstart", function (e) {
+            isDrawing = true;
+            const { x, y } = getCanvasCoordinates(e);
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            e.preventDefault();
+        }, { passive: false });
+
+        canvas.addEventListener("touchmove", function (e) {
+            if (!isDrawing) return;
+            const { x, y } = getCanvasCoordinates(e);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            e.preventDefault();
+        }, { passive: false });
+
+        canvas.addEventListener("touchend", function () {
+            isDrawing = false;
+        });
+
+        // 팝업 열기
+        openDrawingBtn.addEventListener("click", function () {
+            drawingPopup.style.display = "block";
+
+            // 🔥 canvas 크기를 화면 표시 크기에 맞춰 재설정
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+        });
+
+        // 팝업 닫기
+        closeDrawingBtn.addEventListener("click", function () {
+            drawingPopup.style.display = "none";
+        });
+
+        // 캔버스 지우기
+        clearCanvasBtn.addEventListener("click", function () {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }); 
+    }
+
+    // **🎨 그리기 기능 추가 (Drawing Feature)**
+    function initDrawingCanvas() {
+        const canvas = document.getElementById("drawingCanvas");
+        const ctx = canvas.getContext("2d");
+        let drawing = false;
+    
+        canvas.width = 500;
+        canvas.height = 400;
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+        canvas.addEventListener("mousedown", () => drawing = true);
+        canvas.addEventListener("mouseup", () => drawing = false);
+        canvas.addEventListener("mousemove", draw);
+    
+        function draw(event) {
+            if (!drawing) return;
+            ctx.lineWidth = 5;
+            ctx.lineCap = "round";
+            ctx.strokeStyle = "#000";
+            ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+        }
+    
+        document.getElementById("clearCanvas").addEventListener("click", () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        });
+    }
 
     // ✅ 다크 모드 토글 함수
     function toggleTheme() {
