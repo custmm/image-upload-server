@@ -119,50 +119,29 @@
   </style>
 </head>
 <body>
-    <button id="backToListButton" class="back-button">뒤로가기</button>
-      <h2 id="tagTitle">#태그 관련 게시물</h2>
-    <ul class="post-list" id="postList"></ul>
+  <button id="backToListButton" class="back-button">뒤로가기</button>
+    <h2 id="tagTitle">#태그 관련 게시물</h2>
+  <ul class="post-list" id="postList"></ul>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", async () => {
-        const tag = new URLSearchParams(location.search).get("tag");
-        const tagTitle = document.getElementById("tagTitle");
-        const postList = document.getElementById("postList");
+  <!-- 아래 HTML 요소 추가 (스크롤 감지용) -->
+  <div id="scrollTrigger" style="height: 1px;"></div>
 
-        if (!tag) {
-          tagTitle.textContent = "❌ 태그 없음";
-          return;
-        }
+  <script>
+    let allPosts = [];
+    let currentIndex = 0;
+    const pageSize = 10;
 
-        tagTitle.textContent = `#${tag} 관련 게시물`;
+    function renderNextPosts() {
+      const nextPosts = allPosts.slice(currentIndex, currentIndex + pageSize);
+      const postList = document.getElementById("postList");
 
-        try {
-          const res = await fetch(`/api/search?tag=${encodeURIComponent(tag)}`);
-          const data = await res.json();
-
-          let posts = data.posts;
-
-        // ✅ 단일 객체 혹은 빈 객체일 때 배열로 처리
-        if (!Array.isArray(posts)) {
-          if (!posts || Object.keys(posts).length === 0) {
-            posts = [];
-          } else {
-            posts = [posts];
-          }
-        }
-
-          if (posts.length === 0) {
-            postList.innerHTML = "<li>관련 게시물이 없습니다.</li>";
-            return;
-          }
-
-        postList.innerHTML = posts.map(post => `
-          <div class="post-item">
-            <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
-              <img src="${post.file_path}" alt="미리보기 이미지">
-            </a>
-            <div class="post-meta">
-              <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
+      postList.innerHTML = posts.map(post => `
+        <div class="post-item">
+          <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
+            <img src="${post.file_path}" alt="미리보기 이미지">
+          </a>
+          <div class="post-meta">
+            <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
               <div class="desc">
                 <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
                   ${post.file_description.replace(/(<([^>]+)>)/gi, "").slice(0, 50)}...
@@ -171,10 +150,45 @@
             </div>
           </div>
         `).join('');
-      } catch (err) {
-        console.error("❌ 검색 중 오류:", err);
-        postList.innerHTML = "<p>검색 오류가 발생했습니다.</p>";
+        currentIndex += pageSize;
       }
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    const tag = new URLSearchParams(location.search).get("tag");
+    const tagTitle = document.getElementById("tagTitle");
+    const postList = document.getElementById("postList");
+
+    if (!tag) {
+      tagTitle.textContent = "❌ 태그 없음";
+      return;
+    }
+
+    tagTitle.textContent = `#${tag} 관련 게시물`;
+
+    try {
+      const res = await fetch(`/api/search?tag=${encodeURIComponent(tag)}`);
+      const data = await res.json();
+
+      allPosts = Array.isArray(data.posts) ? data.posts : [data.posts].filter(Boolean);
+
+      if (posts.length === 0) {
+        postList.innerHTML = "<li>관련 게시물이 없습니다.</li>";
+        return;
+      }
+
+      renderNextPosts();
+
+     // ✅ IntersectionObserver로 무한 스크롤 감지
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && currentIndex < allPosts.length) {
+          renderNextPosts();
+        }
+      });
+      observer.observe(document.getElementById("scrollTrigger"));
+    }catch (err) {
+          console.error("❌ 검색 중 오류:", err);
+          postList.innerHTML = "<p>검색 오류가 발생했습니다.</p>";
+        }
     });
       // ✅ "목록으로" 버튼 클릭 시 이전 페이지로 이동
       document.getElementById("backToListButton").addEventListener("click", () => {
