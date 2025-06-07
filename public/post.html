@@ -323,26 +323,28 @@
 </style>
 </head>
 <body>
-    <h1>게시물</h1>
-      <button id="picture" class="custom-button" style="padding: 0; border: none; background: none;">
-        <img src="images/draw-tool.png" alt="그리기" style="width: 40px; height: 40px;">
-      </button>
-            <!-- 🔥 그림 그리기 팝업 -->
-            <div id="drawing-popup" class="drawing-popup">
-                <div class="popup-header">
-                    <div class="popup-title">그리기</div>
-                    <button id="close-drawing" class="close-popup">✖</button>
-                </div>
-                <canvas id="drawingCanvas"></canvas>
-                <div class="popup-footer">
-                    <button id="clearCanvas">지우기</button>
-                </div>
-            </div>    
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    <h1 style="margin: 0;">게시물</h1>
+    <button id="picture" class="custom-button" style="padding: 0; border: none; background: none;">
+      <img src="images/draw-tool.png" alt="그리기" style="width: 40px; height: 40px;">
+    </button>
+  </div>
+    <!-- 🔥 그림 그리기 팝업 -->
+    <div id="drawing-popup" class="drawing-popup">
+      <div class="popup-header">
+        <div class="popup-title">그리기</div>
+          <button id="close-drawing" class="close-popup">✖</button>
+        </div>
+        <canvas id="drawingCanvas"></canvas>
+          <div class="popup-footer">
+            <button id="clearCanvas">지우기</button>
+          </div>
+        </div>    
     <!-- ✅ 로딩 화면 추가 -->
     <div id="loadingIndicator" class="loading-indicator">
       <img src="images/loading.gif" alt="로딩 중..." class="loading-image">
       <p class="loading-text">게시물을 불러오는 중...</p>
-  </div>
+    </div>
 
     <div class="post-container">
       <img id="postImage" class="post-image" src="" alt="게시물 이미지">
@@ -355,25 +357,25 @@
       <p id="postDescription" class="post-description"></p>
     </div>
 
-<!-- ✅ 버튼 추가 -->
-<div class="post-buttons">
-  <button id="backToListButton" class="button">목록으로</button>
-  <button id="shareButton" class="button">공유</button>
-</div>
+    <!-- ✅ 버튼 추가 -->
+    <div class="post-buttons">
+      <button id="backToListButton" class="button">목록으로</button>
+      <button id="shareButton" class="button">공유</button>
+    </div>
 
     <!-- ✅ 팝업 메시지 컨테이너 -->
-<div id="popupMessage" class="popup-message" style="display: none;">
-  <p id="popupText"></p>
-  <button class="popup-button" onclick="closePopup()">확인</button>
-</div>
+    <div id="popupMessage" class="popup-message" style="display: none;">
+      <p id="popupText"></p>
+      <button class="popup-button" onclick="closePopup()">확인</button>
+    </div>
 
-      <!-- 다크 모드 토글 스위치 -->
-  <div class="toggle-switch">
-    <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
-    <label class="slider" for="themeToggle">
-      <span id="themeIcon">☀️</span>
-    </label>
-  </div>
+    <!-- 다크 모드 토글 스위치 -->
+    <div class="toggle-switch">
+      <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
+      <label class="slider" for="themeToggle">
+        <span id="themeIcon">☀️</span>
+      </label>
+    </div>
 
   <script>
     // ✅ 로딩 화면 표시 함수
