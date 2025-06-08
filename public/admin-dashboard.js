@@ -921,34 +921,35 @@ async function renderCharts() {
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            // ✅ 막대 데이터: 클릭 항목만 null 처리
-            const updatedBarData = probabilities.map((val, i) => i === clickedIndex ? null : parseFloat(val));
-
             const barChartDataset = {
             type: 'bar',
             label: '카테고리별 게시물 비율',
-            data: updatedBarData,
+            data: probabilities.map(p => parseFloat(p)),
             backgroundColor: categories.map((_, i) =>
-                ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
+                i === clickedIndex ? 'rgba(0,0,0,0.05)' :["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
             ),
             yAxisID: 'y'
             };
 
             const compareValues = categories.map((_, i) =>
-            i === clickedIndex ? null :
-            ((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2)
+            i === clickedIndex 
+                ? null 
+                : ((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2)
             );
 
             const newLineDataset = {
-            type: 'line',
-            label: `${targetCategory} 대비 상대 비율`,
-            data: compareValues,
-            borderColor: 'rgba(75, 192, 192, 1)',
-            fill: false,
-            tension: 0.1,
-            yAxisID: 'y1'
+                type: 'line',
+                label: `${targetCategory} 대비 상대 비율`,
+                data: compareValues,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                fill: false,
+                tension: 0.1,
+                yAxisID: 'y1',
+                pointRadius: 4,
+                pointBackgroundColor: 'rgba(75, 192, 192, 1)'
             };
 
+            window.barChartInstance.data.labels = categories;
             window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
             window.barChartInstance.update();
         }
