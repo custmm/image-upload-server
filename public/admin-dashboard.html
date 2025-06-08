@@ -543,7 +543,6 @@
     canvas {
         width: 400px;
         height: 400px;
-        margin: 0 auto; /* 캔버스가 부모 내 중앙 정렬 */
     }
     #chart-controls {
         position: absolute;
@@ -798,15 +797,12 @@
             </div>
             <div class="post-chart-container">
                 <div class="chart-area" id="chartArea">
-                    <!-- 도넛 차트 영역 -->
-                    <div id="donutWrapper" class="chart-wrapper">
+                    <div class="chart-wrapper">
                         <canvas id="donutChart"></canvas>
-                    </div>
-                    
-                    <!-- 막대/꺾은선 차트 영역 -->
-                    <div id="barWrapper" class="chart-wrapper" style="display: none;">
-                        <canvas id="radarChart"></canvas>
-                        <canvas id="lineChart"></canvas>
+                    </div>                
+                    <div class="chart-wrapper">
+                        <canvas id="radarChart" style="display:none;"></canvas>
+                        <canvas id="lineChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
                     </div>
                     <div id="chart-controls">
                         <button id="showDonut" class="custom-chart-button" style="padding: 2px 10px;">도넛 차트</button>
