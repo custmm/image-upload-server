@@ -930,31 +930,26 @@ async function renderCharts() {
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            const filteredLabels = [];
-            const barData = [];
-            const compareValues = [];
-            const barColors = [];
+            const filteredLabels = categories;  // 모든 카테고리 유지
+            const barData = categories.map((cat, i) => cat === "legoCompatibleblock" ? null : probabilities[i]);
+            const lineData = categories.map((cat, i) => cat === "legoCompatibleblock" ? 100 : null); // 예: 100%
 
-            categories.forEach((cat, i) => {
-                if (i !== clickedIndex) {
-                    filteredLabels.push(cat);
-                    barData.push(parseFloat(probabilities[i]));
-                    compareValues.push(((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2));
-                    barColors.push(["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]);
-                }
-            });
 
             // ✅ 막대 데이터셋: 클릭한 항목만 null
             const barChartDataset = {
                 type: 'bar',
                 label: '카테고리별 게시물 비율',
                 data: barData,
-                backgroundColor: barColors,
+                backgroundColor: categories.map((_, i) =>
+                    ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
+                ),
+                barPercentage: 0.6,
+                categoryPercentage: 0.7,
                 yAxisID: 'y'
             };
 
             // ✅ 꺾은선 데이터셋
-            const newLineDataset = {
+            const lineChartDataset = {
                 type: 'line',
                 label: `${targetCategory} 대비 상대 비율`,
                 data: compareValues,
@@ -965,10 +960,11 @@ async function renderCharts() {
             };
 
             // ✅ 차트 갱신
-            window.barChartInstance.data.labels = filteredLabels;
-            barChartDataset.data.length === filteredLabels.length;
-            newLineDataset.data.length === filteredLabels.length;
-            window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
+            window.barChartInstance.data = {
+            labels: filteredLabels,
+            datasets: [barChartDataset, lineChartDataset]
+            };
+
             window.barChartInstance.update();
         }
     };
