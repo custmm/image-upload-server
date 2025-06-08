@@ -750,10 +750,6 @@ async function renderCharts() {
             window.donutChartInstance.update();
 
             if (elements.length > 0) {
-                // 🔥 도넛 감추고 막대 보여주기
-                document.getElementById("donutWrapper").style.display = "none";
-                document.getElementById("barWrapper").style.display = "block";
-
                 const firstElement = elements[0];
                 const dataIndex = firstElement.index;
 
@@ -775,21 +771,6 @@ async function renderCharts() {
                 document.addEventListener("click", function (event) {
                     const table = document.getElementById("categoryInfoTable");
                     const chartArea = document.getElementById("chartArea");
-
-                    const donutWrapper = document.getElementById("donutWrapper");
-                    const barWrapper = document.getElementById("barWrapper");
-
-                    if (donutWrapper && barWrapper) {
-                        donutWrapper.style.display = "none";
-                        barWrapper.style.display = "block";
-                    }
-
-                    if (chartArea) {
-                        chartArea.style.display = "flex";
-                        chartArea.style.flexDirection = "column"; // 또는 'row'
-                        chartArea.style.justifyContent = "center";
-                        chartArea.style.alignItems = "center";
-                    }
 
                     const isClickInsideChart = chartArea.contains(event.target);
 
@@ -850,15 +831,13 @@ async function renderCharts() {
     if (window.barChartInstance) window.barChartInstance.destroy();
 
     // ✅ 초기 개별 막대 데이터셋 정의
-    const barChartDataset = {
+    const barChartDatasets = categories.map((cat, i) => ({
         type: 'bar',
-        label: '카테고리별 게시물 비율',
-        data: probabilities.map((v) => parseFloat(v)),
-        backgroundColor: categories.map((_, i) =>
-            ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
-        ),
+        label: cat,
+        data: [parseFloat(probabilities[i])],
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5],
         yAxisID: 'y'
-    };
+    }));
 
     // ✅ 초기 꺾은선 데이터셋
     const lineDataset = {
@@ -873,10 +852,9 @@ async function renderCharts() {
 
     // 초기 차트 생성
     window.barChartInstance = new Chart(barCtx, {
-        type: 'bar',
         data: {
             labels: categories, // ✅ 전체 카테고리 사용
-            datasets: [barChartDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
+            datasets: [...barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
         },
         options: {
             responsive: true,
@@ -934,40 +912,47 @@ async function renderCharts() {
 
     // ✅ 막대그래프 클릭 이벤트
     document.getElementById("radarChart").onclick = function(evt) {
-    const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: false }, false);
+        const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: false }, false);
         if (points.length) {
             const clickedIndex = points[0].index;
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            // ✅ 막대 데이터: 클릭 항목만 null 처리
-            const updatedBarData = probabilities.map((val, i) => i === clickedIndex ? null : parseFloat(val));
+            // ✅ filteredLabels 정의
+            const filteredLabels = categories; // ❗전체 그대로 사용
 
+            // ✅ 막대 데이터셋: 선택된 항목 제거
+            const barData = probabilities.map((val, i) => i === clickedIndex ? null : val);
+
+            // ✅ 막대 데이터셋: 클릭한 항목만 null
             const barChartDataset = {
-            type: 'bar',
-            label: '카테고리별 게시물 비율',
-            data: updatedBarData,
-            backgroundColor: categories.map((_, i) =>
-                ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
-            ),
-            yAxisID: 'y'
+                type: 'bar',
+                label: '카테고리별 게시물 비율',
+                data: barData,
+                backgroundColor: filteredLabels.map((_, i) =>
+                    ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
+                ),
+                yAxisID: 'y'
             };
 
-            const compareValues = categories.map((_, i) =>
-            i === clickedIndex ? null :
-            ((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2)
-            );
+            // ✅ 비교 비율 계산
+            const compareValues = filteredLabels.map((_, i) => (
+                ((parseFloat(probabilities[categories.indexOf(filteredLabels[i])]) / targetValue) * 100).toFixed(2)
+            ));
 
+            // ✅ 꺾은선 데이터셋
             const newLineDataset = {
-            type: 'line',
-            label: `${targetCategory} 대비 상대 비율`,
-            data: compareValues,
-            borderColor: 'rgba(75, 192, 192, 1)',
-            fill: false,
-            tension: 0.1,
-            yAxisID: 'y1'
+                type: 'line',
+                label: `${targetCategory} 대비 상대 비율`,
+                data: compareValues,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                fill: false,
+                tension: 0.1,
+                yAxisID: 'y1'
             };
 
+            // ✅ 차트 갱신
+            window.barChartInstance.data.labels = filteredLabels;
             window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
             window.barChartInstance.update();
         }
