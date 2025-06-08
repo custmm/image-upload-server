@@ -830,14 +830,16 @@ async function renderCharts() {
     // 기존 차트 제거
     if (window.barChartInstance) window.barChartInstance.destroy();
 
-    // ✅ 초기 개별 막대 데이터셋 정의
-    const barChartDatasets = categories.map((cat, i) => ({
+    // ✅ bar chart 데이터셋 하나로
+    const barChartDataset = {
         type: 'bar',
-        label: cat,
-        data: [parseFloat(probabilities[i])],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5],
+        label: '카테고리별 게시물 비율',
+        data: probabilities.map((v) => parseFloat(v)),
+        backgroundColor: categories.map((_, i) =>
+            ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
+        ),
         yAxisID: 'y'
-    }));
+    };
 
     // ✅ 초기 꺾은선 데이터셋
     const lineDataset = {
@@ -854,7 +856,7 @@ async function renderCharts() {
     window.barChartInstance = new Chart(barCtx, {
         data: {
             labels: categories, // ✅ 전체 카테고리 사용
-            datasets: [...barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
+            datasets: [barChartDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
         },
         options: {
             responsive: true,
