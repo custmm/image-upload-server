@@ -915,49 +915,49 @@ async function renderCharts() {
 
     // ✅ 막대그래프 클릭 이벤트
     document.getElementById("radarChart").onclick = function(evt) {
-        const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: false }, false);
-        if (points.length) {
-            const clickedIndex = points[0].index;
-            const targetCategory = categories[clickedIndex];
-            const targetValue = parseFloat(probabilities[clickedIndex]);
+    const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: false }, false);
+    if (points.length) {
+        const clickedIndex = points[0].index;
+        const targetCategory = categories[clickedIndex];
+        const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            const filteredLabels = [];
-            const barData = [];
-            const compareValues = [];
-            const barColors = [];
+        // ✅ 막대그래프 데이터: 클릭된 항목은 null → 시각적 제거
+        const barData = probabilities.map((val, i) => i === clickedIndex ? null : parseFloat(val));
 
-            categories.forEach((cat, i) => {
-                if (i !== clickedIndex) {
-                    filteredLabels.push(cat);
-                    barData.push(parseFloat(probabilities[i]));
-                    compareValues.push(((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2));
-                    barColors.push(["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]);
-                }
-            });
+        const barChartDataset = {
+        type: 'bar',
+        label: '카테고리별 게시물 비율',
+        data: barData,
+        backgroundColor: categories.map((_, i) =>
+            ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
+        ),
+        yAxisID: 'y'
+        };
 
-            const barChartDataset = {
-                type: 'bar',
-                label: '카테고리별 게시물 비율',
-                data: barData,
-                backgroundColor: barColors,
-                yAxisID: 'y'
-            };
+        // ✅ 꺾은선 데이터: 클릭된 위치만 값 유지 → 해당 위치로 전환
+        const lineData = probabilities.map((val, i) =>
+        i === clickedIndex ? parseFloat(val) : null
+        );
 
-            const newLineDataset = {
-                type: 'line',
-                label: `${targetCategory} 대비 상대 비율`,
-                data: compareValues,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false,
-                tension: 0.1,
-                yAxisID: 'y1'
-            };
+        const newLineDataset = {
+        type: 'line',
+        label: `${targetCategory} (꺾은선 전환)`,
+        data: lineData,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+        pointRadius: 6,
+        fill: false,
+        tension: 0.2,
+        yAxisID: 'y'
+        };
 
-            window.barChartInstance.data.labels = filteredLabels;
-            window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
-            window.barChartInstance.update();
-        }
+        window.barChartInstance.data.labels = categories;
+        window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
+        window.barChartInstance.update();
+    }
     };
+
 }
 
     
