@@ -764,7 +764,12 @@ async function renderCharts() {
                 showSubcategoryTable(subcategoryData, categoryName);
 
                 // ✅ 표가 생기면 차트 정렬 왼쪽으로
-                document.querySelector(".post-chart-container").style.justifyContent = "flex-start";
+                document.querySelector(".post-chart-container");
+                    chartArea.style.display = "flex";
+                    chartArea.style.flexDirection = "column";
+                    chartArea.style.alignItems = "center";  // ⬅️ 중요!
+                    chartArea.style.justifyContent = "center";  // ⬅️ 중요!
+                document.querySelector(".post-chart-container").style.justifyContent = "center";
             }
 
             if (!chartClickHandlerRegistered) {
