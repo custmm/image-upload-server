@@ -766,7 +766,7 @@ async function renderCharts() {
                 // ✅ 표가 생기면 차트 정렬 왼쪽으로
                 document.querySelector(".post-chart-container");
                     chartArea.style.display = "flex";
-                    chartArea.style.flexDirection = "column";
+                    chartArea.style.flexDirection = "row";
                     chartArea.style.alignItems = "center";  // ⬅️ 중요!
                     chartArea.style.justifyContent = "center";  // ⬅️ 중요!
                 document.querySelector(".post-chart-container").style.justifyContent = "center";
