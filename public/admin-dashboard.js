@@ -771,9 +771,12 @@ async function renderCharts() {
                 document.addEventListener("click", function (event) {
                     const table = document.getElementById("categoryInfoTable");
                     const chartArea = document.getElementById("chartArea");
-                    chartArea.style.display = "flex";
-                    chartArea.style.justifyContent = "center"; // 가운데 정렬
-                    chartArea.style.alignItems = "center";
+                    if (chartArea) {
+                        chartArea.style.display = "flex";
+                        chartArea.style.flexDirection = "column"; // 또는 'row'
+                        chartArea.style.justifyContent = "center";
+                        chartArea.style.alignItems = "center";
+                    }
 
                     const isClickInsideChart = chartArea.contains(event.target);
 

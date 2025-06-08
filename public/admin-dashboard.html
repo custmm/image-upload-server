@@ -526,7 +526,7 @@
     .chart-area {
         display: flex;
         flex-wrap: wrap;                  /* ✅ 내부 요소 줄바꿈 허용 */
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;     /* ✅ 중앙 정렬로 변경 */
         width: 100%;
@@ -543,6 +543,7 @@
     canvas {
         width: 400px;
         height: 400px;
+        margin: 0 auto; /* 캔버스가 부모 내 중앙 정렬 */
     }
     #chart-controls {
         position: absolute;
