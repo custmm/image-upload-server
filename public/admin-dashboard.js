@@ -918,27 +918,29 @@ async function renderCharts() {
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            // ✅ filteredLabels 정의
-            const filteredLabels = categories; // ❗전체 그대로 사용
+            // ✅ x축 라벨: 클릭되지 않은 항목만 유지
+            const filteredLabels = categories.filter((_, i) => i !== clickedIndex);
 
-            // ✅ 막대 데이터셋: 선택된 항목 제거
-            const barData = probabilities.map((val, i) => i === clickedIndex ? null : val);
+            // ✅ bar chart 데이터: 클릭된 항목 제외
+            const barData = probabilities.filter((_, i) => i !== clickedIndex);
+            const barColors = filteredLabels.map((_, i) =>
+                ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
+            );
 
             // ✅ 막대 데이터셋: 클릭한 항목만 null
             const barChartDataset = {
                 type: 'bar',
                 label: '카테고리별 게시물 비율',
                 data: barData,
-                backgroundColor: filteredLabels.map((_, i) =>
-                    ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
-                ),
+                backgroundColor: barColors,
                 yAxisID: 'y'
             };
 
-            // ✅ 비교 비율 계산
-            const compareValues = filteredLabels.map((_, i) => (
-                ((parseFloat(probabilities[categories.indexOf(filteredLabels[i])]) / targetValue) * 100).toFixed(2)
-            ));
+            // ✅ 꺾은선 그래프용 비교 데이터: 클릭되지 않은 항목들 대비 클릭 항목의 상대값
+            const compareValues = filteredLabels.map((label, i) => {
+                const idx = categories.indexOf(label);
+                return ((parseFloat(probabilities[idx]) / targetValue) * 100).toFixed(2);
+            });
 
             // ✅ 꺾은선 데이터셋
             const newLineDataset = {
