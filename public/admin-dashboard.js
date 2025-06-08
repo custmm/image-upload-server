@@ -775,6 +775,14 @@ async function renderCharts() {
                 document.addEventListener("click", function (event) {
                     const table = document.getElementById("categoryInfoTable");
                     const chartArea = document.getElementById("chartArea");
+                      if (!chartArea.contains(event.target)) {
+                        // 🔥 막대 숨기고 도넛 복원
+                        document.getElementById("donutWrapper").style.display = "block";
+                        document.getElementById("barWrapper").style.display = "none";
+
+                        // 차트 재생성 로직 필요 시 재호출
+                        renderCharts(); 
+                    }
                     if (chartArea) {
                         chartArea.style.display = "flex";
                         chartArea.style.flexDirection = "column"; // 또는 'row'
