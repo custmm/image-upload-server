@@ -750,6 +750,10 @@ async function renderCharts() {
             window.donutChartInstance.update();
 
             if (elements.length > 0) {
+                // 🔥 도넛 감추고 막대 보여주기
+                document.getElementById("donutWrapper").style.display = "none";
+                document.getElementById("barWrapper").style.display = "block";
+
                 const firstElement = elements[0];
                 const dataIndex = firstElement.index;
 
