@@ -771,6 +771,9 @@ async function renderCharts() {
                 document.addEventListener("click", function (event) {
                     const table = document.getElementById("categoryInfoTable");
                     const chartArea = document.getElementById("chartArea");
+                    chartArea.style.display = "flex";
+                    chartArea.style.justifyContent = "center"; // 가운데 정렬
+                    chartArea.style.alignItems = "center";
 
                     const isClickInsideChart = chartArea.contains(event.target);
 
@@ -922,7 +925,7 @@ async function renderCharts() {
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
             // ✅ 막대 데이터: 클릭 항목만 null 처리
-            const updatedBarData = probabilities.map((val, i) => parseFloat(val));
+            const updatedBarData = probabilities.map((val, i) => i === clickedIndex ? null : parseFloat(val));
 
             const barChartDataset = {
             type: 'bar',
@@ -935,7 +938,8 @@ async function renderCharts() {
             };
 
             const compareValues = categories.map((_, i) =>
-                i === clickedIndex ? 100 : ((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2)
+            i === clickedIndex ? null :
+            ((parseFloat(probabilities[i]) / targetValue) * 100).toFixed(2)
             );
 
             const newLineDataset = {
@@ -971,9 +975,7 @@ async function renderCharts() {
 
         // ✅ 중앙 정렬 복원
         const chartArea = document.getElementById("chartArea");
-            chartArea.style.display = "flex";
-            chartArea.style.justifyContent = "center"; // 가운데 정렬
-            chartArea.style.alignItems = "center";
+        chartArea.style.justifyContent = "center";
       });
     // 페이지 로드 시 차트 렌더링
     document.addEventListener("DOMContentLoaded", renderCharts);
