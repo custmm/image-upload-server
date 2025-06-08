@@ -798,10 +798,13 @@
             </div>
             <div class="post-chart-container">
                 <div class="chart-area" id="chartArea">
-                    <div class="chart-wrapper">
+                    <!-- 도넛 차트 영역 -->
+                    <div id="donutWrapper" class="chart-wrapper">
                         <canvas id="donutChart"></canvas>
-                    </div>                
-                    <div class="chart-wrapper" style="display: none;">
+                    </div>
+                    
+                    <!-- 막대/꺾은선 차트 영역 -->
+                    <div id="barWrapper" class="chart-wrapper" style="display: none;">
                         <canvas id="radarChart" style="display:none;"></canvas>
                         <canvas id="lineChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
                     </div>
