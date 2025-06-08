@@ -951,8 +951,8 @@ async function renderCharts() {
             // ✅ 꺾은선 데이터셋
             const lineChartDataset = {
                 type: 'line',
-                label: `${targetCategory} 대비 상대 비율`,
-                data: compareValues,
+                label: '선택된 항목',
+                data: lineData,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 fill: false,
                 tension: 0.1,
