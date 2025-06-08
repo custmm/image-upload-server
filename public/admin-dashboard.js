@@ -852,22 +852,9 @@ async function renderCharts() {
 
     // 초기 차트 생성
     window.barChartInstance = new Chart(barCtx, {
-        type: 'bar', // 기본 타입 명시
         data: {
             labels: categories, // ✅ 전체 카테고리 사용
-            datasets: [
-                ...barChartDatasets.map(ds =>({
-                    ...ds,
-                    barPercentage: 0.6,
-                    categoryPercentage: 0.7
-                })),
-                {
-                    ...lineDataset,
-                    type:'line',
-                    tension:0.2,
-                    yAxisID: 'y1'
-                }
-            ] // ✅ 원본 막대 데이터 + 빈 꺾은선
+            datasets: [...barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
         },
         options: {
             responsive: true,
@@ -876,7 +863,7 @@ async function renderCharts() {
                 legend: { 
                     position: "bottom",
                     labels: {
-                        filter: (legendItem, chartData) => {
+                        filter: function (legendItem, chartData) {
                             const dataset = chartData.datasets[legendItem.datasetIndex];
                             return !dataset.hiddenLegend;
                         }
@@ -891,11 +878,12 @@ async function renderCharts() {
                 x: {
                     grid: { display: false },
                     offset: true,
-                    stacked: false,
                     ticks: {
-                        autoSkip: false,
-                        display: true // 🔥 레이블 보이도록
-                    }// ✅ 제목도 숨김
+                        display: false // ✅ 레이블 숨김
+                    },
+                    title: { 
+                        display: false 
+                    } // ✅ 제목도 숨김
                 },
                 y: {
                     beginAtZero: true,
@@ -930,29 +918,33 @@ async function renderCharts() {
             const targetCategory = categories[clickedIndex];
             const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            const filteredLabels = categories;  // 모든 카테고리 유지
-            const barData = categories.map((cat, i) => cat === "legoCompatibleblock" ? null : probabilities[i]);
-            const lineData = categories.map((cat, i) => cat === "legoCompatibleblock" ? 100 : null); // 예: 100%
+            // ✅ filteredLabels 정의
+            const filteredLabels = categories; // ❗전체 그대로 사용
 
+            // ✅ 막대 데이터셋: 선택된 항목 제거
+            const barData = probabilities.map((val, i) => i === clickedIndex ? null : val);
 
             // ✅ 막대 데이터셋: 클릭한 항목만 null
             const barChartDataset = {
                 type: 'bar',
                 label: '카테고리별 게시물 비율',
                 data: barData,
-                backgroundColor: categories.map((_, i) =>
+                backgroundColor: filteredLabels.map((_, i) =>
                     ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
                 ),
-                barPercentage: 0.6,
-                categoryPercentage: 0.7,
                 yAxisID: 'y'
             };
 
+            // ✅ 비교 비율 계산
+            const compareValues = filteredLabels.map((_, i) => (
+                ((parseFloat(probabilities[categories.indexOf(filteredLabels[i])]) / targetValue) * 100).toFixed(2)
+            ));
+
             // ✅ 꺾은선 데이터셋
-            const lineChartDataset = {
+            const newLineDataset = {
                 type: 'line',
-                label: '선택된 항목',
-                data: lineData,
+                label: `${targetCategory} 대비 상대 비율`,
+                data: compareValues,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 fill: false,
                 tension: 0.1,
@@ -960,11 +952,8 @@ async function renderCharts() {
             };
 
             // ✅ 차트 갱신
-            window.barChartInstance.data = {
-            labels: filteredLabels,
-            datasets: [barChartDataset, lineChartDataset]
-            };
-
+            window.barChartInstance.data.labels = filteredLabels;
+            window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
             window.barChartInstance.update();
         }
     };
