@@ -966,25 +966,28 @@ async function renderCharts() {
     };
 }
 
-    
     document.getElementById("showDonut").addEventListener("click", () => {
-        document.getElementById("donutChart").style.display = "block";
-        document.getElementById("radarChart").style.display = "none";
-      });
-      
-      document.getElementById("showRadar").addEventListener("click", () => {
-        document.getElementById("donutChart").style.display = "none";
-        document.getElementById("radarChart").style.display = "block";
-        document.getElementById("lineChart").style.display = "none"; // ✅ 추가
-            
-        // ✅ 서브카테고리 표 제거
+        document.getElementById("donutWrapper").style.display = "flex";
+        document.getElementById("barWrapper").style.display = "none";
+
+        // 필요 시 chartArea 중앙 정렬 복원
+        const chartArea = document.getElementById("chartArea");
+        chartArea.style.justifyContent = "center";
+    });
+
+    document.getElementById("showRadar").addEventListener("click", () => {
+        document.getElementById("donutWrapper").style.display = "none";
+        document.getElementById("barWrapper").style.display = "flex";
+
+        document.getElementById("lineChart").style.display = "none";
+
         const wrapper = document.querySelector(".subcategory-wrapper");
         if (wrapper) wrapper.remove();
 
-        // ✅ 중앙 정렬 복원
         const chartArea = document.getElementById("chartArea");
         chartArea.style.justifyContent = "center";
-      });
+    });
+
     // 페이지 로드 시 차트 렌더링
     document.addEventListener("DOMContentLoaded", renderCharts);
       setTimeout(() => {
