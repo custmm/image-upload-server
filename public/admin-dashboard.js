@@ -852,9 +852,22 @@ async function renderCharts() {
 
     // 초기 차트 생성
     window.barChartInstance = new Chart(barCtx, {
+        type: 'bar', // 기본 타입 명시
         data: {
             labels: categories, // ✅ 전체 카테고리 사용
-            datasets: [...barChartDatasets, lineDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
+            datasets: [
+                ...barChartDatasets.map(ds =>({
+                    ...ds,
+                    barPercentage: 0.6,
+                    categoryPercentage: 0.7
+                })),
+                {
+                    ...lineDataset,
+                    type:'line',
+                    tension:0.2,
+                    yAxisID: 'y1'
+                }
+            ] // ✅ 원본 막대 데이터 + 빈 꺾은선
         },
         options: {
             responsive: true,
@@ -863,7 +876,7 @@ async function renderCharts() {
                 legend: { 
                     position: "bottom",
                     labels: {
-                        filter: function (legendItem, chartData) {
+                        filter: (legendItem, chartData) => {
                             const dataset = chartData.datasets[legendItem.datasetIndex];
                             return !dataset.hiddenLegend;
                         }
@@ -878,12 +891,11 @@ async function renderCharts() {
                 x: {
                     grid: { display: false },
                     offset: true,
+                    stacked: false,
                     ticks: {
-                        display: false // ✅ 레이블 숨김
-                    },
-                    title: { 
-                        display: false 
-                    } // ✅ 제목도 숨김
+                        autoSkip: false,
+                        display: true // 🔥 레이블 보이도록
+                    }// ✅ 제목도 숨김
                 },
                 y: {
                     beginAtZero: true,
@@ -954,6 +966,8 @@ async function renderCharts() {
 
             // ✅ 차트 갱신
             window.barChartInstance.data.labels = filteredLabels;
+            barChartDataset.data.length === filteredLabels.length;
+            newLineDataset.data.length === filteredLabels.length;
             window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
             window.barChartInstance.update();
         }
