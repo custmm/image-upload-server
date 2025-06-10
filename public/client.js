@@ -307,7 +307,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         let description = descriptionEditor.innerHTML.trim(); // ✅ HTML 태그 유지
         description = sanitizeDescription(description); // 🔥 여기서 함수 사용 (불필요한 태그 제거)
     
-        formData.append("description", description); // 🔥 서버로 HTML 포함 설명 전송
         // ✅ 순수 텍스트 길이 검사 (HTML 태그 제외)
         function stripHtmlTags(html) {
             let doc = new DOMParser().parseFromString(html, "text/html");
