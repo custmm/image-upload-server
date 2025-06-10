@@ -111,31 +111,39 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         }
 
         // ✅ 허용된 태그만 유지하고 저장
-        const sanitizedDescription = sanitizeDescription(description);
-        function sanitizeDescription(html) {
-            return sanitizeHtml(html, {
-                allowedTags: ["b", "strong", "i", "em", "s", "strike", "u", "br"],
-                allowedAttributes: {
-                    "span": ["style"],
-                    "div": ["style"],
-                    "p": ["style"]
-                },
-                selfClosing: ["br"],  
-                textFilter: (text) => text.replace(/&nbsp;/g, " ")  
-            })
-            .replace(/\n/g, "<br>")  
-            .replace(/&amp;/g, "&");  // ✅ `<br>` 제거 X
-        }
+        const sanitizedDescription = sanitizeHtml(description, {
+            allowedTags: ["b", "strong", "i", "em", "s", "strike", "u", "br"],
+            allowedAttributes: {
+                "span": ["style"],
+                "div": ["style"],
+                "p": ["style"]
+            },
+            selfClosing: ["br"],  
+            textFilter: (text) => text.replace(/&nbsp;/g, " ")  
+        }).replace(/\n/g, "<br>").replace(/&amp;/g, "&");  // ✅ `<br>` 제거 X
+
+        // 🔥 ImageKit 업로드
+        const filePath = req.file.path;
+        const fileName = req.file.filename;
+        const folder = `${category_name}/${dbSubcategoryName}`;
+
+        const uploadResult = await imagekit.upload({
+        file: fsRaw.readFileSync(filePath),
+        fileName,
+        folder,
+        });
+
+        await fs.unlink(filePath); // 임시 파일 삭제
 
         // ✅ DB에 정확한 카테고리명과 서브카테고리명을 저장
         const fileData = await File.create({
-            file_name: req.file.filename || req.file.originalname,
-            file_path: req.file.path, 
+            file_name: fileName,
+            file_path: uploadResult.url, // ✅ ImageKit URL 저장
             category_id: category.id,
             subcategory_id,
-            category_name, // ✅ 올바른 카테고리명 저장
-            subcategory_name: dbSubcategoryName, // ✅ 올바른 서브카테고리명 저장
-            file_description: sanitizedDescription || null, // ✅ 필터링된 HTML 저장
+            category_name,
+            subcategory_name: dbSubcategoryName,
+            file_description: sanitizedDescription || null,
         });
 
         console.info("✅ 파일 업로드 성공!");
