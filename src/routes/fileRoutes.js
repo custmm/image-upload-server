@@ -130,7 +130,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         // ✅ DB에 정확한 카테고리명과 서브카테고리명을 저장
         const fileData = await File.create({
             file_name: req.file.filename || req.file.originalname,
-            file_path: req.file.path, // ← Cloudinary의 URL
+            file_path: req.file.path, 
             category_id: category.id,
             subcategory_id,
             category_name, // ✅ 올바른 카테고리명 저장
