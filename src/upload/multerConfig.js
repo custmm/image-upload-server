@@ -1,24 +1,22 @@
 // src/upload/multerConfig.js
 import multer from "multer";
-import { v2 as cloudinary } from "cloudinary";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
+import path from "path";
+import fs from "fs";
 import { Category, Subcategory } from "../models/index.js";
 import dotenv from "dotenv";
+import ImageKit from "imagekit";
 
 dotenv.config();
 
-// Cloudinary 설정
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+const imagekit = new ImageKit({
+  publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
 
 // CloudinaryStorage에 카테고리 기반 경로 지정
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: async (req, file) => {
-    try{
+const storage = multer.diskStorage({
+  destination: async (req, file, cb) => {
     // ✅ req.query 에서 값 읽기
     const category_id = req.query.category_id;
     const subcategory_id = req.query.subcategory_id;
@@ -28,27 +26,22 @@ const storage = new CloudinaryStorage({
     const category = await Category.findByPk(category_id);
     if (!category) throw new Error("❌ 존재하지 않는 카테고리입니다.");
 
-    const categoryName = category.name.replace(/[^a-zA-Z0-9가-힣]/g, "_");
-    let folder = categoryName;
+    let folder = category.name.replace(/[^a-zA-Z0-9가-힣]/g, "_");
+
 
     if (subcategory_id) {
       const subcategory = await Subcategory.findByPk(subcategory_id);
-      if (!subcategory) throw new Error("❌ 존재하지 않는 서브카테고리입니다.");
-      const subcategoryName = subcategory.name.replace(/[^a-zA-Z0-9가-힣]/g, "_");
-      folder += `/${subcategoryName}`;
+      if (!subcategory) return cb(new Error("❌ 존재하지 않는 서브카테고리입니다."));
+      folder += `/${subcategory.name.replace(/[^a-zA-Z0-9가-힣]/g, "_")}`;
     }
 
-      return {
-        folder,
-        use_filename: true,
-        unique_filename: true,
-        allowed_formats: ["jpg", "jpeg", "png", "webp"]
-      };
-    } catch (err) {
-      console.error("🚨 CloudinaryStorage 설정 중 오류:", err.message);
-      throw err;
-    }
-  }
+    const destPath = path.join("uploads", folder);
+    fs.mkdirSync(destPath, { recursive: true });
+    cb(null, destPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
 });
 
 const upload = multer({
@@ -56,4 +49,4 @@ const upload = multer({
   limits: { fileSize: 15 * 1024 * 1024 },
 });
 
-export { upload };
+export { upload, imagekit };
