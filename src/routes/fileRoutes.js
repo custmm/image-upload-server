@@ -81,7 +81,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         if (!category_id || isNaN(category_id)) {
             return res.status(400).json({ error: "❌ 유효한 category_id가 필요합니다." });
         }
-        if (!req.file) {
+        if (!req.file || !req.file.buffer) {
             return res.status(400).json({ error: "❌ 파일이 업로드되지 않았습니다." });
         }
 
@@ -123,12 +123,11 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         }).replace(/\n/g, "<br>").replace(/&amp;/g, "&");  // ✅ `<br>` 제거 X
 
         // 🔥 ImageKit 업로드
-        const filePath = req.file.path;
-        const fileName = req.file.filename;
+        const fileName = Date.now() + path.extname(req.file.originalname);
         const folder = `${category_name}/${dbSubcategoryName}`;
 
         const uploadResult = await imagekit.upload({
-        file: fsRaw.readFileSync(filePath),
+        file: req.file.buffer,
         fileName,
         folder,
         });
