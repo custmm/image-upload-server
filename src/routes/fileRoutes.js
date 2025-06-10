@@ -127,12 +127,10 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         const folder = `${category_name}/${dbSubcategoryName}`;
 
         const uploadResult = await imagekit.upload({
-        file: req.file.buffer,
-        fileName,
-        folder,
+            file: req.file.buffer,
+            fileName,
+            folder,
         });
-
-        await fs.unlink(filePath); // 임시 파일 삭제
 
         // ✅ DB에 정확한 카테고리명과 서브카테고리명을 저장
         const fileData = await File.create({
