@@ -1,6 +1,6 @@
 import express from "express";
 import { File, Category, Subcategory, sequelize } from "../models/index.js";
-import { upload } from "../upload/multerConfig.js";  // ✅ `multerConfig.js` 가져오기
+import { upload, imagekit } from "../upload/multerConfig.js";  // ✅ `multerConfig.js` 가져오기
 import path, {join} from "path";
 import fs from "fs/promises";
 import * as fsSync from "fs";  // ← 추가
