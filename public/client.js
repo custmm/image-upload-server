@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
             showLoading(); // ✅ 로딩 시작
 
-            const response = await fetch(`/api/files/upload?category_id=${categoryId}&subcategory_id=${subcategoryId}`, {
+            const response = await fetch("/api/files/upload", {
                 method: "POST",
                 body: formData
             });
