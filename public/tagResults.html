@@ -244,15 +244,14 @@
       document.getElementById("backToListButton").addEventListener("click", () => {
         window.history.back(); // 🔥 이전 페이지로 이동
       });
-        const initialKoreanTags = []; // 🎯 원하는 태그로 채우세요
 
-  document.getElementById("resetTagButton").addEventListener("click", () => {
-    const tagListDiv = document.getElementById("koreanTagList");
-    tagListDiv.innerHTML = initialKoreanTags.map(tag => 
-      `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`
-    ).join(" ");
-    tagListDiv.style.display = "block";
-  });
+    document.getElementById("resetTagButton").addEventListener("click", () => {
+      const tagListDiv = document.getElementById("koreanTagList");
+      tagListDiv.innerHTML = initialKoreanTags.map(tag => 
+        `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`
+      ).join(" ");
+      tagListDiv.style.display = "block";
+    });
     </script>
     </body>
 </html>
