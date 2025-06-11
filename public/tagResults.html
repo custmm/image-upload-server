@@ -259,9 +259,36 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
 
     if (!Array.isArray(data.tags)) throw new Error("올바르지 않은 응답");
 
-    tagListDiv.innerHTML = data.tags.map(tag =>
-      `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`
-    ).join(" ");
+    const initialGroups = {};
+
+        // 초성 판별 함수
+    const getInitial = (char) => {
+      const initialTable = [
+        "ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ",
+        "ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ",
+        "0","1","2","3","4","5","6","7","8","9"
+      ];
+      const code = char.charCodeAt(0);
+      if (code >= 0xac00 && code <= 0xd7a3) {
+        const index = Math.floor((code - 0xac00) / 588);
+        return initialTable[index];
+      }
+      return "기타";
+    };
+
+    for (const tag of data.tags) {
+      const initial = getInitial(tag[0]);
+      if (!initialGroups[initial]) initialGroups[initial] = [];
+      initialGroups[initial].push(tag);
+    }
+
+    // HTML 렌더링
+    tagListDiv.innerHTML = Object.keys(initialGroups).sort((a, b) => a.localeCompare(b, "ko")).map(initial => {
+      const buttons = initialGroups[initial]
+        .map(tag => `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`)
+        .join(" ");
+      return `<div><h4>${initial}</h4><div>${buttons}</div></div>`;
+    }).join("");
 
     tagListDiv.style.display = "block";
   } catch (err) {
