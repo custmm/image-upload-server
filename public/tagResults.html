@@ -20,6 +20,10 @@
       font-size: 1.2rem;
       text-align: center;
     }
+    h4{
+      text-align: left;
+      color: black;
+    }
     .post-item {
       display: flex;
       align-items: center;
@@ -286,11 +290,7 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
       const buttons = initialGroups[initial]
         .map(tag => `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`)
         .join(" ");
-      return 
-      `<div>
-        <h4 style="text-align:left;">${initial}</h4>
-          <div>${buttons}</div>
-        </div>`;
+      return `<div><h4>${initial}</h4><div>${buttons}</div></div>`;
     }).join("");
 
     tagListDiv.style.display = "block";
