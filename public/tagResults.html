@@ -245,13 +245,25 @@
         window.history.back(); // 🔥 이전 페이지로 이동
       });
 
-    document.getElementById("resetTagButton").addEventListener("click", () => {
-      const tagListDiv = document.getElementById("koreanTagList");
-      tagListDiv.innerHTML = initialKoreanTags.map(tag => 
-        `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`
-      ).join(" ");
-      tagListDiv.style.display = "block";
-    });
+document.getElementById("resetTagButton").addEventListener("click", async () => {
+  const tagListDiv = document.getElementById("koreanTagList");
+  tagListDiv.innerHTML = "불러오는 중...";
+
+  try {
+    const response = await fetch("/api/korean-initials");
+    const data = await response.json();
+
+    if (!Array.isArray(data.tags)) throw new Error("올바르지 않은 응답");
+
+    tagListDiv.innerHTML = data.tags.map(tag =>
+      `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`
+    ).join(" ");
+
+    tagListDiv.style.display = "block";
+  } catch (err) {
+    tagListDiv.innerHTML = "태그를 불러오지 못했습니다.";
+  }
+});
     </script>
     </body>
 </html>
