@@ -91,6 +91,25 @@
     .post-list li a:hover {
       text-decoration: underline;
     }
+    #resetTagButton {
+      font-size: 0.8rem;
+      margin-left: 10px;
+      padding: 4px 10px;
+      cursor: pointer;
+      background-color: #e1f5fe;
+      border: 1px solid #90caf9;
+      border-radius: 4px;
+    }
+
+    #koreanTagList button {
+      margin: 5px;
+      padding: 5px 10px;
+      font-size: 0.85rem;
+      background: #f1f8ff;
+      border: 1px solid #90caf9;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   @media (max-width: 600px) {
     .post-item {
       flex-direction: row;
@@ -120,8 +139,9 @@
 </head>
 <body>
   <button id="backToListButton" class="back-button">뒤로가기</button>
-    <h2 id="tagTitle">#태그 관련 게시물</h2>
-  <ul class="post-list" id="postList"></ul>
+    <h2 id="tagTitle">#태그 관련 게시물<button id="resetTagButton">태그 초기화</button></h2>
+    <div id="koreanTagList" style="display:none; margin-top: 10px; text-align: center;"></div>
+    <ul class="post-list" id="postList"></ul>
 
   <!-- 아래 HTML 요소 추가 (스크롤 감지용) -->
   <div id="scrollTrigger" style="height: 1px;"></div>
@@ -223,6 +243,15 @@
       document.getElementById("backToListButton").addEventListener("click", () => {
         window.history.back(); // 🔥 이전 페이지로 이동
       });
+        const initialKoreanTags = []; // 🎯 원하는 태그로 채우세요
+
+  document.getElementById("resetTagButton").addEventListener("click", () => {
+    const tagListDiv = document.getElementById("koreanTagList");
+    tagListDiv.innerHTML = initialKoreanTags.map(tag => 
+      `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`
+    ).join(" ");
+    tagListDiv.style.display = "block";
+  });
     </script>
     </body>
 </html>
