@@ -57,10 +57,10 @@ window.prevPage = async function() {
         const closeBtn = document.createElement("span");
         closeBtn.innerHTML = "&times;";
         closeBtn.style.position = "absolute";
-        closeBtn.style.top = "8px";
-        closeBtn.style.right = "12px";
+        closeBtn.style.top = "3px";
+        closeBtn.style.right = "8px";
         closeBtn.style.cursor = "pointer";
-        closeBtn.style.fontSize = "20px";
+        closeBtn.style.fontSize = "25px";
         closeBtn.style.color = "#666";
         closeBtn.addEventListener("click", () => {
             msgBox.remove();
