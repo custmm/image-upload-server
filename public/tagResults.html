@@ -25,7 +25,7 @@
       color: black;
     }
     hr {
-      width: 80%;
+      width: 100%;
       margin: 5px 0; /* 상하 간격 */
     }
     .post-item {
@@ -108,6 +108,11 @@
       border: 1px solid #90caf9;
       border-radius: 4px;
       color: black;
+    }
+    #tag-container{
+      padding-top:10px;
+      border-radius: 5px;
+      background-color: white;
     }
 
     #koreanTagList button {
@@ -300,7 +305,7 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
         const buttons = initialGroups[initial]
           .map(tag => `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`)
           .join(" ");
-        return `<div><h4>${initial}</h4><hr><div>${buttons}</div></div>`;
+        return `<div><h4>${initial}</h4><hr><div id="tag-container">${buttons}</div></div>`;
       }).join("");
 
     tagListDiv.style.display = "block";
