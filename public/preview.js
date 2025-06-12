@@ -39,6 +39,24 @@ window.prevPage = async function() {
         setTimeout(() => popup.remove(), 300);
     }, 2000);
 }
+    function inforPopupMessage(msg){
+        const msgBox = document.createElement("div");       
+        msgBox.innerText = "이 사이트는 AutoCAD 아이콘과 퍼즐 이미지를 활용한 갤러리입니다.";
+        msgBox.style.position = "fixed";
+        msgBox.style.bottom = "20px";
+        msgBox.style.left = "50%";
+        msgBox.style.transform = "translateX(-50%)";
+        msgBox.style.background = "#fff";
+        msgBox.style.border = "1px solid #ccc";
+        msgBox.style.padding = "10px 20px";
+        msgBox.style.borderRadius = "8px";
+        msgBox.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
+        msgBox.style.zIndex = "1000";
+        document.body.appendChild(msgBox);
+    }
+    
+
+
 document.addEventListener("DOMContentLoaded", async () => {
     const isExplanMode = window.location.hash.includes("explan");
     const welcomeEl = document.getElementById("welcomeMessage");
@@ -86,7 +104,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("loadingIndicator").style.display = "none";
         },500);
     }
-
     // ✅ URL 파라미터로 카테고리 자동 선택
     const urlParams = new URLSearchParams(window.location.search);
     let categoryParam = urlParams.get("category");

@@ -475,10 +475,17 @@
     <p>아이콘은 AutoCAD로제작했으며 이미지는 마음대로 다운하셔도됩니다.</p>
     <p>© 2025 휴욱슈욱 All rights reserved.</p>
     <p>
+      <a href="#" id="showIntro">소개</a> |
       <a href="https://github.com/custmm/image-upload-server" target="_blank">GitHub</a> |
       <a href="mailto:xx00bki924@gmail.com?subject=피드백 문의합니다.">Contact</a>
     </p>
   </footer>
+<script>
+document.getElementById("showIntro").addEventListener("click", function(e) {
+  e.preventDefault();
+  inforPopupMessage("테스트중");
+});
+</script>
   <script src="preview.js"></script>
 </body>
 </html>
