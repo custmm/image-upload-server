@@ -41,7 +41,7 @@ window.prevPage = async function() {
 }
     function inforPopupMessage(msg){
         const msgBox = document.createElement("div");       
-        msgBox.innerText = "";
+        msgBox.innerText = "테스트중인 기능입니다.";
 
         msgBox.style.position = "fixed";
         msgBox.style.top = "50%";
@@ -54,7 +54,7 @@ window.prevPage = async function() {
         msgBox.style.borderRadius = "8px";
         msgBox.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
         msgBox.style.zIndex = "1000";
-        
+
         document.body.appendChild(msgBox);
     }
     
