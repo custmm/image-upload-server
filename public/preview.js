@@ -41,17 +41,20 @@ window.prevPage = async function() {
 }
     function inforPopupMessage(msg){
         const msgBox = document.createElement("div");       
-        msgBox.innerText = "이 사이트는 AutoCAD 아이콘과 퍼즐 이미지를 활용한 갤러리입니다.";
+        msgBox.innerText = "";
+
         msgBox.style.position = "fixed";
-        msgBox.style.bottom = "20px";
+        msgBox.style.top = "50%";
         msgBox.style.left = "50%";
-        msgBox.style.transform = "translateX(-50%)";
+        msgBox.style.transform = "translate(-50%, -50%)";
+
         msgBox.style.background = "#fff";
         msgBox.style.border = "1px solid #ccc";
         msgBox.style.padding = "10px 20px";
         msgBox.style.borderRadius = "8px";
         msgBox.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
         msgBox.style.zIndex = "1000";
+        
         document.body.appendChild(msgBox);
     }
     
