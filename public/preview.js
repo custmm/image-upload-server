@@ -41,8 +41,6 @@ window.prevPage = async function() {
 }
     function inforPopupMessage(msg){
         const msgBox = document.createElement("div");       
-        msgBox.innerText = "테스트중인 기능입니다.";
-
         msgBox.style.position = "fixed";
         msgBox.style.top = "50%";
         msgBox.style.left = "50%";
@@ -55,6 +53,25 @@ window.prevPage = async function() {
         msgBox.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
         msgBox.style.zIndex = "1000";
 
+        // 닫기 버튼
+        const closeBtn = document.createElement("span");
+        closeBtn.innerHTML = "&times;";
+        closeBtn.style.position = "absolute";
+        closeBtn.style.top = "8px";
+        closeBtn.style.right = "12px";
+        closeBtn.style.cursor = "pointer";
+        closeBtn.style.fontSize = "20px";
+        closeBtn.style.color = "#666";
+        closeBtn.addEventListener("click", () => {
+            msgBox.remove();
+        });
+
+        // 메시지 내용
+        const text = document.createElement("div");
+        text.innerText = msg;
+
+        msgBox.appendChild(closeBtn);
+        msgBox.appendChild(text);
         document.body.appendChild(msgBox);
     }
     
