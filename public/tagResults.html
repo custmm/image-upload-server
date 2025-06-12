@@ -24,6 +24,10 @@
       text-align: left;
       color: black;
     }
+    hr {
+      width: 80%;
+      margin: 5px 0; /* 상하 간격 */
+    }
     .post-item {
       display: flex;
       align-items: center;
@@ -286,12 +290,18 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
     }
 
     // HTML 렌더링
-    tagListDiv.innerHTML = Object.keys(initialGroups).sort((a, b) => a.localeCompare(b, "ko")).map(initial => {
-      const buttons = initialGroups[initial]
-        .map(tag => `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`)
-        .join(" ");
-      return `<div><h4>${initial}</h4><div>${buttons}</div></div>`;
-    }).join("");
+    tagListDiv.innerHTML = Object.keys(initialGroups)
+      .sort((a, b) => {
+        if (a === "기타") return 1;
+        if (b === "기타") return -1;
+        return a.localeCompare(b, "ko");
+      })
+      .map(initial => {
+        const buttons = initialGroups[initial]
+          .map(tag => `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`)
+          .join(" ");
+        return `<div><h4>${initial}</h4><hr><div>${buttons}</div></div>`;
+      }).join("");
 
     tagListDiv.style.display = "block";
   } catch (err) {
