@@ -11,70 +11,37 @@ window.prevPage = async function() {
       await loadPage(selectedCategory, selectedSubcategory);
     }
   };
-  function showPopupMessage(msg) {
-    const popup = document.createElement("div");
 
-    // ✅ 줄바꿈 지원을 위해 innerHTML + <br> 변환
-    popup.innerHTML = msg.replace(/\n/g, "<br>");
+    function showPopupMessage(msg) {
+        const popup = document.createElement("div");
+        popup.classList.add("popup-message");
+        popup.innerHTML = msg.replace(/\n/g, "<br>");
+        document.body.appendChild(popup);
 
-    Object.assign(popup.style, {
-        position: "fixed",
-        bottom: "30px",
-        left: "50%",
-        transform: "translateX(-50%)",
-        backgroundColor: "#333",
-        color: "#fff",
-        padding: "10px 20px",
-        borderRadius: "5px",
-        zIndex: "9999",
-        opacity: "0",
-        transition: "opacity 0.3s ease-in-out"
-    });
-    document.body.appendChild(popup);
+        requestAnimationFrame(() => popup.style.opacity = "1");
 
-    requestAnimationFrame(() => popup.style.opacity = "1");
-    
-    setTimeout(() => {
-        popup.style.opacity = "0";
-        setTimeout(() => popup.remove(), 300);
-    }, 2000);
-}
-    function inforPopupMessage(msg){
-        const msgBox = document.createElement("div");       
-        msgBox.style.position = "fixed";
-        msgBox.style.top = "50%";
-        msgBox.style.left = "50%";
-        msgBox.style.width = "60%";
-        msgBox.style.transform = "translate(-50%, -50%)";
-
-        msgBox.style.background = "#fff";
-        msgBox.style.border = "1px solid #ccc";
-        msgBox.style.padding = "10px 20px";
-        msgBox.style.borderRadius = "8px";
-        msgBox.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
-        msgBox.style.zIndex = "1000";
-
-        // 닫기 버튼
-        const closeBtn = document.createElement("span");
-        closeBtn.innerHTML = "&times;";
-        closeBtn.style.position = "absolute";
-        closeBtn.style.top = "3px";
-        closeBtn.style.right = "8px";
-        closeBtn.style.cursor = "pointer";
-        closeBtn.style.fontSize = "25px";
-        closeBtn.style.color = "#666";
-        closeBtn.addEventListener("click", () => {
-            msgBox.remove();
-        });
-
-        // 메시지 내용
-        const text = document.createElement("div");
-        text.innerHTML = msg; // ✅ HTML 태그 적용
-
-        msgBox.appendChild(closeBtn);
-        msgBox.appendChild(text);
-        document.body.appendChild(msgBox);
+        setTimeout(() => {
+            popup.style.opacity = "0";
+            setTimeout(() => popup.remove(), 300);
+        }, 2000);
     }
+
+function inforPopupMessage(msg) {
+    const msgBox = document.createElement("div");
+    msgBox.classList.add("infor-popup");
+
+    const closeBtn = document.createElement("span");
+    closeBtn.innerHTML = "&times;";
+    closeBtn.classList.add("infor-popup-close");
+    closeBtn.addEventListener("click", () => msgBox.remove());
+
+    const text = document.createElement("div");
+    text.innerHTML = msg;
+
+    msgBox.appendChild(closeBtn);
+    msgBox.appendChild(text);
+    document.body.appendChild(msgBox);
+}
     
 
 

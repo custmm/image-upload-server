@@ -30,6 +30,46 @@
     .page-footer a:hover {
       text-decoration: underline;
     }
+    /* ✅ 하단 팝업 (showPopupMessage용) */
+    .popup-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
+    .infor-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 25px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      text-align: left;
+    }
+
+    /* ✅ 닫기 버튼 스타일 */
+    .infor-popup-close {
+      position: absolute;
+      top: 3px;
+      right: 8px;
+      cursor: pointer;
+      font-size: 25px;
+      color: #666;
+    }
 
     .dark-mode .page-footer {
       color: #ccc;
