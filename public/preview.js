@@ -69,7 +69,7 @@ window.prevPage = async function() {
 
         // 메시지 내용
         const text = document.createElement("div");
-        text.innerText = msg;
+        text.innerHTML = msg; // ✅ HTML 태그 적용
 
         msgBox.appendChild(closeBtn);
         msgBox.appendChild(text);
