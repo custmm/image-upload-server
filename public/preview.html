@@ -202,19 +202,20 @@
     /* 서브 탭 컨테이너 (작은 카테고리) */
     .sub-tab-container {
       position: absolute;
+      display: flex;
       flex-wrap: wrap; /* ✅ 수정: 줄바꿈 허용 */
       left: 50%;
       transform: translateX(-50%);
-      display: flex;
       gap: 15px;
       justify-content: center;
-      padding: 20px 0;
+      padding: 15px 0;
       margin-bottom: 0px;
     }
     /* 서브 탭 (작은 카테고리) */
     .sub-tab {
       flex-shrink: 0;
-      padding: 10px 10px;
+      font-size: 14px;
+      padding: 8px 12px;
       text-align: center;
       align-items: center;
       color: #555;
@@ -239,6 +240,8 @@
 
     .marge-container{
       display: flex;
+      max-width: 100%; /* ✅ 화면 너비를 넘지 않게 */
+      margin: 0 auto;
       flex-wrap: nowrap;
       flex-direction: column; /* 세로로 정렬 (원한다면 row로 변경 가능) */
       gap: 20px;             /* 내부 요소 간격 */
@@ -463,6 +466,12 @@
     body, html {
       overflow-x: hidden;
     }
+    @media (max-width: 480px) {
+  .sub-tab {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+}
   </style>
 </head>
 <body>
