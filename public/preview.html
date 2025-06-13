@@ -202,7 +202,7 @@
     /* 서브 탭 컨테이너 (작은 카테고리) */
     .sub-tab-container {
       position: absolute;
-      flex-wrap: nowrap; /* ✅ 창이 작아지면 자동으로 줄바꿈 */
+      flex-wrap: wrap; /* ✅ 수정: 줄바꿈 허용 */
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -213,8 +213,7 @@
     }
     /* 서브 탭 (작은 카테고리) */
     .sub-tab {
-      display: flex;
-      flex-wrap: nowrap;
+      flex-shrink: 0;
       padding: 10px 10px;
       text-align: center;
       align-items: center;
@@ -270,86 +269,86 @@
     }
     /* ✅ 이미지 갤러리 중앙 정렬 */
     .image-gallery-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;  /* 🔥 수평 중앙 정렬 */
-        align-items: center;      /* 🔥 수직 중앙 정렬 */
-        height: auto;
-        margin-top: 20px;  /* 🔥 위쪽 여백 */
-        overflow-x: hidden; /* 혹시 남는 부분 잘라내기 */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;  /* 🔥 수평 중앙 정렬 */
+      align-items: center;      /* 🔥 수직 중앙 정렬 */
+      height: auto;
+      margin-top: 20px;  /* 🔥 위쪽 여백 */
+      overflow-x: hidden; /* 혹시 남는 부분 잘라내기 */
     }
   /* ✅ 이미지 갤러리 (4x5 배열) */
   .image-gallery {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr); /* 🔥 최소 100px, 최대 1fr */
-      grid-template-rows: auto;
-      gap: 3px; /* ✅ 이미지 간격 */
-      padding: 7px;
-      background-color: #ffffff;
-      border-radius: 5px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      justify-content: center;
-      align-items: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 🔥 최소 100px, 최대 1fr */
+    grid-template-rows: auto;
+    gap: 3px; /* ✅ 이미지 간격 */
+    padding: 7px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
   }
-      /* ✅ 반응형 이미지 크기 조정 */
-      .gallery-image {
-        width: 15vw;  /* 🔥 화면 너비의 15% */
-        height: 20vw; /* 🔥 화면 너비의 20% */
-        object-fit: cover;  /* 🔥 이미지 비율 유지 */
-        border: 3px solid #ddd;
-        border-radius: 8px;
-        transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
-    }
+  /* ✅ 반응형 이미지 크기 조정 */
+  .gallery-image {
+    width: 15vw;  /* 🔥 화면 너비의 15% */
+    height: 20vw; /* 🔥 화면 너비의 20% */
+    object-fit: cover;  /* 🔥 이미지 비율 유지 */
+    border: 3px solid #ddd;
+    border-radius: 8px;
+    transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
+  }
 
-    /* ✅ 이미지 호버 효과 */
-    .gallery-image:hover {
-      cursor: pointer;
-      border: 3px solid #0066cc;
-    }
-    #pagination-container{
-      text-align: center; 
-      margin-top: 10px; 
-      margin-bottom: 10px;
-    }
+  /* ✅ 이미지 호버 효과 */
+  .gallery-image:hover {
+    cursor: pointer;
+    border: 3px solid #0066cc;
+  }
+  #pagination-container{
+    text-align: center; 
+    margin-top: 10px; 
+    margin-bottom: 10px;
+  }
 
-    /* ✅ 이미지가 있을 때 (4x5 그리드) */
-    .grid-layout {
-        display: grid;
-        gap: 10px; /* ✅ 이미지 간격 */
-        padding: 10px;
-        background-color: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        max-width: 90%;
-    }
+  /* ✅ 이미지가 있을 때 (4x5 그리드) */
+  .grid-layout {
+    display: grid;
+    gap: 10px; /* ✅ 이미지 간격 */
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+  }
 
-    /* ✅ 이미지가 없을 때 (중앙 정렬) */
-    .flex-center {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: center;
-        height: 300px; /* 🔥 이미지가 없을 때 최소 높이 */
-    }
+  /* ✅ 이미지가 없을 때 (중앙 정렬) */
+  .flex-center {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* 🔥 이미지가 없을 때 최소 높이 */
+  }
 
-    /* ✅ 이미지가 없을 때 메시지 스타일 */
-    .no-image-message {
-        font-size: 18px;
-        font-weight: bold;
-        color: #555;
-        text-align: center;
-        width: 100%;
-    }
+  /* ✅ 이미지가 없을 때 메시지 스타일 */
+  .no-image-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    text-align: center;
+    width: 100%;
+  }
 
-    /* 토글 스위치 (다크 모드) */
-    .toggle-switch {
-      position: absolute;
-      top: 10px;
-      right: 30px;
-      width: 50px;
-      height: 25px;
-      display: inline-block;
-    }
+  /* 토글 스위치 (다크 모드) */
+  .toggle-switch {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    width: 50px;
+    height: 25px;
+    display: inline-block;
+  }
     .toggle-switch input {
       position: absolute;
       top: 0;
