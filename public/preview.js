@@ -44,6 +44,7 @@ window.prevPage = async function() {
         msgBox.style.position = "fixed";
         msgBox.style.top = "50%";
         msgBox.style.left = "50%";
+        msgBox.style.width = "60%";
         msgBox.style.transform = "translate(-50%, -50%)";
 
         msgBox.style.background = "#fff";
