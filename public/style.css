@@ -534,7 +534,10 @@ button:hover{
 
 /* ====== 대시보드 ====== */
 .dashboard-page {
-    body.dashboard-page{
+    h1 {
+        margin-bottom: 20px;
+    }
+    body{
         font-family: Arial, sans-serif;
         text-align: center;
         padding: 20px;
@@ -628,9 +631,7 @@ button:hover{
     .sidebar ul li a:hover {
         text-decoration: underline;
     }    
-    h1 {
-        margin-bottom: 20px;
-    }
+
     /* 🟡 투명 배경을 포함한 컨테이너 스타일 */
     .adminbar-container {
         position: absolute; /* 📌 고정 위치 */
