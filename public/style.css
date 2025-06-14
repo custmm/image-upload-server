@@ -43,7 +43,6 @@ button:hover{
         height: 100vh;
         margin: 0;
         background-color: #c0c0c0;
-        background-image: none;
     }
     .glow-circle {
         position: absolute;
@@ -296,7 +295,7 @@ button:hover{
         .container {
             position: relative;
             top: 0;
-            transform: translateY(0);
+            transform: translateY(50%);
             display: flex;
             flex-direction: column;
             align-items: center;
