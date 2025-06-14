@@ -70,6 +70,7 @@ button:hover{
         display: flex;
         flex-direction: column;
         align-items: center;
+        transform: translateY(50%);
     }
     /* 제목 스타일 */
     h1 {
