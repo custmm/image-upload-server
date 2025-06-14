@@ -3,7 +3,7 @@
     let currentCategoryId = null; // ✅ 현재 선택된 카테고리 ID
     let isLoading = false; // 이미지가 로딩 중인지 여부
     let noMoreImages = false; // 더 이상 이미지가 없는지 여부
-    let currentMode = "image"; // ✅ 기본 모드는 이미지 모드
+    let currentMode = "text";
     let isPopupOpen = false;  // ✅ 팝업 상태 변수 추가
     let chartClickHandlerRegistered = false;
 
@@ -85,26 +85,29 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         console.log("📌 모든 카테고리에서 이미지 로드 시작");
+        currentMode = "text"; // ✅ 텍스트 모드로 시작
         currentCategoryId = null; // ✅ 모든 카테고리 로드
         
         // 스크롤 이벤트에 throttle 적용
         const container = document.querySelector(".post-form-container");
-        container.classList.add("image-mode");
-        container.classList.remove("text-mode");
+        container.classList.add("text-mode");
+        container.classList.remove("image-mode");
 
-        const imageGallery = document.createElement("div");
-        imageGallery.id = "imageGallery";
-        imageGallery.classList.add("gallery-container");
-        Object.assign(imageGallery.style, {
-            display: "grid",
-            gridTemplateColumns: "repeat(6, 1fr)",
-            gap: "10px",
-            justifyItems: "center",
-            alignItems: "center"
+        const textGallery = document.createElement("div");
+        textGallery.id = "textGallery";
+        textGallery.classList.add("gallery-container");
+
+        // ✅ 텍스트 모드에 필요한 스타일 (예: column 정렬 등)
+        Object.assign(textGallery.style, {
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px"
         });
-        container.appendChild(imageGallery);
+
+        container.appendChild(textGallery);
 
         fetchImages(currentMode,true); // ✅ 페이지 로드 시 이미지 불러오기
+        
         // 스크롤 이벤트에 throttle 적용
         container.addEventListener("scroll", throttle(() => {
             if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
