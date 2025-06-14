@@ -1,5 +1,5 @@
 /* ====== 공통 스타일 ====== */
-body{
+body:not(.no-bg){
     font-family: Arial, sans-serif;
     background-image: url("/images/background.png");
     background-repeat: repeat;
