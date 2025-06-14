@@ -43,6 +43,7 @@ button:hover{
         height: 100vh;
         margin: 0;
         background-color: #c0c0c0;
+        background-image: none;
     }
     .glow-circle {
         position: absolute;
@@ -2473,6 +2474,7 @@ button:hover{
     }
     .message-container{
       margin-top: 20px;
+      text-align: center;
     }
     /* 로딩 화면 스타일 */
     .loading-indicator {
