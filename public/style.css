@@ -1941,23 +1941,17 @@ button:hover{
     #gameControlsPopup h2{
         margin-top: 0;
     }
-    #gameControlsPopup button {
-        border:none;
-        margin-top: 20px;
-        padding: 8px 16px;
-        cursor: pointer;
-        background-color: #00000000;
-        box-shadow: 0px 0px 6px rgba(0,0,0,0.5);
-    }
     #closePopupButton,
     .start-game-btn,
     #pre-button,
-    .hint-confirm-button{
+    .hint-confirm-button,
+    #gameControlsPopup button{
         border-radius: 5px;
         border:none;
         padding: 8px 16px;
         cursor: pointer;
         background-color: #00000000;
+        color:black;
         box-shadow: 0px 0px 6px rgba(0,0,0,0.5);
     }
     
@@ -1965,27 +1959,28 @@ button:hover{
     .start-game-btn:hover,
     #pre-button:hover,
     .hint-confirm-button:hover,
-    #victoryScreen button:hover{
+    #victoryScreen button:hover,
+    #gameControlsPopup button:hover{
         background-color: aqua;
     }
     /* 모바일(폭 768px 이하)에서만 표시 */
     @media (max-width: 768px) {
         #mobile-keypad {
-        background-color: rgba(0,0,0,0.3);
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left:25px;
-        padding-right:25px;
-        border-radius: 10px;
-        position: fixed;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        z-index: 10000;
-    }
+            background-color: rgba(0,0,0,0.3);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left:25px;
+            padding-right:25px;
+            border-radius: 10px;
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            z-index: 10000;
+        }
 
   /* 동그란 방향 패드 */
   .arrow-pad {
