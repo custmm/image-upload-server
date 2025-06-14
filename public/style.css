@@ -2527,7 +2527,6 @@ button:hover{
       position: absolute;
       top: -100px;
       right: 10px;    /* ← 뷰포트 오른쪽에서 10px 안쪽으로 고정 */
-      left: 85vw;     /* ← left 속성 초기화 */
       display: flex;
       cursor: grab; /* 기본 커서 */
       align-items: center;
