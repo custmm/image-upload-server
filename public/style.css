@@ -1921,7 +1921,6 @@ button:hover{
         margin: 0;
         cursor: pointer;
         font-size: 20px;
-        color: inherit;
     }
     .go-back-button:hover {
         color: aqua;
