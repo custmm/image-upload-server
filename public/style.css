@@ -541,7 +541,7 @@ button:hover{
         font-family: Arial, sans-serif;
         text-align: center;
         padding: 20px;
-        background: radial-gradient(circle, #FFDF00 0%, 	#D4AF37 25%, #CFB53B 50%, #C5B358 75%, #b8860b 100%);
+        background-color: radial-gradient(circle, #FFDF00 0%, 	#D4AF37 25%, #CFB53B 50%, #C5B358 75%, #b8860b 100%);
         background-attachment: fixed; /* 스크롤해도 배경 유지 */
         background-size: 200% 200%;
         animation: goldGlow 6s infinite alternate; /* ✨ 부드럽게 빛나는 효과 */
