@@ -140,7 +140,7 @@
 
     const x = event.clientX;
     const y = event.clientY;
-    createFirework(x, y);
+    createFirework(event.clientX, event.clientY);
     playFireworkSound(); // 불꽃놀이 소리 재생
 
     globalClickCount++;
@@ -247,7 +247,7 @@ function triggerEasterEgg() {
             fireworkContainer.classList.add("firework");
             fireworkContainer.style.left = `${x}px`;
             fireworkContainer.style.top = `${y}px`;
-            body.appendChild(fireworkContainer);
+            document.body.appendChild(fireworkContainer);
     
             for (let i = 0; i < 100; i++) {
                 const particle = document.createElement("div");
