@@ -100,7 +100,6 @@
         // ✅ 텍스트 모드에 필요한 스타일 (예: column 정렬 등)
         Object.assign(textGallery.style, {
             display: "flex",
-            flexDirection: "column",
             gap: "15px"
         });
 
