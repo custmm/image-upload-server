@@ -1946,6 +1946,8 @@ button:hover{
         margin-top: 20px;
         padding: 8px 16px;
         cursor: pointer;
+        background-color: #00000000;
+        box-shadow: 0px 0px 6px rgba(0,0,0,0.5);
     }
     #closePopupButton,
     .start-game-btn,
@@ -1955,6 +1957,7 @@ button:hover{
         border:none;
         padding: 8px 16px;
         cursor: pointer;
+        background-color: #00000000;
         box-shadow: 0px 0px 6px rgba(0,0,0,0.5);
     }
     
