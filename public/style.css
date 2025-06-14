@@ -1,3 +1,4 @@
+/* ====== 공통 스타일 ====== */
 body{
     font-family: Arial, sans-serif;
     background-image: url("/images/background.png");
@@ -13,6 +14,8 @@ body.dark-mode{
     background-attachment: fixed;
     background-size: 100px 100px;
 }
+
+/* ====== 버튼 공통 ====== */
 button{
     background-color: #000000;
     padding: 10px 20px;
@@ -23,4 +26,2973 @@ button{
 }
 button:hover{
     background-color: #755a6a;
+}
+
+/* ====== 첫화면 ====== */
+.index-page {
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+    }
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #c0c0c0;
+    }
+    .glow-circle {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background-color: #cbcbcbe8;
+        border-radius: 50%;
+        filter: blur(10px);
+        animation: pulse 3s infinite alternate ease-in-out;
+        cursor: pointer;
+    }
+    @keyframes pulse {
+        0% { 
+            transform: scale(1); 
+            opacity: 0.5; 
+        }
+        100% { 
+            transform: scale(1.3); 
+            opacity: 0.2; 
+        }
+    }
+    /* 제목과 컨테이너를 감싸는 부모 요소 */
+    .container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    /* 제목 스타일 */
+    h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .glow-effect {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+        animation: glowAnimation 2.0s ease-in-out infinite alternate;
+        pointer-events: none;
+        z-index: 9999;
+    }
+
+    @keyframes glowAnimation {
+        0% { 
+            opacity: 0.5; 
+        }
+        100% { 
+            opacity: 0.1; 
+        }
+    }
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1500;
+    }
+
+    .popup-box {
+        background-color: white;
+        color: #000;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+        width: 350px;
+    }
+
+    .popup-image {
+        max-height: 200px;
+        margin-top: 10px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .popup-message {
+        margin-top: 10px;
+    }
+
+    .popup-confirm-button {
+        background-color: #fff;
+        color: #000;
+        padding: 10px 20px;
+        margin-top: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        border: none;
+    }
+
+    .popup-confirm-button:hover {
+        background-color: aqua;
+    }
+
+    /* 버튼을 감싸는 컨테이너 */
+    .button_container {
+        position: relative;
+        background-color: #f1f1f1;
+        width: 300px;  /* 적절한 너비 설정 */
+        height: 200px; /* 적절한 높이 설정 */
+        padding: 20px;
+        display: flex;
+        justify-content: space-around;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        border: 5px solid #0066cc;
+        gap: 15px;
+        margin: 0 auto;
+    }
+    #modeSelection {
+        position: relative;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    } 
+    #adminModeButton {
+        background: #ff0000;
+        color: white; 
+        display: none; /* 초기에는 숨김 */
+        border:none;
+    }
+    #adminModeButton:hover {
+        background: #cca000;
+    }
+    #userModeButton {
+        background: rgba(0, 0, 0, 0.75);
+        color: white;
+        border:none;
+    }
+    #userModeButton:hover {
+        background: rgba(128, 128, 128, 0.348);
+    } 
+    button {
+        width: 200px;
+        margin: 10px auto;
+        padding: 15px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        white-space: nowrap;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #755a6a;
+        animation: pulse 0.5s ease-in-out infinite;
+    }
+    
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none; /* 캔버스가 클릭을 방해하지 않도록 설정 */
+    }
+
+     /* 문 애니메이션 */
+     #door-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none; /* 초기에는 숨김 */
+        z-index: 10;
+    }
+    .door {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        background-color: #555;
+        border: 2px solid #333;
+        transition: transform 2s ease-in-out;
+    }
+    .door.left {
+        left: 0;
+        transform-origin: left center; /* Left edge for right door */
+        transform: rotateY(0deg); /* 초기 상태 */
+        transition: transform 2s ease-in-out;
+    }
+    .door.right {
+        right: 0;
+        transform-origin: right center; /* Right edge for left door */
+        transform: rotateY(0deg); /* 초기 상태 */
+        transition: transform 2s ease-in-out;
+    }
+    .firework {
+        position: absolute;
+        pointer-events: none;
+    }
+    .particle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 20% 50% 50% 20%;
+        background-color: red;
+        animation: explode 1.5s forwards;
+        transform-origin: center;
+    }
+    @keyframes explode {
+        from {
+            transform: translate(0, 0) rotate(0);
+            opacity: 1;
+        }
+        to {
+            transform: translate(var(--translate-x), var(--translate-y)) rotate(720deg);
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeOut {
+        to {
+            opacity: 0;
+        }
+    }
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2); /* 10% 확대 */
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+        @media (max-width: 768px) {
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        /* body 여백이나 크기 조정 (필요에 따라) */
+        .container {
+            position: relative;
+            top: 0;
+            transform: translateY(0);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* ⭐ 핵심 */
+            height: auto;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 제목의 크기를 줄임 */
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        #modeSelection {
+            width: auto;
+            position: relative;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        } 
+        #adminModeButton {
+            width: auto; 
+            display: none; /* 초기에는 숨김 */
+            border:none;
+        }
+        #userModeButton {
+            width: auto;
+            border:none;
+        }
+
+        /* 캔버스가 화면을 꽉 채우는 대신 모바일에 맞게 조정 */
+        canvas {
+            width: 100%;
+            height: auto;
+        }
+
+        .glow-circle {
+            width: 40px;
+            height: 40px;
+            filter: blur(8px);
+        }
+    }
+}
+
+/* ====== 로그인 페이지 ====== */
+.login-page {
+    body {
+        text-align: center;
+        padding: 20px;
+    }
+    .back-button {
+        transition: background-color 0.3s;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+    .back-button:hover {
+        background-color: #755a6a;
+    }
+    h1 {
+        margin-bottom: 10px;
+        font-size: 25px;
+    }
+    /* ✅ 팝업 메시지 스타일 */
+    .popup-message {
+        position: fixed;
+        width: 210px;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        font-size: 18px;
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+        font-size: 15px;
+        z-index: 1000;
+    }
+
+    /* ✅ 확인 버튼 스타일 */
+    .popup-button {
+        display: block;
+        margin: 15px auto 0;
+        padding: 8px 16px;
+        background-color: #fff;
+        color: #000;
+        border: none;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .popup-button:hover {
+        background-color: aqua;
+    }
+    .login-container{
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: aliceblue;
+        width: 45%;
+        margin: 40px auto;
+        box-sizing: border-box; /* ✅ 너비 계산 안정화 */
+        transition: width 0.5s ease-in-out; /* ✅ 부드러운 너비 변경 */
+    }
+
+    #loginButton {
+        background-color: #000000;
+        color: white;
+        padding: 10px 15px;
+        transition: transform 0.3s ease-in-out;
+        border-radius: 5px;
+    }
+    .login-row {
+        display: flex;
+        gap: 25px;
+        margin-left: 25px;
+        margin-right: 25px;
+        margin-top: 10px;
+        flex-wrap: nowrap;
+         overflow: hidden; /* ✅ 넘침 방지 */
+    }
+
+    .login-row input[type="password"] {
+        flex: 1;
+        min-width: 0;
+        min-width: 45%; /* ✅ 최소 너비 고정 */
+        border-radius: 5px;
+    }
+
+    .login-row button {
+        flex-shrink: 0;
+        border-radius: 0 5px 5px 0;
+    }
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2); /* 10% 확대 */
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    #loginButton:hover {
+        background-color: #755a6a;
+        animation: pulse 0.4s ease-in-out infinite;
+    }
+    input[type="password"] {
+        flex: 1; /* 입력창이 버튼보다 넓게 */
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px; /* 왼쪽 모서리 둥글게 */
+    }
+    /* 문 애니메이션 */
+    #door-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none; /* 초기에는 숨김 */
+        z-index: 10;
+    }
+    .door {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        background-color: #555;
+        border: 2px solid #333;
+        transition: transform 2s ease-in-out;
+    }
+    .door.left {
+        left: 0;
+        transform-origin: left center; /* Left edge for right door */
+        transform: rotateY(0deg); /* 초기 상태 */
+        transition: transform 2s ease-in-out;
+    }
+    .door.right {
+        right: 0;
+        transform-origin: right center; /* Right edge for left door */
+        transform: rotateY(0deg); /* 초기 상태 */
+        transition: transform 2s ease-in-out;
+    }
+    /* 관리자 버튼을 원형으로 스타일링 (3D 효과 적용) */
+    .admin-styled-button {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle at 30% 30%, #ff4444, #d40000 70%);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        /* 버튼이 떠 있는 느낌의 그림자 */
+        box-shadow: 0px 9px 0px #7a0000, 0px 15px 20px rgba(0, 0, 0, 0.5);
+        margin: 20px auto;
+        display: block;
+    }
+
+    /* 호버 효과: 내부 그림자로 오목하게 표현 */
+    .admin-styled-button:hover {
+        transform: scale(1.05);
+        /* 오목해 보이도록 inset 그림자 적용 */
+        box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.3), 
+                    inset -3px -3px 8px rgba(255, 255, 255, 0.2),
+                    0px 6px 0px #a00000,
+                    0px 10px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    /* 클릭(눌림) 효과: 더 깊게 오목해 보이도록 inset 그림자 강화 */
+    .admin-styled-button:active {
+        transform: scale(0.92);
+        box-shadow: inset 5px 5px 12px rgba(0, 0, 0, 0.4), 
+                    inset -5px -5px 12px rgba(255, 255, 255, 0.25),
+                    0px 3px 0px #a00000,
+                    0px 6px 10px rgba(0, 0, 0, 0.3);
+    }  
+}
+
+/* ====== 대시보드 ====== */
+.dashboard-page {
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+        background: radial-gradient(circle, #FFDF00 0%, 	#D4AF37 25%, #CFB53B 50%, #C5B358 75%, #b8860b 100%);
+        background-attachment: fixed; /* 스크롤해도 배경 유지 */
+        background-size: 200% 200%;
+        animation: goldGlow 6s infinite alternate; /* ✨ 부드럽게 빛나는 효과 */
+    }
+    /* ✨ 황금빛이 부드럽게 퍼지는 애니메이션 */
+    @keyframes goldGlow {
+        0% {
+            background-size: 180% 180%;
+            background-position: center;
+        }
+        100% {
+            background-size: 200% 200%;
+            background-position: center;
+        }
+    }
+    /* 🔥 왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
+    .left-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    /* 🔥 사이드바 열기 버튼 */
+    .sidebar-toggle {
+        position: fixed; /* ✅ 화면에 고정 */        
+        background-color: #444;
+        color: white;
+        padding: 15px 19px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.5s, transform 0.5s ease-in-out;
+        position: relative; /* ✅ 다른 요소에 가려지지 않도록 변경 */
+        z-index: 1000; /* ✅ 다른 요소 위에 배치 */
+    }
+    .sidebar-toggle:hover {
+        background-color: #666;
+    }
+    /* 🔥 사이드바 스타일 */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px; /* 🔥 기본적으로 숨김 */
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8); /* 🔥 어두운 투명 배경 */
+        color: white;
+        padding-right: 70px;
+        padding-left: 30px;
+        padding-top:40px;
+        transition: left 0.5s ease-in-out; /* 🔥 부드러운 애니메이션 */
+    }
+
+    /* 🔥 사이드바 열렸을 때 */
+    .sidebar.open {
+        left: 0;
+    }
+
+    /* 🔥 닫기 버튼 */
+    .close-sidebar {
+        position: absolute; /* ✅ 버튼을 절대 위치로 변경 */
+        top: 15px; /* 🔥 상단 여백 조정 */
+        right: 15px; /* 🔥 오른쪽 정렬 */
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    /* 🔥 사이드바 메뉴 */
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .sidebar ul li {
+        margin: 15px 0;
+    }
+
+    .sidebar ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .sidebar ul li a:hover {
+        text-decoration: underline;
+    }    
+    h1 {
+        margin-bottom: 20px;
+    }
+    /* 🟡 투명 배경을 포함한 컨테이너 스타일 */
+    .adminbar-container {
+        position: absolute; /* 📌 고정 위치 */
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100vw; /* 🔥 전체 너비 확장 */
+        height: 110px;
+        background: rgba(255, 255, 255, 0.2); /* 🔥 반투명 흰색 */
+        display: flex;
+        align-items: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* 🔥 살짝 입체감 */
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* 🔥 부드러운 이동 효과 */
+    }
+    /* 🔥 사이드바 열리면 adminbar-container 내부 요소들이 위로 사라짐 */
+    .adminbar-container.hidden {
+        transform: translateY(-100px); /* 🔥 위로 이동 */
+        opacity: 0; /* 🔥 투명하게 */
+    }
+    /* 🟡 중앙 텍스트 스타일 */
+    .adminbar-container h1 {
+        flex-grow: 1;
+        text-align: center;
+        color: white; /* 글씨 색상 조정 */
+        margin: 0;
+    }
+    .back-button {
+        background: rgba(255, 255, 255, 0.2);
+        color: black;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }    
+    .logout-button {
+        background: rgba(255, 255, 255, 0.2);
+        color: black;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        position: absolute;
+        top: 10px;
+        right:25px;
+    }    
+    .back-button:hover, 
+    .logout-button:hover{
+        background-color: #755a6a;
+    }
+    #saveEdit:hover,
+    #closeEdit:hover,
+    .popup-confirm-button:hover,
+    .edit-button:hover,
+    #clearCanvas:hover,
+    .custom-chart-button:hover{
+        background-color: aqua;
+    }   
+    /* 🔥 텍스트 모드 - 버튼 */
+    .post-item .buttons {
+        display: flex;
+        gap: 5px;
+    }
+    .edit-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    }
+
+    .edit-modal-content {
+        background: #c0c0c065;
+        padding: 20px;
+        border-radius: 5px;
+        width: 85%;
+    }
+
+    .editor-buttons {
+        margin-bottom: 10px;
+        margin-top:10px;
+    }
+
+    .editor-buttons button{
+        border:none;
+        background: none;
+        cursor: pointer;
+        font-size: 22px;
+        padding:5px;
+    }
+
+    .edit-content {
+        min-height: 150px;
+        background: #fff;
+        box-shadow: none;
+        outline: none;
+        text-shadow: none;
+        text-decoration: none;
+        font-style: normal;
+        overflow-y: auto;
+        text-align: left;
+        padding: 8px;
+    }
+    .edit-container{
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+    }
+    hr {
+        width: 80%;
+        margin: 5px 0; /* 상하 간격 */
+    }
+    /* ✅ 점선 스타일 */
+    .dashed-line {
+        width: 100%;
+        border: none;
+        border-top: 1px dashed #000; /* 점선 스타일 적용 */
+    }
+
+    .edit-button-group {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #descriptionCounter {
+        font-size: 14px;
+        color: gray;
+        text-align: right;
+        margin-top: 5px;
+        display: block; /* 🔥 인라인 요소가 아닌 블록 요소로 설정 */
+        width: 100%; /* 🔥 부모 요소의 전체 너비 사용 */
+    }
+
+    .button-separator {
+        width: 10px;
+    }
+
+    /* 오버레이 (showpopup) */
+    .popup-overlay {
+        position: fixed;
+        top: 0; 
+        left: 0;
+        width: 100%; 
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1500;
+    }
+    /* 일반 팝업 컨테이너 */
+    .popup-container {
+        background-color: white;
+        color: #000;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    /* 일반 팝업 버튼 */
+    .popup-container button {
+        border-radius: 5px;
+        border: none;
+        padding: 7px 15px;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    /* 수정/삭제 확인 팝업 컨테이너 */
+    .popup-edit-container {
+        position: fixed;
+        top: 50%; 
+        left: 50%;
+        width: 250px;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        z-index: 10001;
+        text-align: center;
+    }
+
+    /* edit 팝업 내부 문단 여백 */
+    .popup-edit-container p {
+        margin-bottom: 20px;
+    }
+
+    /* edit 팝업 버튼 */
+    .popup-edit-container button {
+        border-radius: 5px;
+        padding: 7px 15px;
+        cursor: pointer;
+    }
+    /* 팝업 확인 버튼 스타일 */
+    .popup-confirm-button {
+        border-radius: 5px;
+        padding: 7px 15px;
+        margin-top: 10px;       /* 기존 inline 마진 */
+        background: none;
+        color: #000;            /* 필요시 글자색 지정 */
+        cursor: pointer;
+        font-size: 1rem;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.2s;
+    }
+
+    /* edit 팝업 취소 버튼 간격 */
+    .popup-edit-cancel {
+        margin-left: 10px;
+    }
+
+    /* 🔥 수정/삭제 버튼 */
+    .edit-button, 
+    .delete-button {
+        padding: 5px 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        color: white;
+    }
+
+    .edit-button {
+        background-color: #007bff;
+    }
+    #popup-ok,
+    #popup-cancel{
+        padding: 8px 15px;
+        cursor: pointer;
+        border: none;
+        background: none;
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    #popup-ok:hover{
+        background-color: #adf5dfb2;
+        transition-duration:0.5s       
+    }
+    #popup-cancel:hover{
+        background-color: #f5adadb2;
+        transition-duration:0.5s       
+    }
+
+    .delete-button {
+        background-color: #dc3545;
+    }
+    .delete-button:hover {
+        background-color: #dcc335a7;
+        transition-duration:0.5s
+    }
+    #saveEdit{
+        background-color: #00000000;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+        color: white;
+    }
+    .button-separator {
+        width: 2px;
+        height: 30px;
+        background-color: #ccc;
+        margin: 0 10px;
+        align-self: center;
+    }
+    #closeEdit{
+        background-color: #00000000;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+        color: white;
+
+    }    
+    /* 🔥 버튼을 일렬로 배치 */
+    .button-group {
+        display: flex;
+        gap: 10px; /* ✅ 버튼 사이 간격 */
+        max-width: 100%;
+        width: 100%;
+        justify-content: center;
+    }
+    .change-button {
+        width: 40px;
+        height: 40px;
+        background: none;       /* 배경 제거 */
+        border: none;           /* 테두리 제거 */
+        padding: 0;             /* 내부 여백 제거 */
+        margin: 0;              /* 외부 여백 제거 */
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.3s ease-in-out;
+    }
+
+    /* 🔥 버튼 기본 아이콘 색상 */
+    .change-button i {
+        font-size: 24px;
+        color: #444; /* ✅ 기본 아이콘 색상 */
+        transition: color 0.3s ease-in-out, transform 0.1s ease-out;
+    }
+
+    /* 🔥 클릭 후 아이콘 색상 변경 */
+    .change-button.active i {
+        color: #007bff; /* ✅ 아이콘 색상 변경 */
+    }
+    .post-form-container{
+        display: flex;
+        flex-wrap: wrap;
+        object-fit: cover;  /* 🔥 이미지 비율 유지 */
+        width: 100%;
+        max-width: 100%;
+        max-height: 400px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #ffffff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        justify-content: center; /* ✅ 내부 요소 가로 중앙 정렬 */
+        align-items: center; /* ✅ 내부 요소 세로 중앙 정렬 */
+        text-align: center; /* ✅ 텍스트 중앙 정렬 */
+        transition: all 0.3s ease-in-out; /* ✅ 크기 변화가 부드럽게 적용 */
+        overflow-y: auto; /* 🚨 스크롤 강제 유지 */
+    }
+    /* 🔥 이미지 모드: 한 줄에 6개씩 정렬 */
+    .post-form-container.image-mode {
+        display: grid;
+        gap: 10px;
+        object-fit: cover;  /* 🔥 이미지 비율 유지 */
+        justify-items: center; /* 각 셀 내에서 중앙 정렬 */
+        align-items: center;
+        width: 100%;
+        max-width: 100%;
+    }
+    /* 🔥 이미지 스타일 */
+    .post-image {
+        width: 10vw;
+        height: 10vw;
+        border: 4px solid #00000000;
+        display: flex;
+        margin: 5px;
+        object-fit: cover; /* 이미지 비율 유지, 영역을 채우도록 자름 */
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .post-image:hover {
+        border: 4px solid #007bff;
+    }
+
+    /* 🔥 텍스트 모드 내부 아이템 */
+    .post-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* 🔥 텍스트 모드 - 이미지 */
+    .post-item img {
+        width: 80px; /* ✅ 왼쪽 이미지 크기 */
+        height: 80px;
+        border-radius: 5px;
+    }
+
+    /* 🔥 텍스트 모드 - 파일명 */
+    .post-item .file-name {
+        flex-grow: 1;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .post-chart-container{
+        display: flex;
+        flex-direction: column; /* ✅ 모바일 대응 위해 세로 배치 */        
+        justify-content: center; /* ✅ 내부 요소 가로 중앙 정렬 */
+        align-items: center; /* ✅ 내부 요소 세로 중앙 정렬 */
+        text-align: center; /* ✅ 텍스트 중앙 정렬 */
+        position: relative;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #ffffff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+        overflow-x: hidden;
+        transition: all 0.3s ease-in-out; /* ✅ 크기 변화가 부드럽게 적용 */
+    }
+    .chart-area {
+        display: flex;
+        flex-wrap: wrap;                  /* ✅ 내부 요소 줄바꿈 허용 */
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;     /* ✅ 중앙 정렬로 변경 */
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        gap: 20px;
+    }
+    
+    #post-chart-container {
+        position: relative;
+        width: 400px;
+        height: 400px;
+    }
+    canvas {
+        width: 400px;
+        height: 400px;
+    }
+    #chart-controls {
+        position: absolute;
+        top: 10px;   /* 위쪽 여백 조절 */
+        right: 10px; /* 오른쪽 여백 조절 */
+        z-index: 10; /* 다른 요소보다 위에 표시 */
+    }
+    .function-container{
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #ffffff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .function-container img{
+        width: auto; /* 원하는 크기로 조정 */
+        max-width: 100%;
+        height: 10vw;
+        justify-self: center;
+        object-fit: cover; /* 이미지 비율 유지하면서 크롭 */
+        border-radius: 5px; /* 이미지 모서리 둥글게 */
+        transition: transform 0.3s ease; /* 부드러운 확대 효과 */
+    }
+    .function-container img:hover {
+        transform: scale(1.1); /* 마우스 올리면 확대 */
+    }
+    .sorting-wrapper {
+        display: flex;
+        flex-direction: column; /* 세로 방향으로 정렬 */
+        align-items: center; /* 중앙 정렬 */
+        gap: 10px; /* 컨테이너 간격 */
+    }
+    .sorting-container {
+        display: flex;
+        justify-content: center; /* 가로 중앙 정렬 */
+        margin: 10px 11px;
+        gap: 10px; /* 이미지 사이 여백 */
+        white-space: nowrap; /* 줄 바꿈 방지 */
+        padding: 10px;
+    }
+    .popup-footer button {
+        margin: 5px;
+        border-radius: 5px;
+        padding: 8px 12px;
+        border: none;
+        cursor: pointer;
+    }
+
+    #clearCanvas {
+        background: #00000000;
+        border: none;
+        color: black;
+    }
+    /* 🔥 제목과 버튼을 한 줄로 정렬 */
+    .section-header {
+        display: flex;
+        align-items: center; /* ✅ 세로 중앙 정렬 */
+        justify-content: space-between; /* ✅ 좌우 정렬 */
+        width: 100%; /* ✅ 전체 너비 확장 */
+    }
+    .change-button-group {
+        display: flex;
+        flex-direction: row;     /* ✅ 가로 정렬 */
+        justify-content: center; /* ✅ 가운데 정렬 (또는 space-between 등도 가능) */
+        align-items: center;     /* ✅ 세로 중앙 정렬 */
+        gap: 10px;               /* ✅ 버튼 간 간격 */
+    }
+    /* 🔥 h2를 가운데 정렬하기 위해 flex-grow 사용 */
+    .section-title {
+        flex-grow: 1; /* ✅ h2가 가능한 공간을 모두 차지하도록 설정 */
+        text-align: center; /* ✅ 텍스트 중앙 정렬 */
+    }
+    .custom-button{
+        background: #00000000;
+        color: black;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border:none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .custom-button:hover{
+        background-color: #755a6a;
+    }
+    .custom-chart-button{
+        background: #00000000;
+        color: black;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border:1px solid #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .section-container{
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        position: relative;
+        padding: 0 10px; /* 내부 패딩으로 콘텐츠 보호 */
+        display: flex;
+        flex-direction: column; /* ✅ 세로 방향 정렬 */
+        justify-content: center; /* ✅ 세로 중앙 정렬 */
+        flex-wrap: wrap;
+        align-items: center; /* ✅ 가로 중앙 정렬 */
+        font-weight: bold;
+        margin-top: 110px; /* 🔥 adminbar-container 높이만큼 아래에 위치 */
+        min-height: 450px;
+        height: auto;
+        background: rgba(255, 255, 255, 0.5);
+        z-index: 1; /* ✅ 다른 요소보다 뒤에 배치 */
+        transition: transform 0.3s ease-in-out, left 0.3s ease-in-out; /* 🔥 부드러운 이동 애니메이션 */
+    }
+    /* 🔥 만약 내부 요소를 중앙 정렬하려면 추가 */
+    .section-container.flex-center {
+        display: flex;
+        align-items: center; /* ✅ 세로 방향 중앙 정렬 */
+        justify-content: center; /* ✅ 가로 방향 중앙 정렬 */
+        text-align: center; /* ✅ 텍스트 가운데 정렬 */
+    }
+    /* 🔥 첫 번째 section만 margin-top 110px 유지 */
+    .section-container:first-of-type {
+        margin-top: 110px;
+    }
+
+    /* 🔥 두 번째 이후 section부터 margin-top을 5px로 줄이기 */
+    .section-container + .section-container {
+        margin-top: 5px;
+    }    
+    /* 🔥 사이드바 열릴 때 section-container 이동 */
+    .section-container.shifted {
+        margin-left: 210px;
+        margin-top: 0px;
+        margin-bottom: 5px;
+        width: calc(100% - 210px);  /* 컨테이너 폭을 사이드바 폭만큼 줄임 */
+        max-width: 100%;           /* ✅ 최대 폭 제한 */
+        overflow-x: hidden;         /* ✅ 가로 스크롤 방지 */
+        box-sizing: border-box;     /* 패딩/보더 포함해서 계산 */
+    }
+
+    /* 🔥 불필요한 body 여백 제거 */
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+    .subcategory-wrapper {
+        min-width: 220px;
+        align-self: center; /* ✅ 개별 중앙 정렬 */
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        flex-shrink: 0;
+        background-color: #fff;
+        margin-left: 15px;
+        
+    }
+
+    #categoryInfoTable {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        font-size: 14px;
+    }
+
+    #categoryInfoTable th {
+        padding: 8px;
+        background-color: #e6ffe6;
+    }
+
+    #categoryInfoTable td {
+        padding: 8px;
+    }
+
+    #categoryInfoTable tr:not(:last-child) {
+        border-bottom: 1px dashed #ccc;
+    }
+    #donutChart{
+        width: 350px !important;
+        height: 350px !important;
+        max-width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
+    #radarChart{
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 500px;
+        max-height: 400px;
+        display: block;
+        margin: 0 auto;
+    }
+    #lineChart {
+        width: 350px !important;
+        height: 350px !important;
+        max-width: 100%;
+        display: none;
+        margin: 0 auto;
+        background: transparent;
+    }
+
+    .chart-wrapper {
+        position: relative;
+        width: 350px;
+        height: 350px;
+        min-height: 300px; /* ✅ 최소 높이 지정 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .chart-legend-right .chartjs-legend {
+        display: flex !important;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding-left: 10px;
+    }
+}
+
+/* ====== 모드선택 페이지 ====== */
+.mode-page {
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        text-align: center;        
+        justify-content: center;
+        align-items: center;
+        height: 100vh;  /* 전체 화면 높이 */
+    }   
+    /* 뒤로가기 버튼 */
+    .back-button {
+      transition: background-color 0.3s;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .back-button:hover {
+        background-color: #755a6a;
+    }
+    /* 제목 스타일 */
+    h1 {
+        font-size: 36px;
+        margin-bottom: 20px; /* 제목과 버튼 간의 간격 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* ✅ container를 화면 정중앙으로 이동 */
+    .container {
+        position: absolute;
+        width: 90vw;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 1;
+    }
+    .mode-selection-container{
+        width: 40%;
+        height: 200px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column; /* 버튼들을 세로 정렬 */
+        justify-content: center;
+        align-items: center;
+        gap: 30px; /* 버튼 간격 */
+        margin: 0 auto;
+    }
+    /* 버튼 그룹 스타일 */
+    .button-group {
+        display: flex;
+        justify-content: center; /* ✅ 가운데 정렬 */
+        align-items: center;
+        gap: 15px; /* 버튼 간격 조절 */
+        width: 90%;
+        box-sizing: border-box;
+    }
+    .upload-selection-button, 
+    .preview-selection-button, 
+    .admin-selection-button {
+        background-color: #000000;
+        color: white;
+        padding: 10px 15px;
+        width: 150px; /* 버튼 너비 일정하게 */
+        height: 50px;
+        transition: transform 0.3s ease-in-out;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        margin-top: 30px;
+        font-size: 15px;
+    }
+
+    .logout-button{
+        background-color: #ff0000;
+        color: white;
+        padding: 10px 15px;
+        width: 150px; /* 버튼 너비 일정하게 */
+        height: 50px;
+        transition: transform 0.3s ease-in-out;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        font-size: 16px;
+        margin-bottom: 30px;
+    }    
+    .upload-selection-button:hover, 
+    .preview-selection-button:hover, 
+    .admin-selection-button:hover,
+    .logout-button:hover {
+        background-color: #755a6a;
+        animation: pulse 0.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    /* 🔹 팝업 오버레이 (배경) */
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    /* 🔹 팝업 창 */
+    .popup {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        min-width: 300px;
+    }
+
+    /* 🔹 팝업 메시지 */
+    .popup p {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    /* 🔹 확인 버튼 */
+    .popup-confirm {
+        padding: 10px 20px;
+        background-color: #fff;
+        color: #000;
+        border: none;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .popup-confirm:hover {
+        background-color: aqua;
+    }
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden; /* ✅ 강제 좌우 스크롤 제거 */
+        box-sizing: border-box;
+    }
+        /* ✅ 바형 스마트폰 대응 */
+    @media (max-width: 480px) {
+        .mode-selection-container {
+            width: 95% !important;
+        }
+        .upload-selection-button, 
+        .preview-selection-button, 
+        .admin-selection-button {
+            background-color: #000000;
+            color: white;
+            padding: 10px 15px;
+            width: 150px; /* 버튼 너비 일정하게 */
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            margin-top: 30px;
+            font-size: 15px;
+        }
+    }
+}
+
+/* ====== 업로드 페이지 ====== */
+.upload-page {
+    body {
+        text-align: center;
+        padding: 20px;
+        position: relative;
+    }
+    /* 뒤로가기 버튼 */
+    .back-button {
+        transition: background-color 0.3s;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+    .back-button:hover {
+      background-color: #755a6a;
+    }
+    h1{
+        text-align: center;
+        margin: 20px 0;   
+    }
+    h2{
+        text-align: center;
+        margin: 15px 0;
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+    }    
+    hr {
+        width: 80%;
+        margin: 5px 0; /* 상하 간격 */
+    }
+    /* ✅ 점선 스타일 */
+    .dashed-line {
+        width: 100%;
+        border: none;
+        border-top: 1px dashed #000; /* 점선 스타일 적용 */
+    }
+    .upload-container{
+        width:95%;
+        margin: 0 auto;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f3f3f3;
+        padding: 15px;
+    }
+    .upload-container input[type="file"] {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .upload-button{
+        background-color: #000000;
+        color: white;
+        padding: 10px 15px;
+        margin: 10px 0;
+        transition: transform 0.3s ease-in-out;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .upload-button:hover {
+        background-color: #755a6a;
+        animation: pulse 0.4s ease-in-out infinite;
+    }
+    .popup{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+    .popup-content {
+        text-align: center;
+    }
+    .popup-buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .popup-buttons button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .preview-container img {
+        margin-top: 15px;
+        border: 3px solid #000000; 
+        border-radius: 5px;
+        padding: 15px;
+        width: 300px; 
+        height: auto; 
+    }
+    .description-container {
+        background-color: #ffffff;
+        display: flex;
+        width: fit-content;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 8px;
+        min-width: 90%;
+        padding: 10px;
+    }
+    .text-editor {
+        width: 100%;
+        min-height: 100px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        text-align: left; /* ✅ 기본값을 왼쪽 정렬로 설정 */
+    }
+    /* ✅ 설명 입력란 스타일 */
+    .description-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .description-box {
+        min-height: 100px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        overflow-y: auto;
+    }
+
+    /* ✅ 글자 수 표시 스타일 (오른쪽 정렬) */
+    #descriptionCounter {
+        font-size: 14px;
+        color: gray;
+        text-align: right;
+        margin-top: 5px;
+        display: block; /* 🔥 인라인 요소가 아닌 블록 요소로 설정 */
+        width: 100%; /* 🔥 부모 요소의 전체 너비 사용 */
+    }
+    .editor-buttons {
+        color: black;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .editor-buttons button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 22px;
+        padding: 5px;
+        transition: color 0.3s;
+    }
+
+    .editor-buttons button:hover {
+        color: #755a6a;
+    }
+
+    .editor-buttons i {
+        color: #000000;
+        font-size: 22px;
+    }
+    select {
+        width: 80%;
+        padding: 8px;
+        font-size: 16px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+}
+
+/* ====== 클릭 페이지 ====== */
+.click-page {
+    body {
+      text-align: center;
+      padding: 20px;
+    }
+    .explan-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding-bottom: 15px;
+      margin-top: 45px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .explan-detail-container{
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin: 18px;
+    }
+    /* 뒤로가기 버튼 */
+    .back-button {
+      transition: background-color 0.3s;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .back-button:hover,
+    .dark-mode .back-button:hover {
+      background-color: #755a6a;
+    }
+    /* 토글 스위치 (다크 모드) */
+    .toggle-switch {
+      position: absolute;
+      top: 10px;
+      right: 30px;
+      width: 50px;
+      height: 25px;
+      display: inline-block;
+    }
+
+    .toggle-switch input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      background-color: #cbcbcb;
+      border-radius: 20px;
+      transition: background-color 0.3s;
+    }
+    #themeIcon {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      bottom: 2px;
+      font-size: 14px;
+      text-align: center;
+      line-height: 20px;
+      pointer-events: none;
+      transition: transform 0.3s;
+      z-index: 1;
+    }
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      bottom: 2px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+      z-index: 0;
+    }
+    .toggle-switch input:checked + .slider::before {
+      transform: translateX(25px);
+    }
+
+    .toggle-switch input:checked + .slider #themeIcon {
+      transform: translateX(25px);
+    }
+    .detail-toggle {
+      margin-left: 10px;
+      font-size: 12px;
+      padding: 4px 8px;
+      cursor: pointer;
+      background: none;
+      color: black;
+    }
+
+    .detail-content {
+      margin-top: 10px;
+      padding-left: 10px;
+      text-align: left;
+      display: none;
+    }
+    /* 🌙 다크 모드 스타일 */
+    .dark-mode .back-button {
+      background-color: #ffffff;
+      color: #000;
+    }
+    .dark-mode .explan-container{
+      background-color: #333;
+      color: #fff;
+    }
+    .dark-mode .detail-toggle{
+      color: #fff;
+    }
+}
+
+/* ====== 게임 페이지 ====== */
+.game-page {
+    body,html {
+        overflow: hidden; /* 스크롤 막기 */
+        height: 100%; /* 화면 전체를 채우도록 설정 */
+        margin: 0;
+        padding: 0;
+    }
+    h1 {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .game-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .selected-image {
+        max-width: 100px;
+        border: 2px solid #000;
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+    }
+    .hidden-number {
+        position: absolute;
+        font-size: 20px;
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+    }
+    #playerNumber {
+        position: absolute;
+        font-size: 18px;
+        font-weight: bold;
+        color: blue;
+        display: none;
+    }
+    #foundNumbers {
+        display: none;
+        position: fixed;
+        top: 10px; left: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: green;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 5px 10px;
+        border: 2px solid black;
+        border-radius: 5px;
+    }
+    #hints-container {
+        position: fixed;
+        top: 3%;  /* 화면 중앙 */
+        right: 5px;  /* 오른쪽 정렬 */
+        transform: translateY(-50%);
+        display: flex;
+        gap: 10px;
+    }
+    .game-hint {
+        display: block !important; /* 힌트가 무조건 표시되도록 설정 */
+        opacity: 1 !important;
+        width: 50px;
+        height: auto;
+    }
+    #victoryScreen {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 2px solid black;
+        text-align: center;
+        z-index: 9999;
+        border-radius: 8px;
+    }
+    #victoryScreen button {
+        margin-top: 10px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    /* 팝업창 스타일 */
+    #instructionsPopup {
+        display: block;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        z-index: 9999;
+        text-align: center;
+        width: 400px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        pointer-events: auto;  /* 클릭 이벤트 활성화 */
+    }
+    #instructionsPopup h2 {
+        margin-top: 0;
+    }
+    #instructionsPopup button {
+        border-radius: 5px;
+        margin-top: 20px;
+        padding: 8px 16px;
+        cursor: pointer;
+    }
+    .hint-overlay, 
+    .game-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1500;
+    }
+
+    .hint-popup, 
+    .game-popup {
+        background-color: white;
+        color: #000;
+        padding: 30px;
+        border-radius: 5px;
+        text-align: center;
+        width: 230px;
+        height: auto;       /* auto로 수정 */
+    }
+
+    .hint-popup p, 
+    .game-popup p {
+        margin: 0 0 30px;
+    }
+
+    /* nextButton과 previewButton의 기본 스타일 제거 */
+    .no-default {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        font-size: 20px;
+        color: inherit;
+    }
+    #gameControlsPopup{
+        display: none; /* ✅ 게임 시작 전에 숨김 */
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        z-index: 9999;
+        text-align: center;
+        width: 400px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        pointer-events: auto;  /* 클릭 이벤트 활성화 */
+    }
+    #gameControlsPopup h2{
+        margin-top: 0;
+    }
+    #gameControlsPopup button {
+        border:none;
+        margin-top: 20px;
+        padding: 8px 16px;
+        cursor: pointer;
+    }
+    #closePopupButton,
+    .start-game-btn,
+    #pre-button,
+    .hint-confirm-button{
+        border-radius: 5px;
+        border:none;
+        padding: 8px 16px;
+        cursor: pointer;
+        box-shadow: 0px 0px 6px rgba(0,0,0,0.5);
+    }
+    
+    #closePopupButton:hover,
+    .start-game-btn:hover,
+    #pre-button:hover,
+    .hint-confirm-button:hover,
+    #victoryScreen button:hover{
+        background-color: aqua;
+    }
+    /* 모바일(폭 768px 이하)에서만 표시 */
+    @media (max-width: 768px) {
+        #mobile-keypad {
+        background-color: rgba(0,0,0,0.3);
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left:25px;
+        padding-right:25px;
+        border-radius: 10px;
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        z-index: 10000;
+    }
+
+  /* 동그란 방향 패드 */
+  .arrow-pad {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        background: #fff;
+    }
+  .arrow-pad .arrow-btn {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 18px;
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: none;
+    }
+  .arrow-btn.up    { 
+        top: 10px;    
+        left: 50%; 
+        transform: translateX(-50%); 
+    }
+  .arrow-btn.down  { 
+        bottom: 10px; 
+        left: 50%; 
+        transform: translateX(-50%); 
+    }
+  .arrow-btn.left  { 
+        left: 10px;   
+        top: 50%; 
+        transform: translateY(-50%); 
+    }
+  .arrow-btn.right { 
+        right: 10px;  
+        top: 50%; 
+        transform: translateY(-50%); 
+    }
+  .arrow-btn.center {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 16px;
+    }
+
+  /* H, R 버튼 */
+  .action-pad {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+  .action-btn {
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 18px;
+        color: #000;
+        touch-action: none;
+    }    
+    .arrow-btn.up:hover,
+    .arrow-btn.down:hover,
+    .arrow-btn.left:hover,
+    .arrow-btn.right:hover,
+    .arrow-btn.center:hover,
+    .action-btn:hover
+    {
+        background-color: aqua;
+    }
+    /* 데스크탑에서는 숨김 */
+    #mobile-keypad { display: flex; }
+    }
+    @media (min-width: 769px) {
+    #mobile-keypad { display: none; }
+    }
+}
+
+/* ====== 게시글 보기 ====== */
+.post-page {
+    body {
+      text-align: center;
+      padding: 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+    }
+    /* 🔥 그림 그리기 팝업창 스타일 */
+    .drawing-popup {
+        display: none;
+        border-radius: 5px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 85%;
+        height: 400px;
+        background: #c0c0c065;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        text-align: center;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+    /* ✅ 로딩 화면 스타일 */
+    .loading-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+        display: none; /* 기본적으로 숨김 */
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; /* 이미지 + 텍스트 세로 정렬 */
+        z-index: 9999; /* 다른 요소 위에 표시 */
+        text-align: center;
+    }
+    /* ✅ 로딩 이미지 크기 */
+    .loading-image {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px; /* 이미지 아래 여백 */
+    }
+
+    /* ✅ 로딩 텍스트 스타일 */
+    .loading-text {
+        font-size: 16px;
+        color: white;
+    }
+
+    .post-container{
+        display: flex;
+        background-color: #ffffff;
+        border-radius: 10px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 500px;
+        margin: 20px auto;
+    }
+    .postcategory-container{
+      display: flex;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: flex;
+      height: auto;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+    .postcategory-container > div {
+        margin: 0 10px;
+    }
+    .postcategory-container > div > img {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+    }
+    .postcategory-container > div > span {
+        font-size: 16px;
+    }
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 10px;
+    }
+    .popup-title {
+      flex-grow: 1;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .close-popup {
+      color: red;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      background: none;
+      padding: 5px;
+    }
+    .close-popup:hover {
+      color: aqua;
+      background: none;
+    }
+    .popup-footer {
+        margin-top: 10px;
+    }
+    #drawingCanvas {
+      width: 100%;
+      height: 300px;
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 8px;
+      cursor: crosshair;
+      display: block;
+    }
+    /* ✅ 클릭 가능한 스타일 추가 */
+    .clickable-category {
+      cursor: pointer;
+      color: black;
+    }
+
+    .clickable-category:hover {
+      color: darkblue;
+    }
+    .popup-message {
+      position: fixed;
+      width: 300px;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      color: #000;
+      padding: 18px 20px;
+      border-radius: 8px;
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+      z-index: 10000;
+      text-align: center;
+      display: none;
+    }
+    .popup-button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }    
+    .custom-button {
+      background-color: #fff;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .popup-button:hover,
+    .custom-button:hover {
+      background-color: aqua;
+    }
+    /* ✅ 게시물 이미지 */
+    .post-image {
+        max-width: 100%;
+        max-height: 50vh;
+        object-fit: contain;
+    }
+
+    /* ✅ 게시물 설명 */
+    .post-description {
+        font-size: 16px;
+        text-align: left;
+        white-space: pre-wrap; /* newline 문자 보존 */
+    }
+    .post-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .button {
+      font-size: 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #755a6a;
+    }
+    .hashtag-link {
+      color: #1da1f2;
+      text-decoration: none;
+    }
+
+    .hashtag-link:hover {
+      text-decoration: underline;
+    }
+    /* 토글 스위치 (다크 모드) */
+    .toggle-switch {
+      position: absolute;
+      top: 10px;
+      right: 30px;
+      width: 50px;
+      height: 25px;
+      display: inline-block;
+    }
+
+    .toggle-switch input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      background-color: #cbcbcb;
+      border-radius: 20px;
+      transition: background-color 0.3s;
+    }
+    #themeIcon {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      bottom: 2px;
+      font-size: 14px;
+      text-align: center;
+      line-height: 20px;
+      pointer-events: none;
+      transition: transform 0.3s;
+      z-index: 1;
+    }
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      bottom: 2px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+      z-index: 0;
+    }
+    .toggle-switch input:checked + .slider::before {
+      transform: translateX(25px);
+    }
+
+    .toggle-switch input:checked + .slider #themeIcon {
+      transform: translateX(25px);
+    }
+    /* 🌙 다크 모드 스타일 */
+    .dark-mode {
+      background-color: #222;
+      color: #fff;
+    }
+    .dark-mode .post-container{
+        background-color: #444444;
+    }
+    .dark-mode .clickable-category {
+        cursor: pointer;
+        color: white;
+    }
+    @media (max-width: 768px) {
+        .post-container {
+            width: 90%;        /* 화면 너비에 맞게 */
+            padding: 20px;     /* 패딩도 조금 줄임 */
+            box-sizing: border-box;
+        }
+
+        .post-description {
+            font-size: 14px;
+        }
+
+        .postcategory-container {
+            flex-direction: column;   /* 좁은 화면에서 세로 정렬 */
+            gap: 5px;
+            text-align: center;
+        }
+
+        .post-buttons {
+            flex-direction: column;  /* 버튼 세로 배치 */
+        }
+
+        .button {
+            width: 100%;             /* 버튼도 꽉 차게 */
+            max-width: 300px;
+            margin: 5px auto;
+        }
+    }
+}
+
+/* ====== 미리보기 페이지 ====== */
+.preview-page {
+    body {
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .page-footer {
+      margin-top: 40px;
+      padding: 20px;
+      color: #333;
+      text-align: center;
+      font-size: 14px;
+      border-top: 1px solid #ccc;
+    }
+
+    .page-footer a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .page-footer a:hover {
+      text-decoration: underline;
+    }
+    /* ✅ 하단 팝업 (showPopupMessage용) */
+    .popup-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
+    .infor-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      background: #fff;
+      color: black;
+      border: 1px solid #ccc;
+      padding: 25px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      text-align: left;
+    }
+
+    /* ✅ 닫기 버튼 스타일 */
+    .infor-popup-close {
+      position: absolute;
+      top: 3px;
+      right: 8px;
+      cursor: pointer;
+      font-size: 25px;
+      color: #666;
+    }
+
+    .dark-mode .page-footer {
+      color: #ccc;
+      border-color: #444;
+    }
+    /* 뒤로가기 버튼 */
+    .back-button {
+      transition: background-color 0.3s;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .back-button:hover,
+    .dark-mode .back-button:hover {
+      background-color: #755a6a;
+    }
+    .pagination-button{
+      background: none;
+      color: black;
+    }    
+    .pagination-button:hover{
+      background: none;
+      color: aqua;
+      
+    }
+    #welcomeMessage{
+      text-align: center;
+      font-weight: bold;
+      font-size: 30px;
+    }
+    .message-container{
+      margin-top: 20px;
+    }
+    /* 로딩 화면 스타일 */
+    .loading-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* 더 어두운 반투명 배경 */
+      display: none; /* 기본적으로 숨김 */
+      justify-content: center;
+      align-items: center;
+      color: white;
+      z-index: 9999; /* 다른 콘텐츠 위에 표시 */
+      flex-direction: column; /* 이미지와 텍스트가 세로로 정렬되도록 설정 */
+      text-align: center; /* 텍스트 가운데 정렬 */
+    }
+
+    .loading-image {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .loading-text {
+      font-size: 16px; /* 텍스트 크기 설정 */
+      margin-top: 10px; /* 텍스트 위에 여백 추가 (이미지와의 간격) */
+    }
+    /* 메인 탭 컨테이너 (큰 카테고리) */
+    .tab-design {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      border-radius: 8px;
+      width: 100%;
+      display: flex;
+      flex-wrap: nowrap;
+      text-align: center;
+      padding-top: 20px;
+    }
+    .preview-images {
+      position: absolute;
+      top: -100px;
+      right: 10px;    /* ← 뷰포트 오른쪽에서 10px 안쪽으로 고정 */
+      left: 85vw;     /* ← left 속성 초기화 */
+      display: flex;
+      cursor: grab; /* 기본 커서 */
+      align-items: center;
+    }
+
+
+    .preview-images img {
+      display: block;
+      width: auto; /* 원하는 크기로 조정 */
+      height: 75px;
+      border-radius: 5px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      z-index: 9999;
+    }
+
+    .tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      background-color: #e9ecef;
+      border: none;
+      border-radius: 0;
+      border-right: 1px solid #ddd;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      box-sizing: border-box;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 25px;
+    }
+    .tab-btn:hover {
+      background-color: #c2f7f165;
+    }
+    /* 활성화된 탭 */
+    .tab-btn.active {
+      background-color: #c2f7f1;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    /* 마지막 탭의 구분선 제거 */
+    .tab-btn:last-child {
+      border-right: none;
+    }  
+    /* 새로 추가한 래퍼로 남은 공간을 채우고 중앙 정렬 */
+    .sub-tab-wrapper {
+      flex-wrap: nowrap;
+      flex: 1;           /* currentCategory 이후 남은 공간 모두 차지 */
+      text-align: center; /* 내부의 sub-tab-container를 중앙에 배치 */
+    }  
+    /* 서브 탭 컨테이너 (작은 카테고리) */
+    .sub-tab-container {
+      position: absolute;
+      display: flex;
+      flex-wrap: nowrap; /* ✅ 수정: 줄바꿈 허용 */
+      left: 50%;
+      transform: translateX(-50%);
+      gap: 5px;
+      justify-content: center;
+      padding: 30px 0;
+      margin-bottom: 0px;
+    }
+    /* 서브 탭 (작은 카테고리) */
+    .sub-tab {
+      flex-shrink: 0;
+      font-size: 14px;
+      padding: 8px 12px;
+      text-align: center;
+      align-items: center;
+      color: #555;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    /* 활성화된 서브 탭 */
+    .sub-tab.active {
+      flex-wrap: nowrap;
+      background-color: #00ff95e8;      
+      color: #ffffff;
+      font-weight: bold;
+    }
+    /* 서브 탭 마우스 호버 효과 */
+    .sub-tab:hover {
+      flex-wrap: nowrap;
+      background-color: #00ff953c;
+    }
+
+    .marge-container{
+      display: flex;
+      max-width: 100%; /* ✅ 화면 너비를 넘지 않게 */
+      margin: 0 auto;
+      flex-wrap: nowrap;
+      flex-direction: column; /* 세로로 정렬 (원한다면 row로 변경 가능) */
+      gap: 20px;             /* 내부 요소 간격 */
+      padding: 15px;
+      background-color: #c2f7f1;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+
+    }
+    .category-subtab-container {
+      display: flex;        
+      width: 100%;
+      height: auto;        
+      margin-bottom: 20px;       /* 필요에 따라 여백 조절 */
+      align-items: center;       /* 수직 가운데 정렬 */
+    }
+    /* 카테고리 제목 스타일 */
+    #currentCategory {
+      font-size: 30px;
+      color: #00cc8f;
+      margin-top: 25px;     /* 상하 여백 */
+      margin-bottom: 15px;  /* 상하 여백 */
+      padding-left: 20px;
+      z-index: 1;  /* 겹침을 방지하기 위해 높임 */
+    }
+    .dark-mode #currentCategory {
+      color: #000;
+    }
+    /* ✅ 이미지 갤러리 중앙 정렬 */
+    .image-gallery-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;  /* 🔥 수평 중앙 정렬 */
+      align-items: center;      /* 🔥 수직 중앙 정렬 */
+      height: auto;
+      margin-top: 20px;  /* 🔥 위쪽 여백 */
+      overflow-x: hidden; /* 혹시 남는 부분 잘라내기 */
+    }
+  /* ✅ 이미지 갤러리 (4x5 배열) */
+  .image-gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 🔥 최소 100px, 최대 1fr */
+    grid-template-rows: auto;
+    gap: 3px; /* ✅ 이미지 간격 */
+    padding: 7px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+  }
+  /* ✅ 반응형 이미지 크기 조정 */
+  .gallery-image {
+    width: 15vw;  /* 🔥 화면 너비의 15% */
+    height: 20vw; /* 🔥 화면 너비의 20% */
+    object-fit: cover;  /* 🔥 이미지 비율 유지 */
+    border: 3px solid #00000000;
+    border-radius: 8px;
+    transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
+  }
+
+  /* ✅ 이미지 호버 효과 */
+  .gallery-image:hover {
+    cursor: pointer;
+    border: 3px solid #0066cc;
+  }
+  #pagination-container{
+    text-align: center; 
+    margin-top: 10px; 
+    margin-bottom: 10px;
+  }
+
+  /* ✅ 이미지가 있을 때 (4x5 그리드) */
+  .grid-layout {
+    display: grid;
+    gap: 10px; /* ✅ 이미지 간격 */
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+  }
+
+  /* ✅ 이미지가 없을 때 (중앙 정렬) */
+  .flex-center {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* 🔥 이미지가 없을 때 최소 높이 */
+  }
+
+  /* ✅ 이미지가 없을 때 메시지 스타일 */
+  .no-image-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* 토글 스위치 (다크 모드) */
+  .toggle-switch {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    width: 50px;
+    height: 25px;
+    display: inline-block;
+  }
+    .toggle-switch input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 2; /* 필요시 클릭 우선순위 */
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      background-color: #cbcbcb;
+      border-radius: 20px;
+      transition: background-color 0.3s;
+    }
+    /* ✅ 이모지 스타일 (동그란 핸들 안에 위치) */
+    #themeIcon {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      bottom: 2px;
+      font-size: 14px;
+      text-align: center;
+      line-height: 20px;
+      pointer-events: none;
+      transition: transform 0.3s;
+      z-index: 1;
+    }
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      bottom: 2px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+      z-index: 0;
+    }
+    /* 다크 모드 시: 핸들과 아이콘 오른쪽으로 이동 */
+    .toggle-switch input:checked + .slider::before {
+      transform: translateX(25px);
+    }
+
+    .toggle-switch input:checked + .slider #themeIcon {
+      transform: translateX(25px);
+    }
+    /* 🌙 다크 모드 스타일 */
+    .dark-mode {
+      background-color: #222;
+      color: #fff;
+    }
+    .dark-mode .back-button {
+      background-color: #ffffff;
+      color: #000;
+    }
+    .dark-mode .tab-design {
+      border-color: #ddd;
+    }
+    .dark-mode .tab-btn {
+      background-color: #444444;
+      color: #fff;
+      border-right: 1px solid #ddd;
+    }
+    .dark-mode .tab-btn:hover {
+      background-color: #b1c2d336;
+    }
+    .dark-mode .tab-btn.active {
+      background-color: #8d9494;
+      border-bottom-color: #bcdcff;
+      color: #000;
+      font-weight: bold;
+    }
+    .dark-mode .sub-tab {
+      background-color: #0d223551;
+      color: #fff;
+      border: 1px solid #ddd;
+    }
+    .dark-mode .sub-tab:hover {
+      background-color: #b1c2d336;
+    }
+    .dark-mode .sub-tab.active {
+      background-color: #b1c2d3;
+      color: #000;
+      font-weight: bold;
+    }
+    .dark-mode .image-gallery {
+      border-color: #bcdcff;
+    }
+    .dark-mode .image-container {
+      background-color: #323232;
+    }
+    .dark-mode .marge-container{
+      background-color: #8d9494;
+      border-color: #bcdcff;
+    }
+    .dark-mode .image-item {
+      background-color: #00000089;  /* 🔥 배경색 추가 */
+    }
+      /* ✅ 이미지 갤러리 (4x5 배열) */
+    .dark-mode .image-gallery {
+      background-color: #323232;
+    }
+    body, html {
+      overflow-x: hidden;
+    }
+    @media (max-width: 480px) {
+        .sub-tab {
+            font-size: 13px;
+            padding: 6px 8px;
+        }
+    }
+}
+
+/* ====== 태그 검색 결과 ====== */
+.tag-page {
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      position: relative;
+      margin: 0;
+    }
+
+    h2 {
+      color: #1da1f2;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    h4{
+      text-align: left;
+      color: black;
+    }
+    hr {
+      width: 100%;
+      margin: 5px 0; /* 상하 간격 */
+    }
+    .post-item {
+      display: flex;
+      align-items: center;
+      background: #f9f9f9;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-left: 4px solid #1da1f2;
+      border-radius: 8px;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .post-item img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .post-meta {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .category {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .desc {
+      color: #444;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .post-meta a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .post-meta a:hover {
+      text-decoration: underline;
+    }
+
+    .post-list {
+      list-style: none;
+      padding: 0;
+      margin-left: 50px;
+      margin-right:50px;
+    }
+
+    .post-list li {
+      background: #f7f7f7;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-left: 5px solid #1da1f2;
+      border-radius: 4px;
+    }
+
+    .post-list li a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    .post-list li a:hover {
+      text-decoration: underline;
+    }
+    #resetTagButton {
+      font-size: 0.8rem;
+      margin-left: 10px;
+      padding: 4px 10px;
+      cursor: pointer;
+      background-color: #e1f5fe;
+      border: 1px solid #90caf9;
+      border-radius: 4px;
+      color: black;
+    }
+    #tag-container{
+      padding-top:10px;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.7);
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #koreanTagList button {
+      margin: 5px;
+      padding: 5px 10px;
+      font-size: 0.85rem;
+      background: none;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: black;
+    }
+    #koreanTagList button:hover {
+      cursor: pointer;
+      color: aqua;
+    }
+  @media (max-width: 600px) {
+    .post-item {
+      flex-direction: row;
+      align-items: center; /* ✅ 중앙 정렬로 수정 */
+    }
+
+    .post-item img {
+      width: 60px;  /* ⬇️ 모바일에 맞게 크기 축소 */
+      height: 60px;
+    }
+    .post-list{
+      list-style: none;
+      padding: 0;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    .category {
+      font-size: 0.9rem;
+    }
+
+    .desc {
+      font-size: 0.85rem;
+    }
+  }
 }
