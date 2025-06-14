@@ -247,6 +247,7 @@ button:hover{
     .firework {
         position: absolute;
         pointer-events: none;
+        z-index: 999;
     }
     .particle {
         position: absolute;
@@ -254,7 +255,7 @@ button:hover{
         height: 10px;
         border-radius: 20% 50% 50% 20%;
         background-color: red;
-        animation: explode 1.5s forwards;
+        animation: explode 1.5s ease-out forwards;
         transform-origin: center;
     }
     @keyframes explode {
