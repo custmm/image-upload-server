@@ -304,7 +304,7 @@
             fileName.classList.add("file-name");
             fileName.textContent = image.file_name;
             Object.assign(fileName.style, {
-                display : "block",
+                display : "flex",
                 color : "#000",
                 fontSize : "14px" // 필요에 따라 조정
             });
