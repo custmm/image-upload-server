@@ -304,7 +304,7 @@
             fileName.classList.add("file-name");
             fileName.textContent = image.file_name;
             Object.assign(fileName.style, {
-                display : "flex",
+                display : "block",
                 color : "#000",
                 fontSize : "14px" // 필요에 따라 조정
             });
@@ -337,7 +337,6 @@
         // 텍스트 모드 스타일 적용
         if (!append) {
             Object.assign(container.style, {
-                display: "block",
                 marginBottom: "20px",
                 minHeight: "400px",
                 overflowY: "auto"
