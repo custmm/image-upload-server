@@ -1680,10 +1680,6 @@ button:hover{
       top: 10px;
       left: 10px;
     }
-    .back-button:hover,
-    .dark-mode .back-button:hover {
-      background-color: #755a6a;
-    }
     /* 토글 스위치 (다크 모드) */
     .toggle-switch {
       position: absolute;
@@ -1762,16 +1758,20 @@ button:hover{
       text-align: left;
       display: none;
     }
+    .back-button:hover,
+    body.dark-mode .back-button:hover {
+      background-color: #755a6a;
+    }
     /* 🌙 다크 모드 스타일 */
-    .dark-mode .back-button {
+    body.dark-mode .back-button {
       background-color: #ffffff;
       color: #000;
     }
-    .dark-mode .explan-container{
+    body.dark-mode .explan-container{
       background-color: #333;
       color: #fff;
     }
-    .dark-mode .detail-toggle{
+    body.dark-mode .detail-toggle{
       color: #fff;
     }
 }
@@ -2346,14 +2346,14 @@ button:hover{
       transform: translateX(25px);
     }
     /* 🌙 다크 모드 스타일 */
-    .dark-mode {
+    body.dark-mode {
       background-color: #222;
       color: #fff;
     }
-    .dark-mode .post-container{
+    body.dark-mode .post-container{
         background-color: #444444;
     }
-    .dark-mode .clickable-category {
+    body.dark-mode .clickable-category {
         cursor: pointer;
         color: white;
     }
@@ -2451,21 +2451,14 @@ button:hover{
       color: #666;
     }
 
-    .dark-mode .page-footer {
-      color: #ccc;
-      border-color: #444;
-    }
+
     /* 뒤로가기 버튼 */
     .back-button {
       transition: background-color 0.3s;
       position: absolute;
       top: 10px;
       left: 10px;
-    }
-    .back-button:hover,
-    .dark-mode .back-button:hover {
-      background-color: #755a6a;
-    }
+    }    
     .pagination-button{
       background: none;
       color: black;
@@ -2648,9 +2641,6 @@ button:hover{
       padding-left: 20px;
       z-index: 1;  /* 겹침을 방지하기 위해 높임 */
     }
-    .dark-mode #currentCategory {
-      color: #000;
-    }
     /* ✅ 이미지 갤러리 중앙 정렬 */
     .image-gallery-wrapper {
       display: flex;
@@ -2789,60 +2779,71 @@ button:hover{
       transform: translateX(25px);
     }
     /* 🌙 다크 모드 스타일 */
-    .dark-mode {
+    body.dark-mode {
       background-color: #222;
       color: #fff;
     }
-    .dark-mode .back-button {
+    body.dark-mode .back-button {
       background-color: #ffffff;
       color: #000;
     }
-    .dark-mode .tab-design {
+    body.dark-mode .tab-design {
       border-color: #ddd;
     }
-    .dark-mode .tab-btn {
+    body.dark-mode .tab-btn {
       background-color: #444444;
       color: #fff;
       border-right: 1px solid #ddd;
     }
-    .dark-mode .tab-btn:hover {
+    body.dark-mode .tab-btn:hover {
       background-color: #b1c2d336;
     }
-    .dark-mode .tab-btn.active {
+    body.dark-mode .tab-btn.active {
       background-color: #8d9494;
       border-bottom-color: #bcdcff;
       color: #000;
       font-weight: bold;
     }
-    .dark-mode .sub-tab {
+    body.dark-mode .sub-tab {
       background-color: #0d223551;
       color: #fff;
       border: 1px solid #ddd;
     }
-    .dark-mode .sub-tab:hover {
+    body.dark-mode .sub-tab:hover {
       background-color: #b1c2d336;
     }
-    .dark-mode .sub-tab.active {
+    body.dark-mode .sub-tab.active {
       background-color: #b1c2d3;
       color: #000;
       font-weight: bold;
     }
-    .dark-mode .image-gallery {
+    body.dark-mode .image-gallery {
       border-color: #bcdcff;
     }
-    .dark-mode .image-container {
+    body.dark-mode .image-container {
       background-color: #323232;
     }
-    .dark-mode .marge-container{
+    body.dark-mode .marge-container{
       background-color: #8d9494;
       border-color: #bcdcff;
     }
-    .dark-mode .image-item {
+    body.dark-mode .image-item {
       background-color: #00000089;  /* 🔥 배경색 추가 */
     }
       /* ✅ 이미지 갤러리 (4x5 배열) */
-    .dark-mode .image-gallery {
+    body.dark-mode .image-gallery {
       background-color: #323232;
+    }
+    body.dark-mode #currentCategory {
+      color: #000;
+    }
+    body.dark-mode .page-footer {
+      color: #ccc;
+      border-color: #444;
+    }
+    .back-button:hover,
+    body.dark-mode .back-button:hover {
+      background-color: #755a6a;
     }
     .preview-page {
         overflow-x: hidden;
