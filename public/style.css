@@ -1999,8 +1999,8 @@
     }
 
     /* nextButton과 previewButton의 기본 스타일 제거 */
-    .nextButton,
-    .previewButton {
+    #nextButton,
+    #previewButton {
         background: none;
         border: none;
         padding: 0;
@@ -2008,8 +2008,8 @@
         cursor: pointer;
         font-size: 20px;
     }
-    .nextButton:hover,
-    .previewButton:hover{
+    #nextButton:hover,
+    #previewButton:hover{
         color: aqua;
     }
     #gameControlsPopup{
