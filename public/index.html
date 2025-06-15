@@ -247,12 +247,12 @@ function triggerEasterEgg() {
             fireworkContainer.classList.add("firework");
             fireworkContainer.style.left = `${x}px`;
             fireworkContainer.style.top = `${y}px`;
+
             document.body.appendChild(fireworkContainer);
     
             for (let i = 0; i < 100; i++) {
                 const particle = document.createElement("div");
                 particle.classList.add("particle");
-                fireworkContainer.appendChild(particle);
     
                 const angle = Math.random() * 360;
                 const distance = Math.random() * 200;
@@ -264,6 +264,8 @@ function triggerEasterEgg() {
                 particle.style.backgroundColor = color;
                 particle.style.setProperty('--translate-x', `${distance * Math.cos(angle * (Math.PI / 180))}px`);
                 particle.style.setProperty('--translate-y', `${distance * Math.sin(angle * (Math.PI / 180))}px`);
+
+                fireworkContainer.appendChild(particle);
             }
     
             setTimeout(() => fireworkContainer.remove(), 1500);

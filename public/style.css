@@ -353,8 +353,10 @@
     .firework {
         position: fixed;
         pointer-events: none;
-        z-index: 999;
+        z-index: 9999;
+        transform: translate(-50%, -50%); /* 중앙 기준 위치 보정 */
     }
+
     .particle {
         position: absolute;
         width: 10px;
