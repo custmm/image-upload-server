@@ -27,6 +27,99 @@ button{
 button:hover{
     background-color: #755a6a;
 }
+    body.dark-mode .click-page .back-button:hover {
+      background-color: #755a6a;
+    }
+    /* 🌙 다크 모드 스타일 */
+    body.dark-mode .click-page .back-button {
+      background-color: #ffffff;
+      color: #000;
+    }
+    body.dark-mode .click-page .explan-container{
+      background-color: #333;
+      color: #fff;
+    }
+    body.dark-mode .click-page .detail-toggle{
+      color: #fff;
+    }
+    /* 🌙 다크 모드 스타일 */
+    body.dark-mode .post-page {
+      background-color: #222;
+      color: #fff;
+    }
+    body.dark-mode .post-page .post-container{
+        background-color: #444444;
+    }
+    body.dark-mode .post-page .clickable-category {
+        cursor: pointer;
+        color: white;
+    }
+        /* 🌙 다크 모드 스타일 */
+    body.dark-mode .preview-page{
+      background-color: #222;
+      color: #fff;
+    }
+    body.dark-mode .preview-page .back-button {
+      background-color: #ffffff;
+      color: #000;
+    }
+    body.dark-mode .preview-page .tab-design {
+      border-color: #ddd;
+    }
+    body.dark-mode .preview-page .tab-btn {
+      background-color: #444444;
+      color: #fff;
+      border-right: 1px solid #ddd;
+    }
+    body.dark-mode .preview-page .tab-btn:hover {
+      background-color: #b1c2d336;
+    }
+    body.dark-mode .preview-page .tab-btn.active {
+      background-color: #8d9494;
+      border-bottom-color: #bcdcff;
+      color: #000;
+      font-weight: bold;
+    }
+    body.dark-mode .preview-page .sub-tab {
+      background-color: #0d223551;
+      color: #fff;
+      border: 1px solid #ddd;
+    }
+    body.dark-mode .preview-page .sub-tab:hover {
+      background-color: #b1c2d336;
+    }
+    body.dark-mode .preview-page .sub-tab.active {
+      background-color: #b1c2d3;
+      color: #000;
+      font-weight: bold;
+    }
+    body.dark-mode .preview-page .image-gallery {
+      border-color: #bcdcff;
+    }
+    body.dark-mode .preview-page .image-container {
+      background-color: #323232;
+    }
+    body.dark-mode .preview-page .marge-container{
+      background-color: #8d9494;
+      border-color: #bcdcff;
+    }
+    body.dark-mode .preview-page .image-item {
+      background-color: #00000089;  /* 🔥 배경색 추가 */
+    }
+      /* ✅ 이미지 갤러리 (4x5 배열) */
+    body.dark-mode .preview-page .image-gallery {
+      background-color: #323232;
+    }
+    body.dark-mode .preview-page #currentCategory {
+      color: #000;
+    }
+    body.dark-mode .preview-page .page-footer {
+      color: #ccc;
+      border-color: #444;
+    }    
+    body.dark-mode .preview-page .back-button:hover {
+      background-color: #755a6a;
+    }
 
 /* ====== 첫화면 ====== */
 .index-page {
@@ -1758,21 +1851,8 @@ button:hover{
       text-align: left;
       display: none;
     }
-    .back-button:hover,
-    body.dark-mode .click-page .back-button:hover {
-      background-color: #755a6a;
-    }
-    /* 🌙 다크 모드 스타일 */
-    body.dark-mode .click-page .back-button {
-      background-color: #ffffff;
-      color: #000;
-    }
-    body.dark-mode .click-page .explan-container{
-      background-color: #333;
-      color: #fff;
-    }
-    body.dark-mode .click-page .detail-toggle{
-      color: #fff;
+    .back-button:hover{
+        background-color: #755a6a;
     }
 }
 
@@ -2345,18 +2425,7 @@ button:hover{
     .toggle-switch input:checked + .slider #themeIcon {
       transform: translateX(25px);
     }
-    /* 🌙 다크 모드 스타일 */
-    body.dark-mode .post-page {
-      background-color: #222;
-      color: #fff;
-    }
-    body.dark-mode .post-page .post-container{
-        background-color: #444444;
-    }
-    body.dark-mode .post-page .clickable-category {
-        cursor: pointer;
-        color: white;
-    }
+
     @media (max-width: 768px) {
         .post-container {
             width: 90%;        /* 화면 너비에 맞게 */
@@ -2383,7 +2452,7 @@ button:hover{
             max-width: 300px;
             margin: 5px auto;
         }
-    }
+    }    
 }
 
 /* ====== 미리보기 페이지 ====== */
@@ -2778,73 +2847,7 @@ button:hover{
     .toggle-switch input:checked + .slider #themeIcon {
       transform: translateX(25px);
     }
-    /* 🌙 다크 모드 스타일 */
-    body.dark-mode .preview-page{
-      background-color: #222;
-      color: #fff;
-    }
-    body.dark-mode .preview-page .back-button {
-      background-color: #ffffff;
-      color: #000;
-    }
-    body.dark-mode .preview-page .tab-design {
-      border-color: #ddd;
-    }
-    body.dark-mode .preview-page .tab-btn {
-      background-color: #444444;
-      color: #fff;
-      border-right: 1px solid #ddd;
-    }
-    body.dark-mode .preview-page .tab-btn:hover {
-      background-color: #b1c2d336;
-    }
-    body.dark-mode .preview-page .tab-btn.active {
-      background-color: #8d9494;
-      border-bottom-color: #bcdcff;
-      color: #000;
-      font-weight: bold;
-    }
-    body.dark-mode .preview-page .sub-tab {
-      background-color: #0d223551;
-      color: #fff;
-      border: 1px solid #ddd;
-    }
-    body.dark-mode .preview-page .sub-tab:hover {
-      background-color: #b1c2d336;
-    }
-    body.dark-mode .preview-page .sub-tab.active {
-      background-color: #b1c2d3;
-      color: #000;
-      font-weight: bold;
-    }
-    body.dark-mode .preview-page .image-gallery {
-      border-color: #bcdcff;
-    }
-    body.dark-mode .preview-page .image-container {
-      background-color: #323232;
-    }
-    body.dark-mode .preview-page .marge-container{
-      background-color: #8d9494;
-      border-color: #bcdcff;
-    }
-    body.dark-mode .preview-page .image-item {
-      background-color: #00000089;  /* 🔥 배경색 추가 */
-    }
-      /* ✅ 이미지 갤러리 (4x5 배열) */
-    body.dark-mode .preview-page .image-gallery {
-      background-color: #323232;
-    }
-    body.dark-mode .preview-page #currentCategory {
-      color: #000;
-    }
-    body.dark-mode .preview-page .page-footer {
-      color: #ccc;
-      border-color: #444;
-    }
-    .back-button:hover,
-    body.dark-mode .preview-page .back-button:hover {
-      background-color: #755a6a;
-    }
+
     .preview-page {
         overflow-x: hidden;
     }
@@ -2853,7 +2856,11 @@ button:hover{
             font-size: 13px;
             padding: 6px 8px;
         }
+    }    
+    .back-button:hover{
+        background-color: #755a6a;
     }
+
 }
 
 /* ====== 태그 검색 결과 ====== */
