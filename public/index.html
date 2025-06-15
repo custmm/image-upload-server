@@ -245,8 +245,11 @@ function triggerEasterEgg() {
         function createFirework(x, y) {
             const fireworkContainer = document.createElement("div");
             fireworkContainer.classList.add("firework");
+
+            // 위치 설정 (translate 사용 안 함)
             fireworkContainer.style.left = `${x}px`;
             fireworkContainer.style.top = `${y}px`;
+            fireworkContainer.style.position = "fixed";
 
             document.body.appendChild(fireworkContainer);
     
