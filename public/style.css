@@ -2033,8 +2033,7 @@
     #closePopupButton,
     .start-game-btn,
     #pre-button,
-    .hint-confirm-button,
-    #gameControlsPopup button{
+    .hint-confirm-button{
         border-radius: 5px;
         border:none;
         padding: 8px 16px;
@@ -2048,8 +2047,7 @@
     .start-game-btn:hover,
     #pre-button:hover,
     .hint-confirm-button:hover,
-    #victoryScreen button:hover,
-    #gameControlsPopup button:hover{
+    #victoryScreen button:hover{
         background-color: aqua;
     }
     /* 모바일(폭 768px 이하)에서만 표시 */
