@@ -243,15 +243,16 @@ function triggerEasterEgg() {
         document.body.style.backgroundColor = "#c0c0c0";
         
         function createFirework(x, y) {
+            console.log("🔥 불꽃놀이 생성 시작:", x, y);
             const fireworkContainer = document.createElement("div");
             fireworkContainer.classList.add("firework");
 
             // 위치 설정 (translate 사용 안 함)
             fireworkContainer.style.left = `${x}px`;
             fireworkContainer.style.top = `${y}px`;
-            fireworkContainer.style.position = "fixed";
 
             document.body.appendChild(fireworkContainer);
+            console.log("✅ fireworkContainer 추가됨:", fireworkContainer);
     
             for (let i = 0; i < 100; i++) {
                 const particle = document.createElement("div");
@@ -267,8 +268,6 @@ function triggerEasterEgg() {
                 particle.style.backgroundColor = color;
                 particle.style.setProperty("--translate-x", `${Math.random() * 200 - 100}px`);
                 particle.style.setProperty("--translate-y", `${Math.random() * 200 - 100}px`);
-
-
                 fireworkContainer.appendChild(particle);
             }
     

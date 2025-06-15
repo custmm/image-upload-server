@@ -353,16 +353,14 @@
     .firework {
         position: fixed;
         pointer-events: none;
-        z-index: 99999 !important; /* canvas보다 위로 */
+        z-index: 1000; /* canvas보다 위로, !important 제거 */
     }
-
     .particle {
         position: absolute;
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background-color: red;
-        animation: explode 1.5s ease-out forwards !important;
+        animation: explode 1.5s ease-out forwards;
         transform-origin: center;
     }
     @keyframes explode {
@@ -375,7 +373,12 @@
             opacity: 0;
         }
     }
-
+    #fireworksCanvas {
+        z-index: 1; /* 불꽃놀이보다 낮게 */
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 
     @keyframes fadeOut {
         to {
