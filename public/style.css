@@ -1759,19 +1759,19 @@ button:hover{
       display: none;
     }
     .back-button:hover,
-    body.dark-mode .back-button:hover {
+    body.dark-mode .preview-page .back-button:hover {
       background-color: #755a6a;
     }
     /* 🌙 다크 모드 스타일 */
-    body.dark-mode .back-button {
+    body.dark-mode .preview-page .back-button {
       background-color: #ffffff;
       color: #000;
     }
-    body.dark-mode .explan-container{
+    body.dark-mode .preview-page .explan-container{
       background-color: #333;
       color: #fff;
     }
-    body.dark-mode .detail-toggle{
+    body.dark-mode .preview-page.detail-toggle{
       color: #fff;
     }
 }
@@ -2346,14 +2346,14 @@ button:hover{
       transform: translateX(25px);
     }
     /* 🌙 다크 모드 스타일 */
-    body.dark-mode {
+    body.dark-mode .preview-page {
       background-color: #222;
       color: #fff;
     }
-    body.dark-mode .post-container{
+    body.dark-mode .preview-page .post-container{
         background-color: #444444;
     }
-    body.dark-mode .clickable-category {
+    body.dark-mode .preview-page .clickable-category {
         cursor: pointer;
         color: white;
     }
@@ -2779,70 +2779,70 @@ button:hover{
       transform: translateX(25px);
     }
     /* 🌙 다크 모드 스타일 */
-    body.dark-mode {
+    body.dark-mode .preview-page{
       background-color: #222;
       color: #fff;
     }
-    body.dark-mode .back-button {
+    body.dark-mode .preview-page .back-button {
       background-color: #ffffff;
       color: #000;
     }
-    body.dark-mode .tab-design {
+    body.dark-mode .preview-page .tab-design {
       border-color: #ddd;
     }
-    body.dark-mode .tab-btn {
+    body.dark-mode .preview-page .tab-btn {
       background-color: #444444;
       color: #fff;
       border-right: 1px solid #ddd;
     }
-    body.dark-mode .tab-btn:hover {
+    body.dark-mode .preview-page .tab-btn:hover {
       background-color: #b1c2d336;
     }
-    body.dark-mode .tab-btn.active {
+    body.dark-mode .preview-page .tab-btn.active {
       background-color: #8d9494;
       border-bottom-color: #bcdcff;
       color: #000;
       font-weight: bold;
     }
-    body.dark-mode .sub-tab {
+    body.dark-mode .preview-page .sub-tab {
       background-color: #0d223551;
       color: #fff;
       border: 1px solid #ddd;
     }
-    body.dark-mode .sub-tab:hover {
+    body.dark-mode .preview-page .sub-tab:hover {
       background-color: #b1c2d336;
     }
-    body.dark-mode .sub-tab.active {
+    body.dark-mode .preview-page .sub-tab.active {
       background-color: #b1c2d3;
       color: #000;
       font-weight: bold;
     }
-    body.dark-mode .image-gallery {
+    body.dark-mode .preview-page .image-gallery {
       border-color: #bcdcff;
     }
-    body.dark-mode .image-container {
+    body.dark-mode .preview-page .image-container {
       background-color: #323232;
     }
-    body.dark-mode .marge-container{
+    body.dark-mode .preview-page .marge-container{
       background-color: #8d9494;
       border-color: #bcdcff;
     }
-    body.dark-mode .image-item {
+    body.dark-mode .preview-page .image-item {
       background-color: #00000089;  /* 🔥 배경색 추가 */
     }
       /* ✅ 이미지 갤러리 (4x5 배열) */
-    body.dark-mode .image-gallery {
+    body.dark-mode .preview-page .image-gallery {
       background-color: #323232;
     }
-    body.dark-mode #currentCategory {
+    body.dark-mode .preview-page #currentCategory {
       color: #000;
     }
-    body.dark-mode .page-footer {
+    body.dark-mode .preview-page .page-footer {
       color: #ccc;
       border-color: #444;
     }
     .back-button:hover,
-    body.dark-mode .back-button:hover {
+    body.dark-mode .preview-page .back-button:hover {
       background-color: #755a6a;
     }
     .preview-page {
