@@ -2525,11 +2525,12 @@ button:hover{
     }
     .preview-images {
       position: absolute;
-      top: -100px;
+      top: -105px;
       right: 10px;    /* ← 뷰포트 오른쪽에서 10px 안쪽으로 고정 */
       display: flex;
       cursor: grab; /* 기본 커서 */
       align-items: center;
+      margin-left: 85%;
     }
 
 
