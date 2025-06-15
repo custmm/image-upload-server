@@ -362,6 +362,8 @@
         border-radius: 50%;
         animation: explode 1.5s ease-out forwards;
         transform-origin: center;
+        --translate-x: 100px;
+        --translate-y: 100px;
     }
     @keyframes explode {
         from {
