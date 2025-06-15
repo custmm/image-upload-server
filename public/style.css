@@ -28,98 +28,99 @@
         background-color: #755a6a;
     }
 
-    /* ====== 다크모드적용 ====== */
-    body.dark-mode .click-page .back-button:hover {
+    /* ====== 다크모드적용(click.html) ====== */
+    body.click-page .dark-mode  .back-button:hover {
       background-color: #755a6a;
     }
-    /* 🌙 다크 모드 스타일 */
-    body.dark-mode .click-page .back-button {
+    body.click-page .dark-mode  .back-button {
       background-color: #ffffff;
       color: #000;
     }
-    body.dark-mode .click-page .explan-container{
+    body.click-page .dark-mode  .explan-container{
       background-color: #333;
       color: #fff;
     }
-    body.dark-mode .click-page .detail-toggle{
+    body.click-page .dark-mode  .detail-toggle{
       color: #fff;
     }
-    /* 🌙 다크 모드 스타일 */
-    body.dark-mode .post-page {
+
+    /* ====== 다크모드적용(post.html) ====== */
+    body.post-page .dark-mode  {
       background-color: #222;
       color: #fff;
     }
-    body.dark-mode .post-page .post-container{
+    body.post-page .dark-mode  .post-container{
         background-color: #444444;
     }
-    body.dark-mode .post-page .clickable-category {
+    body.post-page .dark-mode  .clickable-category {
         cursor: pointer;
         color: white;
     }
-        /* 🌙 다크 모드 스타일 */
-    body.dark-mode .preview-page{
+
+    /* ====== 다크모드적용(preview.html) ====== */
+    body.preview-page .dark-mode {
       background-color: #222;
       color: #fff;
     }
-    body.dark-mode .preview-page .back-button {
+    body.preview-page .dark-mode  .back-button {
       background-color: #ffffff;
       color: #000;
     }
-    body.dark-mode .preview-page .tab-design {
+    body.preview-page .dark-mode  .tab-design {
       border-color: #ddd;
     }
-    body.dark-mode .preview-page .tab-btn {
+    body.preview-page .dark-mode  .tab-btn {
       background-color: #444444;
       color: #fff;
       border-right: 1px solid #ddd;
     }
-    body.dark-mode .preview-page .tab-btn:hover {
+    body.preview-page .dark-mode  .tab-btn:hover {
       background-color: #b1c2d336;
     }
-    body.dark-mode .preview-page .tab-btn.active {
+    body.preview-page .dark-mode  .tab-btn.active {
       background-color: #8d9494;
       border-bottom-color: #bcdcff;
       color: #000;
       font-weight: bold;
     }
-    body.dark-mode .preview-page .sub-tab {
+    body.preview-page .dark-mode  .sub-tab {
       background-color: #0d223551;
       color: #fff;
       border: 1px solid #ddd;
     }
-    body.dark-mode .preview-page .sub-tab:hover {
+    body.preview-page .dark-mode  .sub-tab:hover {
       background-color: #b1c2d336;
     }
-    body.dark-mode .preview-page .sub-tab.active {
+    body.preview-page .dark-mode  .sub-tab.active {
       background-color: #b1c2d3;
       color: #000;
       font-weight: bold;
     }
-    body.dark-mode .preview-page .image-gallery {
+    body.preview-page .dark-mode  .image-gallery {
       border-color: #bcdcff;
     }
-    body.dark-mode .preview-page .image-container {
+    body.preview-page .dark-mode  .image-container {
       background-color: #323232;
     }
-    body.dark-mode .preview-page .marge-container{
+    body.preview-page.dark-mode  .marge-container{
       background-color: #8d9494;
       border-color: #bcdcff;
     }
-    body.dark-mode .preview-page .image-item {
+    body.preview-page.dark-mode  .image-item {
       background-color: #00000089;  /* 🔥 배경색 추가 */
     }
       /* ✅ 이미지 갤러리 (4x5 배열) */
-    body.dark-mode .preview-page .image-gallery {
+    body.preview-page.dark-mode  .image-gallery {
       background-color: #323232;
     }
-    body.dark-mode .preview-page #currentCategory {
+    body.preview-page.dark-mode  #currentCategory {
       color: #000;
     }
-    body.dark-mode .preview-page .page-footer {
+    body.preview-page.dark-mode  .page-footer {
       color: #ccc;
       border-color: #444;
     }    
-    body.dark-mode .preview-page .back-button:hover {
+    body.preview-page.dark-mode  .back-button:hover {
       background-color: #755a6a;
     }
 
@@ -1749,8 +1750,8 @@
       padding: 20px;
     }
     .explan-container {
-      max-width: 800px;
-      margin: 35px;
+      max-width: 85%;
+      margin: auto;
       padding-bottom: 15px;
       margin-top: 70px;
       background-color: #f5f5f5;
