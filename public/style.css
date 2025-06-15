@@ -364,7 +364,7 @@
         border-radius: 20% 50% 50% 20%;
         background-color: red;
         animation: explode 1.5s ease-out forwards;
-        transform-origin: center;
+        transform-origin: center center;
     }
     @keyframes explode {
         from {
