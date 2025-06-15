@@ -28,6 +28,17 @@
         background-color: #755a6a;
     }
 
+    /* ====== 전용화면적용(admin-dashboard.html) ====== */
+    body.dashboard-page {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+        background: radial-gradient(circle, #FFDF00 0%, #D4AF37 25%, #CFB53B 50%, #C5B358 75%, #b8860b 100%);
+        background-attachment: fixed;
+        background-size: 200% 200%;
+        animation: goldGlow 6s infinite alternate;
+    }
+
     /* ====== 다크모드적용(click.html) ====== */
     body.click-page.dark-mode .back-button:hover {
       background-color: #755a6a;
@@ -632,15 +643,6 @@
 .dashboard-page {
     h1 {
         margin-bottom: 20px;
-    }
-    body{
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 20px;
-        background: radial-gradient(circle, #FFDF00 0%, 	#D4AF37 25%, #CFB53B 50%, #C5B358 75%, #b8860b 100%);
-        background-attachment: fixed; /* 스크롤해도 배경 유지 */
-        background-size: 200% 200%;
-        animation: goldGlow 6s infinite alternate; /* ✨ 부드럽게 빛나는 효과 */
     }
     /* ✨ 황금빛이 부드럽게 퍼지는 애니메이션 */
     @keyframes goldGlow {
