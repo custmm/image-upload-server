@@ -363,11 +363,12 @@
         height: 10px;
         border-radius: 20% 50% 50% 20%;
         background-color: red;
+        animation: explode 1.5s ease-out forwards;
         transform-origin: center center;
     }
     @keyframes explode {
         from {
-            transform: translate(0, 0) rotate(0);
+            transform: translate(0, 0) rotate(0deg);
             opacity: 1;
         }
         to {
@@ -375,6 +376,7 @@
             opacity: 0;
         }
     }
+
 
     @keyframes fadeOut {
         to {
