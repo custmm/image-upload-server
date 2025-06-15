@@ -1759,19 +1759,19 @@ button:hover{
       display: none;
     }
     .back-button:hover,
-    body.dark-mode .preview-page .back-button:hover {
+    body.dark-mode .click-page .back-button:hover {
       background-color: #755a6a;
     }
     /* 🌙 다크 모드 스타일 */
-    body.dark-mode .preview-page .back-button {
+    body.dark-mode .click-page .back-button {
       background-color: #ffffff;
       color: #000;
     }
-    body.dark-mode .preview-page .explan-container{
+    body.dark-mode .click-page .explan-container{
       background-color: #333;
       color: #fff;
     }
-    body.dark-mode .preview-page.detail-toggle{
+    body.dark-mode .click-page .detail-toggle{
       color: #fff;
     }
 }
@@ -2346,14 +2346,14 @@ button:hover{
       transform: translateX(25px);
     }
     /* 🌙 다크 모드 스타일 */
-    body.dark-mode .preview-page {
+    body.dark-mode .post-page {
       background-color: #222;
       color: #fff;
     }
-    body.dark-mode .preview-page .post-container{
+    body.dark-mode .post-page .post-container{
         background-color: #444444;
     }
-    body.dark-mode .preview-page .clickable-category {
+    body.dark-mode .post-page .clickable-category {
         cursor: pointer;
         color: white;
     }
