@@ -360,10 +360,10 @@
         position: absolute;
         width: 10px;
         height: 10px;
-        border-radius: 20% 50% 50% 20%;
+        border-radius: 50%;
         background-color: red;
-        animation: explode 1.5s ease-out forwards;
-        transform-origin: center center;
+        animation: explode 1.5s ease-out forwards !important;
+        transform-origin: center;
     }
     @keyframes explode {
         from {
