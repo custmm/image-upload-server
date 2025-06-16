@@ -923,6 +923,7 @@
         padding: 8px 15px;
         cursor: pointer;
         border: none;
+        color: black;
         background: none;
         border-radius: 5px;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
