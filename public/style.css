@@ -370,7 +370,7 @@
             opacity: 1;
         }
         to {
-            transform: translate(var(--translate-x), var(--translate-y)) rotate(720deg);
+            transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(720deg);
             opacity: 0;
         }
     }
