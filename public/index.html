@@ -266,8 +266,9 @@ function triggerEasterEgg() {
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 particle.style.backgroundColor = color;
-                particle.style.setProperty("--translate-x", `${Math.random() * 200 - 100}px`);
-                particle.style.setProperty("--translate-y", `${Math.random() * 200 - 100}px`);
+                particle.style.setProperty("--translate-x", "100px");
+                particle.style.setProperty("--translate-y", "-100px");
+
                 fireworkContainer.appendChild(particle);
             }
     
