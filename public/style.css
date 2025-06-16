@@ -350,29 +350,6 @@
         transform: rotateY(0deg); /* 초기 상태 */
         transition: transform 2s ease-in-out;
     }
-    .firework {
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999; /* canvas보다 위로, !important 제거 */
-    }
-    .particle {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        animation: explode 1.5s ease-out forwards;
-        transform-origin: center;
-    }
-    @keyframes explode {
-        from {
-            transform: translate(0, 0) rotate(0deg);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(720deg);
-            opacity: 0;
-        }
-    }
     #fireworksCanvas {
         z-index: 1; /* 불꽃놀이보다 낮게 */
         position: absolute;
