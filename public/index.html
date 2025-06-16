@@ -47,6 +47,21 @@
         z-index: 9999; /* 모든 요소 위에 */
         pointer-events: none;
     }
+    @media (max-width: 768px) {        
+        .container {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* ⭐ 핵심 */
+            height: auto;
+            margin: 0;
+            padding: 0;
+        }
+    }
     </style>
 </head>
 <body class="index-page no-bg">
