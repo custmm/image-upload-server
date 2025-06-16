@@ -170,14 +170,6 @@
             opacity: 0.2; 
         }
     }
-    /* 제목과 컨테이너를 감싸는 부모 요소 */
-    .container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transform: translateY(50%);
-    }
     /* 제목 스타일 */
     h1 {
         font-size: 36px;
