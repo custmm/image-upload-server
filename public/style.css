@@ -358,7 +358,7 @@
             transform: scale(1);
         }
     }
-        @media (max-width: 768px) {
+        @media (max-width: 768px) {        
         body {
             display: flex;
             flex-direction: column;
@@ -367,19 +367,6 @@
             height: 100vh;
         }
         /* body 여백이나 크기 조정 (필요에 따라) */
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center; /* ⭐ 핵심 */
-            height: auto;
-            margin: 0;
-            padding: 0;
-        }
 
         /* 제목의 크기를 줄임 */
         h1 {
