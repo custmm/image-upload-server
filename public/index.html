@@ -173,7 +173,7 @@
     if (modeSelection.contains(event.target) || event.target.classList.contains("glow-circle")) return;
 
     const x = event.clientX;
-    const y = event.clientY;
+    const y = event.clientY + window.scrollY; // 🔥 scroll 보정
     createFirework(x,y);
     playFireworkSound(); // 불꽃놀이 소리 재생
 
@@ -271,8 +271,9 @@ function triggerEasterEgg() {
         const button = document.getElementById("mainButton");
     
         // 캔버스 크기 설정
-        canvas.width = document.documentElement.clientwidth;
+        canvas.width = document.documentElement.clientWidth;
         canvas.height = document.documentElement.clientHeight;
+
         // 초기 배경색 설정
         document.body.style.backgroundColor = "#c0c0c0";
         
