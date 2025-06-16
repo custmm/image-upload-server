@@ -257,17 +257,18 @@ function triggerEasterEgg() {
             for (let i = 0; i < 100; i++) {
                 const particle = document.createElement("div");
                 particle.classList.add("particle");
-    
-                const angle = Math.random() * 360;
-                const distance = Math.random() * 200;
+
                 const size = Math.random() * 10 + 5;
                 const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
     
+                const offsetX = (Math.random() - 0.5) * 200; // ↔ -100 ~ +100
+                const offsetY = (Math.random() - 0.5) * 200; // ↕ -100 ~ +100
+
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 particle.style.backgroundColor = color;
-                particle.style.setProperty("--translate-x", "100px");
-                particle.style.setProperty("--translate-y", "-100px");
+                particle.style.setProperty("--translate-x", `${offsetX}px`);
+                particle.style.setProperty("--translate-y", `${offsetY}px`);
 
                 fireworkContainer.appendChild(particle);
             }
