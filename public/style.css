@@ -775,6 +775,7 @@
         cursor: pointer;
         font-size: 22px;
         padding:5px;
+        color: black;
     }
 
     .edit-content {
