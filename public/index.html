@@ -8,13 +8,24 @@
     <link rel="stylesheet" href="style.css">
     <style>
     /* 제목과 컨테이너를 감싸는 부모 요소 */
-    .container {
+    body{
         position: relative;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #c0c0c0;
+    }
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 15vh; /* 시각적으로 가운데 정렬 */
     }
+
     .firework {
         position: fixed;
         pointer-events: none;
@@ -49,11 +60,13 @@
     }
     @media (max-width: 768px) {        
         .container {
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 15vh; /* 시각적으로 가운데 정렬 */
         }
     }
     </style>

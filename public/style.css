@@ -142,14 +142,6 @@
         height: 100%;
         overflow: visible;
     }
-    body{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #c0c0c0;
-    }
     .glow-circle {
         position: absolute;
         width: 50px;
