@@ -7,7 +7,7 @@
     <title>Ɐ휴욱슈욱Ɐ</title>
     <link rel="stylesheet" href="style.css">
     <style>
-            .firework {
+    .firework {
         position: fixed;
         pointer-events: none;
         z-index: 9999; /* canvas보다 위로, !important 제거 */
@@ -17,7 +17,7 @@
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        animation: explode 1.5s ease-out forwards;
+        animation: explode 0.9s ease-out forwards;
         transform-origin: center;
     }
     @keyframes explode {
@@ -165,7 +165,7 @@
 
     const x = event.clientX;
     const y = event.clientY;
-    createFirework(x, y);
+    createFirework(e.clientX, e.clientY);
     playFireworkSound(); // 불꽃놀이 소리 재생
 
     globalClickCount++;
