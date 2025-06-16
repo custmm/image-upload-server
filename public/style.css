@@ -368,8 +368,9 @@
         }
         /* body 여백이나 크기 조정 (필요에 따라) */
         .container {
-            position: relative;
-            top: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
