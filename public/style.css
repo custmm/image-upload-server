@@ -350,13 +350,6 @@
         transform: rotateY(0deg); /* 초기 상태 */
         transition: transform 2s ease-in-out;
     }
-    #fireworksCanvas {
-        z-index: 1; /* 불꽃놀이보다 낮게 */
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
     @keyframes fadeOut {
         to {
             opacity: 0;
