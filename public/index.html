@@ -262,8 +262,8 @@ function triggerEasterEgg() {
         const button = document.getElementById("mainButton");
     
         // 캔버스 크기 설정
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = document.documentElement.clientwidth;
+        canvas.height = document.documentElement.clientHeight;
         // 초기 배경색 설정
         document.body.style.backgroundColor = "#c0c0c0";
         
