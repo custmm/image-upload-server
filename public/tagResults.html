@@ -52,18 +52,15 @@
       const postList = document.getElementById("postList");
       setTimeout(() => {
         postList.innerHTML += nextPosts.map(post => `
-          <div class="post-item">
-            <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
+          <div class="post-item" href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
               <img src="${post.file_path}" alt="미리보기 이미지">
-            </a>
             <div class="post-meta">
               <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
                 <div class="desc">
-                  <a href="post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
                     ${post.file_description.replace(/(<([^>]+)>)/gi, "").slice(0, 50)}...
-                  </a>
                 </div>
               </div>
+              </a>
             </div>
           `).join('');
           currentIndex += pageSize;
