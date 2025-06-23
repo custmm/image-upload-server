@@ -2314,10 +2314,6 @@
       color: #1da1f2;
       text-decoration: none;
     }
-
-    .hashtag-link:hover {
-      text-decoration: underline;
-    }
     /* 토글 스위치 (다크 모드) */
     .toggle-switch {
       position: absolute;
@@ -2886,10 +2882,6 @@
       color: inherit;
     }
 
-    .post-meta a:hover {
-      text-decoration: underline;
-    }
-
     .post-list {
       list-style: none;
       padding: 0;
@@ -2910,9 +2902,6 @@
       text-decoration: none;
     }
 
-    .post-list li a:hover {
-      text-decoration: underline;
-    }
     #resetTagButton {
       font-size: 0.8rem;
       margin-left: 10px;
