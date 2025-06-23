@@ -7,7 +7,7 @@
   <title>Ɐ휴욱슈욱Ɐ >> 게시물</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="post-page dark-mode">
+<body class="post-page">
   <div style="display: flex; align-items: center; justify-content: center; gap:10px;">
     <h1 style="margin: 0;">게시물</h1>
     <button id="picture" class="custom-button" style="padding: 0; border: none; background: none;">
@@ -173,6 +173,7 @@
 
     // ✅ 페이지 로드 시 데이터 불러오기
     document.addEventListener("DOMContentLoaded",()=>{
+      applySavedTheme(); // ✅ 테마 초기화
       loadPostData();
       bindDrawingEvents();        // 🔥 이 줄 추가
     });
