@@ -72,7 +72,37 @@ document.getElementById("showIntro").addEventListener("click", function(e) {
 });
 document.getElementById("appIntro").addEventListener("click", function(e) {
   e.preventDefault();
-    inforPopupMessage("숨겨진 게임에 대한 앱을 제작중입니다.<br>추후 공개 예정입니다. ");
+
+  const tableHTML = `
+    <table border="1" style="border-collapse: collapse; width: 100%; text-align: center;">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>형식</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1차 공개</td>
+          <td>웹게임</td>
+        </tr>
+        <tr>
+          <td>1차 공개</td>
+          <td>모바일 앱</td>
+        </tr>
+        <tr>
+          <td>2차 공개</td>
+          <td>웹게임</td>
+        </tr>
+        <tr>
+          <td>2차 공개</td>
+          <td>모바일 앱</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+
+  inforPopupMessage(tableHTML);
 });
 </script>
   <script src="preview.js"></script>
