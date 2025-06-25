@@ -864,6 +864,10 @@
             // 이 PNG는 제거하지 않으므로 그대로 남습니다.
             document.body.appendChild(pngElement);
 
+            // ✅ 체크 사운드 재생 추가
+            const sound = new Audio("sounds/number_catch.mp3"); // 효과음 경로
+            sound.play().catch(e => console.warn("사운드 재생 실패:", e));
+
             // 📌 숫자 찾았을 때 표식 서서히 사라지게 하기
             let hintMarker = document.getElementById("hint-marker");
             if (hintMarker) {
