@@ -517,13 +517,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 "ratioToggle:", ratioToggle);
 
             // 토글 면적의 80% 이상 겹쳤을 때
-            if (ratioToggle >= 0.8 && !wasOverlapping) {
+            if (ratioToggle >= 0.75 && !wasOverlapping) {
                 overlapTimer = setTimeout(() => window.location.href = "killing_game.html", 10000);
             }
-            if (ratioToggle < 0.8 && wasOverlapping) {
+            if (ratioToggle < 0.75 && wasOverlapping) {
                 clearTimeout(overlapTimer);
             }
-            wasOverlapping = ratioToggle >= 0.8;
+            wasOverlapping = ratioToggle >= 0.75;
             }
 
         function updatePreviewImage() {
