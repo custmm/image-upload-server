@@ -2808,7 +2808,7 @@
             width: 75%;            /* 화면 꽉 채우지 않도록 너비 조절*/
             height: 50%;
             padding: 18px 16px;    /* 여백도 축소 */
-            font-size: 10px;       /* 전체 폰트 크기 줄이기 */
+            font-size: 5px;       /* 전체 폰트 크기 줄이기 */
         }
 
         .infor-popup table {
