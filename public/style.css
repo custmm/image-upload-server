@@ -2803,6 +2803,22 @@
     .preview-page {
         overflow-x: hidden;
     }
+    @media screen and (max-width: 480px) {
+        .infor-popup {
+            width: 90%;            /* 화면 꽉 채우지 않도록 너비 조절 */
+            padding: 18px 16px;    /* 여백도 축소 */
+            font-size: 14px;       /* 전체 폰트 크기 줄이기 */
+        }
+
+        .infor-popup table {
+            font-size: 13px;       /* 표 내부도 줄이기 */
+        }
+
+        .infor-popup td,
+        .infor-popup th {
+            padding: 4px 6px;      /* 표 셀 간격도 줄이기 */
+        }
+    }
     @media (max-width: 480px) {
         .sub-tab {
             font-size: 13px;
