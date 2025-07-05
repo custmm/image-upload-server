@@ -2445,7 +2445,7 @@
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
     }
-    /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
+        /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
     .infor-popup {
       position: fixed;
       top: 50%;
@@ -2464,6 +2464,32 @@
 
     /* ✅ 닫기 버튼 스타일 */
     .infor-popup-close {
+      position: absolute;
+      top: 3px;
+      right: 8px;
+      cursor: pointer;
+      font-size: 25px;
+      color: #666;
+    }
+    /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
+    .app-infor-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      background: #fff;
+      color: black;
+      border: 1px solid #ccc;
+      padding: 25px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      text-align: left;
+    }
+
+    /* ✅ 닫기 버튼 스타일 */
+    .app-infor-popup-close {
       position: absolute;
       top: 3px;
       right: 8px;
@@ -2807,18 +2833,26 @@
             max-height: 90vh;       /* 높이도 제한 */
             overflow: auto;         /* 넘치면 스크롤 */
             padding: 18px 16px;    /* 여백도 축소 */
+            font-size: 11px;       /* 전체 폰트 크기 줄이기 */
+            box-sizing: border-box;
+        }
+        .app-infor-popup {
+            width: 95%;            /* 화면 꽉 채우지 않도록 너비 조절*/
+            max-height: 90vh;       /* 높이도 제한 */
+            overflow: auto;         /* 넘치면 스크롤 */
+            padding: 18px 16px;    /* 여백도 축소 */
             font-size: 5px;       /* 전체 폰트 크기 줄이기 */
             box-sizing: border-box;
         }
 
-        .infor-popup table {
+        .app-infor-popup table {
             width: 100%;            /* 📌 table이 부모 너비에 맞게 */
             word-break: break-word; /* 긴 내용 줄바꿈 허용 */
             font-size: 11px;
         }
 
-        .infor-popup td,
-        .infor-popup th {
+        .app-infor-popup td,
+        .app-infor-popup th {
             padding: 4px 6px;      /* 표 셀 간격도 줄이기 */
         }
         .sub-tab {
