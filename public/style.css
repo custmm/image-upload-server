@@ -2471,8 +2471,6 @@
       font-size: 25px;
       color: #666;
     }
-
-
     /* 뒤로가기 버튼 */
     .back-button {
       transition: background-color 0.3s;
@@ -2806,13 +2804,19 @@
     @media (max-width: 480px) {
         .infor-popup {
             width: 75%;            /* 화면 꽉 채우지 않도록 너비 조절*/
-            height: 50%;
+            max-width: 75vw;
+            max-height: 80vh;       /* 높이도 제한 */
+            overflow: auto;         /* 넘치면 스크롤 */
             padding: 18px 16px;    /* 여백도 축소 */
             font-size: 5px;       /* 전체 폰트 크기 줄이기 */
+            box-sizing: border-box;
         }
 
         .infor-popup table {
-            font-size: 10px;       /* 표 내부도 줄이기 */
+            width: 100%;            /* 📌 table이 부모 너비에 맞게 */
+            table-layout: fixed;    /* 셀 너비 균등 분배 */
+            word-break: break-word; /* 긴 내용 줄바꿈 허용 */
+            font-size: 11px;
         }
 
         .infor-popup td,
