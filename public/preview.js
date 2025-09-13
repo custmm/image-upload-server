@@ -552,6 +552,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             previewContainer.style.position = "relative";
     
             // _cut 버전을 지원하는 번호 배열
+            let previewTimer = null;
             const allowedCutIndices = [1, 2, 3, 4, 5, 8, 9, 11,12];
             const totalPreviews = 12;
             const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
@@ -619,6 +620,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             }
 
+            // 마우스 이벤트
             img.addEventListener("mousedown", (e) => {
                 isDragging = true;
                 const rect = img.getBoundingClientRect();
@@ -681,6 +683,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     togglePreviewImage();
                 }
             });
+            
         
             img.onerror = function () {
                 console.error(`이미지 로드 실패: ${img.src}`);
@@ -838,8 +841,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }, { rootMargin: "100px", threshold: 0.1 });
 
-
-    setInterval(updatePreviewImage, 30000);
     applySavedTheme();
     loadCategories();
     await fetchIndicatorStatus();  // 추가된 부분
