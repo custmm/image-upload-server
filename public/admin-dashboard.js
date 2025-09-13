@@ -168,8 +168,9 @@
         const hideindicatorBtn = document.getElementById("hide-indicator");
         const modernizeBtn = document.getElementById("modernize-indicator"); // ✅ 새 버튼
 
-        let isModernized = false; // ✅ 현재 현대화 상태 여부
+        let isModernized = localStorage.getItem("indicatorModernized") === "true"; 
  
+        // 표시기 숨기기
         hideindicatorBtn.addEventListener("click", async function() {            
             localStorage.setItem("previewVisible", "hidden"); // 상태 저장
             await updateIndicatorStatusOnServer(false); // 서버 반영
@@ -177,6 +178,7 @@
             showpopup("이미지 표시기가 제거되었습니다."); // 팝업 추가
         });
 
+        // 표시기 나타내기
         showindicatorBtn.addEventListener("click",async function() {
             localStorage.setItem("previewVisible","visible");
             await updateIndicatorStatusOnServer(true); // 서버 반영
@@ -197,7 +199,11 @@
                 }
             });
 
-            isModernized = !isModernized; // 상태 반전
+            // ✅ 상태 반전 및 저장
+            isModernized = !isModernized;
+            localStorage.setItem("indicatorModernized", isModernized ? "true" : "false");
+
+            // 버튼 라벨도 업데이트
             modernizeBtn.textContent = isModernized ? "이미지 원래대로" : "이미지 현대화"; // 버튼 텍스트 변경
         });
 
@@ -207,7 +213,14 @@
 
     // 주기적으로 서버 상태 확인 (ex: 5초마다)
     setInterval(fetchIndicatorStatus, 5000);
-    }    
+
+    // ✅ 페이지 로드될 때 관리자 화면도 맞춰줌
+    if (isModernized) {
+        document.querySelectorAll("#section3 .sorting-container img")
+            .forEach((img, index) => img.src = `images/preview-gunff_${index+1}re.png`);
+        modernizeBtn.textContent = "이미지 원래대로";
+    }
+}    
 
     async function fetchImages(mode = "image", append = false) {
         if (isLoading || noMoreImages) return;
