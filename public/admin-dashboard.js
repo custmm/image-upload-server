@@ -166,6 +166,9 @@
     function bindIndicatorEvents(){
         const showindicatorBtn = document.getElementById("show-indicator");
         const hideindicatorBtn = document.getElementById("hide-indicator");
+        const modernizeBtn = document.getElementById("modernize-indicator"); // ✅ 새 버튼
+
+        let isModernized = false; // ✅ 현재 현대화 상태 여부
  
         hideindicatorBtn.addEventListener("click", async function() {            
             localStorage.setItem("previewVisible", "hidden"); // 상태 저장
@@ -180,6 +183,24 @@
             updateButtonState();
             showpopup("이미지 표시기가 나타났습니다."); // 팝업 추가
         });
+
+        // ✅ 현대화 버튼 이벤트
+        modernizeBtn.addEventListener("click", () => {
+            const images = document.querySelectorAll("#section3 .sorting-container img");
+            images.forEach((img, index) => {
+                if (!isModernized) {
+                    // 기존 → re 버전으로 교체
+                    img.src = `images/preview-gunff_${index+1}re.png`;
+                } else {
+                    // re 버전 → 기존으로 복구
+                    img.src = `images/preview-gunff_${index+1}.png`;
+                }
+            });
+
+            isModernized = !isModernized; // 상태 반전
+            modernizeBtn.textContent = isModernized ? "이미지 원래대로" : "이미지 현대화"; // 버튼 텍스트 변경
+        });
+
 
     // 최초 상태 동기화
     fetchIndicatorStatus();
