@@ -833,12 +833,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, { rootMargin: "100px", threshold: 0.1 });
 
 
-    updatePreviewImage();
     setInterval(updatePreviewImage, 30000);
     applySavedTheme();
     loadCategories();
     await fetchIndicatorStatus();  // 추가된 부분
     setInterval(fetchIndicatorStatus, 5000); // 추가된 부분
     // 초기 상태 반영
-    updatePreviewVisibility();
+    if (e.key === "indicatorModernized") {
+        // 현대화 상태가 바뀌면 새 이미지로 교체
+        updatePreviewImage();
+    }
+    if (e.key === "previewVisible") {
+        // 표시기 보임/숨김도 동기화
+        updatePreviewVisibility();
+    }
 });
