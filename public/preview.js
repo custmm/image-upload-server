@@ -705,8 +705,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             } else {
                 localStorage.setItem("previewVisible", "hidden");
             }
-            // ✅ 먼저 이미지 생성
-            updatePreviewImage();
 
             // ✅ 그다음 표시/숨김 반영
             updatePreviewVisibility(); 
@@ -714,6 +712,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.error("🚨 Indicator 상태 가져오기 오류:", error);
         }
     }
+    setInterval(updatePreviewImage, 30000); // 30초마다 실행
+
     // 표시기 상태 업데이트 함수
     function updatePreviewVisibility() {
         const previewState = localStorage.getItem("previewVisible");
@@ -843,8 +843,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     applySavedTheme();
     loadCategories();
-    await fetchIndicatorStatus();  // 추가된 부분
-    setInterval(fetchIndicatorStatus, 5000); // 추가된 부분
+    await fetchIndicatorStatus();   // 초기 상태 반영
+    setInterval(fetchIndicatorStatus, 5000); // 상태만 5초마다 갱신
+    setInterval(updatePreviewImage, 30000);  // 이미지는 30초마다 갱신
+    
     // 초기 상태 반영
     window.addEventListener("storage", (e) => {
         if (e.key === "indicatorModernized") {
