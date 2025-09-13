@@ -555,7 +555,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             const allowedCutIndices = [1, 2, 3, 4, 5, 8, 9, 11,12];
             const totalPreviews = 12;
             const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
-            const selectedImage = `images/preview-gunff_${randomIndex}.png`;
+
+            // ✅ 현대화 여부 확인
+            const isModernized = localStorage.getItem("indicatorModernized") === "true";
+           
+            // ✅ 선택 이미지 경로 결정
+            let selectedImage = isModernized
+                ? `images/preview-gunff_${randomIndex}re.png`
+                : `images/preview-gunff_${randomIndex}.png`;
+            
             localStorage.setItem("selectedImage", selectedImage);
         
             const img = document.createElement("img");
