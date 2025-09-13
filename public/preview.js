@@ -702,7 +702,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             } else {
                 localStorage.setItem("previewVisible", "hidden");
             }
-            updatePreviewVisibility(); // ✅ 가져온 상태로 표시 업데이트
+            // ✅ 먼저 이미지 생성
+            updatePreviewImage();
+
+            // ✅ 그다음 표시/숨김 반영
+            updatePreviewVisibility(); 
         } catch (error) {
             console.error("🚨 Indicator 상태 가져오기 오류:", error);
         }
@@ -716,11 +720,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        // previewContainer 내의 img 요소 찾기
         const img = previewContainer.querySelector("img");
+
+        // previewContainer 내의 img 요소 찾기
         if (!img) {
-            console.warn("⚠️ 표시할 이미지가 없음.");
-            return;
+            console.warn("⚠️ 표시할 이미지가 없음. 새로 생성합니다.");
+            updatePreviewImage();  
+            img = previewContainer.querySelector("img"); 
+            if (!img) return; // 그래도 없으면 그냥 리턴
         }
 
         if (previewState === "hidden") {
