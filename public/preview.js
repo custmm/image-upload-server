@@ -584,13 +584,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                     img.src = isModernized
                         ? `images/preview-gunff_${randomIndex}re_cut.png`
                         : `images/preview-gunff_${randomIndex}_cut.png`;
-                    localStorage.setItem("selectedImage", img.src);
                 } else {
                     img.src = isModernized
                         ? `images/preview-gunff_${randomIndex}re.png`
                         : `images/preview-gunff_${randomIndex}.png`;
-                    localStorage.setItem("selectedImage", img.src);
                 }
+                localStorage.setItem("selectedImage", img.src);
                 isCut = !isCut;
             }
 
