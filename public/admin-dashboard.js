@@ -6,6 +6,7 @@
     let currentMode = "text";
     let isPopupOpen = false;  // ✅ 팝업 상태 변수 추가
     let chartClickHandlerRegistered = false;
+    let isModernized = false; // ✅ 이미지 현대화 상태 (전역)
 
     if(!window.observer){
         window.observer = new IntersectionObserver((entries, observer) => {
@@ -142,29 +143,34 @@
             if (!res.ok) throw new Error("Indicator 상태 가져오기 실패");
     
             const data = await res.json();
+
             // visible
             const previewVisible = data.visible ? "visible" : "hidden";
             localStorage.setItem("previewVisible", previewVisible);
             updateButtonState();
 
-            // modernized 처리 (서버 우선)
-            const modernized = !!data.modernized;
-            localStorage.setItem("indicatorModernized", modernized ? "true" : "false");
+            // ✅ modernized는 localStorage 우선, 서버는 fallback
+            const localModernized = localStorage.getItem("indicatorModernized");
+            const modernized = localModernized !== null 
+                ? localModernized === "true" 
+                : !!data.modernized;
 
-            // 전역 변수 업데이트
+            localStorage.setItem("indicatorModernized", modernized ? "true" : "false");
             isModernized = modernized;
 
-            // 버튼 라벨 및 이미지 적용
+                // 버튼 라벨 및 이미지 적용
             const modernizeBtn = document.getElementById("modernize-indicator");
-            if (modernizeBtn) modernizeBtn.textContent = isModernized ? "이미지 원래대로" : "이미지 현대화";
+            if (modernizeBtn) {
+                modernizeBtn.textContent = isModernized ? "이미지 원래대로" : "이미지 현대화";
+            }
 
-        // 실제 이미지 소스 적용 (함수화된 적용 사용)
-        applyModernizedImages(isModernized);
+            // 실제 이미지 소스 적용 (함수화된 적용 사용)
+            applyModernizedImages(isModernized);
 
-        } catch (error) {
-            console.error("🚨 Indicator 상태 가져오기 오류:", error);
+            } catch (error) {
+                console.error("🚨 Indicator 상태 가져오기 오류:", error);
+            }
         }
-    }
     
     async function updateIndicatorStatusOnServer(payload = {}) {
         try {
