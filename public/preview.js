@@ -700,15 +700,20 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (!res.ok) throw new Error("서버 응답 오류");
             const data = await res.json();
             
-            // data: { visible: boolean, modernized: boolean }
+            // ✅ visible 은 서버 우선
             localStorage.setItem('previewVisible', data.visible ? 'visible' : 'hidden');
-            localStorage.setItem('indicatorModernized', data.modernized ? 'true' : 'false');
-            
-            // 기존 updatePreviewVisibility() 호출
-            updatePreviewVisibility && updatePreviewVisibility();
 
-            // 이미지 변경 함수 호출
-            applyModernizedImages(data.modernized);
+            // ✅ modernized 는 localStorage 우선
+            const localModernized = localStorage.getItem('indicatorModernized');
+            const isModernized = localModernized !== null 
+                ? localModernized === "true"
+                : data.modernized;
+
+            localStorage.setItem('indicatorModernized', isModernized ? 'true' : 'false');
+
+            // 상태 반영
+            updatePreviewVisibility && updatePreviewVisibility();
+            applyModernizedImages(isModernized);
         } catch (error) {
             console.error("🚨 Indicator 상태 가져오기 오류:", error);
         }
