@@ -142,26 +142,51 @@
             if (!res.ok) throw new Error("Indicator 상태 가져오기 실패");
     
             const data = await res.json();
+            // visible
             const previewVisible = data.visible ? "visible" : "hidden";
             localStorage.setItem("previewVisible", previewVisible);
-            updateButtonState(); // 버튼 업데이트
+            updateButtonState();
+
+            // modernized 처리 (서버 우선)
+            const modernized = !!data.modernized;
+            localStorage.setItem("indicatorModernized", modernized ? "true" : "false");
+
+            // 전역 변수 업데이트
+            isModernized = modernized;
+
+            // 버튼 라벨 및 이미지 적용
+            const modernizeBtn = document.getElementById("modernize-indicator");
+            if (modernizeBtn) modernizeBtn.textContent = isModernized ? "이미지 원래대로" : "이미지 현대화";
+
+        // 실제 이미지 소스 적용 (함수화된 적용 사용)
+        applyModernizedImages(isModernized);
+
         } catch (error) {
             console.error("🚨 Indicator 상태 가져오기 오류:", error);
         }
     }
     
-    async function updateIndicatorStatusOnServer(visible) {
+    async function updateIndicatorStatusOnServer(payload = {}) {
         try {
             await fetch("/api/indicator-status", {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ visible })
+                body: JSON.stringify(payload)
             });
         } catch (error) {
             console.error("🚨 Indicator 서버 업데이트 오류:", error);
         }
     }
-    
+
+    function applyModernizedImages(isModernized) {
+        const images = document.querySelectorAll("#section3 .sorting-container img");
+        images.forEach((img, index) => {
+            // 기존 파일명 규칙에 맞추어 변경: preview-gunff_1.png / preview-gunff_1re.png
+            const base = `images/preview-gunff_${index + 1}`;
+            // 만약 이미지 객체에 원래 파일 경로가 있으면 그걸 사용하도록 더 안전하게 구현 가능
+            img.src = isModernized ? `${base}re.png` : `${base}.png`;
+        });
+    }
 
     function bindIndicatorEvents(){
         const showindicatorBtn = document.getElementById("show-indicator");
@@ -186,26 +211,21 @@
             showpopup("이미지 표시기가 나타났습니다."); // 팝업 추가
         });
 
-        // ✅ 현대화 버튼 이벤트
-        modernizeBtn.addEventListener("click", () => {
-            const images = document.querySelectorAll("#section3 .sorting-container img");
-            images.forEach((img, index) => {
-                if (!isModernized) {
-                    // 기존 → re 버전으로 교체
-                    img.src = `images/preview-gunff_${index+1}re.png`;
-                } else {
-                    // re 버전 → 기존으로 복구
-                    img.src = `images/preview-gunff_${index+1}.png`;
-                }
-            });
-
-            // ✅ 상태 반전 및 저장
+        // ✅ 현대화 버튼 이벤트 (서버 동기화 포함)
+        modernizeBtn.addEventListener("click", async () => {
+            // 로컬에서 먼저 토글
             isModernized = !isModernized;
+            // UI 즉시 반영
+            applyModernizedImages(isModernized);
+            modernizeBtn.textContent = isModernized ? "이미지 원래대로" : "이미지 현대화";
             localStorage.setItem("indicatorModernized", isModernized ? "true" : "false");
 
-            // 버튼 라벨도 업데이트
-            modernizeBtn.textContent = isModernized ? "이미지 원래대로" : "이미지 현대화"; // 버튼 텍스트 변경
+            // 서버에 modernized 상태 전송 (다른 기기/탭이 poll로 갱신되도록)
+            await updateIndicatorStatusOnServer({ modernized: isModernized });
+
+            // (선택) 성공/실패 확인을 원하면 fetch 응답을 체크해 실패 시 롤백 처리 가능
         });
+
 
 
     // 최초 상태 동기화
@@ -213,13 +233,6 @@
 
     // 주기적으로 서버 상태 확인 (ex: 5초마다)
     setInterval(fetchIndicatorStatus, 5000);
-
-    // ✅ 페이지 로드될 때 관리자 화면도 맞춰줌
-    if (isModernized) {
-        document.querySelectorAll("#section3 .sorting-container img")
-            .forEach((img, index) => img.src = `images/preview-gunff_${index+1}re.png`);
-        modernizeBtn.textContent = "이미지 원래대로";
-    }
 }    
 
     async function fetchImages(mode = "image", append = false) {
@@ -1037,9 +1050,8 @@ function stripHtmlTags(html) {
 
 // autoResize 함수 정의
 function autoResize(textarea) {
-    // 텍스트의 내용에 따라 높이 자동 조정
-    textarea.style.height = 'auto';  // 높이를 초기화
-    textarea.style.height = (textarea.scrollHeight,50) + 'px';  // 내용에 맞게 높이 조정
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.max(textarea.scrollHeight, 50) + 'px';
 }
 
 function showSubcategoryTable(subcategories, categoryName) {
