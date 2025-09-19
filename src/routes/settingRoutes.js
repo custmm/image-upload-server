@@ -23,23 +23,32 @@ router.get("/indicator-status", async (req, res) => {
 });
 
 // ✅ PATCH /api/settings/indicator-status
-// body 예시: { "visible": true, "modernized": false }
 router.patch("/indicator-status", async (req, res) => {
   try {
+    console.log("📥 PATCH 요청 도착:", req.body);
+
     const { visible, modernized } = req.body;
+
+    console.log("📥 PATCH 요청 도착:", req.body); // ✅ 요청 로그
 
     if (typeof visible !== "undefined") {
       await Setting.upsert({
         key: "indicator_visible",
         value: visible ? "1" : "0",
+        updated_at: new Date(), // ✅ 자동 갱신
       });
+        const check = await Setting.findOne({ where: { key: "indicator_visible" } });
+        console.log("✅ indicator_visible 현재 값:", check.value, "업데이트 시간:", check.updated_at);
     }
 
     if (typeof modernized !== "undefined") {
       await Setting.upsert({
         key: "indicator_modernized",
         value: modernized ? "1" : "0",
+        updated_at: new Date(), // ✅ 자동 갱신
       });
+        const check = await Setting.findOne({ where: { key: "indicator_modernized" } });
+        console.log("✅ indicator_modernized 현재 값:", check.value, "업데이트 시간:", check.updated_at);
     }
 
     res.json({ success: true });

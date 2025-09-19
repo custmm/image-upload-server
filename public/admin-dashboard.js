@@ -179,6 +179,8 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
+            const data = await res.json();
+            console.log("서버 응답:", data);  // ✅ 성공 여부 확인
         } catch (error) {
             console.error("🚨 Indicator 서버 업데이트 오류:", error);
         }
