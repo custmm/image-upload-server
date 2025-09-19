@@ -694,20 +694,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
     // ✅ 서버에서 Indicator 상태 가져오기 함수 추가
-    async function fetchIndicatorStatus() {
+    async function fetchIndicatorStatusAndApply() {
         try {
             const res = await fetch("/api/indicator-status");
             if (!res.ok) throw new Error("서버 응답 오류");
-
             const data = await res.json();
-            if (data.visible) {
-                localStorage.setItem("previewVisible", "visible");
-            } else {
-                localStorage.setItem("previewVisible", "hidden");
-            }
+            
+            // data: { visible: boolean, modernized: boolean }
+            localStorage.setItem('previewVisible', data.visible ? 'visible' : 'hidden');
+            localStorage.setItem('indicatorModernized', data.modernized ? 'true' : 'false');
+            
+            // 기존 updatePreviewVisibility() 호출
+            updatePreviewVisibility && updatePreviewVisibility();
 
-            // ✅ 그다음 표시/숨김 반영
-            updatePreviewVisibility(); 
+            // 이미지 변경 함수 호출
+            applyModernizedImages(data.modernized);
         } catch (error) {
             console.error("🚨 Indicator 상태 가져오기 오류:", error);
         }
@@ -739,6 +740,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             img.style.display = "flex"; // 보이기
         }
     }
+
+    function applyModernizedImages(isModernized) {
+        const imgs = document.querySelectorAll('#section3 .sorting-container img');
+        imgs.forEach((img, index) => {
+            // 예시 파일명 규칙: preview-gunff_1.png vs preview-gunff_1re.png
+            const baseName = `images/preview-gunff_${index+1}`;
+            img.src = isModernized ? `${baseName}re.png` : `${baseName}.png`;
+        });
+        }
 
     // ✅ `localStorage` 변경 감지 (admin-dashboard에서 변경되면 자동 반영)
     window.addEventListener("storage", updatePreviewVisibility);
@@ -843,8 +853,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     applySavedTheme();
     loadCategories();
-    await fetchIndicatorStatus();   // 초기 상태 반영
-    setInterval(fetchIndicatorStatus, 5000); // 상태만 5초마다 갱신
+    await fetchIndicatorStatusAndApply();   // 초기 상태 반영
+    setInterval(fetchIndicatorStatusAndApply, 5000); // 상태만 5초마다 갱신
     setInterval(updatePreviewImage, 30000);  // 이미지는 30초마다 갱신
     
     // 초기 상태 반영
