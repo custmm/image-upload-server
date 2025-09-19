@@ -11,6 +11,7 @@ import postRoutes from "./routes/postRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import indicatorRoutes from "./routes/indicatorRoutes.js";
 import koreanTagRoutes from "./routes/korean-initials.js";
+import settingRoutes from "./routes/settingRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -87,6 +88,7 @@ app.use("/api/posts", postRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api", indicatorRoutes); 
 app.use("/api/korean-initials", koreanTagRoutes);
+app.use("/api/settings", settingRoutes);
 
 // ✅ MySQL 연결
 sequelize.sync({ alter: true })

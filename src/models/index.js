@@ -4,6 +4,7 @@ import Subcategory from "./subcategory.js";
 import File from "./file.js";
 import Description from "./description.js";
 import Post from "./post.js";
+import Setting from "./setting.js";
 
 // ✅ 모델 초기화 (Sequelize 인스턴스를 전달)
 Category.init(sequelize);
@@ -11,6 +12,7 @@ Subcategory.init(sequelize);
 File.init(sequelize);
 Description.init(sequelize);
 Post.init(sequelize);
+Setting.init(sequelize);   // ✅ 추가
 
 // ✅ 관계 설정
 // 🔥 `Category` - `Subcategory`
@@ -36,4 +38,4 @@ File.hasOne(Description, { foreignKey: "file_id", as: "descriptionDetails", onDe
 Description.belongsTo(File, { foreignKey: "file_id", as: "descriptionDetails", onDelete: "CASCADE" });
 
 // ✅ 모든 모델 export
-export { sequelize, Category, Subcategory, File, Description, Post };
+export { sequelize, Category, Subcategory, File, Description, Post, Setting };
