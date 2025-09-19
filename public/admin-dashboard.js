@@ -139,7 +139,7 @@
 
     async function fetchIndicatorStatus() {
         try {
-            const res = await fetch("/api/indicator-status");
+            const res = await fetch("/api/settings/indicator-status");
             if (!res.ok) throw new Error("Indicator 상태 가져오기 실패");
     
             const data = await res.json();
@@ -174,7 +174,7 @@
     
     async function updateIndicatorStatusOnServer(payload = {}) {
         try {
-            await fetch("/api/indicator-status", {
+            await fetch("/api/settings/indicator-status", {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
