@@ -9,7 +9,7 @@ const categoryTranslations = {
     "bizz": "보석비즈",
     "solidbodypuzzle": "입체퍼즐",
     "deforme": "디폼블럭",
-    "legoCompatibleblock": "다양한블럭"
+    "legoCompatibleblock": "브릭피규어"
 };
 
 // ✅ 모든 카테고리 조회 API
