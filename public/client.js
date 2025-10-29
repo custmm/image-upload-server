@@ -394,7 +394,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         "bizz": "보석비즈",
         "solidbodypuzzle": "입체퍼즐",
         "deforme": "디폼블럭",
-        "legoCompatibleblock": "레고호환블럭"
+        "legoCompatibleblock": "다양한블럭"
     };
     /** ✅ 3️⃣ 카테고리 & 서브카테고리 동적 불러오기 */
     async function loadCategories() {
