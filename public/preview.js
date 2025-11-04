@@ -729,7 +729,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        const img = previewContainer.querySelector("img");
+        // let으로 변경 (재할당 가능)
+        let img = previewContainer.querySelector("img");
 
         // previewContainer 내의 img 요소 찾기
         if (!img) {
@@ -739,6 +740,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (!img) return; // 그래도 없으면 그냥 리턴
         }
 
+        // 표시 상태 적용
         if (previewState === "hidden") {
             img.style.display = "none"; // 숨기기
          } else {
