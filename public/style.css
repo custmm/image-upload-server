@@ -2461,6 +2461,25 @@
       z-index: 1000;
       text-align: left;
     }
+    .info-popup .table-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .info-popup .table-wrapper .inner {
+        max-width: 1150px; /* 필요시 조정 */
+        width: 100%;
+        overflow: auto;    /* 가로 스크롤 방지(작은 화면 대비) */
+    }
+
+    .info-popup .table-wrapper table {
+        width: 100%;       /* inner의 폭 안에서 꽉 차게 */
+        margin: 0 auto;
+        border-collapse: collapse;
+        text-align: center;
+    }
 
     /* ✅ 닫기 버튼 스타일 */
     .infor-popup-close {
