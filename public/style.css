@@ -2477,8 +2477,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 60%;
-      background: #fff;
+      background-color: rgba(255, 255, 255, 0.6); /* 더 어두운 반투명 배경 */;
       color: black;
       border: 1px solid #ccc;
       padding: 25px 30px;
