@@ -74,7 +74,14 @@ document.getElementById("appIntro").addEventListener("click", function(e) {
   e.preventDefault();
 
   const tableHTML = `
-  <div style="display:flex; justify-content:center; width:100%; box-sizing:border-box; padding:10px;">
+  <div style="
+    display:flex; 
+    justify-content:center; 
+    align-items: center;     /* ✅ 세로 가운데 정렬 */
+    width:100%; 
+    box-sizing:border-box; 
+    padding:10px;
+  ">
     <div style="max-width:1150px; width:100%; overflow:auto;">
       <table border="1" style="border-collapse: collapse; width: 90%; text-align: center; margin: 0 auto;">
         <thead>
