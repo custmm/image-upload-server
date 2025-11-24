@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         "bizz": "보석비즈",
         "solidbodypuzzle": "입체퍼즐",
         "deforme": "디폼블럭",
-        "legoCompatibleblock": "브릭피규어"
+        "brickfigure": "브릭피규어"
     };
     
     // ✅ 로딩 화면 표시 함수
