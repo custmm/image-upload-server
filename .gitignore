@@ -22,6 +22,7 @@ pids/
 *.log
 logs/
 *.pid
+*.sql
 
 # IDE/OS 불필요 파일
 .DS_Store
