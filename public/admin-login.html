@@ -12,11 +12,13 @@
     <div class="login-container">
         <h1>관리자 로그인</h1>
         <form id="loginForm" style="text-align: center;">
-            <label for="password">관리자 암호</label>
-                <div class="login-row">
-                    <input type="password" id="password" placeholder="">
-                    <button id="loginButton" type="submit">로그인</button>
+            <div class="login-row">
+                <div class="floating-input">
+                    <input type="password" id="password" required>
+                    <label for="password">관리자 암호</label>
                 </div>
+                <button id="loginButton" type="submit">로그인</button>
+            </div>
             <p id="error-message"></p>
         </form>
     </div>

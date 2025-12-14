@@ -490,6 +490,41 @@
         flex-shrink: 0;
         border-radius: 0 5px 5px 0;
     }
+    .floating-input {
+        position: relative;
+        width: 100%;
+        }
+
+        .floating-input input {
+        width: 100%;
+        padding: 14px 12px;
+        font-size: 16px;
+        border: 2px solid #bfcfe0;
+        border-radius: 4px;
+        outline: none;
+        background: transparent;
+        }
+
+        .floating-input label {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #8a9bb0;
+        font-size: 14px;
+        pointer-events: none;
+        background: #fff;
+        padding: 0 6px;
+        transition: 0.2s ease;
+        }
+
+        /* 포커스되거나 값이 있으면 위로 */
+        .floating-input input:focus + label,
+        .floating-input input:valid + label {
+        top: -6px;
+        font-size: 12px;
+        color: #4a78c2;
+        }
     @keyframes pulse {
         0% {
             transform: scale(1);
