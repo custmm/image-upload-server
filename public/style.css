@@ -474,10 +474,9 @@
         display: flex;
         gap: 25px;
         margin-left: 25px;
-        margin-right: 25px;
+        margin-right: 50px;
         margin-top: 10px;
         flex-wrap: nowrap;
-         overflow: hidden; /* ✅ 넘침 방지 */
     }
 
     .login-row input[type="password"] {
