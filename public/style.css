@@ -521,7 +521,7 @@
     /* 포커스되거나 값이 있으면 위로 */
     .floating-input input:focus + label,
     .floating-input input:valid + label {
-        top: -6px;
+        top: -8px;
         font-size: 12px;
         color: #4a78c2;
         }
