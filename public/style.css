@@ -465,9 +465,10 @@
     #loginButton {
         background-color: #000000;
         color: white;
-        padding: 10px 15px;
+        padding: 7px 15px;
         transition: transform 0.3s ease-in-out;
         border-radius: 5px;
+        margin-left:10px;
     }
     .login-row {
         display: flex;
@@ -521,8 +522,9 @@
     /* 포커스되거나 값이 있으면 위로 */
     .floating-input input:focus + label,
     .floating-input input:valid + label {
-        top: -3px;
+        top: -1px;
         font-size: 12px;
+        font-weight: bold;
         color: #4a78c2;
         }
     @keyframes pulse {
