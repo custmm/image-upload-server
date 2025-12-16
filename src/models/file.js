@@ -19,7 +19,7 @@ export default class File extends Model {
         },
         imagekit_file_id: {
           type: DataTypes.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         category_id: { 
           type: DataTypes.INTEGER,

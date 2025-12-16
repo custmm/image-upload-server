@@ -4,7 +4,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn("files", "imagekit_file_id", {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     });
   },
 
