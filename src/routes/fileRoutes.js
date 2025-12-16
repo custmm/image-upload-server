@@ -294,19 +294,23 @@ router.patch("/update-post/:id", async (req, res) => {
 });
 router.delete("/:id", async (req, res) => {
     const { id } = req.params;
+
     try {
         const fileRecord = await File.findByPk(id);
         if (!fileRecord) {
           return res.status(404).json({ success: false, error: "파일을 찾을 수 없습니다." });
         }
 
-    // 🔥 ImageKit 파일 삭제
-    try {
-      await imagekit.deleteFile(fileRecord.imagekit_file_id);
-      console.log("✅ ImageKit 삭제:", fileRecord.imagekit_file_id);
-    } catch (err) {
-      console.error("❌ ImageKit 삭제 실패:", err);
-      // DB 삭제는 계속 진행
+    // ✅ imagekit_file_id가 있을 때만 삭제
+    if (fileRecord.imagekit_file_id) {
+      try {
+        await imagekit.deleteFile(fileRecord.imagekit_file_id);
+        console.log("✅ ImageKit 삭제:", fileRecord.imagekit_file_id);
+      } catch (err) {
+        console.error("❌ ImageKit 삭제 실패:", err);
+      }
+    } else {
+      console.warn("⚠ imagekit_file_id 없음 → ImageKit 삭제 스킵");
     }
 
         // 4) DB 레코드 삭제
