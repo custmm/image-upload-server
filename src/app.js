@@ -90,9 +90,5 @@ app.use("/api", indicatorRoutes);
 app.use("/api/korean-initials", koreanTagRoutes);
 app.use("/api/settings", settingRoutes);
 
-// ✅ MySQL 연결
-sequelize.sync({ alter: true })
-    .then(() => console.log("✅ MySQL 연결 성공 및 모델 동기화 완료!"))
-    .catch((error) => console.error("❌ MySQL 연결 실패:", error));
 
 export default app; // 🔹 Express 인스턴스 내보내기
