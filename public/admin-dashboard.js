@@ -61,28 +61,32 @@
     function showeditpopup(message, callback) {
         const popup = document.createElement("div");
         popup.className = "popup-edit-container";
-    
+
         popup.innerHTML = `
             <p style="margin-bottom: 20px;">${message}</p>
-            <button id="popup-ok">확인</button>
-            ${callback ? `<button id="popup-cancel" style="margin-left: 10px;">취소</button>` : ""}
+            <div class="popup-buttons">
+                <button class="popup-ok">확인</button>
+                ${callback ? `<button class="popup-cancel">취소</button>` : ""}
+            </div>
         `;
-    
+
         document.body.appendChild(popup);
-    
-        document.getElementById("popup-ok").onclick = () => {
+
+        // ✅ popup 내부에서만 버튼 찾기 (중요)
+        const okBtn = popup.querySelector(".popup-ok");
+        const cancelBtn = popup.querySelector(".popup-cancel");
+
+        okBtn.onclick = async () => {
             popup.remove();
-            if (callback) callback();
+            if (callback) await callback();
         };
-    
-        const cancelButton = document.getElementById("popup-cancel");
-        if (cancelButton) {
-            cancelButton.onclick = () => {
+
+        if (cancelBtn) {
+            cancelBtn.onclick = () => {
                 popup.remove();
             };
         }
     }
-    
 
     document.addEventListener("DOMContentLoaded", () => {
         console.log("📌 모든 카테고리에서 이미지 로드 시작");
