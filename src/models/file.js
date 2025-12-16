@@ -5,17 +5,21 @@ export default class File extends Model {
     return super.init(
       {
         id: { 
-            type: DataTypes.INTEGER, 
-            autoIncrement: true, 
-            primaryKey: true 
+          type: DataTypes.INTEGER, 
+          autoIncrement: true, 
+          primaryKey: true 
         },
         file_name: { 
-            type: DataTypes.STRING, 
-            allowNull: false 
+          type: DataTypes.STRING, 
+          allowNull: false 
         },
         file_path: { 
-            type: DataTypes.STRING, 
-            allowNull: false 
+          type: DataTypes.STRING, 
+          allowNull: false 
+        },
+        imagekit_file_id: {
+          type: DataTypes.STRING,
+          allowNull: false,
         },
         category_id: { 
           type: DataTypes.INTEGER,

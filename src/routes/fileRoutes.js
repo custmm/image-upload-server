@@ -136,6 +136,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         const fileData = await File.create({
             file_name: fileName,
             file_path: uploadResult.url, // ✅ ImageKit URL 저장
+            imagekit_file_id: uploadResult.fileId, // ✅ 추가
             category_id: category.id,
             subcategory_id,
             category_name,
@@ -298,32 +299,21 @@ router.delete("/:id", async (req, res) => {
         if (!fileRecord) {
           return res.status(404).json({ success: false, error: "파일을 찾을 수 없습니다." });
         }
-    
-  
-        // 2) 실제 파일 경로에서 파일명만 분리
-        const relativePath = fileRecord.file_path.replace(/^\/+/, ""); 
-        const absolutePath = join(__dirname, "..", "..", relativePath);
 
-        console.log("삭제 시도 파일 경로:", absolutePath);
-  
-        // ▶ 파일이 실제로 존재하면 삭제, 아니면 무시
-        if (fsSync.existsSync(absolutePath)) {
-            try{
-                await fs.unlink(absolutePath);
-                console.log("파일 삭제 성공:", absolutePath);
-            } catch (err) {
-                console.warn("파일 삭제 중 오류:", err);
-              }
-        } else {
-            console.warn("삭제 대상 파일이 없습니다:", absolutePath);
-        }
-  
-  
+    // 🔥 ImageKit 파일 삭제
+    try {
+      await imagekit.deleteFile(fileRecord.imagekit_file_id);
+      console.log("✅ ImageKit 삭제:", fileRecord.imagekit_file_id);
+    } catch (err) {
+      console.error("❌ ImageKit 삭제 실패:", err);
+      // DB 삭제는 계속 진행
+    }
+
         // 4) DB 레코드 삭제
         await fileRecord.destroy();
-    
-        // 5) 성공 응답
+
         res.json({ success: true, message: "파일이 성공적으로 삭제되었습니다." });
+
         } catch (error) {
         console.error("파일 삭제 오류:", error);
         res.status(500).json({ success: false, error: "서버 오류로 삭제에 실패했습니다." });
