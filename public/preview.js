@@ -11,6 +11,17 @@
         await loadPage(selectedCategory, selectedSubcategory);
         }
     };
+    // ✅ 사이드바 토글 함수 (HTML onclick과 연결됨)
+    window.toggleSidebar = function () {
+        const sidebar = document.getElementById("sidebar");
+
+        if (!sidebar) {
+            console.error("❌ #sidebar 요소를 찾을 수 없음");
+            return;
+        }
+
+        sidebar.classList.toggle("open");
+    };
 
     function showPopupMessage(msg) {
         const popup = document.createElement("div");
@@ -107,22 +118,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.addEventListener("scroll", updateSidebarTogglePosition);
 
     // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
-    document.querySelectorAll(".sidebar a").forEach(menuItem => {
-        menuItem.addEventListener("click", () => {
-
-            sidebar.classList.remove("open"); // ✅ 사이드바 닫기
-            adminBar.classList.remove("hidden"); // ✅ adminbar-container 다시 보이기
-
-            // ✅ 모든 section-container 원래 위치로 복귀
-            sectionContainers.forEach(section => {
-                section.classList.toggle("shifted");
-
-                // 내부 요소 강제 폭 제한 (선택적)
-                const chart = section.querySelector(".post-chart-container");
-                if (chart) {
-                    chart.style.maxWidth = "100%";
-                }
-            });
+    document.querySelectorAll("#sidebar a").forEach(link => {
+        link.addEventListener("click", () => {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.remove("open");
         });
     });
     
