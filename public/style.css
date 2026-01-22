@@ -2517,13 +2517,13 @@
     .sidebar {
         position: fixed;
         top: 0;
-        left: -250px; /* 🔥 기본적으로 숨김 */
+        left: -100%; /* 🔥 기본적으로 숨김 */
         height: 100vh;
         background: rgba(0, 0, 0, 0.8); /* 🔥 어두운 투명 배경 */
         color: white;
         padding-right: 200px;
         padding-left: 30px;
-        padding-top:40px;
+        padding-top:80px;
         transition: left 0.5s ease-in-out; /* 🔥 부드러운 애니메이션 */
     }
 
