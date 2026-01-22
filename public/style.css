@@ -2481,6 +2481,80 @@
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
     }
+        /* 🔥 왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
+    .left-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    /* 🔥 사이드바 열기 버튼 */
+    .sidebar-toggle {
+        position: fixed; /* ✅ 화면에 고정 */        
+        background-color: #444;
+        color: white;
+        padding: 15px 19px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.5s, transform 0.5s ease-in-out;
+        position: relative; /* ✅ 다른 요소에 가려지지 않도록 변경 */
+        z-index: 1000; /* ✅ 다른 요소 위에 배치 */
+    }
+    .sidebar-toggle:hover {
+        background-color: #666;
+    }
+    /* 🔥 사이드바 스타일 */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px; /* 🔥 기본적으로 숨김 */
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8); /* 🔥 어두운 투명 배경 */
+        color: white;
+        padding-right: 70px;
+        padding-left: 30px;
+        padding-top:40px;
+        transition: left 0.5s ease-in-out; /* 🔥 부드러운 애니메이션 */
+    }
+
+    /* 🔥 사이드바 열렸을 때 */
+    .sidebar.open {
+        left: 0;
+    }
+
+    /* 🔥 닫기 버튼 */
+    .close-sidebar {
+        position: absolute; /* ✅ 버튼을 절대 위치로 변경 */
+        top: 15px; /* 🔥 상단 여백 조정 */
+        right: 15px; /* 🔥 오른쪽 정렬 */
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    /* 🔥 사이드바 메뉴 */
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .sidebar ul li {
+        margin: 15px 0;
+    }
+
+    .sidebar ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .sidebar ul li a:hover {
+        text-decoration: underline;
+    }    
         /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
     .infor-popup {
       position: fixed;
