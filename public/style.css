@@ -2500,7 +2500,7 @@
     /* 🔥 사이드바 열기 버튼 */
     .sidebar-toggle {
         position: fixed; /* ✅ 화면에 고정 */        
-        background-color: #444;
+        background-color: #00000000;
         color: white;
         top: 50px;
         padding: 15px 19px;
@@ -2535,7 +2535,7 @@
     /* 🔥 닫기 버튼 */
     .close-sidebar {
         position: absolute; /* ✅ 버튼을 절대 위치로 변경 */
-        top: 15px; /* 🔥 상단 여백 조정 */
+        top: 50px; /* 🔥 상단 여백 조정 */
         right: 15px; /* 🔥 오른쪽 정렬 */
         background: none;
         border: none;
