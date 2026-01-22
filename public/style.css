@@ -2502,7 +2502,7 @@
         position: fixed; /* ✅ 화면에 고정 */        
         background-color: #00000000;
         color: white;
-        top: 45x;
+        top: 45px;
         padding: 15px 19px;
         border: none;
         border-radius: 50%;
@@ -2511,7 +2511,7 @@
         z-index: 1000; /* ✅ 다른 요소 위에 배치 */
     }
     .sidebar-toggle:hover {
-        background-color: #666;
+        border:none;
     }
     /* 🔥 사이드바 스타일 */
     .sidebar {
