@@ -1,16 +1,16 @@
 // 페이지 이동 함수 정의 (전역)
-window.prevPage = async function() {
-    if (page > 0) {
-      page--;                           // 한 페이지 뒤로
-      await loadPage(selectedCategory, selectedSubcategory);
-    }
-  };
+    window.prevPage = async function() {
+        if (page > 0) {
+        page--;                           // 한 페이지 뒤로
+        await loadPage(selectedCategory, selectedSubcategory);
+        }
+    };
   
-  window.nextPage = async function() {
-    if (!noMoreImages) {
-      await loadPage(selectedCategory, selectedSubcategory);
-    }
-  };
+    window.nextPage = async function() {
+        if (!noMoreImages) {
+        await loadPage(selectedCategory, selectedSubcategory);
+        }
+    };
 
     function showPopupMessage(msg) {
         const popup = document.createElement("div");
@@ -26,44 +26,45 @@ window.prevPage = async function() {
         }, 2000);
     }
 
-function appinforPopupMessage(msg) {
-    const msgBox = document.createElement("div");
-    msgBox.classList.add("app-infor-popup");
+    function appinforPopupMessage(msg) {
+        const msgBox = document.createElement("div");
+        msgBox.classList.add("app-infor-popup");
 
-    const closeBtn = document.createElement("span");
-    closeBtn.innerHTML = "&times;";
-    closeBtn.classList.add("app-infor-popup-close");
-    closeBtn.addEventListener("click", () => msgBox.remove());
+        const closeBtn = document.createElement("span");
+        closeBtn.innerHTML = "&times;";
+        closeBtn.classList.add("app-infor-popup-close");
+        closeBtn.addEventListener("click", () => msgBox.remove());
 
-    const text = document.createElement("div");
-    text.innerHTML = msg;
+        const text = document.createElement("div");
+        text.innerHTML = msg;
 
-    msgBox.appendChild(closeBtn);
-    msgBox.appendChild(text);
-    document.body.appendChild(msgBox);
-}
+        msgBox.appendChild(closeBtn);
+        msgBox.appendChild(text);
+        document.body.appendChild(msgBox);
+    }
 
-function inforPopupMessage(msg) {
-    const msgBox = document.createElement("div");
-    msgBox.classList.add("infor-popup");
+    function inforPopupMessage(msg) {
+        const msgBox = document.createElement("div");
+        msgBox.classList.add("infor-popup");
 
-    const closeBtn = document.createElement("span");
-    closeBtn.innerHTML = "&times;";
-    closeBtn.classList.add("infor-popup-close");
-    closeBtn.addEventListener("click", () => msgBox.remove());
+        const closeBtn = document.createElement("span");
+        closeBtn.innerHTML = "&times;";
+        closeBtn.classList.add("infor-popup-close");
+        closeBtn.addEventListener("click", () => msgBox.remove());
 
-    const text = document.createElement("div");
-    text.innerHTML = msg;
+        const text = document.createElement("div");
+        text.innerHTML = msg;
 
-    msgBox.appendChild(closeBtn);
-    msgBox.appendChild(text);
-    document.body.appendChild(msgBox);
-}
+        msgBox.appendChild(closeBtn);
+        msgBox.appendChild(text);
+        document.body.appendChild(msgBox);
+    }
     
 
 
 document.addEventListener("DOMContentLoaded", async () => {
     const isExplanMode = window.location.hash.includes("explan");
+    const sidebarToggle = document.querySelector(".sidebar-toggle");
     const welcomeEl = document.getElementById("welcomeMessage");
     const categoryTabContainer = document.querySelector(".tab-design"); // 메인 카테고리 탭
     const subTabContainer = document.getElementById("subTabContainer"); // 서브 카테고리 탭
@@ -88,7 +89,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     let isCut = false; // ✅ 이미지 상태 저장
 
 
-
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
     const categoryMappings = {
         "puzzle": "퍼즐",
@@ -97,6 +97,34 @@ document.addEventListener("DOMContentLoaded", async () => {
         "deforme": "디폼블럭",
         "brickfigure": "브릭피규어"
     };
+
+    function updateSidebarTogglePosition() {
+        requestAnimationFrame(() => {
+            const scrollY = window.scrollY;
+            sidebarToggle.style.transform = `translateY(${scrollY}px)`;
+        });
+    }
+    window.addEventListener("scroll", updateSidebarTogglePosition);
+
+    // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
+    document.querySelectorAll(".sidebar a").forEach(menuItem => {
+        menuItem.addEventListener("click", () => {
+
+            sidebar.classList.remove("open"); // ✅ 사이드바 닫기
+            adminBar.classList.remove("hidden"); // ✅ adminbar-container 다시 보이기
+
+            // ✅ 모든 section-container 원래 위치로 복귀
+            sectionContainers.forEach(section => {
+                section.classList.toggle("shifted");
+
+                // 내부 요소 강제 폭 제한 (선택적)
+                const chart = section.querySelector(".post-chart-container");
+                if (chart) {
+                    chart.style.maxWidth = "100%";
+                }
+            });
+        });
+    });
     
     // ✅ 로딩 화면 표시 함수
     function showLoading() {
@@ -109,6 +137,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("loadingIndicator").style.display = "none";
         },500);
     }
+
     // ✅ URL 파라미터로 카테고리 자동 선택
     const urlParams = new URLSearchParams(window.location.search);
     let categoryParam = urlParams.get("category");
@@ -195,72 +224,73 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
         }
     }
-  // 1) 카테고리 로드
-  async function loadCategories() {
-    if (!isExplanMode) {
-        setTimeout(() => initializeCategorySelection(), 300);
-      }
-      try {
-        const response = await fetch("/api/categories");
-        if (!response.ok) throw new Error("카테고리를 가져오는 데 실패함");
 
-        categories = await response.json();
-        categories = categories.filter(category => category.name.toLowerCase() !== "uncategorized");
-
-        clearCategoryTabs(); // ✅ 기존 카테고리 탭 삭제
-
-        categories.forEach(category => {
-            const btn = document.createElement("button");
-            btn.className = "tab-btn";
-            btn.textContent = category.name;
-            btn.onclick = () => loadCategory(category.id, btn);
-            categoryTabContainer.appendChild(btn);
-        });
-
-        setTimeout(() => initializeCategorySelection(),300);
-
-        return categories;
-      } catch (error) {
-          console.error("🚨 카테고리를 불러오는 중 오류 발생:", error);
-      }
-  }
-  await loadCategories(); // ✅ 카테고리 불러오기 실행
-
-  // 2) 카테고리 선택 시
-  async function loadCategory(categoryId, tabButton){
-    showLoading(); // 🔥 로딩 화면 표시
-
-    // ✅ URL 업데이트 (브라우저 히스토리 변경)
-    const newCategoryName = tabButton.textContent.trim();
-    if (!isExplanMode) {
-        const newURL = `preview?category=${encodeURIComponent(newCategoryName)}`;
-        if (window.location.search !== `?category=${encodeURIComponent(newCategoryName)}`) {
-            history.pushState({ category: newCategoryName }, "", newURL);
-          }
+    // 1) 카테고리 로드
+    async function loadCategories() {
+        if (!isExplanMode) {
+            setTimeout(() => initializeCategorySelection(), 300);
         }
+        try {
+            const response = await fetch("/api/categories");
+            if (!response.ok) throw new Error("카테고리를 가져오는 데 실패함");
 
-    selectedCategory = categoryId;
-    selectedSubcategory = null;
-    subTabContainer.innerHTML ="";
+            categories = await response.json();
+            categories = categories.filter(category => category.name.toLowerCase() !== "uncategorized");
 
-    document.querySelectorAll(".tab-btn.active").forEach(btn => btn.classList.remove("active"));
-    tabButton.classList.add("active");
+            clearCategoryTabs(); // ✅ 기존 카테고리 탭 삭제
 
-    // ✅ 현재 선택된 카테고리명 업데이트 (요소가 존재할 경우에만)
-    if (currentCategory) {
-        currentCategory.textContent = newCategoryName;
+            categories.forEach(category => {
+                const btn = document.createElement("button");
+                btn.className = "tab-btn";
+                btn.textContent = category.name;
+                btn.onclick = () => loadCategory(category.id, btn);
+                categoryTabContainer.appendChild(btn);
+            });
+
+            setTimeout(() => initializeCategorySelection(),300);
+
+            return categories;
+        } catch (error) {
+            console.error("🚨 카테고리를 불러오는 중 오류 발생:", error);
+        }
     }
-    
-    // 1) 서브카테고리 탭 채우기
-    await loadSubcategories(categoryId);
+    await loadCategories(); // ✅ 카테고리 불러오기 실행
 
-    // 2) 페이지 초기화 후 첫 페이지 로드
-    page = 0;
-    noMoreImages = false;
-    clearGallery();
-    await loadPage(categoryId, selectedSubcategory);
-    hideLoading(); // 🔥 로딩 완료 후 숨김
-  };    
+    // 2) 카테고리 선택 시
+    async function loadCategory(categoryId, tabButton){
+        showLoading(); // 🔥 로딩 화면 표시
+
+        // ✅ URL 업데이트 (브라우저 히스토리 변경)
+        const newCategoryName = tabButton.textContent.trim();
+        if (!isExplanMode) {
+            const newURL = `preview?category=${encodeURIComponent(newCategoryName)}`;
+            if (window.location.search !== `?category=${encodeURIComponent(newCategoryName)}`) {
+                history.pushState({ category: newCategoryName }, "", newURL);
+            }
+            }
+
+        selectedCategory = categoryId;
+        selectedSubcategory = null;
+        subTabContainer.innerHTML ="";
+
+        document.querySelectorAll(".tab-btn.active").forEach(btn => btn.classList.remove("active"));
+        tabButton.classList.add("active");
+
+        // ✅ 현재 선택된 카테고리명 업데이트 (요소가 존재할 경우에만)
+        if (currentCategory) {
+            currentCategory.textContent = newCategoryName;
+        }
+        
+        // 1) 서브카테고리 탭 채우기
+        await loadSubcategories(categoryId);
+
+        // 2) 페이지 초기화 후 첫 페이지 로드
+        page = 0;
+        noMoreImages = false;
+        clearGallery();
+        await loadPage(categoryId, selectedSubcategory);
+        hideLoading(); // 🔥 로딩 완료 후 숨김
+    };    
 
     // 3) 서브카테고리 로드
     async function loadSubcategories(categoryId) {
@@ -308,104 +338,104 @@ document.addEventListener("DOMContentLoaded", async () => {
         await loadPage(categoryId, selectedSubcategory);
     }
 
-      // 5) 페이지별 이미지 로드
-  async function loadPage(categoryId, subcategoryId = null) {
-    showLoading();
-    const offset = page * limit;
-    let url = `/api/files?offset=${offset}&limit=${limit}&category_id=${categoryId}`;
-    if (subcategoryId) url += `&subcategory_id=${subcategoryId}`;
+    // 5) 페이지별 이미지 로드
+    async function loadPage(categoryId, subcategoryId = null) {
+        showLoading();
+        const offset = page * limit;
+        let url = `/api/files?offset=${offset}&limit=${limit}&category_id=${categoryId}`;
+        if (subcategoryId) url += `&subcategory_id=${subcategoryId}`;
 
-    try {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("이미지 로드 실패");
-      const { total, files: images } = await res.json();
+        try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("이미지 로드 실패");
+        const { total, files: images } = await res.json();
 
-      // 총 페이지 계산
-      const totalPages = Math.ceil(total / limit);
-      noMoreImages = images.length < limit;
+        // 총 페이지 계산
+        const totalPages = Math.ceil(total / limit);
+        noMoreImages = images.length < limit;
 
-      clearGallery();
-      images.forEach(image => {
-        // 기존 loadImages 반복문 내용
-        const imgContainer = document.createElement("div");
-        imgContainer.classList.add("image-container");
+        clearGallery();
+        images.forEach(image => {
+            // 기존 loadImages 반복문 내용
+            const imgContainer = document.createElement("div");
+            imgContainer.classList.add("image-container");
 
-        const placeholder = document.createElement("div");
-        placeholder.classList.add("image-placeholder");
+            const placeholder = document.createElement("div");
+            placeholder.classList.add("image-placeholder");
 
-        const img = document.createElement("img");
-        img.dataset.src = image.file_path;
-        img.alt = "Uploaded Image";
-        img.classList.add("gallery-image");
-        observer.observe(img);
+            const img = document.createElement("img");
+            img.dataset.src = image.file_path;
+            img.alt = "Uploaded Image";
+            img.classList.add("gallery-image");
+            observer.observe(img);
 
-        const cat  = encodeURIComponent(image.category_name  || "uncategorized");
-        const sub  = encodeURIComponent(image.subcategory_name || "general");
-        const file = encodeURIComponent(image.file_name);
+            const cat  = encodeURIComponent(image.category_name  || "uncategorized");
+            const sub  = encodeURIComponent(image.subcategory_name || "general");
+            const file = encodeURIComponent(image.file_name);
 
-        // ✅ post.html 이동 차단
-        img.onclick = () => {
-            if (isExplanMode) return; // 🔒 체험모드에서는 클릭 차단
-            window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
-        };
+            // ✅ post.html 이동 차단
+            img.onclick = () => {
+                if (isExplanMode) return; // 🔒 체험모드에서는 클릭 차단
+                window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+            };
 
-        imgContainer.appendChild(placeholder);
-        imgContainer.appendChild(img);
-        imageGallery.appendChild(imgContainer);
-      });
+            imgContainer.appendChild(placeholder);
+            imgContainer.appendChild(img);
+            imageGallery.appendChild(imgContainer);
+        });
 
-      renderPagination(totalPages);
-      // page 증가는 버튼 클릭에서만 하므로 여기선 제거
-    } catch (err) {
-      console.error(err);
-    } finally {
-      hideLoading();
+        renderPagination(totalPages);
+        // page 증가는 버튼 클릭에서만 하므로 여기선 제거
+        } catch (err) {
+        console.error(err);
+        } finally {
+        hideLoading();
+        }
     }
-  }
 
-  // 6) Prev/번호/Next 렌더링
-  function renderPagination(totalPages) {
-    const pag = document.getElementById("pagination-container");
-    if (!pag) return;  // pagination 요소가 없으면 아무것도 안 함
-    pag.innerHTML = "";
+    // 6) Prev/번호/Next 렌더링
+    function renderPagination(totalPages) {
+        const pag = document.getElementById("pagination-container");
+        if (!pag) return;  // pagination 요소가 없으면 아무것도 안 함
+        pag.innerHTML = "";
 
-    // ◀ Prev 버튼
-    const prev = document.createElement("button");
-    prev.classList.add("pagination-button");
-    prev.textContent = "◀";                // 버튼 레이블 추가
-    prev.style.padding = "0px";
+        // ◀ Prev 버튼
+        const prev = document.createElement("button");
+        prev.classList.add("pagination-button");
+        prev.textContent = "◀";                // 버튼 레이블 추가
+        prev.style.padding = "0px";
 
-    prev.onclick  = () => {
-        if (page <= 0) {
-            showPopupMessage("첫 페이지입니다.");
-            return;
-        }
-        page--;
-        loadPage(selectedCategory, selectedSubcategory);
-    };
-    pag.appendChild(prev);
+        prev.onclick  = () => {
+            if (page <= 0) {
+                showPopupMessage("첫 페이지입니다.");
+                return;
+            }
+            page--;
+            loadPage(selectedCategory, selectedSubcategory);
+        };
+        pag.appendChild(prev);
 
-    const info = document.createElement("span");
-    info.textContent = ` ${page+1} / ${totalPages} `;
-    info.style.margin = "0 10px";
-    pag.appendChild(info);
+        const info = document.createElement("span");
+        info.textContent = ` ${page+1} / ${totalPages} `;
+        info.style.margin = "0 10px";
+        pag.appendChild(info);
 
-    // ▶ Next 버튼
-    const next = document.createElement("button");
-    next.classList.add("pagination-button");
-    next.textContent = "▶";                // 버튼 레이블 추가
-    next.style.padding = "0px";
+        // ▶ Next 버튼
+        const next = document.createElement("button");
+        next.classList.add("pagination-button");
+        next.textContent = "▶";                // 버튼 레이블 추가
+        next.style.padding = "0px";
 
-    next.onclick  = () => {
-        if ((page + 1) >= totalPages) {
-            showPopupMessage("마지막 페이지입니다.");
-            return;
-        }
-        page++;
-        loadPage(selectedCategory, selectedSubcategory);
-    };
-    pag.appendChild(next);
-  }
+        next.onclick  = () => {
+            if ((page + 1) >= totalPages) {
+                showPopupMessage("마지막 페이지입니다.");
+                return;
+            }
+            page++;
+            loadPage(selectedCategory, selectedSubcategory);
+        };
+        pag.appendChild(next);
+    }
 
     /** ✅ 이미지 불러오기 (4x5 배열 적용) */
     async function loadImages(categoryId, subcategoryId = null) {
