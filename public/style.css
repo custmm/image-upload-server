@@ -2653,6 +2653,7 @@
       text-align: center;
       font-weight: bold;
       font-size: 30px;
+      position: relative;
     }
     .message-container{
       margin-top: 20px;
