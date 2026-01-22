@@ -240,12 +240,12 @@
 
 
 
-    // 최초 상태 동기화
-    fetchIndicatorStatus();
+        // 최초 상태 동기화
+        fetchIndicatorStatus();
 
-    // 주기적으로 서버 상태 확인 (ex: 5초마다)
-    setInterval(fetchIndicatorStatus, 5000);
-}    
+        // 주기적으로 서버 상태 확인 (ex: 5초마다)
+        setInterval(fetchIndicatorStatus, 5000);
+    }    
 
     async function fetchImages(mode = "image", append = false) {
         if (isLoading || noMoreImages) return;
@@ -430,7 +430,7 @@
                 console.error("🚨 게시물 수정 오류:", error);
                 showeditpopup("수정 중 오류가 발생했습니다.");
             }
-        }
+    }
 
     // 수정 버튼 클릭 시 팝업창을 열어주는 함수
     function openEditPopup(image) {
@@ -553,6 +553,7 @@
 
         modal.style.display = "flex";
     }
+
     async function deletePost(id) {
         // 1) 사용자 확인
         showeditpopup('게시물을 삭제하시겠습니까?',async() => {
@@ -580,6 +581,7 @@
         }
       });
     }
+
     // ── [사이드바 및 UI 제어] ───────────────────────────────
     function bindSidebarEvents() {
         const sidebar = document.getElementById("sidebar");
@@ -598,7 +600,6 @@
         // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
         document.querySelectorAll(".sidebar a").forEach(menuItem => {
             menuItem.addEventListener("click", () => {
-
                 sidebar.classList.remove("open"); // ✅ 사이드바 닫기
                 adminBar.classList.remove("hidden"); // ✅ adminbar-container 다시 보이기
 
@@ -638,8 +639,6 @@
         observer.observe(imgElement); // Intersection Observer 적용
         return imgElement;
     }
-
-
 
     function toggleSidebar() {
         const sidebar = document.getElementById("sidebar");
@@ -755,276 +754,276 @@
         }
     }
 
-async function renderCharts() {
-    const categoryData = await fetchCategoryCounts();
-    const categories = categoryData.map(item => item.category_name);
-    const counts = categoryData.map(item => Number(item.count));
-    const total = counts.reduce((acc, val) => acc + val, 0);
-    const probabilities = counts.map(count => ((count / total) * 100).toFixed(2));
+    async function renderCharts() {
+        const categoryData = await fetchCategoryCounts();
+        const categories = categoryData.map(item => item.category_name);
+        const counts = categoryData.map(item => Number(item.count));
+        const total = counts.reduce((acc, val) => acc + val, 0);
+        const probabilities = counts.map(count => ((count / total) * 100).toFixed(2));
 
-    // 도넛 차트 데이터 구성
-    const chartData = {
-        labels: categories,
-        datasets: [{
-            label: "게시물 비율",
-            data: probabilities,
-            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
-            hoverOffset: 10
-        }]
-    };
+        // 도넛 차트 데이터 구성
+        const chartData = {
+            labels: categories,
+            datasets: [{
+                label: "게시물 비율",
+                data: probabilities,
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
+                hoverOffset: 10
+            }]
+        };
 
-    // 원본 데이터/옵션 저장
-    window.originalDonutChartData = JSON.parse(JSON.stringify(chartData));
-    window.originalDonutChartOptions = {
-        responsive: true,
-        plugins: {
-            legend: { position: "right" },
-            title: { display: true },
-            tooltip: {
-                callbacks: {
-                    label: function (context) {
-                        const percent = context.raw;
-                        return `${percent}%`;
+        // 원본 데이터/옵션 저장
+        window.originalDonutChartData = JSON.parse(JSON.stringify(chartData));
+        window.originalDonutChartOptions = {
+            responsive: true,
+            plugins: {
+                legend: { position: "right" },
+                title: { display: true },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const percent = context.raw;
+                            return `${percent}%`;
+                        }
                     }
                 }
             }
+        };
+
+        const donutCanvas = document.getElementById("donutChart");
+
+        const donutCtx = donutCanvas.getContext("2d");
+
+        if (window.donutChartInstance) {
+            window.donutChartInstance.destroy();
         }
-    };
 
-    const donutCanvas = document.getElementById("donutChart");
+        const donutOptions = {
+            ...window.originalDonutChartOptions,
+            responsive: true,
+            maintainAspectRatio: false, // 🔥 반드시 false
+            onClick: async (evt, elements) => {
+                if (evt.native) evt.native.stopPropagation();
 
-    const donutCtx = donutCanvas.getContext("2d");
-
-    if (window.donutChartInstance) {
-        window.donutChartInstance.destroy();
-    }
-
-    const donutOptions = {
-        ...window.originalDonutChartOptions,
-        responsive: true,
-        maintainAspectRatio: false, // 🔥 반드시 false
-        onClick: async (evt, elements) => {
-            if (evt.native) evt.native.stopPropagation();
-
-            window.donutChartInstance.setActiveElements([]);
-            window.donutChartInstance.update();
-
-            if (elements.length > 0) {
-                const firstElement = elements[0];
-                const dataIndex = firstElement.index;
-
-                window.donutChartInstance.setActiveElements([{
-                    datasetIndex: firstElement.datasetIndex,
-                    index: dataIndex
-                }]);
+                window.donutChartInstance.setActiveElements([]);
                 window.donutChartInstance.update();
 
-                const categoryName = window.donutChartInstance.data.labels[dataIndex];
-                const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
-                showSubcategoryTable(subcategoryData, categoryName);
+                if (elements.length > 0) {
+                    const firstElement = elements[0];
+                    const dataIndex = firstElement.index;
 
-                // ✅ 표가 생기면 차트 정렬 왼쪽으로
-                document.querySelector(".post-chart-container");
-                    chartArea.style.display = "flex";
-                    chartArea.style.flexDirection = "row";
-                    chartArea.style.alignItems = "center";  // ⬅️ 중요!
-                    chartArea.style.justifyContent = "center";  // ⬅️ 중요!
-                document.querySelector(".post-chart-container").style.justifyContent = "center";
-            }
+                    window.donutChartInstance.setActiveElements([{
+                        datasetIndex: firstElement.datasetIndex,
+                        index: dataIndex
+                    }]);
+                    window.donutChartInstance.update();
 
-            if (!chartClickHandlerRegistered) {
-                document.addEventListener("click", function (event) {
-                    const table = document.getElementById("categoryInfoTable");
-                    const chartArea = document.getElementById("chartArea");
+                    const categoryName = window.donutChartInstance.data.labels[dataIndex];
+                    const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
+                    showSubcategoryTable(subcategoryData, categoryName);
 
-                    const isClickInsideChart = chartArea.contains(event.target);
+                    // ✅ 표가 생기면 차트 정렬 왼쪽으로
+                    document.querySelector(".post-chart-container");
+                        chartArea.style.display = "flex";
+                        chartArea.style.flexDirection = "row";
+                        chartArea.style.alignItems = "center";  // ⬅️ 중요!
+                        chartArea.style.justifyContent = "center";  // ⬅️ 중요!
+                    document.querySelector(".post-chart-container").style.justifyContent = "center";
+                }
 
-                    if (table && !isClickInsideChart) {
-                        // ✅ 서브카테고리 래퍼 제거
-                        const wrapper = chartArea.querySelector(".subcategory-wrapper");
-                        if (wrapper) wrapper.remove();
+                if (!chartClickHandlerRegistered) {
+                    document.addEventListener("click", function (event) {
+                        const table = document.getElementById("categoryInfoTable");
+                        const chartArea = document.getElementById("chartArea");
 
-                        // ✅ chartArea 중앙 정렬 복원
-                        chartArea.style.justifyContent = "center";
-        
-                        // ✅ donutChart 재삽입 (필요 시)
-                        const donutCanvas = document.getElementById("donutChart");
-                        if(!chartArea.contains(donutCanvas)){
-                            chartArea.innerHTML = ""; // chartArea 초기화
-                            const canvasWrapper = document.createElement("div");
-                            canvasWrapper.className = "chart-wrapper";
-                            canvasWrapper.appendChild(donutCanvas);
-                            chartArea.appendChild(canvasWrapper);
-                        }
+                        const isClickInsideChart = chartArea.contains(event.target);
 
-                        // ✅ 도넛 차트 재생성
-                        if (window.donutChartInstance) {
-                            window.donutChartInstance.destroy();
-                        }
+                        if (table && !isClickInsideChart) {
+                            // ✅ 서브카테고리 래퍼 제거
+                            const wrapper = chartArea.querySelector(".subcategory-wrapper");
+                            if (wrapper) wrapper.remove();
 
-                        const ctx = donutCanvas.getContext("2d");
-                        window.donutChartInstance = new Chart(ctx, {
-                            type: "doughnut",
-                            data: JSON.parse(JSON.stringify(window.originalDonutChartData)),
-                            options: {
-                                ...window.originalDonutChartOptions,
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                onClick: donutOptions.onClick // 다시 연결
+                            // ✅ chartArea 중앙 정렬 복원
+                            chartArea.style.justifyContent = "center";
+            
+                            // ✅ donutChart 재삽입 (필요 시)
+                            const donutCanvas = document.getElementById("donutChart");
+                            if(!chartArea.contains(donutCanvas)){
+                                chartArea.innerHTML = ""; // chartArea 초기화
+                                const canvasWrapper = document.createElement("div");
+                                canvasWrapper.className = "chart-wrapper";
+                                canvasWrapper.appendChild(donutCanvas);
+                                chartArea.appendChild(canvasWrapper);
                             }
-                        });
-                    }
-                });
-                chartClickHandlerRegistered = true;
-            }
-        }
-    };
 
-    window.donutChartInstance = new Chart(donutCtx, {
-        type: "doughnut",
-        data: chartData,
-        options: donutOptions
-    });
+                            // ✅ 도넛 차트 재생성
+                            if (window.donutChartInstance) {
+                                window.donutChartInstance.destroy();
+                            }
 
-    // 막대 그래프 그대로 유지
-    const barCtx = document.getElementById("radarChart").getContext("2d");
-    const isMobile = window.innerWidth <= 480;
-    barCtx.canvas.width = isMobile ? 300 : 500;
-    barCtx.canvas.height = isMobile ? 300 : 500;
-
-    // 기존 차트 제거
-    if (window.barChartInstance) window.barChartInstance.destroy();
-
-    // ✅ bar chart 데이터셋 하나로
-    const barChartDataset = {
-        type: 'bar',
-        label: '카테고리별 게시물 비율',
-        data: probabilities.map((v) => parseFloat(v)),
-        backgroundColor: categories.map((_, i) =>
-            ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
-        ),
-        yAxisID: 'y'
-    };
-
-    // ✅ 초기 꺾은선 데이터셋
-    const lineDataset = {
-        type: 'line',
-        label: '',
-        data: [],
-        borderColor: 'rgba(75, 192, 192, 1)',
-        fill: false,
-        tension: 0.1,
-        yAxisID: 'y1'
-    };
-
-    // 초기 차트 생성
-    window.barChartInstance = new Chart(barCtx, {
-        data: {
-            labels: categories, // ✅ 전체 카테고리 사용
-            datasets: [barChartDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { 
-                    position: "bottom",
-                    labels: {
-                        filter: function (legendItem, chartData) {
-                            const dataset = chartData.datasets[legendItem.datasetIndex];
-                            return !dataset.hiddenLegend;
+                            const ctx = donutCanvas.getContext("2d");
+                            window.donutChartInstance = new Chart(ctx, {
+                                type: "doughnut",
+                                data: JSON.parse(JSON.stringify(window.originalDonutChartData)),
+                                options: {
+                                    ...window.originalDonutChartOptions,
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    onClick: donutOptions.onClick // 다시 연결
+                                }
+                            });
                         }
-                    }
-                },
-                title: {
-                    display: true,
-                    text: "게시물 비율 및 카테고리 상대 비교"
-                }
-            },
-            scales: {
-                x: {
-                    grid: { display: false },
-                    offset: true,
-                    ticks: {
-                        display: false // ✅ 레이블 숨김
-                    },
-                    title: { 
-                        display: false 
-                    } // ✅ 제목도 숨김
-                },
-                y: {
-                    beginAtZero: true,
-                    max: 100,
-                    title: { display: true, text: "게시물 비율 (%)" },
-                    ticks: { callback: value => `${value}%` }
-                },
-                y1: {
-                    position: 'right',
-                    beginAtZero: true,
-                    grid: { drawOnChartArea: false },
-                    title: { display: true, text: "상대 비율 (%)" },
-                    ticks: { callback: value => `${value}%` }
+                    });
+                    chartClickHandlerRegistered = true;
                 }
             }
-        }
-    });
+        };
+
+        window.donutChartInstance = new Chart(donutCtx, {
+            type: "doughnut",
+            data: chartData,
+            options: donutOptions
+        });
+
+        // 막대 그래프 그대로 유지
+        const barCtx = document.getElementById("radarChart").getContext("2d");
+        const isMobile = window.innerWidth <= 480;
+        barCtx.canvas.width = isMobile ? 300 : 500;
+        barCtx.canvas.height = isMobile ? 300 : 500;
+
+        // 기존 차트 제거
+        if (window.barChartInstance) window.barChartInstance.destroy();
+
+        // ✅ bar chart 데이터셋 하나로
+        const barChartDataset = {
+            type: 'bar',
+            label: '카테고리별 게시물 비율',
+            data: probabilities.map((v) => parseFloat(v)),
+            backgroundColor: categories.map((_, i) =>
+                ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
+            ),
+            yAxisID: 'y'
+        };
+
+        // ✅ 초기 꺾은선 데이터셋
+        const lineDataset = {
+            type: 'line',
+            label: '',
+            data: [],
+            borderColor: 'rgba(75, 192, 192, 1)',
+            fill: false,
+            tension: 0.1,
+            yAxisID: 'y1'
+        };
+
+        // 초기 차트 생성
+        window.barChartInstance = new Chart(barCtx, {
+            data: {
+                labels: categories, // ✅ 전체 카테고리 사용
+                datasets: [barChartDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        position: "bottom",
+                        labels: {
+                            filter: function (legendItem, chartData) {
+                                const dataset = chartData.datasets[legendItem.datasetIndex];
+                                return !dataset.hiddenLegend;
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: "게시물 비율 및 카테고리 상대 비교"
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        offset: true,
+                        ticks: {
+                            display: false // ✅ 레이블 숨김
+                        },
+                        title: { 
+                            display: false 
+                        } // ✅ 제목도 숨김
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: "게시물 비율 (%)" },
+                        ticks: { callback: value => `${value}%` }
+                    },
+                    y1: {
+                        position: 'right',
+                        beginAtZero: true,
+                        grid: { drawOnChartArea: false },
+                        title: { display: true, text: "상대 비율 (%)" },
+                        ticks: { callback: value => `${value}%` }
+                    }
+                }
+            }
+        });
 
 
-    // 🔥 꺾은선그래프 캔버스 가져오기
-    const lineCanvas = document.getElementById("lineChart");
-    lineCanvas.style.display = "block";
+        // 🔥 꺾은선그래프 캔버스 가져오기
+        const lineCanvas = document.getElementById("lineChart");
+        lineCanvas.style.display = "block";
 
-    const lineCtx = lineCanvas.getContext("2d");
-    let lineChartInstance = null;
+        const lineCtx = lineCanvas.getContext("2d");
+        let lineChartInstance = null;
 
-    // ✅ 막대그래프 클릭 이벤트
-    document.getElementById("radarChart").onclick = function(evt) {
-        const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: false }, false);
-        if (points.length) {
-            const clickedIndex = points[0].index;
-            const targetCategory = categories[clickedIndex];
-            const targetValue = parseFloat(probabilities[clickedIndex]);
+        // ✅ 막대그래프 클릭 이벤트
+        document.getElementById("radarChart").onclick = function(evt) {
+            const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: false }, false);
+            if (points.length) {
+                const clickedIndex = points[0].index;
+                const targetCategory = categories[clickedIndex];
+                const targetValue = parseFloat(probabilities[clickedIndex]);
 
-            // ✅ filteredLabels 정의
-            const filteredLabels = categories; // ❗전체 그대로 사용
+                // ✅ filteredLabels 정의
+                const filteredLabels = categories; // ❗전체 그대로 사용
 
-            // ✅ 막대 데이터셋: 선택된 항목 제거
-            const barData = probabilities.map((val, i) => i === clickedIndex ? null : val);
+                // ✅ 막대 데이터셋: 선택된 항목 제거
+                const barData = probabilities.map((val, i) => i === clickedIndex ? null : val);
 
-            // ✅ 막대 데이터셋: 클릭한 항목만 null
-            const barChartDataset = {
-                type: 'bar',
-                label: '카테고리별 게시물 비율',
-                data: barData,
-                backgroundColor: filteredLabels.map((_, i) =>
-                    ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
-                ),
-                yAxisID: 'y'
-            };
+                // ✅ 막대 데이터셋: 클릭한 항목만 null
+                const barChartDataset = {
+                    type: 'bar',
+                    label: '카테고리별 게시물 비율',
+                    data: barData,
+                    backgroundColor: filteredLabels.map((_, i) =>
+                        ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
+                    ),
+                    yAxisID: 'y'
+                };
 
-            // ✅ 비교 비율 계산
-            const compareValues = filteredLabels.map((_, i) => (
-                ((parseFloat(probabilities[categories.indexOf(filteredLabels[i])]) / targetValue) * 100).toFixed(2)
-            ));
+                // ✅ 비교 비율 계산
+                const compareValues = filteredLabels.map((_, i) => (
+                    ((parseFloat(probabilities[categories.indexOf(filteredLabels[i])]) / targetValue) * 100).toFixed(2)
+                ));
 
-            // ✅ 꺾은선 데이터셋
-            const newLineDataset = {
-                type: 'line',
-                label: `${targetCategory} 대비 상대 비율`,
-                data: compareValues,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false,
-                tension: 0.1,
-                yAxisID: 'y1'
-            };
+                // ✅ 꺾은선 데이터셋
+                const newLineDataset = {
+                    type: 'line',
+                    label: `${targetCategory} 대비 상대 비율`,
+                    data: compareValues,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false,
+                    tension: 0.1,
+                    yAxisID: 'y1'
+                };
 
-            // ✅ 차트 갱신
-            window.barChartInstance.data.labels = filteredLabels;
-            window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
-            window.barChartInstance.update();
-        }
-    };
-}
+                // ✅ 차트 갱신
+                window.barChartInstance.data.labels = filteredLabels;
+                window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
+                window.barChartInstance.update();
+            }
+        };
+    }
 
     document.getElementById("showDonut").addEventListener("click", () => {
         document.getElementById("donutWrapper").style.display = "flex";
@@ -1054,59 +1053,59 @@ async function renderCharts() {
     renderCharts();
   }, 100);
   
-// ── [유틸리티 함수] ───────────────────────────────
-function stripHtmlTags(html) {
-    let doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent || "";
-}
-
-// autoResize 함수 정의
-function autoResize(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = Math.max(textarea.scrollHeight, 50) + 'px';
-}
-
-function showSubcategoryTable(subcategories, categoryName) {
-    // 기존 wrapper 제거
-    const oldWrapper = document.querySelector(".subcategory-wrapper");
-    if (oldWrapper) oldWrapper.remove();
-
-    // 새 wrapper 생성
-    const wrapper = document.createElement("div");
-    wrapper.className = "subcategory-wrapper";
-
-    const table = document.createElement("table");
-    table.id = "categoryInfoTable";
-
-    const headerRow = document.createElement("tr");
-    headerRow.innerHTML = `
-        <th>서브카테고리명</th>
-        <th>게시물 수</th>
-    `;
-    table.appendChild(headerRow);
-
-    subcategories.forEach((item) => {
-        const dataRow = document.createElement("tr");
-        dataRow.innerHTML = `
-            <td>${item.subcategory_name}</td>
-            <td>${item.count}개</td>
-        `;
-        table.appendChild(dataRow);
-    });
-
-    wrapper.appendChild(table);
-
-    // ✅ chartArea 내에 표 추가 (도넛 차트 옆에 붙도록)
-    document.getElementById("chartArea").appendChild(wrapper);
-}
-
-async function fetchSubcategoryCountsByCategory(categoryName) {
-    try {
-        const res = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`);
-        const data = await res.json();
-        return data;
-    } catch (error) {
-        console.error("서브카테고리 데이터 가져오기 실패", error);
-        return [];
+    // ── [유틸리티 함수] ───────────────────────────────
+    function stripHtmlTags(html) {
+        let doc = new DOMParser().parseFromString(html, "text/html");
+        return doc.body.textContent || "";
     }
-}
+
+    // autoResize 함수 정의
+    function autoResize(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.max(textarea.scrollHeight, 50) + 'px';
+    }
+
+    function showSubcategoryTable(subcategories, categoryName) {
+        // 기존 wrapper 제거
+        const oldWrapper = document.querySelector(".subcategory-wrapper");
+        if (oldWrapper) oldWrapper.remove();
+
+        // 새 wrapper 생성
+        const wrapper = document.createElement("div");
+        wrapper.className = "subcategory-wrapper";
+
+        const table = document.createElement("table");
+        table.id = "categoryInfoTable";
+
+        const headerRow = document.createElement("tr");
+        headerRow.innerHTML = `
+            <th>서브카테고리명</th>
+            <th>게시물 수</th>
+        `;
+        table.appendChild(headerRow);
+
+        subcategories.forEach((item) => {
+            const dataRow = document.createElement("tr");
+            dataRow.innerHTML = `
+                <td>${item.subcategory_name}</td>
+                <td>${item.count}개</td>
+            `;
+            table.appendChild(dataRow);
+        });
+
+        wrapper.appendChild(table);
+
+        // ✅ chartArea 내에 표 추가 (도넛 차트 옆에 붙도록)
+        document.getElementById("chartArea").appendChild(wrapper);
+    }
+
+    async function fetchSubcategoryCountsByCategory(categoryName) {
+        try {
+            const res = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`);
+            const data = await res.json();
+            return data;
+        } catch (error) {
+            console.error("서브카테고리 데이터 가져오기 실패", error);
+            return [];
+        }
+    }

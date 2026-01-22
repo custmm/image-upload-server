@@ -70,8 +70,6 @@
         msgBox.appendChild(text);
         document.body.appendChild(msgBox);
     }
-    
-
 
 document.addEventListener("DOMContentLoaded", async () => {
     const isExplanMode = window.location.hash.includes("explan");
@@ -117,13 +115,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     window.addEventListener("scroll", updateSidebarTogglePosition);
 
-    // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
-    document.querySelectorAll("#sidebar a").forEach(link => {
-        link.addEventListener("click", () => {
-            const sidebar = document.getElementById("sidebar");
-            sidebar.classList.remove("open");
-        });
-    });
     
     // ✅ 로딩 화면 표시 함수
     function showLoading() {
@@ -222,6 +213,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.href = "click.html";
         });
         }
+    }
+
+    // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
+    function bindSidebarEvents(){
+        const sidebar = document.getElementById("sidebar");
+        const menubar = document.querySelector(".menubar-container");
+
+        document.querySelectorAll("#sidebar a").forEach(link => {
+            link.addEventListener("click", () => {
+                
+                sidebar.classList.remove("open");
+                menubar.classList.remove("hidden");
+            });
+        });        
     }
 
     // 1) 카테고리 로드
