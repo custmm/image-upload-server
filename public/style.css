@@ -2492,6 +2492,7 @@
         position: fixed; /* ✅ 화면에 고정 */        
         background-color: #444;
         color: white;
+        top: 50px;
         padding: 15px 19px;
         border: none;
         border-radius: 50%;
@@ -2511,7 +2512,7 @@
         height: 100vh;
         background: rgba(0, 0, 0, 0.8); /* 🔥 어두운 투명 배경 */
         color: white;
-        padding-right: 70px;
+        padding-right: 200px;
         padding-left: 30px;
         padding-top:40px;
         transition: left 0.5s ease-in-out; /* 🔥 부드러운 애니메이션 */
