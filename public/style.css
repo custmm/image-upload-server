@@ -2508,7 +2508,6 @@
         border-radius: 50%;
         cursor: pointer;
         transition: background-color 0.5s, transform 0.5s ease-in-out;
-        position: relative; /* ✅ 다른 요소에 가려지지 않도록 변경 */
         z-index: 1000; /* ✅ 다른 요소 위에 배치 */
     }
     .sidebar-toggle:hover {
@@ -2898,11 +2897,12 @@
 
   /* 토글 스위치 (다크 모드) */
   .toggle-switch {
-    position: absolute;
+    position: fixed;
     top: 10px;
     right: 30px;
     width: 50px;
     height: 25px;
+    z-index: 10000;
     display: inline-block;
   }
     .toggle-switch input {
