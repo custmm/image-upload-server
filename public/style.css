@@ -2488,23 +2488,8 @@
         right: 0;
         width: 100vw; /* 🔥 전체 너비 확장 */
         height: 110px;
-        background: rgba(255, 255, 255, 0.2); /* 🔥 반투명 흰색 */
         display: flex;
         align-items: center;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* 🔥 살짝 입체감 */
-        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* 🔥 부드러운 이동 효과 */
-    }
-    /* 🔥 사이드바 열리면 menubar-container 내부 요소들이 위로 사라짐 */
-    .menubar-container.hidden {
-        transform: translateY(-100px); /* 🔥 위로 이동 */
-        opacity: 0; /* 🔥 투명하게 */
-    }
-    /* 🟡 중앙 텍스트 스타일 */
-    .menubar-container h1 {
-        flex-grow: 1;
-        text-align: center;
-        color: white; /* 글씨 색상 조정 */
-        margin: 0;
     }
         /* 🔥 왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
     .left-section {
