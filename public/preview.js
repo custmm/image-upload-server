@@ -23,6 +23,32 @@
         sidebar.classList.toggle("open");
     };
 
+    // ✅ 사이드바에서 카테고리 이동용
+    window.goCategory = function (categoryName) {
+        // 메인 카테고리 버튼들 가져오기
+        const buttons = document.querySelectorAll(".tab-btn");
+
+        // 이름이 같은 버튼 찾기
+        const targetBtn = [...buttons].find(
+            btn => btn.textContent.trim() === categoryName.trim()
+        );
+
+        if (!targetBtn) {
+            console.error("❌ 해당 카테고리 버튼을 찾을 수 없음:", categoryName);
+            return;
+        }
+
+        // 👉 기존 로직 그대로 재사용
+        targetBtn.click();
+
+        // 사이드바 닫기
+        const sidebar = document.getElementById("sidebar");
+        if (sidebar) sidebar.classList.remove("open");
+
+        // UX: 위로 스크롤
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
     function showPopupMessage(msg) {
         const popup = document.createElement("div");
         popup.classList.add("popup-message");
@@ -228,6 +254,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         });        
     }
+
 
     // 1) 카테고리 로드
     async function loadCategories() {
