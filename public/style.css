@@ -2598,7 +2598,7 @@
     }
 
     .sub-menu.open {
-        max-height: 300px; /* 게시판 기준 충분한 값 */
+        max-height: 200px; /* 게시판 기준 충분한 값 */
     }
     
     /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
