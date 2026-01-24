@@ -2497,6 +2497,21 @@
         flex-direction: column;
         align-items: flex-start;
     }
+
+    /* 🔥 닫기 버튼 */
+    .close-sidebar {
+        position: absolute; /* ✅ 버튼을 절대 위치로 변경 */
+        top: 50px; /* 🔥 상단 여백 조정 */
+        right: 15px; /* 🔥 오른쪽 정렬 */
+        background: none;
+        border: none;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+        display: block;
+        margin-bottom: 20px;
+    }
+    
     /* 🔥 사이드바 열기 버튼 */
     .sidebar-toggle {
         position: fixed; /* ✅ 화면에 고정 */        
@@ -2531,20 +2546,6 @@
         left: 0;
     }
 
-    /* 🔥 닫기 버튼 */
-    .close-sidebar {
-        position: absolute; /* ✅ 버튼을 절대 위치로 변경 */
-        top: 50px; /* 🔥 상단 여백 조정 */
-        right: 15px; /* 🔥 오른쪽 정렬 */
-        background: none;
-        border: none;
-        color: white;
-        font-size: 30px;
-        cursor: pointer;
-        display: block;
-        margin-bottom: 20px;
-    }
-
     /* 🔥 사이드바 메뉴 */
     .sidebar ul {
         list-style: none;
@@ -2564,7 +2565,6 @@
     .sidebar ul li a:hover {
         text-decoration: underline;
     }    
-z
     
         /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
     .infor-popup {
