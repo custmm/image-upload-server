@@ -2517,7 +2517,7 @@
         position: fixed;
         top: 0;
         left: -100%; /* 🔥 기본적으로 숨김 */
-        width: 280px;          /* ✅ 폭 고정 */
+        width: 200px;          /* ✅ 폭 고정 */
         height: 100vh;         /* ✅ 높이 고정 */
         background: rgba(0, 0, 0, 0.8); /* 🔥 어두운 투명 배경 */
         color: white;
