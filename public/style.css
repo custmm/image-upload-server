@@ -2592,7 +2592,7 @@
     .sub-menu {
         list-style: none;
         padding-left: 15px;
-
+        margin: 0;
         display: block;          /* 🔥 이 줄 추가 */
         max-height: 0;
         overflow: hidden;
