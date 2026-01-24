@@ -2513,15 +2513,11 @@
     }
     .menu-title {
         position: absolute; /* ✅ 버튼을 절대 위치로 변경 */
-        top: 50px; /* 🔥 상단 여백 조정 */
-        right: 15px; /* 🔥 오른쪽 정렬 */
         background: none;
         border: none;
         color: white;
         font-size: 30px;
         cursor: pointer;
-        display: block;
-        margin-bottom: 20px;
     }
 
     /* 🔥 사이드바 열기 버튼 */
