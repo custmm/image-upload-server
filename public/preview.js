@@ -23,6 +23,19 @@
         sidebar.classList.toggle("open");
     };
 
+    window.toggleMenu = function(menuId) {
+        const menus = document.querySelectorAll('.sub-menu');
+
+        menus.forEach(menu => {
+            if (menu.id === menuId) {
+            menu.style.display =
+                menu.style.display === 'block' ? 'none' : 'block';
+            } else {
+            menu.style.display = 'none';
+            }
+        });
+};
+
     // ✅ 사이드바에서 카테고리 이동용
     window.goCategory = function (categoryName) {
         // 메인 카테고리 버튼들 가져오기
