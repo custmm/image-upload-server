@@ -273,15 +273,15 @@ function toggleMenu(menuId) {
 
   menus.forEach(menu => {
     if (menu.id === menuId) {
-      // 클릭한 메뉴만 토글
-      menu.classList.toggle('open');
+      // 클릭한 메뉴는 토글
+      menu.style.display =
+        menu.style.display === 'block' ? 'none' : 'block';
     } else {
-      // 나머지는 닫기
-      menu.classList.remove('open');
+      // 나머지는 무조건 닫기
+      menu.style.display = 'none';
     }
   });
 }
-
 
 
     // 1) 카테고리 로드
