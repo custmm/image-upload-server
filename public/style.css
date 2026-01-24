@@ -2512,7 +2512,6 @@
         margin-bottom: 20px;
     }
     .menu-title {
-        position: absolute; /* ✅ 버튼을 절대 위치로 변경 */
         background: none;
         border: none;
         color: white;
