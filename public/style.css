@@ -2517,7 +2517,8 @@
         position: fixed;
         top: 0;
         left: -100%; /* 🔥 기본적으로 숨김 */
-        height: 100vh;
+        width: 280px;          /* ✅ 폭 고정 */
+        height: 100vh;         /* ✅ 높이 고정 */
         background: rgba(0, 0, 0, 0.8); /* 🔥 어두운 투명 배경 */
         color: white;
         padding-right: 200px;
@@ -2567,6 +2568,8 @@
 
     .menu-root {
         list-style: none;
+        max-height: calc(100vh - 140px); /* 상단 버튼 영역 제외 */
+        overflow-y: auto;                /* 🔥 내부만 스크롤 */
         padding: 0;
         margin: 0;
     }
@@ -2589,11 +2592,13 @@
     .sub-menu {
         list-style: none;
         padding-left: 15px;
-        display: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
     }
 
     .sub-menu.open {
-        display: block;
+        max-height: 300px; /* 게시판 기준 충분한 값 */
     }
     
     /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
