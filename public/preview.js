@@ -255,6 +255,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         });        
     }
 
+    function toggleMenu(menuId) {
+        const boardMenu = document.getElementById("boardMenu");
+        const etcMenu = document.getElementById("etcMenu");
+
+        // 모두 닫기
+        boardMenu.style.display = "none";
+        etcMenu.style.display = "none";
+
+        // 클릭한 메뉴만 열기
+        const target = document.getElementById(menuId);
+        target.style.display = "block";
+    }
+
 
     // 1) 카테고리 로드
     async function loadCategories() {

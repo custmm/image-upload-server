@@ -2564,6 +2564,21 @@
     .sidebar ul li a:hover {
         text-decoration: underline;
     }    
+    .sub-menu {
+        display: none;
+        margin-top: 10px;
+        padding-left: 15px;
+    }
+
+    .sub-menu li {
+        margin: 8px 0;
+    }
+
+    .main-menu li {
+        margin: 12px 0;
+        font-weight: bold;
+    }
+    
         /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
     .infor-popup {
       position: fixed;
