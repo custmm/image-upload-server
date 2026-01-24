@@ -2467,20 +2467,29 @@
     .page-footer a:hover {
       text-decoration: underline;
     }
-    /* ✅ 하단 팝업 (showPopupMessage용) */
-    .popup-message {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #333;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      z-index: 9999;
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
+
+
+        /* 🔥 왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
+    .left-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
+
+    /* 🔥 닫기 버튼 */
+    .close-sidebar {
+        position: absolute; /* ✅ 버튼을 절대 위치로 변경 */
+        top: 50px; /* 🔥 상단 여백 조정 */
+        right: 15px; /* 🔥 오른쪽 정렬 */
+        background: none;
+        border: none;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+        display: block;
+        margin-bottom: 20px;
+    }    
+    
     .menubar-container {
         position: absolute; /* 📌 고정 위치 */
         top: 0;
@@ -2491,13 +2500,8 @@
         display: flex;
         align-items: center;
     }
-        /* 🔥 왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
-    .left-section {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    /* 🔥 사이드바 열기 버튼 */
+
+    🔥 사이드바 열기 버튼 */
     .sidebar-toggle {
         position: fixed; /* ✅ 화면에 고정 */        
         background-color: #00000000;
@@ -2530,20 +2534,6 @@
     /* 🔥 사이드바 열렸을 때 */
     .sidebar.open {
         left: 0;
-    }
-
-    /* 🔥 닫기 버튼 */
-    .close-sidebar {
-        position: absolute; /* ✅ 버튼을 절대 위치로 변경 */
-        top: 50px; /* 🔥 상단 여백 조정 */
-        right: 15px; /* 🔥 오른쪽 정렬 */
-        background: none;
-        border: none;
-        color: white;
-        font-size: 30px;
-        cursor: pointer;
-        display: block;
-        margin-bottom: 20px;
     }
 
     /* 🔥 사이드바 메뉴 */
@@ -2603,7 +2593,31 @@
     .sub-menu.open {
         max-height: 500px;       /* 🔥 넉넉하게 (200은 부족할 수 있음) */
     }
-    
+
+    .sub-menu li {
+        padding: 6px 8px;
+        border-radius: 6px;
+    }
+
+    .sub-menu li:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ✅ 하단 팝업 (showPopupMessage용) */
+    .popup-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
     /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
     .infor-popup {
       position: fixed;
@@ -2620,6 +2634,7 @@
       z-index: 1000;
       text-align: left;
     }
+
     .info-popup .table-wrapper {
         display: flex;
         justify-content: center;
@@ -2649,6 +2664,7 @@
       font-size: 25px;
       color: #666;
     }
+
     /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
     .app-infor-popup {
       position: fixed;
@@ -2672,6 +2688,7 @@
       font-size: 25px;
       color: #666;
     }
+
     /* 뒤로가기 버튼 */
     .back-button {
       transition: background-color 0.3s;
