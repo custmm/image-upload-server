@@ -2592,13 +2592,16 @@
     .sub-menu {
         list-style: none;
         padding-left: 15px;
+
+        display: block;          /* 🔥 이 줄 추가 */
         max-height: 0;
         overflow: hidden;
+
         transition: max-height 0.35s ease;
     }
 
     .sub-menu.open {
-        max-height: 200px; /* 게시판 기준 충분한 값 */
+        max-height: 500px;       /* 🔥 넉넉하게 (200은 부족할 수 있음) */
     }
     
     /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
