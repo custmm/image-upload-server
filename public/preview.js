@@ -273,12 +273,11 @@ function toggleMenu(menuId) {
 
   menus.forEach(menu => {
     if (menu.id === menuId) {
-      // 클릭한 메뉴는 토글
-      menu.style.display =
-        menu.style.display === 'block' ? 'none' : 'block';
+      // 클릭한 메뉴만 토글
+      menu.classList.toggle('open');
     } else {
-      // 나머지는 무조건 닫기
-      menu.style.display = 'none';
+      // 나머지는 닫기
+      menu.classList.remove('open');
     }
   });
 }
