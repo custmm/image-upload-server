@@ -255,18 +255,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         });        
     }
 
-    function toggleMenu(menuId) {
-        const boardMenu = document.getElementById("boardMenu");
-        const etcMenu = document.getElementById("etcMenu");
+function toggleMenu(menuId) {
+  const menus = document.querySelectorAll('.sub-menu');
 
-        // 모두 닫기
-        boardMenu.style.display = "none";
-        etcMenu.style.display = "none";
-
-        // 클릭한 메뉴만 열기
-        const target = document.getElementById(menuId);
-        target.style.display = "block";
+  menus.forEach(menu => {
+    if (menu.id === menuId) {
+      // 클릭한 메뉴는 토글
+      menu.style.display =
+        menu.style.display === 'block' ? 'none' : 'block';
+    } else {
+      // 나머지는 무조건 닫기
+      menu.style.display = 'none';
     }
+  });
+}
 
 
     // 1) 카테고리 로드
