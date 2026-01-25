@@ -3460,6 +3460,14 @@
         }
 
         @media (max-width: 480px) {
+            .sidebar {
+                left: -100%;
+                width: 100%;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
             .infor-popup {
                 width: 95%;
                 /* 화면 꽉 채우지 않도록 너비 조절*/

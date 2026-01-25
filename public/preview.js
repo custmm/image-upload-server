@@ -19,10 +19,11 @@ window.toggleSidebar = function () {
     const isOpening = !sidebar.classList.contains("open");
     sidebar.classList.toggle("open");
 
-        // 🔥 사이드바를 "열 때만" 서브메뉴 전부 닫기
+    // 🔥 사이드바를 "열 때만" 서브메뉴 전부 닫기 (완전 초기화)
     if (isOpening) {
         document.querySelectorAll(".sub-menu").forEach(menu => {
             menu.classList.remove("open");
+            menu.style.display = ""; // ⚠️ inline style 제거 (핵심)
         });
     }
 };
