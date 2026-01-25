@@ -3462,7 +3462,6 @@
         @media (max-width: 480px) {
             .sidebar {
                 left: -100%;
-                width: 100%;
             }
 
             .sidebar.open {
