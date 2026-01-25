@@ -1,114 +1,114 @@
 // 페이지 이동 함수 정의 (전역)
-    window.prevPage = async function() {
-        if (page > 0) {
+window.prevPage = async function () {
+    if (page > 0) {
         page--;                           // 한 페이지 뒤로
         await loadPage(selectedCategory, selectedSubcategory);
-        }
-    };
-  
-    window.nextPage = async function() {
-        if (!noMoreImages) {
-        await loadPage(selectedCategory, selectedSubcategory);
-        }
-    };
-    // ✅ 사이드바 토글 함수 (HTML onclick과 연결됨)
-    window.toggleSidebar = function () {
-        const sidebar = document.getElementById("sidebar");
-
-        if (!sidebar) {
-            console.error("❌ #sidebar 요소를 찾을 수 없음");
-            return;
-        }
-
-        sidebar.classList.toggle("open");
-    };
-
-    window.toggleMenu = function(menuId) {
-        const menus = document.querySelectorAll('.sub-menu');
-
-        menus.forEach(menu => {
-            if (menu.id === menuId) {
-            menu.style.display =
-                menu.style.display === 'block' ? 'none' : 'block';
-            } else {
-            menu.style.display = 'none';
-            }
-        });
+    }
 };
 
-    // ✅ 사이드바에서 카테고리 이동용
-    window.goCategory = function (categoryName) {
-        // 메인 카테고리 버튼들 가져오기
-        const buttons = document.querySelectorAll(".tab-btn");
+window.nextPage = async function () {
+    if (!noMoreImages) {
+        await loadPage(selectedCategory, selectedSubcategory);
+    }
+};
+// ✅ 사이드바 토글 함수 (HTML onclick과 연결됨)
+window.toggleSidebar = function () {
+    const sidebar = document.getElementById("sidebar");
 
-        // 이름이 같은 버튼 찾기
-        const targetBtn = [...buttons].find(
-            btn => btn.textContent.trim() === categoryName.trim()
-        );
+    if (!sidebar) {
+        console.error("❌ #sidebar 요소를 찾을 수 없음");
+        return;
+    }
 
-        if (!targetBtn) {
-            console.error("❌ 해당 카테고리 버튼을 찾을 수 없음:", categoryName);
-            return;
+    sidebar.classList.toggle("open");
+};
+
+window.toggleMenu = function (menuId) {
+    const menus = document.querySelectorAll('.sub-menu');
+
+    menus.forEach(menu => {
+        if (menu.id === menuId) {
+            menu.style.display =
+                menu.style.display === 'block' ? 'none' : 'block';
+        } else {
+            menu.style.display = 'none';
         }
+    });
+};
 
-        // 👉 기존 로직 그대로 재사용
-        targetBtn.click();
+// ✅ 사이드바에서 카테고리 이동용
+window.goCategory = function (categoryName) {
+    // 메인 카테고리 버튼들 가져오기
+    const buttons = document.querySelectorAll(".tab-btn");
 
-        // 사이드바 닫기
-        const sidebar = document.getElementById("sidebar");
-        if (sidebar) sidebar.classList.remove("open");
+    // 이름이 같은 버튼 찾기
+    const targetBtn = [...buttons].find(
+        btn => btn.textContent.trim() === categoryName.trim()
+    );
 
-        // UX: 위로 스크롤
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-
-    function showPopupMessage(msg) {
-        const popup = document.createElement("div");
-        popup.classList.add("popup-message");
-        popup.innerHTML = msg.replace(/\n/g, "<br>");
-        document.body.appendChild(popup);
-
-        requestAnimationFrame(() => popup.style.opacity = "1");
-
-        setTimeout(() => {
-            popup.style.opacity = "0";
-            setTimeout(() => popup.remove(), 300);
-        }, 2000);
+    if (!targetBtn) {
+        console.error("❌ 해당 카테고리 버튼을 찾을 수 없음:", categoryName);
+        return;
     }
 
-    function appinforPopupMessage(msg) {
-        const msgBox = document.createElement("div");
-        msgBox.classList.add("app-infor-popup");
+    // 👉 기존 로직 그대로 재사용
+    targetBtn.click();
 
-        const closeBtn = document.createElement("span");
-        closeBtn.innerHTML = "&times;";
-        closeBtn.classList.add("app-infor-popup-close");
-        closeBtn.addEventListener("click", () => msgBox.remove());
+    // 사이드바 닫기
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar) sidebar.classList.remove("open");
 
-        const text = document.createElement("div");
-        text.innerHTML = msg;
+    // UX: 위로 스크롤
+    window.scrollTo({ top: 0, behavior: "smooth" });
+};
 
-        msgBox.appendChild(closeBtn);
-        msgBox.appendChild(text);
-        document.body.appendChild(msgBox);
-    }
+function showPopupMessage(msg) {
+    const popup = document.createElement("div");
+    popup.classList.add("popup-message");
+    popup.innerHTML = msg.replace(/\n/g, "<br>");
+    document.body.appendChild(popup);
 
-    function inforPopupMessage(msg) {
-        const msgBox = document.createElement("div");
-        msgBox.classList.add("infor-popup");
+    requestAnimationFrame(() => popup.style.opacity = "1");
 
-        const closeBtn = document.createElement("span");
-        closeBtn.innerHTML = "&times;";
-        closeBtn.classList.add("infor-popup-close");
-        closeBtn.addEventListener("click", () => msgBox.remove());
+    setTimeout(() => {
+        popup.style.opacity = "0";
+        setTimeout(() => popup.remove(), 300);
+    }, 2000);
+}
 
-        const text = document.createElement("div");
-        text.innerHTML = msg;
+function appinforPopupMessage(msg) {
+    const msgBox = document.createElement("div");
+    msgBox.classList.add("app-infor-popup");
 
-        msgBox.appendChild(closeBtn);
-        msgBox.appendChild(text);
-        document.body.appendChild(msgBox);
-    }
+    const closeBtn = document.createElement("span");
+    closeBtn.innerHTML = "&times;";
+    closeBtn.classList.add("app-infor-popup-close");
+    closeBtn.addEventListener("click", () => msgBox.remove());
+
+    const text = document.createElement("div");
+    text.innerHTML = msg;
+
+    msgBox.appendChild(closeBtn);
+    msgBox.appendChild(text);
+    document.body.appendChild(msgBox);
+}
+
+function inforPopupMessage(msg) {
+    const msgBox = document.createElement("div");
+    msgBox.classList.add("infor-popup");
+
+    const closeBtn = document.createElement("span");
+    closeBtn.innerHTML = "&times;";
+    closeBtn.classList.add("infor-popup-close");
+    closeBtn.addEventListener("click", () => msgBox.remove());
+
+    const text = document.createElement("div");
+    text.innerHTML = msg;
+
+    msgBox.appendChild(closeBtn);
+    msgBox.appendChild(text);
+    document.body.appendChild(msgBox);
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
     const isExplanMode = window.location.hash.includes("explan");
@@ -131,9 +131,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     let categories = [];
 
     // 페이지네이션 변수
-    let page          = 0;
-    const limit       = 20;    // 5×4
-    let noMoreImages  = false;
+    let page = 0;
+    const limit = 20;    // 5×4
+    let noMoreImages = false;
     let isCut = false; // ✅ 이미지 상태 저장
 
 
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         "deforme": "디폼블럭",
         "brickfigure": "브릭피규어"
     };
-    
+
     // ✅ 로딩 화면 표시 함수
     function showLoading() {
         document.getElementById("loadingIndicator").style.display = "flex";
@@ -154,8 +154,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ✅ 로딩 화면 숨김 함수
     function hideLoading() {
         setTimeout(() => {
-        document.getElementById("loadingIndicator").style.display = "none";
-        },500);
+            document.getElementById("loadingIndicator").style.display = "none";
+        }, 500);
     }
 
     // ✅ URL 파라미터로 카테고리 자동 선택
@@ -170,21 +170,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (welcomeEl) {
         welcomeEl.style.cursor = "pointer";
 
-    if (opacitySlider) {
-        // 슬라이더 조작 시
-        opacitySlider.addEventListener("input", () => {
-            const value = opacitySlider.value;
+        if (opacitySlider) {
+            // 슬라이더 조작 시
+            opacitySlider.addEventListener("input", () => {
+                const value = opacitySlider.value;
 
-            // 대상 요소에 적용
-            document.querySelector(".tab-design").style.opacity = value;
-            document.querySelector(".marge-container").style.opacity = value;
-                
-            // 전역 공유: localStorage에 저장
-            localStorage.setItem("sharedOpacity", value);
-        });
+                // 대상 요소에 적용
+                document.querySelector(".tab-design").style.opacity = value;
+                document.querySelector(".marge-container").style.opacity = value;
 
-        // 페이지 로드 시 localStorage 값 불러오기
-        const savedOpacity = localStorage.getItem("sharedOpacity");
+                // 전역 공유: localStorage에 저장
+                localStorage.setItem("sharedOpacity", value);
+            });
+
+            // 페이지 로드 시 localStorage 값 불러오기
+            const savedOpacity = localStorage.getItem("sharedOpacity");
             if (savedOpacity) {
                 opacitySlider.value = savedOpacity;
                 document.querySelector(".tab-design").style.opacity = savedOpacity;
@@ -222,56 +222,56 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         }
 
-    if (isExplanMode) {
-        welcomeEl.addEventListener("click", () => {
-        const activeTab = document.querySelector(".tab-btn.active");
-        const tabName = activeTab?.textContent.trim() || "알 수 없음";
+        if (isExplanMode) {
+            welcomeEl.addEventListener("click", () => {
+                const activeTab = document.querySelector(".tab-btn.active");
+                const tabName = activeTab?.textContent.trim() || "알 수 없음";
 
-        // 서브카테고리는 subTabContainer 아래의 .sub-tab 요소
-        const subTabs = subTabContainer.querySelectorAll(".sub-tab");
-        const subTabNames = Array.from(subTabs).map(el => el.textContent.trim());
+                // 서브카테고리는 subTabContainer 아래의 .sub-tab 요소
+                const subTabs = subTabContainer.querySelectorAll(".sub-tab");
+                const subTabNames = Array.from(subTabs).map(el => el.textContent.trim());
 
-        const subText = subTabNames.length > 0
-            ? `해당 카테고리의 작품: [${subTabNames.join(", ")}]`
-            : `해당 카테고리의 작품이 없습니다.`;
+                const subText = subTabNames.length > 0
+                    ? `해당 카테고리의 작품: [${subTabNames.join(", ")}]`
+                    : `해당 카테고리의 작품이 없습니다.`;
 
-        const message = "현재 선택된 탭은 [" + tabName + "] 입니다.\n" + subText;
-        showPopupMessage(message);
-        });
-    } else {
-        welcomeEl.addEventListener("click", () => {
-        window.location.href = "click.html";
-        });
+                const message = "현재 선택된 탭은 [" + tabName + "] 입니다.\n" + subText;
+                showPopupMessage(message);
+            });
+        } else {
+            welcomeEl.addEventListener("click", () => {
+                window.location.href = "click.html";
+            });
         }
     }
 
     // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
-    function bindSidebarEvents(){
+    function bindSidebarEvents() {
         const sidebar = document.getElementById("sidebar");
         const menubar = document.querySelector(".menubar-container");
 
         document.querySelectorAll("#sidebar a").forEach(link => {
             link.addEventListener("click", () => {
-                
+
                 sidebar.classList.remove("open");
                 menubar.classList.remove("hidden");
             });
-        });        
+        });
     }
 
-function toggleMenu(menuId) {
-  const menus = document.querySelectorAll('.sub-menu');
+    function toggleMenu(menuId) {
+        const menus = document.querySelectorAll('.sub-menu');
 
-  menus.forEach(menu => {
-    if (menu.id === menuId) {
-      // 클릭한 메뉴만 토글
-      menu.classList.toggle('open');
-    } else {
-      // 나머지는 닫기
-      menu.classList.remove('open');
+        menus.forEach(menu => {
+            if (menu.id === menuId) {
+                // 클릭한 메뉴만 토글
+                menu.classList.toggle('open');
+            } else {
+                // 나머지는 닫기
+                menu.classList.remove('open');
+            }
+        });
     }
-  });
-}
 
 
     // 1) 카테고리 로드
@@ -296,7 +296,7 @@ function toggleMenu(menuId) {
                 categoryTabContainer.appendChild(btn);
             });
 
-            setTimeout(() => initializeCategorySelection(),300);
+            setTimeout(() => initializeCategorySelection(), 300);
 
             return categories;
         } catch (error) {
@@ -306,7 +306,7 @@ function toggleMenu(menuId) {
     await loadCategories(); // ✅ 카테고리 불러오기 실행
 
     // 2) 카테고리 선택 시
-    async function loadCategory(categoryId, tabButton){
+    async function loadCategory(categoryId, tabButton) {
         showLoading(); // 🔥 로딩 화면 표시
 
         // ✅ URL 업데이트 (브라우저 히스토리 변경)
@@ -316,11 +316,11 @@ function toggleMenu(menuId) {
             if (window.location.search !== `?category=${encodeURIComponent(newCategoryName)}`) {
                 history.pushState({ category: newCategoryName }, "", newURL);
             }
-            }
+        }
 
         selectedCategory = categoryId;
         selectedSubcategory = null;
-        subTabContainer.innerHTML ="";
+        subTabContainer.innerHTML = "";
 
         document.querySelectorAll(".tab-btn.active").forEach(btn => btn.classList.remove("active"));
         tabButton.classList.add("active");
@@ -329,7 +329,7 @@ function toggleMenu(menuId) {
         if (currentCategory) {
             currentCategory.textContent = newCategoryName;
         }
-        
+
         // 1) 서브카테고리 탭 채우기
         await loadSubcategories(categoryId);
 
@@ -339,7 +339,7 @@ function toggleMenu(menuId) {
         clearGallery();
         await loadPage(categoryId, selectedSubcategory);
         hideLoading(); // 🔥 로딩 완료 후 숨김
-    };    
+    };
 
     // 3) 서브카테고리 로드
     async function loadSubcategories(categoryId) {
@@ -376,9 +376,9 @@ function toggleMenu(menuId) {
     // 4) 서브카테고리 클릭 시
     async function loadSubcategory(categoryId, subcategoryId, tabButton) {
         document.querySelectorAll(".sub-tab.active")
-                .forEach(btn => btn.classList.remove("active"));
+            .forEach(btn => btn.classList.remove("active"));
         tabButton.classList.add("active");
-    
+
         selectedSubcategory = subcategoryId;
         // 페이지 초기화 & 첫 페이지 로드
         page = 0;
@@ -395,50 +395,50 @@ function toggleMenu(menuId) {
         if (subcategoryId) url += `&subcategory_id=${subcategoryId}`;
 
         try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error("이미지 로드 실패");
-        const { total, files: images } = await res.json();
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("이미지 로드 실패");
+            const { total, files: images } = await res.json();
 
-        // 총 페이지 계산
-        const totalPages = Math.ceil(total / limit);
-        noMoreImages = images.length < limit;
+            // 총 페이지 계산
+            const totalPages = Math.ceil(total / limit);
+            noMoreImages = images.length < limit;
 
-        clearGallery();
-        images.forEach(image => {
-            // 기존 loadImages 반복문 내용
-            const imgContainer = document.createElement("div");
-            imgContainer.classList.add("image-container");
+            clearGallery();
+            images.forEach(image => {
+                // 기존 loadImages 반복문 내용
+                const imgContainer = document.createElement("div");
+                imgContainer.classList.add("image-container");
 
-            const placeholder = document.createElement("div");
-            placeholder.classList.add("image-placeholder");
+                const placeholder = document.createElement("div");
+                placeholder.classList.add("image-placeholder");
 
-            const img = document.createElement("img");
-            img.dataset.src = image.file_path;
-            img.alt = "Uploaded Image";
-            img.classList.add("gallery-image");
-            observer.observe(img);
+                const img = document.createElement("img");
+                img.dataset.src = image.file_path;
+                img.alt = "Uploaded Image";
+                img.classList.add("gallery-image");
+                observer.observe(img);
 
-            const cat  = encodeURIComponent(image.category_name  || "uncategorized");
-            const sub  = encodeURIComponent(image.subcategory_name || "general");
-            const file = encodeURIComponent(image.file_name);
+                const cat = encodeURIComponent(image.category_name || "uncategorized");
+                const sub = encodeURIComponent(image.subcategory_name || "general");
+                const file = encodeURIComponent(image.file_name);
 
-            // ✅ post.html 이동 차단
-            img.onclick = () => {
-                if (isExplanMode) return; // 🔒 체험모드에서는 클릭 차단
-                window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
-            };
+                // ✅ post.html 이동 차단
+                img.onclick = () => {
+                    if (isExplanMode) return; // 🔒 체험모드에서는 클릭 차단
+                    window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+                };
 
-            imgContainer.appendChild(placeholder);
-            imgContainer.appendChild(img);
-            imageGallery.appendChild(imgContainer);
-        });
+                imgContainer.appendChild(placeholder);
+                imgContainer.appendChild(img);
+                imageGallery.appendChild(imgContainer);
+            });
 
-        renderPagination(totalPages);
-        // page 증가는 버튼 클릭에서만 하므로 여기선 제거
+            renderPagination(totalPages);
+            // page 증가는 버튼 클릭에서만 하므로 여기선 제거
         } catch (err) {
-        console.error(err);
+            console.error(err);
         } finally {
-        hideLoading();
+            hideLoading();
         }
     }
 
@@ -454,7 +454,7 @@ function toggleMenu(menuId) {
         prev.textContent = "◀";                // 버튼 레이블 추가
         prev.style.padding = "0px";
 
-        prev.onclick  = () => {
+        prev.onclick = () => {
             if (page <= 0) {
                 showPopupMessage("첫 페이지입니다.");
                 return;
@@ -465,7 +465,7 @@ function toggleMenu(menuId) {
         pag.appendChild(prev);
 
         const info = document.createElement("span");
-        info.textContent = ` ${page+1} / ${totalPages} `;
+        info.textContent = ` ${page + 1} / ${totalPages} `;
         info.style.margin = "0 10px";
         pag.appendChild(info);
 
@@ -475,7 +475,7 @@ function toggleMenu(menuId) {
         next.textContent = "▶";                // 버튼 레이블 추가
         next.style.padding = "0px";
 
-        next.onclick  = () => {
+        next.onclick = () => {
             if ((page + 1) >= totalPages) {
                 showPopupMessage("마지막 페이지입니다.");
                 return;
@@ -532,21 +532,21 @@ function toggleMenu(menuId) {
                 img.dataset.src = `${image.file_path}`;
                 img.alt = "Uploaded Image";
                 img.classList.add("gallery-image");
-                
+
                 observer.observe(img); // ✅ Intersection Observer로 감지
-            
+
                 // ✅ 문제 해결: `image.category_name`과 `image.subcategory_name`을 직접 사용
                 const categoryName = image.category_name ? encodeURIComponent(image.category_name) : "uncategorized";
                 const subcategoryName = image.subcategory_name ? encodeURIComponent(image.subcategory_name) : "general";
                 const fileName = encodeURIComponent(image.file_name);
                 const postURL = `post?category=${categoryName}&subcategory=${subcategoryName}&file=${fileName}`;
-            
+
                 img.onclick = () => {
                     if (isExplanMode) return; // 🔒 체험모드에서는 클릭 무시
                     console.log(`✅ 이동할 URL: ${postURL}`);
                     window.location.href = postURL;
                 };
-            
+
                 imgContainer.appendChild(placeholder);
                 imgContainer.appendChild(img);
                 imageGallery.appendChild(imgContainer);
@@ -564,7 +564,7 @@ function toggleMenu(menuId) {
         const body = document.body;
         const isDarkMode = body.classList.toggle("dark-mode"); // ✅ 다크 모드 토글
         const themeIcon = document.getElementById("themeIcon");
-    
+
         if (isDarkMode) {
             localStorage.setItem("theme", "dark");
             themeToggle.checked = true;
@@ -575,12 +575,12 @@ function toggleMenu(menuId) {
             if (themeIcon) themeIcon.textContent = "☀️";
         }
     };
-    
+
     /** ✅ 페이지 로드 시 저장된 다크 모드 적용 */
     function applySavedTheme() {
         const savedTheme = localStorage.getItem("theme") || "light";
         const themeIcon = document.getElementById("themeIcon");
-    
+
         if (savedTheme === "dark") {
             document.body.classList.add("dark-mode");
             if (themeToggle) themeToggle.checked = true;
@@ -592,185 +592,185 @@ function toggleMenu(menuId) {
         }
     }
 
-    
-        const themeToggle = document.getElementById("themeToggle"); // ✅ 추가
-        let wasOverlapping = false;
-        let overlapTimer = null;
 
-        function checkOverlap(img) {
-            const imgRect = img.getBoundingClientRect();
-            const toggleRect = document.querySelector('.toggle-switch .slider').getBoundingClientRect();
-            console.log("[debug] imgRect, toggleRect:", imgRect, toggleRect);
-    
-            const x_overlap = Math.max(0, Math.min(imgRect.right, toggleRect.right) - Math.max(imgRect.left, toggleRect.left));
-            const y_overlap = Math.max(0, Math.min(imgRect.bottom, toggleRect.bottom) - Math.max(imgRect.top, toggleRect.top));
-            const overlapArea = x_overlap * y_overlap;
+    const themeToggle = document.getElementById("themeToggle"); // ✅ 추가
+    let wasOverlapping = false;
+    let overlapTimer = null;
 
-            const toggleArea = toggleRect.width * toggleRect.height;
-            const ratioToggle = overlapArea / toggleArea;
-            console.log("[debug] overlapArea:", overlapArea,
-                "toggleArea:", toggleArea,
-                "ratioToggle:", ratioToggle);
+    function checkOverlap(img) {
+        const imgRect = img.getBoundingClientRect();
+        const toggleRect = document.querySelector('.toggle-switch .slider').getBoundingClientRect();
+        console.log("[debug] imgRect, toggleRect:", imgRect, toggleRect);
 
-            // 토글 면적의 70% 이상 겹쳤을 때
-            if (ratioToggle >= 0.7 && !wasOverlapping) {
-                overlapTimer = setTimeout(() => window.location.href = "killing_game.html", 10000);
-            }
-            if (ratioToggle < 0.7 && wasOverlapping) {
-                clearTimeout(overlapTimer);
-            }
-            wasOverlapping = ratioToggle >= 0.7;
-            }
+        const x_overlap = Math.max(0, Math.min(imgRect.right, toggleRect.right) - Math.max(imgRect.left, toggleRect.left));
+        const y_overlap = Math.max(0, Math.min(imgRect.bottom, toggleRect.bottom) - Math.max(imgRect.top, toggleRect.top));
+        const overlapArea = x_overlap * y_overlap;
 
-        function updatePreviewImage() {
-            wasOverlapping = false; // 이전 상태 추적
-            clearTimeout(overlapTimer);
-            overlapTimer = null;
+        const toggleArea = toggleRect.width * toggleRect.height;
+        const ratioToggle = overlapArea / toggleArea;
+        console.log("[debug] overlapArea:", overlapArea,
+            "toggleArea:", toggleArea,
+            "ratioToggle:", ratioToggle);
 
-            previewContainer.innerHTML = "";
-            previewContainer.style.position = "relative";
-    
-            // _cut 버전을 지원하는 번호 배열
-            let previewTimer = null;
-            const allowedCutIndices = [1, 2, 3, 4, 5, 8, 9, 11,12];
-            const totalPreviews = 12;
-            const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
-
-            // ✅ 현대화 여부 확인
-            const isModernized = localStorage.getItem("indicatorModernized") === "true";
-           
-            // ✅ 선택 이미지 경로 결정
-            let selectedImage = isModernized
-                ? `images/preview-gunff_${randomIndex}re.png`
-                : `images/preview-gunff_${randomIndex}.png`;
-            
-            localStorage.setItem("selectedImage", selectedImage);
-        
-            const img = document.createElement("img");
-            img.src = selectedImage;
-            img.alt = `Preview Image`;
-            img.style.position = "absolute";
-            img.style.cursor = "grab";
-            img.style.left = "0px";  // 초기 좌표 설정
-            img.style.top = "0px";   // 초기 좌표 설정
-
-            // 🔁 클릭/터치 시 이미지 전환 로직 함수화
-            let isCut = false;
-
-            function togglePreviewImage() {
-                if (!allowedCutIndices.includes(randomIndex)) return;
-
-                if (!isCut) {
-                    img.src = isModernized
-                        ? `images/preview-gunff_${randomIndex}re_cut.png`
-                        : `images/preview-gunff_${randomIndex}_cut.png`;
-                } else {
-                    img.src = isModernized
-                        ? `images/preview-gunff_${randomIndex}re.png`
-                        : `images/preview-gunff_${randomIndex}.png`;
-                }
-                localStorage.setItem("selectedImage", img.src);
-                isCut = !isCut;
-            }
-
-            img.addEventListener("click", togglePreviewImage);
-        
-            // 🧠 드래그 상태 추적
-            let isDragging = false; 
-            let offsetX = 0; 
-            let offsetY = 0;
-            let animationFrameId = null;
-            let touchMoved = false;
-
-            function startOverlapCheckLoop(img) {
-                function loop() {
-                    if (isDragging) {
-                        checkOverlap(img);
-                        animationFrameId = requestAnimationFrame(loop);
-                    }
-                }
-                animationFrameId = requestAnimationFrame(loop);
-            }
-            
-            function stopOverlapCheckLoop() {
-                if (animationFrameId) {
-                    cancelAnimationFrame(animationFrameId);
-                    animationFrameId = null;
-                }
-            }
-
-            // 마우스 이벤트
-            img.addEventListener("mousedown", (e) => {
-                isDragging = true;
-                const rect = img.getBoundingClientRect();
-                offsetX = e.clientX - rect.left;
-                offsetY = e.clientY - rect.top;
-                img.style.cursor = "grabbing";
-                e.preventDefault();
-                startOverlapCheckLoop(img); // 👈 겹침 감지 루프 시작
-            });
-        
-            document.addEventListener("mousemove", (e) => {
-                if (!isDragging) return;
-                const containerRect = previewContainer.getBoundingClientRect();
-                let left = e.clientX - containerRect.left - offsetX;
-                let top = e.clientY - containerRect.top - offsetY;
-                img.style.left = left + "px";
-                img.style.top = top + "px";
-                checkOverlap(img); // 👈 실시간 감지용 강제 호출 추가!
-            });
-        
-            document.addEventListener("mouseup", () => {
-                if (isDragging) {
-                    isDragging = false;
-                    img.style.cursor = "grab";
-                    stopOverlapCheckLoop(); // 👈 루프 멈추기
-                }
-            });
-
-            // 터치 이벤트 추가
-            img.addEventListener("touchstart", (e) => {
-                isDragging = true;
-                touchMoved = false;
-                const touch = e.touches[0];
-                const rect = img.getBoundingClientRect();
-                offsetX = touch.clientX - rect.left;
-                offsetY = touch.clientY - rect.top;
-                img.style.cursor = "grabbing";
-                startOverlapCheckLoop(img);
-                e.preventDefault();
-            });
-
-            document.addEventListener("touchmove", (e) => {
-                if (!isDragging) return;
-                touchMoved = true;
-                const touch = e.touches[0];
-                const containerRect = previewContainer.getBoundingClientRect();
-                let left = touch.clientX - containerRect.left - offsetX;
-                let top = touch.clientY - containerRect.top - offsetY;
-                img.style.left = left + "px";
-                img.style.top = top + "px";
-                checkOverlap(img);
-            });
-
-            document.addEventListener("touchend", () => {
-                if (isDragging) {
-                    isDragging = false;
-                    img.style.cursor = "grab";
-                    stopOverlapCheckLoop();
-
-                    togglePreviewImage();
-                }
-            });
-            
-        
-            img.onerror = function () {
-                console.error(`이미지 로드 실패: ${img.src}`);
-            };
-        
-            previewContainer.appendChild(img);
-            checkOverlap(img);
+        // 토글 면적의 70% 이상 겹쳤을 때
+        if (ratioToggle >= 0.7 && !wasOverlapping) {
+            overlapTimer = setTimeout(() => window.location.href = "killing_game.html", 10000);
         }
+        if (ratioToggle < 0.7 && wasOverlapping) {
+            clearTimeout(overlapTimer);
+        }
+        wasOverlapping = ratioToggle >= 0.7;
+    }
+
+    function updatePreviewImage() {
+        wasOverlapping = false; // 이전 상태 추적
+        clearTimeout(overlapTimer);
+        overlapTimer = null;
+
+        previewContainer.innerHTML = "";
+        previewContainer.style.position = "relative";
+
+        // _cut 버전을 지원하는 번호 배열
+        let previewTimer = null;
+        const allowedCutIndices = [1, 2, 3, 4, 5, 8, 9, 11, 12];
+        const totalPreviews = 12;
+        const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
+
+        // ✅ 현대화 여부 확인
+        const isModernized = localStorage.getItem("indicatorModernized") === "true";
+
+        // ✅ 선택 이미지 경로 결정
+        let selectedImage = isModernized
+            ? `images/preview-gunff_${randomIndex}re.png`
+            : `images/preview-gunff_${randomIndex}.png`;
+
+        localStorage.setItem("selectedImage", selectedImage);
+
+        const img = document.createElement("img");
+        img.src = selectedImage;
+        img.alt = `Preview Image`;
+        img.style.position = "absolute";
+        img.style.cursor = "grab";
+        img.style.left = "0px";  // 초기 좌표 설정
+        img.style.top = "0px";   // 초기 좌표 설정
+
+        // 🔁 클릭/터치 시 이미지 전환 로직 함수화
+        let isCut = false;
+
+        function togglePreviewImage() {
+            if (!allowedCutIndices.includes(randomIndex)) return;
+
+            if (!isCut) {
+                img.src = isModernized
+                    ? `images/preview-gunff_${randomIndex}re_cut.png`
+                    : `images/preview-gunff_${randomIndex}_cut.png`;
+            } else {
+                img.src = isModernized
+                    ? `images/preview-gunff_${randomIndex}re.png`
+                    : `images/preview-gunff_${randomIndex}.png`;
+            }
+            localStorage.setItem("selectedImage", img.src);
+            isCut = !isCut;
+        }
+
+        img.addEventListener("click", togglePreviewImage);
+
+        // 🧠 드래그 상태 추적
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+        let animationFrameId = null;
+        let touchMoved = false;
+
+        function startOverlapCheckLoop(img) {
+            function loop() {
+                if (isDragging) {
+                    checkOverlap(img);
+                    animationFrameId = requestAnimationFrame(loop);
+                }
+            }
+            animationFrameId = requestAnimationFrame(loop);
+        }
+
+        function stopOverlapCheckLoop() {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        }
+
+        // 마우스 이벤트
+        img.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            const rect = img.getBoundingClientRect();
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+            img.style.cursor = "grabbing";
+            e.preventDefault();
+            startOverlapCheckLoop(img); // 👈 겹침 감지 루프 시작
+        });
+
+        document.addEventListener("mousemove", (e) => {
+            if (!isDragging) return;
+            const containerRect = previewContainer.getBoundingClientRect();
+            let left = e.clientX - containerRect.left - offsetX;
+            let top = e.clientY - containerRect.top - offsetY;
+            img.style.left = left + "px";
+            img.style.top = top + "px";
+            checkOverlap(img); // 👈 실시간 감지용 강제 호출 추가!
+        });
+
+        document.addEventListener("mouseup", () => {
+            if (isDragging) {
+                isDragging = false;
+                img.style.cursor = "grab";
+                stopOverlapCheckLoop(); // 👈 루프 멈추기
+            }
+        });
+
+        // 터치 이벤트 추가
+        img.addEventListener("touchstart", (e) => {
+            isDragging = true;
+            touchMoved = false;
+            const touch = e.touches[0];
+            const rect = img.getBoundingClientRect();
+            offsetX = touch.clientX - rect.left;
+            offsetY = touch.clientY - rect.top;
+            img.style.cursor = "grabbing";
+            startOverlapCheckLoop(img);
+            e.preventDefault();
+        });
+
+        document.addEventListener("touchmove", (e) => {
+            if (!isDragging) return;
+            touchMoved = true;
+            const touch = e.touches[0];
+            const containerRect = previewContainer.getBoundingClientRect();
+            let left = touch.clientX - containerRect.left - offsetX;
+            let top = touch.clientY - containerRect.top - offsetY;
+            img.style.left = left + "px";
+            img.style.top = top + "px";
+            checkOverlap(img);
+        });
+
+        document.addEventListener("touchend", () => {
+            if (isDragging) {
+                isDragging = false;
+                img.style.cursor = "grab";
+                stopOverlapCheckLoop();
+
+                togglePreviewImage();
+            }
+        });
+
+
+        img.onerror = function () {
+            console.error(`이미지 로드 실패: ${img.src}`);
+        };
+
+        previewContainer.appendChild(img);
+        checkOverlap(img);
+    }
 
     // ✅ 서버에서 Indicator 상태 가져오기 함수 추가
     async function fetchIndicatorStatusAndApply() {
@@ -778,13 +778,13 @@ function toggleMenu(menuId) {
             const res = await fetch("/api/settings/indicator-status");
             if (!res.ok) throw new Error("서버 응답 오류");
             const data = await res.json();
-            
+
             // ✅ visible 은 서버 우선
             localStorage.setItem('previewVisible', data.visible ? 'visible' : 'hidden');
 
             // ✅ modernized 는 localStorage 우선
             const localModernized = localStorage.getItem('indicatorModernized');
-            const isModernized = localModernized !== null 
+            const isModernized = localModernized !== null
                 ? localModernized === "true"
                 : data.modernized;
 
@@ -814,15 +814,15 @@ function toggleMenu(menuId) {
         // previewContainer 내의 img 요소 찾기
         if (!img) {
             console.warn("⚠️ 표시할 이미지가 없음. 새로 생성합니다.");
-            updatePreviewImage();  
-            img = previewContainer.querySelector("img"); 
+            updatePreviewImage();
+            img = previewContainer.querySelector("img");
             if (!img) return; // 그래도 없으면 그냥 리턴
         }
 
         // 표시 상태 적용
         if (previewState === "hidden") {
             img.style.display = "none"; // 숨기기
-         } else {
+        } else {
             img.style.display = "flex"; // 보이기
         }
     }
@@ -831,17 +831,17 @@ function toggleMenu(menuId) {
         const imgs = document.querySelectorAll('#section3 .sorting-container img');
         imgs.forEach((img, index) => {
             // 예시 파일명 규칙: preview-gunff_1.png vs preview-gunff_1re.png
-            const baseName = `images/preview-gunff_${index+1}`;
+            const baseName = `images/preview-gunff_${index + 1}`;
             img.src = isModernized ? `${baseName}re.png` : `${baseName}.png`;
         });
-        }
+    }
 
     // ✅ `localStorage` 변경 감지 (admin-dashboard에서 변경되면 자동 반영)
     window.addEventListener("storage", updatePreviewVisibility);
 
 
     // ✅ 뒤로 가기(←) 또는 앞으로 가기(→) 시 카테고리 변경 처리
-    window.onpopstate = async function(event) {
+    window.onpopstate = async function (event) {
         const urlParams = new URLSearchParams(window.location.search);
         let categoryParam = urlParams.get("category");
 
@@ -880,9 +880,9 @@ function toggleMenu(menuId) {
             categoryParam = categoryMappings[categoryParam];
         }
 
-        if(!categoryParam){
+        if (!categoryParam) {
             console.warn("⚠ URL에 카테고리가 없음. 기본값 설정 중...");
-            if(categories.length > 0){
+            if (categories.length > 0) {
                 categoryParam = categories[0].name;
             } else {
                 console.error("🚨 사용할 수 있는 카테고리가 없음!");
@@ -918,7 +918,7 @@ function toggleMenu(menuId) {
             categoryTabContainer.removeChild(categoryTabContainer.firstChild);
         }
     }
-    
+
     function clearGallery() {
         while (imageGallery.firstChild) {
             imageGallery.removeChild(imageGallery.firstChild);
@@ -942,7 +942,7 @@ function toggleMenu(menuId) {
     await fetchIndicatorStatusAndApply();   // 초기 상태 반영
     setInterval(fetchIndicatorStatusAndApply, 5000); // 상태만 5초마다 갱신
     setInterval(updatePreviewImage, 30000);  // 이미지는 30초마다 갱신
-    
+
     // 초기 상태 반영
     window.addEventListener("storage", (e) => {
         if (e.key === "indicatorModernized") {

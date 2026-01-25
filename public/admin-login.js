@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (savedOpacity && container) {
         container.style.opacity = savedOpacity;
     }
-    
+
     if (isExplanMode) {
         const backBtn = document.querySelector(".back-button");
         if (backBtn) {
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     passwordInput.addEventListener("input", () => {
         const isBarPhone = window.innerWidth <= 480; // 바형 기준 (가로폭 작을 때)
-        if(!isBarPhone) return;
+        if (!isBarPhone) return;
 
         const length = passwordInput.value.length;
 
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             } else {
                 showPopup("로그인 실패!", "error", () => {
-                     if (window.location.hash === "#explan") {
+                    if (window.location.hash === "#explan") {
                         showAdminButton(); // ✅ 설명용 링크일 때만 표시
                     }
                 });
@@ -75,9 +75,9 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
             console.error("서버 자체 오류:", error);
             showPopup("서버 오류 발생!", "error");
-            }
-        });
-        
+        }
+    });
+
     function showAdminButton() {
         if (document.querySelector(".admin-styled-button")) {
             showPopup("이미 관리자모드 버튼이 있습니다.", "info");
@@ -91,22 +91,22 @@ document.addEventListener("DOMContentLoaded", function () {
             const isExplanMode = window.location.hash.includes("explan");
 
             const message = isExplanMode
-                    ? "버튼을 누르고 기대하세요"
-                    : "관리자 모드로 이동합니다.";
-            
-                const redirectUrl = window.location.hash.includes("explan")
-                    ? "https://karisdify.site/index#explan"
-                    : "mode-selection.html";
-                    
-                showPopup(message, "success", function() {
-                    window.location.href = redirectUrl; // 관리자 페이지로 이동
+                ? "버튼을 누르고 기대하세요"
+                : "관리자 모드로 이동합니다.";
+
+            const redirectUrl = window.location.hash.includes("explan")
+                ? "https://karisdify.site/index#explan"
+                : "mode-selection.html";
+
+            showPopup(message, "success", function () {
+                window.location.href = redirectUrl; // 관리자 페이지로 이동
             });
         };
         document.body.appendChild(adminButton);
     }
 });
 
-function showPopup(message, type="info", callback=null) {
+function showPopup(message, type = "info", callback = null) {
     // ✅ 기존 팝업 제거 (중복 방지)
     const existingPopup = document.querySelector(".popup-message");
     if (existingPopup) existingPopup.remove();

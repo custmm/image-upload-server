@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="kMxKqlA9cKbHdJGw51M2sE21fjyzL3SvY1ryWISJMT0" />
@@ -8,48 +9,50 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body class="upload-page">
     <button class="back-button" onclick="window.location.href='mode-selection.html'">뒤로가기</button>
     <h1>이미지 업로드</h1>
-<div class="upload-container">
-    <div class="preview-container" id="previewContainer"> </div>
+    <div class="upload-container">
+        <div class="preview-container" id="previewContainer"> </div>
         <input type="file" id="fileInput" accept="image/*">
-    <hr>
-    <h2>카테고리 선택</h2>
-    <select id="category">
-        <option value="puzzle">퍼즐</option>
-        <option value="bizz">보석비즈</option>
-        <option value="solidbodypuzzle">입체퍼즐</option>
-        <option value="deforme">디폼블럭</option>
-        <option value="brickfigure">브릭피규어</option>
-    </select>
-    <h2>서브카테고리 선택</h2>
-    <select id="subcategory"></select>
-    <hr>
-    <h2>설명란</h2>
-    <div class="description-container"> 
-        <div class="editor-buttons">
-            <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
-            <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
-            <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
-            <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
-        </div>
-        <!-- ✅ 점선 구분선 추가 -->
-        <hr class="dashed-line">       
-            <div id="descriptionEditor" contenteditable="true"  class="text-editor"></div>
+        <hr>
+        <h2>카테고리 선택</h2>
+        <select id="category">
+            <option value="puzzle">퍼즐</option>
+            <option value="bizz">보석비즈</option>
+            <option value="solidbodypuzzle">입체퍼즐</option>
+            <option value="deforme">디폼블럭</option>
+            <option value="brickfigure">브릭피규어</option>
+        </select>
+        <h2>서브카테고리 선택</h2>
+        <select id="subcategory"></select>
+        <hr>
+        <h2>설명란</h2>
+        <div class="description-container">
+            <div class="editor-buttons">
+                <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
+                <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+            </div>
+            <!-- ✅ 점선 구분선 추가 -->
+            <hr class="dashed-line">
+            <div id="descriptionEditor" contenteditable="true" class="text-editor"></div>
             <p style="display: flex; justify-content: space-between; width: 100%;">
                 <span id="hashtagDisplay" style="font-size: 14px; color: #333;"></span>
                 <span id="descriptionCounter">0 / 500</span>
             </p> <!-- 🔥 글자 수 표시 -->
         </div>
-    <button id="uploadButton" class="upload-button">업로드</button>
-</div>
-<script>
-    // ✅ 글꼴 효과 적용 함수
-    function formatText(command) {
-        document.execCommand(command, false, null);
-    }
-</script>
+        <button id="uploadButton" class="upload-button">업로드</button>
+    </div>
+    <script>
+        // ✅ 글꼴 효과 적용 함수
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+    </script>
     <script src="client.js"></script>
 </body>
+
 </html>

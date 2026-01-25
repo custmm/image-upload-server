@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="kMxKqlA9cKbHdJGw51M2sE21fjyzL3SvY1ryWISJMT0" />
@@ -7,17 +8,21 @@
   <title>Ɐ휴욱슈욱Ɐ >> 업로드된 이미지</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="preview-page dark-mode">
   <div class="menubar-container">
-    <button class="back-button" onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기</button>
-    <button class="sidebar-toggle" onclick="toggleSidebar()"><span style="color: #a0a0a0; font-size: 30px;">&#9776;</span></button>
+    <button class="back-button"
+      onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기</button>
+    <button class="sidebar-toggle" onclick="toggleSidebar()"><span
+        style="color: #a0a0a0; font-size: 30px;">&#9776;</span></button>
   </div>
 
-  <div class ="message-container">
+  <div class="message-container">
     <span id="welcomeMessage">어서오세요</span>
   </div>
 
-  <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; position: relative;">
+  <div
+    style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; position: relative;">
     <div id="opacityControl">
       <label for="opacitySlider"></label>
       <input type="range" id="opacitySlider" min="0.2" max="1" step="0.025" value="0.825">
@@ -25,7 +30,7 @@
 
     <!-- 👁️ 이미지 버튼 (눈 아이콘) -->
     <img id="opacityToggleBtn" src="images/toggle_leaf.png" alt="Toggle Opacity Slider"
-        style="height: 30px; cursor: pointer;">
+      style="height: 30px; cursor: pointer;">
   </div>
 
   <!-- ✅ 로딩 화면 (초기에는 숨김 상태) -->
@@ -41,22 +46,22 @@
   <!-- 서브 카테고리 탭 (작은 카테고리) -->
   <div class="marge-container" id="marge-container">
     <div class="category-subtab-container">
-        <h2 id="currentCategory"></h2>
-        <div class="sub-tab-wrapper">
-            <div class="sub-tab-container" id="subTabContainer">
-                <!-- 선택한 카테고리의 서브 탭이 동적으로 생성됩니다 -->
-            </div>
+      <h2 id="currentCategory"></h2>
+      <div class="sub-tab-wrapper">
+        <div class="sub-tab-container" id="subTabContainer">
+          <!-- 선택한 카테고리의 서브 탭이 동적으로 생성됩니다 -->
         </div>
+      </div>
     </div>
 
-  <!-- ✅ 이미지 갤러리를 감싸는 컨테이너 (중앙 정렬) -->
-  <div class="image-gallery-wrapper">
+    <!-- ✅ 이미지 갤러리를 감싸는 컨테이너 (중앙 정렬) -->
+    <div class="image-gallery-wrapper">
       <div id="imageGallery" class="image-gallery">
-          <!-- ✅ 동적으로 이미지 추가 -->
-      </div>    
-        </div>      
-        <div id="pagination-container"></div>
+        <!-- ✅ 동적으로 이미지 추가 -->
+      </div>
     </div>
+    <div id="pagination-container"></div>
+  </div>
 
   <!-- 다크 모드 토글 스위치 -->
   <div class="toggle-switch">
@@ -83,18 +88,18 @@
     <ul class="main-menu">
       <!-- 게시판 카테고리 -->
       <li class="menu-item">
-        <button class="menu-title" onclick="toggleMenu('board')">게시판</button>    
+        <button class="menu-title" onclick="toggleMenu('board')">게시판</button>
         <ul id="board" class="sub-menu">
           <li><a href="#" onclick="goCategory('퍼즐')">퍼즐</a></li>
           <li><a href="#" onclick="goCategory('보석비즈')">보석비즈</a></li>
           <li><a href="#" onclick="goCategory('입체퍼즐')">입체퍼즐</a></li>
           <li><a href="#" onclick="goCategory('디폼블럭')">디폼블럭</a></li>
-          <li><a href="#" onclick="goCategory('브릭피규어')">브릭피규어</a></li>      
+          <li><a href="#" onclick="goCategory('브릭피규어')">브릭피규어</a></li>
         </ul>
       </li>
 
       <li class="menu-item">
-        <button class="menu-title" onclick="toggleMenu('etc')">부가기능</button>    
+        <button class="menu-title" onclick="toggleMenu('etc')">부가기능</button>
         <ul id="etc" class="sub-menu">
           <li><a href="click.html">숨겨진기능 체험하기</a></li>
           <li><a href="killing_game.html">게임하기</a></li>
@@ -103,15 +108,15 @@
     </ul>
   </div>
 
-<script>
-document.getElementById("showIntro").addEventListener("click", function(e) {
-  e.preventDefault();
-    inforPopupMessage("Q:이 웹사이트를 소개해주세요.<br>A:이 웹사이트는 제작자(본인)가 취미비용을 사용하여 제품을 구입하고 가정에서 조립한후 완성품을 사진으로 남겨서 간직하기 위한 사이트입니다.<br><br>Q:이 웹사이트에 특이한 기능은 무엇인가요?<br>A:그냥 보고 넘기는 방식에서 지루함을 덜어내기위하여 특이한 아이콘, 특수효과, 숨겨진게임, 어서오세요를 누르면 각 항목의 소개가 나오고 체험할수있는 공간이 마련됩니다.");
-});
-document.getElementById("appIntro").addEventListener("click", function(e) {
-  e.preventDefault();
+  <script>
+    document.getElementById("showIntro").addEventListener("click", function (e) {
+      e.preventDefault();
+      inforPopupMessage("Q:이 웹사이트를 소개해주세요.<br>A:이 웹사이트는 제작자(본인)가 취미비용을 사용하여 제품을 구입하고 가정에서 조립한후 완성품을 사진으로 남겨서 간직하기 위한 사이트입니다.<br><br>Q:이 웹사이트에 특이한 기능은 무엇인가요?<br>A:그냥 보고 넘기는 방식에서 지루함을 덜어내기위하여 특이한 아이콘, 특수효과, 숨겨진게임, 어서오세요를 누르면 각 항목의 소개가 나오고 체험할수있는 공간이 마련됩니다.");
+    });
+    document.getElementById("appIntro").addEventListener("click", function (e) {
+      e.preventDefault();
 
-  const tableHTML = `
+      const tableHTML = `
   <div style="
     display:flex; 
     justify-content:center; 
@@ -226,9 +231,10 @@ document.getElementById("appIntro").addEventListener("click", function(e) {
   </div>
   `;
 
-  appinforPopupMessage(tableHTML);
-});
-</script>
+      appinforPopupMessage(tableHTML);
+    });
+  </script>
   <script src="preview.js"></script>
 </body>
+
 </html>
