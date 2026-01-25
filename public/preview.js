@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 menu.classList.toggle('open');
             } else {
                 // 나머지는 닫기
-                menu.classList.remove('open');
+                menu.classList.remove('close');
             }
         });
     }
