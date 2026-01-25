@@ -263,20 +263,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    function toggleMenu(menuId) {
-        const menus = document.querySelectorAll('.sub-menu');
-
-        menus.forEach(menu => {
-            if (menu.id === menuId) {
-                // 클릭한 메뉴만 토글
-                menu.classList.toggle('open');
-            } else {
-                // 나머지는 닫기
-                menu.classList.remove('close');
-            }
-        });
-    }
-
 
     // 1) 카테고리 로드
     async function loadCategories() {
