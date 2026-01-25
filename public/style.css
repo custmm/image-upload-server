@@ -2528,7 +2528,6 @@
         border: none;
         border-radius: 50%;
         cursor: pointer;
-        transition: background-color 0.5s, transform 0.5s ease-in-out;
         z-index: 1000; /* ✅ 다른 요소 위에 배치 */
     }
     .sidebar-toggle:hover {
