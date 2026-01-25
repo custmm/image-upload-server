@@ -14,13 +14,17 @@ window.nextPage = async function () {
 // ✅ 사이드바 토글 함수 (HTML onclick과 연결됨)
 window.toggleSidebar = function () {
     const sidebar = document.getElementById("sidebar");
+    if (!sidebar) return;
 
-    if (!sidebar) {
-        console.error("❌ #sidebar 요소를 찾을 수 없음");
-        return;
-    }
-
+    const isOpening = !sidebar.classList.contains("open");
     sidebar.classList.toggle("open");
+
+        // 🔥 사이드바를 "열 때만" 서브메뉴 전부 닫기
+    if (isOpening) {
+        document.querySelectorAll(".sub-menu").forEach(menu => {
+            menu.classList.remove("open");
+        });
+    }
 };
 
 window.toggleMenu = function (menuId) {
