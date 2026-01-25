@@ -145,15 +145,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         "deforme": "디폼블럭",
         "brickfigure": "브릭피규어"
     };
-
-    function updateSidebarTogglePosition() {
-        requestAnimationFrame(() => {
-            const scrollY = window.scrollY;
-            sidebarToggle.style.transform = `translateY(${scrollY}px)`;
-        });
-    }
-    window.addEventListener("scroll", updateSidebarTogglePosition);
-
     
     // ✅ 로딩 화면 표시 함수
     function showLoading() {
