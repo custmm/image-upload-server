@@ -160,6 +160,7 @@
 
     /* ====== 첫화면 ====== */
     .index-page {
+
         html,
         body {
             margin: 0;
@@ -185,12 +186,10 @@
             position: absolute;
             inset: -15px;
             border-radius: 50%;
-            background: radial-gradient(
-                circle,
-                rgba(0, 220, 255, 0.6) 0%,
-                rgba(0, 200, 255, 0.3) 40%,
-                transparent 70%
-            );
+            background: radial-gradient(circle,
+                    rgba(0, 220, 255, 0.6) 0%,
+                    rgba(0, 200, 255, 0.3) 40%,
+                    transparent 70%);
             filter: blur(12px);
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -2022,6 +2021,7 @@
             z-index: 2;
             /* 필요시 클릭 우선순위 */
         }
+
         .toggle-switch input:checked+.slider::before {
             transform: translateX(65px);
         }
@@ -2029,6 +2029,7 @@
         .toggle-switch input:checked+.slider #themeIcon {
             transform: translateX(65px);
         }
+
         .slider {
             position: absolute;
             cursor: pointer;
@@ -2056,7 +2057,7 @@
             height: 40px;
             border-radius: 50%;
             left: -15px;
-            top:-10px;
+            top: -10px;
             background: #e9ecef;
             font-size: 25px;
             text-align: center;
@@ -2089,6 +2090,7 @@
 
     /* ====== 게임 페이지 ====== */
     .game-page {
+
         body,
         html {
             overflow: hidden;
@@ -2569,6 +2571,7 @@
             z-index: 2;
             /* 필요시 클릭 우선순위 */
         }
+
         .toggle-switch input:checked+.slider::before {
             transform: translateX(65px);
         }
@@ -2586,6 +2589,7 @@
             border-radius: 20px;
             transition: background-color 0.3s;
         }
+
         .slider::before {
             position: absolute;
             left: -15px;
@@ -2603,7 +2607,7 @@
             height: 40px;
             border-radius: 50%;
             left: -15px;
-            top:-10px;
+            top: -10px;
             background: #e9ecef;
             font-size: 25px;
             text-align: center;
@@ -2741,6 +2745,7 @@
         .sidebar.open {
             left: 0;
         }
+
         .sub-menu {
             display: none;
         }
@@ -2863,15 +2868,16 @@
             color: aqua;
 
         }
-        .opacitybtn{
+
+        .opacitybtn {
             height: 30px;
             cursor: pointer;
         }
 
         #welcomeMessage {
-            font-size: 1.4rem;
-            letter-spacing: 0.1em;
-            white-space: nowrap;
+            text-align: center;
+            font-weight: bold;
+            font-size: 30px;
         }
 
         .message-container {
@@ -3186,6 +3192,7 @@
             z-index: 2;
             /* 필요시 클릭 우선순위 */
         }
+
         /* 다크 모드 시: 핸들과 아이콘 오른쪽으로 이동 */
         .toggle-switch input:checked+.slider::before {
             transform: translateX(65px);
@@ -3204,6 +3211,7 @@
             border-radius: 20px;
             transition: background-color 0.3s;
         }
+
         .slider::before {
             position: absolute;
             left: -15px;
@@ -3222,7 +3230,7 @@
             height: 40px;
             border-radius: 50%;
             left: -15px;
-            top:-10px;
+            top: -10px;
             background: #e9ecef;
             font-size: 25px;
             text-align: center;
@@ -3231,9 +3239,11 @@
             transition: transform 0.3s;
             z-index: 1;
         }
+
         .preview-page {
             overflow-x: hidden;
         }
+
         .back-button:hover {
             background-color: #755a6a;
         }
