@@ -304,7 +304,6 @@
             /* 적절한 높이 설정 */
             padding: 20px;
             display: flex;
-            justify-content: space-around;
             justify-content: center;
             align-items: center;
             border-radius: 8px;
@@ -2934,7 +2933,6 @@
             align-items: center;
             margin-left: 85%;
         }
-
 
         .preview-images img {
             display: block;
