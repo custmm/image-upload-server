@@ -2862,10 +2862,9 @@
         }
 
         #welcomeMessage {
-            text-align: center;
-            font-weight: bold;
-            font-size: 30px;
-            position: relative;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            white-space: nowrap;
         }
 
         .message-container {

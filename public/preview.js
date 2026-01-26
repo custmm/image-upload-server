@@ -23,7 +23,6 @@ window.toggleSidebar = function () {
     if (isOpening) {
         document.querySelectorAll(".sub-menu").forEach(menu => {
             menu.classList.remove("open");
-            menu.style.display = ""; // ⚠️ inline style 제거 (핵심)
         });
     }
 };
@@ -33,10 +32,9 @@ window.toggleMenu = function (menuId) {
 
     menus.forEach(menu => {
         if (menu.id === menuId) {
-            menu.style.display =
-                menu.style.display === 'block' ? 'none' : 'block';
+            menu.classList.toggle('open');
         } else {
-            menu.style.display = 'none';
+            menu.classList.remove('open');
         }
     });
 };
@@ -117,6 +115,7 @@ function inforPopupMessage(msg) {
 
 document.addEventListener("DOMContentLoaded", async () => {
     const isExplanMode = window.location.hash.includes("explan");
+    typeWelcomeText();
     const sidebarToggle = document.querySelector(".sidebar-toggle");
     const welcomeEl = document.getElementById("welcomeMessage");
     const categoryTabContainer = document.querySelector(".tab-design"); // 메인 카테고리 탭
@@ -248,6 +247,25 @@ document.addEventListener("DOMContentLoaded", async () => {
                 window.location.href = "click.html";
             });
         }
+    }
+
+    function typeWelcomeText() {
+        const el = document.getElementById("welcomeMessage");
+        if (!el) return;
+
+        const text = "어서오세요";
+        let index = 0;
+
+        el.textContent = ""; // 초기화
+
+        const typingInterval = setInterval(() => {
+            el.textContent += text[index];
+            index++;
+
+            if (index >= text.length) {
+                clearInterval(typingInterval);
+            }
+        }, 100); // ⬅️ 글자 속도 (80~120 추천)
     }
 
     // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
