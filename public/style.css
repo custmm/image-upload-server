@@ -3195,12 +3195,14 @@
         /* ✅ 이모지 스타일 (동그란 핸들 안에 위치) */
         #themeIcon {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             left: -15px;
+            top:-15px;
             font-size: 25px;
             text-align: center;
-            line-height: 12px;
+            line-height: 40px;
             pointer-events: none;
             transition: transform 0.3s;
             z-index: 1;
