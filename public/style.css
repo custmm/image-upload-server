@@ -2001,11 +2001,11 @@
 
         /* 토글 스위치 (다크 모드) */
         .toggle-switch {
-            position: absolute;
-            top: 10px;
+            position: fixed;
+            top: 25px;
             right: 30px;
-            width: 50px;
-            height: 25px;
+            width: 65px;
+            height: 20px;
             display: inline-block;
         }
 
@@ -2020,8 +2020,15 @@
             opacity: 0;
             cursor: pointer;
             z-index: 2;
+            /* 필요시 클릭 우선순위 */
+        }
+        .toggle-switch input:checked+.slider::before {
+            transform: translateX(65px);
         }
 
+        .toggle-switch input:checked+.slider #themeIcon {
+            transform: translateX(65px);
+        }
         .slider {
             position: absolute;
             cursor: pointer;
@@ -2030,6 +2037,17 @@
             background-color: #cbcbcb;
             border-radius: 20px;
             transition: background-color 0.3s;
+        }
+
+        .slider::before {
+            position: absolute;
+            left: -15px;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            z-index: 0;
         }
 
         #themeIcon {
@@ -2044,27 +2062,6 @@
             pointer-events: none;
             transition: transform 0.3s;
             z-index: 1;
-        }
-
-        .slider::before {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            left: 3px;
-            bottom: 2px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.3s;
-            z-index: 0;
-        }
-
-        .toggle-switch input:checked+.slider::before {
-            transform: translateX(25px);
-        }
-
-        .toggle-switch input:checked+.slider #themeIcon {
-            transform: translateX(25px);
         }
 
         .detail-toggle {
@@ -2549,11 +2546,11 @@
 
         /* 토글 스위치 (다크 모드) */
         .toggle-switch {
-            position: absolute;
-            top: 10px;
+            position: fixed;
+            top: 25px;
             right: 30px;
-            width: 50px;
-            height: 25px;
+            width: 65px;
+            height: 20px;
             display: inline-block;
         }
 
@@ -2568,6 +2565,14 @@
             opacity: 0;
             cursor: pointer;
             z-index: 2;
+            /* 필요시 클릭 우선순위 */
+        }
+        .toggle-switch input:checked+.slider::before {
+            transform: translateX(65px);
+        }
+
+        .toggle-switch input:checked+.slider #themeIcon {
+            transform: translateX(65px);
         }
 
         .slider {
@@ -2578,6 +2583,16 @@
             background-color: #cbcbcb;
             border-radius: 20px;
             transition: background-color 0.3s;
+        }
+        .slider::before {
+            position: absolute;
+            left: -15px;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            z-index: 0;
         }
 
         #themeIcon {
@@ -2594,26 +2609,6 @@
             z-index: 1;
         }
 
-        .slider::before {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            left: 3px;
-            bottom: 2px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.3s;
-            z-index: 0;
-        }
-
-        .toggle-switch input:checked+.slider::before {
-            transform: translateX(25px);
-        }
-
-        .toggle-switch input:checked+.slider #themeIcon {
-            transform: translateX(25px);
-        }
     }
 
     /* ====== 미리보기 페이지 ====== */
@@ -3181,6 +3176,14 @@
             z-index: 2;
             /* 필요시 클릭 우선순위 */
         }
+        /* 다크 모드 시: 핸들과 아이콘 오른쪽으로 이동 */
+        .toggle-switch input:checked+.slider::before {
+            transform: translateX(65px);
+        }
+
+        .toggle-switch input:checked+.slider #themeIcon {
+            transform: translateX(65px);
+        }
 
         .slider {
             position: absolute;
@@ -3190,6 +3193,16 @@
             background-color: #cbcbcb;
             border-radius: 20px;
             transition: background-color 0.3s;
+        }
+        .slider::before {
+            position: absolute;
+            left: -15px;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            z-index: 0;
         }
 
         /* ✅ 이모지 스타일 (동그란 핸들 안에 위치) */
@@ -3208,27 +3221,6 @@
             transition: transform 0.3s;
             z-index: 1;
         }
-
-        .slider::before {
-            position: absolute;
-            left: -15px;
-            width: 30px;
-            height: 30px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.3s;
-            z-index: 0;
-        }
-
-        /* 다크 모드 시: 핸들과 아이콘 오른쪽으로 이동 */
-        .toggle-switch input:checked+.slider::before {
-            transform: translateX(65px);
-        }
-
-        .toggle-switch input:checked+.slider #themeIcon {
-            transform: translateX(65px);
-        }
-
         .preview-page {
             overflow-x: hidden;
         }
