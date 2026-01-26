@@ -3163,8 +3163,8 @@
             position: fixed;
             top: 25px;
             right: 30px;
-            width: 75px;
-            height: 10px;
+            width: 65px;
+            height: 20px;
             display: inline-block;
         }
 
@@ -3200,6 +3200,7 @@
             border-radius: 50%;
             left: -15px;
             top:-15px;
+            background: #e9ecef;
             font-size: 25px;
             text-align: center;
             line-height: 40px;
