@@ -2931,7 +2931,7 @@
             cursor: grab;
             /* 기본 커서 */
             align-items: center;
-            margin-left: 85%;
+            margin-left: 80%;
         }
 
         .preview-images img {
