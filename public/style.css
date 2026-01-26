@@ -2741,6 +2741,13 @@
         .sidebar.open {
             left: 0;
         }
+        .sub-menu {
+            display: none;
+        }
+
+        .sub-menu.open {
+            display: block;
+        }
 
         /* 🔥 사이드바 메뉴 */
         .sidebar ul {
