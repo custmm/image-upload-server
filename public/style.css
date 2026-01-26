@@ -2858,6 +2858,10 @@
             color: aqua;
 
         }
+        .opacitybtn{
+            height: 30px;
+            cursor: pointer;
+        }
 
         #welcomeMessage {
             text-align: center;
