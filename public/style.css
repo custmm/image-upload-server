@@ -3161,7 +3161,7 @@
         /* 토글 스위치 (다크 모드) */
         .toggle-switch {
             position: fixed;
-            top: 10px;
+            top: 25px;
             right: 30px;
             width: 75px;
             height: 10px;
@@ -3197,21 +3197,20 @@
             position: absolute;
             width: 20px;
             height: 20px;
-            left: 3px;
+            left: -15px;
             font-size: 25px;
             text-align: center;
-            line-height: 20px;
+            line-height: 12px;
             pointer-events: none;
             transition: transform 0.3s;
             z-index: 1;
         }
 
         .slider::before {
-            content: "";
             position: absolute;
-            width: 20px;
-            height: 20px;
-            left: 3px;
+            left: -15px;
+            width: 30px;
+            height: 30px;
             background-color: white;
             border-radius: 50%;
             transition: transform 0.3s;
@@ -3220,11 +3219,11 @@
 
         /* 다크 모드 시: 핸들과 아이콘 오른쪽으로 이동 */
         .toggle-switch input:checked+.slider::before {
-            transform: translateX(25px);
+            transform: translateX(75px);
         }
 
         .toggle-switch input:checked+.slider #themeIcon {
-            transform: translateX(25px);
+            transform: translateX(75px);
         }
 
         .preview-page {
