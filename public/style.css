@@ -160,7 +160,6 @@
 
     /* ====== 첫화면 ====== */
     .index-page {
-
         html,
         body {
             margin: 0;
@@ -428,57 +427,6 @@
 
             100% {
                 transform: scale(1);
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-            }
-
-            /* body 여백이나 크기 조정 (필요에 따라) */
-
-            /* 제목의 크기를 줄임 */
-            h1 {
-                font-size: 28px;
-                margin-bottom: 20px;
-            }
-
-            #modeSelection {
-                width: auto;
-                position: relative;
-                padding: 20px;
-                background-color: #fff;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-            }
-
-            #adminModeButton {
-                width: auto;
-                display: none;
-                /* 초기에는 숨김 */
-                border: none;
-            }
-
-            #userModeButton {
-                width: auto;
-                border: none;
-            }
-
-            /* 캔버스가 화면을 꽉 채우는 대신 모바일에 맞게 조정 */
-            canvas {
-                width: 100%;
-                height: auto;
-            }
-
-            .glow-circle {
-                width: 40px;
-                height: 40px;
-                filter: blur(8px);
             }
         }
     }
@@ -1812,30 +1760,6 @@
             /* ✅ 강제 좌우 스크롤 제거 */
             box-sizing: border-box;
         }
-
-        /* ✅ 바형 스마트폰 대응 */
-        @media (max-width: 480px) {
-            .mode-selection-container {
-                width: 95% !important;
-            }
-
-            .upload-selection-button,
-            .preview-selection-button,
-            .admin-selection-button {
-                background-color: #000000;
-                color: white;
-                padding: 10px 15px;
-                width: 150px;
-                /* 버튼 너비 일정하게 */
-                height: auto;
-                transition: transform 0.3s ease-in-out;
-                border-radius: 5px;
-                cursor: pointer;
-                border: none;
-                margin-top: 30px;
-                font-size: 15px;
-            }
-        }
     }
 
     /* ====== 업로드 페이지 ====== */
@@ -2167,7 +2091,6 @@
 
     /* ====== 게임 페이지 ====== */
     .game-page {
-
         body,
         html {
             overflow: hidden;
@@ -2385,123 +2308,6 @@
         .hint-confirm-button:hover,
         #victoryScreen button:hover {
             background-color: aqua;
-        }
-
-        /* 모바일(폭 768px 이하)에서만 표시 */
-        @media (max-width: 768px) {
-            #mobile-keypad {
-                background-color: rgba(0, 0, 0, 0.3);
-                padding-top: 10px;
-                padding-bottom: 10px;
-                padding-left: 25px;
-                padding-right: 25px;
-                border-radius: 10px;
-                position: fixed;
-                bottom: 10px;
-                left: 50%;
-                transform: translateX(-50%);
-                display: flex;
-                gap: 20px;
-                align-items: center;
-                z-index: 10000;
-            }
-
-            /* 동그란 방향 패드 */
-            .arrow-pad {
-                position: relative;
-                width: 150px;
-                height: 150px;
-                border: 2px solid #ccc;
-                border-radius: 50%;
-                background: #fff;
-            }
-
-            .arrow-pad .arrow-btn {
-                position: absolute;
-                width: 28px;
-                height: 28px;
-                background: #fff;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                font-size: 18px;
-                color: #000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                touch-action: none;
-            }
-
-            .arrow-btn.up {
-                top: 10px;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .arrow-btn.down {
-                bottom: 10px;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .arrow-btn.left {
-                left: 10px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-
-            .arrow-btn.right {
-                right: 10px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-
-            .arrow-btn.center {
-                width: 38px;
-                height: 38px;
-                border-radius: 50%;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-size: 16px;
-            }
-
-            /* H, R 버튼 */
-            .action-pad {
-                display: flex;
-                flex-direction: row;
-                gap: 20px;
-            }
-
-            .action-btn {
-                width: 40px;
-                height: 40px;
-                background: #fff;
-                border: 1px solid #ccc;
-                border-radius: 8px;
-                font-size: 18px;
-                color: #000;
-                touch-action: none;
-            }
-
-            .arrow-btn.up:hover,
-            .arrow-btn.down:hover,
-            .arrow-btn.left:hover,
-            .arrow-btn.right:hover,
-            .arrow-btn.center:hover,
-            .action-btn:hover {
-                background-color: aqua;
-            }
-
-            /* 데스크탑에서는 숨김 */
-            #mobile-keypad {
-                display: flex;
-            }
-        }
-
-        @media (min-width: 769px) {
-            #mobile-keypad {
-                display: none;
-            }
         }
     }
 
@@ -2808,39 +2614,6 @@
 
         .toggle-switch input:checked+.slider #themeIcon {
             transform: translateX(25px);
-        }
-
-        @media (max-width: 768px) {
-            .post-container {
-                width: 90%;
-                /* 화면 너비에 맞게 */
-                padding: 20px;
-                /* 패딩도 조금 줄임 */
-                box-sizing: border-box;
-            }
-
-            .post-description {
-                font-size: 14px;
-            }
-
-            .postcategory-container {
-                flex-direction: column;
-                /* 좁은 화면에서 세로 정렬 */
-                gap: 5px;
-                text-align: center;
-            }
-
-            .post-buttons {
-                flex-direction: column;
-                /* 버튼 세로 배치 */
-            }
-
-            .button {
-                width: 100%;
-                /* 버튼도 꽉 차게 */
-                max-width: 300px;
-                margin: 5px auto;
-            }
         }
     }
 
@@ -3458,74 +3231,6 @@
         .preview-page {
             overflow-x: hidden;
         }
-
-        @media (max-width: 480px) {
-            .sidebar {
-                left: -100%;
-            }
-
-            .sidebar.open {
-                left: 0;
-            }
-            .infor-popup {
-                width: 95%;
-                /* 화면 꽉 채우지 않도록 너비 조절*/
-                max-height: 90vh;
-                /* 높이도 제한 */
-                overflow: auto;
-                /* 넘치면 스크롤 */
-                padding: 18px 16px;
-                /* 여백도 축소 */
-                font-size: 11px;
-                /* 전체 폰트 크기 줄이기 */
-                box-sizing: border-box;
-            }
-
-            .app-infor-popup {
-                width: 95%;
-                /* 화면 꽉 채우지 않도록 너비 조절*/
-                max-height: 90vh;
-                /* 높이도 제한 */
-                overflow: auto;
-                /* 넘치면 스크롤 */
-                padding: 18px 16px;
-                /* 여백도 축소 */
-                font-size: 5px;
-                /* 전체 폰트 크기 줄이기 */
-                box-sizing: border-box;
-            }
-
-            .app-infor-popup table {
-                width: 100%;
-                /* 📌 table이 부모 너비에 맞게 */
-                word-break: break-word;
-                /* 긴 내용 줄바꿈 허용 */
-                font-size: 11px;
-            }
-
-            .app-infor-popup td,
-            .app-infor-popup th {
-                padding: 4px 6px;
-                /* 표 셀 간격도 줄이기 */
-            }
-
-            .sub-tab {
-                font-size: 13px;
-                padding: 6px 8px;
-            }
-
-            .preview-images img {
-                display: block;
-                width: auto;
-                /* 원하는 크기로 조정 */
-                height: 60px;
-                border-radius: 5px;
-                object-fit: cover;
-                transition: transform 0.3s ease;
-                z-index: 9999;
-            }
-        }
-
         .back-button:hover {
             background-color: #755a6a;
         }
@@ -3655,34 +3360,5 @@
         #koreanTagList button:hover {
             cursor: pointer;
             color: aqua;
-        }
-
-        @media (max-width: 600px) {
-            .post-item {
-                flex-direction: row;
-                align-items: center;
-                /* ✅ 중앙 정렬로 수정 */
-            }
-
-            .post-item img {
-                width: 60px;
-                /* ⬇️ 모바일에 맞게 크기 축소 */
-                height: 60px;
-            }
-
-            .post-list {
-                list-style: none;
-                padding: 0;
-                margin-left: 5px;
-                margin-right: 5px;
-            }
-
-            .category {
-                font-size: 0.9rem;
-            }
-
-            .desc {
-                font-size: 0.85rem;
-            }
         }
     }

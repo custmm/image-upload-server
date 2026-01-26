@@ -7,6 +7,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ɐ휴욱슈욱Ɐ >> 태그결과</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    @media (max-width: 768px) {
+      .post-item {
+        flex-direction: row;
+        align-items: center;
+        /* ✅ 중앙 정렬로 수정 */
+      }
+
+      .post-item img {
+        /* ⬇️ 모바일에 맞게 크기 축소 */
+        width: 60px;
+        height: 60px;
+      }
+
+      .post-list {
+        list-style: none;
+        padding: 0;
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+
+      .category {
+        font-size: 0.9rem;
+      }
+
+      .desc {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
 </head>
 
 <body class="tag-page">

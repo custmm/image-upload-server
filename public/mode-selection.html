@@ -7,6 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ɐ휴욱슈욱Ɐ >> 모드선택</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ✅ 바형 스마트폰 대응 */
+        @media (max-width: 768px) {
+            .mode-selection-container {
+                width: 95% !important;
+            }
+
+            .upload-selection-button,
+            .preview-selection-button,
+            .admin-selection-button {
+                background-color: #000000;
+                color: white;
+                padding: 10px 15px;
+                width: 150px;
+                /* 버튼 너비 일정하게 */
+                height: auto;
+                transition: transform 0.3s ease-in-out;
+                border-radius: 5px;
+                cursor: pointer;
+                border: none;
+                margin-top: 30px;
+                font-size: 15px;
+            }
+        }
+    </style>
 </head>
 
 <body class="mode-page">

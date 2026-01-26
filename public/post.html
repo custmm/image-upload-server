@@ -7,6 +7,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ɐ휴욱슈욱Ɐ >> 게시물</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    @media (max-width: 768px) {
+      .post-container {
+        width: 90%;
+        /* 화면 너비에 맞게 */
+        padding: 20px;
+        /* 패딩도 조금 줄임 */
+        box-sizing: border-box;
+      }
+
+      .post-description {
+        font-size: 14px;
+      }
+
+      .postcategory-container {
+        flex-direction: column;
+        /* 좁은 화면에서 세로 정렬 */
+        gap: 5px;
+        text-align: center;
+      }
+
+      .post-buttons {
+        flex-direction: column;
+        /* 버튼 세로 배치 */
+      }
+
+      .button {
+        width: 100%;
+        /* 버튼도 꽉 차게 */
+        max-width: 300px;
+        margin: 5px auto;
+      }
+    }
+  </style>
 </head>
 
 <body class="post-page">

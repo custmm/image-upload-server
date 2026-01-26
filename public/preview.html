@@ -7,6 +7,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ɐ휴욱슈욱Ɐ >> 업로드된 이미지</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -100%;
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .infor-popup {
+        width: 95%;
+        /* 화면 꽉 채우지 않도록 너비 조절*/
+        max-height: 90vh;
+        /* 높이도 제한 */
+        overflow: auto;
+        /* 넘치면 스크롤 */
+        padding: 18px 16px;
+        /* 여백도 축소 */
+        font-size: 11px;
+        /* 전체 폰트 크기 줄이기 */
+        box-sizing: border-box;
+      }
+
+      .app-infor-popup {
+        width: 95%;
+        /* 화면 꽉 채우지 않도록 너비 조절*/
+        max-height: 90vh;
+        /* 높이도 제한 */
+        overflow: auto;
+        /* 넘치면 스크롤 */
+        padding: 18px 16px;
+        /* 여백도 축소 */
+        font-size: 5px;
+        /* 전체 폰트 크기 줄이기 */
+        box-sizing: border-box;
+      }
+
+      .app-infor-popup table {
+        width: 100%;
+        /* 📌 table이 부모 너비에 맞게 */
+        word-break: break-word;
+        /* 긴 내용 줄바꿈 허용 */
+        font-size: 11px;
+      }
+
+      .app-infor-popup td,
+      .app-infor-popup th {
+        padding: 4px 6px;
+        /* 표 셀 간격도 줄이기 */
+      }
+
+      .sub-tab {
+        font-size: 13px;
+        padding: 6px 8px;
+      }
+
+      .preview-images img {
+        display: block;
+        width: auto;
+        /* 원하는 크기로 조정 */
+        height: 60px;
+        border-radius: 5px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        z-index: 9999;
+      }
+    }
+  </style>
 </head>
 
 <body class="preview-page dark-mode">
