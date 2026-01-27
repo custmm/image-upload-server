@@ -493,7 +493,7 @@
             border: 1px solid #ccc;
             border-radius: 8px;
             background-color: aliceblue;
-            width: 45%;
+            width: 75%;
             margin: 65px auto;
             box-sizing: border-box;
             /* ✅ 너비 계산 안정화 */

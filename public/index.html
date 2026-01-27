@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./css/global.css">
     <style>
         /* 제목과 컨테이너를 감싸는 부모 요소 */
-        @media (max-width: 576px) {            
+        @media (max-width: 576px) {
             body {
                 display: flex;
                 flex-direction: column;
@@ -24,6 +24,9 @@
                 font-size: 28px;
                 margin-bottom: 20px;
                 text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             #modeSelection {
@@ -59,6 +62,7 @@
                 height: 30px;
                 filter: blur(5px);
             }
+
             .container {
                 position: absolute;
                 top: 50%;
@@ -480,4 +484,5 @@
         });
     </script>
 </body>
+
 </html>
