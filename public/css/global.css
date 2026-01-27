@@ -1,0 +1,46 @@
+
+
+        @keyframes glowAnimation {
+            0% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 0.1;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+                /* 10% 확대 */
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+
+        /* ✨ 황금빛이 부드럽게 퍼지는 애니메이션 */
+        @keyframes goldGlow {
+            0% {
+                background-size: 180% 180%;
+                background-position: center;
+            }
+
+            100% {
+                background-size: 200% 200%;
+                background-position: center;
+            }
+        }
