@@ -10,64 +10,6 @@
     <link rel="stylesheet" href="./css/global.css">
     <style>
         /* 제목과 컨테이너를 감싸는 부모 요소 */
-        body {
-            position: relative;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #c0c0c0;
-        }
-
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .firework {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            /* canvas보다 위로, !important 제거 */
-        }
-
-        .particle {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            animation: explode 0.9s ease-out forwards;
-            transform-origin: center;
-        }
-
-        @keyframes explode {
-            from {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 1;
-            }
-
-            to {
-                transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        #fireworksCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 9999;
-            /* 모든 요소 위에 */
-            pointer-events: none;
-        }
-
         @media (max-width: 576px) {            
             body {
                 display: flex;
@@ -81,6 +23,7 @@
             h1 {
                 font-size: 28px;
                 margin-bottom: 20px;
+                text-align: center;
             }
 
             #modeSelection {

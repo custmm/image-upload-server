@@ -166,6 +166,51 @@
             height: 100%;
             overflow: visible;
         }
+        body {
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #c0c0c0;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            /* canvas보다 위로, !important 제거 */
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: explode 0.9s ease-out forwards;
+            transform-origin: center;
+        }
+
+        #fireworksCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            /* 모든 요소 위에 */
+            pointer-events: none;
+        }
 
         .glow-circle {
             position: absolute;
@@ -215,6 +260,7 @@
         h1 {
             font-size: 36px;
             margin-bottom: 20px;
+            text-align: center;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

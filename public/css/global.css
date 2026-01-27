@@ -1,5 +1,4 @@
 
-
         @keyframes glowAnimation {
             0% {
                 opacity: 0.5;
@@ -42,5 +41,16 @@
             100% {
                 background-size: 200% 200%;
                 background-position: center;
+            }
+        }
+        @keyframes explode {
+            from {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(720deg);
+                opacity: 0;
             }
         }
