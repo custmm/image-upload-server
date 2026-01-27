@@ -1548,8 +1548,7 @@
         }
 
         .mode-selection-container {
-            width: 40%;
-            height: 200px;
+            width: 500px;
             background-color: #ffffff;
             border-radius: 8px;
             display: flex;
