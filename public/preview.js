@@ -79,40 +79,6 @@ function showPopupMessage(msg) {
     }, 2000);
 }
 
-function appinforPopupMessage(msg) {
-    const msgBox = document.createElement("div");
-    msgBox.classList.add("app-infor-popup");
-
-    const closeBtn = document.createElement("span");
-    closeBtn.innerHTML = "&times;";
-    closeBtn.classList.add("app-infor-popup-close");
-    closeBtn.addEventListener("click", () => msgBox.remove());
-
-    const text = document.createElement("div");
-    text.innerHTML = msg;
-
-    msgBox.appendChild(closeBtn);
-    msgBox.appendChild(text);
-    document.body.appendChild(msgBox);
-}
-
-function inforPopupMessage(msg) {
-    const msgBox = document.createElement("div");
-    msgBox.classList.add("infor-popup");
-
-    const closeBtn = document.createElement("span");
-    closeBtn.innerHTML = "&times;";
-    closeBtn.classList.add("infor-popup-close");
-    closeBtn.addEventListener("click", () => msgBox.remove());
-
-    const text = document.createElement("div");
-    text.innerHTML = msg;
-
-    msgBox.appendChild(closeBtn);
-    msgBox.appendChild(text);
-    document.body.appendChild(msgBox);
-}
-
 document.addEventListener("DOMContentLoaded", async () => {
     const isExplanMode = window.location.hash.includes("explan");
     const sidebarToggle = document.querySelector(".sidebar-toggle");
