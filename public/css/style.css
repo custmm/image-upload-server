@@ -2709,6 +2709,7 @@
             text-align: center;
             font-weight: bold;
             font-size: 30px;
+            cursor: pointer;
         }
 
         .message-container {

@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const opacityControl = document.getElementById("opacityControl");
     const tabDesign = document.querySelector(".tab-design");
     const margeContainer = document.querySelector(".marge-container");
-    
+
     const previewLink = document.querySelector('a[href="./preview_popup.html"]');
     if (previewLink) {
         previewLink.addEventListener("click", (e) => {
@@ -115,13 +115,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const closeBtn = document.querySelector(".preview-close");
     if (closeBtn) {
         closeBtn.addEventListener("click", () => {
-        const overlay = document.getElementById("previewOverlay");
-        const frame = document.getElementById("previewFrame");
-        frame.src = "";
-        overlay.style.display = "none";
+            const overlay = document.getElementById("previewOverlay");
+            const frame = document.getElementById("previewFrame");
+            frame.src = "";
+            overlay.style.display = "none";
         });
     }
-    
+
     let selectedCategory = null;
     let selectedSubcategory = null;
     let categories = [];
@@ -164,7 +164,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (welcomeEl) {
-        welcomeEl.style.cursor = "pointer";
 
         if (opacitySlider) {
             // 슬라이더 조작 시
@@ -220,6 +219,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (isExplanMode) {
             welcomeEl.addEventListener("click", () => {
+                // ✅ a 태그 클릭이면 막지 않음
+                if (e.target.tagName === "A") return;
+
                 const activeTab = document.querySelector(".tab-btn.active");
                 const tabName = activeTab?.textContent.trim() || "알 수 없음";
 
@@ -236,6 +238,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         } else {
             welcomeEl.addEventListener("click", () => {
+                // ✅ a 태그면 브라우저 기본 동작 유지
+                if (e.target.tagName === "A") return;
+
                 window.location.href = "click.html";
             });
         }
