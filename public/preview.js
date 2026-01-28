@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const opacityControl = document.getElementById("opacityControl");
     const tabDesign = document.querySelector(".tab-design");
     const margeContainer = document.querySelector(".marge-container");
+    const previewLink = document.querySelector('a[href="./preview_popup.html"]');
 
     let selectedCategory = null;
     let selectedSubcategory = null;
@@ -226,6 +227,34 @@ document.addEventListener("DOMContentLoaded", async () => {
                 menubar.classList.remove("hidden");
             });
         });
+    }
+
+    if (previewLink) {
+        previewLink.addEventListener("click", (e) => {
+            e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
+            openPreviewPopup();
+        });
+    }
+
+    function openPreviewPopup() {
+        const overlay = document.getElementById("previewOverlay");
+        const frame = document.getElementById("previewFrame");
+
+        if (!overlay || !frame) {
+            console.error("❌ 팝업 요소를 찾을 수 없음");
+            return;
+        }
+
+        frame.src = "preview_popup.html";
+        overlay.style.display = "flex";
+    }
+
+    function closePreviewPopup() {
+        const overlay = document.getElementById("previewOverlay");
+        const frame = document.getElementById("previewFrame");
+
+        frame.src = "";
+        overlay.style.display = "none";
     }
 
 

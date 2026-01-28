@@ -9,6 +9,42 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/theme.css">
   <style>
+    .preview-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.preview-popup {
+  position: relative;
+  width: 90%;
+  max-width: 900px;
+  height: 85vh;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.preview-popup iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.preview-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+}
     @media (max-width :576px) {
       .sidebar {
         left: -100%;
@@ -106,12 +142,13 @@
   <div class="menubar-container">
     <button class="back-button"
       onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기</button>
-    <button class="sidebar-toggle" onclick="toggleSidebar()"><span
-        style="color: #a0a0a0; font-size: 30px;">&#9776;</span></button>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">
+      <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
+    </button>
   </div>
 
   <div class="message-container">
-    <span id="welcomeMessage">어서오세요</span>
+    <span id="welcomeMessage" src="./click.html">어서오세요</span>
   </div>
 
   <div
@@ -164,10 +201,9 @@
   </div>
 
   <footer class="page-footer">
-    <p>아이콘은 AutoCAD로제작했으며 이미지는 마음대로 다운하셔도됩니다.</p>
-    <p>© 2025 휴욱슈욱 All rights reserved.</p>
+    <span>아이콘은 AutoCAD로제작했으며 이미지는 마음대로 다운하셔도됩니다.<br>© 2025 휴욱슈욱 All rights reserved.</span>
     <p>
-      <a href="./preview_popup.html" target="_blank">소개</a> |
+      <a href="./preview_popup.html" id="previewLink">소개</a> |
       <a href="https://github.com/custmm/image-upload-server" target="_blank">GitHub</a> |
       <a href="mailto:xx00bki924@gmail.com?subject=피드백 문의합니다.">Contact</a>
     </p>
