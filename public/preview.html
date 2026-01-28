@@ -209,6 +209,18 @@
     </p>
   </footer>
 
+  <div id="previewOverlay" class="preview-overlay" style="display:none;">
+  <div class="preview-popup">
+    <button class="preview-close" onclick="closePreviewPopup()">✖</button>
+
+    <iframe
+      id="previewFrame"
+      src="./preview_popup.html"
+      loading="lazy"
+    ></iframe>
+  </div>
+</div>
+
   <div id="sidebar" class="sidebar">
     <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
 
