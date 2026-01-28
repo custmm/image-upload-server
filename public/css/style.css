@@ -2705,7 +2705,7 @@
             cursor: pointer;
         }
 
-        #welcomeMessage {
+        .welcomeMessage {
             text-align: center;
             font-weight: bold;
             font-size: 30px;
