@@ -34,12 +34,15 @@
 
     /* ====== 첫화면 ====== */
     .index-page {
-        html, body {
+
+        html,
+        body {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: visible;
         }
+
         body {
             position: relative;
             justify-content: center;
@@ -2712,22 +2715,24 @@
             cursor: pointer;
             text-decoration: none;
         }
-        .function-infor{
-            display: flex; 
+
+        .function-infor {
+            display: flex;
             position: relative;
             flex-direction: column;
-            align-items: center; 
-            justify-content: center; 
-            gap: 10px; 
-            margin-top: 10px; 
-            
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+
         }
 
         .message-container {
             margin-top: 20px;
             text-align: center;
         }
-        .opacityControl{
+
+        .opacityControl {
             gap: 20px;
         }
 
@@ -2886,6 +2891,45 @@
         .sub-tab:hover {
             flex-wrap: nowrap;
             background-color: #00ff953c;
+        }
+
+        .preview-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .preview-popup {
+            position: relative;
+            padding: 30px;
+            width: 85%;
+            max-width: 900px;
+            height: 80vh;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .preview-popup iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .preview-close {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: black;
+            cursor: pointer;
+            z-index: 10;
         }
 
         .marge-container {
