@@ -8,14 +8,6 @@
         background-size: 100px 100px;
     }
 
-    body.dark-mode {
-        background-image: url("/images/background_dark.png");
-        background-repeat: repeat;
-        background-size: contain;
-        background-attachment: fixed;
-        background-size: 100px 100px;
-    }
-
     /* ====== 버튼 공통 ====== */
     button {
         background-color: #000000;
@@ -38,124 +30,6 @@
         background-attachment: fixed;
         background-size: 200% 200%;
         animation: goldGlow 6s infinite alternate;
-    }
-
-    /* ====== 다크모드적용(click.html) ====== */
-    body.click-page.dark-mode .back-button:hover {
-        background-color: #755a6a;
-    }
-
-    body.click-page.dark-mode .back-button {
-        background-color: #ffffff;
-        color: #000;
-    }
-
-    body.click-page.dark-mode .explan-container {
-        background-color: #333;
-        color: #fff;
-    }
-
-    body.click-page.dark-mode .detail-toggle {
-        color: #fff;
-    }
-
-    /* ====== 다크모드적용(post.html) ====== */
-    body.post-page.dark-mode {
-        background-color: #222;
-        color: #fff;
-    }
-
-    body.post-page.dark-mode .post-container {
-        background-color: #444444;
-    }
-
-    body.post-page.dark-mode .clickable-category {
-        cursor: pointer;
-        color: white;
-    }
-
-    /* ====== 다크모드적용(preview.html) ====== */
-    body.preview-page.dark-mode {
-        background-color: #222;
-        color: #fff;
-    }
-
-    body.preview-page.dark-mode .back-button {
-        background-color: #ffffff;
-        color: #000;
-    }
-
-    body.preview-page.dark-mode .tab-design {
-        border-color: #ddd;
-    }
-
-    body.preview-page.dark-mode .tab-btn {
-        background-color: #444444;
-        color: #fff;
-        border-right: 1px solid #ddd;
-    }
-
-    body.preview-page.dark-mode .tab-btn:hover {
-        background-color: #b1c2d336;
-    }
-
-    body.preview-page.dark-mode .tab-btn.active {
-        background-color: #8d9494;
-        border-bottom-color: #bcdcff;
-        color: #000;
-        font-weight: bold;
-    }
-
-    body.preview-page.dark-mode .sub-tab {
-        background-color: #0d223551;
-        color: #fff;
-        border: 1px solid #ddd;
-    }
-
-    body.preview-page.dark-mode .sub-tab:hover {
-        background-color: #b1c2d336;
-    }
-
-    body.preview-page.dark-mode .sub-tab.active {
-        background-color: #b1c2d3;
-        color: #000;
-        font-weight: bold;
-    }
-
-    body.preview-page.dark-mode .image-gallery {
-        border-color: #bcdcff;
-    }
-
-    body.preview-page.dark-mode .image-container {
-        background-color: #323232;
-    }
-
-    body.preview-page.dark-mode .marge-container {
-        background-color: #8d9494;
-        border-color: #bcdcff;
-    }
-
-    body.preview-page.dark-mode .image-item {
-        background-color: #00000089;
-        /* 🔥 배경색 추가 */
-    }
-
-    /* ✅ 이미지 갤러리 (4x5 배열) */
-    body.preview-page.dark-mode .image-gallery {
-        background-color: #323232;
-    }
-
-    body.preview-page.dark-mode #currentCategory {
-        color: #000;
-    }
-
-    body.preview-page.dark-mode .page-footer {
-        color: #ccc;
-        border-color: #444;
-    }
-
-    body.preview-page.dark-mode .back-button:hover {
-        background-color: #755a6a;
     }
 
     /* ====== 첫화면 ====== */
