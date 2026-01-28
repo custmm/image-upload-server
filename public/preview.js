@@ -95,6 +95,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tabDesign = document.querySelector(".tab-design");
     const margeContainer = document.querySelector(".marge-container");
     const previewLink = document.querySelector('a[href="./preview_popup.html"]');
+    if (previewLink) {
+        previewLink.addEventListener("click", (e) => {
+            e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
+            openPreviewPopup();
+        });
+    }
+    const closeBtn = document.querySelector(".preview-close");
+    if (closeBtn) {
+        closeBtn.addEventListener("click", closePreviewPopup);
+    }
 
     let selectedCategory = null;
     let selectedSubcategory = null;
@@ -226,13 +236,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 sidebar.classList.remove("open");
                 menubar.classList.remove("hidden");
             });
-        });
-    }
-
-    if (previewLink) {
-        previewLink.addEventListener("click", (e) => {
-            e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
-            openPreviewPopup();
         });
     }
 
