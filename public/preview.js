@@ -11,6 +11,15 @@ window.nextPage = async function () {
         await loadPage(selectedCategory, selectedSubcategory);
     }
 };
+window.closePreviewPopup = function () {
+    const overlay = document.getElementById("previewOverlay");
+    const frame = document.getElementById("previewFrame");
+
+    if (!overlay) return;
+
+    frame.src = "";
+    overlay.style.display = "none";
+};
 // ✅ 사이드바 토글 함수 (HTML onclick과 연결됨)
 window.toggleSidebar = function () {
     const sidebar = document.getElementById("sidebar");
@@ -94,6 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const opacityControl = document.getElementById("opacityControl");
     const tabDesign = document.querySelector(".tab-design");
     const margeContainer = document.querySelector(".marge-container");
+    
     const previewLink = document.querySelector('a[href="./preview_popup.html"]');
     if (previewLink) {
         previewLink.addEventListener("click", (e) => {
@@ -101,11 +111,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             openPreviewPopup();
         });
     }
+
     const closeBtn = document.querySelector(".preview-close");
     if (closeBtn) {
-        closeBtn.addEventListener("click", closePreviewPopup);
+        closeBtn.addEventListener("click", () => {
+        const overlay = document.getElementById("previewOverlay");
+        const frame = document.getElementById("previewFrame");
+        frame.src = "";
+        overlay.style.display = "none";
+        });
     }
-
+    
     let selectedCategory = null;
     let selectedSubcategory = null;
     let categories = [];
