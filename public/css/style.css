@@ -2715,6 +2715,7 @@
         .function-infor{
             display: flex; 
             position: relative;
+            flex-direction: column;
             align-items: center; 
             justify-content: center; 
             gap: 10px; 
