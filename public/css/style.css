@@ -2710,6 +2710,7 @@
             font-weight: bold;
             font-size: 30px;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .message-container {
