@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (isExplanMode) {
             welcomeEl.addEventListener("click", () => {
                 // ✅ a 태그 클릭이면 막지 않음
-                if (e.target.tagName === "A") return;
+                e.preventDefault(); // ✅ 이때만 링크 이동 막기
 
                 const activeTab = document.querySelector(".tab-btn.active");
                 const tabName = activeTab?.textContent.trim() || "알 수 없음";
@@ -235,13 +235,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 const message = "현재 선택된 탭은 [" + tabName + "] 입니다.\n" + subText;
                 showPopupMessage(message);
-            });
-        } else {
-            welcomeEl.addEventListener("click", () => {
-                // ✅ a 태그면 브라우저 기본 동작 유지
-                if (e.target.tagName === "A") return;
-
-                window.location.href = "click.html";
             });
         }
     }
