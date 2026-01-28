@@ -2712,6 +2712,15 @@
             cursor: pointer;
             text-decoration: none;
         }
+        .function-infor{
+            display: flex; 
+            position: relative;
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
+            margin-top: 10px; 
+            
+        }
 
         .message-container {
             margin-top: 20px;
