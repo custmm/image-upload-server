@@ -2726,6 +2726,9 @@
             margin-top: 20px;
             text-align: center;
         }
+        .opacityControl{
+            gap: 20px;
+        }
 
         /* 로딩 화면 스타일 */
         .loading-indicator {
