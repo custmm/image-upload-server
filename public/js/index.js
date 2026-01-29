@@ -106,16 +106,16 @@
             }
 
             body.addEventListener("click", (event) => {
-                // modeSelection이 존재하고 해당 영역 내부 클릭이면 실행 중단
                 if (isPopupOpen) return;  // ✅ 팝업이 열려있으면 클릭 카운트 증가 X
                 if (
+                    event.target.closest(".container") ||
                     event.target.closest("button") ||
                     event.target.closest("a") ||
                     event.target.classList.contains("glow-circle")
                 ) return;
 
                 const x = event.clientX;
-                const y = event.clientY + window.scrollY; // 🔥 scroll 보정
+                const y = event.clientY; // 🔥 scroll 보정
 
                 createFirework(x, y);
                 playFireworkSound(); // 불꽃놀이 소리 재생

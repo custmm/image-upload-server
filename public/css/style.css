@@ -65,8 +65,7 @@
         .firework {
             position: fixed;
             pointer-events: none;
-            z-index: 9999;
-            /* canvas보다 위로, !important 제거 */
+            z-index: 2000;
         }
 
         .particle {
