@@ -50,7 +50,7 @@
             background-color: #c0c0c0;
         }
 
-        .container {
+        body.login-page .container {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -60,13 +60,13 @@
             align-items: center;
         }
 
-        .firework {
+        body.login-page .firework {
             position: fixed;
             pointer-events: none;
             z-index: 2000;
         }
 
-        .particle {
+        body.login-page .particle {
             position: absolute;
             width: 10px;
             height: 10px;
@@ -75,7 +75,7 @@
             transform-origin: center;
         }
 
-        #index-page #fireworksCanvas {
+        body.login-page #index-page #fireworksCanvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -86,7 +86,7 @@
             pointer-events: none;
         }
 
-        .glow-circle {
+        body.login-page .glow-circle {
             position: absolute;
             width: 50px;
             height: 50px;
@@ -98,7 +98,7 @@
         }
 
         /* ✨ 빛 퍼짐 전용 레이어 */
-        .glow-circle::after {
+        body.login-page .glow-circle::after {
             content: "";
             position: absolute;
             inset: -15px;
@@ -114,11 +114,11 @@
         }
 
         /* 클릭 후 */
-        .glow-circle.clicked::after {
+        body.login-page .glow-circle.clicked::after {
             opacity: 1;
         }
 
-        .glow-effect {
+        body.login-page .glow-effect {
             position: fixed;
             top: 0;
             left: 0;
@@ -131,7 +131,7 @@
         }
 
         /* 제목 스타일 */
-        #mainTitle {
+        body.login-page #mainTitle {
             font-size: 36px;
             margin-bottom: 20px;
             text-align: center;
@@ -140,7 +140,7 @@
             text-overflow: ellipsis;
         }
 
-        .popup-overlay {
+        body.login-page .popup-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -153,7 +153,7 @@
             z-index: 1500;
         }
 
-        .popup-box {
+        body.login-page .popup-box {
             background-color: white;
             color: #000;
             padding: 20px;
@@ -162,7 +162,7 @@
             width: 350px;
         }
 
-        .popup-image {
+        body.login-page .popup-image {
             max-height: 200px;
             margin-top: 10px;
             display: block;
@@ -170,11 +170,11 @@
             margin-right: auto;
         }
 
-        .popup-message {
+        body.login-page .popup-message {
             margin-top: 10px;
         }
 
-        .popup-confirm-button {
+        body.login-page .popup-confirm-button {
             background-color: #fff;
             color: #000;
             padding: 10px 20px;
@@ -184,12 +184,12 @@
             border: none;
         }
 
-        .popup-confirm-button:hover {
+        body.login-page .popup-confirm-button:hover {
             background-color: aqua;
         }
 
         /* 버튼을 감싸는 컨테이너 */
-        .button_container {
+        body.login-page .button_container {
             position: relative;
             background-color: #f1f1f1;
             width: 300px;
@@ -206,7 +206,7 @@
             margin: 0 auto;
         }
 
-        #modeSelection {
+        body.login-page #modeSelection {
             position: relative;
             padding: 20px;
             background-color: #fff;
@@ -214,7 +214,7 @@
             border-radius: 10px;
         }
 
-        #adminModeButton {
+        body.login-page #adminModeButton {
             background: #ff0000;
             color: white;
             display: none;
@@ -222,21 +222,21 @@
             border: none;
         }
 
-        #adminModeButton:hover {
+        body.login-page #adminModeButton:hover {
             background: #cca000;
         }
 
-        #userModeButton {
+        body.login-page #userModeButton {
             background: rgba(0, 0, 0, 0.75);
             color: white;
             border: none;
         }
 
-        #userModeButton:hover {
+        body.login-page #userModeButton:hover {
             background: rgba(128, 128, 128, 0.348);
         }
 
-        button {
+        body.login-page button {
             width: 200px;
             margin: 10px auto;
             padding: 15px;
@@ -248,12 +248,12 @@
             transition: background-color 0.3s;
         }
 
-        button:hover {
+        body.login-page button:hover {
             background-color: #755a6a;
             animation: pulse 0.5s ease-in-out infinite;
         }
 
-        canvas {
+        body.login-page canvas {
             width: 100%;
             height: 100%;
             pointer-events: none;
@@ -261,7 +261,7 @@
         }
 
         /* 문 애니메이션 */
-        #door-container {
+        body.login-page #door-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -272,7 +272,7 @@
             z-index: 10;
         }
 
-        .door {
+        body.login-page .door {
             position: absolute;
             width: 50%;
             height: 100%;
@@ -281,7 +281,7 @@
             transition: transform 2s ease-in-out;
         }
 
-        .door.left {
+        body.login-page .door.left {
             left: 0;
             transform-origin: left center;
             /* Left edge for right door */
@@ -290,7 +290,7 @@
             transition: transform 2s ease-in-out;
         }
 
-        .door.right {
+        body.login-page .door.right {
             right: 0;
             transform-origin: right center;
             /* Right edge for left door */
@@ -301,31 +301,30 @@
     }
 
     /* ====== 로그인 페이지 ====== */
-    .login-page {
         body {
             text-align: center;
             padding: 20px;
         }
 
-        .back-button {
+        body.login-page .back-button {
             transition: background-color 0.3s;
             position: absolute;
             top: 10px;
             left: 10px;
         }
 
-        .back-button:hover {
+        body.login-page .back-button:hover {
             background-color: #755a6a;
         }
 
-        h1 {
+        body.login-page h1 {
             margin-bottom: 10px;
             font-size: 25px;
             text-align: center;
         }
 
         /* ✅ 팝업 메시지 스타일 */
-        .popup-message {
+        body.login-page .popup-message {
             position: fixed;
             width: 210px;
             top: 35%;
@@ -344,7 +343,7 @@
         }
 
         /* ✅ 확인 버튼 스타일 */
-        .popup-button {
+        body.login-page .popup-button {
             display: block;
             margin: 15px auto 0;
             padding: 8px 16px;
@@ -356,11 +355,11 @@
             cursor: pointer;
         }
 
-        .popup-button:hover {
+        body.login-page .popup-button:hover {
             background-color: aqua;
         }
 
-        .login-container {
+        body.login-page .login-container {
             border: 1px solid #ccc;
             border-radius: 8px;
             background-color: aliceblue;
@@ -372,7 +371,7 @@
             /* ✅ 부드러운 너비 변경 */
         }
 
-        #loginButton {
+        body.login-page #loginButton {
             background-color: #000000;
             color: white;
             padding: 7px 15px;
@@ -381,7 +380,7 @@
             margin-left: 10px;
         }
 
-        .login-row {
+        body.login-page .login-row {
             display: flex;
             gap: 25px;
             margin-left: 15px;
@@ -390,7 +389,7 @@
             flex-wrap: nowrap;
         }
 
-        .login-row input[type="password"] {
+        body.login-page .login-row input[type="password"] {
             flex: 1;
             min-width: 0;
             min-width: 45%;
@@ -399,18 +398,18 @@
             background: #fff;
         }
 
-        .login-row button {
+        body.login-page .login-row button {
             flex-shrink: 0;
             border-radius: 0 5px 5px 0;
         }
 
-        .floating-input {
+        body.login-page .floating-input {
             position: relative;
             width: 100%;
             margin-top: 13px;
         }
 
-        .floating-input input {
+        body.login-page .floating-input input {
             width: 100%;
             padding: 14px 12px;
             font-size: 16px;
@@ -420,7 +419,7 @@
             background: transparent;
         }
 
-        .floating-input label {
+        body.login-page .floating-input label {
             position: absolute;
             left: 12px;
             top: 50%;
@@ -433,20 +432,20 @@
         }
 
         /* 포커스되거나 값이 있으면 위로 */
-        .floating-input input:focus+label,
-        .floating-input input:valid+label {
+        body.login-page .floating-input input:focus+label,
+        body.login-page .floating-input input:valid+label {
             top: -1px;
             font-size: 12px;
             font-weight: bold;
             color: #4a78c2;
         }
 
-        #loginButton:hover {
+        body.login-page #loginButton:hover {
             background-color: #755a6a;
             animation: pulse 0.4s ease-in-out infinite;
         }
 
-        input[type="password"] {
+        body.login-page input[type="password"] {
             flex: 1;
             /* 입력창이 버튼보다 넓게 */
             padding: 10px;
@@ -457,7 +456,7 @@
         }
 
         /* 문 애니메이션 */
-        #door-container {
+        body.login-page #door-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -468,7 +467,7 @@
             z-index: 10;
         }
 
-        .door {
+        body.login-page .door {
             position: absolute;
             width: 50%;
             height: 100%;
@@ -477,7 +476,7 @@
             transition: transform 2s ease-in-out;
         }
 
-        .door.left {
+        body.login-page .door.left {
             left: 0;
             transform-origin: left center;
             /* Left edge for right door */
@@ -486,7 +485,7 @@
             transition: transform 2s ease-in-out;
         }
 
-        .door.right {
+        body.login-page .door.right {
             right: 0;
             transform-origin: right center;
             /* Right edge for left door */
@@ -496,7 +495,7 @@
         }
 
         /* 관리자 버튼을 원형으로 스타일링 (3D 효과 적용) */
-        .admin-styled-button {
+        body.login-page .admin-styled-button {
             position: relative;
             width: 120px;
             height: 120px;
@@ -519,7 +518,7 @@
         }
 
         /* 호버 효과: 내부 그림자로 오목하게 표현 */
-        .admin-styled-button:hover {
+        body.login-page .admin-styled-button:hover {
             transform: scale(1.05);
             /* 오목해 보이도록 inset 그림자 적용 */
             box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.3),
@@ -529,14 +528,13 @@
         }
 
         /* 클릭(눌림) 효과: 더 깊게 오목해 보이도록 inset 그림자 강화 */
-        .admin-styled-button:active {
+        body.login-page .admin-styled-button:active {
             transform: scale(0.92);
             box-shadow: inset 5px 5px 12px rgba(0, 0, 0, 0.4),
                 inset -5px -5px 12px rgba(255, 255, 255, 0.25),
                 0px 3px 0px #a00000,
                 0px 6px 10px rgba(0, 0, 0, 0.3);
         }
-    }
 
     /* ====== 대시보드 ====== */
     .dashboard-page {
@@ -1419,7 +1417,6 @@
     }
 
     /* ====== 모드선택 페이지 ====== */
-    .mode-page {
         body {
             margin: 0;
             padding: 0;
@@ -1431,20 +1428,30 @@
             /* 전체 화면 높이 */
         }
 
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden;
+            /* ✅ 강제 좌우 스크롤 제거 */
+            box-sizing: border-box;
+        }
+
+
         /* 뒤로가기 버튼 */
-        .back-button {
+        body.mode-page .back-button {
             transition: background-color 0.3s;
             position: absolute;
             top: 10px;
             left: 10px;
         }
 
-        .back-button:hover {
+        body.mode-page .back-button:hover {
             background-color: #755a6a;
         }
 
         /* 제목 스타일 */
-        h1 {
+        body.mode-page h1 {
             font-size: 36px;
             margin-bottom: 20px;
             /* 제목과 버튼 간의 간격 */
@@ -1454,7 +1461,7 @@
         }
 
         /* ✅ container를 화면 정중앙으로 이동 */
-        .container {
+        body.mode-page .container {
             position: absolute;
             width: 90vw;
             top: 40%;
@@ -1464,7 +1471,7 @@
             z-index: 1;
         }
 
-        .mode-selection-container {
+        body.mode-page .mode-selection-container {
             width: 500px;
             background-color: #ffffff;
             border-radius: 8px;
@@ -1479,7 +1486,7 @@
         }
 
         /* 버튼 그룹 스타일 */
-        .button-group {
+        body.mode-page .button-group {
             display: flex;
             justify-content: center;
             /* ✅ 가운데 정렬 */
@@ -1490,9 +1497,9 @@
             box-sizing: border-box;
         }
 
-        .upload-selection-button,
-        .preview-selection-button,
-        .admin-selection-button {
+        body.mode-page .upload-selection-button,
+        body.mode-page .preview-selection-button,
+        body.mode-page .admin-selection-button {
             background-color: #000000;
             color: white;
             padding: 10px 15px;
@@ -1507,7 +1514,7 @@
             font-size: 15px;
         }
 
-        .logout-button {
+        body.mode-page .logout-button {
             background-color: #ff0000;
             color: white;
             padding: 10px 15px;
@@ -1522,16 +1529,16 @@
             margin-bottom: 30px;
         }
 
-        .upload-selection-button:hover,
-        .preview-selection-button:hover,
-        .admin-selection-button:hover,
-        .logout-button:hover {
+        body.mode-page .upload-selection-button:hover,
+        body.mode-page .preview-selection-button:hover,
+        body.mode-page .admin-selection-button:hover,
+        body.mode-page .logout-button:hover {
             background-color: #755a6a;
             animation: pulse 0.4s ease-in-out infinite;
         }
 
         /* 🔹 팝업 오버레이 (배경) */
-        .popup-overlay {
+        body.mode-page .popup-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -1546,7 +1553,7 @@
         }
 
         /* 🔹 팝업 창 */
-        .popup {
+        body.mode-page .popup {
             background: white;
             padding: 20px;
             border-radius: 5px;
@@ -1556,13 +1563,13 @@
         }
 
         /* 🔹 팝업 메시지 */
-        .popup p {
+        body.mode-page .popup p {
             font-size: 18px;
             margin-bottom: 30px;
         }
 
         /* 🔹 확인 버튼 */
-        .popup-confirm {
+        body.mode-page .popup-confirm {
             padding: 10px 20px;
             background-color: #fff;
             color: #000;
@@ -1573,20 +1580,9 @@
             font-size: 16px;
         }
 
-        .popup-confirm:hover {
+        body.mode-page .popup-confirm:hover {
             background-color: aqua;
         }
-
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            overflow-x: hidden;
-            /* ✅ 강제 좌우 스크롤 제거 */
-            box-sizing: border-box;
-        }
-    }
 
     /* ====== 업로드 페이지 ====== */
     .upload-page {
