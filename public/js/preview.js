@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const limit = 20;    // 5×4
     let noMoreImages = false;
     let isCut = false; // ✅ 이미지 상태 저장
-
+    let isVisible = true;
 
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
     const categoryMappings = {
@@ -192,8 +192,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const tabDesign = document.querySelector(".tab-design");
             const margeContainer = document.querySelector(".marge-container");
             const defaultOpacity = "0.825";
-            let isVisible = true;
-
+            
             opacityToggleBtn.addEventListener("click", () => {
                 isVisible = !isVisible;
 
