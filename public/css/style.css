@@ -1782,13 +1782,12 @@
     }
 
     /* ====== 클릭 페이지 ====== */
-    .click-page {
-        body {
+        body.click-page body {
             text-align: center;
             padding: 20px;
         }
 
-        .explan-container {
+        body.click-page .explan-container {
             max-width: 85%;
             margin: auto;
             padding-bottom: 15px;
@@ -1798,22 +1797,22 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .explan-detail-container {
+        body.click-page .explan-detail-container {
             border: 1px solid #ccc;
             border-radius: 8px;
             margin: 18px;
         }
 
-        h1 {
+        body.click-page h1 {
             text-align: center;
         }
 
-        .plus_container {
+        body.click-page .plus_container {
             margin: 20px;
         }
 
         /* 뒤로가기 버튼 */
-        .back-button {
+        body.click-page .back-button {
             transition: background-color 0.3s;
             position: absolute;
             top: 10px;
@@ -1821,7 +1820,7 @@
         }
 
         /* 토글 스위치 (다크 모드) */
-        .toggle-switch {
+        body.click-page .toggle-switch {
             position: fixed;
             top: 25px;
             right: 30px;
@@ -1830,7 +1829,7 @@
             display: inline-block;
         }
 
-        .toggle-switch input {
+        body.click-page .toggle-switch input {
             position: absolute;
             top: 0;
             left: 0;
@@ -1844,15 +1843,15 @@
             /* 필요시 클릭 우선순위 */
         }
 
-        .toggle-switch input:checked+.slider::before {
+        body.click-page .toggle-switch input:checked+.slider::before {
             transform: translateX(65px);
         }
 
-        .toggle-switch input:checked+.slider #themeIcon {
+        body.click-page .toggle-switch input:checked+.slider #themeIcon {
             transform: translateX(65px);
         }
 
-        .slider {
+        body.click-page .slider {
             position: absolute;
             cursor: pointer;
             width: 100%;
@@ -1862,7 +1861,7 @@
             transition: background-color 0.3s;
         }
 
-        .slider::before {
+        body.click-page .slider::before {
             position: absolute;
             left: -15px;
             width: 30px;
@@ -1873,7 +1872,7 @@
             z-index: 0;
         }
 
-        #themeIcon {
+        body.click-page #themeIcon {
             position: absolute;
             width: 40px;
             height: 40px;
@@ -1889,7 +1888,7 @@
             z-index: 1;
         }
 
-        .detail-toggle {
+        body.click-page .detail-toggle {
             margin-left: 10px;
             font-size: 12px;
             padding: 4px 8px;
@@ -1898,21 +1897,18 @@
             color: black;
         }
 
-        .detail-content {
+        body.click-page .detail-content {
             margin-top: 10px;
             padding-left: 10px;
             text-align: left;
             display: none;
         }
 
-        .back-button:hover {
+        body.click-page .back-button:hover {
             background-color: #755a6a;
         }
-    }
 
     /* ====== 게임 페이지 ====== */
-    .game-page {
-
         body,
         html {
             overflow: hidden;
@@ -1923,32 +1919,32 @@
             padding: 0;
         }
 
-        h1 {
+        body.game-page h1 {
             text-align: center;
             margin: 20px 0;
         }
 
-        .game-container {
+        body.game-page .game-container {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .selected-image {
+        body.game-page .selected-image {
             max-width: 100px;
             border: 2px solid #000;
             border-radius: 10px;
             transition: transform 0.3s ease-in-out;
         }
 
-        .hidden-number {
+        body.game-page .hidden-number {
             position: absolute;
             font-size: 20px;
             font-weight: bold;
             color: rgb(0, 0, 0);
         }
 
-        #playerNumber {
+        body.game-page #playerNumber {
             position: absolute;
             font-size: 18px;
             font-weight: bold;
@@ -1956,7 +1952,7 @@
             display: none;
         }
 
-        #foundNumbers {
+        body.game-page #foundNumbers {
             display: none;
             position: fixed;
             top: 10px;
@@ -1970,7 +1966,7 @@
             border-radius: 5px;
         }
 
-        #hints-container {
+        body.game-page #hints-container {
             position: fixed;
             top: 3%;
             /* 화면 중앙 */
@@ -1981,7 +1977,7 @@
             gap: 10px;
         }
 
-        .game-hint {
+        body.game-page .game-hint {
             display: block !important;
             /* 힌트가 무조건 표시되도록 설정 */
             opacity: 1 !important;
@@ -1989,7 +1985,7 @@
             height: auto;
         }
 
-        #victoryScreen {
+        body.game-page #victoryScreen {
             display: none;
             position: fixed;
             top: 50%;
@@ -2003,7 +1999,7 @@
             border-radius: 8px;
         }
 
-        #victoryScreen button {
+        body.game-page #victoryScreen button {
             margin-top: 10px;
             padding: 10px;
             border: none;
@@ -2012,7 +2008,7 @@
         }
 
         /* 팝업창 스타일 */
-        #instructionsPopup {
+        body.game-page #instructionsPopup {
             display: block;
             position: fixed;
             top: 50%;
@@ -2029,19 +2025,19 @@
             /* 클릭 이벤트 활성화 */
         }
 
-        #instructionsPopup h2 {
+        body.game-page #instructionsPopup h2 {
             margin-top: 0;
         }
 
-        #instructionsPopup button {
+        body.game-page #instructionsPopup button {
             border-radius: 5px;
             margin-top: 20px;
             padding: 8px 16px;
             cursor: pointer;
         }
 
-        .hint-overlay,
-        .game-overlay {
+        body.game-page .hint-overlay,
+        body.game-page .game-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -2054,8 +2050,8 @@
             z-index: 1500;
         }
 
-        .hint-popup,
-        .game-popup {
+        body.game-page .hint-popup,
+        body.game-page .game-popup {
             background-color: white;
             color: #000;
             padding: 30px;
@@ -2066,14 +2062,14 @@
             /* auto로 수정 */
         }
 
-        .hint-popup p,
-        .game-popup p {
+        body.game-page .hint-popup p,
+        body.game-page .game-popup p {
             margin: 0 0 30px;
         }
 
         /* nextButton과 previewButton의 기본 스타일 제거 */
-        #nextButton,
-        #previewButton {
+        body.game-page #nextButton,
+        body.game-page #previewButton {
             background: none;
             border: none;
             padding: 0;
@@ -2084,12 +2080,12 @@
             padding-bottom: 10px;
         }
 
-        #nextButton:hover,
-        #previewButton:hover {
+        body.game-page #nextButton:hover,
+        body.game-page #previewButton:hover {
             color: aqua;
         }
 
-        #gameControlsPopup {
+        body.game-page #gameControlsPopup {
             display: none;
             /* ✅ 게임 시작 전에 숨김 */
             position: fixed;
@@ -2107,14 +2103,14 @@
             /* 클릭 이벤트 활성화 */
         }
 
-        #gameControlsPopup h2 {
+        body.game-page #gameControlsPopup h2 {
             margin-top: 0;
         }
 
-        #closePopupButton,
-        .start-game-btn,
-        #pre-button,
-        .hint-confirm-button {
+        body.game-page #closePopupButton,
+        body.game-page .start-game-btn,
+        body.game-page #pre-button,
+        body.game-page .hint-confirm-button {
             border-radius: 5px;
             border: none;
             padding: 8px 16px;
@@ -2124,30 +2120,28 @@
             box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.5);
         }
 
-        #closePopupButton:hover,
-        .start-game-btn:hover,
-        #pre-button:hover,
-        .hint-confirm-button:hover,
-        #victoryScreen button:hover {
+        body.game-page #closePopupButton:hover,
+        body.game-page .start-game-btn:hover,
+        body.game-page #pre-button:hover,
+        body.game-page .hint-confirm-button:hover,
+        body.game-page #victoryScreen button:hover {
             background-color: aqua;
         }
-    }
 
     /* ====== 게시글 보기 ====== */
-    .post-page {
         body {
             text-align: center;
             padding: 20px;
             transition: background-color 0.3s, color 0.3s;
         }
 
-        h1 {
+        body.post-page h1 {
             text-align: center;
             margin: 20px 0;
         }
 
         /* 🔥 그림 그리기 팝업창 스타일 */
-        .drawing-popup {
+        body.post-page .drawing-popup {
             display: none;
             border-radius: 5px;
             position: fixed;
@@ -2165,7 +2159,7 @@
         }
 
         /* ✅ 로딩 화면 스타일 */
-        .loading-indicator {
+        body.post-page .loading-indicator {
             position: fixed;
             top: 0;
             left: 0;
@@ -2185,7 +2179,7 @@
         }
 
         /* ✅ 로딩 이미지 크기 */
-        .loading-image {
+        body.post-page .loading-image {
             width: 50px;
             height: 50px;
             margin-bottom: 10px;
@@ -2193,12 +2187,12 @@
         }
 
         /* ✅ 로딩 텍스트 스타일 */
-        .loading-text {
+        body.post-page .loading-text {
             font-size: 16px;
             color: white;
         }
 
-        .post-container {
+        body.post-page .post-container {
             display: flex;
             background-color: #ffffff;
             border-radius: 10px;
@@ -2211,7 +2205,7 @@
             margin: 20px auto;
         }
 
-        .postcategory-container {
+        body.post-page .postcategory-container {
             display: flex;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -2225,35 +2219,35 @@
             margin-bottom: 5px;
         }
 
-        .postcategory-container>div {
+        body.post-page .postcategory-container>div {
             margin: 0 10px;
         }
 
-        .postcategory-container>div>img {
+        body.post-page .postcategory-container>div>img {
             width: 30px;
             height: 30px;
             margin-right: 5px;
         }
 
-        .postcategory-container>div>span {
+        body.post-page .postcategory-container>div>span {
             font-size: 16px;
         }
 
-        .popup-header {
+        body.post-page .popup-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 5px 10px;
         }
 
-        .popup-title {
+        body.post-page .popup-title {
             flex-grow: 1;
             text-align: center;
             font-weight: bold;
             font-size: 18px;
         }
 
-        .close-popup {
+        body.post-page .close-popup {
             color: red;
             border: none;
             cursor: pointer;
@@ -2262,16 +2256,16 @@
             padding: 5px;
         }
 
-        .close-popup:hover {
+        body.post-page .close-popup:hover {
             color: aqua;
             background: none;
         }
 
-        .popup-footer {
+        body.post-page .popup-footer {
             margin-top: 10px;
         }
 
-        #drawingCanvas {
+        body.post-page #drawingCanvas {
             width: 100%;
             height: 300px;
             background: #fff;
@@ -2282,16 +2276,16 @@
         }
 
         /* ✅ 클릭 가능한 스타일 추가 */
-        .clickable-category {
+        body.post-page .clickable-category {
             cursor: pointer;
             color: black;
         }
 
-        .clickable-category:hover {
+        body.post-page .clickable-category:hover {
             color: darkblue;
         }
 
-        .popup-message {
+        body.post-page .popup-message {
             position: fixed;
             width: 300px;
             top: 40%;
@@ -2307,7 +2301,7 @@
             display: none;
         }
 
-        .popup-button {
+        body.post-page .popup-button {
             margin-top: 15px;
             padding: 10px 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -2318,7 +2312,7 @@
             cursor: pointer;
         }
 
-        .custom-button {
+        body.post-page .custom-button {
             background-color: #fff;
             color: #000;
             border: none;
@@ -2328,50 +2322,50 @@
             transition: background-color 0.3s;
         }
 
-        .popup-button:hover,
-        .custom-button:hover {
+        body.post-page .popup-button:hover,
+        body.post-page .custom-button:hover {
             background-color: aqua;
         }
 
         /* ✅ 게시물 이미지 */
-        .post-image {
+        body.post-page .post-image {
             max-width: 100%;
             max-height: 50vh;
             object-fit: contain;
         }
 
         /* ✅ 게시물 설명 */
-        .post-description {
+        body.post-page .post-description {
             font-size: 16px;
             text-align: left;
             white-space: pre-wrap;
             /* newline 문자 보존 */
         }
 
-        .post-buttons {
+        body.post-page .post-buttons {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-top: 20px;
         }
 
-        .button {
+        body.post-page .button {
             font-size: 16px;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
 
-        .button:hover {
+        body.post-page .button:hover {
             background-color: #755a6a;
         }
 
-        .hashtag-link {
+        body.post-page .hashtag-link {
             color: #1da1f2;
             text-decoration: none;
         }
 
         /* 토글 스위치 (다크 모드) */
-        .toggle-switch {
+        body.post-page .toggle-switch {
             position: fixed;
             top: 25px;
             right: 30px;
@@ -2380,7 +2374,7 @@
             display: inline-block;
         }
 
-        .toggle-switch input {
+        body.post-page .toggle-switch input {
             position: absolute;
             top: 0;
             left: 0;
@@ -2394,15 +2388,15 @@
             /* 필요시 클릭 우선순위 */
         }
 
-        .toggle-switch input:checked+.slider::before {
+        body.post-page .toggle-switch input:checked+.slider::before {
             transform: translateX(65px);
         }
 
-        .toggle-switch input:checked+.slider #themeIcon {
+        body.post-page .toggle-switch input:checked+.slider #themeIcon {
             transform: translateX(65px);
         }
 
-        .slider {
+        body.post-page .slider {
             position: absolute;
             cursor: pointer;
             width: 100%;
@@ -2412,7 +2406,7 @@
             transition: background-color 0.3s;
         }
 
-        .slider::before {
+        body.post-page .slider::before {
             position: absolute;
             left: -15px;
             width: 30px;
@@ -2423,7 +2417,7 @@
             z-index: 0;
         }
 
-        #themeIcon {
+        body.post-page #themeIcon {
             position: absolute;
             width: 40px;
             height: 40px;
@@ -2438,8 +2432,6 @@
             transition: transform 0.3s;
             z-index: 1;
         }
-
-    }
 
     /* ====== 미리보기 페이지 ====== */
         body {
