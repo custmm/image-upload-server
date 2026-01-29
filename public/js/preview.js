@@ -191,33 +191,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (opacityToggleBtn && opacityControl && opacitySlider) {
             const tabDesign = document.querySelector(".tab-design");
             const margeContainer = document.querySelector(".marge-container");
-            const defaultOpacity = "0.825";
             
             opacityToggleBtn.addEventListener("click", () => {
                 isVisible = !isVisible;
 
-                if (isVisible) {
-                    // 슬라이더 다시 표시
-                    opacityControl.style.display = "block";
+                // 슬라이더만 토글
+                opacitySlider.style.display = isVisible ? "block" : "none";
 
-                    // 초기 기본 투명도 값
+                // 값 복원은 보일 때만
+                if (isVisible) {
+                    const defaultOpacity = "0.825";
                     opacitySlider.value = defaultOpacity;
 
-                    // 투명도 기본값 복원
                     if (tabDesign) tabDesign.style.opacity = defaultOpacity;
                     if (margeContainer) margeContainer.style.opacity = defaultOpacity;
 
-                    // 전역 공유: localStorage에 저장
                     localStorage.setItem("sharedOpacity", defaultOpacity);
-                } else {
-                    // 슬라이더 숨기기
-                    opacityControl.style.display = "none";
                 }
             });
         }
 
         if (isExplanMode) {
-            welcomeEl.addEventListener("click", () => {
+            welcomeEl.addEventListener("click", (e) => {
                 // ✅ a 태그 클릭이면 막지 않음
                 e.preventDefault(); // ✅ 이때만 링크 이동 막기
 
