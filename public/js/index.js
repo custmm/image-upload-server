@@ -107,9 +107,6 @@
 
             body.addEventListener("click", (event) => {
                 if (isPopupOpen) return;  // ✅ 팝업이 열려있으면 클릭 카운트 증가 X
-                if (
-                    event.target.closest(".container")
-                ) return;
 
                 const x = event.clientX;
                 const y = event.clientY; // 🔥 scroll 보정
