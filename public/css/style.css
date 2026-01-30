@@ -32,8 +32,7 @@
         animation: goldGlow 6s infinite alternate;
     }
 
-    /* ====== 첫화면 ====== */
-
+    /* ====== 첫화면(index.html) ====== */
     body.index-page .container {
         position: absolute;
         top: 50%;
@@ -283,7 +282,7 @@
         transition: transform 2s ease-in-out;
     }
 
-    /* ====== 로그인 페이지 ====== */
+    /* ====== 로그인 페이지(admin-login.html ====== */
 
     body.login-page .back-button {
         transition: background-color 0.3s;
@@ -302,7 +301,6 @@
         text-align: center;
     }
 
-    /* ✅ 팝업 메시지 스타일 */
     body.login-page .popup-message {
         position: fixed;
         width: 210px;
@@ -321,7 +319,6 @@
         z-index: 1000;
     }
 
-    /* ✅ 확인 버튼 스타일 */
     body.login-page .popup-button {
         display: block;
         margin: 15px auto 0;
@@ -515,8 +512,7 @@
             0px 6px 10px rgba(0, 0, 0, 0.3);
     }
 
-    /* ====== 대시보드 ====== */
-
+    /* ====== 대시보드(admin-dashboard.html) ====== */
     body.dashboard-page h1 {
         margin-bottom: 20px;
     }
@@ -1383,7 +1379,7 @@
         padding-left: 10px;
     }
 
-    /* ====== 모드선택 페이지 ====== */
+    /* ====== 모드선택 페이지(mode-selection.html) ====== */
 
     /* 뒤로가기 버튼 */
     body.mode-page .back-button {
@@ -1531,7 +1527,7 @@
         background-color: aqua;
     }
 
-    /* ====== 업로드 페이지 ====== */
+    /* ====== 업로드 페이지(upload.html) ====== */
 
     /* 뒤로가기 버튼 */
     body.upload-page .back-button {
@@ -1717,7 +1713,7 @@
         margin-bottom: 10px;
     }
 
-    /* ====== 클릭 페이지 ====== */
+    /* ====== 클릭 페이지(click.html) ====== */
 
     body.click-page .explan-container {
         max-width: 85%;
@@ -2054,7 +2050,7 @@
         background-color: aqua;
     }
 
-    /* ====== 게시글 보기 ====== */
+    /* ====== 게시글 보기(post.html) ====== */
 
     body.post-page h1 {
         text-align: center;
@@ -2354,7 +2350,7 @@
         z-index: 1;
     }
 
-    /* ====== 미리보기 페이지 ====== */
+    /* ====== 미리보기 페이지(preview.html) ====== */
 
     body.preview-page .page-footer {
         margin-top: 40px;
@@ -3037,7 +3033,7 @@
     }
 
 
-    /* ====== 태그 검색 결과 ====== */
+    /* ====== 태그 검색 결과(tagResult.html) ====== */
 
     body.tag-page h2 {
         color: #1da1f2;
