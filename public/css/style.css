@@ -33,23 +33,8 @@
     }
 
     /* ====== 첫화면 ====== */
-    html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: visible;
-    }
 
-    body {
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #c0c0c0;
-    }
-
-    body.login-page .container {
+    body.index-page .container {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -59,13 +44,13 @@
         align-items: center;
     }
 
-    body.login-page .firework {
+    body.index-page .firework {
         position: fixed;
         pointer-events: none;
         z-index: 2000;
     }
 
-    body.login-page .particle {
+    body.index-page .particle {
         position: absolute;
         width: 10px;
         height: 10px;
@@ -74,7 +59,7 @@
         transform-origin: center;
     }
 
-    body.login-page #index-page #fireworksCanvas {
+    body.index-page #index-page #fireworksCanvas {
         position: fixed;
         top: 0;
         left: 0;
@@ -85,7 +70,7 @@
         pointer-events: none;
     }
 
-    body.login-page .glow-circle {
+    body.index-page .glow-circle {
         position: absolute;
         width: 50px;
         height: 50px;
@@ -97,7 +82,7 @@
     }
 
     /* ✨ 빛 퍼짐 전용 레이어 */
-    body.login-page .glow-circle::after {
+    body.index-page .glow-circle::after {
         content: "";
         position: absolute;
         inset: -15px;
@@ -113,11 +98,11 @@
     }
 
     /* 클릭 후 */
-    body.login-page .glow-circle.clicked::after {
+    body.index-page .glow-circle.clicked::after {
         opacity: 1;
     }
 
-    body.login-page .glow-effect {
+    body.index-page .glow-effect {
         position: fixed;
         top: 0;
         left: 0;
@@ -130,7 +115,7 @@
     }
 
     /* 제목 스타일 */
-    body.login-page #mainTitle {
+    body.index-page #mainTitle {
         font-size: 36px;
         margin-bottom: 20px;
         text-align: center;
@@ -139,7 +124,7 @@
         text-overflow: ellipsis;
     }
 
-    body.login-page .popup-overlay {
+    body.index-page .popup-overlay {
         position: fixed;
         top: 0;
         left: 0;
@@ -152,7 +137,7 @@
         z-index: 1500;
     }
 
-    body.login-page .popup-box {
+    body.index-page .popup-box {
         background-color: white;
         color: #000;
         padding: 20px;
@@ -161,7 +146,7 @@
         width: 350px;
     }
 
-    body.login-page .popup-image {
+    body.index-page .popup-image {
         max-height: 200px;
         margin-top: 10px;
         display: block;
@@ -169,11 +154,11 @@
         margin-right: auto;
     }
 
-    body.login-page .popup-message {
+    body.index-page .popup-message {
         margin-top: 10px;
     }
 
-    body.login-page .popup-confirm-button {
+    body.index-page .popup-confirm-button {
         background-color: #fff;
         color: #000;
         padding: 10px 20px;
@@ -183,12 +168,12 @@
         border: none;
     }
 
-    body.login-page .popup-confirm-button:hover {
+    body.index-page .popup-confirm-button:hover {
         background-color: aqua;
     }
 
     /* 버튼을 감싸는 컨테이너 */
-    body.login-page .button_container {
+    body.index-page .button_container {
         position: relative;
         background-color: #f1f1f1;
         width: 300px;
@@ -205,7 +190,7 @@
         margin: 0 auto;
     }
 
-    body.login-page #modeSelection {
+    body.index-page #modeSelection {
         position: relative;
         padding: 20px;
         background-color: #fff;
@@ -213,7 +198,7 @@
         border-radius: 10px;
     }
 
-    body.login-page #adminModeButton {
+    body.index-page #adminModeButton {
         background: #ff0000;
         color: white;
         display: none;
@@ -221,21 +206,21 @@
         border: none;
     }
 
-    body.login-page #adminModeButton:hover {
+    body.index-page #adminModeButton:hover {
         background: #cca000;
     }
 
-    body.login-page #userModeButton {
+    body.index-page #userModeButton {
         background: rgba(0, 0, 0, 0.75);
         color: white;
         border: none;
     }
 
-    body.login-page #userModeButton:hover {
+    body.index-page #userModeButton:hover {
         background: rgba(128, 128, 128, 0.348);
     }
 
-    body.login-page button {
+    body.index-page button {
         width: 200px;
         margin: 10px auto;
         padding: 15px;
@@ -247,12 +232,12 @@
         transition: background-color 0.3s;
     }
 
-    body.login-page button:hover {
+    body.index-page button:hover {
         background-color: #755a6a;
         animation: pulse 0.5s ease-in-out infinite;
     }
 
-    body.login-page canvas {
+    body.index-page canvas {
         width: 100%;
         height: 100%;
         pointer-events: none;
@@ -260,7 +245,7 @@
     }
 
     /* 문 애니메이션 */
-    body.login-page #door-container {
+    body.index-page #door-container {
         position: fixed;
         top: 0;
         left: 0;
@@ -271,7 +256,7 @@
         z-index: 10;
     }
 
-    body.login-page .door {
+    body.index-page .door {
         position: absolute;
         width: 50%;
         height: 100%;
@@ -280,7 +265,7 @@
         transition: transform 2s ease-in-out;
     }
 
-    body.login-page .door.left {
+    body.index-page .door.left {
         left: 0;
         transform-origin: left center;
         /* Left edge for right door */
@@ -289,7 +274,7 @@
         transition: transform 2s ease-in-out;
     }
 
-    body.login-page .door.right {
+    body.index-page .door.right {
         right: 0;
         transform-origin: right center;
         /* Right edge for left door */
@@ -299,10 +284,6 @@
     }
 
     /* ====== 로그인 페이지 ====== */
-    body {
-        text-align: center;
-        padding: 20px;
-    }
 
     body.login-page .back-button {
         transition: background-color 0.3s;

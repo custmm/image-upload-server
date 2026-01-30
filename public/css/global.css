@@ -55,15 +55,27 @@
     }
 }
 
-body.game-page body,
-html {
-    overflow: hidden;
-    /* 스크롤 막기 */
-    height: 100%;
-    /* 화면 전체를 채우도록 설정 */
+body.index-page html {
     margin: 0;
     padding: 0;
+    height: 100%;
+    overflow: visible;
 }
+
+body.index-page body {
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #c0c0c0;
+}
+
+body.preview-page body {
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
 
 body.post-page body {
     text-align: center;
@@ -78,20 +90,19 @@ body.tag-page body {
     margin: 0;
 }
 
-body.preview-page body {
-    text-align: center;
-    transition: background-color 0.3s, color 0.3s;
-}
-
 body.click-page body {
     text-align: center;
     padding: 20px;
 }
 
-body.upload-page body {
-    text-align: center;
-    padding: 20px;
-    position: relative;
+body.game-page body,
+html {
+    overflow: hidden;
+    /* 스크롤 막기 */
+    height: 100%;
+    /* 화면 전체를 채우도록 설정 */
+    margin: 0;
+    padding: 0;
 }
 
 body.mode-page body {
@@ -112,6 +123,17 @@ body.mode-page html {
     overflow-x: hidden;
     /* ✅ 강제 좌우 스크롤 제거 */
     box-sizing: border-box;
+}
+
+body.upload-page body {
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+body.login-page body {
+    text-align: center;
+    padding: 20px;
 }
 
 body.dashboard-page html,
