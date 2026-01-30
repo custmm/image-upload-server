@@ -1,56 +1,125 @@
+@keyframes glowAnimation {
+    0% {
+        opacity: 0.5;
+    }
 
-        @keyframes glowAnimation {
-            0% {
-                opacity: 0.5;
-            }
+    100% {
+        opacity: 0.1;
+    }
+}
 
-            100% {
-                opacity: 0.1;
-            }
-        }
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
 
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-            }
-        }
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
+    50% {
+        transform: scale(1.2);
+        /* 10% 확대 */
+    }
 
-            50% {
-                transform: scale(1.2);
-                /* 10% 확대 */
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
+    100% {
+        transform: scale(1);
+    }
+}
 
 
-        /* ✨ 황금빛이 부드럽게 퍼지는 애니메이션 */
-        @keyframes goldGlow {
-            0% {
-                background-size: 180% 180%;
-                background-position: center;
-            }
+/* ✨ 황금빛이 부드럽게 퍼지는 애니메이션 */
+@keyframes goldGlow {
+    0% {
+        background-size: 180% 180%;
+        background-position: center;
+    }
 
-            100% {
-                background-size: 200% 200%;
-                background-position: center;
-            }
-        }
-        @keyframes explode {
-            from {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 1;
-            }
+    100% {
+        background-size: 200% 200%;
+        background-position: center;
+    }
+}
 
-            to {
-                transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(720deg);
-                opacity: 0;
-            }
-        }
+@keyframes explode {
+    from {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+body.game-page body,
+html {
+    overflow: hidden;
+    /* 스크롤 막기 */
+    height: 100%;
+    /* 화면 전체를 채우도록 설정 */
+    margin: 0;
+    padding: 0;
+}
+
+body.post-page body {
+    text-align: center;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.tag-page body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    position: relative;
+    margin: 0;
+}
+
+body.preview-page body {
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.click-page body {
+    text-align: center;
+    padding: 20px;
+}
+
+body.upload-page body {
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+body.mode-page body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* 전체 화면 높이 */
+}
+
+body.mode-page html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    /* ✅ 강제 좌우 스크롤 제거 */
+    box-sizing: border-box;
+}
+
+body.dashboard-page html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
