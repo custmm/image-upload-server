@@ -2698,7 +2698,7 @@
         display: block;
         width: auto;
         /* 원하는 크기로 조정 */
-        height: 75px;
+        height: 85px;
         border-radius: 5px;
         object-fit: cover;
         transition: transform 0.3s ease;
