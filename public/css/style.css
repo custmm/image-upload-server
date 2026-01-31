@@ -1741,6 +1741,7 @@ body.click-page #exper_font {
 
 body.click-page #exper_container {
     padding: 0 20px;
+    text-align: left;
 }
 
 
@@ -1756,7 +1757,6 @@ body.click-page .detail-toggle {
 body.click-page .detail-content {
     margin-top: 10px;
     padding-left: 10px;
-    text-align: left;
     display: none;
 }
 
