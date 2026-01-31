@@ -150,6 +150,7 @@ body.icon-page {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #fff;
 }
 
 body.preview-popup-page {
@@ -158,4 +159,5 @@ body.preview-popup-page {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.6;
     box-sizing: border-box;
+    background-color: #fff;
 }
