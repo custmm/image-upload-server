@@ -57,10 +57,7 @@
     /* ====== 공통 스타일 ====== */
     body:not(.no-bg) {
         font-family: Arial, sans-serif;
-        background-image: url("/images/background.png");
-        background-repeat: repeat;
-        background-attachment: fixed;
-        background-size: 100px 100px;
+        background-color: beige;
     }
 
     /* ====== 버튼 공통 ====== */

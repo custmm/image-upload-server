@@ -1,20 +1,26 @@
     body.dark-mode {
-        background-image: url("/images/background_dark.png");
-        background-repeat: repeat;
-        background-size: contain;
-        background-attachment: fixed;
-        background-size: 100px 100px;
+        background-color: gray;
     }
 
-    /* ====== 다크모드적용(click.html) ====== */
-    body.click-page.dark-mode .back-button:hover {
-        background-color: #755a6a;
-    }
-
-    body.click-page.dark-mode .back-button {
+    body.click-page.dark-mode .back-button,
+    body.preview-page.dark-mode .back-button {
         background-color: #ffffff;
         color: #000;
     }
+
+    body.click-page.dark-mode .back-button:hover,
+    body.preview-page.dark-mode .back-button:hover {
+        background-color: #755a6a;
+    }
+
+    body.post-page.dark-mode,
+    body.preview-page.dark-mode{
+        background-color: #222;
+        color: #fff;
+
+    }
+
+    /* ====== 다크모드적용(click.html) ====== */
 
     body.click-page.dark-mode .explan-container {
         background-color: #333;
@@ -26,10 +32,6 @@
     }
 
     /* ====== 다크모드적용(post.html) ====== */
-    body.post-page.dark-mode {
-        background-color: #222;
-        color: #fff;
-    }
 
     body.post-page.dark-mode .post-container {
         background-color: #444444;
@@ -41,15 +43,6 @@
     }
 
     /* ====== 다크모드적용(preview.html) ====== */
-    body.preview-page.dark-mode {
-        background-color: #222;
-        color: #fff;
-    }
-
-    body.preview-page.dark-mode .back-button {
-        background-color: #ffffff;
-        color: #000;
-    }
 
     body.preview-page.dark-mode .tab-design {
         border-color: #ddd;
@@ -111,15 +104,10 @@
     }
 
     body.preview-page.dark-mode #currentCategory {
-        color: #000;
+        color: #444;
     }
 
     body.preview-page.dark-mode .page-footer {
         color: #ccc;
         border-color: #444;
     }
-
-    body.preview-page.dark-mode .back-button:hover {
-        background-color: #755a6a;
-    }
-
