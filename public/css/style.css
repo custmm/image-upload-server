@@ -2685,6 +2685,10 @@
         border: none;
     }
 
+    body.preview-page .preview-popup iframe #previewFrame {
+        background: #fff;
+    }
+
     body.preview-page .preview-close {
         position: absolute;
         top: 10px;
