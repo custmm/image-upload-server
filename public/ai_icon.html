@@ -5,67 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ɐ휴욱슈욱Ɐ >> 아이콘 스튜디오</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        h1,p {
-            text-align: center;
-        }
-
-        .icon-studio-wrapper {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* 가로 중앙 */
-            justify-content: flex-start;
-            padding-top: 40px;
-            box-sizing: border-box;
-        }
-
-
-        #icon_studio {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 16px;
-
-            width: fit-content;
-            /* 🔑 이게 핵심 */
-            margin: 0 auto;
-            /* 🔑 중앙 고정 */
-
-            justify-items: center;
-        }
-
-        #icon_studio img {
-            width: 90px;
-            object-fit: contain;
-            /* ✅ 비율 유지 */
-            object-position: center;
-            /* ✅ 가운데 */
-
-            justify-self: center;
-            /* grid 셀 기준 가로 중앙 */
-            align-self: center;
-            /* grid 셀 기준 세로 중앙 */
-
-            cursor: pointer;
-            transition: transform 0.15s ease;
-        }
-
-        #icon_studio img:hover {
-            transform: scale(1.15);
-        }
-    </style>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/global.css">
 </head>
 
-<body>
+<body class="icon-page">
     <div class="icon-studio-wrapper">
         <h1>아이콘 스튜디오</h1>
         <div id="icon_studio">

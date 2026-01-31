@@ -2831,6 +2831,56 @@
         background-color: #755a6a;
     }
 
+    /* 아이콘페이지(ai_icon.html) */
+
+        body.icon-page h1,p {
+            text-align: center;
+        }
+
+        body.icon-page .icon-studio-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 가로 중앙 */
+            justify-content: flex-start;
+            padding-top: 40px;
+            box-sizing: border-box;
+        }
+
+
+        body.icon-page #icon_studio {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+
+            width: fit-content;
+            /* 🔑 이게 핵심 */
+            margin: 0 auto;
+            /* 🔑 중앙 고정 */
+
+            justify-items: center;
+        }
+
+        body.icon-page #icon_studio img {
+            width: 90px;
+            object-fit: contain;
+            /* ✅ 비율 유지 */
+            object-position: center;
+            /* ✅ 가운데 */
+
+            justify-self: center;
+            /* grid 셀 기준 가로 중앙 */
+            align-self: center;
+            /* grid 셀 기준 세로 중앙 */
+
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        body.icon-page #icon_studio img:hover {
+            transform: scale(1.15);
+        }
 
     /* ====== 태그 검색 결과(tagResult.html) ====== */
 
