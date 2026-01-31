@@ -105,12 +105,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     const margeContainer = document.querySelector(".marge-container");
 
     const previewLink = document.querySelector('a[href="./preview_popup.html"]');
+    const iconlink = document.querySelector('a[href="./ai_icon.html"]')
     if (previewLink) {
         previewLink.addEventListener("click", (e) => {
             e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
             openPreviewPopup();
         });
     }
+
+    if (iconlink) {
+        iconlink.addEventListener("click", (e) => {
+            e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
+            openAiIconPopup();
+        });
+    }
+
 
     const closeBtn = document.querySelector(".preview-close");
     if (closeBtn) {
@@ -268,6 +277,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         overlay.style.display = "none";
     }
 
+    function openAiIconPopup() {
+    const overlay = document.getElementById("previewOverlay");
+    const frame = document.getElementById("previewFrame");
+
+    frame.src = "ai_icon.html"; // 🔥 여기 핵심
+    overlay.style.display = "flex";
+    }
+
+    function closePreviewPopup() {
+    const overlay = document.getElementById("previewOverlay");
+    const frame = document.getElementById("previewFrame");
+
+    frame.src = ""; // iframe 초기화 (메모리 정리)
+    overlay.style.display = "none";
+    }
 
     // 1) 카테고리 로드
     async function loadCategories() {
