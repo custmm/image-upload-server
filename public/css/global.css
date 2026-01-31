@@ -83,6 +83,14 @@ button:hover {
     background-color: #755a6a;
 }
 
+body.login-page .back-button:hover,
+body.mode-page .back-button:hover,
+body.upload-page .back-button:hover,
+body.click-page .back-button:hover,
+body.preview-page .back-button:hover{
+    background-color: #755a6a;
+}
+
 /* 각page의 배경설정 */
 
 body.click-page,
@@ -185,13 +193,6 @@ body.mode-page html {
     box-sizing: border-box;
 }
 
-body.upload-page div .cat_name{
-    display: flex;
-    flex-direction: row;
-    width:80%;
-    gap:25px;
-}
-
 body.dashboard-page html,
 body.dashboard-page {
     margin: 0;
@@ -238,5 +239,11 @@ body.icon-page .obj_icon img {
 
     cursor: pointer;
     transition: transform 0.15s ease;
+}
 
+body.upload-page div .cat_name{
+    display: flex;
+    flex-direction: row;
+    width:80%;
+    gap:25px;
 }

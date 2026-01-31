@@ -267,9 +267,6 @@ body.login-page .back-button {
     left: 10px;
 }
 
-body.login-page .back-button:hover {
-    background-color: #755a6a;
-}
 
 body.login-page h1 {
     margin-bottom: 10px;
@@ -1365,10 +1362,6 @@ body.mode-page .back-button {
     left: 10px;
 }
 
-body.mode-page .back-button:hover {
-    background-color: #755a6a;
-}
-
 /* 제목 스타일 */
 body.mode-page h1 {
     font-size: 36px;
@@ -1513,9 +1506,6 @@ body.upload-page .back-button {
     left: 10px;
 }
 
-body.upload-page .back-button:hover {
-    background-color: #755a6a;
-}
 
 body.upload-page h1 {
     text-align: center;
@@ -1707,6 +1697,10 @@ body.upload-page select {
 
 /* ====== 클릭 페이지(click.html) ====== */
 
+body.click-page h1 {
+    text-align: center;
+}
+
 body.click-page .explan-container {
     max-width: 85%;
     margin: auto;
@@ -1721,10 +1715,6 @@ body.click-page .explan-detail-container {
     border: 1px solid #ccc;
     border-radius: 8px;
     margin: 18px;
-}
-
-body.click-page h1 {
-    text-align: center;
 }
 
 /* 뒤로가기 버튼 */
@@ -1758,10 +1748,6 @@ body.click-page .detail-content {
     margin-top: 10px;
     padding-left: 10px;
     display: none;
-}
-
-body.click-page .back-button:hover {
-    background-color: #755a6a;
 }
 
 /* ====== 게임 페이지(killing_game.html) ====== */
@@ -2822,9 +2808,6 @@ body.preview-page .preview-page {
     overflow-x: hidden;
 }
 
-body.preview-page .back-button:hover {
-    background-color: #755a6a;
-}
 
 /* 아이콘페이지(ai_icon.html) */
 body.icon-page h1,
