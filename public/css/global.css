@@ -193,3 +193,41 @@ body.dashboard-page {
     box-sizing: border-box;
 }
 
+/* 기타반복 구조 */
+body.icon-page .move_icon,
+body.icon-page .bulid_icon,
+body.icon-page .structure_icon,
+body.icon-page .obj_icon
+ {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+
+    width: fit-content;
+    /* 🔑 이게 핵심 */
+    margin: 0 auto;
+    /* 🔑 중앙 고정 */
+
+    justify-items: center;
+
+}
+
+body.icon-page .move_icon img,
+body.icon-page .bulid_icon img,
+body.icon-page .structure_icon img,
+body.icon-page .obj_icon img {
+    width: 90px;
+    object-fit: contain;
+    /* ✅ 비율 유지 */
+    object-position: center;
+    /* ✅ 가운데 */
+
+    justify-self: center;
+    /* grid 셀 기준 가로 중앙 */
+    align-self: center;
+    /* grid 셀 기준 세로 중앙 */
+
+    cursor: pointer;
+    transition: transform 0.15s ease;
+
+}

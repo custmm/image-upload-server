@@ -2816,6 +2816,15 @@ p {
     text-align: center;
 }
 
+body.icon-page h3 {
+    text-align: center;
+}
+
+body.icon-page hr{
+    width: 95%;
+}
+
+
 body.icon-page .icon-studio-wrapper {
     background-color: #fff;
     min-height: 100vh;
