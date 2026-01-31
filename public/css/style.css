@@ -2883,6 +2883,20 @@
         transform: scale(1.15);
     }
 
+    /* 소개팝업페이지(preview_popup.html */
+    body.preview-popup-page table {
+        width: 100%;
+        max-width: 900px;
+    }
+
+    body.preview-popup-page caption {
+        font-weight: bold;
+    }
+
+    body.preview-popup-page hr {
+        margin: 24px 0;
+    }
+
     /* ====== 태그 검색 결과(tagResult.html) ====== */
 
     body.tag-page h2 {
