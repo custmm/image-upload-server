@@ -54,26 +54,32 @@
         opacity: 0;
     }
 }
-    /* ====== 공통 스타일 ====== */
-    body:not(.no-bg) {
-        font-family: Arial, sans-serif;
-        background-color: beige;
-    }
 
-    /* ====== 버튼 공통 ====== */
-    button {
-        background-color: #000000;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        color: white;
-        border: none;
-        transition: background-color 0.2s ease;
-    }
+/* ====== 공통 스타일 ====== */
+body:not(.no-bg) {
+    font-family: Arial, sans-serif;
 
-    button:hover {
-        background-color: #755a6a;
-    }
+    background: linear-gradient(
+        180deg,
+        #9cff9a 0%,
+        #e5bfe6 100%
+    );
+}
+
+/* ====== 버튼 공통 ====== */
+button {
+    background-color: #000000;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #755a6a;
+}
 
 body.click-page,
 body.login-page,
