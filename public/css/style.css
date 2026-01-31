@@ -45,6 +45,16 @@ body.index-page #index-page #fireworksCanvas {
     pointer-events: none;
 }
 
+body.index-page .magic-circle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9000; /* fireworksCanvas(9999) 바로 아래 */
+    pointer-events: none;
+}
+
 body.index-page .glow-circle {
     position: absolute;
     width: 50px;
@@ -1700,7 +1710,6 @@ body.upload-page select {
 body.click-page h1 {
     text-align: center;
 }
-
 body.click-page .explan-container {
     max-width: 85%;
     margin: auto;

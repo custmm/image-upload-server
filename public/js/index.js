@@ -293,6 +293,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const starCanvas = document.createElement("canvas");
+        starCanvas.classList.add("magic-circle-canvas");
+
         document.body.appendChild(starCanvas);
         const ctx = starCanvas.getContext("2d");
 
