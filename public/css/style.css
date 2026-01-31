@@ -1743,13 +1743,14 @@
         left: 10px;
     }
 
-    body.click-page #exper_font{
-        text-align: center;        
+    body.click-page #exper_font {
+        text-align: center;
     }
-    body.click-page #exper_container{
-        padding:0 20px;
+
+    body.click-page #exper_container {
+        padding: 0 20px;
     }
-    
+
 
     body.click-page .detail-toggle {
         margin-left: 10px;
@@ -2490,8 +2491,14 @@
         text-align: center;
     }
 
+    body.preview-page #opacitySlider {
+        display: inline-flex;
+    }
+
     body.preview-page .opacityControl {
-        gap: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
     /* 로딩 화면 스타일 */

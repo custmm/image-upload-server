@@ -196,15 +196,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                 isVisible = !isVisible;
 
                 // 슬라이더만 토글
-                opacitySlider.style.display = isVisible ? "block" : "none";
+                opacitySlider.style.display = isVisible ? "inline-flex" : "none";
 
                 // 값 복원은 보일 때만
                 if (isVisible) {
                     const defaultOpacity = "0.825";
                     opacitySlider.value = defaultOpacity;
 
-                    if (tabDesign) tabDesign.style.opacity = defaultOpacity;
-                    if (margeContainer) margeContainer.style.opacity = defaultOpacity;
+                    tabDesign.style.opacity = defaultOpacity;
+                    margeContainer.style.opacity = defaultOpacity;
 
                     localStorage.setItem("sharedOpacity", defaultOpacity);
                 }
