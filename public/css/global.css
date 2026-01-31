@@ -63,11 +63,10 @@ body.tag-page{
     padding: 20px;
 }
 
-body.index-page html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: visible;
+body.preview-page,
+body.post-page{
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 body.index-page {
@@ -79,15 +78,11 @@ body.index-page {
     background-color: #c0c0c0;
 }
 
-body.preview-page {
-    text-align: center;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-
-body.post-page {
-    text-align: center;
-    transition: background-color 0.3s, color 0.3s;
+body.index-page html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: visible;
 }
 
 body.tag-page {
