@@ -636,8 +636,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // ✅ 선택 이미지 경로 결정
         let selectedImage = isModernized
-            ? `images/preview-gunff_${randomIndex}re.png`
-            : `images/preview-gunff_${randomIndex}.png`;
+            ? `images/indicator/preview-gunff_${randomIndex}re.png`
+            : `images/indicator/preview-gunff_${randomIndex}.png`;
 
         localStorage.setItem("selectedImage", selectedImage);
 
@@ -657,12 +657,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (!isCut) {
                 img.src = isModernized
-                    ? `images/preview-gunff_${randomIndex}re_cut.png`
-                    : `images/preview-gunff_${randomIndex}_cut.png`;
+                    ? `images/indicator/preview-gunff_${randomIndex}re_cut.png`
+                    : `images/indicator/preview-gunff_${randomIndex}_cut.png`;
             } else {
                 img.src = isModernized
-                    ? `images/preview-gunff_${randomIndex}re.png`
-                    : `images/preview-gunff_${randomIndex}.png`;
+                    ? `images/indicator/preview-gunff_${randomIndex}re.png`
+                    : `images/indicator/preview-gunff_${randomIndex}.png`;
             }
             localStorage.setItem("selectedImage", img.src);
             isCut = !isCut;
@@ -826,7 +826,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const imgs = document.querySelectorAll('#section3 .sorting-container img');
         imgs.forEach((img, index) => {
             // 예시 파일명 규칙: preview-gunff_1.png vs preview-gunff_1re.png
-            const baseName = `images/preview-gunff_${index + 1}`;
+            const baseName = `images/indicator/preview-gunff_${index + 1}`;
             img.src = isModernized ? `${baseName}re.png` : `${baseName}.png`;
         });
     }

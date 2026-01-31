@@ -194,7 +194,7 @@ function applyModernizedImages(isModernized) {
     const images = document.querySelectorAll("#section3 .sorting-container img");
     images.forEach((img, index) => {
         // 기존 파일명 규칙에 맞추어 변경: preview-gunff_1.png / preview-gunff_1re.png
-        const base = `images/preview-gunff_${index + 1}`;
+        const base = `images/indicator/preview-gunff_${index + 1}`;
         // 만약 이미지 객체에 원래 파일 경로가 있으면 그걸 사용하도록 더 안전하게 구현 가능
         img.src = isModernized ? `${base}re.png` : `${base}.png`;
     });

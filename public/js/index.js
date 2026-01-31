@@ -126,11 +126,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 클릭 횟수별 이벤트
         const clickEventsData = {
-            4: { color: "rgb(205,154,154)", message: "이상기운을 발견했습니다!", imageUrl: "images/ester_01.png", easterEgg: true },
-            44: { color: "rgb(217,115,115)", message: "조금 더 클릭해보세요", imageUrl: "images/ester_02.png", easterEgg: true },
-            100: { color: "rgb(230,77,77)", message: "누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용", imageUrl: "images/ester_03.png", easterEgg: true },
-            222: { color: "rgb(242,38,38)", message: "많이 심심하신가봐요", imageUrl: "images/ester_04.png", easterEgg: true },
-            444: { color: "#ff0000", message: "곧 재밌는 일이 일어납니다", imageUrl: "images/ester_05.png", easterEgg: true }
+            4: { color: "rgb(205,154,154)", message: "이상기운을 발견했습니다!", imageUrl: "images/alian/ester_01.png", easterEgg: true },
+            44: { color: "rgb(217,115,115)", message: "조금 더 클릭해보세요", imageUrl: "images/alian/ester_02.png", easterEgg: true },
+            100: { color: "rgb(230,77,77)", message: "누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용", imageUrl: "images/alian/ester_03.png", easterEgg: true },
+            222: { color: "rgb(242,38,38)", message: "많이 심심하신가봐요", imageUrl: "images/alian/ester_04.png", easterEgg: true },
+            444: { color: "#ff0000", message: "곧 재밌는 일이 일어납니다", imageUrl: "images/alian/ester_05.png", easterEgg: true }
         };
 
         // clickEventsData에 해당하는 클릭 횟수일 때 실행

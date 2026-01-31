@@ -3,7 +3,7 @@
         if (!localStorage.getItem("selectedImage")) {
             const totalPreviews = 12;
             const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
-            localStorage.setItem("selectedImage", `images/preview-gunff_${randomIndex}.png`);
+            localStorage.setItem("selectedImage", `images/indicator/preview-gunff_${randomIndex}.png`);
         }
 
         let isPopupOpen = false;  // ✅ 팝업 열려 있는지 여부를 추적하는 변수
