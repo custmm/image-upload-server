@@ -55,6 +55,14 @@
     }
 }
 
+body.click-page,
+body.login-page,
+body.upload-page,
+body.post-page,
+body.tag-page{
+    padding: 20px;
+}
+
 body.index-page html {
     margin: 0;
     padding: 0;
@@ -62,7 +70,7 @@ body.index-page html {
     overflow: visible;
 }
 
-body.index-page body {
+body.index-page {
     position: relative;
     justify-content: center;
     align-items: center;
@@ -71,32 +79,29 @@ body.index-page body {
     background-color: #c0c0c0;
 }
 
-body.preview-page body {
+body.preview-page {
     text-align: center;
     transition: background-color 0.3s, color 0.3s;
 }
 
 
-body.post-page body {
+body.post-page {
     text-align: center;
-    padding: 20px;
     transition: background-color 0.3s, color 0.3s;
 }
 
-body.tag-page body {
+body.tag-page {
     font-family: Arial, sans-serif;
-    padding: 20px;
     position: relative;
     margin: 0;
 }
 
-body.click-page body {
+body.click-page {
     text-align: center;
-    padding: 20px;
 }
 
-body.game-page body,
-html {
+body.game-page,
+body.game-page html {
     overflow: hidden;
     /* 스크롤 막기 */
     height: 100%;
@@ -105,7 +110,7 @@ html {
     padding: 0;
 }
 
-body.mode-page body {
+body.mode-page {
     margin: 0;
     padding: 0;
     display: flex;
@@ -125,19 +130,17 @@ body.mode-page html {
     box-sizing: border-box;
 }
 
-body.upload-page body {
+body.upload-page {
     text-align: center;
-    padding: 20px;
     position: relative;
 }
 
-body.login-page body {
+body.login-page {
     text-align: center;
-    padding: 20px;
 }
 
 body.dashboard-page html,
-body {
+body.dashboard-page {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -146,7 +149,7 @@ body {
     box-sizing: border-box;
 }
 
-body.icon-page body {
+body.icon-page {
     margin: 0;
     padding: 0;
     display: flex;
