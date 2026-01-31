@@ -18,18 +18,28 @@
         <div class="preview-container" id="previewContainer"> </div>
         <input type="file" id="fileInput" accept="image/*">
         <hr>
-        <h2>카테고리 선택</h2>
-        <select id="category">
-            <option value="puzzle">퍼즐</option>
-            <option value="bizz">보석비즈</option>
-            <option value="solidbodypuzzle">입체퍼즐</option>
-            <option value="deforme">디폼블럭</option>
-            <option value="brickfigure">브릭피규어</option>
-        </select>
-        <h2>서브카테고리 선택</h2>
-        <select id="subcategory"></select>
+
+        <div class="cat_name">
+            <h3>카테고리 선택:</h3>
+            <select name="big_cat"id="category">
+                <option value="puzzle">퍼즐</option>
+                <option value="bizz">보석비즈</option>
+                <option value="solidbodypuzzle">입체퍼즐</option>
+                <option value="deforme">디폼블럭</option>
+                <option value="brickfigure">브릭피규어</option>
+            </select>            
+        </div>
+
+        <div class="cat_name">
+            <h3>서브카테고리 선택:</h3>
+            <select name="small_cat" id="subcategory"></select>            
+        </div>
+
+
         <hr>
-        <h2>설명란</h2>
+        <h2>제목</h2>
+        <input type="text" id="title_name">
+        <h3>설명란</h3>
         <div class="description-container">
             <div class="editor-buttons">
                 <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>

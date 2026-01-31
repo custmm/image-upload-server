@@ -1530,9 +1530,25 @@ body.upload-page h2 {
 
 }
 
+body.upload-page h3 {
+    text-align: center;
+    margin: 15px 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+body.upload-page #title_name{
+    width: 75%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+}
+
 body.upload-page hr {
     width: 80%;
-    margin: 5px 0;
+    margin: 10px 0;
     /* 상하 간격 */
 }
 
@@ -1606,7 +1622,7 @@ body.upload-page .popup-buttons button {
     cursor: pointer;
 }
 
-.preview-container img {
+body.upload-page .preview-container img {
     margin-top: 15px;
     border: 3px solid #000000;
     border-radius: 5px;
@@ -1682,7 +1698,7 @@ body.upload-page .editor-buttons i {
 }
 
 body.upload-page select {
-    width: 80%;
+    width: 55%;
     padding: 8px;
     font-size: 16px;
     border-radius: 5px;
