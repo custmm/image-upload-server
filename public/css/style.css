@@ -1050,7 +1050,7 @@
     }
 
     /* 🔥 텍스트 모드 - 파일명 */
-    .post-item .file-name {
+    body.dashboard-page .post-item .file-name {
         flex-grow: 1;
         text-align: center;
         font-size: 16px;
@@ -1743,74 +1743,6 @@
         left: 10px;
     }
 
-    /* 토글 스위치 (다크 모드) */
-    body.click-page .toggle-switch {
-        position: fixed;
-        top: 25px;
-        right: 30px;
-        width: 65px;
-        height: 20px;
-        display: inline-block;
-    }
-
-    body.click-page .toggle-switch input {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        opacity: 0;
-        cursor: pointer;
-        z-index: 2;
-        /* 필요시 클릭 우선순위 */
-    }
-
-    body.click-page .toggle-switch input:checked+.slider::before {
-        transform: translateX(65px);
-    }
-
-    body.click-page .toggle-switch input:checked+.slider #themeIcon {
-        transform: translateX(65px);
-    }
-
-    body.click-page .slider {
-        position: absolute;
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-        background-color: #cbcbcb;
-        border-radius: 20px;
-        transition: background-color 0.3s;
-    }
-
-    body.click-page .slider::before {
-        position: absolute;
-        left: -15px;
-        width: 30px;
-        height: 30px;
-        background-color: white;
-        border-radius: 50%;
-        transition: transform 0.3s;
-        z-index: 0;
-    }
-
-    body.click-page #themeIcon {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        left: -15px;
-        top: -10px;
-        background: #e9ecef;
-        font-size: 25px;
-        text-align: center;
-        line-height: 40px;
-        pointer-events: none;
-        transition: transform 0.3s;
-        z-index: 1;
-    }
     body.click-page #exper_font{
         text-align: center;        
     }
@@ -1839,7 +1771,7 @@
         background-color: #755a6a;
     }
 
-    /* ====== 게임 페이지 ====== */
+    /* ====== 게임 페이지(killing_game.html) ====== */
 
     body.game-page h1 {
         text-align: center;
@@ -2281,74 +2213,6 @@
         text-decoration: none;
     }
 
-    /* 토글 스위치 (다크 모드) */
-    body.post-page .toggle-switch {
-        position: fixed;
-        top: 25px;
-        right: 30px;
-        width: 65px;
-        height: 20px;
-        display: inline-block;
-    }
-
-    body.post-page .toggle-switch input {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        opacity: 0;
-        cursor: pointer;
-        z-index: 2;
-        /* 필요시 클릭 우선순위 */
-    }
-
-    body.post-page .toggle-switch input:checked+.slider::before {
-        transform: translateX(65px);
-    }
-
-    body.post-page .toggle-switch input:checked+.slider #themeIcon {
-        transform: translateX(65px);
-    }
-
-    body.post-page .slider {
-        position: absolute;
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-        background-color: #cbcbcb;
-        border-radius: 20px;
-        transition: background-color 0.3s;
-    }
-
-    body.post-page .slider::before {
-        position: absolute;
-        left: -15px;
-        width: 30px;
-        height: 30px;
-        background-color: white;
-        border-radius: 50%;
-        transition: transform 0.3s;
-        z-index: 0;
-    }
-
-    body.post-page #themeIcon {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        left: -15px;
-        top: -10px;
-        background: #e9ecef;
-        font-size: 25px;
-        text-align: center;
-        line-height: 40px;
-        pointer-events: none;
-        transition: transform 0.3s;
-        z-index: 1;
-    }
 
     /* ====== 미리보기 페이지(preview.html) ====== */
 
@@ -2862,7 +2726,6 @@
         margin-bottom: 15px;
         /* 상하 여백 */
         padding-left: 20px;
-        z-index: 1;
         /* 겹침을 방지하기 위해 높임 */
     }
 
@@ -2951,77 +2814,6 @@
         color: #555;
         text-align: center;
         width: 100%;
-    }
-
-    /* 토글 스위치 (다크 모드) */
-    body.preview-page .toggle-switch {
-        position: fixed;
-        top: 25px;
-        right: 30px;
-        width: 65px;
-        height: 20px;
-        display: inline-block;
-    }
-
-    body.preview-page .toggle-switch input {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        opacity: 0;
-        cursor: pointer;
-        z-index: 2;
-        /* 필요시 클릭 우선순위 */
-    }
-
-    /* 다크 모드 시: 핸들과 아이콘 오른쪽으로 이동 */
-    body.preview-page .toggle-switch input:checked+.slider::before {
-        transform: translateX(65px);
-    }
-
-    body.preview-page .toggle-switch input:checked+.slider #themeIcon {
-        transform: translateX(65px);
-    }
-
-    body.preview-page .slider {
-        position: absolute;
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-        background-color: #cbcbcb;
-        border-radius: 20px;
-        transition: background-color 0.3s;
-    }
-
-    body.preview-page .slider::before {
-        position: absolute;
-        left: -15px;
-        width: 30px;
-        height: 30px;
-        background-color: white;
-        border-radius: 50%;
-        transition: transform 0.3s;
-        z-index: 0;
-    }
-
-    /* ✅ 이모지 스타일 (동그란 핸들 안에 위치) */
-    body.preview-page #themeIcon {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        left: -15px;
-        top: -10px;
-        background: #e9ecef;
-        font-size: 25px;
-        text-align: center;
-        line-height: 40px;
-        pointer-events: none;
-        transition: transform 0.3s;
-        z-index: 1;
     }
 
     body.preview-page .preview-page {
