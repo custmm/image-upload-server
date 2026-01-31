@@ -1536,7 +1536,9 @@ body.upload-page h3 {
     margin-top: 5px;
     margin-bottom: 5px;
 }
-
+body.upload-page .category_container{
+    width:90%;
+}
 body.upload-page #title_name{
     width: 75%;
     padding: 8px;
