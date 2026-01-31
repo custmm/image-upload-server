@@ -2838,6 +2838,7 @@
         }
 
         body.icon-page .icon-studio-wrapper {
+            background-color: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
