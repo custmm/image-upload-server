@@ -204,12 +204,24 @@
           <li><a href="click.html">숨겨진기능 체험하기</a></li>
           <li><a href="killing_game.html">게임하기</a></li>
           <li>
-            <a href="#" onclick="openAiIconPopup()">아이콘 스튜디오</a>
+            <a href="./ai_icon.html" id="iconlink">아이콘 스튜디오</a>
           </li>
         </ul>
       </li>
     </ul>
   </div>
+
+    <div id="previewOverlay" class="preview-overlay" style="display:none;">
+      <div class="preview-popup">
+        <button class="preview-close" onclick="closePreviewPopup()">✖</button>
+
+        <iframe
+          id="previewFrame"
+          src="./ai_icon.html"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
 
   <script src="./js/preview.js"></script>
 </body>
