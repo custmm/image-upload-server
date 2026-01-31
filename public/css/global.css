@@ -60,7 +60,7 @@ body:not(.no-bg) {
     font-family: Arial, sans-serif;
     background: linear-gradient(
         180deg,
-        #9cff9a 0%,
+        #afa846 0%,
         #e5bfe6 100%
     );
     background-repeat: no-repeat;   /* ❗ 반복 금지 */
