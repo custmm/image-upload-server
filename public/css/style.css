@@ -1546,7 +1546,7 @@ body.upload-page .description-container {
     flex-direction: column;
     align-items: center;
     border-radius: 8px;
-    min-width: 90%;
+    max-width: 85%;
     padding: 10px;
 }
 
