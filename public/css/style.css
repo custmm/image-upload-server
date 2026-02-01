@@ -2355,7 +2355,7 @@ body.preview-page .tab-design {
     margin-bottom: 0;
     padding: 0;
     border-radius: 8px;
-    width: 90%;
+    width: 95%;
     display: flex;
     flex-wrap: nowrap;
     text-align: center;
@@ -2516,7 +2516,7 @@ body.preview-page .preview-close {
 
 body.preview-page .marge-container {
     display: flex;
-    max-width: 90%;
+    max-width: 95%;
     margin: 15px auto;
     margin-top: 0;
     flex-wrap: nowrap;
