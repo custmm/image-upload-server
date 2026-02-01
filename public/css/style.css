@@ -1872,7 +1872,7 @@ body.post-page .post-container {
     justify-content: center;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 30px;
-    width: 500px;
+    width: 65%;
     margin: 20px auto;
 }
 
@@ -2006,6 +2006,10 @@ body.post-page .post-description {
     text-align: left;
     white-space: pre-wrap;
     /* newline 문자 보존 */
+}
+
+body.post-page .post-desc{
+    padding: 0 0 80px;
 }
 
 body.post-page .post-buttons {
