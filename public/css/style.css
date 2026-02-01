@@ -153,9 +153,6 @@ body.index-page .popup-confirm-button {
     border: none;
 }
 
-body.index-page .popup-confirm-button:hover {
-    background-color: aqua;
-}
 
 /* 버튼을 감싸는 컨테이너 */
 body.index-page .button_container {
@@ -215,11 +212,6 @@ body.index-page button {
     text-align: center;
     white-space: nowrap;
     transition: background-color 0.3s;
-}
-
-body.index-page button:hover {
-    background-color: #755a6a;
-    animation: pulse 0.5s ease-in-out infinite;
 }
 
 body.index-page canvas {
@@ -314,9 +306,6 @@ body.login-page .popup-button {
     cursor: pointer;
 }
 
-body.login-page .popup-button:hover {
-    background-color: aqua;
-}
 
 body.login-page .login-container {
     border: 1px solid #ccc;
@@ -392,10 +381,6 @@ body.login-page .floating-input label {
 
 /* 포커스되거나 값이 있으면 위로 */
 
-body.login-page #loginButton:hover {
-    background-color: #755a6a;
-    animation: pulse 0.4s ease-in-out infinite;
-}
 
 body.login-page input[type="password"] {
     flex: 1;
@@ -822,29 +807,9 @@ body.dashboard-page .popup-edit-cancel {
     margin-left: 10px;
 }
 
-/* 🔥 수정/삭제 버튼 */
-body.dashboard-page .edit-button,
-body.dashboard-page .delete-button {
-    padding: 5px 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    color: white;
-}
 
 body.dashboard-page .edit-button {
     background-color: #007bff;
-}
-
-body.dashboard-page #popup-ok,
-body.dashboard-page #popup-cancel {
-    padding: 8px 15px;
-    cursor: pointer;
-    border: none;
-    color: black;
-    background: none;
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 body.dashboard-page #popup-ok:hover {
@@ -1185,10 +1150,6 @@ body.dashboard-page .custom-button {
     transition: background-color 0.3s;
 }
 
-body.dashboard-page .custom-button:hover {
-    background-color: #755a6a;
-}
-
 body.dashboard-page .custom-chart-button {
     background: #00000000;
     color: black;
@@ -1398,23 +1359,6 @@ body.mode-page .button-group {
     box-sizing: border-box;
 }
 
-body.mode-page .upload-selection-button,
-body.mode-page .preview-selection-button,
-body.mode-page .admin-selection-button {
-    background-color: #000000;
-    color: white;
-    padding: 10px 15px;
-    width: 150px;
-    /* 버튼 너비 일정하게 */
-    height: 50px;
-    transition: transform 0.3s ease-in-out;
-    border-radius: 5px;
-    cursor: pointer;
-    border: none;
-    margin-top: 30px;
-    font-size: 15px;
-}
-
 body.mode-page .logout-button {
     background-color: #ff0000;
     color: white;
@@ -1428,14 +1372,6 @@ body.mode-page .logout-button {
     border: none;
     font-size: 16px;
     margin-bottom: 30px;
-}
-
-body.mode-page .upload-selection-button:hover,
-body.mode-page .preview-selection-button:hover,
-body.mode-page .admin-selection-button:hover,
-body.mode-page .logout-button:hover {
-    background-color: #755a6a;
-    animation: pulse 0.4s ease-in-out infinite;
 }
 
 /* 🔹 팝업 오버레이 (배경) */
@@ -1479,10 +1415,6 @@ body.mode-page .popup-confirm {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-}
-
-body.mode-page .popup-confirm:hover {
-    background-color: aqua;
 }
 
 /* ====== 업로드 페이지(upload.html) ====== */
@@ -1566,11 +1498,6 @@ body.upload-page .upload-button {
     transition: transform 0.3s ease-in-out;
     border-radius: 5px;
     cursor: pointer;
-}
-
-body.upload-page .upload-button:hover {
-    background-color: #755a6a;
-    animation: pulse 0.4s ease-in-out infinite;
 }
 
 body.upload-page .popup {
@@ -1667,10 +1594,6 @@ body.upload-page .editor-buttons button {
     font-size: 22px;
     padding: 5px;
     transition: color 0.3s;
-}
-
-body.upload-page .editor-buttons button:hover {
-    color: #755a6a;
 }
 
 body.upload-page .editor-buttons i {
@@ -1859,55 +1782,6 @@ body.game-page #instructionsPopup button {
     cursor: pointer;
 }
 
-body.game-page .hint-overlay,
-body.game-page .game-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1500;
-}
-
-body.game-page .hint-popup,
-body.game-page .game-popup {
-    background-color: white;
-    color: #000;
-    padding: 30px;
-    border-radius: 5px;
-    text-align: center;
-    width: 230px;
-    height: auto;
-    /* auto로 수정 */
-}
-
-body.game-page .hint-popup p,
-body.game-page .game-popup p {
-    margin: 0 0 30px;
-}
-
-/* nextButton과 previewButton의 기본 스타일 제거 */
-body.game-page #nextButton,
-body.game-page #previewButton {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    font-size: 20px;
-    color: black;
-    padding-bottom: 10px;
-}
-
-body.game-page #nextButton:hover,
-body.game-page #previewButton:hover {
-    color: aqua;
-}
-
 body.game-page #gameControlsPopup {
     display: none;
     /* ✅ 게임 시작 전에 숨김 */
@@ -1928,27 +1802,6 @@ body.game-page #gameControlsPopup {
 
 body.game-page #gameControlsPopup h2 {
     margin-top: 0;
-}
-
-body.game-page #closePopupButton,
-body.game-page .start-game-btn,
-body.game-page #pre-button,
-body.game-page .hint-confirm-button {
-    border-radius: 5px;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    background-color: #00000000;
-    color: black;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.5);
-}
-
-body.game-page #closePopupButton:hover,
-body.game-page .start-game-btn:hover,
-body.game-page #pre-button:hover,
-body.game-page .hint-confirm-button:hover,
-body.game-page #victoryScreen button:hover {
-    background-color: aqua;
 }
 
 /* ====== 게시글 보기(post.html) ====== */
@@ -2140,11 +1993,6 @@ body.post-page .custom-button {
     transition: background-color 0.3s;
 }
 
-body.post-page .popup-button:hover,
-body.post-page .custom-button:hover {
-    background-color: aqua;
-}
-
 /* ✅ 게시물 이미지 */
 body.post-page .post-image {
     max-width: 100%;
@@ -2171,10 +2019,6 @@ body.post-page .button {
     font-size: 16px;
     border-radius: 5px;
     transition: background-color 0.3s;
-}
-
-body.post-page .button:hover {
-    background-color: #755a6a;
 }
 
 body.post-page .hashtag-link {
