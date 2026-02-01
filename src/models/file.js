@@ -4,39 +4,44 @@ export default class File extends Model {
   static init(sequelize) {
     return super.init(
       {
-        id: { 
-          type: DataTypes.INTEGER, 
-          autoIncrement: true, 
-          primaryKey: true 
+        id: {
+          type: DataTypes.INTEGER,
+          autoIncrement: true,
+          primaryKey: true
         },
-        file_name: { 
-          type: DataTypes.STRING, 
-          allowNull: false 
+        file_name: {
+          type: DataTypes.STRING,
+          allowNull: false
         },
-        file_path: { 
-          type: DataTypes.STRING, 
-          allowNull: false 
+        title: {
+          type: DataTypes.STRING(100),
+          allowNull: false,
+          defaultValue: "제목 없음",
+        },
+        file_path: {
+          type: DataTypes.STRING,
+          allowNull: false
         },
         imagekit_file_id: {
           type: DataTypes.STRING,
           allowNull: true,
         },
-        category_id: { 
+        category_id: {
           type: DataTypes.INTEGER,
           allowNull: false,
-          references: { 
-            model: "categories", 
-            key: "id" 
-            }
+          references: {
+            model: "categories",
+            key: "id"
+          }
         },
-        subcategory_id: { 
+        subcategory_id: {
           type: DataTypes.INTEGER,
-          references: { 
+          references: {
             model: "subcategories",
-            key: "id" 
-            }
+            key: "id"
+          }
         },
-        file_description: { 
+        file_description: {
           type: DataTypes.STRING(500), // 🔥 최대 500자로 변경
           allowNull: true,
         },
@@ -50,17 +55,17 @@ export default class File extends Model {
           allowNull: false,
           defaultValue: "general",
         },
-        created_at: { 
-            type: DataTypes.DATE, 
-            defaultValue: DataTypes.NOW 
+        created_at: {
+          type: DataTypes.DATE,
+          defaultValue: DataTypes.NOW
         },
-        updated_at: { 
-            type: DataTypes.DATE, 
-            defaultValue: DataTypes.NOW 
+        updated_at: {
+          type: DataTypes.DATE,
+          defaultValue: DataTypes.NOW
         },
-        is_deleted: { 
-            type: DataTypes.BOOLEAN, 
-            defaultValue: false 
+        is_deleted: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false
         },
       },
       {

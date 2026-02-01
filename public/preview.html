@@ -12,15 +12,15 @@
   <link rel="stylesheet" href="./css/global.css">
   <style>
     @media (max-width :576px) {
-      .sidebar {
+      body.preview-page .sidebar {
         left: -100%;
       }
 
-      .sidebar.open {
+      body.preview-page .sidebar.open {
         left: 0;
       }
 
-      .infor-popup {
+      body.preview-page .infor-popup {
         width: 95%;
         /* 화면 꽉 채우지 않도록 너비 조절*/
         max-height: 90vh;
@@ -34,7 +34,7 @@
         box-sizing: border-box;
       }
 
-      .app-infor-popup {
+      body.preview-page .app-infor-popup {
         width: 95%;
         /* 화면 꽉 채우지 않도록 너비 조절*/
         max-height: 90vh;
@@ -48,7 +48,7 @@
         box-sizing: border-box;
       }
 
-      .app-infor-popup table {
+      body.preview-page .app-infor-popup table {
         width: 100%;
         /* 📌 table이 부모 너비에 맞게 */
         word-break: break-word;
@@ -56,23 +56,23 @@
         font-size: 11px;
       }
 
-      .app-infor-popup td,
-      .app-infor-popup th {
+      body.preview-page .app-infor-popup td,
+      body.preview-page .app-infor-popup th {
         padding: 4px 6px;
         /* 표 셀 간격도 줄이기 */
       }
 
-      .sub-tab {
+      body.preview-page .sub-tab {
         font-size: 13px;
         padding: 6px 8px;
       }
 
-      .opacitybtn {
+      body.preview-page .opacitybtn {
         height: 20px;
         cursor: pointer;
       }
 
-      .preview-images {
+      body.preview-page .preview-images {
         position: absolute;
         display: flex;
         top: -105px;
@@ -82,7 +82,7 @@
         margin-left: 80%;
       }
 
-      .preview-images img {
+      body.preview-page .preview-images img {
         display: block;
         width: auto;
         height: 40px;

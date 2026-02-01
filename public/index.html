@@ -20,7 +20,7 @@
             }
 
             /* 제목의 크기를 줄임 */
-            #mainTitle {
+            body.index-page #mainTitle {
                 font-size: 28px;
                 margin-bottom: 20px;
                 text-align: center;
@@ -29,7 +29,7 @@
                 text-overflow: ellipsis;
             }
 
-            #modeSelection {
+            body.index-page #modeSelection {
                 position: relative;
                 padding: 20px;
                 background-color: #fff;
@@ -39,31 +39,31 @@
                 justify-content: center;
             }
 
-            #adminModeButton {
+            body.index-page #adminModeButton {
                 width: auto;
                 display: none;
                 /* 초기에는 숨김 */
                 border: none;
             }
 
-            #userModeButton {
+            body.index-page #userModeButton {
                 width: auto;
                 border: none;
             }
 
             /* 캔버스가 화면을 꽉 채우는 대신 모바일에 맞게 조정 */
-            canvas {
+            body.index-page canvas {
                 width: 100%;
                 height: auto;
             }
 
-            .glow-circle {
+            body.index-page .glow-circle {
                 width: 30px;
                 height: 30px;
                 filter: blur(5px);
             }
 
-            .container {
+            body.index-page .container {
                 position: absolute;
                 top: 50%;
                 left: 50%;
