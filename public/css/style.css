@@ -2564,7 +2564,7 @@ body.preview-page .image-gallery-wrapper {
     align-items: center;
     /* 🔥 수직 중앙 정렬 */
     height: auto;
-    margin: 10px auto;
+    margin: 15px auto;
     width:95%;
     /* 🔥 위쪽 여백 */
     overflow-x: hidden;
@@ -2579,7 +2579,7 @@ body.preview-page .image-gallery {
     grid-template-rows: auto;
     gap: 3px;
     /* ✅ 이미지 간격 */
-    padding: 7px;
+    padding: 15px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);

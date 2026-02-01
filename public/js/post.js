@@ -67,21 +67,28 @@ async function loadPostData() {
     const postData = await response.json();
     console.log("✅ 서버에서 불러온 게시물 데이터:", postData);
 
-    document.getElementById("postImage").src = `${postData.file_path}`;
-    document.getElementById("postCategory").textContent = postData.category_name || "카테고리 없음";
+    document.getElementById("postImage").src =
+      `${postData.file_path}`;
+    document.getElementById("postCategory").textContent =
+      postData.category_name || "카테고리 없음";
+
     document.getElementById("postCategory").addEventListener("click", () => {
       if (postData.category_name) {
         const categoryParam = encodeURIComponent(postData.category_name);
         window.location.href = `preview?category=${categoryParam}`;
       }
     });
-    document.getElementById("postSubcategory").textContent = postData.subcategory_name || "서브카테고리 없음";
-    if (postTitle) {
-      postTitle.textContent = postData.title || "제목 없음";
-      document.title = `${postData.title || "게시물"}`;
-    }
+
+    document.getElementById("postSubcategory").textContent =
+      postData.subcategory_name || "서브카테고리 없음";
+
+    document.getElementById("postTitle").textContent =
+      postData.title || "제목 없음";
+    document.title = postData.title || "게시물";
+
     const convertedDescription = convertHashtagsToLinks(postData.file_description || "설명 없음");
-    document.getElementById("postDescription").innerHTML = convertedDescription.replace(/\n/g, "<br>");
+    document.getElementById("postDescription").innerHTML =
+      convertedDescription.replace(/\n/g, "<br>");
   } catch (error) {
     console.error("🚨 게시물 불러오기 오류:", error);
     document.getElementById("postDescription").innerHTML = "🚨 게시물을 불러오는 중 오류 발생";
