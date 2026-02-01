@@ -2716,8 +2716,8 @@ body.preview-page .image-gallery-wrapper {
     align-items: center;
     /* 🔥 수직 중앙 정렬 */
     height: auto;
-    margin: 25px auto;
-    width:85%;
+    margin: 10px auto;
+    width:95%;
     /* 🔥 위쪽 여백 */
     overflow-x: hidden;
     /* 혹시 남는 부분 잘라내기 */
@@ -2801,14 +2801,6 @@ body.preview-page .preview-page {
 
 
 /* 아이콘페이지(ai_icon.html) */
-body.icon-page h1,
-p {
-    text-align: center;
-}
-
-body.icon-page h3 {
-    text-align: center;
-}
 
 body.icon-page hr{
     width: 95%;

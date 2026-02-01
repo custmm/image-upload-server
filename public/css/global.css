@@ -171,6 +171,13 @@ body.index-page html {
     overflow: visible;
 }
 
+body.login-page .floating-input input:focus+label,
+body.login-page .floating-input input:valid+label {
+    top: -1px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #4a78c2;
+}
 
 body.game-page,
 body.game-page html {
@@ -203,6 +210,21 @@ body.dashboard-page {
     box-sizing: border-box;
 }
 
+body.dashboard-page .back-button:hover,
+body.dashboard-page .logout-button:hover {
+    background-color: #755a6a;
+}
+
+body.dashboard-page #saveEdit:hover,
+body.dashboard-page #closeEdit:hover,
+body.dashboard-page #clearCanvas:hover,
+body.dashboard-page .popup-confirm-button:hover,
+body.dashboard-page .edit-button:hover,
+body.dashboard-page .custom-chart-button:hover {
+    background-color: aqua;
+}
+
+
 /* 기타반복 구조 */
 body.icon-page .move_icon,
 body.icon-page .bulid_icon,
@@ -220,6 +242,12 @@ body.icon-page .obj_icon
 
     justify-items: center;
 
+}
+
+body.icon-page h1,
+body.icon-page h3,
+p {
+    text-align: center;
 }
 
 body.icon-page .move_icon img,
@@ -240,6 +268,8 @@ body.icon-page .obj_icon img {
     cursor: pointer;
     transition: transform 0.15s ease;
 }
+
+
 
 body.upload-page div .cat_name{
     display: flex;
