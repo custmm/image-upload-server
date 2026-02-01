@@ -2585,9 +2585,9 @@ body.preview-page .image-gallery {
 
 /* ✅ 반응형 이미지 크기 조정 */
 body.preview-page .gallery-image {
-    width: 15vw;
+    width: 13vw;
     /* 🔥 화면 너비의 15% */
-    height: 20vw;
+    height: 13vw;
     /* 🔥 화면 너비의 20% */
     object-fit: cover;
     /* 🔥 이미지 비율 유지 */
