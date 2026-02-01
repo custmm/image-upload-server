@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const fileInput = document.getElementById("fileInput");
     const previewContainer = document.getElementById("previewContainer");
     const uploadButton = document.getElementById("uploadButton");
+    const titleInput = document.getElementById("title_name");
     const categorySelect = document.getElementById("category");
     const subcategorySelect = document.getElementById("subcategory");
     const descriptionEditor = document.getElementById("descriptionEditor");
@@ -297,6 +298,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     uploadButton.addEventListener("click", async () => {
         const file = fileInput?.files[0];
+        const title = titleInput?.value.trim();
         const categoryId = categorySelect.value;
         const subcategoryId = subcategorySelect.value || "";
 
@@ -316,6 +318,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (!file) {
             showPopup("파일을 선택해주세요.");
+            return;
+        }
+
+        if (!title) {
+            showPopup("제목을 입력해주세요.");
+            return;
+        }
+
+        if (title.length > 50) {
+            showPopup("제목은 최대 50자까지 입력 가능합니다.");
             return;
         }
 
@@ -341,6 +353,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const formData = new FormData();
         formData.append("file", file);
+        formData.append("title", title);
         formData.append("category_id", categoryId);
         formData.append("subcategory_id", subcategoryId);
         formData.append("category_name", categoryName);  // ✅ 서버에 카테고리 이름 전송
@@ -444,6 +457,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         previewContainer.innerHTML = "";
         descriptionEditor.innerHTML = "";
         fileInput.value = "";
+        titleInput.value = "";
         categorySelect.value = "";
         subcategorySelect.innerHTML = "<option value=''>선택 없음</option>";
     }
