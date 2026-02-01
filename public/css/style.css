@@ -391,13 +391,6 @@ body.login-page .floating-input label {
 }
 
 /* 포커스되거나 값이 있으면 위로 */
-body.login-page .floating-input input:focus+label,
-body.login-page .floating-input input:valid+label {
-    top: -1px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #4a78c2;
-}
 
 body.login-page #loginButton:hover {
     background-color: #755a6a;
@@ -648,20 +641,6 @@ body.dashboard-page .logout-button {
     position: absolute;
     top: 10px;
     right: 25px;
-}
-
-body.dashboard-page .back-button:hover,
-body.dashboard-page .logout-button:hover {
-    background-color: #755a6a;
-}
-
-body.dashboard-page #saveEdit:hover,
-body.dashboard-page #closeEdit:hover,
-body.dashboard-page #clearCanvas:hover,
-body.dashboard-page .popup-confirm-button:hover,
-body.dashboard-page .edit-button:hover,
-body.dashboard-page .custom-chart-button:hover {
-    background-color: aqua;
 }
 
 /* 🔥 텍스트 모드 - 버튼 */
@@ -2737,7 +2716,8 @@ body.preview-page .image-gallery-wrapper {
     align-items: center;
     /* 🔥 수직 중앙 정렬 */
     height: auto;
-    margin-top: 20px;
+    margin: 25px auto;
+    width:85%;
     /* 🔥 위쪽 여백 */
     overflow-x: hidden;
     /* 혹시 남는 부분 잘라내기 */
