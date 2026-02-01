@@ -1535,8 +1535,8 @@ body.upload-page .preview-container img {
     border: 3px solid #000000;
     border-radius: 5px;
     padding: 15px;
-    width: 300px;
-    height: auto;
+    width: 85%;
+    margin: 25px auto;
 }
 
 body.upload-page .description-container {
