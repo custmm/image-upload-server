@@ -17,7 +17,12 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     try {
         // offset과 limit 파라미터 (없으면 기본값 사용)
-        let { category_id, subcategory_id, offset = 0, limit = 24 } = req.query;
+        let { 
+            category_id, 
+            subcategory_id, 
+            offset = 0, 
+            limit = 24 
+        } = req.query;
         offset = parseInt(offset, 10);
         limit = parseInt(limit, 10);
 
@@ -53,8 +58,16 @@ router.get("/", async (req, res) => {
         const files = await File.findAll({
             where: whereClause,
             include: [
-                { model: Category, as:"category", attributes: ["name"] },
-                { model: Subcategory, as:"subcategory", attributes: ["name"] }
+                { 
+                    model: Category, 
+                    as:"category", 
+                    attributes: ["name"] 
+                },
+                { 
+                    model: Subcategory, 
+                    as:"subcategory", 
+                    attributes: ["name"] 
+                }
             ],
             offset,
             limit,
@@ -76,7 +89,14 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         console.info("📌 요청 바디:", req.body);
         console.info("📌 요청 파일:", req.file);
 
-        let { category_id, subcategory_id, category_name, subcategory_name, description } = req.body;
+        let { 
+            category_id, 
+            subcategory_id, 
+            category_name, 
+            subcategory_name,
+            title, 
+            description 
+        } = req.body;
 
         if (!category_id || isNaN(category_id)) {
             return res.status(400).json({ error: "❌ 유효한 category_id가 필요합니다." });
@@ -99,7 +119,10 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         if (subcategory_id && !isNaN(subcategory_id)) {
             subcategory_id = parseInt(subcategory_id, 10);
             const subcategory = await Subcategory.findOne({
-                where: { id: subcategory_id, category_id: category.id }
+                where: { 
+                    id: subcategory_id, 
+                    category_id: category.id 
+                }
             });
 
             if (!subcategory) {
@@ -109,6 +132,10 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         } else {
             subcategory_id = null;
         }
+
+        const sanitizedTitle = title
+            ? sanitizeHtml(title, { allowedTags: [], allowedAttributes: {} }).trim()
+            : null;
 
         // ✅ 허용된 태그만 유지하고 저장
         const sanitizedDescription = sanitizeHtml(description, {
@@ -136,6 +163,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         const fileData = await File.create({
             file_name: fileName,
             file_path: uploadResult.url, // ✅ ImageKit URL 저장
+            title: sanitizedTitle || "제목 없음",
             imagekit_file_id: uploadResult.fileId, // ✅ 추가
             category_id: category.id,
             subcategory_id,
@@ -165,7 +193,9 @@ router.get("/file", async (req, res) => {
 
         // ✅ category_name을 DB에서 조회
         const categoryData = await Category.findOne({
-            where: { name: category }
+            where: { 
+                name: category 
+            }
         });
 
         if (!categoryData) {
@@ -177,7 +207,10 @@ router.get("/file", async (req, res) => {
         let subcategoryData = null;
         if (subcategory && subcategory !== "general") {
             subcategoryData = await Subcategory.findOne({
-                where: { name: subcategory, category_id: categoryData.id }
+                where: { 
+                    name: subcategory, 
+                    category_id: categoryData.id 
+                }
             });
 
             if (!subcategoryData) {
@@ -196,8 +229,16 @@ router.get("/file", async (req, res) => {
         const foundFile = await File.findOne({
             where: whereClause,
             include: [
-                { model: Category, as: "category", attributes: ["name"] },
-                { model: Subcategory, as: "subcategory", attributes: ["name"] }
+                { 
+                    model: Category, 
+                    as: "category", 
+                    attributes: ["name"] 
+                },
+                { 
+                    model: Subcategory, 
+                    as: "subcategory", 
+                    attributes: ["name"] 
+                }
             ]
         });
 
@@ -292,6 +333,7 @@ router.patch("/update-post/:id", async (req, res) => {
         res.status(500).json({ success: false, error: "🚨 서버 오류 발생" });
     }
 });
+
 router.delete("/:id", async (req, res) => {
     const { id } = req.params;
 
