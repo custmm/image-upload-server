@@ -11,13 +11,13 @@
     <style>
         /* ✅ 바형 스마트폰 대응 */
         @media (max-width: 576px) {
-            .mode-selection-container {
+            body.mode-page .mode-selection-container {
                 width: 95% !important;
             }
 
-            .upload-selection-button,
-            .preview-selection-button,
-            .admin-selection-button {
+            body.mode-page .upload-selection-button,
+            body.mode-page .preview-selection-button,
+            body.mode-page .admin-selection-button {
                 background-color: #000000;
                 color: white;
                 padding: 10px 15px;
@@ -30,7 +30,7 @@
                 margin-top: 30px;
                 font-size: 10px;
             }
-            h1 {
+            body.mode-page h1 {
             font-size: 25px;
             margin-bottom: 20px;
             /* 제목과 버튼 간의 간격 */
