@@ -67,16 +67,19 @@ document.getElementById("backToListButton").addEventListener("click", () => {
 document.getElementById("resetTagButton").addEventListener("click", async () => {
   const tagListDiv = document.getElementById("koreanTagList");
   const toggleBtn = document.getElementById("resetTagButton");
+  const postList = document.getElementById("postList");
 
   // 🔽 이미 열려 있으면 → 닫기
   if (tagListDiv.style.display === "block") {
     tagListDiv.style.display = "none";
+    postList.style.display = "block";   // ✅ 게시글 다시 표시
     toggleBtn.textContent = "전체 태그 보기";
     return;
   }
 
   // 🔼 닫혀 있으면 → 열기
   tagListDiv.style.display = "block";
+  postList.style.display = "none";      // ✅ 게시글 숨기기
   toggleBtn.textContent = "개별 태그 보기";
 
 
