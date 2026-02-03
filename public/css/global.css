@@ -215,6 +215,20 @@ body.login-page .floating-input input:valid+label {
     color: #4a78c2;
 }
 
+/* preview-popup-page공통 레이아웃 */
+body.preview-popup-page th,
+body.preview-popup-page tr,
+body.preview-popup-page td {
+    border-collapse: collapse;
+    border: 1px solid #555;
+    font-size: 8px;
+}
+
+body.preview-popup-page tr,
+body.preview-popup-page td {
+    text-align: center;
+}
+
 /* game-page공통 레이아웃 */
 body.game-page,
 body.game-page html {

@@ -51,7 +51,8 @@ body.index-page .magic-circle-canvas {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 9000; /* fireworksCanvas(9999) 바로 아래 */
+    z-index: 9000;
+    /* fireworksCanvas(9999) 바로 아래 */
     pointer-events: none;
 }
 
@@ -1447,10 +1448,12 @@ body.upload-page h3 {
     margin-top: 5px;
     margin-bottom: 5px;
 }
-body.upload-page .category_container{
-    width:90%;
+
+body.upload-page .category_container {
+    width: 90%;
 }
-body.upload-page #title_name{
+
+body.upload-page #title_name {
     width: 75%;
     padding: 8px;
     font-size: 16px;
@@ -1614,6 +1617,7 @@ body.upload-page select {
 body.click-page h1 {
     text-align: center;
 }
+
 body.click-page .explan-container {
     max-width: 85%;
     margin: auto;
@@ -2008,7 +2012,7 @@ body.post-page .post-description {
     /* newline 문자 보존 */
 }
 
-body.post-page .post-desc{
+body.post-page .post-desc {
     padding: 0 0 80px;
 }
 
@@ -2565,7 +2569,7 @@ body.preview-page .image-gallery-wrapper {
     /* 🔥 수직 중앙 정렬 */
     height: auto;
     margin: 15px auto;
-    width:95%;
+    width: 95%;
     /* 🔥 위쪽 여백 */
     overflow-x: hidden;
     /* 혹시 남는 부분 잘라내기 */
@@ -2649,8 +2653,7 @@ body.preview-page .preview-page {
 
 
 /* 아이콘페이지(ai_icon.html) */
-
-body.icon-page hr{
+body.icon-page hr {
     width: 95%;
 }
 
@@ -2702,13 +2705,37 @@ body.icon-page #icon_studio img:hover {
 }
 
 /* 소개팝업페이지(preview_popup.html */
-body.preview-popup-page table {
-    width: 100%;
-    max-width: 900px;
+body.preview-popup-page {
+    width: 100%
 }
 
-body.preview-popup-page caption {
-    font-weight: bold;
+body.preview-popup-page h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+body.preview-popup-page ul {
+    font-size: 10px;
+}
+
+body.preview-popup-page table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #555;
+    margin: 15px auto;
+    font-size: 5px;
+}
+
+body.preview-popup-page caption.title {
+    font-size: 20px;
+font-weight: bold;
+margin: 10px 5px;
+}
+
+body.preview-popup-page p.appfunction {
+    text-align: left;
+    font-size: 11px;
+    margin: 10px 5px;
 }
 
 body.preview-popup-page hr {

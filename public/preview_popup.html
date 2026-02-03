@@ -7,22 +7,72 @@
     <title>Ɐ휴욱슈욱Ɐ >> 소개</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/global.css">
+    <style>
+        @media (max-width :576px) {
+            body.preview-popup-page{
+                width:95%
+            }
+            body.preview-popup-page h2 {
+                text-align: center;
+                margin-top: 0;
+            }
+
+            body.preview-popup-page ul {
+                font-size: 10px;
+            }
+
+            body.preview-popup-page table {
+                border-collapse: collapse;
+                border: 1px solid #555;
+                margin: 15px auto;
+                font-size: 5px;
+            }
+
+            body.preview-popup-page table.mode_box {
+                padding:10px
+
+            }
+
+            body.preview-popup-page caption.title{
+                font-size: 20px;
+            }
+
+            body.preview-popup-page th,
+            body.preview-popup-page tr,
+            body.preview-popup-page td {
+                border-collapse: collapse;
+                border: 1px solid #555;
+                font-size: 8px;
+            }
+
+            body.preview-popup-page tr,
+            body.preview-popup-page td {
+                text-align: center;
+            }
+            body.preview-popup-page p.appfunction{
+                text-align: left;
+                font-size: 11px;
+                margin:  10px 0;
+            }
+        }
+    </style>
 </head>
 
 <body class="preview-popup-page">
-    <h2 style="text-align:center; margin-top:0;">
+    <h2>
         웹사이트 소개
     </h2>
     <ul>
         <li>Q:이 웹사이트는 어떤 곳인가요?</li>
         <blockquote> A: 취미로 만든 작품들을 사진으로 남기고 정리하기 위해 만든 공간입니다. <br>구매부터 조립, 완성까지의 결과물을 기록하는 개인 저장소에 가깝습니다.</blockquote>
         <li>Q:이 웹사이트만의 특징이 있나요?</li>
-        <blockquote>A:그냥 보고 지나가는 사이트가 아니라, 아이콘, 효과, 숨겨진 게임 등 가볍게 눌러보고 체험할 수 있는 요소들이 숨어 있습니다. <br>‘어서오세요’를 클릭하면 각 기능을 직접 경험해볼 수 있습니다.</blockquote>
+        <blockquote>A:그냥 보고 지나가는 사이트가 아니라, 아이콘, 효과, 숨겨진 게임 등 가볍게 눌러보고 체험할 수 있는 요소들이 숨어 있습니다. <br>‘어서오세요’를 클릭하면 각 기능을 직접
+            경험해볼 수 있습니다.</blockquote>
     </ul>
     <hr>
     <div>
-        <table border="1" cellspacing="0" cellpadding="15" align="center">
-            <caption style="padding: 15px;"><mark>웹 게임과 앱게임의 차이</mark></caption>
+        <table>
+            <caption class="title"><mark>웹 게임과 앱게임의 차이</mark></caption>
 
             <tr>
                 <th> * </th>
@@ -39,7 +89,7 @@
             <tr>
                 <th>게임구성</th>
                 <td>
-                    <table border="1" cellspacing="0" cellpadding="5" align="center">
+                    <table class="mode_box">
                         <tr>
                             <th>게임대기화면</th>
                             <td>팝업에서 "확인" 클릭 후 진입</td>
@@ -56,7 +106,7 @@
                 </td>
 
                 <td>
-                    <table border="1" cellspacing="0" cellpadding="5" align="center">
+                    <table class="mode_box">
                         <tr>
                             <th>게임대기화면</th>
                             <td>하고싶은 아이콘 선택 후 <br>게임 관련 팝업에서 확인 누른 후 진입</td>
@@ -78,9 +128,9 @@
     <hr>
 
     <div>
-        <table border="1" cellspacing="0" cellpadding="15" align="center">
-            <caption style="padding: 10px;"><mark>게임앱에만 있는 기능</mark><br>
-                <p style="text-align: left;">1)게임모드</p>
+        <table>
+            <caption class="title"><mark>게임앱에만 있는 기능</mark><br>
+                <p class="appfunction">1)게임모드</p>
             </caption>
             <tr>
                 <th>태초마을이야!(일반 모드)</th>
@@ -89,7 +139,7 @@
             </tr>
             <tr>
                 <td rowspan="2">웹 게임과 비슷하지만 아이콘 선택 가능</td>
-                <td colspan="2" align="center">★웹 게임에는 없는 모드라서 다양한 선택이 가능</td>
+                <th colspan="2">★웹 게임에는 없는 모드라서 다양한 선택이 가능</td>
             </tr>
             <tr>
                 <td>주사위 아이콘으로 난이도와 아이콘을 랜덤 결정</td>
@@ -97,9 +147,9 @@
             </tr>
         </table>
 
-        <table border="1" cellspacing="0" cellpadding="15" align="center">
-            <caption style="padding: 10px;">
-                <p style="text-align: left;">2)추가기능</p>
+        <table>
+            <caption class="title">
+                <p class="appfunction">2)추가기능</p>
             </caption>
             <tr>
                 <th colspan="2">제외할 아이콘 선택</th>
@@ -116,7 +166,7 @@
             </tr>
             <tr>
                 <th>게임 컨트롤러 수정</th>
-                <td>앱 내에서 게임 아이콘의 움직임을 제어하며, 컨트롤러의 높이와 컨트롤러의 투명도를 조절할 수 있음</td>                
+                <td>앱 내에서 게임 아이콘의 움직임을 제어하며, <br>컨트롤러의 높이와 컨트롤러의 투명도를 조절할 수 있음</td>
             </tr>
         </table>
     </div>
