@@ -2657,11 +2657,11 @@ body.icon-page hr {
     width: 85%;
 }
 
-body.icon-page h1{
+body.icon-page h1 {
     padding-bottom: 30px;
 }
 
-body.icon-page h3{
+body.icon-page h3 {
     padding: 10px;
 }
 
@@ -2736,8 +2736,8 @@ body.preview-popup-page table {
 
 body.preview-popup-page caption.title {
     font-size: 20px;
-font-weight: bold;
-margin: 10px 5px;
+    font-weight: bold;
+    margin: 10px 5px;
 }
 
 body.preview-popup-page p.appfunction {
@@ -2814,9 +2814,16 @@ body.tag-page .post-meta a {
     color: inherit;
 }
 
-body.tag-page .tag_post{
-    display:none; 
-    margin:30px auto;
+body.tag-page div.tag_title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+body.tag-page .tag_post {
+    display: none;
+    margin: 30px auto;
     text-align: center;
 }
 
