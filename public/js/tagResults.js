@@ -6,8 +6,8 @@ let isLoading = false;
 let tagLoaded = false;
 
 const ORDER = [
-  "ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ",
-  "ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ",
+  "ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ",
+  "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ",
   "A~Z",
   "0~9",
   "기타"
@@ -66,14 +66,19 @@ document.getElementById("backToListButton").addEventListener("click", () => {
 
 document.getElementById("resetTagButton").addEventListener("click", async () => {
   const tagListDiv = document.getElementById("koreanTagList");
+  const toggleBtn = document.getElementById("resetTagButton");
 
-    // 🔁 토글 동작
+  // 🔽 이미 열려 있으면 → 닫기
   if (tagListDiv.style.display === "block") {
     tagListDiv.style.display = "none";
+    toggleBtn.textContent = "전체 태그 보기";
     return;
   }
 
+  // 🔼 닫혀 있으면 → 열기
   tagListDiv.style.display = "block";
+  toggleBtn.textContent = "개별 태그 보기";
+
 
   // 이미 불러왔으면 다시 fetch 안 함
   if (tagLoaded) return;
@@ -84,15 +89,13 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
     const response = await fetch("/api/korean-initials");
     const data = await response.json();
 
-    if (!Array.isArray(data.tags)) throw new Error("올바르지 않은 응답");
-
     const initialGroups = {};
 
     // 초성 판별 함수
     const getInitial = (char) => {
 
       // 숫자
-      if (/[0-9]/.test(char))  return "0~9";
+      if (/[0-9]/.test(char)) return "0~9";
 
       // 영어
       if (/[A-Za-z]/.test(char)) return "A~Z";
