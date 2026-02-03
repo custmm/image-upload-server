@@ -2814,6 +2814,13 @@ body.tag-page .post-meta a {
     color: inherit;
 }
 
+body.tag-page .tag_post{
+    display:none; 
+    margin:30px auto;
+    text-align: center;
+}
+
+
 body.tag-page .post-list {
     list-style: none;
     padding: 0;
