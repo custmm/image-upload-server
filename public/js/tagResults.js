@@ -3,6 +3,15 @@ let allPosts = [];
 let currentIndex = 0;
 const pageSize = 10;
 let isLoading = false;
+let tagLoaded = false;
+
+const ORDER = [
+  "ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ",
+  "ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ",
+  "A~Z",
+  "0~9",
+  "기타"
+];
 
 function showLoadingSpinner() {
   let spinner = document.getElementById("loadingSpinner");
@@ -53,8 +62,22 @@ document.getElementById("backToListButton").addEventListener("click", () => {
   window.history.back(); // 🔥 이전 페이지로 이동
 });
 
+
+
 document.getElementById("resetTagButton").addEventListener("click", async () => {
   const tagListDiv = document.getElementById("koreanTagList");
+
+    // 🔁 토글 동작
+  if (tagListDiv.style.display === "block") {
+    tagListDiv.style.display = "none";
+    return;
+  }
+
+  tagListDiv.style.display = "block";
+
+  // 이미 불러왔으면 다시 fetch 안 함
+  if (tagLoaded) return;
+
   tagListDiv.innerHTML = "불러오는 중...";
 
   try {
@@ -69,24 +92,19 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
     const getInitial = (char) => {
 
       // 숫자
-      if (/[0-9]/.test(char)) {
-        return "0~9";
-      }
+      if (/[0-9]/.test(char))  return "0~9";
 
       // 영어
-      if (/[A-Za-z]/.test(char)) {
-        return "A~Z";
-      }
+      if (/[A-Za-z]/.test(char)) return "A~Z";
 
       // 한글
-      const initialTable = [
+      const table = [
         "ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ",
         "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"
       ];
       const code = char.charCodeAt(0);
       if (code >= 0xac00 && code <= 0xd7a3) {
-        const index = Math.floor((code - 0xac00) / 588);
-        return initialTable[index];
+        return table[Math.floor((code - 0xac00) / 588)];
       }
       return "기타";
     };
