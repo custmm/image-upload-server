@@ -99,11 +99,7 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
 
     // HTML 렌더링
     tagListDiv.innerHTML = Object.keys(initialGroups)
-      .sort((a, b) => {
-        if (a === "기타") return 1;
-        if (b === "기타") return -1;
-        return a.localeCompare(b, "ko");
-      })
+      .sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b))
       .map(initial => {
         const buttons = initialGroups[initial]
           .map(tag => `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`)
