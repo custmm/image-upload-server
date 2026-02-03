@@ -2836,7 +2836,7 @@ body.tag-page .post-list li a {
 
 body.tag-page #resetTagButton {
     font-size: 0.8rem;
-    margin-left: 10px;
+    margin: 0 0 20px 5px;
     padding: 4px 10px;
     cursor: pointer;
     background-color: #e1f5fe;
