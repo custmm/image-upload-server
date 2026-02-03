@@ -2654,7 +2654,15 @@ body.preview-page .preview-page {
 
 /* 아이콘페이지(ai_icon.html) */
 body.icon-page hr {
-    width: 95%;
+    width: 85%;
+}
+
+body.icon-page h1{
+    padding-bottom: 30px;
+}
+
+body.icon-page h3{
+    padding: 10px;
 }
 
 
@@ -2666,8 +2674,8 @@ body.icon-page .icon-studio-wrapper {
     align-items: center;
     /* 가로 중앙 */
     justify-content: flex-start;
-    padding-top: 40px;
     box-sizing: border-box;
+    margin-bottom: 30px;
 }
 
 

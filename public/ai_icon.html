@@ -7,6 +7,41 @@
     <title>Ɐ휴욱슈욱Ɐ >> 아이콘 스튜디오</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/global.css">
+    <style>
+        @media (max-width: 576px) {
+            body.icon-page {
+                width: 100%
+            }
+
+            body.icon-page .move_icon,
+            body.icon-page .bulid_icon,
+            body.icon-page .structure_icon,
+            body.icon-page .obj_icon {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 5px;
+                width: fit-content;
+                margin: 5px 0 5px;
+                justify-items: center;
+                
+
+            }
+
+            body.icon-page .move_icon img,
+            body.icon-page .bulid_icon img,
+            body.icon-page .structure_icon img,
+            body.icon-page .obj_icon img {
+                width: 60px;
+                object-fit: contain;
+                object-position: center;
+                justify-self: center;
+                align-self: center;
+                cursor: pointer;
+                transition: transform 0.15s ease;
+            }
+
+        }
+    </style>
 </head>
 
 <body class="icon-page">
@@ -85,7 +120,7 @@
             <img src="./images/icon/ai_icon (28).png" alt="ai_icon28">
             <img src="./images/icon/ai_icon (35).png" alt="ai_icon35">
             <img src="./images/icon/ai_icon (41).png" alt="ai_icon41">
-            
+
         </div>
 
         <p><br>추후에 추가될 예정입니다</p>
