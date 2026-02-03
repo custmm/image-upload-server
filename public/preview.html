@@ -101,7 +101,15 @@
       onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기</button>
     <button class="sidebar-toggle" onclick="toggleSidebar()">
       <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
-    </button>
+    </button>  
+    <!-- 다크 모드 토글 스위치 -->
+  <div class="toggle-switch">
+    <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
+    <label class="slider" for="themeToggle">
+      <span id="themeIcon">☀️</span> <!-- 이모지용 span 추가 -->
+    </label>
+  </div>
+
   </div>
 
   <div class="function-infor">
@@ -145,13 +153,6 @@
     <div id="pagination-container"></div>
   </div>
 
-  <!-- 다크 모드 토글 스위치 -->
-  <div class="toggle-switch">
-    <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
-    <label class="slider" for="themeToggle">
-      <span id="themeIcon">☀️</span> <!-- 이모지용 span 추가 -->
-    </label>
-  </div>
 
   <footer class="page-footer">
     <span>아이콘은 AutoCAD로제작했으며 이미지는 마음대로 다운하셔도됩니다.<br>© 2025 휴욱슈욱 All rights reserved.</span>
