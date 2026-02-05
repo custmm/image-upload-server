@@ -1,10 +1,10 @@
     body.post-page.dark-mode,
     body.preview-page.dark-mode{
-        background-color: #222;
+        background: #222;
         color: #fff;
 
     }
-    
+
     body.click-page.dark-mode .back-button,
     body.preview-page.dark-mode .back-button {
         background-color: #ffffff;
