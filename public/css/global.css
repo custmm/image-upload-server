@@ -220,7 +220,8 @@ body.preview-popup-page tr,
 body.preview-popup-page td {
     border-collapse: collapse;
     border: 1px solid #555;
-    font-size: 8px;
+    font-size: 10px;
+    padding:4px;
 }
 
 body.preview-popup-page tr,

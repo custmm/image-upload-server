@@ -2724,21 +2724,25 @@ body.preview-popup-page h2 {
 }
 
 body.preview-popup-page ul {
-    font-size: 10px;
+    font-size: 17px;
+    list-style: none;
 }
 
 body.preview-popup-page table {
-    width: 100%;
     border-collapse: collapse;
     border: 1px solid #555;
-    margin: 15px auto;
-    font-size: 5px;
+    margin: 10px;
+    font-size: 10px;
 }
 
 body.preview-popup-page caption.title {
     font-size: 20px;
     font-weight: bold;
     margin: 10px 5px;
+}
+
+body.preview-popup-page table.function_box {
+    width: 95%
 }
 
 body.preview-popup-page p.appfunction {
