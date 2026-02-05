@@ -1162,23 +1162,24 @@ body.dashboard-page .custom-chart-button {
 }
 
 body.dashboard-page .section-container {
-    width: 100%;
-    max-width: 100%;
+    display: flex;
+    max-width: 80%;
     box-sizing: border-box;
     overflow-x: hidden;
     position: relative;
     padding: 0 10px;
     /* 내부 패딩으로 콘텐츠 보호 */
-    display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     /* ✅ 세로 방향 정렬 */
     justify-content: center;
     /* ✅ 세로 중앙 정렬 */
-    flex-wrap: wrap;
     align-items: center;
     /* ✅ 가로 중앙 정렬 */
     font-weight: bold;
     margin-top: 110px;
+    margin-left: 10%;
+    margin-right: 10%;
     /* 🔥 adminbar-container 높이만큼 아래에 위치 */
     min-height: 450px;
     height: auto;
