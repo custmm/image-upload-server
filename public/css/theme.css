@@ -1,7 +1,10 @@
-    body.dark-mode {
-        background-color: gray;
-    }
+    body.post-page.dark-mode,
+    body.preview-page.dark-mode{
+        background-color: #222;
+        color: #fff;
 
+    }
+    
     body.click-page.dark-mode .back-button,
     body.preview-page.dark-mode .back-button {
         background-color: #ffffff;
@@ -13,12 +16,7 @@
         background-color: #755a6a;
     }
 
-    body.post-page.dark-mode,
-    body.preview-page.dark-mode{
-        background-color: #222;
-        color: #fff;
 
-    }
 
     /* ====== 다크모드적용(click.html) ====== */
 
