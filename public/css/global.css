@@ -368,6 +368,7 @@ p {
     text-align: center;
 }
 
+body.icon-page #icon_studio,
 body.icon-page .move_icon,
 body.icon-page .bulid_icon,
 body.icon-page .structure_icon,
@@ -386,6 +387,7 @@ body.icon-page .obj_icon
 
 }
 
+body.icon-page #icon_studio img,
 body.icon-page .move_icon img,
 body.icon-page .bulid_icon img,
 body.icon-page .structure_icon img,

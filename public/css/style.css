@@ -2679,36 +2679,6 @@ body.icon-page .icon-studio-wrapper {
 }
 
 
-body.icon-page #icon_studio {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
-
-    width: fit-content;
-    /* 🔑 이게 핵심 */
-    margin: 0 auto;
-    /* 🔑 중앙 고정 */
-
-    justify-items: center;
-}
-
-body.icon-page #icon_studio img
- {
-    width: 90px;
-    object-fit: contain;
-    /* ✅ 비율 유지 */
-    object-position: center;
-    /* ✅ 가운데 */
-
-    justify-self: center;
-    /* grid 셀 기준 가로 중앙 */
-    align-self: center;
-    /* grid 셀 기준 세로 중앙 */
-
-    cursor: pointer;
-    transition: transform 0.15s ease;
-}
-
 
 /* 소개팝업페이지(preview_popup.html */
 body.preview-popup-page {
