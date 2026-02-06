@@ -13,7 +13,16 @@
   <style>
     @media (max-width :576px) {
       body.preview-page .sidebar {
+        position: fixed;
         left: -100%;
+        height: 100vh;
+        color: white;
+        padding-right: 200px;
+        padding-left: 30px;
+        padding-top: 100px;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.8);
+        transition: left 0.5s ease-in-out;
       }
 
       body.preview-page .sidebar.open {
