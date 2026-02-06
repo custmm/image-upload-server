@@ -12,6 +12,31 @@
   <link rel="stylesheet" href="./css/global.css">
   <style>
     @media (max-width :576px) {
+      body.preview-page .sub-tab-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 5px;
+        padding: 20px 0;
+        margin-bottom: 10px;
+
+      }
+
+      body.preview-page .image-gallery-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        margin: 30px auto;
+        width: 95%;
+        overflow-x: hidden;
+
+      }
+
       body.preview-page .sidebar {
         position: fixed;
         left: -100%;
@@ -110,14 +135,14 @@
       onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기</button>
     <button class="sidebar-toggle" onclick="toggleSidebar()">
       <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
-    </button>  
+    </button>
     <!-- 다크 모드 토글 스위치 -->
-  <div class="toggle-switch">
-    <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
-    <label class="slider" for="themeToggle">
-      <span id="themeIcon">☀️</span> <!-- 이모지용 span 추가 -->
-    </label>
-  </div>
+    <div class="toggle-switch">
+      <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
+      <label class="slider" for="themeToggle">
+        <span id="themeIcon">☀️</span> <!-- 이모지용 span 추가 -->
+      </label>
+    </div>
 
   </div>
 
@@ -173,16 +198,12 @@
   </footer>
 
   <div id="previewOverlay" class="preview-overlay" style="display:none;">
-  <div class="preview-popup">
-    <button class="preview-close" onclick="closePreviewPopup()">✖</button>
+    <div class="preview-popup">
+      <button class="preview-close" onclick="closePreviewPopup()">✖</button>
 
-    <iframe
-      id="previewFrame"
-      src="./preview_popup.html"
-      loading="lazy"
-    ></iframe>
+      <iframe id="previewFrame" src="./preview_popup.html" loading="lazy"></iframe>
+    </div>
   </div>
-</div>
 
   <div id="sidebar" class="sidebar">
     <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
@@ -213,17 +234,13 @@
     </ul>
   </div>
 
-    <div id="previewOverlay" class="preview-overlay" style="display:none;">
-      <div class="preview-popup">
-        <button class="preview-close" onclick="closePreviewPopup()">✖</button>
+  <div id="previewOverlay" class="preview-overlay" style="display:none;">
+    <div class="preview-popup">
+      <button class="preview-close" onclick="closePreviewPopup()">✖</button>
 
-        <iframe
-          id="previewFrame"
-          src="./ai_icon.html"
-          loading="lazy"
-        ></iframe>
-      </div>
+      <iframe id="previewFrame" src="./ai_icon.html" loading="lazy"></iframe>
     </div>
+  </div>
 
   <script src="./js/preview.js"></script>
 </body>
