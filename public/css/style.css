@@ -2334,7 +2334,7 @@ body.preview-page .tab-design {
     flex-wrap: wrap;
     text-align: center;
     position: relative;
-    margin: 15px auto;
+    margin: 0 auto;
     padding-top: 20px;
     border-radius: 8px;
     width: 95%;
@@ -2499,7 +2499,7 @@ body.preview-page .marge-container {
     flex-wrap: wrap;
     flex-direction: column;
     max-width: 95%;
-    margin: 15px auto;
+    margin: 0 auto;
     gap: 25px;
     background-color: #c2f7f1;
     border-bottom-left-radius: 25px;
