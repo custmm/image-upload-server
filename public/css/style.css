@@ -1189,7 +1189,7 @@ body.dashboard-page .section-container+.section-container {
 
 /* 🔥 사이드바 열릴 때 section-container 이동 */
 body.dashboard-page .section-container.shifted {
-    margin: 0 0 210px 5px;
+    margin: 0 210px;
     width: calc(100% - 210px);
     max-width: 100%;
     overflow-x: hidden;
