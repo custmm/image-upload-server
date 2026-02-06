@@ -56,21 +56,22 @@
 }
 
 /* ====== 공통 스타일 ====== */
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
 body:not(.no-bg) {
     font-family: Arial, sans-serif;
-    background: linear-gradient(
-        180deg,
-        #afa846 0%,
-        #e5bfe6 100%
-    );
-    background-repeat: no-repeat;   /* ❗ 반복 금지 */
-    background-attachment: fixed;   /* ❗ 화면 기준으로 고정 */
-    min-height: 100vh;               /* ❗ 최소 화면 높이 확보 */
+    background: linear-gradient(180deg,
+            #afa846 0%,
+            #e5bfe6 100%);
+    background-repeat: no-repeat;
+    /* ❗ 반복 금지 */
+    background-attachment: fixed;
+    /* ❗ 화면 기준으로 고정 */
+    min-height: 100vh;
+    /* ❗ 최소 화면 높이 확보 */
 }
 
 /* ====== 버튼 공통 ====== */
@@ -103,7 +104,7 @@ body.game-page #victoryScreen button:hover,
 body.game-page .start-game-btn:hover,
 body.game-page .hint-confirm-button:hover,
 body.post-page .popup-button:hover,
-body.post-page .custom-button:hover{
+body.post-page .custom-button:hover {
     background-color: aqua;
 }
 
@@ -115,7 +116,7 @@ body.click-page .back-button:hover,
 body.preview-page .back-button:hover,
 body.dashboard-page .back-button:hover,
 body.dashboard-page .logout-button:hover,
-body.dashboard-page .custom-button:hover{
+body.dashboard-page .custom-button:hover {
     background-color: #755a6a;
 }
 
@@ -221,7 +222,7 @@ body.preview-popup-page td {
     border-collapse: collapse;
     border: 1px solid #555;
     font-size: 10px;
-    padding:4px;
+    padding: 4px;
 }
 
 body.preview-popup-page tr,
@@ -240,15 +241,15 @@ body.game-page html {
 
 body.game-page .hint-overlay,
 body.game-page .game-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     z-index: 1500;
 }
 
@@ -372,8 +373,7 @@ body.icon-page #icon_studio,
 body.icon-page .move_icon,
 body.icon-page .bulid_icon,
 body.icon-page .structure_icon,
-body.icon-page .obj_icon
- {
+body.icon-page .obj_icon {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 16px;
@@ -411,18 +411,16 @@ body.icon-page #icon_studio img:hover,
 body.icon-page .move_icon img:hover,
 body.icon-page .bulid_icon img:hover,
 body.icon-page .structure_icon img:hover,
-body.icon-page .obj_icon img:hover
- {
+body.icon-page .obj_icon img:hover {
     transform: scale(1.15);
 }
 
 
 /* upload-page공통 레이아웃 */
-body.upload-page div .cat_name{
+body.upload-page div .cat_name {
     display: flex;
     flex-direction: row;
-    width:80%;
-    gap:25px;
+    width: 80%;
+    gap: 25px;
     margin: 10px auto;
 }
-
