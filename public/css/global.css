@@ -405,6 +405,15 @@ body.icon-page .obj_icon img {
     transition: transform 0.15s ease;
 }
 
+body.icon-page #icon_studio img:hover,
+body.icon-page .move_icon img:hover,
+body.icon-page .bulid_icon img:hover,
+body.icon-page .structure_icon img:hover,
+body.icon-page .obj_icon img:hover
+ {
+    transform: scale(1.15);
+}
+
 
 /* upload-page공통 레이아웃 */
 body.upload-page div .cat_name{

@@ -107,7 +107,6 @@ body.index-page #mainTitle {
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 body.index-page .popup-overlay {
@@ -335,7 +334,7 @@ body.login-page .login-row {
     margin-left: 15px;
     margin-right: 35px;
     margin-top: 10px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 body.login-page .login-row input[type="password"] {
@@ -2366,7 +2365,7 @@ body.preview-page .tab-design {
     border-radius: 8px;
     width: 95%;
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     text-align: center;
     padding-top: 20px;
 }
@@ -2430,7 +2429,7 @@ body.preview-page .tab-btn:last-child {
 
 /* 새로 추가한 래퍼로 남은 공간을 채우고 중앙 정렬 */
 body.preview-page .sub-tab-wrapper {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     flex: 1;
     /* currentCategory 이후 남은 공간 모두 차지 */
     text-align: center;
@@ -2441,7 +2440,7 @@ body.preview-page .sub-tab-wrapper {
 body.preview-page .sub-tab-container {
     position: absolute;
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     /* ✅ 수정: 줄바꿈 허용 */
     left: 50%;
     transform: translateX(-50%);
@@ -2468,7 +2467,7 @@ body.preview-page .sub-tab {
 
 /* 활성화된 서브 탭 */
 body.preview-page .sub-tab.active {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     background-color: #00ff95e8;
     color: #ffffff;
     font-weight: bold;
@@ -2476,7 +2475,7 @@ body.preview-page .sub-tab.active {
 
 /* 서브 탭 마우스 호버 효과 */
 body.preview-page .sub-tab:hover {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     background-color: #00ff953c;
 }
 
@@ -2528,7 +2527,7 @@ body.preview-page .marge-container {
     max-width: 95%;
     margin: 15px auto;
     margin-top: 0;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     flex-direction: column;
     gap: 25px;
     padding: 0px;
@@ -2632,7 +2631,7 @@ body.preview-page .grid-layout {
 /* ✅ 이미지가 없을 때 (중앙 정렬) */
 body.preview-page .flex-center {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     height: 300px;
@@ -2693,7 +2692,8 @@ body.icon-page #icon_studio {
     justify-items: center;
 }
 
-body.icon-page #icon_studio img {
+body.icon-page #icon_studio img
+ {
     width: 90px;
     object-fit: contain;
     /* ✅ 비율 유지 */
@@ -2709,9 +2709,6 @@ body.icon-page #icon_studio img {
     transition: transform 0.15s ease;
 }
 
-body.icon-page #icon_studio img:hover {
-    transform: scale(1.15);
-}
 
 /* 소개팝업페이지(preview_popup.html */
 body.preview-popup-page {
@@ -2731,7 +2728,7 @@ body.preview-popup-page ul {
 body.preview-popup-page table {
     border-collapse: collapse;
     border: 1px solid #555;
-    margin: 10px;
+    margin: 10px auto;
     font-size: 10px;
 }
 
