@@ -163,15 +163,12 @@ body.index-page .button_container {
     position: relative;
     background-color: #f1f1f1;
     width: 300px;
-    /* 적절한 너비 설정 */
     height: 200px;
-    /* 적절한 높이 설정 */
     padding: 20px;
-
+    margin: 0 auto;
     border-radius: 8px;
     border: 5px solid #0066cc;
     gap: 15px;
-    margin: 0 auto;
 }
 
 body.index-page #modeSelection {
@@ -316,18 +313,16 @@ body.login-page .login-container {
     width: 75%;
     margin: 65px auto;
     box-sizing: border-box;
-    /* ✅ 너비 계산 안정화 */
     transition: width 0.5s ease-in-out;
-    /* ✅ 부드러운 너비 변경 */
 }
 
 body.login-page #loginButton {
     background-color: #000000;
     color: white;
     padding: 7px 15px;
+    margin-left: 10px;
     transition: transform 0.3s ease-in-out;
     border-radius: 5px;
-    margin-left: 10px;
 }
 
 body.login-page .login-row {
@@ -337,14 +332,12 @@ body.login-page .login-row {
     margin-left: 15px;
     margin-right: 35px;
     margin-top: 10px;
-
 }
 
 body.login-page .login-row input[type="password"] {
     flex: 1;
     min-width: 0;
     min-width: 45%;
-    /* ✅ 최소 너비 고정 */
     border-radius: 5px;
     background: #fff;
 }
@@ -444,15 +437,12 @@ body.login-page .admin-styled-button {
     height: 120px;
     background: radial-gradient(circle at 30% 30%, #ff4444, #d40000 70%);
     border-radius: 50%;
-
     font-size: 16px;
     font-weight: bold;
     color: white;
     border: none;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-    /* 버튼이 떠 있는 느낌의 그림자 */
     box-shadow: 0px 9px 0px #7a0000, 0px 15px 20px rgba(0, 0, 0, 0.5);
     margin: 20px auto;
     display: block;
@@ -603,8 +593,6 @@ body.dashboard-page .adminbar-container h1 {
     flex-grow: 1;
     text-align: center;
     color: white;
-    /* 글씨 색상 조정 */
-    margin: 0;
 }
 
 body.dashboard-page .back-button {
@@ -885,16 +873,9 @@ body.dashboard-page .change-button {
     width: 40px;
     height: 40px;
     background: none;
-    /* 배경 제거 */
     border: none;
-    /* 테두리 제거 */
-    padding: 0;
-    /* 내부 여백 제거 */
-    margin: 0;
-    /* 외부 여백 제거 */
     font-size: 20px;
     cursor: pointer;
-
     transition: color 0.3s ease-in-out;
 }
 
@@ -957,10 +938,8 @@ body.dashboard-page .post-image {
     width: 10vw;
     height: 10vw;
     border: 4px solid #00000000;
-
     margin: 5px;
     object-fit: cover;
-    /* 이미지 비율 유지, 영역을 채우도록 자름 */
     border-radius: 5px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
@@ -1099,19 +1078,16 @@ body.dashboard-page .sorting-wrapper {
 body.dashboard-page .sorting-container {
     display: flex;
     justify-content: center;
-    /* 가로 중앙 정렬 */
     margin: 10px 11px;
-    gap: 10px;
-    /* 이미지 사이 여백 */
-    white-space: nowrap;
-    /* 줄 바꿈 방지 */
     padding: 10px;
+    gap: 10px;
+    white-space: nowrap;
 }
 
 body.dashboard-page .popup-footer button {
-    margin: 5px;
     border-radius: 5px;
     padding: 8px 12px;
+    margin: 5px;
     border: none;
     cursor: pointer;
 }
@@ -1177,42 +1153,28 @@ body.dashboard-page .section-container {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    /* ✅ 세로 방향 정렬 */
     justify-content: center;
-    /* ✅ 세로 중앙 정렬 */
     align-items: center;
-    /* ✅ 가로 중앙 정렬 */
     position: relative;
     max-width: 80%;
     box-sizing: border-box;
     overflow-x: hidden;
-
     padding: 0 10px;
-    /* 내부 패딩으로 콘텐츠 보호 */
-
+    margin: 110px 10% 0;
     font-weight: bold;
-    margin-top: 110px;
-    margin-left: 10%;
-    margin-right: 10%;
-    /* 🔥 adminbar-container 높이만큼 아래에 위치 */
     min-height: 450px;
     height: auto;
     background: rgba(255, 255, 255, 0.5);
     z-index: 1;
-    /* ✅ 다른 요소보다 뒤에 배치 */
     transition: transform 0.3s ease-in-out, left 0.3s ease-in-out;
-    /* 🔥 부드러운 이동 애니메이션 */
 }
 
 /* 🔥 만약 내부 요소를 중앙 정렬하려면 추가 */
 body.dashboard-page .section-container.flex-center {
     display: flex;
     align-items: center;
-    /* ✅ 세로 방향 중앙 정렬 */
     justify-content: center;
-    /* ✅ 가로 방향 중앙 정렬 */
     text-align: center;
-    /* ✅ 텍스트 가운데 정렬 */
 }
 
 /* 🔥 첫 번째 section만 margin-top 110px 유지 */
@@ -1227,17 +1189,11 @@ body.dashboard-page .section-container+.section-container {
 
 /* 🔥 사이드바 열릴 때 section-container 이동 */
 body.dashboard-page .section-container.shifted {
-    margin-left: 210px;
-    margin-top: 0px;
-    margin-bottom: 5px;
+    margin: 0 0 210px 5px;
     width: calc(100% - 210px);
-    /* 컨테이너 폭을 사이드바 폭만큼 줄임 */
     max-width: 100%;
-    /* ✅ 최대 폭 제한 */
     overflow-x: hidden;
-    /* ✅ 가로 스크롤 방지 */
     box-sizing: border-box;
-    /* 패딩/보더 포함해서 계산 */
 }
 
 body.dashboard-page .subcategory-wrapper {
@@ -1352,15 +1308,12 @@ body.mode-page .container {
 body.mode-page .mode-selection-container {
     display: flex;
     flex-direction: column;
-    /* 버튼들을 세로 정렬 */
     justify-content: center;
     width: 500px;
     background-color: #ffffff;
     border-radius: 8px;
-
     align-items: center;
     gap: 30px;
-    /* 버튼 간격 */
     margin: 0 auto;
 }
 
@@ -1452,17 +1405,12 @@ body.upload-page h1 {
 
 body.upload-page h2 {
     text-align: center;
-    margin: 15px 0;
-    margin-top: 5px;
-    margin-bottom: 5px;
-
+    margin: 20px 0;
 }
 
 body.upload-page h3 {
     text-align: center;
-    margin: 15px 0;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin: 20px 0;
 }
 
 body.upload-page .category_container {
@@ -1493,16 +1441,15 @@ body.upload-page .dashed-line {
 }
 
 body.upload-page .upload-container {
-      display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     width: 50%;
     margin: 0 auto;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  
     background-color: #f3f3f3;
-    padding: 15px;
 }
 
 body.upload-page .upload-container input[type="file"] {
@@ -1551,16 +1498,16 @@ body.upload-page .popup-buttons button {
 }
 
 body.upload-page .preview-container img {
-    margin-top: 15px;
     border: 3px solid #000000;
     border-radius: 5px;
+    margin: 25px auto;
     padding: 15px;
     width: 85%;
-    margin: 25px auto;
+
 }
 
 body.upload-page .description-container {
-    display: flex;    
+    display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #ffffff;
@@ -1608,7 +1555,7 @@ body.upload-page .editor-buttons {
     color: black;
 
     gap: 10px;
-    
+
 }
 
 body.upload-page .editor-buttons button {
@@ -1641,14 +1588,15 @@ body.click-page h1 {
 
 body.click-page .explan-container {
     max-width: 85%;
-    margin: auto;
+    margin: 70px auto;
     padding-bottom: 15px;
-    margin-top: 70px;
     background-color: #f5f5f5;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
+body.click-page .plus_container{
+    padding:15px;
+}
 body.click-page .explan-detail-container {
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -1683,7 +1631,7 @@ body.click-page .detail-toggle {
 }
 
 body.click-page .detail-content {
-    margin-top: 10px;
+    margin: 10px auto;
     padding-left: 10px;
     display: none;
 }
@@ -1896,11 +1844,10 @@ body.post-page .post-container {
     justify-content: center;
     background-color: #ffffff;
     border-radius: 10px;
-
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 65%;
     margin: 20px auto;
+    padding: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 65%;
 }
 
 body.post-page .postcategory-container {
@@ -2245,7 +2192,6 @@ body.preview-page .info-popup .table-wrapper .inner {
 
 body.preview-page .info-popup .table-wrapper table {
     width: 100%;
-    /* inner의 폭 안에서 꽉 차게 */
     margin: 0 auto;
     border-collapse: collapse;
     text-align: center;
@@ -2326,7 +2272,7 @@ body.preview-page .function-infor {
     justify-content: center;
     position: relative;
     flex-direction: column;
-    
+
     gap: 10px;
     margin-top: 10px;
 
@@ -2389,12 +2335,9 @@ body.preview-page .tab-design {
     text-align: center;
     position: relative;
     margin: 15px auto;
-    margin-bottom: 0;
-    padding: 0;
+    padding-top: 20px;
     border-radius: 8px;
     width: 95%;
-
-    padding-top: 20px;
 }
 
 body.preview-page .preview-images {
@@ -2557,10 +2500,7 @@ body.preview-page .marge-container {
     flex-direction: column;
     max-width: 95%;
     margin: 15px auto;
-    margin-top: 0;
-
     gap: 25px;
-    padding: 0px;
     background-color: #c2f7f1;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
@@ -2595,15 +2535,11 @@ body.preview-page .image-gallery-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* 🔥 수평 중앙 정렬 */
     align-items: center;
-    /* 🔥 수직 중앙 정렬 */
     height: auto;
     margin: 15px auto;
     width: 95%;
-    /* 🔥 위쪽 여백 */
     overflow-x: hidden;
-    /* 혹시 남는 부분 잘라내기 */
 }
 
 /* ✅ 이미지 갤러리 (4x5 배열) */

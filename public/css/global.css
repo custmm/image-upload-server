@@ -153,13 +153,11 @@ body.index-page {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
     background-color: #c0c0c0;
 }
 
 body.tag-page {
     position: relative;
-    margin: 0;
 }
 
 body.click-page {
@@ -192,7 +190,6 @@ body.icon-page {
 }
 
 body.preview-popup-page {
-    margin: 0;
     padding: 16px;
     line-height: 1.6;
     box-sizing: border-box;
@@ -377,14 +374,9 @@ body.icon-page .obj_icon {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 16px;
-
     width: fit-content;
-    /* 🔑 이게 핵심 */
     margin: 0 auto;
-    /* 🔑 중앙 고정 */
-
     justify-items: center;
-
 }
 
 body.icon-page #icon_studio img,
@@ -394,15 +386,9 @@ body.icon-page .structure_icon img,
 body.icon-page .obj_icon img {
     width: 90px;
     object-fit: contain;
-    /* ✅ 비율 유지 */
     object-position: center;
-    /* ✅ 가운데 */
-
     justify-self: center;
-    /* grid 셀 기준 가로 중앙 */
     align-self: center;
-    /* grid 셀 기준 세로 중앙 */
-
     cursor: pointer;
     transition: transform 0.15s ease;
 }
