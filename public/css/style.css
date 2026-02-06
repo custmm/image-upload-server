@@ -2417,7 +2417,7 @@ body.preview-page .sub-tab-container {
     left: 50%;
     transform: translateX(-50%);
     gap: 5px;
-    padding: 30px 0;
+    padding-top: 40px;
     margin-bottom: 10px;
 }
 
@@ -2457,7 +2457,6 @@ body.preview-page .preview-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.65);
-
     z-index: 10000;
 }
 
@@ -2510,24 +2509,17 @@ body.preview-page .marge-container {
 body.preview-page .category-subtab-container {
     display: flex;
     align-items: center;
-    /* 수직 가운데 정렬 */
     width: 100%;
     height: auto;
     margin-bottom: 20px;
-    /* 필요에 따라 여백 조절 */
-
 }
 
 /* 카테고리 제목 스타일 */
 body.preview-page #currentCategory {
     font-size: 30px;
     color: #00cc8f;
-    margin-top: 25px;
-    /* 상하 여백 */
-    margin-bottom: 15px;
-    /* 상하 여백 */
+    margin: 25px 0 15px;
     padding-left: 20px;
-    /* 겹침을 방지하기 위해 높임 */
 }
 
 /* ✅ 이미지 갤러리 중앙 정렬 */
@@ -2537,7 +2529,7 @@ body.preview-page .image-gallery-wrapper {
     justify-content: center;
     align-items: center;
     height: auto;
-    margin: 15px auto;
+    margin: 40px auto;
     width: 95%;
     overflow-x: hidden;
 }
@@ -2546,10 +2538,8 @@ body.preview-page .image-gallery-wrapper {
 body.preview-page .image-gallery {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    /* 🔥 최소 100px, 최대 1fr */
     grid-template-rows: auto;
     gap: 3px;
-    /* ✅ 이미지 간격 */
     padding: 15px;
     background-color: #ffffff;
     border-radius: 10px;
@@ -2561,11 +2551,8 @@ body.preview-page .image-gallery {
 /* ✅ 반응형 이미지 크기 조정 */
 body.preview-page .gallery-image {
     width: 13vw;
-    /* 🔥 화면 너비의 15% */
     height: 13vw;
-    /* 🔥 화면 너비의 20% */
     object-fit: cover;
-    /* 🔥 이미지 비율 유지 */
     border: 3px solid #00000000;
     border-radius: 8px;
     transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
@@ -2587,7 +2574,6 @@ body.preview-page #pagination-container {
 body.preview-page .grid-layout {
     display: grid;
     gap: 10px;
-    /* ✅ 이미지 간격 */
     padding: 10px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -2602,7 +2588,6 @@ body.preview-page .flex-center {
     justify-content: center;
     align-items: center;
     height: 300px;
-    /* 🔥 이미지가 없을 때 최소 높이 */
 }
 
 /* ✅ 이미지가 없을 때 메시지 스타일 */
@@ -2637,11 +2622,9 @@ body.icon-page .icon-studio-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* 가로 중앙 */
     justify-content: flex-start;
     background-color: #fff;
     min-height: 100vh;
-
     box-sizing: border-box;
     margin-bottom: 30px;
 }

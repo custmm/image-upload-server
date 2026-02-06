@@ -31,7 +31,7 @@
         justify-content: center;
         align-items: center;
         height: auto;
-        margin: 30px auto;
+        margin: 20px auto;
         width: 95%;
         overflow-x: hidden;
 
@@ -42,9 +42,7 @@
         left: -100%;
         height: 100vh;
         color: white;
-        padding-right: 200px;
-        padding-left: 30px;
-        padding-top: 100px;
+        padding: 100px 200px 0 30px;
         z-index: 100;
         background: rgba(0, 0, 0, 0.8);
         transition: left 0.5s ease-in-out;
@@ -54,39 +52,19 @@
         left: 0;
       }
 
-      body.preview-page .infor-popup {
-        width: 95%;
-        /* 화면 꽉 채우지 않도록 너비 조절*/
-        max-height: 90vh;
-        /* 높이도 제한 */
-        overflow: auto;
-        /* 넘치면 스크롤 */
-        padding: 18px 16px;
-        /* 여백도 축소 */
-        font-size: 11px;
-        /* 전체 폰트 크기 줄이기 */
-        box-sizing: border-box;
-      }
-
+      body.preview-page .infor-popup,
       body.preview-page .app-infor-popup {
         width: 95%;
-        /* 화면 꽉 채우지 않도록 너비 조절*/
         max-height: 90vh;
-        /* 높이도 제한 */
         overflow: auto;
-        /* 넘치면 스크롤 */
         padding: 18px 16px;
-        /* 여백도 축소 */
-        font-size: 5px;
-        /* 전체 폰트 크기 줄이기 */
+        font-size: 11px;
         box-sizing: border-box;
       }
 
       body.preview-page .app-infor-popup table {
         width: 100%;
-        /* 📌 table이 부모 너비에 맞게 */
         word-break: break-word;
-        /* 긴 내용 줄바꿈 허용 */
         font-size: 11px;
       }
 
