@@ -24,7 +24,7 @@ function startLoading() {
   }
 
   screenElement.style.display = "flex";
-  
+
   frameElement.src = frames[0];
 
   frameTimer = setInterval(() => {
@@ -50,17 +50,3 @@ function finishLoading() {
     screenElement.style.display = "none";
   }, 600);
 }
-
-/**
- * 자동 실행 방지
- * DOM 준비되면 시작
- */
-document.addEventListener("DOMContentLoaded", () => {
-  startLoading();
-
-  // 테스트용 자동 종료
-  // 실제 서비스에서는 API 완료 후 finishLoading() 호출
-  setTimeout(() => {
-    finishLoading();
-  }, 3000);
-});
