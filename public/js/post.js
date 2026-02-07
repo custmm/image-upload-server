@@ -1,13 +1,13 @@
 
 // ✅ 로딩 화면 표시 함수
 function showLoading() {
-  document.getElementById("loadingIndicator").style.display = "flex";
+  document.getElementById("loading-frame").style.display = "flex";
 }
 
 // ✅ 로딩 화면 숨김 함수
 function hideLoading() {
   setTimeout(() => {
-    document.getElementById("loadingIndicator").style.display = "none";
+    document.getElementById("loading-frame").style.display = "none";
   }, 500); // 0.5초 후 숨김
 }
 
