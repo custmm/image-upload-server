@@ -14,20 +14,25 @@ const ORDER = [
 ];
 
 function showLoadingSpinner() {
-  let spinner = document.getElementById("loadingSpinner");
-  if (!spinner) {
-    spinner = document.createElement("div");
-    spinner.id = "loadingSpinner";
-    spinner.innerHTML = `<img src="images/loading.gif" alt="로딩 중..." style="width: 60px;">`;
-    spinner.style.textAlign = "center";
-    spinner.style.marginTop = "20px";
-    document.getElementById("postList").appendChild(spinner);
-  }
+  if (document.getElementById("loadingSpinner")) return;
+
+  const spinner = document.createElement("div");
+  spinner.id = "loadingSpinner";
+  spinner.style.textAlign = "center";
+  spinner.style.margin = "20px 0";
+
+  const img = createLoadingImage(80);
+
+  spinner.appendChild(img);
+  document.getElementById("postList").appendChild(spinner);
 }
 
 function hideLoadingSpinner() {
   const spinner = document.getElementById("loadingSpinner");
-  if (spinner) spinner.remove();
+  if (spinner) {
+    stopLoadingAnimation();
+    spinner.remove();
+  }
 }
 
 

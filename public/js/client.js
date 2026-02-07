@@ -83,38 +83,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.head.appendChild(style);
 
     function showLoading() {
+        if (document.getElementById("loadingScreen")) return;
+
         const loadingDiv = document.createElement("div");
         loadingDiv.id = "loadingScreen";
         loadingDiv.style.position = "fixed";
-        loadingDiv.style.top = "0";
-        loadingDiv.style.left = "0";
-        loadingDiv.style.width = "100%";
-        loadingDiv.style.height = "100%";
-        loadingDiv.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        loadingDiv.style.inset = "0";
+        loadingDiv.style.backgroundColor = "rgba(0,0,0,0.6)";
         loadingDiv.style.display = "flex";
-        loadingDiv.style.flexDirection = "column";  // 🔥 수직 정렬
+        loadingDiv.style.flexDirection = "column";
         loadingDiv.style.justifyContent = "center";
         loadingDiv.style.alignItems = "center";
-        loadingDiv.style.color = "#fff";
-        loadingDiv.style.fontSize = "24px";
+        loadingDiv.style.zIndex = "9999";
 
-        // ✅ 로딩 GIF 이미지 추가
-        const loadingImg = document.createElement("img");
-        loadingImg.src = "images/loading.gif";
-        loadingImg.alt = "로딩 중...";
-        loadingImg.style.width = "100px"; // 🔥 원하는 크기로 조절
-        loadingImg.style.height = "100px";
-        loadingImg.style.marginBottom = "15px"; // 🔥 텍스트와 간격 조정
+        const loadingImg = createLoadingImage(160);
 
-        const loadingText = document.createElement("p");
-        loadingText.textContent = "업로드 중입니다...";
-        loadingText.style.margin = "0";
-        loadingText.style.padding = "0";
-        loadingText.style.color = "#fff";
-        loadingText.style.fontSize = "20px";
+        const text = document.createElement("p");
+        text.textContent = "업로드 중입니다...";
+        text.style.color = "#fff";
+        text.style.marginTop = "14px";
 
         loadingDiv.appendChild(loadingImg);
-        loadingDiv.appendChild(loadingText);
+        loadingDiv.appendChild(text);
 
         document.body.appendChild(loadingDiv);
     }
@@ -122,6 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     function hideLoading() {
         const loadingDiv = document.getElementById("loadingScreen");
         if (loadingDiv) {
+            stopLoadingAnimation();
             loadingDiv.remove();
         }
     }

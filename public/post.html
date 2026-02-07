@@ -70,10 +70,10 @@
     </div>
   </div>
   <!-- ✅ 로딩 화면 추가 -->
-  <div id="loadingIndicator" class="loading-indicator">
-    <img src="images/loading.gif" alt="로딩 중..." class="loading-image">
-    <p class="loading-text">게시물을 불러오는 중...</p>
-  </div>
+<div id="loadingIndicator" class="loading-indicator" style="display:none;">
+  <img id="loadingFrameIndicator" alt="로딩 중..." class="loading-image">
+  <p class="loading-text">게시물을 불러오는 중...</p>
+</div>
 
   <div class="post-container">
     <img id="postImage" class="post-image" src="" alt="게시물 이미지">
@@ -110,7 +110,9 @@
       <span id="themeIcon">☀️</span>
     </label>
   </div>
+  <script src="./js/loading.js"></script>
   <script src="./js/post.js"></script>
+  
 </body>
 
 </html>
