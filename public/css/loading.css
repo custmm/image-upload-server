@@ -29,8 +29,8 @@ body {
 /* 로딩 이미지 */
 #loading-frame {
     position: absolute;
-    top: 40%;
-    left: 50%;
+    top: 25%;
+    left: 40%;
     width: 120px;
     max-width: 40vw;
     height: auto;
