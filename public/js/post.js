@@ -1,14 +1,18 @@
 
-// ✅ 로딩 화면 표시 함수
 function showLoading() {
-  document.getElementById("loading-frame").style.display = "flex";
+  const screen = document.getElementById("loading-screen");
+  if (!screen) return;
+
+  screen.style.display = "flex";
 }
 
-// ✅ 로딩 화면 숨김 함수
 function hideLoading() {
   setTimeout(() => {
-    document.getElementById("loading-frame").style.display = "none";
-  }, 500); // 0.5초 후 숨김
+    const screen = document.getElementById("loading-screen");
+    if (!screen) return;
+
+    screen.style.display = "none";
+  }, 500);
 }
 
 function showPopupMessage(message) {
