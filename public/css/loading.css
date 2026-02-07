@@ -10,12 +10,14 @@ body {
   font-family: monospace;
 }
 
+#loding-screen.loading-indicator{
+background: rgba(0, 0, 0, 0.85);    
+}
+
 /* ✅ 진짜 오버레이 */
 #loading-screen {
   position: fixed;
   inset: 0;
-
-  background: rgba(0, 0, 0, 0.85);
 
   display: none;                 /* JS에서 켜짐 */
   flex-direction: column;
