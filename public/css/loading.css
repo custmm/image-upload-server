@@ -1,55 +1,51 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* body는 절대 건들지 않는다 */
 body {
   background: black;
   font-family: monospace;
 }
 
+/* ✅ 진짜 오버레이 */
 #loading-screen {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    z-index: 9999;
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.85);
+
+  display: none;                 /* JS에서 켜짐 */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  z-index: 99999;                /* 무조건 최상단 */
 }
 
+/* 로딩 이미지 */
 #loading-frame {
-    width: 120px;
-    /* 🔥 핵심 */
-    max-width: 40vw;
-    /* 모바일 대응 */
-    height: auto;
+  width: 120px;
+  max-width: 40vw;
+  height: auto;
 
-    image-rendering: pixelated;
-    animation: float 1.6s ease-in-out infinite;
-    z-index: 9999;
+  image-rendering: pixelated;
+  animation: float 1.6s ease-in-out infinite;
 }
 
+/* 로딩 텍스트 */
 #loading-text {
-    color: #39ff14;
-    font-size: 14px;
-    letter-spacing: 2px;
-    opacity: 0.8;
+  color: #39ff14;
+  font-size: 14px;
+  letter-spacing: 2px;
+  opacity: 0.85;
 }
 
 @keyframes float {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-8px);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
 }
