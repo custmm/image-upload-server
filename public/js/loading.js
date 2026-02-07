@@ -1,9 +1,9 @@
 const frames = [
-  "../images/alian/ester_01.png",
-  "../images/alian/ester_02.png",
-  "../images/alian/ester_03.png",
-  "../images/alian/ester_04.png",
-  "../images/alian/ester_05.png"
+  "images/alian/ester_01.png",
+  "images/alian/ester_02.png",
+  "images/alian/ester_03.png",
+  "images/alian/ester_04.png",
+  "images/alian/ester_05.png"
 ];
 
 let currentFrame = 0;
