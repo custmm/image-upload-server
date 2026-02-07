@@ -151,18 +151,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         "brickfigure": "브릭피규어"
     };
 
+    // ✅ 로딩 화면 표시 함수
     function showLoading() {
-        const screen = document.getElementById("loading-screen");
-
-        if (!screen) return;
+        document.getElementById("loadingIndicator").style.display = "flex";
     }
 
+    // ✅ 로딩 화면 숨김 함수
     function hideLoading() {
         setTimeout(() => {
-            const screen = document.getElementById("loading-screen");
-            if (!screen) return;
-
-            screen.style.display = "none";
+            document.getElementById("loadingIndicator").style.display = "none";
         }, 500);
     }
 
@@ -203,7 +200,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (opacityToggleBtn && opacityControl && opacitySlider) {
             const tabDesign = document.querySelector(".tab-design");
             const margeContainer = document.querySelector(".marge-container");
-
+            
             opacityToggleBtn.addEventListener("click", () => {
                 isVisible = !isVisible;
 
@@ -281,19 +278,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     function openAiIconPopup() {
-        const overlay = document.getElementById("previewOverlay");
-        const frame = document.getElementById("previewFrame");
+    const overlay = document.getElementById("previewOverlay");
+    const frame = document.getElementById("previewFrame");
 
-        frame.src = "ai_icon.html"; // 🔥 여기 핵심
-        overlay.style.display = "flex";
+    frame.src = "ai_icon.html"; // 🔥 여기 핵심
+    overlay.style.display = "flex";
     }
 
     function closePreviewPopup() {
-        const overlay = document.getElementById("previewOverlay");
-        const frame = document.getElementById("previewFrame");
+    const overlay = document.getElementById("previewOverlay");
+    const frame = document.getElementById("previewFrame");
 
-        frame.src = ""; // iframe 초기화 (메모리 정리)
-        overlay.style.display = "none";
+    frame.src = ""; // iframe 초기화 (메모리 정리)
+    overlay.style.display = "none";
     }
 
     // 1) 카테고리 로드
