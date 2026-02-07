@@ -21,9 +21,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-
-  z-index: 99999;                /* 무조건 최상단 */
+  gap: 12px;               /* 무조건 최상단 */
 }
 
 /* 로딩 이미지 */
