@@ -329,9 +329,7 @@ body.login-page .login-row {
     display: flex;
     flex-wrap: wrap;
     gap: 25px;
-    margin-left: 15px;
-    margin-right: 35px;
-    margin-top: 10px;
+    margin: 15px 35px 0 10px;
 }
 
 body.login-page .login-row input[type="password"] {
@@ -1857,12 +1855,10 @@ body.post-page .postcategory-container {
     justify-content: center;
     border: 1px solid #ccc;
     border-radius: 5px;
-
     width: flex;
     height: auto;
     padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin: 10px 0 5px;
 }
 
 body.post-page .postcategory-container>div {
