@@ -1,41 +1,59 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background: black;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: monospace;
-  overflow: hidden;
+    background: black;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+    overflow: hidden;
 }
 
 #loading-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    z-index: 9999;
 }
 
 #loading-frame {
-  width: 220px;
-  image-rendering: pixelated;
-  animation: float 1.6s ease-in-out infinite;
+    width: 120px;
+    /* 🔥 핵심 */
+    max-width: 40vw;
+    /* 모바일 대응 */
+    height: auto;
+
+    image-rendering: pixelated;
+    animation: float 1.6s ease-in-out infinite;
 }
 
 #loading-text {
-  color: #39ff14;
-  font-size: 14px;
-  letter-spacing: 2px;
-  opacity: 0.8;
+    color: #39ff14;
+    font-size: 14px;
+    letter-spacing: 2px;
+    opacity: 0.8;
 }
 
 @keyframes float {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
