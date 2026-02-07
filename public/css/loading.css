@@ -35,6 +35,7 @@ body {
 
     image-rendering: pixelated;
     animation: float 1.6s ease-in-out infinite;
+    z-index: 9999;
 }
 
 #loading-text {
