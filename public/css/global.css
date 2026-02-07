@@ -196,6 +196,43 @@ body.preview-popup-page {
     background: #fff;
 }
 
+/* ✅ 로딩 화면 스타일 */
+body.post-page .loading-indicator,
+body.preview-page .loading-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* 반투명 배경 */
+    display: none;
+    /* 기본적으로 숨김 */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* 이미지 + 텍스트 세로 정렬 */
+    z-index: 9999;
+    /* 다른 요소 위에 표시 */
+    text-align: center;
+}
+
+/* ✅ 로딩 이미지 크기 */
+body.post-page .loading-image,
+body.preview-page .loading-image {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    /* 이미지 아래 여백 */
+}
+
+/* ✅ 로딩 텍스트 스타일 */
+body.post-page .loading-text,
+body.preview-page .loading-text {
+    font-size: 16px;
+    color: white;
+}
+
 /* 각 페이지의 기본적 레이아웃 설정 */
 /* index-page공통 레이아웃 */
 body.index-page html {
