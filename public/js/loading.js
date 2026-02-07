@@ -8,24 +8,28 @@ const frames = [
 
 let currentFrame = 0;
 let frameTimer = null;
-let frameElement = null;
-let screenElement = null;
 
 /**
  * 로딩 애니메이션 시작
  */
 function startLoading() {
-  frameElement = document.getElementById("loading-frame");
-  screenElement = document.getElementById("loading-screen");
+  const frameElement = document.getElementById("loading-frame");
+  const screenElement = document.getElementById("loading-screen");
 
   if (!frameElement || !screenElement) {
     console.warn("Loading elements not found");
     return;
   }
 
+  // 🔥 오버레이 표시
   screenElement.style.display = "flex";
+  screenElement.style.opacity = "1";
 
-  frameElement.src = frames[0];
+  currentFrame = 0;
+  frameElement.src = frames[currentFrame];
+
+  // 이미 타이머 있으면 중복 실행 방지
+  if (frameTimer) return;
 
   frameTimer = setInterval(() => {
     currentFrame = (currentFrame + 1) % frames.length;
@@ -37,14 +41,14 @@ function startLoading() {
  * 로딩 종료
  */
 function finishLoading() {
+  const screenElement = document.getElementById("loading-screen");
+
   if (!screenElement) return;
 
   clearInterval(frameTimer);
   frameTimer = null;
-  currentFrame = 0;
 
   screenElement.style.opacity = "0";
-  screenElement.style.transition = "opacity 0.6s ease";
 
   setTimeout(() => {
     screenElement.style.display = "none";
