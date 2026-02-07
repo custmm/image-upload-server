@@ -23,6 +23,8 @@ function startLoading() {
     return;
   }
 
+  screenElement.style.display = "flex";
+  
   frameElement.src = frames[0];
 
   frameTimer = setInterval(() => {

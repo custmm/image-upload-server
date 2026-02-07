@@ -1,8 +1,7 @@
 
 function showLoading() {
-  const frame = document.getElementById("loading-frame");
   const screen = document.getElementById("loading-screen");
-  if (!screen|| !frame) return;
+  if (!screen) return;
 
   screen.style.display = "flex";
 }

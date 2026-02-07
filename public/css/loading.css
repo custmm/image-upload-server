@@ -5,13 +5,8 @@
 }
 
 body {
-    background: black;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: monospace;
-    overflow: hidden;
+  background: black;
+  font-family: monospace;
 }
 
 #loading-screen {
