@@ -231,7 +231,7 @@ router.get("/subcategory-counts", async (req, res) => {
                     attributes: ["name"]
                 }
             ],
-            group: ["subcategory_id", "subcategory_id"], // ✅ group에 추가
+            group: ["subcategory_id", "subcategory.id"], // ✅ group에 추가
             order: [["subcategory_id", "ASC"]], // ✅ 추가: subcategory_id 오름차순 정렬
             raw: true
         });
