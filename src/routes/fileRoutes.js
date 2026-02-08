@@ -83,6 +83,166 @@ router.get("/", async (req, res) => {
 });
 
 
+// ✅ 특정 파일을 카테고리 + 서브카테고리 + 파일명으로 조회하는 API
+router.get("/file", async (req, res) => {
+    try {
+        let { category, subcategory, file } = req.query;
+
+        console.log(
+            `📌 요청받은 파일: category=${category}, subcategory=${subcategory}, file=${file}`
+        );
+
+
+        if (!category || !file) {
+            return res.status(400).json({
+                error: "❌ 잘못된 요청: category와 file 값이 필요합니다."
+            });
+        }
+
+        // ✅ 1. category name → id
+        const categoryData = await Category.findOne({
+            where: { name: category }
+        });
+        if (!categoryData) {
+            return res.status(404).json({ error: "❌ 해당 카테고리를 찾을 수 없습니다." });
+        }
+
+        // ✅ 2. subcategory name → id (선택)
+        let subcategoryData = null;
+        if (subcategory && subcategory !== "general") {
+            subcategoryData = await Subcategory.findOne({
+                where: {
+                    name: subcategory,
+                    category_id: categoryData.id
+                }
+            });
+
+            if (!subcategoryData) {
+                return res.status(404).json({
+                    error: "❌ 해당 서브카테고리를 찾을 수 없습니다."
+                });
+            }
+        }
+
+        // ✅ 3. File 조회 (id 기준)
+        const whereClause = {
+            file_name: file,
+            category_id: categoryData.id
+        };
+
+        if (subcategoryData?.id) {
+            whereClause.subcategory_id = subcategoryData.id;
+        }
+
+        // ✅ 4. include는 그대로 사용
+        const foundFile = await File.findOne({
+            where: whereClause,
+            include: [
+                {
+                    model: Category,
+                    as: "category",
+                    attributes: ["name"]
+                },
+                {
+                    model: Subcategory,
+                    as: "subcategory",
+                    attributes: ["name"]
+                }
+            ]
+        });
+
+        if (!foundFile) {
+            return res.status(404).json({
+                error: "❌ 해당 파일을 찾을 수 없습니다."
+            });
+        }
+
+        // ✅ 프론트에서 쓰기 좋게 가공
+        res.json({
+            ...foundFile.toJSON(),
+            category_name: foundFile.category?.name || null,
+            subcategory_name: foundFile.subcategory?.name || null
+        });
+
+        console.log("✅ 파일 조회 성공:", foundFile?.file_name);
+
+    } catch (error) {
+        console.error("🚨 파일 조회 중 서버 오류 발생:", error);
+        res.status(500).json({
+            error: "🚨 파일 조회 중 서버 오류 발생"
+        });
+    }
+});
+
+// 카테고리별 게시물 개수 조회 API
+router.get("/category-counts", async (req, res) => {
+    try {
+        const categoryCounts = await File.findAll({
+            attributes: [
+                "category_id",
+                [sequelize.fn("COUNT", sequelize.col("id")), "count"]
+            ],
+            include: [
+                {
+                    model: Category,
+                    as: "category",
+                    attributes: ["name"]
+                }
+            ],
+            group: ["category_id", "category.id"],
+            raw: true
+        });
+
+        res.json(categoryCounts);
+    } catch (error) {
+        console.error("🚨 카테고리별 게시물 개수 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류" });
+    }
+});
+
+// ✅ 특정 카테고리의 서브카테고리별 게시물 수 조회 API (NEW!)
+router.get("/subcategory-counts", async (req, res) => {
+    try {
+        const { category_name } = req.query;
+
+        if (!category_name) {
+            return res.status(400).json({ error: "❌ category_name 파라미터가 필요합니다." });
+        }
+
+        // 1. category_name으로 category_id 찾기
+        const category = await Category.findOne({
+            where: { name: category_name }
+        });
+        if (!category) {
+            return res.status(404).json({ error: "❌ 해당 카테고리를 찾을 수 없습니다." });
+        }
+
+        // 2. 해당 category_id로 서브카테고리별 게시물 수 집계
+        const subcategoryCounts = await File.findAll({
+            where: { category_id: category.id },
+            attributes: [
+                "subcategory_id",
+                [sequelize.fn("COUNT", sequelize.col("id")), "count"]
+            ],
+            include: [
+                {
+                    model: Subcategory,
+                    as: "subcategory",
+                    attributes: ["name"]
+                }
+            ],
+            group: ["subcategory_id", "subcategory_id"], // ✅ group에 추가
+            order: [["subcategory_id", "ASC"]], // ✅ 추가: subcategory_id 오름차순 정렬
+            raw: true
+        });
+
+        res.json(subcategoryCounts);
+    } catch (error) {
+        console.error("🚨 서브카테고리 게시물 수 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류 발생" });
+    }
+});
+
 // ✅ 파일 업로드 API (POST /api/files/upload)
 router.post("/upload", upload.single("file"), async (req, res) => {
     try {
@@ -181,119 +341,6 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     }
 });
 
-// ✅ 특정 파일을 카테고리 + 서브카테고리 + 파일명으로 조회하는 API
-router.get("/file", async (req, res) => {
-    try {
-        let { category, subcategory, file } = req.query;
-
-        console.log(
-            `📌 요청받은 파일: category=${category}, subcategory=${subcategory}, file=${file}`
-        );
-
-
-        if (!category || !file) {
-            return res.status(400).json({
-                error: "❌ 잘못된 요청: category와 file 값이 필요합니다."
-            });
-        }
-
-        // ✅ 1. category name → id
-        const categoryData = await Category.findOne({
-            where: { name: category }
-        });
-
-        if (!categoryData) {
-            return res.status(404).json({ error: "❌ 해당 카테고리를 찾을 수 없습니다." });
-        }
-
-        // ✅ 2. subcategory name → id (선택)
-        let subcategoryData = null;
-
-        if (subcategory && subcategory !== "general") {
-            subcategoryData = await Subcategory.findOne({
-                where: {
-                    name: subcategory,
-                    category_id: categoryData.id
-                }
-            });
-
-            if (!subcategoryData) {
-                return res.status(404).json({
-                    error: "❌ 해당 서브카테고리를 찾을 수 없습니다."
-                });
-            }
-        }
-
-        // ✅ 3. File 조회 (id 기준)
-        const whereClause = {
-            file_name: file,
-            category_id: categoryData.id
-        };
-
-        if (subcategoryData?.id) {
-            whereClause.subcategory_id = subcategoryData.id;
-        }
-
-        // ✅ 4. include는 그대로 사용
-        const foundFile = await File.findOne({
-            where: whereClause,
-            include: [
-                {
-                    model: Category,
-                    as: "category",
-                    attributes: ["name"]
-                },
-                {
-                    model: Subcategory,
-                    as: "subcategory",
-                    attributes: ["name"]
-                }
-            ]
-        });
-
-        if (!foundFile) {
-            return res.status(404).json({
-                error: "❌ 해당 파일을 찾을 수 없습니다."
-            });
-        }
-
-        // ✅ 프론트에서 쓰기 좋게 가공
-        res.json({
-            ...foundFile.toJSON(),
-            category_name: foundFile.category?.name || null,
-            subcategory_name: foundFile.subcategory?.name || null
-        });
-
-        console.log("✅ 파일 조회 성공:", foundFile?.file_name);
-
-    } catch (error) {
-        console.error("🚨 파일 조회 중 서버 오류 발생:", error);
-        res.status(500).json({
-            error: "🚨 파일 조회 중 서버 오류 발생"
-        });
-    }
-});
-
-// 카테고리별 게시물 개수 조회 API
-router.get("/category-counts", async (req, res) => {
-    try {
-        const categoryCounts = await File.findAll({
-            attributes: [
-                "category_name",
-                [sequelize.fn("COUNT", sequelize.col("category_name")), "count"]
-            ],
-            group: ["category_name"],
-            raw: true
-        });
-
-        res.json(categoryCounts);
-    } catch (error) {
-        console.error("🚨 카테고리별 게시물 개수 조회 오류:", error);
-        res.status(500).json({ error: "서버 오류" });
-    }
-});
-
-
 // ✅ 특정 파일(ID) 가져오기 API
 router.get("/id/:id", async (req, res) => {
     try {
@@ -381,41 +428,6 @@ router.delete("/:id", async (req, res) => {
     } catch (error) {
         console.error("파일 삭제 오류:", error);
         res.status(500).json({ success: false, error: "서버 오류로 삭제에 실패했습니다." });
-    }
-});
-
-// ✅ 특정 카테고리의 서브카테고리별 게시물 수 조회 API (NEW!)
-router.get("/subcategory-counts", async (req, res) => {
-    try {
-        const { category_name } = req.query;
-
-        if (!category_name) {
-            return res.status(400).json({ error: "❌ category_name 파라미터가 필요합니다." });
-        }
-
-        // 1. category_name으로 category_id 찾기
-        const category = await Category.findOne({ where: { name: category_name } });
-        if (!category) {
-            return res.status(404).json({ error: "❌ 해당 카테고리를 찾을 수 없습니다." });
-        }
-
-        // 2. 해당 category_id로 서브카테고리별 게시물 수 집계
-        const subcategoryCounts = await File.findAll({
-            where: { category_id: category.id },
-            attributes: [
-                "subcategory_name",
-                "subcategory_id",
-                [sequelize.fn("COUNT", sequelize.col("subcategory_name")), "count"]
-            ],
-            group: ["subcategory_name", "subcategory_id"], // ✅ group에 추가
-            order: [["subcategory_id", "ASC"]], // ✅ 추가: subcategory_id 오름차순 정렬
-            raw: true
-        });
-
-        res.json(subcategoryCounts);
-    } catch (error) {
-        console.error("🚨 서브카테고리 게시물 수 조회 오류:", error);
-        res.status(500).json({ error: "서버 오류 발생" });
     }
 });
 
