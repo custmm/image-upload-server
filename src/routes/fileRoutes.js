@@ -209,7 +209,7 @@ router.get("/file", async (req, res) => {
         // ✅ 2. subcategory name → id (선택)
         let subcategoryData = null;
 
-        if (subcategory) {
+        if (subcategory && subcategory !== "general") {
             subcategoryData = await Subcategory.findOne({
                 where: {
                     name: subcategory,
@@ -218,7 +218,9 @@ router.get("/file", async (req, res) => {
             });
 
             if (!subcategoryData) {
-                return res.status(404).json({ error: "❌ 해당 서브카테고리를 찾을 수 없습니다." });
+                return res.status(404).json({
+                    error: "❌ 해당 서브카테고리를 찾을 수 없습니다."
+                });
             }
         }
 
@@ -228,7 +230,7 @@ router.get("/file", async (req, res) => {
             category_id: categoryData.id
         };
 
-        if (subcategoryData) {
+        if (subcategoryData?.id) {
             whereClause.subcategory_id = subcategoryData.id;
         }
 
@@ -254,7 +256,7 @@ router.get("/file", async (req, res) => {
                 error: "❌ 해당 파일을 찾을 수 없습니다."
             });
         }
-        
+
         // ✅ 프론트에서 쓰기 좋게 가공
         res.json({
             ...foundFile.toJSON(),
@@ -262,12 +264,12 @@ router.get("/file", async (req, res) => {
             subcategory_name: foundFile.subcategory?.name || null
         });
 
-        console.log("✅ 파일 조회 성공:", foundFile.file_name);
+        console.log("✅ 파일 조회 성공:", foundFile?.file_name);
 
     } catch (error) {
         console.error("🚨 파일 조회 중 서버 오류 발생:", error);
-        res.status(500).json({ 
-            error: "🚨 파일 조회 중 서버 오류 발생" 
+        res.status(500).json({
+            error: "🚨 파일 조회 중 서버 오류 발생"
         });
     }
 });
