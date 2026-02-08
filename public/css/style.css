@@ -334,7 +334,6 @@ body.login-page .login-row {
 
 body.login-page .login-row input[type="password"] {
     flex: 1;
-    min-width: 0;
     min-width: 45%;
     border-radius: 5px;
     background: #fff;
