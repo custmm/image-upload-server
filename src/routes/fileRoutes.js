@@ -184,52 +184,45 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 // ✅ 특정 파일을 카테고리 + 서브카테고리 + 파일명으로 조회하는 API
 router.get("/file", async (req, res) => {
     try {
-        let { category_id, subcategory_id, file } = req.query;
+        let { category, subcategory, file } = req.query;
 
         console.log(
-            `📌 요청받은 파일: category=${category_id}, subcategory=${subcategory_id}, file=${file}`
+            `📌 요청받은 파일: category=${category}, subcategory=${subcategory}, file=${file}`
         );
 
-        if (!category_id || !file) {
+
+        if (!category || !file) {
             return res.status(400).json({
                 error: "❌ 잘못된 요청: category와 file 값이 필요합니다."
             });
         }
 
-        // ✅ 숫자로 변환
-        category_id = parseInt(category_id, 10);
-        if (subcategory_id) {
-            subcategory_id = parseInt(subcategory_id, 10);
-        }
+        // ✅ 1. category name → id
+        const categoryData = await Category.findOne({
+            where: { name: category }
+        });
 
-        if (isNaN(category_id)) {
-            return res.status(400).json({ error: "❌ category_id는 숫자여야 합니다." });
-        }
-
-        // ✅ category_name을 DB에서 조회
-        const categoryData = await Category.findByPk(category_id);
         if (!categoryData) {
             return res.status(404).json({ error: "❌ 해당 카테고리를 찾을 수 없습니다." });
         }
 
-        // ✅ 서브카테고리 찾기 (없으면 null)
+        // ✅ 2. subcategory name → id (선택)
         let subcategoryData = null;
-        if (subcategory_id && !isNaN(subcategory_id)) {
+
+        if (subcategory) {
             subcategoryData = await Subcategory.findOne({
                 where: {
-                    id: subcategory_id,
+                    name: subcategory,
                     category_id: categoryData.id
                 }
             });
 
             if (!subcategoryData) {
-                return res.status(404).json({
-                    error: "❌ 해당 서브카테고리를 찾을 수 없습니다."
-                });
+                return res.status(404).json({ error: "❌ 해당 서브카테고리를 찾을 수 없습니다." });
             }
         }
 
-        // ✅ 파일 찾기
+        // ✅ 3. File 조회 (id 기준)
         const whereClause = {
             file_name: file,
             category_id: categoryData.id
@@ -239,6 +232,7 @@ router.get("/file", async (req, res) => {
             whereClause.subcategory_id = subcategoryData.id;
         }
 
+        // ✅ 4. include는 그대로 사용
         const foundFile = await File.findOne({
             where: whereClause,
             include: [
@@ -256,15 +250,25 @@ router.get("/file", async (req, res) => {
         });
 
         if (!foundFile) {
-            return res.status(404).json({ error: "❌ 해당 파일을 찾을 수 없습니다." });
+            return res.status(404).json({
+                error: "❌ 해당 파일을 찾을 수 없습니다."
+            });
         }
-
-        console.log("✅ 파일 조회 성공:", foundFile.id);
-        res.json(foundFile);
         
+        // ✅ 프론트에서 쓰기 좋게 가공
+        res.json({
+            ...foundFile.toJSON(),
+            category_name: foundFile.category?.name || null,
+            subcategory_name: foundFile.subcategory?.name || null
+        });
+
+        console.log("✅ 파일 조회 성공:", foundFile.file_name);
+
     } catch (error) {
         console.error("🚨 파일 조회 중 서버 오류 발생:", error);
-        res.status(500).json({ error: "🚨 파일 조회 중 서버 오류 발생" });
+        res.status(500).json({ 
+            error: "🚨 파일 조회 중 서버 오류 발생" 
+        });
     }
 });
 
