@@ -312,6 +312,7 @@ body.login-page .login-container {
     background-color: aliceblue;
     width: 75%;
     margin: 65px auto;
+    padding:20px;
     box-sizing: border-box;
     transition: width 0.5s ease-in-out;
 }
@@ -320,7 +321,7 @@ body.login-page #loginButton {
     background-color: #000000;
     color: white;
     padding: 7px 15px;
-    margin-left: 10px;
+    margin: 15px auto;
     transition: transform 0.3s ease-in-out;
     border-radius: 5px;
 }
