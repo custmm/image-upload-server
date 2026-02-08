@@ -329,8 +329,7 @@ body.login-page #loginButton {
 body.login-page .login-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;
-    margin: 15px 35px 0 10px;
+    margin: 20px;
 }
 
 body.login-page .login-row input[type="password"] {
@@ -349,7 +348,6 @@ body.login-page .login-row button {
 body.login-page .floating-input {
     position: relative;
     width: 100%;
-    margin-top: 13px;
 }
 
 body.login-page .floating-input input {
