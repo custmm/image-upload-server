@@ -179,17 +179,17 @@ router.get("/category-counts", async (req, res) => {
     try {
         const categoryCounts = await File.findAll({
             attributes: [
-                "category_id",
-                [sequelize.fn("COUNT", sequelize.col("id")), "count"]
+                [sequelize.col("category.name"), "category_name"],
+                [sequelize.fn("COUNT", sequelize.col("File.id")), "count"]
             ],
             include: [
                 {
                     model: Category,
                     as: "category",
-                    attributes: ["name"]
+                    attributes: []
                 }
             ],
-            group: ["category_id", "category.id"],
+            group: ["category.id"],
             raw: true
         });
 
@@ -221,18 +221,18 @@ router.get("/subcategory-counts", async (req, res) => {
         const subcategoryCounts = await File.findAll({
             where: { category_id: category.id },
             attributes: [
-                "subcategory_id",
-                [sequelize.fn("COUNT", sequelize.col("id")), "count"]
+                [sequelize.col("subcategory.name"), "subcategory_name"],
+                [sequelize.fn("COUNT", sequelize.col("File.id")), "count"]
             ],
             include: [
                 {
                     model: Subcategory,
                     as: "subcategory",
-                    attributes: ["name"]
+                    attributes: []
                 }
             ],
-            group: ["subcategory_id", "subcategory.id"], // ✅ group에 추가
-            order: [["subcategory_id", "ASC"]], // ✅ 추가: subcategory_id 오름차순 정렬
+            group: ["subcategory.id"], // ✅ group에 추가
+            order: [[sequelize.col("subcategory.id"), "ASC"]], // ✅ 추가: subcategory_id 오름차순 정렬
             raw: true
         });
 
