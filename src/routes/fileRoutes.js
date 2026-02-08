@@ -185,23 +185,36 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 router.get("/file", async (req, res) => {
     try {
         let { category_id, subcategory_id, file } = req.query;
-        console.log(`📌 요청받은 파일: category=${category}, subcategory=${subcategory}, file=${file}`);
 
-        if (!category || !file) {
-            return res.status(400).json({ error: "❌ 잘못된 요청: category와 file 값이 필요합니다." });
+        console.log(
+            `📌 요청받은 파일: category=${category_id}, subcategory=${subcategory_id}, file=${file}`
+        );
+
+        if (!category_id || !file) {
+            return res.status(400).json({
+                error: "❌ 잘못된 요청: category와 file 값이 필요합니다."
+            });
+        }
+
+        // ✅ 숫자로 변환
+        category_id = parseInt(category_id, 10);
+        if (subcategory_id) {
+            subcategory_id = parseInt(subcategory_id, 10);
+        }
+
+        if (isNaN(category_id)) {
+            return res.status(400).json({ error: "❌ category_id는 숫자여야 합니다." });
         }
 
         // ✅ category_name을 DB에서 조회
         const categoryData = await Category.findByPk(category_id);
-
         if (!categoryData) {
-            console.warn(`⚠ 카테고리를 찾을 수 없습니다: ${category}`);
             return res.status(404).json({ error: "❌ 해당 카테고리를 찾을 수 없습니다." });
         }
 
         // ✅ 서브카테고리 찾기 (없으면 null)
         let subcategoryData = null;
-        if (subcategory_id) {
+        if (subcategory_id && !isNaN(subcategory_id)) {
             subcategoryData = await Subcategory.findOne({
                 where: {
                     id: subcategory_id,
@@ -210,8 +223,9 @@ router.get("/file", async (req, res) => {
             });
 
             if (!subcategoryData) {
-                console.warn(`⚠ 서브카테고리를 찾을 수 없습니다: ${subcategory}`);
-                return res.status(404).json({ error: "❌ 해당 서브카테고리를 찾을 수 없습니다." });
+                return res.status(404).json({
+                    error: "❌ 해당 서브카테고리를 찾을 수 없습니다."
+                });
             }
         }
 
@@ -220,7 +234,7 @@ router.get("/file", async (req, res) => {
             file_name: file,
             category_id: categoryData.id
         };
-        
+
         if (subcategoryData) {
             whereClause.subcategory_id = subcategoryData.id;
         }
@@ -242,13 +256,12 @@ router.get("/file", async (req, res) => {
         });
 
         if (!foundFile) {
-            console.error("❌ 해당 파일을 찾을 수 없습니다.");
             return res.status(404).json({ error: "❌ 해당 파일을 찾을 수 없습니다." });
         }
 
+        console.log("✅ 파일 조회 성공:", foundFile.id);
         res.json(foundFile);
-        console.log("✅ 파일 조회 성공:", foundFile);
-
+        
     } catch (error) {
         console.error("🚨 파일 조회 중 서버 오류 발생:", error);
         res.status(500).json({ error: "🚨 파일 조회 중 서버 오류 발생" });

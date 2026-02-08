@@ -409,6 +409,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         "deforme": "디폼블럭",
         "brickfigure": "브릭피규어"
     };
+    
     /** ✅ 3️⃣ 카테고리 & 서브카테고리 동적 불러오기 */
     async function loadCategories() {
         try {
