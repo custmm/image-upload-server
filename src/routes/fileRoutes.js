@@ -1,7 +1,7 @@
 import express from "express";
 import { File, Category, Subcategory, sequelize } from "../models/index.js";
 import { upload, imagekit } from "../upload/multerConfig.js";  // ✅ `multerConfig.js` 가져오기
-import path, {join} from "path";
+import path, { join } from "path";
 import fs from "fs/promises";
 import * as fsSync from "fs";  // ← 추가
 import sanitizeHtml from "sanitize-html"; // 🔥 sanitize-html 라이브러리 추가
@@ -17,11 +17,11 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     try {
         // offset과 limit 파라미터 (없으면 기본값 사용)
-        let { 
-            category_id, 
-            subcategory_id, 
-            offset = 0, 
-            limit = 24 
+        let {
+            category_id,
+            subcategory_id,
+            offset = 0,
+            limit = 24
         } = req.query;
         offset = parseInt(offset, 10);
         limit = parseInt(limit, 10);
@@ -58,15 +58,15 @@ router.get("/", async (req, res) => {
         const files = await File.findAll({
             where: whereClause,
             include: [
-                { 
-                    model: Category, 
-                    as:"category", 
-                    attributes: ["name"] 
+                {
+                    model: Category,
+                    as: "category",
+                    attributes: ["name"]
                 },
-                { 
-                    model: Subcategory, 
-                    as:"subcategory", 
-                    attributes: ["name"] 
+                {
+                    model: Subcategory,
+                    as: "subcategory",
+                    attributes: ["name"]
                 }
             ],
             offset,
@@ -89,13 +89,13 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         console.info("📌 요청 바디:", req.body);
         console.info("📌 요청 파일:", req.file);
 
-        let { 
-            category_id, 
-            subcategory_id, 
-            category_name, 
+        let {
+            category_id,
+            subcategory_id,
+            category_name,
             subcategory_name,
-            title, 
-            description 
+            title,
+            description
         } = req.body;
 
         if (!category_id || isNaN(category_id)) {
@@ -119,9 +119,9 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         if (subcategory_id && !isNaN(subcategory_id)) {
             subcategory_id = parseInt(subcategory_id, 10);
             const subcategory = await Subcategory.findOne({
-                where: { 
-                    id: subcategory_id, 
-                    category_id: category.id 
+                where: {
+                    id: subcategory_id,
+                    category_id: category.id
                 }
             });
 
@@ -145,8 +145,8 @@ router.post("/upload", upload.single("file"), async (req, res) => {
                 "div": ["style"],
                 "p": ["style"]
             },
-            selfClosing: ["br"],  
-            textFilter: (text) => text.replace(/&nbsp;/g, " ")  
+            selfClosing: ["br"],
+            textFilter: (text) => text.replace(/&nbsp;/g, " ")
         }).replace(/\n/g, "<br>").replace(/&amp;/g, "&");  // ✅ `<br>` 제거 X
 
         // 🔥 ImageKit 업로드
@@ -184,7 +184,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 // ✅ 특정 파일을 카테고리 + 서브카테고리 + 파일명으로 조회하는 API
 router.get("/file", async (req, res) => {
     try {
-        let { category, subcategory, file } = req.query;
+        let { category_id, subcategory_id, file } = req.query;
         console.log(`📌 요청받은 파일: category=${category}, subcategory=${subcategory}, file=${file}`);
 
         if (!category || !file) {
@@ -192,11 +192,7 @@ router.get("/file", async (req, res) => {
         }
 
         // ✅ category_name을 DB에서 조회
-        const categoryData = await Category.findOne({
-            where: { 
-                name: category 
-            }
-        });
+        const categoryData = await Category.findByPk(category_id);
 
         if (!categoryData) {
             console.warn(`⚠ 카테고리를 찾을 수 없습니다: ${category}`);
@@ -205,11 +201,11 @@ router.get("/file", async (req, res) => {
 
         // ✅ 서브카테고리 찾기 (없으면 null)
         let subcategoryData = null;
-        if (subcategory && subcategory !== "general") {
+        if (subcategory_id) {
             subcategoryData = await Subcategory.findOne({
-                where: { 
-                    name: subcategory, 
-                    category_id: categoryData.id 
+                where: {
+                    id: subcategory_id,
+                    category_id: categoryData.id
                 }
             });
 
@@ -224,20 +220,23 @@ router.get("/file", async (req, res) => {
             file_name: file,
             category_id: categoryData.id
         };
-        if (subcategoryData) whereClause.subcategory_id = subcategoryData.id;
+        
+        if (subcategoryData) {
+            whereClause.subcategory_id = subcategoryData.id;
+        }
 
         const foundFile = await File.findOne({
             where: whereClause,
             include: [
-                { 
-                    model: Category, 
-                    as: "category", 
-                    attributes: ["name"] 
+                {
+                    model: Category,
+                    as: "category",
+                    attributes: ["name"]
                 },
-                { 
-                    model: Subcategory, 
-                    as: "subcategory", 
-                    attributes: ["name"] 
+                {
+                    model: Subcategory,
+                    as: "subcategory",
+                    attributes: ["name"]
                 }
             ]
         });
@@ -261,7 +260,7 @@ router.get("/category-counts", async (req, res) => {
     try {
         const categoryCounts = await File.findAll({
             attributes: [
-                "category_name", 
+                "category_name",
                 [sequelize.fn("COUNT", sequelize.col("category_name")), "count"]
             ],
             group: ["category_name"],
@@ -340,33 +339,33 @@ router.delete("/:id", async (req, res) => {
     try {
         const fileRecord = await File.findByPk(id);
         if (!fileRecord) {
-          return res.status(404).json({ success: false, error: "파일을 찾을 수 없습니다." });
+            return res.status(404).json({ success: false, error: "파일을 찾을 수 없습니다." });
         }
 
-    // ✅ imagekit_file_id가 있을 때만 삭제
-    if (fileRecord.imagekit_file_id) {
-      try {
-        await imagekit.deleteFile(fileRecord.imagekit_file_id);
-        console.log("✅ ImageKit 삭제:", fileRecord.imagekit_file_id);
-      } catch (err) {
-        console.error("❌ ImageKit 삭제 실패:", err);
-      }
-    } else {
-      console.warn("⚠ imagekit_file_id 없음 → ImageKit 삭제 스킵");
-    }
+        // ✅ imagekit_file_id가 있을 때만 삭제
+        if (fileRecord.imagekit_file_id) {
+            try {
+                await imagekit.deleteFile(fileRecord.imagekit_file_id);
+                console.log("✅ ImageKit 삭제:", fileRecord.imagekit_file_id);
+            } catch (err) {
+                console.error("❌ ImageKit 삭제 실패:", err);
+            }
+        } else {
+            console.warn("⚠ imagekit_file_id 없음 → ImageKit 삭제 스킵");
+        }
 
         // 4) DB 레코드 삭제
         await fileRecord.destroy();
 
         res.json({ success: true, message: "파일이 성공적으로 삭제되었습니다." });
 
-        } catch (error) {
+    } catch (error) {
         console.error("파일 삭제 오류:", error);
         res.status(500).json({ success: false, error: "서버 오류로 삭제에 실패했습니다." });
-        }
-  });
+    }
+});
 
-  // ✅ 특정 카테고리의 서브카테고리별 게시물 수 조회 API (NEW!)
+// ✅ 특정 카테고리의 서브카테고리별 게시물 수 조회 API (NEW!)
 router.get("/subcategory-counts", async (req, res) => {
     try {
         const { category_name } = req.query;
