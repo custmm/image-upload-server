@@ -312,12 +312,12 @@ body.login-page .login-container {
     background-color: aliceblue;
     width: 75%;
     margin: 65px auto;
-    padding:5px 10px;
+    padding: 5px 10px;
     box-sizing: border-box;
     transition: width 0.5s ease-in-out;
 }
 
-body.login-page #loginForm{
+body.login-page #loginForm {
     margin: 0 auto;
 }
 
@@ -1595,9 +1595,11 @@ body.click-page .explan-container {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-body.click-page .plus_container{
-    padding:15px;
+
+body.click-page .plus_container {
+    padding: 15px;
 }
+
 body.click-page .explan-detail-container {
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -2486,12 +2488,15 @@ body.preview-page .gallery-image {
     object-fit: cover;
     border: 3px solid #00000000;
     border-radius: 8px;
+    filter: grayscale(80%) brightness(0.9);
     transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
 }
 
 /* ✅ 이미지 호버 효과 */
 body.preview-page .gallery-image:hover {
     cursor: pointer;
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.03);
     border: 3px solid #0066cc;
 }
 
