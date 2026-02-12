@@ -2213,7 +2213,7 @@ body.preview-page .tab-btn.active {
     border: none;
 }
 
-body.preview-page .tab-btn i {
+body.preview-page .tab-btn svg {
     opacity: 0;
     width: 0;
     overflow: hidden;
@@ -2223,7 +2223,7 @@ body.preview-page .tab-btn i {
         transform 0.3s ease;
 }
 
-body.preview-page .tab-btn.active i {
+body.preview-page .tab-btn.active svg {
     opacity: 1;
     width: 18px;
     transform: scale(1.05);
