@@ -2213,6 +2213,16 @@ body.preview-page .tab-btn.active {
     border: none;
 }
 
+body.preview-page .tab-btn i {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: 
+        opacity 0.3s ease,
+        width 0.3s ease,
+        transform 0.3s ease;
+}
+
 body.preview-page .tab-btn.active i {
     transform: scale(1.1);
     transition: transform 0.3s ease;
