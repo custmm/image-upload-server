@@ -2224,8 +2224,9 @@ body.preview-page .tab-btn i {
 }
 
 body.preview-page .tab-btn.active i {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
+    opacity: 1;
+    width: 18px;
+    transform: scale(1.05);
 }
 
 /* 마지막 탭의 구분선 제거 */
