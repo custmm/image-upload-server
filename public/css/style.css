@@ -2172,7 +2172,6 @@ body.preview-page .tab-design {
 }
 
 body.preview-page .tab-btn {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2189,10 +2188,11 @@ body.preview-page .tab-btn {
     cursor: pointer;
 
     border: none;
-    border-radius: none;
     border-right: 1px solid #ddd;
     border-top-left-radius: 20px;
     border-top-right-radius: 25px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 
     transition:
         flex 0.35s ease,
@@ -2210,7 +2210,7 @@ body.preview-page .tab-btn.active {
     background-color: #c2f7f1;
     color: #ffffff;
     font-weight: bold;
-    border-radius: none;
+    border: none;
 }
 
 body.preview-page .tab-btn.active i {
