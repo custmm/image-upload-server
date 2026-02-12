@@ -101,6 +101,7 @@ body.preview-page .back-button{
 body.dashboard-page .custom-button,
 body.dashboard-page .custom-chart-button {
     color: black;
+    background: none;
 }
 
 
