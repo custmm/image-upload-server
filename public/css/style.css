@@ -2189,6 +2189,7 @@ body.preview-page .tab-btn {
     cursor: pointer;
 
     border: none;
+    border-radius: none;
     border-right: 1px solid #ddd;
     border-top-left-radius: 20px;
     border-top-right-radius: 25px;
@@ -2209,6 +2210,7 @@ body.preview-page .tab-btn.active {
     background-color: #c2f7f1;
     color: #ffffff;
     font-weight: bold;
+    border-radius: none;
 }
 
 body.preview-page .tab-btn.active i {
