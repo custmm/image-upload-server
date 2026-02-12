@@ -84,12 +84,13 @@ button {
     border: none;
     transition: background-color 0.2s ease;
 }
+
 body.login-page .back-button,
 body.dashboard-page .back-button,
 body.mode-page .back-button,
 body.upload-page .back-button,
 body.click-page .back-button,
-body.preview-page .back-button{
+body.preview-page .back-button {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -220,20 +221,23 @@ body.preview-popup-page {
 /* ✅ 로딩 화면 스타일 */
 body.post-page .loading-indicator,
 body.preview-page .loading-indicator {
-    position: fixed;    
+    position: fixed;
     align-items: center;
     text-align: center;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     top: 0;
-    left: 0; 
-    z-index: 9999;   
+    left: 0;
+    z-index: 9999;
 }
 
 /* ✅ 로딩 이미지 크기 */
 body.post-page .loading-image,
 body.preview-page .loading-image {
+    position: fixed;
+    top: 50%;
+    left: 50%;
     width: 50px;
     height: 50px;
     margin-bottom: 10px;
@@ -243,6 +247,9 @@ body.preview-page .loading-image {
 /* ✅ 로딩 텍스트 스타일 */
 body.post-page .loading-text,
 body.preview-page .loading-text {
+    position: fixed;
+    top: 58%;
+    left: 50%;
     font-size: 16px;
     color: white;
 }
@@ -472,8 +479,7 @@ body.upload-page div .cat_name {
 
 body.upload-page h1,
 body.upload-page h2,
-body.upload-page h3
- {
+body.upload-page h3 {
     text-align: center;
     margin: 20px 0;
 }
