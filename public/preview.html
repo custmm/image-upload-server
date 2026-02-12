@@ -128,6 +128,7 @@
     <div class="message-container">
       <a href="click.html" id="welcomeMessage">어서오세요</a>
     </div>
+
     <div class="opacityControl" id="opacityControl">
       <label for="opacitySlider"></label>
       <input type="range" id="opacitySlider" min="0.2" max="1" step="0.025" value="0.825">
@@ -142,7 +143,37 @@
   </div>
 
   <!-- 메인 카테고리 탭 (큰 카테고리) -->
-  <div class="tab-design"></div>
+  <div class="tab-design">
+    <div class="tab-container">
+
+      <button class="tab-btn active" data-category="퍼즐">
+        퍼즐
+        <i data-lucide="puzzle" class="tab-icon"></i>
+      </button>
+
+      <button class="tab-btn" data-category="보석비즈">
+        보석비즈
+        <i data-lucide="gem" class="tab-icon"></i>
+      </button>
+
+      <button class="tab-btn" data-category="입체퍼즐">
+        입체퍼즐
+        <i data-lucide="box" class="tab-icon"></i>
+      </button>
+
+      <button class="tab-btn" data-category="디폼블럭">
+        디폼블럭
+        <i data-lucide="grid-3x3" class="tab-icon"></i>
+      </button>
+
+      <button class="tab-btn" data-category="브릭피규어">
+        브릭피규어
+        <i data-lucide="toy-brick" class="tab-icon"></i>
+      </button>
+
+    </div>
+  </div>
+  
   <div class="preview-images" id="previewImagesContainer"></div>
 
   <!-- 서브 카테고리 탭 (작은 카테고리) -->
@@ -163,24 +194,6 @@
       </div>
     </div>
     <div id="pagination-container"></div>
-  </div>
-
-
-  <footer class="page-footer">
-    <p>같은 유형의 물체 설명이 반복될 수 있습니다.<br>© 2025 휴욱슈욱 All rights reserved.</p>
-    <p>
-      <a href="./preview_popup.html" id="previewLink">소개</a> |
-      <a href="https://github.com/custmm/image-upload-server" target="_blank">GitHub</a> |
-      <a href="mailto:xx00bki924@gmail.com?subject=피드백 문의합니다.">Contact</a>
-    </p>
-  </footer>
-
-  <div id="previewOverlay" class="preview-overlay" style="display:none;">
-    <div class="preview-popup">
-      <button class="preview-close" onclick="closePreviewPopup()">✖</button>
-
-      <iframe id="previewFrame" src="./preview_popup.html" loading="lazy"></iframe>
-    </div>
   </div>
 
   <div id="sidebar" class="sidebar">
@@ -216,11 +229,29 @@
     <div class="preview-popup">
       <button class="preview-close" onclick="closePreviewPopup()">✖</button>
 
+      <iframe id="previewFrame" src="./preview_popup.html" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <div id="previewOverlay" class="preview-overlay" style="display:none;">
+    <div class="preview-popup">
+      <button class="preview-close" onclick="closePreviewPopup()">✖</button>
+
       <iframe id="previewFrame" src="./ai_icon.html" loading="lazy"></iframe>
     </div>
   </div>
 
+  <footer class="page-footer">
+    <p>같은 유형의 물체 설명이 반복될 수 있습니다.<br>© 2025 휴욱슈욱 All rights reserved.</p>
+    <p>
+      <a href="./preview_popup.html" id="previewLink">소개</a> |
+      <a href="https://github.com/custmm/image-upload-server" target="_blank">GitHub</a> |
+      <a href="mailto:xx00bki924@gmail.com?subject=피드백 문의합니다.">Contact</a>
+    </p>
+  </footer>
+
   <script src="js/preview.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </body>
 
 </html>

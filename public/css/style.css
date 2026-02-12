@@ -154,7 +154,6 @@ body.index-page .popup-confirm-button {
     border: none;
 }
 
-
 /* 버튼을 감싸는 컨테이너 */
 body.index-page .button_container {
     display: flex;
@@ -261,14 +260,6 @@ body.index-page .door.right {
 
 /* ====== 로그인 페이지(admin-login.html ====== */
 
-body.login-page .back-button {
-    transition: background-color 0.3s;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-
 body.login-page h1 {
     margin-bottom: 10px;
     font-size: 25px;
@@ -286,7 +277,6 @@ body.login-page .popup-message {
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    font-size: 18px;
     opacity: 0;
     transition: all 0.3s ease-in-out;
     font-size: 15px;
@@ -304,7 +294,6 @@ body.login-page .popup-button {
     border-radius: 5px;
     cursor: pointer;
 }
-
 
 body.login-page .login-container {
     border: 1px solid #ccc;
@@ -376,9 +365,6 @@ body.login-page .floating-input label {
     transition: 0.2s ease;
 }
 
-/* 포커스되거나 값이 있으면 위로 */
-
-
 body.login-page input[type="password"] {
     flex: 1;
     /* 입력창이 버튼보다 넓게 */
@@ -430,23 +416,23 @@ body.login-page .door.right {
 
 /* 관리자 버튼을 원형으로 스타일링 (3D 효과 적용) */
 body.login-page .admin-styled-button {
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     position: relative;
+    font-size: 16px;
+    font-weight: bold;
     width: 120px;
     height: 120px;
     background: radial-gradient(circle at 30% 30%, #ff4444, #d40000 70%);
     border-radius: 50%;
-    font-size: 16px;
-    font-weight: bold;
     color: white;
     border: none;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0px 9px 0px #7a0000, 0px 15px 20px rgba(0, 0, 0, 0.5);
     margin: 20px auto;
-    display: block;
+
 }
 
 /* 호버 효과: 내부 그림자로 오목하게 표현 */
@@ -482,8 +468,7 @@ body.dashboard-page .left-section {
 
 /* 🔥 사이드바 열기 버튼 */
 body.dashboard-page .sidebar-toggle {
-    position: fixed;
-    /* ✅ 화면에 고정 */
+    position: relative;
     background-color: #00000000;
     color: black;
     padding: 15px 19px;
@@ -491,7 +476,6 @@ body.dashboard-page .sidebar-toggle {
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.5s, transform 0.5s ease-in-out;
-    position: relative;
     /* ✅ 다른 요소에 가려지지 않도록 변경 */
     z-index: 1000;
     /* ✅ 다른 요소 위에 배치 */
@@ -511,9 +495,7 @@ body.dashboard-page .sidebar {
     background: rgba(0, 0, 0, 0.8);
     /* 🔥 어두운 투명 배경 */
     color: white;
-    padding-right: 70px;
-    padding-left: 30px;
-    padding-top: 40px;
+    padding: 40px 70px 0 30px;
     transition: left 0.5s ease-in-out;
     /* 🔥 부드러운 애니메이션 */
 }
@@ -525,18 +507,15 @@ body.dashboard-page .sidebar.open {
 
 /* 🔥 닫기 버튼 */
 body.dashboard-page .close-sidebar {
+    display: block;
     position: absolute;
-    /* ✅ 버튼을 절대 위치로 변경 */
-    top: 50px;
-    /* 🔥 상단 여백 조정 */
-    right: 15px;
-    /* 🔥 오른쪽 정렬 */
-    background: none;
-    border: none;
     color: white;
     font-size: 20px;
+    top: 50px;
+    right: 15px;
+    background: none;
+    border: none;
     cursor: pointer;
-    display: block;
     margin-bottom: 20px;
 }
 
@@ -599,14 +578,9 @@ body.dashboard-page .adminbar-container h1 {
 body.dashboard-page .back-button {
     background: rgba(255, 255, 255, 0.2);
     color: black;
-    padding: 10px 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    position: absolute;
-    top: 10px;
-    left: 10px;
 }
 
 body.dashboard-page .logout-button {
@@ -650,8 +624,7 @@ body.dashboard-page .edit-modal-content {
 }
 
 body.dashboard-page .editor-buttons {
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin: 0 10px;
 }
 
 body.dashboard-page .editor-buttons button {
@@ -964,7 +937,6 @@ body.dashboard-page .post-item {
 /* 🔥 텍스트 모드 - 이미지 */
 body.dashboard-page .post-item img {
     width: 80px;
-    /* ✅ 왼쪽 이미지 크기 */
     height: 80px;
     border-radius: 5px;
 }
@@ -979,26 +951,22 @@ body.dashboard-page .post-item .file-name {
 
 body.dashboard-page .post-chart-container {
     display: flex;
-    flex-direction: column;
-    /* ✅ 모바일 대응 위해 세로 배치 */
-    justify-content: center;
-    /* ✅ 내부 요소 가로 중앙 정렬 */
-    align-items: center;
-    /* ✅ 내부 요소 세로 중앙 정렬 */
-    text-align: center;
-    /* ✅ 텍스트 중앙 정렬 */
-    position: relative;
     flex-wrap: wrap;
     width: 100%;
-    max-width: 100%;
-    height: auto;
     padding: 10px;
+    margin-bottom: 15px;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: auto;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #ffffff;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
+
     overflow-x: hidden;
     transition: all 0.3s ease-in-out;
     /* ✅ 크기 변화가 부드럽게 적용 */
@@ -1076,6 +1044,14 @@ body.dashboard-page .sorting-wrapper {
     /* 컨테이너 간격 */
 }
 
+body.dashboard-page .custom-button {
+    border: none;
+}
+
+body.dashboard-page .custom-chart-button {
+    border: 1px solid #ccc;
+}
+
 body.dashboard-page .sorting-container {
     display: flex;
     justify-content: center;
@@ -1103,51 +1079,22 @@ body.dashboard-page #clearCanvas {
 body.dashboard-page .section-header {
     display: flex;
     align-items: center;
-    /* ✅ 세로 중앙 정렬 */
     justify-content: space-between;
-    /* ✅ 좌우 정렬 */
     width: 100%;
-    /* ✅ 전체 너비 확장 */
 }
 
 body.dashboard-page .change-button-group {
     display: flex;
     flex-direction: row;
-    /* ✅ 가로 정렬 */
     justify-content: center;
-    /* ✅ 가운데 정렬 (또는 space-between 등도 가능) */
     align-items: center;
-    /* ✅ 세로 중앙 정렬 */
     gap: 10px;
-    /* ✅ 버튼 간 간격 */
 }
 
 /* 🔥 h2를 가운데 정렬하기 위해 flex-grow 사용 */
 body.dashboard-page .section-title {
     flex-grow: 1;
-    /* ✅ h2가 가능한 공간을 모두 차지하도록 설정 */
     text-align: center;
-    /* ✅ 텍스트 중앙 정렬 */
-}
-
-body.dashboard-page .custom-button {
-    background: #00000000;
-    color: black;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-body.dashboard-page .custom-chart-button {
-    background: #00000000;
-    color: black;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 body.dashboard-page .section-container {
@@ -1278,14 +1225,6 @@ body.dashboard-page .chart-legend-right .chartjs-legend {
 
 /* ====== 모드선택 페이지(mode-selection.html) ====== */
 
-/* 뒤로가기 버튼 */
-body.mode-page .back-button {
-    transition: background-color 0.3s;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
 /* 제목 스타일 */
 body.mode-page h1 {
     font-size: 36px;
@@ -1310,22 +1249,20 @@ body.mode-page .mode-selection-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 500px;
-    background-color: #ffffff;
-    border-radius: 8px;
     align-items: center;
-    gap: 30px;
     margin: 0 auto;
+    background-color: #ffffff;
+    width: 500px;
+    border-radius: 8px;
+    gap: 30px;
 }
 
 /* 버튼 그룹 스타일 */
 body.mode-page .button-group {
     display: flex;
     justify-content: center;
-    /* ✅ 가운데 정렬 */
     align-items: center;
     gap: 15px;
-    /* 버튼 간격 조절 */
     width: 90%;
     box-sizing: border-box;
 }
@@ -1335,7 +1272,6 @@ body.mode-page .logout-button {
     color: white;
     padding: 10px 15px;
     width: 150px;
-    /* 버튼 너비 일정하게 */
     height: 50px;
     transition: transform 0.3s ease-in-out;
     border-radius: 5px;
@@ -1347,16 +1283,16 @@ body.mode-page .logout-button {
 
 /* 🔹 팝업 오버레이 (배경) */
 body.mode-page .popup-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    /* 반투명 배경 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
     z-index: 1000;
 }
 
@@ -1389,30 +1325,6 @@ body.mode-page .popup-confirm {
 }
 
 /* ====== 업로드 페이지(upload.html) ====== */
-
-/* 뒤로가기 버튼 */
-body.upload-page .back-button {
-    transition: background-color 0.3s;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-
-body.upload-page h1 {
-    text-align: center;
-    margin: 20px 0;
-}
-
-body.upload-page h2 {
-    text-align: center;
-    margin: 20px 0;
-}
-
-body.upload-page h3 {
-    text-align: center;
-    margin: 20px 0;
-}
 
 body.upload-page .category_container {
     width: 90%;
@@ -1454,8 +1366,7 @@ body.upload-page .upload-container {
 }
 
 body.upload-page .upload-container input[type="file"] {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 body.upload-page .upload-button {
@@ -1554,9 +1465,7 @@ body.upload-page .editor-buttons {
     display: flex;
     justify-content: center;
     color: black;
-
     gap: 10px;
-
 }
 
 body.upload-page .editor-buttons button {
@@ -1604,14 +1513,6 @@ body.click-page .explan-detail-container {
     border: 1px solid #ccc;
     border-radius: 8px;
     margin: 18px;
-}
-
-/* 뒤로가기 버튼 */
-body.click-page .back-button {
-    transition: background-color 0.3s;
-    position: absolute;
-    top: 10px;
-    left: 10px;
 }
 
 body.click-page #exper_font {
@@ -1916,22 +1817,10 @@ body.post-page .popup-message {
 
 body.post-page .popup-button {
     margin-top: 15px;
-    padding: 10px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    color: #000;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 body.post-page .custom-button {
-    background-color: #fff;
-    color: #000;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
     transition: background-color 0.3s;
 }
 
@@ -1974,7 +1863,6 @@ body.post-page .hashtag-link {
 
 
 /* ====== 미리보기 페이지(preview.html) ====== */
-
 body.preview-page .page-footer {
     margin-top: 40px;
     padding: 20px;
@@ -2084,9 +1972,7 @@ body.preview-page .sidebar {
     background: rgba(0, 0, 0, 0.8);
     /* 🔥 어두운 투명 배경 */
     color: white;
-    padding-right: 200px;
-    padding-left: 30px;
-    padding-top: 100px;
+    padding: 100px 200px 0 30px;
     transition: left 0.5s ease-in-out;
     z-index: 100;
     /* 🔥 부드러운 애니메이션 */
@@ -2200,15 +2086,6 @@ body.preview-page .app-infor-popup-close {
     color: #666;
 }
 
-/* 뒤로가기 버튼 */
-body.preview-page .back-button {
-    transition: background-color 0.3s;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1;
-}
-
 body.preview-page .pagination-button {
     background: none;
     color: black;
@@ -2217,7 +2094,6 @@ body.preview-page .pagination-button {
 body.preview-page .pagination-button:hover {
     background: none;
     color: aqua;
-
 }
 
 body.preview-page .opacitybtn {
@@ -2239,10 +2115,8 @@ body.preview-page .function-infor {
     justify-content: center;
     position: relative;
     flex-direction: column;
-
     gap: 10px;
     margin-top: 10px;
-
 }
 
 body.preview-page .message-container {
@@ -2258,18 +2132,6 @@ body.preview-page .opacityControl {
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-/* 메인 탭 컨테이너 (큰 카테고리) */
-body.preview-page .tab-design {
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    position: relative;
-    margin: 0 auto;
-    padding-top: 20px;
-    border-radius: 8px;
-    width: 95%;
 }
 
 body.preview-page .preview-images {
@@ -2297,22 +2159,44 @@ body.preview-page .preview-images img {
     z-index: 9999;
 }
 
+/* 메인 탭 컨테이너 (큰 카테고리) */
+body.preview-page .tab-design {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-radius: 8px;
+    width: 95%;
+}
+
 body.preview-page .tab-btn {
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    color: #333;
+    background-color: #e9ecef;
+
+    gap: 6px;
     padding: 12px 0;
     font-size: 16px;
     font-weight: 500;
-    color: #333;
-    background-color: #e9ecef;
-    border: none;
-    border-radius: 0;
-    border-right: 1px solid #ddd;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+
     box-sizing: border-box;
+    cursor: pointer;
+
+    border: none;
+    border-right: 1px solid #ddd;
     border-top-left-radius: 20px;
     border-top-right-radius: 25px;
+
+    transition:
+        flex 0.35s ease,
+        background-color 0.3s,
+        color 0.3s;
 }
 
 body.preview-page .tab-btn:hover {
@@ -2321,9 +2205,15 @@ body.preview-page .tab-btn:hover {
 
 /* 활성화된 탭 */
 body.preview-page .tab-btn.active {
+    flex: 2;
     background-color: #c2f7f1;
     color: #ffffff;
     font-weight: bold;
+}
+
+body.preview-page .tab-btn.active i {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
 }
 
 /* 마지막 탭의 구분선 제거 */
@@ -2502,8 +2392,7 @@ body.preview-page .gallery-image:hover {
 
 body.preview-page #pagination-container {
     text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 /* ✅ 이미지가 있을 때 (4x5 그리드) */

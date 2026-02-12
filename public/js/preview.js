@@ -151,6 +151,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         "brickfigure": "브릭피규어"
     };
 
+    const iconMap = {
+        "퍼즐": "puzzle",
+        "보석비즈": "gem",
+        "입체퍼즐": "box",
+        "디폼블럭": "grid-3x3",
+        "브릭피규어": "toy-brick"
+    };
+
     // ✅ 로딩 화면 표시 함수
     function showLoading() {
         document.getElementById("loadingIndicator").style.display = "flex";
@@ -200,7 +208,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (opacityToggleBtn && opacityControl && opacitySlider) {
             const tabDesign = document.querySelector(".tab-design");
             const margeContainer = document.querySelector(".marge-container");
-            
+
             opacityToggleBtn.addEventListener("click", () => {
                 isVisible = !isVisible;
 
@@ -278,19 +286,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     function openAiIconPopup() {
-    const overlay = document.getElementById("previewOverlay");
-    const frame = document.getElementById("previewFrame");
+        const overlay = document.getElementById("previewOverlay");
+        const frame = document.getElementById("previewFrame");
 
-    frame.src = "ai_icon.html"; // 🔥 여기 핵심
-    overlay.style.display = "flex";
+        frame.src = "ai_icon.html"; // 🔥 여기 핵심
+        overlay.style.display = "flex";
     }
 
     function closePreviewPopup() {
-    const overlay = document.getElementById("previewOverlay");
-    const frame = document.getElementById("previewFrame");
+        const overlay = document.getElementById("previewOverlay");
+        const frame = document.getElementById("previewFrame");
 
-    frame.src = ""; // iframe 초기화 (메모리 정리)
-    overlay.style.display = "none";
+        frame.src = ""; // iframe 초기화 (메모리 정리)
+        overlay.style.display = "none";
     }
 
     // 1) 카테고리 로드
@@ -307,13 +315,30 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             clearCategoryTabs(); // ✅ 기존 카테고리 탭 삭제
 
-            categories.forEach(category => {
+            categories.forEach((category, index) => {
                 const btn = document.createElement("button");
                 btn.className = "tab-btn";
-                btn.textContent = category.name;
-                btn.onclick = () => loadCategory(category.id, btn);
+
+                if (index === 0) btn.classList.add("active");
+
+                const iconName = iconMap[category.name] || "folder";
+
+                btn.innerHTML = `
+                    ${category.name}
+                    <i data-lucide="${iconName}" class="tab-icon"></i>
+                `;
+                
+                btn.onclick = () => {
+                    document.querySelectorAll(".tab-btn")
+                        .forEach(t => t.classList.remove("active"));
+
+                    btn.classList.add("active");
+
+                    loadCategory(category.id, btn);
+                };
                 categoryTabContainer.appendChild(btn);
             });
+            lucide.createIcons(); // 🔥 아이콘 다시 렌더
 
             setTimeout(() => initializeCategorySelection(), 300);
 
