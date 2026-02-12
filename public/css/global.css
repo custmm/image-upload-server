@@ -221,14 +221,14 @@ body.preview-popup-page {
 body.post-page .loading-indicator,
 body.preview-page .loading-indicator {
     position: fixed;    
-    justify-content: center;
     align-items: center;
     text-align: center;
-    flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);top: 0;
-    left: 0;    
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0; 
+    z-index: 9999;   
 }
 
 /* ✅ 로딩 이미지 크기 */
