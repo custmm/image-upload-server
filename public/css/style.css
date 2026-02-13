@@ -923,7 +923,7 @@ body.dashboard-page .post-image:hover {
     border: 4px solid #007bff;
 }
 
-/* 🔥 텍스트 모드 내부 아이템 */
+/* 텍스트 모드 내부 아이템 */
 body.dashboard-page .post-item {
     display: flex;
     align-items: center;
@@ -934,14 +934,14 @@ body.dashboard-page .post-item {
     max-width: 100%;
 }
 
-/* 🔥 텍스트 모드 - 이미지 */
+/* 텍스트 모드(이미지) */
 body.dashboard-page .post-item img {
     width: 80px;
     height: 80px;
     border-radius: 5px;
 }
 
-/* 🔥 텍스트 모드 - 파일명 */
+/* 텍스트 모드(파일명) */
 body.dashboard-page .post-item .file-name {
     flex-grow: 1;
     text-align: center;
@@ -1007,6 +1007,7 @@ body.dashboard-page #chart-controls {
     /* 다른 요소보다 위에 표시 */
 }
 
+/* 이미지 표시기 container부분 */
 body.dashboard-page .function-container {
     width: 100%;
     border: 1px solid #ccc;
@@ -1017,31 +1018,23 @@ body.dashboard-page .function-container {
 
 body.dashboard-page .function-container img {
     width: auto;
-    /* 원하는 크기로 조정 */
     max-width: 100%;
     height: 10vw;
     justify-self: center;
     object-fit: cover;
-    /* 이미지 비율 유지하면서 크롭 */
     border-radius: 5px;
-    /* 이미지 모서리 둥글게 */
     transition: transform 0.3s ease;
-    /* 부드러운 확대 효과 */
 }
 
 body.dashboard-page .function-container img:hover {
     transform: scale(1.1);
-    /* 마우스 올리면 확대 */
 }
 
 body.dashboard-page .sorting-wrapper {
     display: flex;
     flex-direction: column;
-    /* 세로 방향으로 정렬 */
     align-items: center;
-    /* 중앙 정렬 */
     gap: 10px;
-    /* 컨테이너 간격 */
 }
 
 body.dashboard-page .custom-button {
@@ -1097,6 +1090,14 @@ body.dashboard-page .section-title {
     text-align: center;
 }
 
+body.dashboard-page #devide{
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    padding-top:110px;
+    justify-content: center;
+}
+
 body.dashboard-page .section-container {
     display: flex;
     flex-direction: column;
@@ -1108,7 +1109,7 @@ body.dashboard-page .section-container {
     box-sizing: border-box;
     overflow-x: hidden;
     padding: 0 10px;
-    margin: 110px 10% 0;
+    
     font-weight: bold;
     min-height: 450px;
     height: auto;
@@ -1116,6 +1117,13 @@ body.dashboard-page .section-container {
     z-index: 1;
     transition: transform 0.3s ease-in-out, left 0.3s ease-in-out;
 }
+
+body.dashboard-page .section-container:first-child,
+body.dashboard-page .section-container:nth-child(2){
+    margin: 0 auto;
+}
+
+
 
 /* 🔥 만약 내부 요소를 중앙 정렬하려면 추가 */
 body.dashboard-page .section-container.flex-center {
@@ -1125,15 +1133,6 @@ body.dashboard-page .section-container.flex-center {
     text-align: center;
 }
 
-/* 🔥 첫 번째 section만 margin-top 110px 유지 */
-body.dashboard-page .section-container:first-of-type {
-    margin-top: 110px;
-}
-
-/* 🔥 두 번째 이후 section부터 margin-top을 5px로 줄이기 */
-body.dashboard-page .section-container+.section-container {
-    margin-top: 5px;
-}
 
 /* 🔥 사이드바 열릴 때 section-container 이동 */
 body.dashboard-page .section-container.shifted {
@@ -1863,26 +1862,7 @@ body.post-page .hashtag-link {
 
 
 /* ====== 미리보기 페이지(preview.html) ====== */
-body.preview-page .page-footer {
-    margin-top: 40px;
-    padding: 20px;
-    color: #333;
-    text-align: center;
-    font-size: 14px;
-    border-top: 1px solid #ccc;
-}
 
-body.preview-page .page-footer a {
-    color: #007bff;
-    text-decoration: none;
-    margin: 0 10px;
-}
-
-body.preview-page .page-footer a:hover {
-    text-decoration: underline;
-}
-
-/* ✅ 하단 팝업 (showPopupMessage용) */
 body.preview-page .popup-message {
     position: fixed;
     bottom: 30px;
@@ -1901,12 +1881,10 @@ body.preview-page .menubar-container {
     display: flex;
     align-items: center;
     position: absolute;
-    /* 📌 고정 위치 */
     top: 0;
     left: 0;
     right: 0;
     width: 100vw;
-    /* 🔥 전체 너비 확장 */
     height: 110px;
 
 }
@@ -1921,11 +1899,8 @@ body.preview-page .left-section {
 /* 🔥 닫기 버튼 */
 body.preview-page .close-sidebar {
     position: absolute;
-    /* ✅ 버튼을 절대 위치로 변경 */
     top: 50px;
-    /* 🔥 상단 여백 조정 */
     right: 15px;
-    /* 🔥 오른쪽 정렬 */
     background: none;
     border: none;
     color: white;
@@ -1943,10 +1918,9 @@ body.preview-page .menu-title {
     cursor: pointer;
 }
 
-/* 🔥 사이드바 열기 버튼 */
+/* 사이드바 열기 버튼 */
 body.preview-page .sidebar-toggle {
     position: fixed;
-    /* ✅ 화면에 고정 */
     background-color: #00000000;
     top: 45px;
     padding: 15px 19px;
@@ -1955,30 +1929,25 @@ body.preview-page .sidebar-toggle {
     cursor: pointer;
     transition: background-color 0.5s, transform 0.5s ease-in-out;
     z-index: 1000;
-    /* ✅ 다른 요소 위에 배치 */
 }
 
 body.preview-page .sidebar-toggle:hover {
     border: none;
 }
 
-/* 🔥 사이드바 스타일 */
+/* 사이드바 스타일 */
 body.preview-page .sidebar {
     position: fixed;
     top: 0;
     left: -100%;
-    /* 🔥 기본적으로 숨김 */
     height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
-    /* 🔥 어두운 투명 배경 */
-    color: white;
+    background: white;
+    color: #333;
     padding: 100px 200px 0 30px;
     transition: left 0.5s ease-in-out;
     z-index: 100;
-    /* 🔥 부드러운 애니메이션 */
 }
 
-/* 🔥 사이드바 열렸을 때 */
 body.preview-page .sidebar.open {
     left: 0;
 }
@@ -1991,7 +1960,7 @@ body.preview-page .sub-menu.open {
     display: block;
 }
 
-/* 🔥 사이드바 메뉴 */
+/* 사이드바 메뉴 */
 body.preview-page .sidebar ul {
     list-style: none;
     padding: 0;
@@ -2086,20 +2055,6 @@ body.preview-page .app-infor-popup-close {
     color: #666;
 }
 
-body.preview-page .pagination-button {
-    background: none;
-    color: black;
-}
-
-body.preview-page .pagination-button:hover {
-    background: none;
-    color: aqua;
-}
-
-body.preview-page .opacitybtn {
-    height: 30px;
-    cursor: pointer;
-}
 
 body.preview-page #welcomeMessage {
     text-align: center;
@@ -2107,6 +2062,11 @@ body.preview-page #welcomeMessage {
     font-size: 30px;
     cursor: pointer;
     text-decoration: none;
+}
+
+body.preview-page .opacitybtn {
+    height: 30px;
+    cursor: pointer;
 }
 
 body.preview-page .function-infor {
@@ -2171,69 +2131,6 @@ body.preview-page .tab-design {
     width: 95%;
 }
 
-body.preview-page .tab-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #333;
-    background-color: #e9ecef;
-
-    gap: 6px;
-    padding: 12px 0;
-    font-size: 16px;
-    font-weight: 500;
-
-    box-sizing: border-box;
-    cursor: pointer;
-
-    border: none;
-    border-right: 1px solid #ddd;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-
-    transition:
-        flex 0.35s ease,
-        background-color 0.3s,
-        color 0.3s;
-}
-
-body.preview-page .tab-btn:hover {
-    background-color: #c2f7f165;
-}
-
-/* 활성화된 탭 */
-body.preview-page .tab-btn.active {
-    flex: 2;
-    background-color: #c2f7f1;
-    color: #ffffff;
-    font-weight: bold;
-    border: none;
-}
-
-body.preview-page .tab-btn svg {
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
-    transition: 
-        opacity 0.3s ease,
-        width 0.3s ease,
-        transform 0.3s ease;
-}
-
-body.preview-page .tab-btn.active svg {
-    opacity: 1;
-    width: 18px;
-    transform: scale(1.05);
-}
-
-/* 마지막 탭의 구분선 제거 */
-body.preview-page .tab-btn:last-child {
-    border-right: none;
-}
-
 /* 새로 추가한 래퍼로 남은 공간을 채우고 중앙 정렬 */
 body.preview-page .sub-tab-wrapper {
     flex-wrap: wrap;
@@ -2254,35 +2151,6 @@ body.preview-page .sub-tab-container {
     gap: 5px;
     padding-top: 40px;
     margin-bottom: 10px;
-}
-
-/* 서브 탭 (작은 카테고리) */
-body.preview-page .sub-tab {
-    flex-shrink: 0;
-    font-size: 14px;
-    padding: 8px 12px;
-    text-align: center;
-    align-items: center;
-    color: #555;
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-/* 활성화된 서브 탭 */
-body.preview-page .sub-tab.active {
-    flex-wrap: wrap;
-    background-color: #00ff95e8;
-    color: #ffffff;
-    font-weight: bold;
-}
-
-/* 서브 탭 마우스 호버 효과 */
-body.preview-page .sub-tab:hover {
-    flex-wrap: wrap;
-    background-color: #00ff953c;
 }
 
 body.preview-page .preview-overlay {
@@ -2338,7 +2206,6 @@ body.preview-page .marge-container {
     background-color: #c2f7f1;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
-
 }
 
 body.preview-page .category-subtab-container {
@@ -2349,12 +2216,93 @@ body.preview-page .category-subtab-container {
     margin-bottom: 20px;
 }
 
-/* 카테고리 제목 스타일 */
-body.preview-page #currentCategory {
-    font-size: 30px;
-    color: #00cc8f;
-    margin: 25px 0 15px;
-    padding-left: 20px;
+/* 큰 카테고리 탭 디자인 */
+body.preview-page .tab-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #333;
+    background-color: #e9ecef;
+
+    gap: 6px;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 500;
+
+    box-sizing: border-box;
+    cursor: pointer;
+
+    border: none;
+    border-right: 1px solid #ddd;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+
+    transition:
+        flex 0.35s ease,
+        background-color 0.3s,
+        color 0.3s;
+}
+
+body.preview-page .tab-btn:hover {
+    background-color: #c2f7f165;
+}
+
+body.preview-page .tab-btn.active {
+    flex: 2;
+    background-color: #c2f7f1;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+}
+
+body.preview-page .tab-btn svg {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: 
+        opacity 0.3s ease,
+        width 0.3s ease,
+        transform 0.3s ease;
+}
+
+body.preview-page .tab-btn.active svg {
+    opacity: 1;
+    width: 18px;
+    transform: scale(1.05);
+}
+
+body.preview-page .tab-btn:last-child {
+    border-right: none;
+}
+
+/* 작은 카테고리 탭 디자인 */
+body.preview-page .sub-tab {
+    flex-shrink: 0;
+    font-size: 14px;
+    padding: 8px 12px;
+    text-align: center;
+    align-items: center;
+    color: #555;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.preview-page .sub-tab.active {
+    flex-wrap: wrap;
+    background-color: #00ff95e8;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+body.preview-page .sub-tab:hover {
+    flex-wrap: wrap;
+    background-color: #00ff953c;
 }
 
 /* ✅ 이미지 갤러리 중앙 정렬 */
@@ -2384,7 +2332,15 @@ body.preview-page .image-gallery {
     width: 85%;
 }
 
-/* ✅ 반응형 이미지 크기 조정 */
+/* 카테고리 제목 스타일 */
+body.preview-page #currentCategory {
+    font-size: 30px;
+    color: #00cc8f;
+    margin: 25px 0 15px;
+    padding-left: 20px;
+}
+
+/* preview이미지 썸네일 디자인 */
 body.preview-page .gallery-image {
     width: 13vw;
     height: 13vw;
@@ -2395,17 +2351,11 @@ body.preview-page .gallery-image {
     transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
 }
 
-/* ✅ 이미지 호버 효과 */
 body.preview-page .gallery-image:hover {
     cursor: pointer;
     filter: grayscale(0%) brightness(1);
     transform: scale(1.03);
     border: 3px solid #0066cc;
-}
-
-body.preview-page #pagination-container {
-    text-align: center;
-    margin: 10px 0;
 }
 
 /* ✅ 이미지가 있을 때 (4x5 그리드) */
@@ -2441,6 +2391,41 @@ body.preview-page .preview-page {
     overflow-x: hidden;
 }
 
+/* 페이지 제네레이터 디자인 관련*/
+body.preview-page #pagination-container {
+    text-align: center;
+    margin: 10px 0;
+}
+
+body.preview-page .pagination-button {
+    background: none;
+    color: black;
+}
+
+body.preview-page .pagination-button:hover {
+    background: none;
+    color: aqua;
+}
+
+/* footer */
+body.preview-page .page-footer {
+    margin-top: 40px;
+    padding: 20px;
+    color: #333;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #606060;
+}
+
+body.preview-page .page-footer a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+body.preview-page .page-footer a:hover {
+    text-decoration: underline;
+}
 
 /* 아이콘페이지(ai_icon.html) */
 body.icon-page hr {
