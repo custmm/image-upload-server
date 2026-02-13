@@ -480,7 +480,6 @@ body.icon-page .obj_icon img:hover {
 /* upload-page공통 레이아웃 */
 body.upload-page div .cat_name {
     display: flex;
-    flex-direction: row;
     width: 80%;
     gap: 25px;
     margin: 10px auto;

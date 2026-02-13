@@ -1336,6 +1336,8 @@ body.mode-page .popup-confirm {
 /* ====== 업로드 페이지(upload.html) ====== */
 
 body.upload-page .category_container {
+    display: flex;
+    flex-direction: column;
     width: 90%;
 }
 
