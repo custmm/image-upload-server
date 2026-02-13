@@ -121,7 +121,35 @@
         <span id="themeIcon">☀️</span> <!-- 이모지용 span 추가 -->
       </label>
     </div>
+  </div>
 
+  <div id="sidebar" class="sidebar">
+    <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
+
+    <ul class="main-menu">
+      <!-- 게시판 카테고리 -->
+      <li class="menu-item">
+        <button class="menu-title" onclick="toggleMenu('board')">게시판</button>
+        <ul id="board" class="sub-menu">
+          <li><a href="#" onclick="goCategory('퍼즐')">퍼즐</a></li>
+          <li><a href="#" onclick="goCategory('보석비즈')">보석비즈</a></li>
+          <li><a href="#" onclick="goCategory('입체퍼즐')">입체퍼즐</a></li>
+          <li><a href="#" onclick="goCategory('디폼블럭')">디폼블럭</a></li>
+          <li><a href="#" onclick="goCategory('브릭피규어')">브릭피규어</a></li>
+        </ul>
+      </li>
+
+      <li class="menu-item">
+        <button class="menu-title" onclick="toggleMenu('etc')">부가기능</button>
+        <ul id="etc" class="sub-menu">
+          <li><a href="click.html">숨겨진기능 체험하기</a></li>
+          <li><a href="killing_game.html">게임하기</a></li>
+          <li>
+            <a href="./ai_icon.html" id="iconlink">아이콘 스튜디오</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
 
   <div class="function-infor">
@@ -173,7 +201,7 @@
 
     </div>
   </div>
-  
+
   <div class="preview-images" id="previewImagesContainer"></div>
 
   <!-- 서브 카테고리 탭 (작은 카테고리) -->
@@ -194,35 +222,6 @@
       </div>
     </div>
     <div id="pagination-container"></div>
-  </div>
-
-  <div id="sidebar" class="sidebar">
-    <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
-
-    <ul class="main-menu">
-      <!-- 게시판 카테고리 -->
-      <li class="menu-item">
-        <button class="menu-title" onclick="toggleMenu('board')">게시판</button>
-        <ul id="board" class="sub-menu">
-          <li><a href="#" onclick="goCategory('퍼즐')">퍼즐</a></li>
-          <li><a href="#" onclick="goCategory('보석비즈')">보석비즈</a></li>
-          <li><a href="#" onclick="goCategory('입체퍼즐')">입체퍼즐</a></li>
-          <li><a href="#" onclick="goCategory('디폼블럭')">디폼블럭</a></li>
-          <li><a href="#" onclick="goCategory('브릭피규어')">브릭피규어</a></li>
-        </ul>
-      </li>
-
-      <li class="menu-item">
-        <button class="menu-title" onclick="toggleMenu('etc')">부가기능</button>
-        <ul id="etc" class="sub-menu">
-          <li><a href="click.html">숨겨진기능 체험하기</a></li>
-          <li><a href="killing_game.html">게임하기</a></li>
-          <li>
-            <a href="./ai_icon.html" id="iconlink">아이콘 스튜디오</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
   </div>
 
   <div id="previewOverlay" class="preview-overlay" style="display:none;">
