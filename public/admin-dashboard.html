@@ -12,6 +12,8 @@
 </head>
 
 <body class="dashboard-page no-bg">
+
+    <!-- admin헤드바 -->
     <div class="adminbar-container">
         <div class="left-section">
             <button class="back-button" onclick="window.location.href='mode-selection.html'">뒤로가기</button>
@@ -22,8 +24,20 @@
         <h1>관리자페이지에 오신걸 환영합니다!</h1>
         <button class="logout-button" onclick="window.location.href='admin-login.html'">나가기</button>
     </div>
+
+    <!-- 사이드바 -->
+    <div id="sidebar" class="sidebar">
+        <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
+        <ul>
+            <li><a href="#section1">게시물 정보</a></li>
+            <li><a href="#section2">게시물 비율</a></li>
+            <li><a href="#section3">이미지 표시기</a></li>
+        </ul>
+    </div>
+
+
     <div id="devide">
-        <div class="section-container">
+        <div class="section">
             <div class="section-header">
                 <h2 class="section-title">게시물 정보</h2>
                 <div class="change-button-group">
@@ -39,7 +53,7 @@
             </div>
         </div>
 
-        <div class="section-container">
+        <div class="section">
             <div class="section-header">
                 <h2 class="section-title">게시물 비율</h2>
             </div>
@@ -61,10 +75,11 @@
         </div>
     </div>
 
-    <div class="section-container">
+    <div class="section-row">
         <div class="section-header">
             <h2 class="section-title">이미지 표시기</h2>
         </div>
+
         <div class="function-container">
             <div class="sorting-wrapper">
                 <div class="sorting-container">
@@ -87,31 +102,22 @@
                 </div>
             </div>
         </div>
+
         <div class="button-group" style="margin-top: 15px; margin-bottom: 20px;">
             <button id="hide-indicator" class="custom-button">표시기 제거</button>
             <button id="show-indicator" class="custom-button" style="display:none;">표시기 나타내기</button>
             <button id="modernize-indicator" class="custom-button">이미지 현대화</button> <!-- ✅ 추가 -->
         </div>
     </div>
-    
-        <!-- 🔥 사이드바 추가 -->
-        <div id="sidebar" class="sidebar">
-            <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
-            <ul>
-                <li><a href="#section1">게시물 정보</a></li>
-                <li><a href="#section2">게시물 비율</a></li>
-                <li><a href="#section3">이미지 표시기</a></li>
-            </ul>
-        </div>
 
-        <script>
-            // ✅ 글꼴 효과 적용 함수
-            function formatText(command) {
-                document.execCommand(command, false, null);
-            }
-        </script>
-        <script src="js/admin-dashboard.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // ✅ 글꼴 효과 적용 함수
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+    </script>
+    <script src="js/admin-dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>
