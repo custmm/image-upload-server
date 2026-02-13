@@ -1912,20 +1912,12 @@ body.preview-page .close-sidebar {
     right: 15px;
     background: none;
     border: none;
-    color: white;
+    color: #333;
     font-size: 30px;
     cursor: pointer;
     display: block;
-    margin-bottom: 20px;
 }
 
-body.preview-page .menu-title {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 25px;
-    cursor: pointer;
-}
 
 /* 사이드바 열기 버튼 */
 body.preview-page .sidebar-toggle {
@@ -1959,6 +1951,15 @@ body.preview-page .sidebar {
 
 body.preview-page .sidebar.open {
     left: 0;
+}
+
+/* 사이드바 타이틀 */
+body.preview-page .menu-title {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 25px;
+    cursor: pointer;
 }
 
 body.preview-page .sub-menu {
