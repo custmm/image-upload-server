@@ -1980,7 +1980,7 @@ body.preview-page .sidebar ul li {
 }
 
 body.preview-page .sidebar ul li a {
-    color: white;
+    color: #333;
     text-decoration: none;
     font-size: 18px;
 }
