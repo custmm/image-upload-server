@@ -1888,6 +1888,16 @@ body.post-page .hashtag-link {
     text-decoration: none;
 }
 
+body.post-page .page-footer{
+      margin-top: 40px;
+    padding: 20px;
+    color: #333;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #606060;  
+}
+
+
 
 /* ====== 미리보기 페이지(preview.html) ====== */
 

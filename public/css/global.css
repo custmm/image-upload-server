@@ -249,7 +249,7 @@ body.post-page .loading-text,
 body.preview-page .loading-text {
     position: fixed;
     top: 58%;
-    left: 40%;
+    left: 50%;
     font-size: 16px;
     color: white;
 }
