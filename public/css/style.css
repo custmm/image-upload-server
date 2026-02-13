@@ -1692,6 +1692,24 @@ body.game-page #gameControlsPopup h2 {
 }
 
 /* ====== 게시글 보기(post.html) ====== */
+body.post-page .post-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+body.post-page #picture {
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+body.post-page #picture img {
+    width: 40px;
+    height: 40px;
+}
+
 
 body.post-page h1 {
     text-align: center;
