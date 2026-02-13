@@ -1888,16 +1888,6 @@ body.post-page .hashtag-link {
     text-decoration: none;
 }
 
-body.post-page .page-footer{
-      margin-top: 40px;
-    padding: 20px;
-    color: #333;
-    text-align: center;
-    font-size: 14px;
-    border-top: 1px solid #606060;  
-}
-
-
 
 /* ====== 미리보기 페이지(preview.html) ====== */
 
@@ -2443,15 +2433,6 @@ body.preview-page .pagination-button:hover {
 }
 
 /* footer */
-body.preview-page .page-footer {
-    margin-top: 40px;
-    padding: 20px;
-    color: #333;
-    text-align: center;
-    font-size: 14px;
-    border-top: 1px solid #606060;
-}
-
 body.preview-page .page-footer a {
     color: #007bff;
     text-decoration: none;
