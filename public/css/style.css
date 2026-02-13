@@ -2232,7 +2232,7 @@ body.preview-page .tab-btn {
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: #333;
+    color: #dedede;
     background-color: #e9ecef;
 
     gap: 6px;
@@ -2263,7 +2263,7 @@ body.preview-page .tab-btn:hover {
 body.preview-page .tab-btn.active {
     flex: 2;
     background-color: #c2f7f1;
-    color: #ffffff;
+    color: #333;
     font-weight: bold;
     border: none;
 }
