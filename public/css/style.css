@@ -2214,8 +2214,7 @@ body.preview-page .marge-container {
     margin: 0 auto;
     gap: 25px;
     background-color: #c2f7f1;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
+    border-radius: 0 0 25px 25px;
 }
 
 body.preview-page .category-subtab-container {
@@ -2245,10 +2244,7 @@ body.preview-page .tab-btn {
 
     border: none;
     border-right: 1px solid #ddd;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+    border-radius: 20px 25px 0 0;
 
     transition:
         flex 0.35s ease,
@@ -2264,7 +2260,7 @@ body.preview-page .tab-btn.active {
     flex: 2;
     background-color: #c2f7f1;
     color: #333;
-    font-weight: bold;
+    font-weight: 500;
     border: none;
 }
 
@@ -2438,16 +2434,13 @@ body.preview-page .page-footer a:hover {
 }
 
 /* 아이콘페이지(ai_icon.html) */
-body.icon-page hr {
-    width: 85%;
-}
-
 body.icon-page h1 {
     padding-bottom: 30px;
 }
 
 body.icon-page h3 {
     padding: 10px;
+    border-bottom: 2px solid #333;
 }
 
 
