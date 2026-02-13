@@ -1121,6 +1121,7 @@ body.dashboard-page .section-container {
 body.dashboard-page .section-container:first-child,
 body.dashboard-page .section-container:nth-child(2){
     margin: 0 auto;
+    width: 50%;
 }
 
 
