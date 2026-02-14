@@ -1886,8 +1886,8 @@ body.post-page .button {
 }
 
 body.post-page .hastag{
-    display: flex;
     margin-top: 20px;
+    font-size: 18px;
 }
 
 body.post-page .hashtag-link {

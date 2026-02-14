@@ -34,9 +34,22 @@ function getParamsFromURL() {
 }
 
 function convertHashtagsToLinks(text) {
-  return text.replace(/#([\w가-힣]+)/g, (match, tag) => {
-    const encoded = encodeURIComponent(tag);
-    return `<a href="tagResults?tag=${encoded}" class="hashtag-link">#${tag}</a>`;
+  const hashtagContainer = document.querySelector('.hastag');
+  hashtagContainer.innerHTML = '';
+
+  const matches = text.match(/#([\w가-힣]+)/g);
+  if (!matches) return;
+
+  matches.forEach(tag => {
+    const cleanTag = tag.substring(1);
+    const encoded = encodeURIComponent(cleanTag);
+
+    const a = document.createElement('a');
+    a.href = `tagResults?tag=${encoded}`;
+    a.className = 'hashtag-link';
+    a.textContent = tag;
+
+    hashtagContainer.appendChild(a);
   });
 }
 
