@@ -13,16 +13,16 @@
   <style>
     @media (max-width: 576px) {
       body.post-page .post-container {
-          display: flex;
-          background-color: #ffffff;
-          border-radius: 10px;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-          padding: 15px;
-          width: 90%;
-          margin: 20px auto;
+        display: flex;
+        background-color: #ffffff;
+        border-radius: 10px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        width: 90%;
+        margin: 20px auto;
       }
 
       body.post-page .post-description {
@@ -75,7 +75,7 @@
     <p class="loading-text">게시물을 불러오는 중...</p>
   </div>
 
-    <!-- 다크 모드 토글 스위치 -->
+  <!-- 다크 모드 토글 스위치 -->
   <div class="toggle-switch">
     <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
     <label class="slider" for="themeToggle">
@@ -96,6 +96,9 @@
 
     <div class="post-desc">
       <p id="postDescription" class="post-description"></p>
+      <div class="hastag">
+       <a href="tagResults?tag=${encoded}" class="hashtag-link">#${tag}</a> 
+      </div>
     </div>
   </div>
 

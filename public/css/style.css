@@ -1885,6 +1885,11 @@ body.post-page .button {
     transition: background-color 0.3s;
 }
 
+body.post-page .hastag{
+    display: flex;
+    margin-top: 20px;
+}
+
 body.post-page .hashtag-link {
     color: #1da1f2;
     text-decoration: none;
