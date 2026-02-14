@@ -1893,6 +1893,7 @@ body.post-page .hastag{
 body.post-page .hashtag-link {
     color: #1da1f2;
     text-decoration: none;
+    padding: 0 5px;
 }
 
 
