@@ -37,6 +37,8 @@ function convertHashtagsToLinks(text) {
   const hashtagContainer = document.querySelector('.hastag');
   hashtagContainer.innerHTML = '';
 
+  if (!text) return;
+
   const matches = text.match(/#([\w가-힣]+)/g);
   if (!matches) return;
 
@@ -99,9 +101,12 @@ async function loadPostData() {
       postData.title || "제목 없음";
     document.title = postData.title || "게시물";
 
-    const convertedDescription = convertHashtagsToLinks(postData.file_description || "설명 없음");
+    const descriptionText = postData.file_description || "설명 없음";
+
     document.getElementById("postDescription").innerHTML =
-      convertedDescription.replace(/\n/g, "<br>");
+      descriptionText.replace(/\n/g, "<br>");
+
+    renderHashtags(descriptionText);
   } catch (error) {
     console.error("🚨 게시물 불러오기 오류:", error);
     document.getElementById("postDescription").innerHTML = "🚨 게시물을 불러오는 중 오류 발생";
