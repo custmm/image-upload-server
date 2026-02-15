@@ -101,12 +101,21 @@ async function loadPostData() {
       postData.title || "제목 없음";
     document.title = postData.title || "게시물";
 
-    const descriptionText = postData.file_description || "설명 없음";
+    const descriptionText = postData.file_description || "";
+
+    // 🔥 1️⃣ 본문에서는 해시태그 제거
+    const cleanedDescription = descriptionText
+      .replace(/#([\w가-힣]+)/g, "")
+      .replace(/\n/g, "<br>")
+      .trim();
 
     document.getElementById("postDescription").innerHTML =
-      descriptionText.replace(/\n/g, "<br>");
+      cleanedDescription || "설명 없음";
 
+
+    // 🔥 2️⃣ 해시태그는 따로 렌더링
     renderHashtags(descriptionText);
+
   } catch (error) {
     console.error("🚨 게시물 불러오기 오류:", error);
     document.getElementById("postDescription").innerHTML = "🚨 게시물을 불러오는 중 오류 발생";
