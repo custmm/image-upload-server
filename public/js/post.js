@@ -33,7 +33,7 @@ function getParamsFromURL() {
   };
 }
 
-function convertHashtagsToLinks(text) {
+function renderHashtags(text) {
   const hashtagContainer = document.querySelector('.hastag');
   hashtagContainer.innerHTML = '';
 
