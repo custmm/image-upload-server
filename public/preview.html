@@ -37,7 +37,12 @@
 
       }
 
-      body.preview-page .sidebar {
+      body.preview-page .sidebar {}
+
+      body.preview-page .title_button{
+        padding: 5px;
+        box-sizing: border-box;
+
       }
 
       body.preview-page .sidebar.open {
@@ -117,11 +122,16 @@
 
   <div id="sidebar" class="sidebar">
     <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
-
     <ul class="main-menu">
       <!-- 게시판 카테고리 -->
+
       <li class="menu-item">
-        <button class="menu-title" onclick="toggleMenu('board')">게시판</button>
+
+        <div class="title_button">
+          <button class="menu-title" onclick="toggleMenu('board')">
+            게시판</button>
+        </div>
+
         <ul id="board" class="sub-menu">
           <li><a href="#" onclick="goCategory('퍼즐')">퍼즐</a></li>
           <li><a href="#" onclick="goCategory('보석비즈')">보석비즈</a></li>
@@ -132,7 +142,11 @@
       </li>
 
       <li class="menu-item">
-        <button class="menu-title" onclick="toggleMenu('etc')">부가기능</button>
+        <div class="title_button">
+          <button class="menu-title" onclick="toggleMenu('etc')">
+            부가기능</button>
+        </div>
+
         <ul id="etc" class="sub-menu">
           <li><a href="click.html">숨겨진기능 체험하기</a></li>
           <li><a href="killing_game.html">게임하기</a></li>
