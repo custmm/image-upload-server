@@ -61,6 +61,10 @@
     padding: 0;
 }
 
+ul li {
+    list-style: none;
+}
+
 body:not(.no-bg) {
     font-family: Arial, sans-serif;
     background: linear-gradient(180deg,

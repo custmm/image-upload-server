@@ -1885,7 +1885,7 @@ body.post-page .button {
     transition: background-color 0.3s;
 }
 
-body.post-page .hastag{
+body.post-page .hastag {
     margin-top: 20px;
     font-size: 18px;
 }
@@ -1971,7 +1971,7 @@ body.preview-page .sidebar {
     height: 100vh;
     background: rgba(255, 255, 255, 0.8);
     color: #333;
-    padding: 100px 200px 0 30px;
+    padding: 100px 31.5% 0 31.5%;
     transition: left 0.5s ease-in-out;
     z-index: 9999;
 }
