@@ -1694,11 +1694,11 @@ body.game-page #gameControlsPopup h2 {
 }
 
 /* ====== 게시글 보기(post.html) ====== */
-body.post-page .post-title {
+body.post-page .ptitle {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    font-size: 25px;
 }
 
 body.post-page #picture {
@@ -1711,7 +1711,6 @@ body.post-page #picture img {
     width: 40px;
     height: 40px;
 }
-
 
 body.post-page h1 {
     text-align: center;
@@ -1756,7 +1755,6 @@ body.post-page .postcategory-container {
     justify-content: center;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: flex;
     height: auto;
     padding: 10px;
     margin: 10px 0 5px;
@@ -1862,7 +1860,7 @@ body.post-page .post-image {
 
 /* ✅ 게시물 설명 */
 body.post-page .post-description {
-    font-size: 16px;
+    font-size: 18px;
     text-align: left;
     white-space: pre-wrap;
     /* newline 문자 보존 */
@@ -1893,7 +1891,11 @@ body.post-page .hastag {
 body.post-page .hashtag-link {
     color: #1da1f2;
     text-decoration: none;
-    padding: 0 5px;
+        padding: 5px 10px;
+    background: aliceblue;
+    margin: 6px;
+    border-radius: 20px;
+    border: 1px solid #eee;
 }
 
 
