@@ -364,8 +364,8 @@ function renderTextMode(images, append = false) {
         fileName.textContent = image.file_name;
         Object.assign(fileName.style, {
             display: "block",
-            color: "#000",
-            fontSize: "14px" // 필요에 따라 조정
+            color: "#333",
+            fontSize: "11px" // 필요에 따라 조정
         });
 
         // ✅ 버튼 그룹

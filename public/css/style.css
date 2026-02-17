@@ -878,7 +878,6 @@ body.dashboard-page .post-form-container {
     max-height: 400px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 5px;
     background-color: #ffffff;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 
@@ -943,7 +942,6 @@ body.dashboard-page .post-item img {
 body.dashboard-page .post-item .file-name {
     flex-grow: 1;
     text-align: center;
-    font-size: 16px;
     font-weight: bold;
 }
 
@@ -1698,7 +1696,8 @@ body.post-page .ptitle {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 25px;
+    font-size: 18px;
+    gap: 10px;
 }
 
 body.post-page #picture {
@@ -1742,7 +1741,7 @@ body.post-page .post-container {
     justify-content: center;
     background-color: #ffffff;
     border-radius: 10px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 30px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 65%;
@@ -1878,30 +1877,30 @@ body.post-page .post-buttons {
 }
 
 body.post-page .button {
-    font-size: 16px;
-    border-radius: 5px;
+    font-size: 15px;
+    border-radius: 12px;
     transition: background-color 0.3s;
+    background-color: rgba(255, 255, 255, 0.75);
+    color: #333;
 }
 
 body.post-page .hastag {
     margin-top: 20px;
     font-size: 18px;
-    gap: 8px; 
 }
 
 body.post-page .hashtag-link {
     display: inline-block;
     white-space: nowrap;
-    /* 🔥 태그 내부 줄바꿈 금지 */
     word-break: keep-all;
-    /* 🔥 한글 쪼개짐 방지 */
     color: #1da1f2;
     text-decoration: none;
-    padding: 5px 10px;
+    padding: 5px 6px;
     background: aliceblue;
     border-radius: 20px;
     border: 1px solid #eee;
-    margin: 0 10px;
+    margin: 8px 6px;
+    line-height: 1.0;
 }
 
 

@@ -9,6 +9,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/global.css">
+    <style>
+        @media (max-width: 576px) {
+            body.dashboard-page .change-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 20px;
+                height: 20px;
+                background: none;
+                border: none;
+                font-size: 10px;
+                cursor: pointer;
+                transition: color 0.3s ease-in-out;
+            }
+
+            body.dashboard-page .change-button-group {
+                gap: 0;
+            }
+
+            body.dashboard-page .section-title {
+                font-size: 19px;
+            }
+
+            body.dashboard-page .post-item img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
 </head>
 
 <body class="dashboard-page no-bg">
@@ -21,7 +50,7 @@
                 <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
             </button>
         </div>
-        <h1>관리자페이지에 오신걸 환영합니다!</h1>
+        <h1>Dashboard</h1>
         <button class="logout-button" onclick="window.location.href='admin-login.html'">나가기</button>
     </div>
 
