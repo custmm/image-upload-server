@@ -1886,16 +1886,22 @@ body.post-page .button {
 body.post-page .hastag {
     margin-top: 20px;
     font-size: 18px;
+    gap: 8px; 
 }
 
 body.post-page .hashtag-link {
+    display: inline-block;
+    white-space: nowrap;
+    /* 🔥 태그 내부 줄바꿈 금지 */
+    word-break: keep-all;
+    /* 🔥 한글 쪼개짐 방지 */
     color: #1da1f2;
     text-decoration: none;
-        padding: 5px 10px;
+    padding: 5px 10px;
     background: aliceblue;
-    margin: 6px;
     border-radius: 20px;
     border: 1px solid #eee;
+    margin: 0 10px;
 }
 
 
