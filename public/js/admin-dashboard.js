@@ -398,7 +398,8 @@ function renderTextMode(images, append = false) {
         Object.assign(container.style, {
             marginBottom: "20px",
             minHeight: "400px",
-            overflowY: "auto"
+            overflowY: "auto",
+            paddingleft: "7px"
         });
     }
 }
