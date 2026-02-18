@@ -2555,7 +2555,7 @@ body.tag-page .post-item {
     border-left: 4px solid #1da1f2;
     border-radius: 8px;
     gap: 15px;
-
+    width: 75%;
 }
 
 body.tag-page .post-item img {
@@ -2596,6 +2596,7 @@ body.tag-page div.tag_title {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    margin: 15px 0;
 }
 
 body.tag-page .tag_post {
@@ -2605,11 +2606,13 @@ body.tag-page .tag_post {
 }
 
 
-body.tag-page .post-list {
+body.tag-page #postList.post-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     list-style: none;
-    padding: 0;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin: 20px 0;
+    
 }
 
 body.tag-page .post-list li {
