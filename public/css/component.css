@@ -55,7 +55,7 @@
     top: -10px;
 
     background-color: #e9ecef;
-    background-image: url("toggle_light.png");
+    background-image: url("../images/toggle_light.png");
     /* 기본값 */
     background-size: cover;
     background-position: center;
