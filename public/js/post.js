@@ -299,14 +299,17 @@ function toggleTheme() {
   if (isDarkMode) {
     localStorage.setItem("theme", "dark");
     themeToggle.checked = true;
-    if (themeIcon) themeIcon.textContent = "💤";
+    if (themeIcon) {
+      themeIcon.style.backgroundImage = "url('toggle_dark.png')";
+    }
   } else {
     localStorage.setItem("theme", "light");
     themeToggle.checked = false;
-    if (themeIcon) themeIcon.textContent = "☀️";
+    if (themeIcon) {
+      themeIcon.style.backgroundImage = "url('toggle_light.png')";
+    }
   }
 }
-
 function applySavedTheme() {
   const savedTheme = localStorage.getItem("theme") || "light";
   const themeIcon = document.getElementById("themeIcon");

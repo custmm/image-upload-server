@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     ${category.name}
                     <i data-lucide="${iconName}" class="tab-icon"></i>
                 `;
-                
+
                 btn.onclick = () => {
                     document.querySelectorAll(".tab-btn")
                         .forEach(t => t.classList.remove("active"));
@@ -606,19 +606,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     /** ✅ 다크 모드 토글 기능 */
     window.toggleTheme = function () {
         const body = document.body;
-        const isDarkMode = body.classList.toggle("dark-mode"); // ✅ 다크 모드 토글
+        const isDarkMode = body.classList.toggle("dark-mode");
         const themeIcon = document.getElementById("themeIcon");
 
         if (isDarkMode) {
             localStorage.setItem("theme", "dark");
             themeToggle.checked = true;
-            if (themeIcon) themeIcon.textContent = "💤";
+            if (themeIcon) {
+                themeIcon.style.backgroundImage = "url('toggle_dark.png')";
+            }
         } else {
             localStorage.setItem("theme", "light");
             themeToggle.checked = false;
-            if (themeIcon) themeIcon.textContent = "☀️";
+            if (themeIcon) {
+                themeIcon.style.backgroundImage = "url('toggle_light.png')";
+            }
         }
-    };
+    }
 
     /** ✅ 페이지 로드 시 저장된 다크 모드 적용 */
     function applySavedTheme() {
