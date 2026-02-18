@@ -168,6 +168,7 @@ body.post-page .page-footer {
     border-top: 1px solid #606060;
 }
 
+
 /* 각page의 배경설정 */
 body.click-page,
 body.login-page,
@@ -430,13 +431,13 @@ body.dashboard-page #popup-cancel {
 /* 🔥 수정/삭제 버튼 */
 body.dashboard-page .edit-button,
 body.dashboard-page .delete-button {
-    padding: 5px 10px;
+    padding: 4px 8px;
+    font-size: 12px;
     cursor: pointer;
     border: none;
     border-radius: 5px;
     color: white;
 }
-
 
 /* icon-page공통 레이아웃 */
 body.icon-page h1,

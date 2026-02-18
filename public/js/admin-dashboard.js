@@ -90,29 +90,25 @@ function showeditpopup(message, callback) {
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("📌 모든 카테고리에서 이미지 로드 시작");
-    currentMode = "text"; // ✅ 텍스트 모드로 시작
-    currentCategoryId = null; // ✅ 모든 카테고리 로드
 
-    // 스크롤 이벤트에 throttle 적용
+    currentMode = "text";
+    currentCategoryId = null;
+
     const container = document.querySelector(".post-form-container");
+    
+    // 모드 상태만 제어
     container.classList.add("text-mode");
     container.classList.remove("image-mode");
 
+    // DOM 구조 생성
     const textGallery = document.createElement("div");
     textGallery.id = "textGallery";
     textGallery.classList.add("gallery-container");
 
-    // ✅ 텍스트 모드에 필요한 스타일 (예: column 정렬 등)
-    Object.assign(textGallery.style, {
-        display: "flex",
-        gap: "15px"
-    });
-
     container.appendChild(textGallery);
 
-    fetchImages(currentMode, true); // ✅ 페이지 로드 시 이미지 불러오기
+    fetchImages(currentMode, true); 
 
-    // 스크롤 이벤트에 throttle 적용
     container.addEventListener("scroll", throttle(() => {
         if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
             if (!isLoading && !noMoreImages) {
@@ -303,49 +299,43 @@ function renderImageMode(images, append = false) {
     container.classList.remove("text-mode");
 
     let gallery = document.querySelector("#imageGallery");
+
     if (!gallery) {
         gallery = document.createElement("div");
         gallery.id = "imageGallery";
         gallery.classList.add("gallery-container");
-
-        Object.assign(container.style, {
-            display: "grid", // 그리드 레이아웃 사용
-            gridTemplateColumns: "repeat(6, 1fr)", // 자동 열 크기 조정
-            gap: "10px", // 이미지 간 간격
-            justifyItems: "center", // 아이템 수평 가운데 정렬
-            alignItems: "center",    // 아이템 수직 가운데 정렬
-            overflowY: "auto", // 스크롤 활성화
-            minHeight: "400px"
-        });
         container.appendChild(gallery);
     }
 
-    const fragment = document.createDocumentFragment(); // ✅ DocumentFragment 사용
+    const fragment = document.createDocumentFragment();
+
     images.forEach(image => {
-        const img = document.createElement("img"); // ✅ img 변수를 `forEach` 내부에서 선언
-        img.dataset.src = `${image.file_path}`; // ✅ Lazy Load 설정
+        const img = document.createElement("img");
+
+        img.dataset.src = `${image.file_path}`;
         img.alt = "Uploaded Image";
         img.classList.add("post-image");
-        img.dataset.loaded = "false"; // 문자열로 설정
+        img.dataset.loaded = "false";
 
-        // 이미지 클릭 시 post.html 페이지로 이동 (예: 이미지 id를 쿼리 파라미터로 전달)
         img.addEventListener("click", () => {
             const category = image.category.name;
             const subcategory = encodeURIComponent(image.subcategory.name); // URL 인코딩 필수
             const file = image.file_name;
-            window.location.href = `/post?category=${category}&subcategory=${subcategory}&file=${file}`;
+            window.location.href = 
+                `/post?category=${category}&subcategory=${subcategory}&file=${file}`;
         });
 
         fragment.appendChild(img);
-        window.observer.observe(img); // ✅ Intersection Observer 적용
+        window.observer.observe(img);
     });
 
-    gallery.appendChild(fragment); // ✅ 한 번에 DOM 업데이트
+    gallery.appendChild(fragment);
 
 }
 
 function renderTextMode(images, append = false) {
     const container = document.querySelector(".post-form-container");
+    
     container.classList.add("text-mode");
     container.classList.remove("image-mode");
 
@@ -353,22 +343,17 @@ function renderTextMode(images, append = false) {
         const postItem = document.createElement("div");
         postItem.classList.add("post-item");
 
-        // ✅ 이미지
+        // 이미지
         const img = document.createElement("img");
         img.src = `${image.file_path}`;
         img.alt = "Thumbnail";
 
-        // ✅ 파일명
+        // 제목
         const fileName = document.createElement("div");
         fileName.classList.add("file-name");
-        fileName.textContent = image.file_name;
-        Object.assign(fileName.style, {
-            display: "block",
-            color: "#333",
-            fontSize: "11px" // 필요에 따라 조정
-        });
+        fileName.textContent = image.title;
 
-        // ✅ 버튼 그룹
+        // 버튼 그룹
         const buttonContainer = document.createElement("div");
         buttonContainer.classList.add("buttons");
 
@@ -393,15 +378,6 @@ function renderTextMode(images, append = false) {
 
         container.appendChild(postItem);
     });
-    // 텍스트 모드 스타일 적용
-    if (!append) {
-        Object.assign(container.style, {
-            marginBottom: "20px",
-            minHeight: "400px",
-            overflowY: "auto",
-            paddingleft: "7px"
-        });
-    }
 }
 
 async function updatePostDescription(postId, newDescription) {
@@ -440,18 +416,6 @@ function openEditPopup(image) {
     if (!modal) {
         modal = document.createElement("div");
         modal.id = "editModal";
-        Object.assign(modal.style, {
-            position: "fixed",
-            top: "0",
-            left: "0",
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: "10000"
-        });
 
         modal.innerHTML = `
                 <div class="edit-modal">
@@ -478,10 +442,9 @@ function openEditPopup(image) {
                 `;
 
         document.body.appendChild(modal);
-    } else {
-        modal.style.display = "flex";
-        modal.querySelector("#editContent").innerHTML = image.file_description || "";
-    }
+    } 
+     modal.classList.remove("hidden");   // 🔥 표시
+
 
     // ✅ 항상 최신 내용 설정
     const editContent = modal.querySelector("#editContent");
@@ -699,22 +662,12 @@ function bindModeSwitchEvents() {
         const container = document.querySelector(".post-form-container");
         clearContainer(container);
 
-        container.classList.add("image-mode");        // ✅ 추가
-        container.classList.remove("text-mode");      // ✅ 추가
+        container.classList.add("image-mode"); 
+        container.classList.remove("text-mode");  
 
-        // ✅ 이미지 모드일 때 필요한 DOM 요소 다시 생성
         const imageGallery = document.createElement("div");
         imageGallery.id = "imageGallery";
         imageGallery.classList.add("gallery-container");
-
-        // ✅ grid 스타일을 직접 지정
-        Object.assign(imageGallery.style, {
-            display: "grid",
-            gridTemplateColumns: "repeat(6, 1fr)",
-            gap: "10px",
-            justifyItems: "center",
-            alignItems: "center"
-        });
 
         container.appendChild(imageGallery);
 
@@ -723,8 +676,8 @@ function bindModeSwitchEvents() {
 
     document.getElementById("text-mode").addEventListener("click", () => {
         currentMode = "text";
-        loadedImages = 0; // ✅ 초기화
-        noMoreImages = false; // ✅ 더 이상 이미지 없음 상태 초기화
+        loadedImages = 0;
+        noMoreImages = false;
 
         const container = document.querySelector(".post-form-container");
         clearContainer(container);
@@ -732,7 +685,6 @@ function bindModeSwitchEvents() {
         container.classList.add("text-mode");
         container.classList.remove("image-mode");
 
-        // ✅ 새 컨테이너 추가
         const textGallery = document.createElement("div");
         textGallery.id = "textGallery";
         textGallery.classList.add("gallery-container");
