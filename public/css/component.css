@@ -1,9 +1,9 @@
 .toggle-switch {
     position: absolute;
     top: 25px;
-    right: 60px;
-    width: 65px;
-    height: 20px;
+    right: 100px;
+    width: 90px;
+    height: 40px;
     display: inline-block;
 }
 
@@ -18,11 +18,11 @@
 }
 
 .toggle-switch input:checked+.slider::before {
-    transform: translateX(65px);
+    transform: translateX(53px);
 }
 
 .toggle-switch input:checked+.slider #themeIcon {
-    transform: translateX(65px);
+    transform: translateX(53px);
 }
 
 .slider {
@@ -50,8 +50,8 @@
     position: absolute;
     width: 30px;
     height: 45px;
-    left: -15px;
-    top: -10px;
+    left: 4px;
+    top: 4px;
 
     background: url(../images/toggle_light.png) no-repeat center center;
     /* 기본값 */
