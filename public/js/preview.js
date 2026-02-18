@@ -628,15 +628,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     function applySavedTheme() {
         const savedTheme = localStorage.getItem("theme") || "light";
         const themeIcon = document.getElementById("themeIcon");
+        const themeToggle = document.getElementById("themeToggle");
 
         if (savedTheme === "dark") {
             document.body.classList.add("dark-mode");
             if (themeToggle) themeToggle.checked = true;
-            if (themeIcon) themeIcon.textContent = "💤";
+            if (themeIcon) {
+                themeIcon.style.backgroundImage = "url('toggle_dark.png')";
+            }
         } else {
             document.body.classList.remove("dark-mode");
             if (themeToggle) themeToggle.checked = false;
-            if (themeIcon) themeIcon.textContent = "☀️";
+            if (themeIcon) {
+                themeIcon.style.backgroundImage = "url('toggle_light.png')";
+            }
         }
     }
 
