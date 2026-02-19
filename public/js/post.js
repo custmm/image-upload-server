@@ -27,9 +27,18 @@ function closePopup() {
 function getParamsFromURL() {
   const params = new URLSearchParams(window.location.search);
   return {
-    category: params.get("category") ? decodeURIComponent(params.get("category")).trim() : null,
-    subcategory: params.get("subcategory") ? decodeURIComponent(params.get("subcategory")).trim() : null,
-    file: params.get("file") ? decodeURIComponent(params.get("file")).trim() : null
+    category: 
+      params.get("category") 
+        ? decodeURIComponent(params.get("category")).trim() 
+        : null,
+    subcategory: 
+      params.get("subcategory") 
+        ? decodeURIComponent(params.get("subcategory")).trim() 
+        : null,
+    file: 
+      params.get("file") 
+        ? decodeURIComponent(params.get("file")).trim() 
+        : null
   };
 }
 
