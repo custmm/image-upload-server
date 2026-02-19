@@ -1194,11 +1194,6 @@ body.dashboard-page .post-form-container.text-mode .gallery-container {
 
 /* 이미지 모드일 때 컨테이너 스타일 */
 body.dashboard-page .post-form-container.image-mode {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    justify-items: center;
-    align-items: center;
     object-fit: cover;
     overflow-y: auto;
     min-height: 400px;
