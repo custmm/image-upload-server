@@ -2108,14 +2108,14 @@ body.preview-page .image-gallery {
 }
 
 /* 사진 모드 */
-body.preview-page #imageGallery.image-gallery.image-mode {
+body.preview-page .image-gallery.image-view {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 12px;
 }
 
 /* 텍스트 모드 */
-body.preview-page #imageGallery.image-gallery.text-mode {
+body.preview-page .image-gallery.text-view {
     display: flex;
     flex-direction: column;
     gap: 14px;
