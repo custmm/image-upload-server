@@ -2073,8 +2073,7 @@ body.preview-page .view-icon-btn {
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid #ccc;
-    background: white;
+    background: none;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -2091,9 +2090,7 @@ body.preview-page .view-icon-btn:hover {
 }
 
 body.preview-page .view-icon-btn.active {
-    background: #4caf50;
-    color: white;
-    border-color: #4caf50;
+    color: #4caf50;
 }
 /* 사진 모드 */
 body.preview-page .preview-container.image-mode {
