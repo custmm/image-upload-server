@@ -276,24 +276,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         const textBtn = document.getElementById("preview-text-mode");
         const gallery = document.getElementById("imageGallery");
 
-        imageBtn.addEventListener("click", () => {
+        imageBtn.addEventListener("click", async() => {
             imageBtn.classList.add("active");
             textBtn.classList.remove("active");
 
             gallery.classList.remove("text-view");
             gallery.classList.add("image-view");
 
-            loadImages(); // 네가 쓰는 이미지 로딩 함수
+            await loadPage(selectedCategory, selectedSubcategory);
         });
 
-        textBtn.addEventListener("click", () => {
+        textBtn.addEventListener("click", async() => {
             textBtn.classList.add("active");
             imageBtn.classList.remove("active");
 
             gallery.classList.remove("image-view");
             gallery.classList.add("text-view");
 
-            loadTextList(); // 네가 쓰는 텍스트 로딩 함수
+            await loadPage(selectedCategory, selectedSubcategory);
         });
     }
 
