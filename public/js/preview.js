@@ -20,7 +20,7 @@ window.closePreviewPopup = function () {
     frame.src = "";
     overlay.style.display = "none";
 };
-// ✅ 사이드바 토글 함수 (HTML onclick과 연결됨)
+
 window.toggleSidebar = function () {
     const sidebar = document.getElementById("sidebar");
     if (!sidebar) return;
@@ -48,12 +48,9 @@ window.toggleMenu = function (menuId) {
     });
 };
 
-// ✅ 사이드바에서 카테고리 이동용
 window.goCategory = function (categoryName) {
-    // 메인 카테고리 버튼들 가져오기
     const buttons = document.querySelectorAll(".tab-btn");
 
-    // 이름이 같은 버튼 찾기
     const targetBtn = [...buttons].find(
         btn => btn.textContent.trim() === categoryName.trim()
     );
@@ -63,14 +60,11 @@ window.goCategory = function (categoryName) {
         return;
     }
 
-    // 👉 기존 로직 그대로 재사용
     targetBtn.click();
 
-    // 사이드바 닫기
     const sidebar = document.getElementById("sidebar");
     if (sidebar) sidebar.classList.remove("open");
 
-    // UX: 위로 스크롤
     window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
@@ -103,9 +97,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     const opacityControl = document.getElementById("opacityControl");
     const tabDesign = document.querySelector(".tab-design");
     const margeContainer = document.querySelector(".marge-container");
-
+    const closeBtn = document.querySelector(".preview-close");
     const previewLink = document.querySelector('a[href="./preview_popup.html"]');
-    const iconlink = document.querySelector('a[href="./ai_icon.html"]')
+    const iconlink = document.querySelector('a[href="./ai_icon.html"]');
+    const urlParams = new URLSearchParams(window.location.search);    
+    const themeToggle = document.getElementById("themeToggle"); // ✅ 추가
+
+    let wasOverlapping = false;
+    let overlapTimer = null;
+    let categoryParam = urlParams.get("category");
+    let selectedCategory = null;
+    let selectedSubcategory = null;
+    let categories = [];
+
+    // 페이지네이션 변수
+    let page = 0;
+    const limit = 20;    // 5×4
+    let noMoreImages = false;
+    let isCut = false; // ✅ 이미지 상태 저장
+    let isVisible = true;
+
     if (previewLink) {
         previewLink.addEventListener("click", (e) => {
             e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
@@ -120,8 +131,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-
-    const closeBtn = document.querySelector(".preview-close");
     if (closeBtn) {
         closeBtn.addEventListener("click", () => {
             const overlay = document.getElementById("previewOverlay");
@@ -131,16 +140,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    let selectedCategory = null;
-    let selectedSubcategory = null;
-    let categories = [];
-
-    // 페이지네이션 변수
-    let page = 0;
-    const limit = 20;    // 5×4
-    let noMoreImages = false;
-    let isCut = false; // ✅ 이미지 상태 저장
-    let isVisible = true;
 
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
     const categoryMappings = {
@@ -171,17 +170,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         }, 500);
     }
 
-    // ✅ URL 파라미터로 카테고리 자동 선택
-    const urlParams = new URLSearchParams(window.location.search);
-    let categoryParam = urlParams.get("category");
-
     // ✅ URL에서 받은 카테고리가 영문이면 한글로 변환
     if (categoryParam && categoryMappings[categoryParam]) {
         categoryParam = categoryMappings[categoryParam];
     }
 
     if (welcomeEl) {
-
         if (opacitySlider) {
             // 슬라이더 조작 시
             opacitySlider.addEventListener("input", () => {
@@ -264,6 +258,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
+    function bindPreviewModeSwitch() {
+        const container = document.querySelector(".preview-container");
+        const imageBtn = document.getElementById("preview-image-mode");
+        const textBtn = document.getElementById("preview-text-mode");
+
+        imageBtn.addEventListener("click", () => {
+            container.classList.add("image-mode");
+            container.classList.remove("text-mode");
+
+            imageBtn.classList.add("active");
+            textBtn.classList.remove("active");
+        });
+
+        textBtn.addEventListener("click", () => {
+            container.classList.add("text-mode");
+            container.classList.remove("image-mode");
+
+            textBtn.classList.add("active");
+            imageBtn.classList.remove("active");
+        });
+    }
+
     function openPreviewPopup() {
         const overlay = document.getElementById("previewOverlay");
         const frame = document.getElementById("previewFrame");
@@ -277,14 +293,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         overlay.style.display = "flex";
     }
 
-    function closePreviewPopup() {
-        const overlay = document.getElementById("previewOverlay");
-        const frame = document.getElementById("previewFrame");
-
-        frame.src = "";
-        overlay.style.display = "none";
-    }
-
     function openAiIconPopup() {
         const overlay = document.getElementById("previewOverlay");
         const frame = document.getElementById("previewFrame");
@@ -293,13 +301,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         overlay.style.display = "flex";
     }
 
-    function closePreviewPopup() {
-        const overlay = document.getElementById("previewOverlay");
-        const frame = document.getElementById("previewFrame");
-
-        frame.src = ""; // iframe 초기화 (메모리 정리)
-        overlay.style.display = "none";
-    }
 
     // 1) 카테고리 로드
     async function loadCategories() {
@@ -645,11 +646,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-
-    const themeToggle = document.getElementById("themeToggle"); // ✅ 추가
-    let wasOverlapping = false;
-    let overlapTimer = null;
-
     function checkOverlap(img) {
         const imgRect = img.getBoundingClientRect();
         const toggleRect = document.querySelector('.toggle-switch .slider').getBoundingClientRect();
@@ -850,7 +846,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.error("🚨 Indicator 상태 가져오기 오류:", error);
         }
     }
-    setInterval(updatePreviewImage, 30000); // 30초마다 실행
 
     // 표시기 상태 업데이트 함수
     function updatePreviewVisibility() {
