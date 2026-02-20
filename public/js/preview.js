@@ -514,14 +514,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     const previewText = image.content
                         ? image.content.substring(0, 100)
-                        : postTitle;
+                        : image.file_name;
 
                     content.textContent = previewText;
 
                     // 🔥 여기 추가 (이미지 모드와 동일 로직)
                     const cat = encodeURIComponent(image.category_name || "uncategorized");
                     const sub = encodeURIComponent(image.subcategory_name || "general");
-                    const file = encodeURIComponent(postTitle);
+                    const file = encodeURIComponent(image.file_name);
 
                     row.onclick = () => {
                         if (isExplanMode) return;

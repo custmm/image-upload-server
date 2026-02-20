@@ -2133,6 +2133,7 @@ body.preview-page .text-row {
 
 body.preview-page .text-row:hover {
     background: #f7f7f7;
+    border: 3px solid #0066cc;
 }
 
 body.preview-page .text-thumb {
