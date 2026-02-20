@@ -120,13 +120,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     let selectedCategory = null;
     let selectedSubcategory = null;
     let categories = [];
-
-    // 페이지네이션 변수
     let page = 0;
-    const limit = 20;    // 5×4
+    let limit = 20;    // 5×4
     let noMoreImages = false;
     let isCut = false; // ✅ 이미지 상태 저장
     let isVisible = true;
+    let currentView = "image"; // 기본값
 
     if (previewLink) {
         previewLink.addEventListener("click", (e) => {
@@ -276,23 +275,31 @@ document.addEventListener("DOMContentLoaded", async () => {
         const textBtn = document.getElementById("preview-text-mode");
         const gallery = document.getElementById("imageGallery");
 
-        imageBtn.addEventListener("click", async() => {
+        imageBtn.addEventListener("click", async () => {
+            currentView = "image";
+
             imageBtn.classList.add("active");
             textBtn.classList.remove("active");
 
             gallery.classList.remove("text-view");
             gallery.classList.add("image-view");
 
+            page = 0;
+            limit = 20; // 이미지뷰는 20개
             await loadPage(selectedCategory, selectedSubcategory);
         });
 
-        textBtn.addEventListener("click", async() => {
+        textBtn.addEventListener("click", async () => {
+            currentView = "text";
+
             textBtn.classList.add("active");
             imageBtn.classList.remove("active");
 
             gallery.classList.remove("image-view");
             gallery.classList.add("text-view");
 
+            page = 0;
+            limit = 10; // 텍스트뷰는 10개
             await loadPage(selectedCategory, selectedSubcategory);
         });
     }
@@ -466,32 +473,56 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             clearGallery();
             images.forEach(image => {
-                // 기존 loadImages 반복문 내용
-                const imgContainer = document.createElement("div");
-                imgContainer.classList.add("image-container");
 
-                const placeholder = document.createElement("div");
-                placeholder.classList.add("image-placeholder");
+                if (currentView === "image") {
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("image-container");
 
-                const img = document.createElement("img");
-                img.dataset.src = image.file_path;
-                img.alt = "Uploaded Image";
-                img.classList.add("gallery-image");
-                observer.observe(img);
+                    const placeholder = document.createElement("div");
+                    placeholder.classList.add("image-placeholder");
 
-                const cat = encodeURIComponent(image.category_name || "uncategorized");
-                const sub = encodeURIComponent(image.subcategory_name || "general");
-                const file = encodeURIComponent(image.file_name);
+                    const img = document.createElement("img");
+                    img.dataset.src = image.file_path;
+                    img.alt = "Uploaded Image";
+                    img.classList.add("gallery-image");
+                    observer.observe(img);
 
-                // ✅ post.html 이동 차단
-                img.onclick = () => {
-                    if (isExplanMode) return; // 🔒 체험모드에서는 클릭 차단
-                    window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
-                };
+                    const cat = encodeURIComponent(image.category_name || "uncategorized");
+                    const sub = encodeURIComponent(image.subcategory_name || "general");
+                    const file = encodeURIComponent(image.file_name);
 
-                imgContainer.appendChild(placeholder);
-                imgContainer.appendChild(img);
-                imageGallery.appendChild(imgContainer);
+                    // ✅ post.html 이동 차단
+                    img.onclick = () => {
+                        if (isExplanMode) return; // 🔒 체험모드에서는 클릭 차단
+                        window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+                    };
+
+                    imgContainer.appendChild(placeholder);
+                    imgContainer.appendChild(img);
+                    imageGallery.appendChild(imgContainer);
+                } else if (currentView === "text") {
+
+                    const row = document.createElement("div");
+                    row.classList.add("text-row");
+
+                    const thumb = document.createElement("img");
+                    thumb.src = image.file_path;
+                    thumb.classList.add("text-thumb");
+
+                    const content = document.createElement("div");
+                    content.classList.add("text-content");
+
+                    const previewText = image.content
+                        ? image.content.substring(0, 100)
+                        : image.file_name;
+
+                    content.textContent = previewText;
+
+                    row.appendChild(thumb);
+                    row.appendChild(content);
+
+                    imageGallery.appendChild(row);
+                }
             });
 
             renderPagination(totalPages);

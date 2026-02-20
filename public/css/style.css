@@ -2105,6 +2105,28 @@ body.preview-page .preview-container.text-mode {
     flex-direction: column;
     gap: 14px;
 }
+/* 텍스트뷰 전용 */
+
+body.preview-page .text-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+body.preview-page .text-thumb {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+body.preview-page .text-content {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.5;
+}
 
 /* 사이드바 타이틀 */
 body.preview-page .menu-title {
