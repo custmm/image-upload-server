@@ -11,14 +11,25 @@ window.nextPage = async function () {
         await loadPage(selectedCategory, selectedSubcategory);
     }
 };
-window.closePreviewPopup = function () {
-    const overlay = document.getElementById("previewOverlay");
-    const frame = document.getElementById("previewFrame");
 
-    if (!overlay) return;
+window.closePreviewPopup = function (type) {
 
-    frame.src = "";
-    overlay.style.display = "none";
+    const map = {
+        info: {
+            overlay: document.getElementById("previewOverlayInfo"),
+            frame: document.getElementById("previewFrameInfo")
+        },
+        icon: {
+            overlay: document.getElementById("previewOverlayIcon"),
+            frame: document.getElementById("previewFrameIcon")
+        }
+    };
+
+    const target = map[type];
+    if (!target || !target.overlay) return;
+
+    target.frame.src = "";
+    target.overlay.style.display = "none";
 };
 
 window.toggleSidebar = function () {
@@ -100,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const closeBtn = document.querySelector(".preview-close");
     const previewLink = document.querySelector('a[href="./preview_popup.html"]');
     const iconlink = document.querySelector('a[href="./ai_icon.html"]');
-    const urlParams = new URLSearchParams(window.location.search);    
+    const urlParams = new URLSearchParams(window.location.search);
     const themeToggle = document.getElementById("themeToggle"); // ✅ 추가
 
     let wasOverlapping = false;
@@ -131,14 +142,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    if (closeBtn) {
-        closeBtn.addEventListener("click", () => {
-            const overlay = document.getElementById("previewOverlay");
-            const frame = document.getElementById("previewFrame");
+    document.querySelectorAll(".preview-close").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+
+            const overlay = e.target.closest(".preview-overlay");
+            const frame = overlay.querySelector("iframe");
+
             frame.src = "";
             overlay.style.display = "none";
         });
-    }
+    });
 
 
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
@@ -258,46 +271,49 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    function bindPreviewModeSwitch() {
-        const container = document.querySelector(".preview-container");
+    function bindViewSwitchEvents() {
         const imageBtn = document.getElementById("preview-image-mode");
         const textBtn = document.getElementById("preview-text-mode");
+        const gallery = document.getElementById("imageGallery");
 
         imageBtn.addEventListener("click", () => {
-            container.classList.add("image-mode");
-            container.classList.remove("text-mode");
-
             imageBtn.classList.add("active");
             textBtn.classList.remove("active");
+
+            gallery.classList.remove("text-view");
+            gallery.classList.add("image-view");
+
+            loadImages(); // 네가 쓰는 이미지 로딩 함수
         });
 
         textBtn.addEventListener("click", () => {
-            container.classList.add("text-mode");
-            container.classList.remove("image-mode");
-
             textBtn.classList.add("active");
             imageBtn.classList.remove("active");
+
+            gallery.classList.remove("image-view");
+            gallery.classList.add("text-view");
+
+            loadTextList(); // 네가 쓰는 텍스트 로딩 함수
         });
     }
 
     function openPreviewPopup() {
-        const overlay = document.getElementById("previewOverlay");
-        const frame = document.getElementById("previewFrame");
+        const overlay = document.getElementById("previewOverlayInfo");
+        const frame = document.getElementById("previewFrameInfo");
 
-        if (!overlay || !frame) {
-            console.error("❌ 팝업 요소를 찾을 수 없음");
-            return;
-        }
+        if (!overlay || !frame) return;
 
         frame.src = "preview_popup.html";
         overlay.style.display = "flex";
     }
 
     function openAiIconPopup() {
-        const overlay = document.getElementById("previewOverlay");
-        const frame = document.getElementById("previewFrame");
+        const overlay = document.getElementById("previewOverlayIcon");
+        const frame = document.getElementById("previewFrameIcon");
 
-        frame.src = "ai_icon.html"; // 🔥 여기 핵심
+        if (!overlay || !frame) return;
+
+        frame.src = "ai_icon.html";
         overlay.style.display = "flex";
     }
 
@@ -985,6 +1001,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }, { rootMargin: "100px", threshold: 0.1 });
 
+    bindViewSwitchEvents();
+    bindSidebarEvents();
     applySavedTheme();
     loadCategories();
     await fetchIndicatorStatusAndApply();   // 초기 상태 반영
