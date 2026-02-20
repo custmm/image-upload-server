@@ -231,7 +231,11 @@
     <div class="category-subtab-container">
       <h2 id="currentCategory"></h2>
 
-      <div class="view-switch">
+      <div class="sub-tab-wrapper">
+        <div class="sub-tab-container" id="subTabContainer">
+          <!-- 선택한 카테고리의 서브 탭이 동적으로 생성됩니다 -->
+        </div>      
+        <div class="view-switch">
         <button id="preview-image-mode" class="view-icon-btn active">
           <i class="fas fa-th-large"></i>
         </button>
@@ -240,16 +244,13 @@
           <i class="fas fa-list"></i>
         </button>
       </div>
-
-      <div class="sub-tab-wrapper">
-        <div class="sub-tab-container" id="subTabContainer">
-          <!-- 선택한 카테고리의 서브 탭이 동적으로 생성됩니다 -->
-        </div>
       </div>
     </div>
 
     <!-- ✅ 이미지 갤러리를 감싸는 컨테이너 (중앙 정렬) -->
     <div class="image-gallery-wrapper">
+
+
       <div id="imageGallery" class="image-gallery">
         <!-- ✅ 동적으로 이미지 추가 -->
       </div>

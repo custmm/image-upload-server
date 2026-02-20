@@ -2066,7 +2066,7 @@ body.preview-page .sidebar.open {
 body.preview-page .view-switch {
     display: flex;
     gap: 8px;
-    justify-content: flex-end;
+    margin: 10px 0 10px 80%;
 }
 
 body.preview-page .view-icon-btn {
