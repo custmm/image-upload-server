@@ -2095,6 +2095,19 @@ body.preview-page .view-icon-btn.active {
     color: white;
     border-color: #4caf50;
 }
+/* 사진 모드 */
+body.preview-page .preview-container.image-mode {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+/* 텍스트 모드 */
+body.preview-page .preview-container.text-mode {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
 
 /* 사이드바 타이틀 */
 body.preview-page .menu-title {
