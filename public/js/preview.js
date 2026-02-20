@@ -518,6 +518,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     content.textContent = previewText;
 
+                    // 🔥 여기 추가 (이미지 모드와 동일 로직)
+                    const cat = encodeURIComponent(image.category_name || "uncategorized");
+                    const sub = encodeURIComponent(image.subcategory_name || "general");
+                    const file = encodeURIComponent(image.file_name);
+
+                    row.onclick = () => {
+                        if (isExplanMode) return;
+                        window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+                    };
+
                     row.appendChild(thumb);
                     row.appendChild(content);
 
@@ -614,34 +624,68 @@ document.addEventListener("DOMContentLoaded", async () => {
             imageGallery.classList.add("grid-layout");
 
             images.forEach(image => {
-                const imgContainer = document.createElement("div");
-                imgContainer.classList.add("image-container");
+                if (currentView === "image") {
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("image-container");
 
-                const placeholder = document.createElement("div");
-                placeholder.classList.add("image-placeholder");
+                    const placeholder = document.createElement("div");
+                    placeholder.classList.add("image-placeholder");
 
-                const img = document.createElement("img");
-                img.dataset.src = `${image.file_path}`;
-                img.alt = "Uploaded Image";
-                img.classList.add("gallery-image");
+                    const img = document.createElement("img");
+                    img.dataset.src = `${image.file_path}`;
+                    img.alt = "Uploaded Image";
+                    img.classList.add("gallery-image");
 
-                observer.observe(img); // ✅ Intersection Observer로 감지
+                    observer.observe(img); // ✅ Intersection Observer로 감지
 
-                // ✅ 문제 해결: `image.category_name`과 `image.subcategory_name`을 직접 사용
-                const categoryName = image.category_name ? encodeURIComponent(image.category_name) : "uncategorized";
-                const subcategoryName = image.subcategory_name ? encodeURIComponent(image.subcategory_name) : "general";
-                const fileName = encodeURIComponent(image.file_name);
-                const postURL = `post?category=${categoryName}&subcategory=${subcategoryName}&file=${fileName}`;
+                    // ✅ 문제 해결: `image.category_name`과 `image.subcategory_name`을 직접 사용
+                    const categoryName = image.category_name ? encodeURIComponent(image.category_name) : "uncategorized";
+                    const subcategoryName = image.subcategory_name ? encodeURIComponent(image.subcategory_name) : "general";
+                    const fileName = encodeURIComponent(image.file_name);
+                    const postURL = `post?category=${categoryName}&subcategory=${subcategoryName}&file=${fileName}`;
 
-                img.onclick = () => {
-                    if (isExplanMode) return; // 🔒 체험모드에서는 클릭 무시
-                    console.log(`✅ 이동할 URL: ${postURL}`);
-                    window.location.href = postURL;
-                };
+                    img.onclick = () => {
+                        if (isExplanMode) return; // 🔒 체험모드에서는 클릭 무시
+                        console.log(`✅ 이동할 URL: ${postURL}`);
+                        window.location.href = postURL;
+                    };
 
-                imgContainer.appendChild(placeholder);
-                imgContainer.appendChild(img);
-                imageGallery.appendChild(imgContainer);
+                    imgContainer.appendChild(placeholder);
+                    imgContainer.appendChild(img);
+                    imageGallery.appendChild(imgContainer);
+                } else if (currentView === "text") {
+
+                    const row = document.createElement("div");
+                    row.classList.add("text-row");
+
+                    const thumb = document.createElement("img");
+                    thumb.src = image.file_path;
+                    thumb.classList.add("text-thumb");
+
+                    const content = document.createElement("div");
+                    content.classList.add("text-content");
+
+                    const previewText = image.content
+                        ? image.content.substring(0, 100)
+                        : image.file_name;
+
+                    content.textContent = previewText;
+
+                    // 🔥 여기 추가 (이미지 모드와 동일 로직)
+                    const cat = encodeURIComponent(image.category_name || "uncategorized");
+                    const sub = encodeURIComponent(image.subcategory_name || "general");
+                    const file = encodeURIComponent(image.file_name);
+
+                    row.onclick = () => {
+                        if (isExplanMode) return;
+                        window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+                    };
+
+                    row.appendChild(thumb);
+                    row.appendChild(content);
+
+                    imageGallery.appendChild(row);
+                }
             });
         } catch (error) {
             console.error("🚨 이미지를 불러오는 중 오류 발생:", error);

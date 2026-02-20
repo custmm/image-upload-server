@@ -2109,10 +2109,15 @@ body.preview-page .preview-container.text-mode {
 
 body.preview-page .text-row {
     display: flex;
-    align-items: center;
     gap: 15px;
     padding: 12px;
-    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s ease;
+}
+
+body.preview-page .text-row:hover {
+    background: #f7f7f7;
 }
 
 body.preview-page .text-thumb {
