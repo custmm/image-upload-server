@@ -2092,15 +2092,16 @@ body.preview-page .view-icon-btn:hover {
 body.preview-page .view-icon-btn.active {
     color: #4caf50;
 }
+
 /* 사진 모드 */
-body.preview-page .preview-container.image-mode {
+body.preview-page .image-gallery.image-mode {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 12px;
 }
 
 /* 텍스트 모드 */
-body.preview-page .preview-container.text-mode {
+body.preview-page .image-gallery.text-mode {
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -2501,21 +2502,6 @@ body.preview-page .image-gallery-wrapper {
     margin: 40px auto;
     width: 95%;
     overflow-x: hidden;
-}
-
-/* ✅ 이미지 갤러리 (4x5 배열) */
-body.preview-page .image-gallery {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: auto;
-    gap: 3px;
-    padding: 15px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    align-items: center;
-    width: 85%;
 }
 
 /* 카테고리 제목 스타일 */
