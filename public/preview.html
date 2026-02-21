@@ -41,6 +41,14 @@
         width: 85px;
       }
 
+      body.preview-page #currentCategory {
+        font-size: 20px;
+      }
+
+      body.preview-page .view-switch {
+        margin: 10px 0 10px 65%;
+      }
+
       body.preview-page .sub-tab-container {
         display: flex;
         flex-wrap: wrap;
@@ -49,8 +57,7 @@
         left: 50%;
         transform: translateX(-50%);
         gap: 5px;
-        padding: 20px 0;
-        margin-bottom: 10px;
+        margin: 20px auto;
 
       }
 
@@ -94,8 +101,8 @@
       }
 
       body.preview-page .sub-tab {
-        font-size: 13px;
-        padding: 6px 8px;
+        font-size: 10px;
+        padding: 4px 4px;
       }
 
       body.preview-page .opacitybtn {
@@ -234,16 +241,16 @@
       <div class="sub-tab-wrapper">
         <div class="sub-tab-container" id="subTabContainer">
           <!-- 선택한 카테고리의 서브 탭이 동적으로 생성됩니다 -->
-        </div>      
+        </div>
         <div class="view-switch">
-        <button id="preview-image-mode" class="view-icon-btn active">
-          <i class="fas fa-th-large"></i>
-        </button>
+          <button id="preview-image-mode" class="view-icon-btn active">
+            <i class="fas fa-th-large"></i>
+          </button>
 
-        <button id="preview-text-mode" class="view-icon-btn">
-          <i class="fas fa-list"></i>
-        </button>
-      </div>
+          <button id="preview-text-mode" class="view-icon-btn">
+            <i class="fas fa-list"></i>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -262,7 +269,7 @@
     <div class="preview-popup">
       <button class="preview-close" onclick="closePreviewPopup()">✖</button>
 
-      <iframe id="previewFrame" src="./preview_popup.html" loading="lazy"></iframe>
+      <iframe id="previewFrameInfo" src="./preview_popup.html" loading="lazy"></iframe>
     </div>
   </div>
 
@@ -270,7 +277,7 @@
     <div class="preview-popup">
       <button class="preview-close" onclick="closePreviewPopup()">✖</button>
 
-      <iframe id="previewFrame" src="./ai_icon.html" loading="lazy"></iframe>
+      <iframe id="previewFrameIcon" src="./ai_icon.html" loading="lazy"></iframe>
     </div>
   </div>
 

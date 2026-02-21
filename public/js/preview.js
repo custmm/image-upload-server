@@ -109,8 +109,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tabDesign = document.querySelector(".tab-design");
     const margeContainer = document.querySelector(".marge-container");
     const closeBtn = document.querySelector(".preview-close");
-    const previewLink = document.querySelector('a[href="./preview_popup.html"]');
-    const iconlink = document.querySelector('a[href="./ai_icon.html"]');
+    const previewLink = document.getElementById("previewLink");
+    const iconLink = document.getElementById("iconlink");
     const urlParams = new URLSearchParams(window.location.search);
     const themeToggle = document.getElementById("themeToggle"); // ✅ 추가
 
@@ -134,8 +134,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    if (iconlink) {
-        iconlink.addEventListener("click", (e) => {
+    if (iconLink) {
+        iconLink.addEventListener("click", (e) => {
             e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
             openAiIconPopup();
         });
