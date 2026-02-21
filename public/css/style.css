@@ -2356,7 +2356,7 @@ body.preview-page .sub-tab-container {
     left: 50%;
     transform: translateX(-50%);
     gap: 5px;
-    padding-top: 40px;
+    padding-top: 10%;
     margin-bottom: 10px;
 }
 
