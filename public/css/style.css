@@ -2118,7 +2118,7 @@ body.preview-page .image-gallery.image-view {
 body.preview-page .image-gallery.text-view {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    padding: 5px;
 }
 
 /* 텍스트뷰 전용 */
@@ -2129,6 +2129,7 @@ body.preview-page .text-row {
     cursor: pointer;
     border-bottom: 1px solid #eee;
     transition: background 0.2s ease;
+    padding: 5px;
 }
 
 body.preview-page .text-row:hover {
@@ -2141,7 +2142,8 @@ body.preview-page .text-thumb {
     width: 80px;
     height: 80px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 20px;
+    padding: 5px;
 }
 
 body.preview-page .text-content {
