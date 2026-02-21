@@ -509,12 +509,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                     thumb.src = image.file_path;
                     thumb.classList.add("text-thumb");
 
+
                     const content = document.createElement("div");
                     content.classList.add("text-content");
 
                     const previewText = image.content
                         ? image.content.substring(0, 100)
-                        : image.file_name;
+                        : image.title;
 
                     content.textContent = previewText;
 
