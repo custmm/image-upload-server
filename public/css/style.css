@@ -2120,12 +2120,12 @@ body.preview-page .image-gallery.text-view {
     flex-direction: column;
     gap: 14px;
 }
-/* 텍스트뷰 전용 */
 
+/* 텍스트뷰 전용 */
 body.preview-page .text-row {
-    display: flex;
-    gap: 15px;
-    padding: 12px;
+    display: flex;    
+    justify-content: space-between;
+    width: 100%;
     cursor: pointer;
     border-bottom: 1px solid #eee;
     transition: background 0.2s ease;
