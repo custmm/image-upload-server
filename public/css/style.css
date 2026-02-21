@@ -1933,6 +1933,10 @@ body.post-page .post-image {
     object-fit: contain;
 }
 
+body.post-page #postTitle{
+    font-size: 25px;
+}
+
 /* ✅ 게시물 설명 */
 body.post-page .post-description {
     font-size: 18px;
@@ -1942,7 +1946,7 @@ body.post-page .post-description {
 }
 
 body.post-page .post-desc {
-    padding: 0 0 80px;
+    padding: 20px 0 80px;
 }
 
 body.post-page .post-buttons {
