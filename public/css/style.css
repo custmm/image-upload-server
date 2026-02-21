@@ -1934,7 +1934,8 @@ body.post-page .post-image {
 }
 
 body.post-page #postTitle{
-    font-size: 25px;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 /* ✅ 게시물 설명 */
@@ -1942,11 +1943,10 @@ body.post-page .post-description {
     font-size: 18px;
     text-align: left;
     white-space: pre-wrap;
-    /* newline 문자 보존 */
 }
 
 body.post-page .post-desc {
-    padding: 20px 0 80px;
+    padding: 10px 0 80px;
 }
 
 body.post-page .post-buttons {
@@ -1965,7 +1965,7 @@ body.post-page .button {
 }
 
 body.post-page .hastag {
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 18px;
 }
 
