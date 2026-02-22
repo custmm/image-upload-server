@@ -883,9 +883,9 @@ body.dashboard-page .post-form-container {
 /* 🔥 이미지 스타일 */
 body.dashboard-page .post-image {
     display: flex;
-    border: 4px solid #00000000;
-    margin: 5px;
-    width: 4vw;
+    border: 4px solid #ccc;
+    width: 30px;
+    height:30px;
     object-fit: cover;
     border-radius: 5px;
     transition: transform 0.2s ease-in-out;
@@ -1232,11 +1232,6 @@ body.dashboard-page .file-name {
 body.dashboard-page .buttons {
     display: flex;
     gap: 6px;
-}
-
-/* 공통 갤러리 컨테이너 */
-body.dashboard-page .gallery-container {
-    width: 100%;
 }
 
 

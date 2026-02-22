@@ -10,7 +10,26 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/global.css">
     <style>
-        @media (max-width: 576px) {
+        @media (max-width:375px)  {
+            body.dashboard-page .post-form-container.image-mode .gallery-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0px;
+            }
+            body.dashboard-page .post-image {
+                width: 25px;
+                height: 25px;
+            }
+            
+        }
+        @media (min-width:376px) and (max-width: 576px) {            
+            body.dashboard-page .post-form-container.image-mode .gallery-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0px;
+            }            
+            body.dashboard-page .post-image {
+                width: 30px;
+                height: 30px;
+            }
             body.dashboard-page .change-button {
                 display: flex;
                 align-items: center;
@@ -24,6 +43,7 @@
                 transition: color 0.3s ease-in-out;
             }
 
+
             body.dashboard-page .change-button-group {
                 gap: 0;
             }
@@ -31,16 +51,15 @@
             body.dashboard-page .section-title {
                 font-size: 19px;
             }
-body.dashboard-page .post-image {
-    width: 5vw;
-}
+
             body.dashboard-page .post-item img {
                 width: 40px;
                 height: 40px;
             }
-            body.dashboard-page .post-form-container.image-mode .gallery-container {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 5px;
+
+            body.dashboard-page .post-form-container.image-mode {
+                width: 100%;
+                max-width: 100%;
             }
         }
     </style>
