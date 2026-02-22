@@ -95,26 +95,44 @@ document.addEventListener("DOMContentLoaded", () => {
     currentCategoryId = null;
 
     const container = document.querySelector(".post-form-container");
-    
-    // 모드 상태만 제어
+
     container.classList.add("text-mode");
     container.classList.remove("image-mode");
 
-    // DOM 구조 생성
     const textGallery = document.createElement("div");
     textGallery.id = "textGallery";
     textGallery.classList.add("gallery-container");
 
     container.appendChild(textGallery);
 
-    fetchImages(currentMode, true); 
+    fetchImages(currentMode, true);
 
+    // 🔥 TEXT 모드용 (container 기준)
     container.addEventListener("scroll", throttle(() => {
+
+        if (currentMode !== "text") return;
+
         if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
             if (!isLoading && !noMoreImages) {
-                fetchImagesDebounced(currentMode);
+                fetchImagesDebounced("text");
             }
         }
+
+    }, 700));
+
+
+    // 🔥 IMAGE 모드용 (window 기준)
+    window.addEventListener("scroll", throttle(() => {
+
+        // 이미지 모드일 때만 실행
+        if (currentMode !== "image") return;
+
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
+            if (!isLoading && !noMoreImages) {
+                fetchImagesDebounced("image");
+            }
+        }
+
     }, 700));
 
     renderCharts();
@@ -321,7 +339,7 @@ function renderImageMode(images, append = false) {
             const category = image.category.name;
             const subcategory = encodeURIComponent(image.subcategory.name); // URL 인코딩 필수
             const file = image.file_name;
-            window.location.href = 
+            window.location.href =
                 `/post?category=${category}&subcategory=${subcategory}&file=${file}`;
         });
 
@@ -335,7 +353,7 @@ function renderImageMode(images, append = false) {
 
 function renderTextMode(images, append = false) {
     const container = document.querySelector(".post-form-container");
-    
+
     container.classList.add("text-mode");
     container.classList.remove("image-mode");
 
@@ -442,8 +460,8 @@ function openEditPopup(image) {
                 `;
 
         document.body.appendChild(modal);
-    } 
-     modal.classList.remove("hidden");   // 🔥 표시
+    }
+    modal.classList.remove("hidden");   // 🔥 표시
 
 
     // ✅ 항상 최신 내용 설정
@@ -662,8 +680,8 @@ function bindModeSwitchEvents() {
         const container = document.querySelector(".post-form-container");
         clearContainer(container);
 
-        container.classList.add("image-mode"); 
-        container.classList.remove("text-mode");  
+        container.classList.add("image-mode");
+        container.classList.remove("text-mode");
 
         const imageGallery = document.createElement("div");
         imageGallery.id = "imageGallery";
