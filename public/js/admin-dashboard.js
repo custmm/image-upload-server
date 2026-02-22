@@ -114,6 +114,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadToggleBtn.addEventListener("click", () => {
 
+        if (currentMode === "text") {
+            // 텍스트 모드에서는 추가 로딩 버튼 역할
+            if (!isLoading && !noMoreImages) {
+                fetchImages("text");
+            }
+            return;
+        }
+
         isPaused = !isPaused;
 
         if (isPaused) {
@@ -124,19 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateLoadButton();
     });
-
-    // 🔥 TEXT 모드용 (container 기준)
-    container.addEventListener("scroll", throttle(() => {
-
-        if (currentMode !== "text") return;
-
-        if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
-            if (!isLoading && !noMoreImages && !isPaused) {
-                fetchImagesDebounced("text");
-            }
-        }
-
-    }, 700));
 
 
     // 🔥 IMAGE 모드용 (window 기준)
@@ -163,13 +158,18 @@ function updateLoadButton() {
     const loadToggleBtn = document.getElementById("loadToggleBtn");
     if (!loadToggleBtn) return;
 
+    if (currentMode === "text") {
+        loadToggleBtn.textContent = "📄 게시물 더 불러오기";
+        loadToggleBtn.classList.remove("paused");
+        return;
+    }
+
+    // 이미지 모드일 때만 pause 기능
     if (isPaused) {
-        loadToggleBtn.textContent =
-            `▶ ${currentMode === "image" ? "이미지" : "텍스트"} 로딩 재개`;
+        loadToggleBtn.textContent = "▶ 이미지 로딩 재개";
         loadToggleBtn.classList.add("paused");
     } else {
-        loadToggleBtn.textContent =
-            `⏸ ${currentMode === "image" ? "이미지" : "텍스트"} 로딩 중단`;
+        loadToggleBtn.textContent = "⏸ 이미지 로딩 중단";
         loadToggleBtn.classList.remove("paused");
     }
 }
