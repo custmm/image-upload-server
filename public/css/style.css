@@ -2151,13 +2151,13 @@ body.preview-page .text-content {
 }
 
 body.preview-page .text-preview {
-    font-size: 14px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 body.preview-page .text-hashtags {
-    margin-top: 6px;
-    font-size: 12px;
-    opacity: 0.6;
+    margin-top: 40px;
+    font-size: 15px;
 }
 
 body.preview-page .text-hashtag {
