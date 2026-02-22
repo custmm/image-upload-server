@@ -517,7 +517,29 @@ document.addEventListener("DOMContentLoaded", async () => {
                         ? image.content.substring(0, 100)
                         : image.title;
 
-                    content.textContent = previewText;
+                    // 본문 텍스트
+                    const textEl = document.createElement("div");
+                    textEl.classList.add("text-preview");
+                    textEl.textContent = previewText;
+
+                    // 🔥 해시태그 추출
+                    const description = image.content || "";
+                    const hashtags = description.match(/#([\w가-힣]+)/g) || [];
+
+                    // 해시태그 컨테이너
+                    const hashtagContainer = document.createElement("div");
+                    hashtagContainer.classList.add("text-hashtags");
+
+                    hashtags.slice(0, 4).forEach(tag => {
+                        const tagEl = document.createElement("span");
+                        tagEl.classList.add("text-hashtag");
+                        tagEl.textContent = tag;
+                        hashtagContainer.appendChild(tagEl);
+                    });
+
+                    // content에 추가
+                    content.appendChild(textEl);
+                    content.appendChild(hashtagContainer);
 
                     // 🔥 여기 추가 (이미지 모드와 동일 로직)
                     const cat = encodeURIComponent(image.category_name || "uncategorized");

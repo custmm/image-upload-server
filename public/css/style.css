@@ -2150,6 +2150,21 @@ body.preview-page .text-content {
     line-height: 1.5;
 }
 
+body.preview-page .text-preview {
+    font-size: 14px;
+}
+
+body.preview-page .text-hashtags {
+    margin-top: 6px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+body.preview-page .text-hashtag {
+    margin-right: 6px;
+    color: #6dbf9f;
+}
+
 /* 사이드바 타이틀 */
 body.preview-page .menu-title {
     background: none;
