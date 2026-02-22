@@ -1,9 +1,13 @@
-let loadedImages = 0; // ✅ 로드된 이미지 수
-const batchSize = 24; // ✅ 한 번에 24개씩 로드
-let currentCategoryId = null; // ✅ 현재 선택된 카테고리 ID
-let isLoading = false; // 이미지가 로딩 중인지 여부
-let noMoreImages = false; // 더 이상 이미지가 없는지 여부
+// 이미지로드
+let loadedImages = 0;
 let currentMode = "text";
+const batchSize = 24;
+let isLoading = false;
+let noMoreImages = false;
+let currentCategoryId = null;
+let isPaused = false;          // 🔥 로딩 중단 상태
+let currentController = null;  // 🔥 fetch 취소용
+
 let isPopupOpen = false;  // ✅ 팝업 상태 변수 추가
 let chartClickHandlerRegistered = false;
 let isModernized = false; // ✅ 이미지 현대화 상태 (전역)
@@ -72,7 +76,6 @@ function showeditpopup(message, callback) {
 
     document.body.appendChild(popup);
 
-    // ✅ popup 내부에서만 버튼 찾기 (중요)
     const okBtn = popup.querySelector(".popup-ok");
     const cancelBtn = popup.querySelector(".popup-cancel");
 
@@ -107,13 +110,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetchImages(currentMode, true);
 
+    const loadToggleBtn = document.getElementById("loadToggleBtn");
+
+    function updateLoadButton() {
+        if (isPaused) {
+            loadToggleBtn.textContent = `▶ ${currentMode === "image" ? "이미지" : "텍스트"} 로딩 재개`;
+        } else {
+            loadToggleBtn.textContent = `⏸ ${currentMode === "image" ? "이미지" : "텍스트"} 로딩 중단`;
+        }
+    }
+
+    updateLoadButton();
+
+    loadToggleBtn.addEventListener("click", () => {
+
+        isPaused = !isPaused;
+
+        if (isPaused) {
+            if (currentController) {
+                currentController.abort();
+            }
+        } else {
+            if (!isLoading && !noMoreImages) {
+                fetchImages(currentMode);
+            }
+        }
+
+        updateLoadButton();
+    });
+
     // 🔥 TEXT 모드용 (container 기준)
     container.addEventListener("scroll", throttle(() => {
 
         if (currentMode !== "text") return;
 
         if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
-            if (!isLoading && !noMoreImages) {
+            if (!isLoading && !noMoreImages && !isPaused) {
                 fetchImagesDebounced("text");
             }
         }
@@ -128,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (currentMode !== "image") return;
 
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
-            if (!isLoading && !noMoreImages) {
+            if (!isLoading && !noMoreImages && !isPaused) {
                 fetchImagesDebounced("image");
             }
         }
@@ -262,13 +294,27 @@ function bindIndicatorEvents() {
 }
 
 async function fetchImages(mode = "image", append = false) {
+
+    if (isPaused) return;          // 🔥 중단 상태면 바로 탈출
     if (isLoading || noMoreImages) return;
+
     isLoading = true;
+
+    // 🔥 기존 요청 취소
+    if (currentController) {
+        currentController.abort();
+    }
+
+    currentController = new AbortController();
 
     try {
         const url = `/api/files?offset=${loadedImages}&limit=${batchSize}`;
         console.log(`📌 이미지 요청 URL: ${url}`);
-        const response = await fetch(url);
+
+        const response = await fetch(url, {
+            signal: currentController.signal
+        });
+
         if (!response.ok) throw new Error(`서버 응답 오류: ${response.status} ${response.statusText}`);
 
         // 1) API가 { total, files } 형태로 내려주면 files 프로퍼티를, 아니면 그대로 배열로 처리
@@ -305,7 +351,11 @@ async function fetchImages(mode = "image", append = false) {
 
         loadedImages += images.length;
     } catch (error) {
-        console.error("🚨 이미지 불러오기 오류:", error);
+        if (error.name === "AbortError") {
+            console.log("⛔ 이미지 로딩 강제 중단");
+        } else {
+            console.error("🚨 이미지 불러오기 오류:", error);
+        }
     } finally {
         isLoading = false;
     }
@@ -690,6 +740,7 @@ function bindModeSwitchEvents() {
         container.appendChild(imageGallery);
 
         fetchImages("image", false);
+        updateLoadButton();
     });
 
     document.getElementById("text-mode").addEventListener("click", () => {
@@ -709,6 +760,7 @@ function bindModeSwitchEvents() {
         container.appendChild(textGallery);
 
         fetchImages("text", false);
+        updateLoadButton();
     });
 }
 

@@ -1094,6 +1094,11 @@ body.dashboard-page .section {
     border-radius: 15px;
     transition: transform 0.3s ease-in-out, left 0.3s ease-in-out;
 }
+body.dashboard-page #loadToggleBtn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
 body.dashboard-page .section:first-child,
 body.dashboard-page .section:nth-child(2) {
