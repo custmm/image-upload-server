@@ -110,16 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetchImages(currentMode, true);
 
-    const loadToggleBtn = document.getElementById("loadToggleBtn");
-
-    function updateLoadButton() {
-        if (isPaused) {
-            loadToggleBtn.textContent = `▶ ${currentMode === "image" ? "이미지" : "텍스트"} 로딩 재개`;
-        } else {
-            loadToggleBtn.textContent = `⏸ ${currentMode === "image" ? "이미지" : "텍스트"} 로딩 중단`;
-        }
-    }
-
     updateLoadButton();
 
     loadToggleBtn.addEventListener("click", () => {
@@ -168,6 +158,21 @@ document.addEventListener("DOMContentLoaded", () => {
     bindModeSwitchEvents();
     bindSidebarEvents();
 });
+
+function updateLoadButton() {
+    const loadToggleBtn = document.getElementById("loadToggleBtn");
+    if (!loadToggleBtn) return;
+
+    if (isPaused) {
+        loadToggleBtn.textContent =
+            `▶ ${currentMode === "image" ? "이미지" : "텍스트"} 로딩 재개`;
+        loadToggleBtn.classList.add("paused");
+    } else {
+        loadToggleBtn.textContent =
+            `⏸ ${currentMode === "image" ? "이미지" : "텍스트"} 로딩 중단`;
+        loadToggleBtn.classList.remove("paused");
+    }
+}
 
 function updateButtonState() {
     const showindicatorBtn = document.getElementById("show-indicator");
