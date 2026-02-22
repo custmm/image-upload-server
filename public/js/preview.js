@@ -512,23 +512,17 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const content = document.createElement("div");
                     content.classList.add("text-content");
 
-                    // 🔥 실제 글 내용 가져오기
-                    const fullText = image.file_description || image.title || "";
+                    // 🔥 제목 사용
+                    const titleText = image.title || "제목 없음";
 
-                    // 🔥 해시태그 추출
-                    const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
-
-                    // 🔥 해시태그 제거한 순수 본문
-                    const cleanText = fullText.replace(/#([\w가-힣]+)/g, "").trim();
-
-                    const previewText = cleanText.substring(0, 100);
-
-                    // 본문 텍스트
                     const textEl = document.createElement("div");
                     textEl.classList.add("text-preview");
-                    textEl.textContent = previewText;
+                    textEl.textContent = titleText;
 
-                    // 해시태그 컨테이너
+                    // 🔥 해시태그는 file_description에서 추출
+                    const fullText = image.file_description || "";
+                    const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
+
                     const hashtagContainer = document.createElement("div");
                     hashtagContainer.classList.add("text-hashtags");
 
@@ -539,7 +533,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         hashtagContainer.appendChild(tagEl);
                     });
 
-                    // content에 추가
                     content.appendChild(textEl);
                     content.appendChild(hashtagContainer);
 
