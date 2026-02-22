@@ -1062,6 +1062,7 @@ body.dashboard-page .change-button-group {
 /* 🔥 h2를 가운데 정렬하기 위해 flex-grow 사용 */
 body.dashboard-page .section-title {
     flex-grow: 1;
+    font-size: 24px;
     text-align: center;
 }
 
@@ -1185,9 +1186,8 @@ body.dashboard-page .post-form-container.text-mode .gallery-container {
 body.dashboard-page .post-form-container.image-mode {
     object-fit: cover;
     overflow-y: auto;
-    min-height: 400px;
     width: 100%;
-    max-width: 100%;
+    padding: 10px 0;
 }
 
 /* 이미지 모드 전용 레이아웃 */
