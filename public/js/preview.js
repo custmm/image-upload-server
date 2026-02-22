@@ -509,22 +509,24 @@ document.addEventListener("DOMContentLoaded", async () => {
                     thumb.src = image.file_path;
                     thumb.classList.add("text-thumb");
 
-
                     const content = document.createElement("div");
                     content.classList.add("text-content");
 
-                    const previewText = image.content
-                        ? image.content.substring(0, 100)
-                        : image.title;
+                    // 🔥 실제 글 내용 가져오기
+                    const fullText = image.file_description || image.title || "";
+
+                    // 🔥 해시태그 추출
+                    const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
+
+                    // 🔥 해시태그 제거한 순수 본문
+                    const cleanText = fullText.replace(/#([\w가-힣]+)/g, "").trim();
+
+                    const previewText = cleanText.substring(0, 100);
 
                     // 본문 텍스트
                     const textEl = document.createElement("div");
                     textEl.classList.add("text-preview");
                     textEl.textContent = previewText;
-
-                    // 🔥 해시태그 추출
-                    const description = image.content || "";
-                    const hashtags = description.match(/#([\w가-힣]+)/g) || [];
 
                     // 해시태그 컨테이너
                     const hashtagContainer = document.createElement("div");
@@ -541,7 +543,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                     content.appendChild(textEl);
                     content.appendChild(hashtagContainer);
 
-                    // 🔥 여기 추가 (이미지 모드와 동일 로직)
                     const cat = encodeURIComponent(image.category_name || "uncategorized");
                     const sub = encodeURIComponent(image.subcategory_name || "general");
                     const file = encodeURIComponent(image.file_name);
