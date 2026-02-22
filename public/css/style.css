@@ -1001,8 +1001,8 @@ body.dashboard-page .function-container img:hover {
 }
 
 body.dashboard-page .sorting-wrapper {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     align-items: center;
     gap: 10px;
 }
@@ -1018,15 +1018,6 @@ body.dashboard-page .custom-chart-button {
 body.dashboard-page .button-group {
     margin: 20px 0;
     padding: 20px 0;
-}
-
-body.dashboard-page .sorting-container {
-    display: flex;
-    justify-content: center;
-    margin: 10px 11px;
-    padding: 10px;
-    gap: 10px;
-    white-space: nowrap;
 }
 
 body.dashboard-page .popup-footer button {
@@ -1108,8 +1099,8 @@ body.dashboard-page .section:nth-child(2) {
 body.dashboard-page .section-row {
     background: rgba(255, 255, 255, 0.5);
     border-radius: 15px;
-    padding: 0 10px;
-    margin: 0 10px;
+    padding: 10px 10px;
+    margin: 15px 10px;
 
 }
 

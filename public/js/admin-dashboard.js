@@ -127,11 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
         isPaused = !isPaused;
 
         if (isPaused) {
-            if (currentController) {
-                currentController.abort();
-            }
-        } else {
-            if (!isLoading && !noMoreImages) {
+            if (!isLoading && !noMoreImages && !isPaused) {
                 fetchImages(currentMode);
             }
         }
@@ -194,12 +190,10 @@ async function fetchIndicatorStatus() {
 
         const data = await res.json();
 
-        // visible
         const previewVisible = data.visible ? "visible" : "hidden";
         localStorage.setItem("previewVisible", previewVisible);
         updateButtonState();
 
-        // ✅ modernized는 localStorage 우선, 서버는 fallback
         const localModernized = localStorage.getItem("indicatorModernized");
         const modernized = localModernized !== null
             ? localModernized === "true"
@@ -208,7 +202,6 @@ async function fetchIndicatorStatus() {
         localStorage.setItem("indicatorModernized", modernized ? "true" : "false");
         isModernized = modernized;
 
-        // 버튼 라벨 및 이미지 적용
         const modernizeBtn = document.getElementById("modernize-indicator");
         if (modernizeBtn) {
             modernizeBtn.textContent = isModernized ? "이미지 원래대로" : "이미지 현대화";
@@ -300,20 +293,11 @@ async function fetchImages(mode = "image", append = false) {
 
     isLoading = true;
 
-    // 🔥 기존 요청 취소
-    if (currentController) {
-        currentController.abort();
-    }
-
-    currentController = new AbortController();
-
     try {
         const url = `/api/files?offset=${loadedImages}&limit=${batchSize}`;
         console.log(`📌 이미지 요청 URL: ${url}`);
 
-        const response = await fetch(url, {
-            signal: currentController.signal
-        });
+        const response = await fetch(url);
 
         if (!response.ok) throw new Error(`서버 응답 오류: ${response.status} ${response.statusText}`);
 
