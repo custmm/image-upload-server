@@ -883,7 +883,6 @@ body.dashboard-page .post-form-container {
 /* 🔥 이미지 스타일 */
 body.dashboard-page .post-image {
     display: flex;
-    border: 4px solid #ccc;
     width: 30px;
     height:30px;
     object-fit: cover;
