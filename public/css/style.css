@@ -2344,7 +2344,6 @@ body.preview-page .preview-images img {
 /* 메인 탭 컨테이너 (큰 카테고리) */
 body.preview-page .tab-design {
     display: flex;
-    flex-wrap: wrap;
     text-align: center;
     position: relative;
     margin: 0 auto;
@@ -2357,9 +2356,7 @@ body.preview-page .tab-design {
 body.preview-page .sub-tab-wrapper {
     flex-wrap: wrap;
     flex: 1;
-    /* currentCategory 이후 남은 공간 모두 차지 */
     text-align: center;
-    /* 내부의 sub-tab-container를 중앙에 배치 */
 }
 
 /* 서브 탭 컨테이너 (작은 카테고리) */
