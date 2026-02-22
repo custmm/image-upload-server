@@ -2084,7 +2084,7 @@ body.preview-page .view-icon-btn i {
 }
 
 body.preview-page .view-icon-btn:hover {
-    background: #f2f2f2;
+    color: #fff352;
 }
 
 body.preview-page .view-icon-btn.active {
