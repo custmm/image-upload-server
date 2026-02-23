@@ -2657,9 +2657,6 @@ body.preview-popup-page ul {
 
 body.preview-popup-page table {
     border-collapse: collapse;
-    border: 1px solid #555;
-    margin: 10px auto;
-    font-size: 10px;
 }
 
 body.preview-popup-page caption.title {
@@ -2674,7 +2671,7 @@ body.preview-popup-page table.function_box {
 
 body.preview-popup-page p.appfunction {
     text-align: left;
-    font-size: 11px;
+    font-size: 20px;
     margin: 10px 5px;
 }
 
