@@ -1086,7 +1086,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (entry.isIntersecting) {
                 const img = entry.target;
                 img.src = img.dataset.src; // ✅ 실제 이미지 로드
-                img.classList.add("loaded");
                 observer.unobserve(img); // ✅ 감지 중지
             }
         });

@@ -370,8 +370,6 @@ function renderImageMode(images, append = false) {
         const img = document.createElement("img");
 
         img.dataset.src = `${image.file_path}`;
-        img.alt = "Uploaded Image";
-        img.classList.add("post-image");
         img.dataset.loaded = "false";
 
         img.addEventListener("click", () => {
@@ -654,8 +652,6 @@ function bindSidebarEvents() {
 function createLazyImage(img, src) {
     const imgElement = document.createElement("img");
     imgElement.dataset.src = src;
-    imgElement.alt = "Uploaded Image";
-    imgElement.classList.add("post-image");
     imgElement.loading = "lazy"; // ✅ Lazy Load 속성 추가
     observer.observe(imgElement); // Intersection Observer 적용
     return imgElement;
