@@ -886,7 +886,7 @@ body.dashboard-page .post-form-container {
 body.dashboard-page .post-image {
     display: flex;
     width: 30px;
-    height:30px;
+    height: 30px;
     object-fit: cover;
     border-radius: 5px;
     transition: transform 0.2s ease-in-out;
@@ -1088,6 +1088,7 @@ body.dashboard-page .section {
     border-radius: 15px;
     transition: transform 0.3s ease-in-out, left 0.3s ease-in-out;
 }
+
 body.dashboard-page #loadToggleBtn {
     padding: 8px 12px;
     border-radius: 6px;
@@ -1926,7 +1927,7 @@ body.post-page .post-image {
     object-fit: contain;
 }
 
-body.post-page #postTitle{
+body.post-page #postTitle {
     font-size: 28px;
     font-weight: bold;
 }
@@ -2102,10 +2103,15 @@ body.preview-page .image-gallery {
     justify-content: center;
     align-items: center;
     width: 85%;
+    position: relative;
 }
 
-body.preview-page .gallery-image {
-    width: 13vw;
+body.preview-page .image-container {
+    position: absolute;
+    width: calc(20% - 5px);
+}
+
+body.preview-page .image-container img {
     height: 13vw;
     object-fit: cover;
     border: none;
@@ -2114,7 +2120,7 @@ body.preview-page .gallery-image {
     transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
 }
 
-body.preview-page .gallery-image:hover {
+body.preview-page .image-container img:hover {
     cursor: pointer;
     filter: grayscale(0%) brightness(1);
     transform: scale(1.03);
@@ -2137,7 +2143,7 @@ body.preview-page .image-gallery.text-view {
 
 /* 텍스트뷰 전용 */
 body.preview-page .text-row {
-    display: flex;    
+    display: flex;
     justify-content: space-between;
     width: 100%;
     cursor: pointer;
@@ -2556,7 +2562,7 @@ body.preview-page #currentCategory {
     padding-left: 20px;
 }
 
-body.preview-page #currentCategory:hover{
+body.preview-page #currentCategory:hover {
     text-shadow: 0 0 10px white;
 }
 
