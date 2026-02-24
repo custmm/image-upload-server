@@ -2331,25 +2331,20 @@ body.preview-page .opacityControl {
     align-items: center;
     gap: 8px;
 }
-
+/* 표시기이미지 배치 */
 body.preview-page .preview-images {
     display: flex;
     align-items: center;
     position: absolute;
     top: -105px;
     right: 10px;
-    /* ← 뷰포트 오른쪽에서 10px 안쪽으로 고정 */
-
     cursor: grab;
-    /* 기본 커서 */
-
     margin-left: 80%;
 }
 
 body.preview-page .preview-images img {
     display: block;
     width: auto;
-    /* 원하는 크기로 조정 */
     height: 85px;
     border-radius: 5px;
     object-fit: cover;
@@ -2557,7 +2552,8 @@ body.preview-page #currentCategory {
 }
 
 body.preview-page #currentCategory:hover{
-    text-shadow: 0 0 10px white;
+    color: cyan;
+    text-shadow: 0 0 20px black;
 }
 
 
