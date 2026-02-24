@@ -2181,7 +2181,7 @@ body.preview-page .text-row {
     perspective: 1000px;
 }
 
-body.preview-page.page-exit {
+body.preview-page .page-exit {
     opacity: 0;
     transition: opacity 0.5s ease;
 }
