@@ -2104,9 +2104,12 @@ body.preview-page .image-gallery {
     width: 85%;
 }
 
+body.preview-page .image-container{
+    width: calc(20% - 5px);
+}
+
 /* preview이미지 썸네일 디자인 */
 body.preview-page .gallery-image {
-    width: calc(20% - 5px);
     height: 13vw;
     object-fit: cover;
     border: none;
