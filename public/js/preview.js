@@ -483,8 +483,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     const img = document.createElement("img");
                     img.dataset.src = image.file_path;
-                    img.alt = "Uploaded Image";
-                    img.classList.add("gallery-image");
                     observer.observe(img);
 
                     const cat = encodeURIComponent(image.category_name || "uncategorized");
@@ -650,14 +648,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     const img = document.createElement("img");
                     img.dataset.src = `${image.file_path}`;
-                    img.alt = "Uploaded Image";
-                    img.classList.add("gallery-image");
-
                     observer.observe(img); // ✅ Intersection Observer로 감지
 
                     // ✅ 문제 해결: `image.category_name`과 `image.subcategory_name`을 직접 사용
-                    const categoryName = image.category_name ? encodeURIComponent(image.category_name) : "uncategorized";
-                    const subcategoryName = image.subcategory_name ? encodeURIComponent(image.subcategory_name) : "general";
+                    const categoryName = image.category_name
+                        ? encodeURIComponent(image.category_name)
+                        : "uncategorized";
+                    const subcategoryName = image.subcategory_name
+                        ? encodeURIComponent(image.subcategory_name)
+                        : "general";
                     const fileName = encodeURIComponent(image.file_name);
                     const postURL = `post?category=${categoryName}&subcategory=${subcategoryName}&file=${fileName}`;
 
