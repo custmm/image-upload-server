@@ -1,3 +1,5 @@
+    @charset "utf-8";
+    
     body.post-page.dark-mode,
     body.preview-page.dark-mode{
         background: #222;

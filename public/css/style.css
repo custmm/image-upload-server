@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 /* ====== 전용화면적용(admin-dashboard.html) ====== */
 body.dashboard-page {
     font-family: Arial, sans-serif;
@@ -2100,6 +2102,12 @@ body.preview-page .image-gallery {
     justify-content: center;
     align-items: center;
     width: 85%;
+    position: relative;
+}
+
+body.preview-page .image-container{
+    position: absolute;
+    width: calc(20% - 5px);
 }
 
 /* 사진 모드 */
