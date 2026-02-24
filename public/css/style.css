@@ -2095,18 +2095,16 @@ body.preview-page .image-gallery {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: auto;
-    padding: 15px;
+    padding: 10px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     justify-content: center;
     align-items: center;
     width: 85%;
-    position: relative;
 }
 
 body.preview-page .image-container{
-    position: absolute;
     width: calc(20% - 5px);
 }
 
