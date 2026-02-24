@@ -2187,9 +2187,9 @@ body.preview-page.page-exit {
 }
 
 body.preview-page .flip-inner {
-     display: block;
     transition: transform 0.6s ease;
     transform-style: preserve-3d;
+    background: red;
 }
 
 body.preview-page .flip-inner.flipped {
