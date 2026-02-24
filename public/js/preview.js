@@ -694,10 +694,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                         if (isExplanMode) return;
 
                         flipInner.classList.add("flipped");
+                        
+                        setTimeout(() => {
+                            document.body.classList.add("page-exit");
+                        }, 300);
 
                         setTimeout(() => {
                             window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
-                        },600);
+                        }, 600);
                     };
 
                     const flipInner = document.createElement("div");

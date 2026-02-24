@@ -2181,7 +2181,13 @@ body.preview-page .text-row {
     perspective: 1000px;
 }
 
+body.preview-page.page-exit {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
 body.preview-page .flip-inner {
+     display: block;
     transition: transform 0.6s ease;
     transform-style: preserve-3d;
 }
