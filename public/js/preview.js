@@ -569,7 +569,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const prev = document.createElement("button");
         prev.classList.add("pagination-button");
         prev.textContent = "◀";                // 버튼 레이블 추가
-        prev.style.padding = "0px";
 
         prev.onclick = () => {
             if (page <= 0) {
@@ -590,7 +589,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const next = document.createElement("button");
         next.classList.add("pagination-button");
         next.textContent = "▶";                // 버튼 레이블 추가
-        next.style.padding = "0px";
 
         next.onclick = () => {
             if ((page + 1) >= totalPages) {
