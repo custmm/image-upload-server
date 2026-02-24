@@ -2104,8 +2104,22 @@ body.preview-page .image-gallery {
     width: 85%;
 }
 
-body.preview-page .image-container{
+/* preview이미지 썸네일 디자인 */
+body.preview-page .gallery-image {
     width: calc(20% - 5px);
+    height: 13vw;
+    object-fit: cover;
+    border: none;
+    border-radius: 8px;
+    filter: grayscale(85%) blur(3px) invert(100%);
+    transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
+}
+
+body.preview-page .gallery-image:hover {
+    cursor: pointer;
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.03);
+    border: 3px solid #0066cc;
 }
 
 /* 사진 모드 */
@@ -2541,24 +2555,6 @@ body.preview-page #currentCategory {
     color: #00cc8f;
     margin: 25px 0 15px;
     padding-left: 20px;
-}
-
-/* preview이미지 썸네일 디자인 */
-body.preview-page .gallery-image {
-    width: 13vw;
-    height: 13vw;
-    object-fit: cover;
-    border: 3px solid #00000000;
-    border-radius: 8px;
-    filter: grayscale(80%) brightness(0.9);
-    transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
-}
-
-body.preview-page .gallery-image:hover {
-    cursor: pointer;
-    filter: grayscale(0%) brightness(1);
-    transform: scale(1.03);
-    border: 3px solid #0066cc;
 }
 
 /* ✅ 이미지가 있을 때 (4x5 그리드) */
