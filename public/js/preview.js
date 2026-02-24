@@ -692,12 +692,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     row.onclick = () => {
                         if (isExplanMode) return;
-                        window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+
+                        flipInner.classList.add("flipped");
+
+                        setTimeout(() => {
+                            window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+                        },600);
                     };
 
-                    row.appendChild(thumb);
-                    row.appendChild(content);
+                    const flipInner = document.createElement("div");
+                    flipInner.classList.add("flip-inner");
 
+                    flipInner.appendChild(thumb);
+                    flipInner.appendChild(content);
+
+                    row.appendChild(flipInner);
                     imageGallery.appendChild(row);
                 }
             });
