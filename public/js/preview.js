@@ -693,6 +693,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const row = document.createElement("div");
                     row.classList.add("text-row");
 
+                    // 1. flipInner 먼저 생성
+                    const flipInner = document.createElement("div");
+                    flipInner.classList.add("flip-inner");
+
                     const thumb = document.createElement("img");
                     thumb.src = image.file_path;
                     thumb.classList.add("text-thumb");
@@ -706,10 +710,29 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     content.textContent = previewText;
 
-                    // 🔥 여기 추가 (이미지 모드와 동일 로직)
                     const cat = encodeURIComponent(image.category_name || "uncategorized");
                     const sub = encodeURIComponent(image.subcategory_name || "general");
                     const file = encodeURIComponent(image.file_name);
+
+                    // 2. 앞면
+                    const front = document.createElement("div");
+                    front.classList.add("card-face", "card-front");
+                    front.appendChild(thumb);
+                    front.appendChild(content);
+
+                    // 3. 뒷면
+                    const back = document.createElement("div");
+                    back.classList.add("card-face", "card-back");
+
+                    const thumbClone = thumb.cloneNode(true);
+                    const contentClone = content.cloneNode(true);
+
+                    back.appendChild(thumbClone);
+                    back.appendChild(contentClone);
+
+                    flipInner.appendChild(front);
+                    flipInner.appendChild(back);
+                    row.appendChild(flipInner);
 
                     row.onclick = () => {
                         if (isExplanMode) return;
@@ -721,31 +744,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         }, 600);
                     };
 
-                    const flipInner = document.createElement("div");
-                    flipInner.classList.add("flip-inner");
-
-                    // 앞면
-                    const front = document.createElement("div");
-                    front.classList.add("card-face", "card-front");
-
-                    // 기존 요소들
-                    front.appendChild(thumb);
-                    front.appendChild(content);
-
-                    // 뒷면
-                    const back = document.createElement("div");
-                    back.classList.add("card-face", "card-back");
-
-                    // 👉 앞면을 복제해서 뒤집힌 느낌으로 사용
-                    const thumbClone = thumb.cloneNode(true);
-                    const contentClone = content.cloneNode(true);
-
-                    back.appendChild(thumbClone);
-                    back.appendChild(contentClone);
-
-                    flipInner.appendChild(front);
-                    flipInner.appendChild(back);
-                    row.appendChild(flipInner);
                     imageGallery.appendChild(row);
                 }
             });
