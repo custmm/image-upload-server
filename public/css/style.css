@@ -2185,8 +2185,7 @@ body.preview-page .text-hashtags {
 body.preview-page .flip-inner {
     position: relative;
     width: 100%;
-    height: 100%;
-    /* 🔥 추가 */
+    min-height: 120px;   /* 🔥 핵심 */
     transition: transform 0.6s ease;
     transform-style: preserve-3d;
 }
@@ -2197,13 +2196,11 @@ body.preview-page .flip-inner.flipped {
 
 body.preview-page .card-face {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    /* 🔥 추가 */
+    inset: 0; 
     backface-visibility: hidden;
     display: flex;
-    /* 기존 텍스트 레이아웃 유지 */
     align-items: center;
+    transform-style: preserve-3d;
 }
 
 body.preview-page .card-back {
