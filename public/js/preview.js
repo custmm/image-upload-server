@@ -739,9 +739,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                         flipInner.classList.toggle("flipped");
 
-                        // setTimeout(() => {
-                        //     window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
-                        // }, 600);
+                        setTimeout(() => {
+                            window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+                        }, 700);
                     });
 
                     imageGallery.appendChild(row);

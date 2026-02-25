@@ -2138,13 +2138,15 @@ body.preview-page .image-gallery.text-view {
 /* 텍스트뷰 전용 */
 body.preview-page .text-row {
     display: flex;
-        perspective: 1000px;
+    perspective: 1000px;
     position: relative;
     justify-content: space-between;
     width: 100%;
     border-bottom: 1px solid #eee;
     transition: background 0.2s ease;
     padding: 5px;
+    min-height: 120px;
+    /* 🔥 꼭 추가 */
 }
 
 body.preview-page .text-row:hover {
@@ -2183,6 +2185,8 @@ body.preview-page .text-hashtags {
 body.preview-page .flip-inner {
     position: relative;
     width: 100%;
+    height: 100%;
+    /* 🔥 추가 */
     transition: transform 0.6s ease;
     transform-style: preserve-3d;
 }
@@ -2194,13 +2198,24 @@ body.preview-page .flip-inner.flipped {
 body.preview-page .card-face {
     position: absolute;
     width: 100%;
+    height: 100%;
+    /* 🔥 추가 */
     backface-visibility: hidden;
-    display: flex;              /* 기존 텍스트 레이아웃 유지 */
+    display: flex;
+    /* 기존 텍스트 레이아웃 유지 */
     align-items: center;
 }
 
 body.preview-page .card-back {
     transform: rotateY(180deg);
+}
+
+body.preview-page .card-front {
+    background: red;
+}
+
+body.preview-page .card-back {
+    background: blue;
 }
 
 body.preview-page .text-hashtag {
