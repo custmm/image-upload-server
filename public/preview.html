@@ -143,22 +143,25 @@
 </head>
 
 <body class="preview-page dark-mode">
-  <div class="menubar-container">
+
+  <!-- ✅ 상단 메뉴 바 -->
+  <header class="menubar-container">
     <button class="back-button"
-      onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기</button>
+      onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기
+    </button>
+
     <button class="sidebar-toggle" onclick="toggleSidebar()">
       <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
     </button>
-  </div>
+  </header>
 
-  <div id="sidebar" class="sidebar">
+  <!-- ✅ 사이드 네비게이션 -->
+  <nav id="sidebar" class="sidebar">
     <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
-    <ul class="main-menu">
-      <!-- 게시판 카테고리 -->
 
+    <ul class="main-menu">
       <li class="menu-item">
-        <button class="menu-title" onclick="toggleMenu('board')">
-          게시판</button>
+        <button class="menu-title" onclick="toggleMenu('board')">게시판</button>
         <ul id="board" class="sub-menu">
           <li><a href="#" onclick="goCategory('퍼즐')">퍼즐</a></li>
           <li><a href="#" onclick="goCategory('보석비즈')">보석비즈</a></li>
@@ -180,115 +183,117 @@
         </ul>
       </li>
     </ul>
-  </div>
+  </nav>
+  <!-- ✅ 메인 콘텐츠 영역 -->
+  <main>
 
-  <div class="function-infor">
-    <div class="message-container">
-      <a href="click.html" id="welcomeMessage">어서오세요</a>
-    </div>
-
-    <div class="opacityControl" id="opacityControl">
-      <label for="opacitySlider"></label>
-      <input type="range" id="opacitySlider" min="0.2" max="1" step="0.025" value="0.825">
-      <img class="opacitybtn" id="opacityToggleBtn" src="images/toggle_leaf.png" alt="Toggle Opacity Slider">
-    </div>
-
-    <!-- 다크 모드 토글 스위치 -->
-    <div class="toggle-switch">
-      <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
-      <label class="slider" for="themeToggle">
-        <span id="themeIcon"></span>
-      </label>
-    </div>
-  </div>
-
-  <!-- ✅ 로딩 화면 (초기에는 숨김 상태) -->
-  <div id="loadingIndicator" class="loading-indicator">
-    <img src="images/loading.gif" alt="로딩 중..." class="loading-image">
-    <p class="loading-text">로딩 중...</p>
-  </div>
-
-  <!-- 메인 카테고리 탭 (큰 카테고리) -->
-  <div class="tab-design">
-    <div class="tab-container">
-
-      <button class="tab-btn active" data-category="퍼즐">
-        퍼즐
-        <i data-lucide="puzzle" class="tab-icon"></i>
-      </button>
-
-      <button class="tab-btn" data-category="보석비즈">
-        보석비즈
-        <i data-lucide="gem" class="tab-icon"></i>
-      </button>
-
-      <button class="tab-btn" data-category="입체퍼즐">
-        입체퍼즐
-        <i data-lucide="box" class="tab-icon"></i>
-      </button>
-
-      <button class="tab-btn" data-category="디폼블럭">
-        디폼블럭
-        <i data-lucide="grid-3x3" class="tab-icon"></i>
-      </button>
-
-      <button class="tab-btn" data-category="브릭피규어">
-        브릭피규어
-        <i data-lucide="toy-brick" class="tab-icon"></i>
-      </button>
-
-    </div>
-  </div>
-
-  <div class="preview-images" id="previewImagesContainer"></div>
-
-  <!-- 서브 카테고리 탭 (작은 카테고리) -->
-  <div class="marge-container" id="marge-container">
-    <div class="category-subtab-container">
-      <h2 id="currentCategory"></h2>
-
-      <div class="sub-tab-wrapper">
-        <div class="sub-tab-container" id="subTabContainer">
-          <!-- 선택한 카테고리의 서브 탭이 동적으로 생성됩니다 -->
-        </div>
-        <div class="view-switch">
-          <button id="preview-image-mode" class="view-icon-btn active">
-            <i class="fas fa-th-large"></i>
-          </button>
-
-          <button id="preview-text-mode" class="view-icon-btn">
-            <i class="fas fa-list"></i>
-          </button>
-        </div>
+    <!-- 기능 제어 영역 -->
+    <section class="function-infor">
+      <div class="message-container">
+        <a href="click.html" id="welcomeMessage">어서오세요</a>
       </div>
-    </div>
 
-    <!-- ✅ 이미지 갤러리를 감싸는 컨테이너 (중앙 정렬) -->
-    <div class="image-gallery-wrapper">
-      <div id="imageGallery" class="image-gallery">
-        <!-- ✅ 동적으로 이미지 추가 -->
+      <div class="opacityControl" id="opacityControl">
+        <label for="opacitySlider"></label>
+        <input type="range" id="opacitySlider" min="0.2" max="1" step="0.025" value="0.825">
+        <img class="opacitybtn" id="opacityToggleBtn" src="images/toggle_leaf.png" alt="Toggle Opacity Slider">
       </div>
-    </div>
 
-    <div id="pagination-container"></div>
-  </div>
+      <div class="toggle-switch">
+        <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
+        <label class="slider" for="themeToggle">
+          <span id="themeIcon"></span>
+        </label>
+      </div>
+    </section>
 
-  <div id="previewOverlayInfo" class="preview-overlay" style="display:none;">
+    <!-- 로딩 상태 -->
+    <section id="loadingIndicator" class="loading-indicator">
+      <img src="images/loading.gif" alt="로딩 중..." class="loading-image">
+      <p class="loading-text">로딩 중...</p>
+    </section>
+
+    <!-- 메인 카테고리 탭 (큰 카테고리) -->
+    <section class="tab-design">
+      <div class="tab-container">
+
+        <button class="tab-btn active" data-category="퍼즐">
+          퍼즐
+          <i data-lucide="puzzle" class="tab-icon"></i>
+        </button>
+
+        <button class="tab-btn" data-category="보석비즈">
+          보석비즈
+          <i data-lucide="gem" class="tab-icon"></i>
+        </button>
+
+        <button class="tab-btn" data-category="입체퍼즐">
+          입체퍼즐
+          <i data-lucide="box" class="tab-icon"></i>
+        </button>
+
+        <button class="tab-btn" data-category="디폼블럭">
+          디폼블럭
+          <i data-lucide="grid-3x3" class="tab-icon"></i>
+        </button>
+
+        <button class="tab-btn" data-category="브릭피규어">
+          브릭피규어
+          <i data-lucide="toy-brick" class="tab-icon"></i>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- 프리뷰 이미지 컨테이너 -->
+    <section class="preview-images" id="previewImagesContainer"></section>
+
+    <!-- 서브 카테고리 + 갤러리 -->
+    <section class="marge-container" id="marge-container">
+
+      <header class="category-subtab-container">
+        <h2 id="currentCategory"></h2>
+
+        <div class="sub-tab-wrapper">
+          <div class="sub-tab-container" id="subTabContainer"></div>
+
+          <div class="view-switch">
+            <button id="preview-image-mode" class="view-icon-btn active">
+              <i class="fas fa-th-large"></i>
+            </button>
+            <button id="preview-text-mode" class="view-icon-btn">
+              <i class="fas fa-list"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <section class="image-gallery-wrapper">
+        <div id="imageGallery" class="image-gallery"></div>
+      </section>
+
+      <nav id="pagination-container"></nav>
+    </section>
+  </main>
+
+  <!-- ✅ 미리보기 팝업 -->
+  <dialog id="previewOverlayInfo" class="preview-overlay" style="display:none;">
     <div class="preview-popup">
       <button class="preview-close" onclick="closePreviewPopup()">✖</button>
 
       <iframe id="previewFrameInfo" src="./preview_popup.html" loading="lazy"></iframe>
     </div>
-  </div>
+  </dialog>
 
-  <div id="previewOverlayIcon" class="preview-overlay" style="display:none;">
+  <dialog id="previewOverlayIcon" class="preview-overlay" style="display:none;">
     <div class="preview-popup">
       <button class="preview-close" onclick="closePreviewPopup()">✖</button>
 
       <iframe id="previewFrameIcon" src="./ai_icon.html" loading="lazy"></iframe>
     </div>
-  </div>
+  </dialog>
 
+  <!-- ✅ 푸터 -->
   <footer class="page-footer">
     <p>같은 유형의 물체 설명이 반복될 수 있습니다.<br>© 2025 휴욱슈욱 All rights reserved.</p>
     <p>
