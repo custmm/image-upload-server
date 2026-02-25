@@ -503,6 +503,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const row = document.createElement("div");
                     row.classList.add("text-row");
 
+                    const flipInner = document.createElement("div");
+                    flipInner.classList.add("flip-inner");
+
                     const thumb = document.createElement("img");
                     thumb.src = image.file_path;
                     thumb.classList.add("text-thumb");
@@ -510,14 +513,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const content = document.createElement("div");
                     content.classList.add("text-content");
 
-                    // 🔥 제목 사용
                     const titleText = image.title || "제목 없음";
 
                     const textEl = document.createElement("div");
                     textEl.classList.add("text-preview");
                     textEl.textContent = titleText;
 
-                    // 🔥 해시태그는 file_description에서 추출
                     const fullText = image.file_description || "";
                     const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
 
@@ -533,6 +534,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     content.appendChild(textEl);
                     content.appendChild(hashtagContainer);
+
+                    // 🔥 앞면
+                    const front = document.createElement("div");
+                    front.classList.add("card-face", "card-front");
+                    front.appendChild(thumb);
+                    front.appendChild(content);
+
+                    // 🔥 뒷면
+                    const back = document.createElement("div");
+                    back.classList.add("card-face", "card-back");
+
+                    const thumbClone = thumb.cloneNode(true);
+                    const contentClone = content.cloneNode(true);
+
+                    back.appendChild(thumbClone);
+                    back.appendChild(contentClone);
+
+                    flipInner.appendChild(front);
+                    flipInner.appendChild(back);
+                    row.appendChild(flipInner);
 
                     const cat = encodeURIComponent(image.category_name || "uncategorized");
                     const sub = encodeURIComponent(image.subcategory_name || "general");
