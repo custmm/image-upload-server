@@ -2138,6 +2138,8 @@ body.preview-page .image-gallery.text-view {
 /* 텍스트뷰 전용 */
 body.preview-page .text-row {
     display: flex;
+        perspective: 1000px;
+    position: relative;
     justify-content: space-between;
     width: 100%;
     border-bottom: 1px solid #eee;
@@ -2178,11 +2180,6 @@ body.preview-page .text-hashtags {
 }
 
 /* 카드 기본 설정 */
-body.preview-page .text-row {
-    perspective: 1000px;
-    position: relative;
-}
-
 body.preview-page .flip-inner {
     position: relative;
     width: 100%;
