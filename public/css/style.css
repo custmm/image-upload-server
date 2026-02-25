@@ -2166,7 +2166,7 @@ body.preview-page .text-hashtags {
 body.preview-page .flip-inner {
     position: relative;
     width: 100%;
-    min-height: 120px;   /* 🔥 핵심 */
+    height: 100%;   /* 🔥 핵심 */
     transition: transform 0.6s ease;
     transform-style: preserve-3d;
 }
@@ -2175,12 +2175,10 @@ body.preview-page .flip-inner.flipped {
     transform: rotateY(180deg);
 }
 
-
-
 body.preview-page .text-row {
     perspective: 1000px;
     position: relative;
-    min-height: 120px;
+     min-height: 120px;   /* 🔥 추가 */
 }
 
 body.preview-page .card-face {
@@ -2189,7 +2187,6 @@ body.preview-page .card-face {
     backface-visibility: hidden;
     display: flex;
     align-items: center;
-    transform-style: preserve-3d;
 }
 
 body.preview-page .card-front {
