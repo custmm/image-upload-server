@@ -2576,7 +2576,6 @@ body.preview-page .image-gallery-wrapper {
     height: auto;
     margin: 40px auto;
     width: 95%;
-    overflow-x: hidden;
 }
 
 /* 카테고리 제목 스타일 */
