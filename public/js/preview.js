@@ -564,9 +564,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
                     };
 
-                    row.appendChild(thumb);
-                    row.appendChild(content);
-
                     imageGallery.appendChild(row);
                 }
             });
@@ -693,56 +690,77 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const row = document.createElement("div");
                     row.classList.add("text-row");
 
-                    // 1. flipInner 먼저 생성
                     const flipInner = document.createElement("div");
                     flipInner.classList.add("flip-inner");
 
-                    const thumb = document.createElement("img");
-                    thumb.src = image.file_path;
-                    thumb.classList.add("text-thumb");
+                    const titleText = image.title || "제목 없음";
+                    const fullText = image.file_description || "";
+                    const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
 
-                    const content = document.createElement("div");
-                    content.classList.add("text-content");
+                    // ======================
+                    // 🔥 앞면
+                    // ======================
 
-                    const previewText = image.content
-                        ? image.content.substring(0, 100)
-                        : image.file_name;
+                    const front = document.createElement("div");
+                    front.classList.add("card-face", "card-front");
 
-                    content.textContent = previewText;
+                    const frontThumb = document.createElement("img");
+                    frontThumb.src = image.file_path;
+                    frontThumb.classList.add("text-thumb");
+
+                    const frontContent = document.createElement("div");
+                    frontContent.classList.add("text-content");
+
+                    const frontPreview = document.createElement("div");
+                    frontPreview.classList.add("text-preview");
+                    frontPreview.textContent = titleText;
+
+                    const frontHashtagContainer = document.createElement("div");
+                    frontHashtagContainer.classList.add("text-hashtags");
+
+                    hashtags.slice(0, 4).forEach(tag => {
+                        const tagEl = document.createElement("span");
+                        tagEl.classList.add("text-hashtag");
+                        tagEl.textContent = tag;
+                        frontHashtagContainer.appendChild(tagEl);
+                    });
+
+                    frontContent.appendChild(frontPreview);
+                    frontContent.appendChild(frontHashtagContainer);
+
+                    front.appendChild(frontThumb);
+                    front.appendChild(frontContent);
+
+                    // ======================
+                    // 🔥 뒷면
+                    // ======================
+
+                    const back = document.createElement("div");
+                    back.classList.add("card-face", "card-back");
+
+                    const backThumb = frontThumb.cloneNode(true);
+                    const backContent = frontContent.cloneNode(true);
+
+                    back.appendChild(backThumb);
+                    back.appendChild(backContent);
+
+                    // ======================
+                    // 구조 완성
+                    // ======================
+
+                    flipInner.appendChild(front);
+                    flipInner.appendChild(back);
+
+                    row.appendChild(flipInner);
 
                     const cat = encodeURIComponent(image.category_name || "uncategorized");
                     const sub = encodeURIComponent(image.subcategory_name || "general");
                     const file = encodeURIComponent(image.file_name);
 
-                    // 2. 앞면
-                    const front = document.createElement("div");
-                    front.classList.add("card-face", "card-front");
-                    front.appendChild(thumb);
-                    front.appendChild(content);
-
-                    // 3. 뒷면
-                    const back = document.createElement("div");
-                    back.classList.add("card-face", "card-back");
-
-                    const thumbClone = thumb.cloneNode(true);
-                    const contentClone = content.cloneNode(true);
-
-                    back.appendChild(thumbClone);
-                    back.appendChild(contentClone);
-
-                    flipInner.appendChild(front);
-                    flipInner.appendChild(back);
-                    row.appendChild(flipInner);
-
-                    flipInner.addEventListener("click", () => {
+                    row.onclick = () => {
                         if (isExplanMode) return;
-
-                        flipInner.classList.toggle("flipped");
-
-                        setTimeout(() => {
-                            window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
-                        }, 700);
-                    });
+                        window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+                    };
 
                     imageGallery.appendChild(row);
                 }
