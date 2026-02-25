@@ -734,15 +734,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                     flipInner.appendChild(back);
                     row.appendChild(flipInner);
 
-                    row.onclick = () => {
+                    flipInner.addEventListener("click", () => {
                         if (isExplanMode) return;
 
-                        flipInner.classList.add("flipped");
+                        flipInner.classList.toggle("flipped");
 
-                        setTimeout(() => {
-                            window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
-                        }, 600);
-                    };
+                        // setTimeout(() => {
+                        //     window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+                        // }, 600);
+                    });
 
                     imageGallery.appendChild(row);
                 }
