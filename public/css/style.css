@@ -2119,7 +2119,6 @@ body.preview-page .image-container img:hover {
     cursor: pointer;
     background: #f7f7f7;
     border: 3px solid #0066cc;
-    filter: grayscale(50%);
     transform: scale(1.2);
 }
 
