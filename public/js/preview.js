@@ -1156,6 +1156,62 @@ document.addEventListener("DOMContentLoaded", async () => {
     bindViewSwitchEvents();
     bindSidebarEvents();
     applySavedTheme();
+
+    // ===============================
+    // 🔥 팝업 드래그 기능 추가
+    // ===============================
+
+    function makePopupDraggable(overlayId) {
+
+        const overlay = document.getElementById(overlayId);
+        if (!overlay) return;
+
+        const popup = overlay.querySelector(".preview-popup");
+        if (!popup) return;
+
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        // absolute로 강제
+        popup.style.position = "absolute";
+
+        // 처음 열릴 때 중앙 배치
+        overlay.addEventListener("click", (e) => {
+            if (e.target === overlay) return;
+            centerPopup(popup);
+        }, { once: true });
+
+        function centerPopup(el) {
+            const rect = el.getBoundingClientRect();
+            el.style.left = (window.innerWidth - rect.width) / 2 + "px";
+            el.style.top = (window.innerHeight - rect.height) / 2 + "px";
+        }
+
+        popup.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            popup.style.cursor = "grabbing";
+            offsetX = e.clientX - popup.offsetLeft;
+            offsetY = e.clientY - popup.offsetTop;
+            e.preventDefault();
+        });
+
+        document.addEventListener("mousemove", (e) => {
+            if (!isDragging) return;
+            popup.style.left = (e.clientX - offsetX) + "px";
+            popup.style.top = (e.clientY - offsetY) + "px";
+        });
+
+        document.addEventListener("mouseup", () => {
+            isDragging = false;
+            popup.style.cursor = "grab";
+        });
+    }
+
+    // 두 팝업에 적용
+    makePopupDraggable("previewOverlayInfo");
+    makePopupDraggable("previewOverlayIcon");
+
     loadCategories();
     await fetchIndicatorStatusAndApply();   // 초기 상태 반영
     setInterval(fetchIndicatorStatusAndApply, 5000); // 상태만 5초마다 갱신

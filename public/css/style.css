@@ -2432,7 +2432,7 @@ body.preview-page .preview-overlay {
 }
 
 body.preview-page .preview-popup {
-    position: relative;
+    position: absolute;
     padding: 30px;
     width: 85%;
     max-width: 900px;
