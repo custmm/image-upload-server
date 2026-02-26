@@ -2264,7 +2264,7 @@ body.preview-page .sidebar-search {
 body.preview-page .sidebar-search input {
     flex: 1;
     padding: 8px 10px;
-    border-radius: 6px;
+    border-radius: 15px;
     border: 1px solid #ccc;
     font-size: 14px;
 }
@@ -2280,10 +2280,6 @@ body.preview-page .search-icon-btn {
     cursor: pointer;
     transition: 0.2s;
     position: relative;
-}
-
-body.preview-page .search-icon-btn:hover {
-    color: aquamarine;
 }
 
 /* 🔍 돋보기 생성 */
