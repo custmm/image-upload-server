@@ -2120,6 +2120,7 @@ body.preview-page .image-container img:hover {
     background: #f7f7f7;
     border: 3px solid #0066cc;
     transform: scale(1.2);
+    filter: blur(4px);
 }
 
 /* 사진 모드 */
