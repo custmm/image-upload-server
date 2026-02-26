@@ -2270,12 +2270,10 @@ body.preview-page .sidebar-search input {
 }
 
 body.preview-page .search-icon-btn {
-    width: 36px;
-    height: 36px;
     border: none;
     border-radius: 6px;
-    background: #333;
-    color: white;
+    background: none;
+    color: black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2285,7 +2283,7 @@ body.preview-page .search-icon-btn {
 }
 
 body.preview-page .search-icon-btn:hover {
-    background: #555;
+    color: aquamarine;
 }
 
 /* 🔍 돋보기 생성 */
@@ -2293,7 +2291,7 @@ body.preview-page .search-icon-btn i[data-icon="search"] {
     position: relative;
     width: 14px;
     height: 14px;
-    border: 2px solid white;
+    border: 2px solid black;
     border-radius: 50%;
     display: inline-block;
 }
@@ -2303,7 +2301,7 @@ body.preview-page .search-icon-btn i[data-icon="search"]::after {
     position: absolute;
     width: 8px;
     height: 2px;
-    background: white;
+    background: black;
     bottom: -4px;
     right: -5px;
     transform: rotate(45deg);
