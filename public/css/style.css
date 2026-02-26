@@ -2269,18 +2269,44 @@ body.preview-page .sidebar-search input {
     font-size: 14px;
 }
 
-body.preview-page .sidebar-search button {
-    padding: 8px 12px;
+body.preview-page .search-icon-btn {
+    width: 36px;
+    height: 36px;
     border: none;
     border-radius: 6px;
     background: #333;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: 0.2s;
+    position: relative;
 }
 
-body.preview-page .sidebar-search button:hover {
+body.preview-page .search-icon-btn:hover {
     background: #555;
+}
+
+/* 🔍 돋보기 생성 */
+body.preview-page .search-icon-btn i[data-icon="search"] {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+body.preview-page .search-icon-btn i[data-icon="search"]::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 2px;
+    background: white;
+    bottom: -4px;
+    right: -5px;
+    transform: rotate(45deg);
 }
 
 /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
