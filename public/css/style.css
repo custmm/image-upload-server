@@ -2255,6 +2255,34 @@ body.preview-page .sidebar ul li a:hover {
     text-decoration: underline;
 }
 
+body.preview-page .sidebar-search {
+    padding: 15px;
+    display: flex;
+    gap: 8px;
+}
+
+body.preview-page .sidebar-search input {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+body.preview-page .sidebar-search button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #333;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+body.preview-page .sidebar-search button:hover {
+    background: #555;
+}
+
 /* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
 body.preview-page .infor-popup {
     position: fixed;
