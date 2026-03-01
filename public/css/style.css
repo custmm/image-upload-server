@@ -1882,7 +1882,7 @@ body.post-page .icon-button {
     font-size: 18px;
 }
 body.post-page .icon-button:hover{
-    color: none;
+    background-color: none;
 }
 
 body.post-page .icon-button i {
