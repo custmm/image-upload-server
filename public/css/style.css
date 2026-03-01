@@ -1876,20 +1876,22 @@ body.post-page .popup-footer {
 }
 
 body.post-page .icon-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
 }
 
 body.post-page .icon-button i {
-  pointer-events: none;
+    pointer-events: none;
     display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  padding: 12px;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+body.post-page .icon-button:hover i {
+    color: #90caf9;
 }
 
 body.post-page #drawingCanvas {
