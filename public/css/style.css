@@ -1885,6 +1885,11 @@ body.post-page .icon-button {
 
 body.post-page .icon-button i {
   pointer-events: none;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  padding: 12px;
 }
 
 body.post-page #drawingCanvas {
