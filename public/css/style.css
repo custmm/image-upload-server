@@ -1993,6 +1993,10 @@ body.post-page .hashtag-link {
     line-height: 1.0;
 }
 
+body.post-page .hashtag-link:hover{
+    background-color:#bf32cc;
+    color:#555;
+}
 
 /* ====== 미리보기 페이지(preview.html) ====== */
 
