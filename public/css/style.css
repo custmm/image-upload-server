@@ -1875,6 +1875,18 @@ body.post-page .popup-footer {
     margin-top: 10px;
 }
 
+body.post-page .icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  padding: 12px;
+}
+
+body.post-page .icon-button i {
+  pointer-events: none;
+}
+
 body.post-page #drawingCanvas {
     width: 100%;
     height: 300px;
