@@ -1972,14 +1972,6 @@ body.post-page .post-buttons {
     margin-top: 20px;
 }
 
-body.post-page .button {
-    font-size: 15px;
-    border-radius: 12px;
-    transition: background-color 0.3s;
-    background-color: rgba(255, 255, 255, 0.75);
-    color: #333;
-}
-
 body.post-page .hastag {
     margin-top: 10px;
     font-size: 18px;
