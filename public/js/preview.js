@@ -497,6 +497,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imgContainer.appendChild(placeholder);
                     imgContainer.appendChild(img);
+                    const overlay = document.createElement("div");
+                    overlay.classList.add("hover-overlay");
+
+                    const message = document.createElement("div");
+                    message.classList.add("hover-message");
+                    message.textContent = "클릭하여 상세 보기";
+
+                    overlay.appendChild(message);
+                    imgContainer.appendChild(overlay);
+                    
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
 
@@ -684,6 +694,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imgContainer.appendChild(placeholder);
                     imgContainer.appendChild(img);
+
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
 
