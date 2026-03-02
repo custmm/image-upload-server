@@ -80,11 +80,19 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log("API 응답:", posts);
 
         // 🔥 대소문자 구분 없이 검색
-        filteredPosts = posts.filter(post =>
-            (post.file_name && post.file_name.toLowerCase().includes(query.toLowerCase())) ||
-            (post.title && post.title.toLowerCase().includes(query.toLowerCase())) ||
-            (post.description && post.description.toLowerCase().includes(query.toLowerCase()))
-        );
+        const normalizedQuery = query
+            .toLowerCase()
+            .replace(/\s+/g, ""); // 공백 제거
+
+        filteredPosts = posts.filter(post => {
+            const title = (post.title || "")
+                .toLowerCase()
+                .replace(/\s+/g, "");
+            const fileName = (post.file_name || "")
+                .toLowerCase();
+            return title.includes(normalizedQuery) ||
+                fileName.includes(normalizedQuery);
+        });
 
         if (filteredPosts.length === 0) {
             resultsContainer.innerHTML = "<p>검색 결과가 없습니다.</p>";
