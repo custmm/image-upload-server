@@ -596,11 +596,6 @@ body.dashboard-page .logout-button {
     right: 25px;
 }
 
-/* 🔥 텍스트 모드 - 버튼 */
-body.dashboard-page .post-item .buttons {
-    display: flex;
-    gap: 5px;
-}
 
 body.dashboard-page .edit-modal {
     display: flex;
@@ -896,29 +891,35 @@ body.dashboard-page .post-image:hover {
     border: 4px solid #007bff;
 }
 
+/* 🔥 텍스트 모드 - 버튼 */
+body.dashboard-page .post-item .buttons {
+    display: flex;
+    gap: 5px;
+}
+
 /* 텍스트 모드 내부 아이템 */
 body.dashboard-page .post-item {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 10px;
     border-bottom: 1px solid #ccc;
-    width: 100%;
-    max-width: 100%;
 }
 
-/* 텍스트 모드(이미지) */
+/* 썸네일 이미지 */
 body.dashboard-page .post-item img {
-    width: 80px;
-    height: 80px;
-    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
 }
 
 /* 텍스트 모드(파일명) */
 body.dashboard-page .post-item .file-name {
+    display: block;
+    font-size: 11px;
+    flex: 1;
     flex-grow: 1;
     text-align: center;
     font-weight: bold;
+    color: #333;
 }
 
 body.dashboard-page .post-chart-container {
@@ -1168,10 +1169,10 @@ body.dashboard-page .post-form-container.text-mode #textGallery {
 
 /* 텍스트 모드 컨테이너 */
 body.dashboard-page .post-form-container.text-mode {
-    margin-bottom: 20px;
+    display: flex;
+    width: 100%;
     min-height: 400px;
     overflow-y: auto;
-    padding-left: 7px;
     box-sizing: border-box;
 }
 
@@ -1202,35 +1203,6 @@ body.dashboard-page .post-form-container.image-mode .gallery-container {
 /* 갤러리 기본 컨테이너 */
 body.dashboard-page .gallery-container {
     width: 100%;
-}
-
-/* 게시물 아이템 */
-body.dashboard-page .post-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 0;
-}
-
-/* 썸네일 이미지 */
-body.dashboard-page .post-item img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-}
-
-/* 제목 영역 */
-body.dashboard-page .file-name {
-    display: block;
-    color: #333;
-    font-size: 11px;
-    flex: 1;
-}
-
-/* 버튼 영역 */
-body.dashboard-page .buttons {
-    display: flex;
-    gap: 6px;
 }
 
 
