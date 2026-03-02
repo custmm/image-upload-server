@@ -16,12 +16,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
 
         // 🔥 서버에서 실제 게시글 가져오기
-        const response = await fetch("/api/posts");
+        const response = await fetch("/api/files");
         const posts = await response.json();
 
         // 🔥 대소문자 구분 없이 검색
         const filtered = posts.filter(post =>
-            (post.title_name && post.title_name.toLowerCase().includes(query.toLowerCase())) ||
+            (post.file_name && post.file_name.toLowerCase().includes(query.toLowerCase())) ||
+            (post.title && post.title.toLowerCase().includes(query.toLowerCase())) ||
             (post.description && post.description.toLowerCase().includes(query.toLowerCase()))
         );
 
