@@ -1,4 +1,13 @@
 document.addEventListener("DOMContentLoaded", async function () {
+    function normalize(text) {
+        return (text || "")
+            .toString()
+            .toLowerCase()
+            .normalize("NFC")              // 한글 정규화
+            .replace(/\s+/g, "")           // 공백 제거
+            .replace(/[^\w가-힣]/g, "");   // 특수문자 제거
+    }
+    
     const params = new URLSearchParams(window.location.search);
     const query = params.get("q");
     const keywordElement = document.getElementById("searchKeyword");
