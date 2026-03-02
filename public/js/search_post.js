@@ -128,9 +128,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             item.classList.add("search-item");
 
             item.innerHTML = `
-      <img src="${post.file_path}" alt="${post.title}">
-      <h3>${post.title}</h3>
-    `;
+            <img src="${post.file_path}" alt="${post.title}">
+            <h3>${post.title}</h3>
+        `;
 
             item.addEventListener("click", () => {
                 window.location.href =
@@ -143,6 +143,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         currentIndex += batchSize;
         hideLoadingSpinner();
         isLoading = false;
+
+        // 🔥 화면이 아직 짧으면 자동 추가 로딩
+        if (currentIndex < filteredPosts.length &&
+            document.documentElement.scrollHeight <= window.innerHeight) {
+            loadMore();
+        }
     }
 
     window.addEventListener("scroll", () => {
@@ -157,14 +163,4 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         }
     });
-    
-    const observer = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) {
-            if (currentIndex < filteredPosts.length) {
-                loadMore();
-            }
-        }
-    });
-
-    observer.observe(document.getElementById("scrollTrigger"));
 });
