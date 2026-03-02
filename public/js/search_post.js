@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             .replace(/\s+/g, "")           // 공백 제거
             .replace(/[^\w가-힣]/g, "");   // 특수문자 제거
     }
-    
+
     const params = new URLSearchParams(window.location.search);
     const query = params.get("q");
     const keywordElement = document.getElementById("searchKeyword");
@@ -147,11 +147,24 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     window.addEventListener("scroll", () => {
 
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+        const scrollTop = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const fullHeight = document.documentElement.scrollHeight;
 
+        if (scrollTop + windowHeight >= fullHeight - 100) {
             if (currentIndex < filteredPosts.length) {
                 loadMore();
             }
         }
     });
+    
+    const observer = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+            if (currentIndex < filteredPosts.length) {
+                loadMore();
+            }
+        }
+    });
+
+    observer.observe(document.getElementById("scrollTrigger"));
 });
