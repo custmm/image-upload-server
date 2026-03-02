@@ -2019,6 +2019,7 @@ body.search-page .search-item {
 
 body.search-page .search-item:hover {
   background: #f5f5f5;
+  border-radius: 15px;
 }
 
 body.search-page .search-item img {
