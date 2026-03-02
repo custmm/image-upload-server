@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     window.addEventListener("scroll", () => {
-
+        console.log("스크롤 감지됨");
         const scrollTop = window.scrollY;
         const windowHeight = window.innerHeight;
         const fullHeight = document.documentElement.scrollHeight;
