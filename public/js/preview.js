@@ -94,38 +94,73 @@ function showPopupMessage(msg) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const isExplanMode = window.location.hash.includes("explan");
+
+    // 슬라이더 관련
     const sidebarToggle = document.querySelector(".sidebar-toggle");
-    const welcomeEl = document.getElementById("welcomeMessage");
-    const categoryTabContainer = document.querySelector(".tab-design"); // 메인 카테고리 탭
-    const subTabContainer = document.getElementById("subTabContainer"); // 서브 카테고리 탭
-    const imageGallery = document.getElementById("imageGallery"); // 이미지 갤러리
-    const currentCategory = document.getElementById("currentCategory"); // 현재 카테고리 표시
-    const previewContainer = document.getElementById("previewImagesContainer");
-    const paginationContainer = document.getElementById("pagination-container");
     const opacitySlider = document.getElementById("opacitySlider");
     const opacityToggleBtn = document.getElementById("opacityToggleBtn");
     const opacityControl = document.getElementById("opacityControl");
+    const themeToggle = document.getElementById("themeToggle");
+
+    // 탭관련
+    const categoryTabContainer = document.querySelector(".tab-design"); // 메인 카테고리 탭
     const tabDesign = document.querySelector(".tab-design");
+    const subTabContainer = document.getElementById("subTabContainer"); // 서브 카테고리 탭
     const margeContainer = document.querySelector(".marge-container");
+
+    // container관련
+    const currentCategory = document.getElementById("currentCategory"); // 현재 카테고리 표시
+    const previewContainer = document.getElementById("previewImagesContainer");
+    const imageGallery = document.getElementById("imageGallery"); // 이미지 갤러리
+    const paginationContainer = document.getElementById("pagination-container");
+
+    // 설명모드
+    const isExplanMode = window.location.hash.includes("explan");
+    const welcomeEl = document.getElementById("welcomeMessage");
+
+    // 검색버튼 관련
+    const searchBtn = document.getElementById("sidebarSearchBtn");
+    const searchInput = document.getElementById("sidebarSearchInput");
+
     const closeBtn = document.querySelector(".preview-close");
     const previewLink = document.getElementById("previewLink");
     const iconLink = document.getElementById("iconlink");
     const urlParams = new URLSearchParams(window.location.search);
-    const themeToggle = document.getElementById("themeToggle"); // ✅ 추가
 
-    let wasOverlapping = false;
-    let overlapTimer = null;
+
+    // 상태값(이미지/텍스트모드관련)
+    let currentView = "image";
+
+    // 상태값(페이지 제네레이션관련)
+    let page = 0;
+    let limit = 20;
+
+    // 상태값(카테고리관련)
     let categoryParam = urlParams.get("category");
     let selectedCategory = null;
     let selectedSubcategory = null;
     let categories = [];
-    let page = 0;
-    let limit = 20;    // 5×4
-    let noMoreImages = false;
-    let isCut = false; // ✅ 이미지 상태 저장
+
+    // 상태값(토글관련)
     let isVisible = true;
-    let currentView = "image"; // 기본값
+
+    // 상태값(표시기관련)
+    let overlapTimer = null;
+    let wasOverlapping = false;
+
+    // 상태값(기타)
+    let noMoreImages = false;
+    let isCut = false;
+
+    function showLoading() {
+        document.getElementById("loadingIndicator").style.display = "flex";
+    }
+
+    function hideLoading() {
+        setTimeout(() => {
+            document.getElementById("loadingIndicator").style.display = "none";
+        }, 500);
+    }
 
     if (previewLink) {
         previewLink.addEventListener("click", (e) => {
@@ -152,6 +187,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
+    if (searchBtn && searchInput) {
+        searchBtn.addEventListener("click", function () {
+            const keyword = searchInput.value.trim();
+
+            if (keyword) {
+                window.location.href =
+                    `search_post.html?q=${encodeURIComponent(keyword)}`;
+            }
+        });
+    }
+
 
     // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
     const categoryMappings = {
@@ -170,17 +216,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         "브릭피규어": "toy-brick"
     };
 
-    // ✅ 로딩 화면 표시 함수
-    function showLoading() {
-        document.getElementById("loadingIndicator").style.display = "flex";
-    }
-
-    // ✅ 로딩 화면 숨김 함수
-    function hideLoading() {
-        setTimeout(() => {
-            document.getElementById("loadingIndicator").style.display = "none";
-        }, 500);
-    }
 
     // ✅ URL에서 받은 카테고리가 영문이면 한글로 변환
     if (categoryParam && categoryMappings[categoryParam]) {
@@ -506,7 +541,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     overlay.appendChild(message);
                     imgContainer.appendChild(overlay);
-                    
+
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
 
