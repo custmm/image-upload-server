@@ -2139,6 +2139,31 @@ body.preview-page .image-gallery {
     width: 85%;
 }
 
+/* 사진 모드 */
+body.preview-page .image-gallery.image-view {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+/* 텍스트 모드 */
+body.preview-page .image-gallery.text-view {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+/* ✅ 이미지 갤러리 중앙 정렬 */
+body.preview-page .image-gallery-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin: 40px auto;
+    width: 95%;
+}
+
 body.preview-page .image-container {
     position: relative;
     overflow: hidden;
@@ -2192,19 +2217,6 @@ body.preview-page .image-container img:hover {
     filter: blur(4px);
 }
 
-/* 사진 모드 */
-body.preview-page .image-gallery.image-view {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
-}
-
-/* 텍스트 모드 */
-body.preview-page .image-gallery.text-view {
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-}
 
 /* 텍스트뷰 전용 */
 
@@ -2278,6 +2290,10 @@ body.preview-page .card-front:hover {
     border: 3px solid #0066cc;
     cursor: pointer;
     border-radius: 10px;
+}
+
+body.preview-page .card-front:last-child{
+    border: none;
 }
 
 body.preview-page .card-back {
@@ -2688,16 +2704,6 @@ body.preview-page .sub-tab:hover {
     background-color: #00ff953c;
 }
 
-/* ✅ 이미지 갤러리 중앙 정렬 */
-body.preview-page .image-gallery-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    margin: 40px auto;
-    width: 95%;
-}
 
 /* 카테고리 제목 스타일 */
 body.preview-page #currentCategory {
