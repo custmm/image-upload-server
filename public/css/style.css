@@ -1999,9 +1999,11 @@ body.post-page .hashtag-link:hover{
 }
 
 body.search-page .search-container {
-  width: 90%;
-  max-width: 900px;
   margin: 40px auto;
+}
+
+body.search-page .search-container h1 {
+text-align: center;
 }
 
 body.search-page .search-item {
