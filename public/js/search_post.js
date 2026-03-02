@@ -10,6 +10,54 @@ document.addEventListener("DOMContentLoaded", async function () {
     const batchSize = 8;
     let filteredPosts = [];
 
+    function createLoadingImage(size = 80) {
+        const img = document.createElement("img");
+        img.src = "/images/loading.gif"; // 🔥 네 로딩 이미지 경로
+        img.style.width = `${size}px`;
+        img.style.height = `${size}px`;
+        img.style.display = "block";
+        img.style.margin = "0 auto";
+
+        let angle = 0;
+        loadingInterval = setInterval(() => {
+            angle += 6;
+            img.style.transform = `rotate(${angle}deg)`;
+        }, 16);
+
+        return img;
+    }
+
+
+    function stopLoadingAnimation() {
+        if (loadingInterval) {
+            clearInterval(loadingInterval);
+            loadingInterval = null;
+        }
+    }
+
+    function showLoadingSpinner() {
+        if (document.getElementById("loadingSpinner")) return;
+
+        const spinner = document.createElement("div");
+        spinner.id = "loadingSpinner";
+        spinner.style.textAlign = "center";
+        spinner.style.margin = "20px 0";
+
+        const img = createLoadingImage(80);
+
+        spinner.appendChild(img);
+        document.getElementById("postList").appendChild(spinner);
+    }
+
+    function hideLoadingSpinner() {
+        const spinner = document.getElementById("loadingSpinner");
+        if (spinner) {
+            stopLoadingAnimation();
+            spinner.remove();
+        }
+    }
+
+
     if (!query) {
         keywordElement.textContent = "검색어가 없습니다.";
         return;
@@ -69,6 +117,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function loadMore() {
+        if (isLoading) return;
+        isLoading = true;
+        showLoadingSpinner();
 
         const nextPosts = filteredPosts.slice(currentIndex, currentIndex + batchSize);
 
@@ -91,8 +142,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
         currentIndex += batchSize;
+        hideLoadingSpinner();
+        isLoading = false;
     }
-    
+
     window.addEventListener("scroll", () => {
 
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
