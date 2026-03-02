@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const img = createLoadingImage(80);
 
         spinner.appendChild(img);
-        document.getElementById("postList").appendChild(spinner);
+        resultsContainer.appendChild(spinner);
     }
 
     function hideLoadingSpinner() {
