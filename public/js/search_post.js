@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             item.classList.add("search-item");
 
             item.innerHTML = `
-        <img src="${post.image}" alt="${post.title}">
+        <img src="${post.file_path}" alt="${post.title}">
         <h3>${post.title}</h3>
         <p>${post.description || ""}</p>
       `;
