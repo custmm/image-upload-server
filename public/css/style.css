@@ -2278,7 +2278,6 @@ body.preview-page .card-face {
 body.preview-page .card-front {
     display: flex;
     justify-content: space-between;
-    width: 100%;
     height: 120px;
     border-bottom: 1px solid #eee;
     transition: background 0.2s ease;
