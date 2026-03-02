@@ -2016,9 +2016,8 @@ body.search-page .search-item {
   display: flex;
   gap: 15px;
   padding: 8px 2px;
-  border-bottom: 1px solid #ddd;
+  margin: 0 8px;
   cursor: pointer;
-
   transition: 
     background 0.3s ease,
     border-radius 0.3s ease,
@@ -2033,9 +2032,6 @@ body.search-page .search-item:hover {
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-body.search-page .search-item:last-child{
-    border: none;
-}
 
 body.search-page .search-item img {
   width: 80px;
