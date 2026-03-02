@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     let currentIndex = 0;
     const batchSize = 8;
     let filteredPosts = [];
+    let isLoading = false;
+    let loadingInterval = null;
 
     function createLoadingImage(size = 80) {
         const img = document.createElement("img");
@@ -78,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log("API 응답:", posts);
 
         // 🔥 대소문자 구분 없이 검색
-        const filteredPosts = posts.filter(post =>
+        filteredPosts = posts.filter(post =>
             (post.file_name && post.file_name.toLowerCase().includes(query.toLowerCase())) ||
             (post.title && post.title.toLowerCase().includes(query.toLowerCase())) ||
             (post.description && post.description.toLowerCase().includes(query.toLowerCase()))
@@ -90,26 +92,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         loadMore(); // 🔥 처음 1번 실행
-
-        filteredPosts.forEach(post => {
-
-            const item = document.createElement("div");
-            item.classList.add("search-item");
-
-            item.innerHTML = `
-        <img src="${post.file_path}" alt="${post.title}">
-        <h3>${post.title}</h3>
-        <p>${post.description || ""}</p>
-      `;
-
-            item.addEventListener("click", () => {
-                window.location.href =
-                    `post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}`;
-            });
-
-            resultsContainer.appendChild(item);
-
-        });
 
     } catch (error) {
         console.error("검색 중 오류:", error);
