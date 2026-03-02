@@ -1997,10 +1997,14 @@ body.post-page .hashtag-link:hover{
     background-color:skyblue;
     color:#555;
 }
+
+/* ====== 검색결과 페이지(search_post.html) ====== */
 body.search-page .search-title{
     display: flex;
     margin: 50px auto;
     justify-content: center;
+    font-weight: 600;
+    font-size: 25px;
 }
 body.search-page .search-container {
   margin: 10px 30px 50px 30px;
@@ -2020,6 +2024,10 @@ body.search-page .search-item {
 body.search-page .search-item:hover {
   background: #f5f5f5;
   border-radius: 15px;
+}
+
+body.search-page .search-item:last-child{
+    border: none;
 }
 
 body.search-page .search-item img {
