@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", async function () {
     const params = new URLSearchParams(window.location.search);
     const query = params.get("q");
@@ -80,19 +78,21 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log("API 응답:", posts);
 
         // 🔥 대소문자 구분 없이 검색
-        const normalizedQuery = query
-            .toLowerCase()
-            .replace(/\s+/g, ""); // 공백 제거
+        const normalizedQuery = normalize(query);
 
         filteredPosts = posts.filter(post => {
-            const title = (post.title || "")
-                .toLowerCase()
-                .replace(/\s+/g, "");
-            const fileName = (post.file_name || "")
-                .toLowerCase();
+
+            const title = normalize(post.title);
+            const fileName = normalize(post.file_name);
+
             return title.includes(normalizedQuery) ||
                 fileName.includes(normalizedQuery);
         });
+        console.log("전체 게시글 수:", posts.length);
+        console.log("검색어:", normalizedQuery);
+        console.log("매칭된 게시글 수:", filteredPosts.length);
+        console.log("매칭 제목들:", filteredPosts.map(p => p.title));
+
 
         if (filteredPosts.length === 0) {
             resultsContainer.innerHTML = "<p>검색 결과가 없습니다.</p>";
@@ -143,10 +143,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (currentIndex < filteredPosts.length) {
                 loadMore();
             }
-
         }
-
     });
-
-
 });
