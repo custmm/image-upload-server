@@ -2003,7 +2003,7 @@ body.search-page .search-title{
     justify-content: center;
 }
 body.search-page .search-container {
-  margin: 10px 30px 0 30px;
+  margin: 10px 30px 50px 30px;
   border: 2px solid #1da1f2;
   border-radius: 15px;
 }
