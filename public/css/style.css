@@ -2292,7 +2292,7 @@ body.preview-page .card-front:hover {
 }
 
 body.preview-page .card-front:last-child{
-    border: none;
+    border-bottom: none;
 }
 
 body.preview-page .card-back {
