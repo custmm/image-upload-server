@@ -1997,9 +1997,11 @@ body.post-page .hashtag-link:hover{
     background-color:skyblue;
     color:#555;
 }
-
+body.search-page .search-title{
+    margin: 20px auto;
+}
 body.search-page .search-container {
-  margin: 40px auto;
+  margin: 0 auto;
 }
 
 body.search-page .search-container h1 {
