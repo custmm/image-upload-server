@@ -1,10 +1,14 @@
-document.addEventListener("DOMContentLoaded", async function () {
 
+
+document.addEventListener("DOMContentLoaded", async function () {
     const params = new URLSearchParams(window.location.search);
     const query = params.get("q");
-
     const keywordElement = document.getElementById("searchKeyword");
     const resultsContainer = document.getElementById("searchResults");
+
+    let currentIndex = 0;
+    const batchSize = 8;
+    let filteredPosts = [];
 
     if (!query) {
         keywordElement.textContent = "검색어가 없습니다.";
@@ -26,18 +30,20 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log("API 응답:", posts);
 
         // 🔥 대소문자 구분 없이 검색
-        const filtered = posts.filter(post =>
+        const filteredPosts = posts.filter(post =>
             (post.file_name && post.file_name.toLowerCase().includes(query.toLowerCase())) ||
             (post.title && post.title.toLowerCase().includes(query.toLowerCase())) ||
             (post.description && post.description.toLowerCase().includes(query.toLowerCase()))
         );
 
-        if (filtered.length === 0) {
+        if (filteredPosts.length === 0) {
             resultsContainer.innerHTML = "<p>검색 결과가 없습니다.</p>";
             return;
         }
 
-        filtered.forEach(post => {
+        loadMore(); // 🔥 처음 1번 실행
+
+        filteredPosts.forEach(post => {
 
             const item = document.createElement("div");
             item.classList.add("search-item");
@@ -61,5 +67,43 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.error("검색 중 오류:", error);
         resultsContainer.innerHTML = "<p>데이터를 불러오지 못했습니다.</p>";
     }
+
+    function loadMore() {
+
+        const nextPosts = filteredPosts.slice(currentIndex, currentIndex + batchSize);
+
+        nextPosts.forEach(post => {
+
+            const item = document.createElement("div");
+            item.classList.add("search-item");
+
+            item.innerHTML = `
+      <img src="${post.file_path}" alt="${post.title}">
+      <h3>${post.title}</h3>
+    `;
+
+            item.addEventListener("click", () => {
+                window.location.href =
+                    `post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}`;
+            });
+
+            resultsContainer.appendChild(item);
+        });
+
+        currentIndex += batchSize;
+    }
+    
+    window.addEventListener("scroll", () => {
+
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+
+            if (currentIndex < filteredPosts.length) {
+                loadMore();
+            }
+
+        }
+
+    });
+
 
 });
