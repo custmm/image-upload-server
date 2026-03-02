@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // 🔥 대소문자 구분 없이 검색
         const filtered = posts.filter(post =>
-            (post.title && post.title.toLowerCase().includes(query.toLowerCase())) ||
+            (post.title_name && post.title_name.toLowerCase().includes(query.toLowerCase())) ||
             (post.description && post.description.toLowerCase().includes(query.toLowerCase()))
         );
 
@@ -42,7 +42,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       `;
 
             item.addEventListener("click", () => {
-                window.location.href = `post.html?id=${post.id}`;
+                window.location.href =
+                    `post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}`;
             });
 
             resultsContainer.appendChild(item);
