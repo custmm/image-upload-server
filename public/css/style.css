@@ -2291,8 +2291,8 @@ body.preview-page .card-front:hover {
     border-radius: 10px;
 }
 
-body.preview-page .card-front:last-child{
-    border-bottom: none;
+body.preview-page card-face card-front:last-child{
+    border: none;
 }
 
 body.preview-page .card-back {
