@@ -17,7 +17,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // 🔥 서버에서 실제 게시글 가져오기
         const response = await fetch("/api/files");
-        const posts = await response.json();
+        const data = await response.json();
+
+        // 🔥 배열이 어디에 있는지 추출
+        const posts = Array.isArray(data)
+            ? data
+            : data.files || data.data || data.posts || [];
+        console.log("API 응답:", posts);
 
         // 🔥 대소문자 구분 없이 검색
         const filtered = posts.filter(post =>
