@@ -2015,7 +2015,7 @@ body.search-page .search-container {
 body.search-page .search-item {
   display: flex;
   gap: 15px;
-  padding: 15px;
+  padding: 8px 2px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
 
