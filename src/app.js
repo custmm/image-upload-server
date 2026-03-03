@@ -34,7 +34,7 @@ app.use((req, res, next) => {
 });
 
 // ✅ 정적 파일 제공
-app.use(express.static(join(__dirname, "..", "public"),{
+app.use(express.static(join(__dirname, "..", "public"), {
     extensions: ['html']
 }));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
@@ -47,15 +47,14 @@ app.get("/favicon.ico", (req, res) => {
 
 app.get("/api/health", (req, res) => {
     res.status(200).send("Server is alive");
-  });
+});
 
-  // ✅ 검색 라우트: /search?tag=레고
-    app.get("/api/search", async (req, res) => {
-        const tag = req.query.tag;
+// ✅ 검색 라우트: /search?tag=레고
+app.get("/api/search", async (req, res) => {
+    const { tag, keyword } = req.query;
 
-        try {
-            const posts = await sequelize.query(
-            `
+    try {
+        let query = `
             SELECT 
                 id,
                 file_description,
@@ -64,29 +63,42 @@ app.get("/api/health", (req, res) => {
                 subcategory_name,
                 file_path
             FROM files
-            WHERE file_description LIKE :search
-            `,
-                {
-                    replacements: { search: `%#${tag}%` },
-                    type: sequelize.QueryTypes.SELECT
-                }
-            );
+            WHERE 1=1
+        `;
 
-            res.json({ tag, posts });
-        } catch (err) {
-            console.error("❌ API 검색 실패:", err);
-            res.status(500).json({ error: "검색 오류", detail: err.message });
+        const replacements = {};
+
+        if (tag) {
+            query += " AND file_description LIKE :tagSearch";
+            replacements.tagSearch = `%#${tag}%`;
         }
-    });
 
-  
+        if (keyword) {
+            query += " AND file_description LIKE :keywordSearch";
+            replacements.keywordSearch = `%${keyword}%`;
+        }
+
+        const posts = await sequelize.query(query, {
+            replacements,
+            type: sequelize.QueryTypes.SELECT
+        });
+
+        res.json({ posts });
+
+    } catch (err) {
+        console.error("❌ 검색 실패:", err);
+        res.status(500).json({ error: "검색 오류", detail: err.message });
+    }
+});
+
+
 // ✅ 라우트 등록
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/files", fileRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/admin", adminRoutes);
-app.use("/api", indicatorRoutes); 
+app.use("/api", indicatorRoutes);
 app.use("/api/korean-initials", koreanTagRoutes);
 app.use("/api/settings", settingRoutes);
 
