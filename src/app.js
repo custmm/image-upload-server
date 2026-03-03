@@ -58,6 +58,7 @@ app.get("/api/search", async (req, res) => {
             SELECT 
                 id,
                 file_description,
+                file_name,
                 file_name AS title,
                 category_name,
                 subcategory_name,

@@ -190,8 +190,8 @@ function updateButtonState() {
 
 async function fetchIndicatorStatus() {
     try {
-        const res = await fetch("/api/settings/indicator-status");
-        if (!res.ok) throw new Error("Indicator 상태 가져오기 실패");
+        const response = await fetch("/api/settings/indicator-status");
+        if (!response.ok) throw new Error("Indicator 상태 가져오기 실패");
 
         const data = await res.json();
 
@@ -1109,8 +1109,8 @@ function showSubcategoryTable(subcategories, categoryName) {
 
 async function fetchSubcategoryCountsByCategory(categoryName) {
     try {
-        const res = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`);
-        const data = await res.json();
+        const response = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`);
+        const data = await response.json();
         return data;
     } catch (error) {
         console.error("서브카테고리 데이터 가져오기 실패", error);

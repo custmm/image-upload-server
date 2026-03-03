@@ -498,8 +498,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (subcategoryId) url += `&subcategory_id=${subcategoryId}`;
 
         try {
-            const res = await fetch(url);
-            if (!res.ok) throw new Error("이미지 로드 실패");
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("이미지 로드 실패");
             const { total, files: images } = await res.json();
 
             // 총 페이지 계산
@@ -1039,8 +1039,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ✅ 서버에서 Indicator 상태 가져오기 함수 추가
     async function fetchIndicatorStatusAndApply() {
         try {
-            const res = await fetch("/api/settings/indicator-status");
-            if (!res.ok) throw new Error("서버 응답 오류");
+            const response = await fetch("/api/settings/indicator-status");
+            if (!response.ok) throw new Error("서버 응답 오류");
             const data = await res.json();
 
             // ✅ visible 은 서버 우선

@@ -87,8 +87,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         filteredPosts = posts;
         console.log("전체 게시글 수:", posts.length);
         console.log("매칭된 게시글 수:", filteredPosts.length);
-        console.log("매칭 파일명들:", filteredPosts.map(p => p.file_name));
-
+        console.log("매칭 제목들:", filteredPosts.map(p => p.title));
 
         if (filteredPosts.length === 0) {
             resultsContainer.innerHTML = "<p>검색 결과가 없습니다.</p>";
@@ -116,12 +115,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             item.innerHTML = `
             <img src="${post.file_path}" alt="${post.title}">
-            <h3>${post.file_name}</h3>
+            <h3>${post.title}</h3>
         `;
 
             item.addEventListener("click", () => {
                 window.location.href =
-                    `post.html?file=${encodeURIComponent(post.file_name)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}`;
+                    `post.html?file=${encodeURIComponent(post.title)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}`;
             });
 
             resultsContainer.appendChild(item);
