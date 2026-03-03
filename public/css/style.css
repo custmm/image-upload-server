@@ -1174,16 +1174,16 @@ body.dashboard-page .post-form-container.text-mode .gallery-container {
 /* 이미지 모드 전용 레이아웃 */
 body.dashboard-page .post-form-container.image-mode .gallery-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 5px;
     justify-items: center;
     align-items: center;
 }
 
 /* 🔥 이미지 모드 전용 썸네일 고정 */
 body.dashboard-page .post-form-container.image-mode .gallery-container img {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
 }
 
