@@ -1184,6 +1184,7 @@ body.dashboard-page .post-form-container.image-mode .gallery-container {
 body.dashboard-page .post-form-container.image-mode .gallery-container img {
     width: 100px;
     height: 100px;
+    border-radius: 15px;
     object-fit: cover;
 }
 
