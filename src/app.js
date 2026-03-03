@@ -74,7 +74,7 @@ app.get("/api/search", async (req, res) => {
         }
 
         if (keyword) {
-            query += " AND file_description LIKE :keywordSearch";
+            query += " AND file_name LIKE :keywordSearch";
             replacements.keywordSearch = `%${keyword}%`;
         }
 
