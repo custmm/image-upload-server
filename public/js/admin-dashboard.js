@@ -193,7 +193,7 @@ async function fetchIndicatorStatus() {
         const response = await fetch("/api/settings/indicator-status");
         if (!response.ok) throw new Error("Indicator 상태 가져오기 실패");
 
-        const data = await res.json();
+        const data = await response.json();
 
         const previewVisible = data.visible ? "visible" : "hidden";
         localStorage.setItem("previewVisible", previewVisible);
@@ -227,7 +227,7 @@ async function updateIndicatorStatusOnServer(payload = {}) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
-        const data = await res.json();
+        const data = await response.json();
         console.log("서버 응답:", data);  // ✅ 성공 여부 확인
     } catch (error) {
         console.error("🚨 Indicator 서버 업데이트 오류:", error);

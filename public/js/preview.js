@@ -500,7 +500,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
             const response = await fetch(url);
             if (!response.ok) throw new Error("이미지 로드 실패");
-            const { total, files: images } = await res.json();
+            const { total, files: images } = await response.json();
 
             // 총 페이지 계산
             const totalPages = Math.ceil(total / limit);
@@ -1041,7 +1041,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
             const response = await fetch("/api/settings/indicator-status");
             if (!response.ok) throw new Error("서버 응답 오류");
-            const data = await res.json();
+            const data = await response.json();
 
             // ✅ visible 은 서버 우선
             localStorage.setItem('previewVisible', data.visible ? 'visible' : 'hidden');
