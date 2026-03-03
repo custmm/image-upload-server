@@ -77,28 +77,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
 
         // 🔥 서버에서 실제 게시글 가져오기
-        const response = await fetch("/api/files");
+        const response = await fetch(`/api/search?keyword=${encodeURIComponent(query)}`);
         const data = await response.json();
 
         // 🔥 배열이 어디에 있는지 추출
-        const posts = Array.isArray(data)
-            ? data
-            : data.files || data.data || data.posts || [];
+        const posts = data.posts || [];
         console.log("API 응답:", posts);
 
-        // 🔥 대소문자 구분 없이 검색
-        const normalizedQuery = normalize(query);
-
-        filteredPosts = posts.filter(post => {
-
-            const title = normalize(post.title);
-            const fileName = normalize(post.file_name);
-
-            return title.includes(normalizedQuery) ||
-                fileName.includes(normalizedQuery);
-        });
+        filteredPosts = posts;
         console.log("전체 게시글 수:", posts.length);
-        console.log("검색어:", normalizedQuery);
         console.log("매칭된 게시글 수:", filteredPosts.length);
         console.log("매칭 제목들:", filteredPosts.map(p => p.title));
 
