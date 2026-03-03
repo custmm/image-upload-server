@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         filteredPosts = posts;
         console.log("전체 게시글 수:", posts.length);
         console.log("매칭된 게시글 수:", filteredPosts.length);
-        console.log("매칭 제목들:", filteredPosts.map(p => p.title));
+        console.log("매칭 파일명들:", filteredPosts.map(p => p.file_name));
 
 
         if (filteredPosts.length === 0) {
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             item.innerHTML = `
             <img src="${post.file_path}" alt="${post.title}">
-            <h3>${post.title}</h3>
+            <h3>${post.file_name}</h3>
         `;
 
             item.addEventListener("click", () => {
