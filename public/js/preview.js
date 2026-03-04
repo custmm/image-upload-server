@@ -520,14 +520,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     img.dataset.src = image.file_path;
                     observer.observe(img);
 
-                    const cat = encodeURIComponent(image.category_name || "uncategorized");
-                    const sub = encodeURIComponent(image.subcategory_name || "general");
-                    const file = encodeURIComponent(image.file_name);
-
-                    // ✅ post.html 이동 차단
                     img.onclick = () => {
-                        if (isExplanMode) return; // 🔒 체험모드에서는 클릭 차단
-                        window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+                        if (isExplanMode) return;
+                        window.location.href = `post.html?id=${image.id}`;
                     };
 
                     imgContainer.appendChild(placeholder);
@@ -600,13 +595,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     flipInner.appendChild(back);
                     row.appendChild(flipInner);
 
-                    const cat = encodeURIComponent(image.category_name || "uncategorized");
-                    const sub = encodeURIComponent(image.subcategory_name || "general");
-                    const file = encodeURIComponent(image.file_name);
-
                     row.onclick = () => {
                         if (isExplanMode) return;
-                        window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+                        window.location.href = `post.html?id=${image.id}`;
                     };
 
                     imageGallery.appendChild(row);
@@ -799,13 +790,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     row.appendChild(flipInner);
 
-                    const cat = encodeURIComponent(image.category_name || "uncategorized");
-                    const sub = encodeURIComponent(image.subcategory_name || "general");
-                    const file = encodeURIComponent(image.file_name);
-
                     row.onclick = () => {
                         if (isExplanMode) return;
-                        window.location.href = `post?category=${cat}&subcategory=${sub}&file=${file}`;
+                        window.location.href = `post.html?id=${image.id}`;
                     };
 
                     imageGallery.appendChild(row);
