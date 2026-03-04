@@ -107,12 +107,14 @@ body.search-page .back-button {
 }
 
 body.dashboard-page .custom-button,
-body.dashboard-page .custom-chart-button {
+body.dashboard-page .custom-chart-button,
+body.dashboard-page #selectTitleEdit,
+body.dashboard-page #selectContentEdit,
+body.dashboard-page #saveTitleBtn,
+body.dashboard-page #closeTitleBtn {
     color: black;
     background: none;
 }
-
-
 
 button:hover {
     background-color: #755a6a;
@@ -122,6 +124,10 @@ body.index-page .popup-confirm-button:hover,
 body.dashboard-page #saveEdit:hover,
 body.dashboard-page #closeEdit:hover,
 body.dashboard-page #clearCanvas:hover,
+body.dashboard-page #selectTitleEdit:hover,
+body.dashboard-page #selectContentEdit:hover,
+body.dashboard-page #saveTitleBtn:hover,
+body.dashboard-page #closeTitleBtn:hover,
 body.dashboard-page .popup-confirm-button:hover,
 body.dashboard-page .edit-button:hover,
 body.dashboard-page .custom-chart-button:hover,

@@ -495,6 +495,7 @@ function openEditSelectPopup(image) {
                     <h2>수정 메뉴</h2>
                     <div class="edit-button-group">
                         <button id="selectTitleEdit">제목 수정</button>
+                        <div class="button-separator"></div>
                         <button id="selectContentEdit">내용 수정</button>
                         <button id="closeSelectModal">취소</button>
                     </div>
@@ -540,6 +541,7 @@ function openTitleEditPopup(image) {
                     <input type="text" id="editTitleInput" class="title-input"/>
                     <div class="edit-button-group">
                         <button id="saveTitleBtn">저장</button>
+                        <div class="button-separator"></div>
                         <button id="closeTitleBtn">취소</button>
                     </div>
                 </div>

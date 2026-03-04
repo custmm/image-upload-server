@@ -629,6 +629,8 @@ body.dashboard-page .edit-button-group {
     margin-top: 20px;
 }
 
+body.dashboard-page #closeSelectModal {}
+
 body.dashboard-page .edit-content {
     min-height: 150px;
     background: #fff;
