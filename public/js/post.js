@@ -23,22 +23,13 @@ function closePopup() {
   document.getElementById("popupMessage").style.display = "none";
 }
 
-// ✅ URL에서 파라미터 가져오기 (기본값을 사용하지 않음)
+// ✅ URL에서 파라미터 가져오기
 function getParamsFromURL() {
   const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
   return {
-    category: 
-      params.get("category") 
-        ? decodeURIComponent(params.get("category")).trim() 
-        : null,
-    subcategory: 
-      params.get("subcategory") 
-        ? decodeURIComponent(params.get("subcategory")).trim() 
-        : null,
-    file: 
-      params.get("file") 
-        ? decodeURIComponent(params.get("file")).trim() 
-        : null
+    id: id ? parseInt(id, 10) : null
   };
 }
 
@@ -66,30 +57,30 @@ function renderHashtags(text) {
 
 // ✅ 서버에서 데이터 가져오기
 async function loadPostData() {
-  let { category, subcategory, file } = getParamsFromURL();
+  let { id } = getParamsFromURL();
 
-  if (!file) {
-    document.getElementById("postDescription").innerHTML = "🚨 올바른 게시물을 찾을 수 없습니다.";
+  if (!id) {
+    document.getElementById("postDescription").innerHTML =
+      "올바른 게시물을 찾을 수 없습니다.";
     return;
   }
 
-  console.log(`📌 요청할 파일 정보: ${category} / ${subcategory} / ${file}`);
+  console.log(`요청할 파일 정보: ${id}`);
 
-  // 🔥 로딩 시작
   showLoading();
 
   try {
-    const apiURL = `/api/files/file?category=${encodeURIComponent(category)}&subcategory=${encodeURIComponent(subcategory)}&file=${encodeURIComponent(file)}`;
-    console.log("📌 요청 URL:", apiURL);
+    const apiURL = `/api/files/${id}`;
+    console.log("요청 URL:", apiURL);
 
     const response = await fetch(apiURL);
 
     if (!response.ok) {
-      throw new Error(`❌ 서버 응답 오류: ${response.status} - ${response.statusText}`);
+      throw new Error(`서버 응답 오류: ${response.status} - ${response.statusText}`);
     }
 
     const postData = await response.json();
-    console.log("✅ 서버에서 불러온 게시물 데이터:", postData);
+    console.log("서버에서 불러온 게시물 데이터:", postData);
 
     document.getElementById("postImage").src =
       `${postData.file_path}`;
@@ -108,11 +99,12 @@ async function loadPostData() {
 
     document.getElementById("postTitle").textContent =
       postData.title || "제목 없음";
-    document.title = postData.title || "게시물";
+
+    document.title =
+      postData.title || "게시물";
 
     const descriptionText = postData.file_description || "";
 
-    // 🔥 1️⃣ 본문에서는 해시태그 제거
     const cleanedDescription = descriptionText
       .replace(/#([\w가-힣]+)/g, "")
       .replace(/\n/g, "<br>")
@@ -122,14 +114,14 @@ async function loadPostData() {
       cleanedDescription || "설명 없음";
 
 
-    // 🔥 2️⃣ 해시태그는 따로 렌더링
+    // 해시태그는 따로 렌더링
     renderHashtags(descriptionText);
 
   } catch (error) {
-    console.error("🚨 게시물 불러오기 오류:", error);
-    document.getElementById("postDescription").innerHTML = "🚨 게시물을 불러오는 중 오류 발생";
+    console.error("게시물 불러오기 오류:", error);
+    document.getElementById("postDescription").innerHTML =
+      "게시물을 불러오는 중 오류 발생";
   } finally {
-    // 🔥 로딩 완료
     hideLoading();
   }
 }

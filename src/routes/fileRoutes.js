@@ -362,7 +362,7 @@ router.get("/id/:id", async (req, res) => {
     }
 });
 
-// ✅ 게시물 설명 업데이트 API (POST /update-post/:id)
+// ✅ 게시물 설명 업데이트 API
 router.patch("/update-post/:id", async (req, res) => {
     try {
         const { id } = req.params;
@@ -395,6 +395,42 @@ router.patch("/update-post/:id", async (req, res) => {
         res.json({ success: true, message: "✅ 설명이 성공적으로 수정되었습니다." });
     } catch (error) {
         console.error("🚨 설명 업데이트 오류:", error);
+        res.status(500).json({ success: false, error: "🚨 서버 오류 발생" });
+    }
+});
+
+// ✅ 게시물 제목 업데이트 API
+router.patch("/update-title/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title } = req.body;
+
+        if (!id || isNaN(id)) {
+            return res.status(400).json({ error: "❌ 유효한 ID가 필요합니다." });
+        }
+
+        if (!title || !title.trim()) {
+            return res.status(400).json({ error: "❌ 제목이 비어있습니다." });
+        }
+
+        const sanitizedTitle = sanitizeHtml(title, {
+            allowedTags: [],
+            allowedAttributes: {}
+        }).trim();
+
+        const file = await File.findByPk(id);
+
+        if (!file) {
+            return res.status(404).json({ error: "❌ 파일을 찾을 수 없습니다." });
+        }
+
+        file.title = sanitizedTitle;  // ✅ 핵심 수정 포인트
+        await file.save();
+
+        res.json({ success: true, message: "✅ 제목 수정 완료" });
+
+    } catch (error) {
+        console.error("🚨 제목 업데이트 오류:", error);
         res.status(500).json({ success: false, error: "🚨 서버 오류 발생" });
     }
 });

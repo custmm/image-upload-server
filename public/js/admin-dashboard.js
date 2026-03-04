@@ -113,9 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLoadButton();
 
     loadToggleBtn.addEventListener("click", () => {
-
         if (currentMode === "text") {
-            // 텍스트 모드에서는 추가 로딩 버튼 역할
             if (!isLoading && !noMoreImages) {
                 fetchImages("text");
             }
@@ -129,15 +127,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 fetchImages(currentMode);
             }
         }
-
         updateLoadButton();
     });
 
 
     // 🔥 IMAGE 모드용 (window 기준)
     window.addEventListener("scroll", throttle(() => {
-
-        // 이미지 모드일 때만 실행
         if (currentMode !== "image") return;
 
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
@@ -145,7 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 fetchImagesDebounced("image");
             }
         }
-
     }, 700));
 
     renderCharts();
@@ -228,7 +222,7 @@ async function updateIndicatorStatusOnServer(payload = {}) {
             body: JSON.stringify(payload)
         });
         const data = await response.json();
-        console.log("서버 응답:", data);  // ✅ 성공 여부 확인
+        console.log("서버 응답:", data);
     } catch (error) {
         console.error("🚨 Indicator 서버 업데이트 오류:", error);
     }
@@ -237,9 +231,7 @@ async function updateIndicatorStatusOnServer(payload = {}) {
 function applyModernizedImages(isModernized) {
     const images = document.querySelectorAll("#section3 .sorting-container img");
     images.forEach((img, index) => {
-        // 기존 파일명 규칙에 맞추어 변경: preview-gunff_1.png / preview-gunff_1re.png
         const base = `images/indicator/preview-gunff_${index + 1}`;
-        // 만약 이미지 객체에 원래 파일 경로가 있으면 그걸 사용하도록 더 안전하게 구현 가능
         img.src = isModernized ? `${base}re.png` : `${base}.png`;
     });
 }
@@ -247,7 +239,7 @@ function applyModernizedImages(isModernized) {
 function bindIndicatorEvents() {
     const showindicatorBtn = document.getElementById("show-indicator");
     const hideindicatorBtn = document.getElementById("hide-indicator");
-    const modernizeBtn = document.getElementById("modernize-indicator"); // ✅ 새 버튼
+    const modernizeBtn = document.getElementById("modernize-indicator");
 
     let isModernized = localStorage.getItem("indicatorModernized") === "true";
 
@@ -267,7 +259,7 @@ function bindIndicatorEvents() {
         showpopup("이미지 표시기가 나타났습니다."); // 팝업 추가
     });
 
-    // ✅ 현대화 버튼 이벤트 (서버 동기화 포함)
+    // 현대화 버튼 이벤트 (서버 동기화 포함)
     modernizeBtn.addEventListener("click", async () => {
         // 로컬에서 먼저 토글
         isModernized = !isModernized;
@@ -282,8 +274,6 @@ function bindIndicatorEvents() {
         // (선택) 성공/실패 확인을 원하면 fetch 응답을 체크해 실패 시 롤백 처리 가능
     });
 
-
-
     // 최초 상태 동기화
     fetchIndicatorStatus();
 
@@ -293,14 +283,14 @@ function bindIndicatorEvents() {
 
 async function fetchImages(mode = "image", append = false) {
 
-    if (isPaused) return;          // 🔥 중단 상태면 바로 탈출
+    if (isPaused) return;
     if (isLoading || noMoreImages) return;
 
     isLoading = true;
 
     try {
         const url = `/api/files?offset=${loadedImages}&limit=${batchSize}`;
-        console.log(`📌 이미지 요청 URL: ${url}`);
+        console.log(`이미지 요청 URL: ${url}`);
 
         const response = await fetch(url);
 
@@ -350,6 +340,7 @@ async function fetchImages(mode = "image", append = false) {
     }
 }
 
+// 이미지모드진입시
 function renderImageMode(images, append = false) {
     const container = document.querySelector(".post-form-container");
     container.classList.add("image-mode");
@@ -373,11 +364,7 @@ function renderImageMode(images, append = false) {
         img.dataset.loaded = "false";
 
         img.addEventListener("click", () => {
-            const category = image.category.name;
-            const subcategory = encodeURIComponent(image.subcategory.name); // URL 인코딩 필수
-            const file = image.file_name;
-            window.location.href =
-                `/post?category=${category}&subcategory=${subcategory}&file=${file}`;
+            window.location.href = `/post?id=${image.id}`;
         });
 
         fragment.appendChild(img);
@@ -388,6 +375,7 @@ function renderImageMode(images, append = false) {
 
 }
 
+// 텍스트모드 진입시
 function renderTextMode(images, append = false) {
     const container = document.querySelector(".post-form-container");
 
@@ -412,19 +400,25 @@ function renderTextMode(images, append = false) {
         const buttonContainer = document.createElement("div");
         buttonContainer.classList.add("buttons");
 
-        // ✅ 수정 버튼
-        const editButton = document.createElement("button");
-        editButton.classList.add("edit-button");
-        editButton.textContent = "수정";
-        editButton.onclick = () => openEditPopup(image);
+        // 수정 버튼 그룹
+        const editTitleButton = document.createElement("button");
+        editTitleButton.classList.add("edit-button");
+        editTitleButton.textContent = "제목수정";
+        editTitleButton.onclick = () => openTitleEditPopup(image);
 
-        // ✅ 삭제 버튼
+        const editContentButton = document.createElement("button");
+        editContentButton.classList.add("edit-button");
+        editContentButton.textContent = "내용수정";
+        editContentButton.onclick = () => openEditPopup(image);
+
+        // 삭제 버튼
         const deleteButton = document.createElement("button");
         deleteButton.classList.add("delete-button");
         deleteButton.textContent = "삭제";
         deleteButton.onclick = () => deletePost(image.id);
 
-        buttonContainer.appendChild(editButton);
+        buttonContainer.appendChild(editTitleButton);
+        buttonContainer.appendChild(editContentButton);
         buttonContainer.appendChild(deleteButton);
 
         postItem.appendChild(img);
@@ -435,6 +429,36 @@ function renderTextMode(images, append = false) {
     });
 }
 
+// 텍스트모드 제목 수정버튼 동작
+async function updatePostTitle(postId, newTitle) {
+    try {
+        const response = await fetch(`api/files/update-title/${postId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ title: newTitle }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showpopup("제목이 성공적으로 수정되었습니다.", () => {
+                setTimeout(() => {
+                    location.reload();
+                }, 700);
+            });
+        } else {
+            showeditpopup("제목 수정 실패");
+        }
+
+    } catch (error) {
+        console.error("🚨 제목 수정 오류:", error);
+        showeditpopup("오류가 발생했습니다.");
+    }
+}
+
+// 텍스트모드 내용 수정버튼 동작
 async function updatePostDescription(postId, newDescription) {
     try {
         const response = await fetch(`api/files/update-post/${postId}`, {  // 🔹 서버의 업데이트 API 경로
@@ -464,7 +488,57 @@ async function updatePostDescription(postId, newDescription) {
     }
 }
 
-// 수정 버튼 클릭 시 팝업창을 열어주는 함수
+function openTitleEditPopup(image) {
+    let modal = document.getElementById("editTitleModal");
+
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "editTitleModal";
+
+        modal.innerHTML = `
+            <div class="edit-modal">
+                <div class="edit-modal-content">
+                    <h2>제목 수정</h2>
+                    <input type="text" id="editTitleInput" class="title-input"/>
+                    <div class="edit-button-group">
+                        <button id="saveTitleBtn">저장</button>
+                        <button id="closeTitleBtn">취소</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+    }
+
+    const input = modal.querySelector("#editTitleInput");
+    input.value = image.title;
+
+    const saveBtn = modal.querySelector("#saveTitleBtn");
+    const closeBtn = modal.querySelector("#closeTitleBtn");
+
+    saveBtn.onclick = async () => {
+        const newTitle = input.value.trim();
+
+        if (!newTitle) {
+            showeditpopup("❗제목을 입력해주세요.");
+            return;
+        }
+
+        showeditpopup("제목을 수정하시겠습니까?", async () => {
+            await updatePostTitle(image.id, newTitle);
+            modal.style.display = "none";
+        });
+    };
+
+    closeBtn.onclick = () => {
+        modal.style.display = "none";
+    };
+
+    modal.style.display = "flex";
+}
+
+// 수정 버튼 클릭 시 팝업창 오픈
 function openEditPopup(image) {
     let modal = document.getElementById("editModal");
 
@@ -475,7 +549,7 @@ function openEditPopup(image) {
         modal.innerHTML = `
                 <div class="edit-modal">
                     <div class="edit-modal-content">
-                        <h2>게시물 수정</h2>
+                        <h2>내용 수정</h2>
                         <div class="edit-container">
                             <div class="editor-buttons">
                                 <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
@@ -573,24 +647,21 @@ function openEditPopup(image) {
     modal.style.display = "flex";
 }
 
+// 게시물삭제(delete)
 async function deletePost(id) {
-    // 1) 사용자 확인
     showeditpopup('게시물을 삭제하시겠습니까?', async () => {
         try {
-            // 2) DELETE 요청 보내기 (백엔드 라우트에 맞게 URL 조정)
             const response = await fetch(`/api/files/${id}`, {
                 method: 'DELETE',
             });
             const data = await response.json();
 
-            // 3) 성공 여부 확인
             if (data.success) {
                 showpopup('게시물이 삭제되었습니다.', () => {
                     setTimeout(() => {
                         location.reload();
                     }, 700);
                 });
-                // 4) 삭제 후 페이지 새로고침 또는 이미지 재로딩
             } else {
                 showeditpopup(`삭제 실패: ${data.error || data.message}`);
             }
@@ -709,7 +780,7 @@ function clearContainer(container) {
 function bindModeSwitchEvents() {
     document.getElementById("image-mode").addEventListener("click", () => {
         currentMode = "image";
-        loadedImages = 0; // ✅ 초기화
+        loadedImages = 0;
         noMoreImages = false;
 
         const container = document.querySelector(".post-form-container");
@@ -1037,7 +1108,6 @@ document.getElementById("showDonut").addEventListener("click", () => {
     document.getElementById("donutWrapper").style.display = "flex";
     document.getElementById("barWrapper").style.display = "none";
 
-    // 필요 시 chartArea 중앙 정렬 복원
     const chartArea = document.getElementById("chartArea");
     chartArea.style.justifyContent = "center";
 });
