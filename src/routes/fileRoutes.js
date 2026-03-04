@@ -82,7 +82,6 @@ router.get("/", async (req, res) => {
     }
 });
 
-
 // ✅ 특정 파일을 카테고리 + 서브카테고리 + 파일명으로 조회하는 API
 router.get("/file", async (req, res) => {
     try {
@@ -200,7 +199,7 @@ router.get("/category-counts", async (req, res) => {
     }
 });
 
-// ✅ 특정 카테고리의 서브카테고리별 게시물 수 조회 API (NEW!)
+// ✅ 특정 카테고리의 서브카테고리별 게시물 수 조회 API
 router.get("/subcategory-counts", async (req, res) => {
     try {
         const { category_name } = req.query;
@@ -341,74 +340,6 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     }
 });
 
-// ✅ 특정 파일(ID) 가져오기 API
-router.get("/id/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-        console.log(`📌 요청받은 파일 ID: ${id}`); // 🔥 ID 확인용 로그
-
-        const file = await File.findByPk(id);
-
-        if (!file) {
-            console.error(`❌ 파일을 찾을 수 없음 (ID: ${id})`);
-            return res.status(404).json({ error: `❌ 파일을 찾을 수 없음 (ID: ${id})` });
-        }
-
-        console.log("✅ 파일 데이터 응답:", file);
-        res.json(file);
-    } catch (error) {
-        console.error("🚨 파일 가져오기 오류:", error);
-        res.status(500).json({ error: "🚨 서버 오류 발생" });
-    }
-});
-
-router.get("/id/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    if (!id) {
-      return res.status(400).json({
-        error: "❌ 게시물 ID가 필요합니다."
-      });
-    }
-
-    const foundFile = await File.findByPk(id, {
-      include: [
-        {
-          model: Category,
-          as: "category",
-          attributes: ["name"]
-        },
-        {
-          model: Subcategory,
-          as: "subcategory",
-          attributes: ["name"]
-        }
-      ]
-    });
-
-    if (!foundFile) {
-      return res.status(404).json({
-        error: "❌ 해당 게시물을 찾을 수 없습니다."
-      });
-    }
-
-    res.json({
-      ...foundFile.toJSON(),
-      category_name: foundFile.category?.name || null,
-      subcategory_name: foundFile.subcategory?.name || null
-    });
-
-    console.log("✅ ID 기반 게시물 조회 성공:", foundFile.id);
-
-  } catch (error) {
-    console.error("🚨 ID 기반 조회 오류:", error);
-    res.status(500).json({
-      error: "🚨 서버 오류"
-    });
-  }
-});
-
 // ✅ 게시물 설명 업데이트 API
 router.patch("/update-post/:id", async (req, res) => {
     try {
@@ -480,6 +411,53 @@ router.patch("/update-title/:id", async (req, res) => {
         console.error("🚨 제목 업데이트 오류:", error);
         res.status(500).json({ success: false, error: "🚨 서버 오류 발생" });
     }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id || isNaN(id)) {
+      return res.status(400).json({
+        error: "❌ 유효한 ID가 필요합니다."
+      });
+    }
+
+    const foundFile = await File.findByPk(id, {
+      include: [
+        {
+          model: Category,
+          as: "category",
+          attributes: ["name"]
+        },
+        {
+          model: Subcategory,
+          as: "subcategory",
+          attributes: ["name"]
+        }
+      ]
+    });
+
+    if (!foundFile) {
+      return res.status(404).json({
+        error: "❌ 해당 게시물을 찾을 수 없습니다."
+      });
+    }
+
+    res.json({
+      ...foundFile.toJSON(),
+      category_name: foundFile.category?.name || null,
+      subcategory_name: foundFile.subcategory?.name || null
+    });
+
+    console.log("✅ ID 기반 게시물 조회 성공:", foundFile.id);
+
+  } catch (error) {
+    console.error("🚨 ID 기반 조회 오류:", error);
+    res.status(500).json({
+      error: "🚨 서버 오류"
+    });
+  }
 });
 
 router.delete("/:id", async (req, res) => {
