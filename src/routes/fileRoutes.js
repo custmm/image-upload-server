@@ -362,6 +362,53 @@ router.get("/id/:id", async (req, res) => {
     }
 });
 
+router.get("/id/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({
+        error: "❌ 게시물 ID가 필요합니다."
+      });
+    }
+
+    const foundFile = await File.findByPk(id, {
+      include: [
+        {
+          model: Category,
+          as: "category",
+          attributes: ["name"]
+        },
+        {
+          model: Subcategory,
+          as: "subcategory",
+          attributes: ["name"]
+        }
+      ]
+    });
+
+    if (!foundFile) {
+      return res.status(404).json({
+        error: "❌ 해당 게시물을 찾을 수 없습니다."
+      });
+    }
+
+    res.json({
+      ...foundFile.toJSON(),
+      category_name: foundFile.category?.name || null,
+      subcategory_name: foundFile.subcategory?.name || null
+    });
+
+    console.log("✅ ID 기반 게시물 조회 성공:", foundFile.id);
+
+  } catch (error) {
+    console.error("🚨 ID 기반 조회 오류:", error);
+    res.status(500).json({
+      error: "🚨 서버 오류"
+    });
+  }
+});
+
 // ✅ 게시물 설명 업데이트 API
 router.patch("/update-post/:id", async (req, res) => {
     try {
