@@ -401,15 +401,10 @@ function renderTextMode(images, append = false) {
         buttonContainer.classList.add("buttons");
 
         // 수정 버튼 그룹
-        const editTitleButton = document.createElement("button");
-        editTitleButton.classList.add("edit-button");
-        editTitleButton.textContent = "제목수정";
-        editTitleButton.onclick = () => openTitleEditPopup(image);
-
-        const editContentButton = document.createElement("button");
-        editContentButton.classList.add("edit-button");
-        editContentButton.textContent = "내용수정";
-        editContentButton.onclick = () => openEditPopup(image);
+        const editButton = document.createElement("button");
+        editButton.classList.add("edit-button");
+        editButton.textContent = "수정";
+        editButton.onclick = () => openEditSelectPopup(image);
 
         // 삭제 버튼
         const deleteButton = document.createElement("button");
@@ -417,8 +412,7 @@ function renderTextMode(images, append = false) {
         deleteButton.textContent = "삭제";
         deleteButton.onclick = () => deletePost(image.id);
 
-        buttonContainer.appendChild(editTitleButton);
-        buttonContainer.appendChild(editContentButton);
+        buttonContainer.appendChild(editButton);
         buttonContainer.appendChild(deleteButton);
 
         postItem.appendChild(img);
@@ -486,6 +480,50 @@ async function updatePostDescription(postId, newDescription) {
         console.error("🚨 게시물 수정 오류:", error);
         showeditpopup("수정 중 오류가 발생했습니다.");
     }
+}
+
+function openEditSelectPopup(image) {
+    let modal = document.getElementById("editSelectModal");
+
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "editSelectModal";
+
+        modal.innerHTML = `
+            <div class="edit-modal">
+                <div class="edit-modal-content">
+                    <h2>수정 메뉴</h2>
+                    <div class="edit-button-group">
+                        <button id="selectTitleEdit">제목 수정</button>
+                        <button id="selectContentEdit">내용 수정</button>
+                        <button id="closeSelectModal">취소</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+    }
+
+    const titleBtn = modal.querySelector("#selectTitleEdit");
+    const contentBtn = modal.querySelector("#selectContentEdit");
+    const closeBtn = modal.querySelector("#closeSelectModal");
+
+    titleBtn.onclick = () => {
+        modal.style.display = "none";
+        openTitleEditPopup(image);
+    };
+
+    contentBtn.onclick = () => {
+        modal.style.display = "none";
+        openEditPopup(image);
+    };
+
+    closeBtn.onclick = () => {
+        modal.style.display = "none";
+    };
+
+    modal.style.display = "flex";
 }
 
 function openTitleEditPopup(image) {
