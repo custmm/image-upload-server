@@ -492,12 +492,12 @@ function openEditSelectPopup(image) {
         modal.innerHTML = `
             <div class="edit-modal">
                 <div class="edit-modal-content">
+                <button id="closeSelectModal">X</button>
                     <h2>수정 메뉴</h2>
                     <div class="edit-button-group">
                         <button id="selectTitleEdit">제목 수정</button>
                         <div class="button-separator"></div>
                         <button id="selectContentEdit">내용 수정</button>
-                        <button id="closeSelectModal">취소</button>
                     </div>
                 </div>
             </div>
