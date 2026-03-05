@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (keyword) {
                 window.location.href =
-                    `search_post.html?q=${encodeURIComponent(keyword)}`;
+                    `search_post?q=${encodeURIComponent(keyword)}`;
             }
         });
     }
@@ -522,7 +522,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     img.onclick = () => {
                         if (isExplanMode) return;
-                        window.location.href = `post.html?id=${image.id}`;
+                        window.location.href = `post?id=${image.id}`;
                     };
 
                     imgContainer.appendChild(placeholder);
@@ -597,7 +597,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     row.onclick = () => {
                         if (isExplanMode) return;
-                        window.location.href = `post.html?id=${image.id}`;
+                        window.location.href = `post?id=${image.id}`;
                     };
 
                     imageGallery.appendChild(row);
@@ -702,15 +702,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     img.dataset.src = `${image.file_path}`;
                     observer.observe(img); // ✅ Intersection Observer로 감지
 
-                    // ✅ 문제 해결: `image.category_name`과 `image.subcategory_name`을 직접 사용
-                    const categoryName = image.category_name
-                        ? encodeURIComponent(image.category_name)
-                        : "uncategorized";
-                    const subcategoryName = image.subcategory_name
-                        ? encodeURIComponent(image.subcategory_name)
-                        : "general";
-                    const fileName = encodeURIComponent(image.file_name);
-                    const postURL = `post?category=${categoryName}&subcategory=${subcategoryName}&file=${fileName}`;
+                    const postURL = `post?id=${image.id}`;
 
                     img.onclick = () => {
                         if (isExplanMode) return; // 🔒 체험모드에서는 클릭 무시
@@ -792,7 +784,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     row.onclick = () => {
                         if (isExplanMode) return;
-                        window.location.href = `post.html?id=${image.id}`;
+                        window.location.href = `post?id=${image.id}`;
                     };
 
                     imageGallery.appendChild(row);

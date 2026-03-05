@@ -390,7 +390,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const { file_name, category_name, subcategory_name } = result.file; // 🔥 DB에서 가져온 값 사용
 
                 // ✅ URL 생성 시 올바른 카테고리명 사용
-                const postURL = `post.html?category=${encodeURIComponent(category_name)}&subcategory=${encodeURIComponent(subcategory_name)}&file=${encodeURIComponent(file_name)}`;
+                const postURL = `post?category=${encodeURIComponent(category_name)}&subcategory=${encodeURIComponent(subcategory_name)}&file=${encodeURIComponent(file_name)}`;
 
                 showuploadPopup("✅ 업로드 성공!", postURL);
             }, 1000); // ✅ 1초 후 실행

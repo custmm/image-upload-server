@@ -364,7 +364,7 @@ function renderImageMode(images, append = false) {
         img.dataset.loaded = "false";
 
         img.addEventListener("click", () => {
-            window.location.href = `/post?id=${image.id}`;
+            window.location.href = `post?id=${image.id}`;
         });
 
         fragment.appendChild(img);
