@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             item.addEventListener("click", () => {
                 window.location.href =
-                    `post?id=${image.id}`;
+                    `post.html?file=${encodeURIComponent(post.title)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}`;
             });
 
             resultsContainer.appendChild(item);
