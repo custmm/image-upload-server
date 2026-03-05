@@ -610,6 +610,10 @@ body.dashboard-page .edit-modal-content {
     width: 50%;
     border: 1px solid #333;
 }
+body.dashboard-page .edit-modal-content h2{
+    margin-bottom: 15px;
+}
+
 
 body.dashboard-page .edit-modal-content p {
     font-size: 15px;
@@ -677,8 +681,6 @@ body.dashboard-page input#editTitleInput {
     height: 30px;
     padding: 0 20px;
     border-radius: 15px;
-    margin-top: 10px;
-
 }
 
 body.dashboard-page hr {
