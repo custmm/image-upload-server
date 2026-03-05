@@ -494,6 +494,7 @@ function openEditSelectPopup(image) {
                 <div class="edit-modal-content">
                 <button id="closeSelectModal">X</button>
                     <h2>수정 메뉴</h2>
+                    <p>수정할 항목을 선택하십시오.</p>
                     <div class="edit-button-group">
                         <button id="selectTitleEdit">제목 수정</button>
                         <div class="button-separator"></div>

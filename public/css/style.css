@@ -609,6 +609,10 @@ body.dashboard-page .edit-modal-content {
     border-radius: 5px;
     width: 50%;
 }
+body.dashboard-page .edit-modal-content p{
+    font-size: 15px;
+    margin-bottom: 15px;
+}
 
 body.dashboard-page .editor-buttons {
     margin: 0 10px;
