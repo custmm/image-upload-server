@@ -71,7 +71,7 @@ function renderNextPosts() {
   const postList = document.getElementById("postList");
   setTimeout(() => {
     postList.innerHTML += nextPosts.map(post => `
-          <a class="post-item" href="post.html?file=${encodeURIComponent(post.title)}&category=${encodeURIComponent(post.category_name)}&subcategory=${encodeURIComponent(post.subcategory_name)}">
+          <a class="post-item" href="post?id=${post.id}">
               <img src="${post.file_path}" alt="미리보기 이미지">
             <div class="post-meta">
               <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
