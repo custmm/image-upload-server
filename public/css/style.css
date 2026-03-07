@@ -2153,6 +2153,7 @@ body.preview-page .image-gallery {
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: auto;
     padding: 15px;
+    gap: 15px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -2189,7 +2190,13 @@ body.preview-page .image-gallery-wrapper {
 body.preview-page .image-container {
     position: relative;
     overflow: hidden;
+    border-radius: 50%;
 }
+
+body.preview-page .image-container:hover{
+    border-radius: 8px;
+}
+
 
 body.preview-page .hover-overlay {
     position: absolute;
