@@ -2161,6 +2161,7 @@ body.preview-page .image-gallery {
     justify-content: center;
     align-items: center;
     width: 85%;
+    transition: all 0.5s;
 }
 
 body.preview-page .image-gallery:hover{
@@ -2196,6 +2197,7 @@ body.preview-page .image-container {
     position: relative;
     overflow: hidden;
     border-radius: 50%;
+    transition: all 0.5s;
 }
 
 body.preview-page .image-container:hover{
