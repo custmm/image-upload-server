@@ -2164,10 +2164,6 @@ body.preview-page .image-gallery {
     transition: all 0.5s;
 }
 
-body.preview-page .image-gallery:hover{
-    border-radius: 10px;
-}
-
 /* 사진 모드 */
 body.preview-page .image-gallery.image-view {
     display: grid;
@@ -2175,11 +2171,16 @@ body.preview-page .image-gallery.image-view {
     gap: 12px;
 }
 
+body.preview-page .image-gallery.image-view:hover{
+    border-radius: 10px;
+}
+
 /* 텍스트 모드 */
 body.preview-page .image-gallery.text-view {
     display: flex;
     flex-direction: column;
     padding: 5px;
+    border-radius: 10px;
 }
 
 /* ✅ 이미지 갤러리 중앙 정렬 */
