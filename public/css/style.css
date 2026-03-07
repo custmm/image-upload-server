@@ -2165,7 +2165,7 @@ body.preview-page .image-gallery {
 }
 
 body.preview-page .image-gallery.multi-row {
-    border-radius: 80px;
+    border-radius: 100px;
 }
 
 body.preview-page .image-gallery:hover{
