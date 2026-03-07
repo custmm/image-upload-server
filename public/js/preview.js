@@ -605,6 +605,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             renderPagination(totalPages);
+
+            adjustGalleryRadius(); // 🔥 여기 추가
             // page 증가는 버튼 클릭에서만 하므로 여기선 제거
         } catch (err) {
             console.error(err);
@@ -1161,6 +1163,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
+    function adjustGalleryRadius() {
+        const gallery = document.querySelector(".image-gallery");
+        if (!gallery) return;
+
+        const items = gallery.querySelectorAll(".image-container");
+        if (items.length === 0) return;
+
+        const firstTop = items[0].offsetTop;
+        let multiRow = false;
+
+        items.forEach(item => {
+            if (item.offsetTop !== firstTop) {
+                multiRow = true;
+            }
+        });
+
+        if (multiRow) {
+            gallery.classList.add("multi-row");
+        } else {
+            gallery.classList.remove("multi-row");
+        }
+    }
+
     function clearGallery() {
         while (imageGallery.firstChild) {
             imageGallery.removeChild(imageGallery.firstChild);
@@ -1253,4 +1278,5 @@ document.addEventListener("DOMContentLoaded", async () => {
             updatePreviewVisibility();
         }
     });
+    window.addEventListener("resize", adjustGalleryRadius);
 });

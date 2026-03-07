@@ -2164,6 +2164,10 @@ body.preview-page .image-gallery {
     transition: all 0.5s;
 }
 
+body.preview-page .image-gallery.multi-row {
+    border-radius: 80px;
+}
+
 body.preview-page .image-gallery:hover{
     border-radius: 10px;
 }
