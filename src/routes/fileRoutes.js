@@ -347,12 +347,10 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         });
 
         // 🔥 description을 별도 테이블에 저장
-        if (sanitizedDescription && sanitizedDescription !== "") {
-            await Description.create({
-                file_id: fileData.id,
-                text: sanitizedDescription,
-            },);
-        }
+        await Description.create({
+            file_id: fileData.id,
+            text: sanitizedDescription,
+        });
 
         console.info("✅ 파일 업로드 성공!");
         res.json({ message: "✅ 파일 업로드 성공!", file: fileData });
