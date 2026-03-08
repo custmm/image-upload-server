@@ -34,13 +34,13 @@ function toggleTheme() {
     localStorage.setItem("theme", "dark");
     themeToggle.checked = true;
     if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle_dark.png')";
+      themeIcon.style.backgroundImage = "url('../images/toggle_dark.svg')";
     }
   } else {
     localStorage.setItem("theme", "light");
     themeToggle.checked = false;
     if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle_light.png')";
+      themeIcon.style.backgroundImage = "url('../images/toggle_light.svg')";
     }
   }
 }
@@ -54,13 +54,13 @@ function applySavedTheme() {
     document.body.classList.add("dark-mode");
     if (themeToggle) themeToggle.checked = true;
     if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle_dark.png')";
+      themeIcon.style.backgroundImage = "url('../images/toggle_dark.svg')";
     }
   } else {
     document.body.classList.remove("dark-mode");
     if (themeToggle) themeToggle.checked = false;
     if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle_light.png')";
+      themeIcon.style.backgroundImage = "url('../images/toggle_light.svg')";
     }
   }
 }

@@ -55,7 +55,7 @@
     left: 4px;
     top: 4px;
 
-    background: url('../images/toggle_light.png') no-repeat center center;
+    background: url('../images/toggle_light.svg') no-repeat center center;
     /* 기본값 */
     background-size: cover;
     pointer-events: none;
