@@ -76,7 +76,7 @@ function renderNextPosts() {
             <div class="post-meta">
               <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
                 <div class="desc">
-                    ${post.text.replace(/(<([^>]+)>)/gi, "").slice(0, 50)}...
+                    ${post.file_description.replace(/(<([^>]+)>)/gi, "").slice(0, 50)}...
                 </div>
               </div>
               </a>
