@@ -103,7 +103,10 @@ async function loadPostData() {
     document.title =
       postData.title || "게시물";
 
-    const descriptionText = postData.text || "";
+    const descriptionText =
+      postData.text ||
+      postData.description?.text ||
+      "";
 
     const cleanedDescription = descriptionText
       .replace(/#([\w가-힣]+)/g, "")

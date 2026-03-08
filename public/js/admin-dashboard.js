@@ -619,7 +619,7 @@ function openEditPopup(image) {
     // ✅ 항상 최신 내용 설정
     const editContent = modal.querySelector("#editContent");
     const descriptionCounter = modal.querySelector("#descriptionCounter");
-    editContent.innerHTML = image.text || "";
+    editContent.innerHTML = image.text  || image.description?.text || "";
     const hashtagDisplay = modal.querySelector("#editHashtagDisplay");
 
     // ✅ 입력 시 실시간 글자 수 업데이트
