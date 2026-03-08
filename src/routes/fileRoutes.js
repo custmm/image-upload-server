@@ -291,21 +291,27 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         }
 
         const sanitizedTitle = title
-            ? sanitizeHtml(title, { 
-                allowedTags: [], 
-                allowedAttributes: {} }).trim()
+            ? sanitizeHtml(title, {
+                allowedTags: [],
+                allowedAttributes: {}
+            }).trim()
             : null;
 
-        const sanitizedDescription = sanitizeHtml(description, {
-            allowedTags: ["b", "strong", "i", "em", "s", "strike", "u", "br"],
-            allowedAttributes: {
-                "span": ["style"],
-                "div": ["style"],
-                "p": ["style"]
-            },
-            selfClosing: ["br"],
-            textFilter: (text) => text.replace(/&nbsp;/g, " ")
-        }).replace(/\n/g, "<br>").replace(/&amp;/g, "&");
+        const sanitizedDescription = description
+            ? sanitizeHtml(description, {
+                allowedTags: ["b", "strong", "i", "em", "s", "strike", "u", "br"],
+                allowedAttributes: {
+                    "span": ["style"],
+                    "div": ["style"],
+                    "p": ["style"]
+                },
+                selfClosing: ["br"],
+                textFilter: (text) => text.replace(/&nbsp;/g, " ")
+            })
+                .replace(/\n/g, "<br>")
+                .replace(/&amp;/g, "&")
+                .trim()
+            : null;
 
         // 🔥 ImageKit 업로드
         const fileName = Date.now() + path.extname(req.file.originalname);
@@ -328,7 +334,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         });
 
         // 🔥 description을 별도 테이블에 저장
-        if (sanitizedDescription) {
+        if (sanitizedDescription && sanitizedDescription !== "") {
             await Description.create({
                 file_id: fileData.id,
                 text: sanitizedDescription,
@@ -355,23 +361,28 @@ router.patch("/update-post/:id", async (req, res) => {
         }
 
         // 🔒 sanitize-html 적용
-        const sanitizedDescription = sanitizeHtml(description, {
-            allowedTags: ["b", "strong", "i", "em", "s", "strike", "u", "br"],
-            allowedAttributes: {
-                "span": ["style"],
-                "div": ["style"],
-                "p": ["style"]
-            },
-            selfClosing: ["br"],
-            textFilter: (text) => text.replace(/&nbsp;/g, " ")
-        }).replace(/\n/g, "<br>").replace(/&amp;/g, "&");
+        const sanitizedDescription = description
+            ? sanitizeHtml(description, {
+                allowedTags: ["b", "strong", "i", "em", "s", "strike", "u", "br"],
+                allowedAttributes: {
+                    "span": ["style"],
+                    "div": ["style"],
+                    "p": ["style"]
+                },
+                selfClosing: ["br"],
+                textFilter: (text) => text.replace(/&nbsp;/g, " ")
+            })
+                .replace(/\n/g, "<br>")
+                .replace(/&amp;/g, "&")
+                .trim()
+            : null;
 
         const file = await File.findByPk(id);
         if (!file) {
             return res.status(404).json({ error: "❌ 파일을 찾을 수 없습니다." });
         }
 
-        file.file_description = sanitizedDescription;
+        file.text = sanitizedDescription;
         await file.save();
 
         res.json({ success: true, message: "✅ 설명이 성공적으로 수정되었습니다." });

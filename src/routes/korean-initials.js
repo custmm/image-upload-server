@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
   try {
     const files = await File.findAll({ 
       attributes: [
-        "file_description"
+        "text"
       ], 
       raw: true 
     });
@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
     const tagSet = new Set();
 
     files.forEach(file => {
-      const tags = file.file_description?.match(/#([가-힣a-zA-Z0-9_]+)/g);
+      const tags = file.text?.match(/#([가-힣a-zA-Z0-9_]+)/g);
       if (tags) {
         tags.forEach(tag => tagSet.add(tag.replace("#", "")));
       }

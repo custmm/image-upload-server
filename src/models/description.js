@@ -14,7 +14,8 @@ export default class Description extends Model {
           references: { model: "files", key: "id" }
         },
         text: { 
-          type: DataTypes.TEXT 
+          type: DataTypes.STRING(500),
+          allowNull: true,
         },
       },
       {

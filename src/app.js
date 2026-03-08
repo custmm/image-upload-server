@@ -57,7 +57,7 @@ app.get("/api/search", async (req, res) => {
         let query = `
             SELECT 
                 id,
-                file_description,
+                text,
                 file_name,
                 file_name AS title,
                 category_name,
@@ -70,12 +70,12 @@ app.get("/api/search", async (req, res) => {
         const replacements = {};
 
         if (tag) {
-            query += " AND file_description LIKE :tagSearch";
+            query += " AND text LIKE :tagSearch";
             replacements.tagSearch = `%#${tag}%`;
         }
 
         if (keyword) {
-            query += " AND file_description LIKE :keywordSearch";
+            query += " AND text LIKE :keywordSearch";
             replacements.keywordSearch = `%${keyword}%`;
         }
 
