@@ -67,6 +67,10 @@ router.get("/", async (req, res) => {
                     model: Subcategory,
                     as: "subcategory",
                     attributes: ["name"]
+                },
+                {
+                    model: Description,
+                    as: "description"
                 }
             ],
             offset,
@@ -267,6 +271,11 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 
         // ✅ DB에서 `category_id` 확인하여 정확한 카테고리명 가져오기
         const category = await Category.findByPk(category_id);
+
+        if (!category) {
+            return res.status(400).json({ error: "❌ 존재하지 않는 카테고리입니다." });
+        }
+
         const categoryName = category.name.trim(); // ✅ 정확한 카테고리명 저장
 
         let dbSubcategoryName = "general"; // 기본값
