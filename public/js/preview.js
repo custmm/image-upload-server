@@ -559,7 +559,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     textEl.classList.add("text-preview");
                     textEl.textContent = titleText;
 
-                    const fullText = image.text || "";
+                    const fullText = image.file_description || "";
                     const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
 
                     const hashtagContainer = document.createElement("div");
@@ -725,7 +725,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     flipInner.classList.add("flip-inner");
 
                     const titleText = image.title || "제목 없음";
-                    const fullText = image.text || "";
+                    const fullText = image.file_description || "";
                     const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
 
                     // ======================
