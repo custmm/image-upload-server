@@ -41,20 +41,6 @@ export default class File extends Model {
             key: "id"
           }
         },
-        file_description: {
-          type: DataTypes.STRING(500), // 🔥 최대 500자로 변경
-          allowNull: true,
-        },
-        category_name: {  // ✅ 추가
-          type: DataTypes.STRING,
-          allowNull: false,
-          defaultValue: "uncategorized",
-        },
-        subcategory_name: {  // ✅ 추가
-          type: DataTypes.STRING,
-          allowNull: false,
-          defaultValue: "general",
-        },
         created_at: {
           type: DataTypes.DATE,
           defaultValue: DataTypes.NOW

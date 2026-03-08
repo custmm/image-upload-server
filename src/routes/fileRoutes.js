@@ -1,5 +1,5 @@
 import express from "express";
-import { File, Category, Subcategory, sequelize } from "../models/index.js";
+import { File, Category, Subcategory, Description, sequelize } from "../models/index.js";
 import { upload, imagekit } from "../upload/multerConfig.js";  // ✅ `multerConfig.js` 가져오기
 import path, { join } from "path";
 import fs from "fs/promises";
@@ -251,8 +251,6 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         let {
             category_id,
             subcategory_id,
-            category_name,
-            subcategory_name,
             title,
             description
         } = req.body;
@@ -260,6 +258,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         if (!category_id || isNaN(category_id)) {
             return res.status(400).json({ error: "❌ 유효한 category_id가 필요합니다." });
         }
+
         if (!req.file || !req.file.buffer) {
             return res.status(400).json({ error: "❌ 파일이 업로드되지 않았습니다." });
         }
@@ -268,15 +267,13 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 
         // ✅ DB에서 `category_id` 확인하여 정확한 카테고리명 가져오기
         const category = await Category.findByPk(category_id);
-        if (!category) {
-            return res.status(400).json({ error: "❌ 존재하지 않는 카테고리입니다." });
-        }
-        category_name = category.name.trim(); // ✅ 정확한 카테고리명 저장
+        const categoryName = category.name.trim(); // ✅ 정확한 카테고리명 저장
 
-        // ✅ 서브카테고리 확인 및 가져오기
         let dbSubcategoryName = "general"; // 기본값
+
         if (subcategory_id && !isNaN(subcategory_id)) {
             subcategory_id = parseInt(subcategory_id, 10);
+
             const subcategory = await Subcategory.findOne({
                 where: {
                     id: subcategory_id,
@@ -287,16 +284,18 @@ router.post("/upload", upload.single("file"), async (req, res) => {
             if (!subcategory) {
                 return res.status(400).json({ error: "❌ 존재하지 않는 서브카테고리입니다." });
             }
+
             dbSubcategoryName = subcategory.name.trim(); // ✅ 정확한 서브카테고리명
         } else {
             subcategory_id = null;
         }
 
         const sanitizedTitle = title
-            ? sanitizeHtml(title, { allowedTags: [], allowedAttributes: {} }).trim()
+            ? sanitizeHtml(title, { 
+                allowedTags: [], 
+                allowedAttributes: {} }).trim()
             : null;
 
-        // ✅ 허용된 태그만 유지하고 저장
         const sanitizedDescription = sanitizeHtml(description, {
             allowedTags: ["b", "strong", "i", "em", "s", "strike", "u", "br"],
             allowedAttributes: {
@@ -306,11 +305,11 @@ router.post("/upload", upload.single("file"), async (req, res) => {
             },
             selfClosing: ["br"],
             textFilter: (text) => text.replace(/&nbsp;/g, " ")
-        }).replace(/\n/g, "<br>").replace(/&amp;/g, "&");  // ✅ `<br>` 제거 X
+        }).replace(/\n/g, "<br>").replace(/&amp;/g, "&");
 
         // 🔥 ImageKit 업로드
         const fileName = Date.now() + path.extname(req.file.originalname);
-        const folder = `${category_name}/${dbSubcategoryName}`;
+        const folder = `${categoryName}/${dbSubcategoryName}`;
 
         const uploadResult = await imagekit.upload({
             file: req.file.buffer,
@@ -321,15 +320,20 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         // ✅ DB에 정확한 카테고리명과 서브카테고리명을 저장
         const fileData = await File.create({
             file_name: fileName,
-            file_path: uploadResult.url, // ✅ ImageKit URL 저장
+            file_path: uploadResult.url,
             title: sanitizedTitle || "제목 없음",
-            imagekit_file_id: uploadResult.fileId, // ✅ 추가
+            imagekit_file_id: uploadResult.fileId,
             category_id: category.id,
             subcategory_id,
-            category_name,
-            subcategory_name: dbSubcategoryName,
-            file_description: sanitizedDescription || null,
         });
+
+        // 🔥 description을 별도 테이블에 저장
+        if (sanitizedDescription) {
+            await Description.create({
+                file_id: fileData.id,
+                text: sanitizedDescription,
+            },);
+        }
 
         console.info("✅ 파일 업로드 성공!");
         res.json({ message: "✅ 파일 업로드 성공!", file: fileData });
@@ -414,50 +418,50 @@ router.patch("/update-title/:id", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
+    try {
+        const { id } = req.params;
 
-    if (!id || isNaN(id)) {
-      return res.status(400).json({
-        error: "❌ 유효한 ID가 필요합니다."
-      });
-    }
-
-    const foundFile = await File.findByPk(id, {
-      include: [
-        {
-          model: Category,
-          as: "category",
-          attributes: ["name"]
-        },
-        {
-          model: Subcategory,
-          as: "subcategory",
-          attributes: ["name"]
+        if (!id || isNaN(id)) {
+            return res.status(400).json({
+                error: "❌ 유효한 ID가 필요합니다."
+            });
         }
-      ]
-    });
 
-    if (!foundFile) {
-      return res.status(404).json({
-        error: "❌ 해당 게시물을 찾을 수 없습니다."
-      });
+        const foundFile = await File.findByPk(id, {
+            include: [
+                {
+                    model: Category,
+                    as: "category",
+                    attributes: ["name"]
+                },
+                {
+                    model: Subcategory,
+                    as: "subcategory",
+                    attributes: ["name"]
+                }
+            ]
+        });
+
+        if (!foundFile) {
+            return res.status(404).json({
+                error: "❌ 해당 게시물을 찾을 수 없습니다."
+            });
+        }
+
+        res.json({
+            ...foundFile.toJSON(),
+            category_name: foundFile.category?.name || null,
+            subcategory_name: foundFile.subcategory?.name || null
+        });
+
+        console.log("✅ ID 기반 게시물 조회 성공:", foundFile.id);
+
+    } catch (error) {
+        console.error("🚨 ID 기반 조회 오류:", error);
+        res.status(500).json({
+            error: "🚨 서버 오류"
+        });
     }
-
-    res.json({
-      ...foundFile.toJSON(),
-      category_name: foundFile.category?.name || null,
-      subcategory_name: foundFile.subcategory?.name || null
-    });
-
-    console.log("✅ ID 기반 게시물 조회 성공:", foundFile.id);
-
-  } catch (error) {
-    console.error("🚨 ID 기반 조회 오류:", error);
-    res.status(500).json({
-      error: "🚨 서버 오류"
-    });
-  }
 });
 
 router.delete("/:id", async (req, res) => {

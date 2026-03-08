@@ -5,7 +5,12 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const files = await File.findAll({ attributes: ["file_description"], raw: true });
+    const files = await File.findAll({ 
+      attributes: [
+        "file_description"
+      ], 
+      raw: true 
+    });
 
     const tagSet = new Set();
 
