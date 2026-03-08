@@ -13,7 +13,7 @@ export default class Description extends Model {
           type: DataTypes.INTEGER, 
           references: { model: "files", key: "id" }
         },
-        description: { 
+        text: { 
           type: DataTypes.STRING(500),
           allowNull: true,
         },
