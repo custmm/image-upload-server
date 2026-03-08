@@ -150,6 +150,10 @@ router.get("/file", async (req, res) => {
                     model: Subcategory,
                     as: "subcategory",
                     attributes: ["name"]
+                },
+                {
+                    model: Description,
+                    as: "description"
                 }
             ]
         });
@@ -391,8 +395,19 @@ router.patch("/update-post/:id", async (req, res) => {
             return res.status(404).json({ error: "❌ 파일을 찾을 수 없습니다." });
         }
 
-        file.text = sanitizedDescription;
-        await file.save();
+        const descriptionRecord = await Description.findOne({
+            where: { file_id: id }
+        });
+
+        if (!descriptionRecord) {
+            await Description.create({
+                file_id: id,
+                text: sanitizedDescription
+            });
+        } else {
+            descriptionRecord.text = sanitizedDescription;
+            await descriptionRecord.save();
+        }
 
         res.json({ success: true, message: "✅ 설명이 성공적으로 수정되었습니다." });
     } catch (error) {
@@ -458,6 +473,10 @@ router.get("/:id", async (req, res) => {
                     model: Subcategory,
                     as: "subcategory",
                     attributes: ["name"]
+                },
+                {
+                    model: Description,
+                    as: "description"
                 }
             ]
         });
