@@ -273,14 +273,13 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 
         category_id = parseInt(category_id, 10);
 
-        // ✅ DB에서 `category_id` 확인하여 정확한 카테고리명 가져오기
         const category = await Category.findByPk(category_id);
 
         if (!category) {
             return res.status(400).json({ error: "❌ 존재하지 않는 카테고리입니다." });
         }
 
-        const categoryName = category.name.trim(); // ✅ 정확한 카테고리명 저장
+        const categoryName = category.name.trim();
 
         let dbSubcategoryName = "general"; // 기본값
 
@@ -298,7 +297,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
                 return res.status(400).json({ error: "❌ 존재하지 않는 서브카테고리입니다." });
             }
 
-            dbSubcategoryName = subcategory.name.trim(); // ✅ 정확한 서브카테고리명
+            dbSubcategoryName = subcategory.name.trim();
         } else {
             subcategory_id = null;
         }
@@ -314,17 +313,12 @@ router.post("/upload", upload.single("file"), async (req, res) => {
             ? sanitizeHtml(description, {
                 allowedTags: ["b", "strong", "i", "em", "s", "strike", "u", "br"],
                 allowedAttributes: {
-                    "span": ["style"],
-                    "div": ["style"],
-                    "p": ["style"]
-                },
-                selfClosing: ["br"],
-                textFilter: (text) => text.replace(/&nbsp;/g, " ")
-            })
-                .replace(/\n/g, "<br>")
-                .replace(/&amp;/g, "&")
-                .trim()
-            : null;
+                    span: ["style"],
+                    div: ["style"],
+                    p: ["style"]
+                }
+            }).trim()
+            : "";
 
         // 🔥 ImageKit 업로드
         const fileName = Date.now() + path.extname(req.file.originalname);
@@ -344,18 +338,22 @@ router.post("/upload", upload.single("file"), async (req, res) => {
             imagekit_file_id: uploadResult.fileId,
             category_id: category.id,
             subcategory_id,
-        });
+        }, { transaction });
 
         // 🔥 description을 별도 테이블에 저장
         await Description.create({
             file_id: fileData.id,
             text: sanitizedDescription,
-        });
+        }, { transaction });
+
+        await transaction.commit();
 
         console.info("✅ 파일 업로드 성공!");
         res.json({ message: "✅ 파일 업로드 성공!", file: fileData });
 
     } catch (error) {
+        await transaction.rollback();
+
         console.error("🚨 파일 업로드 중 서버 오류 발생:", error);
         res.status(500).json({ error: "파일 업로드 중 서버 오류 발생" });
     }
