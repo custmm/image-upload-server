@@ -621,6 +621,7 @@ body.dashboard-page .edit-modal-content p {
 }
 
 body.dashboard-page .editor-buttons {
+    width: 100%;
     margin: 0 10px;
 }
 
