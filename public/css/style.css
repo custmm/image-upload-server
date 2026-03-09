@@ -610,7 +610,8 @@ body.dashboard-page .edit-modal-content {
     width: 50%;
     border: 1px solid #333;
 }
-body.dashboard-page .edit-modal-content h2{
+
+body.dashboard-page .edit-modal-content h2 {
     margin-bottom: 15px;
 }
 
@@ -2121,7 +2122,10 @@ body.preview-page .sidebar.open {
 body.preview-page .view-switch {
     display: flex;
     gap: 8px;
-    margin: 10px 0 10px 80%;
+    margin: 10px 0 10px 75%;
+    border: 1px solid #fff;
+    border-radius: 30px;
+    width: 80px;
 }
 
 body.preview-page .view-icon-btn {
@@ -2146,6 +2150,8 @@ body.preview-page .view-icon-btn:hover {
 
 body.preview-page .view-icon-btn.active {
     color: #4caf50;
+    border-radius: 50%;
+    background-color: #fff;
 }
 
 /* ✅ 이미지 갤러리 (4x5 배열) */
@@ -2156,7 +2162,7 @@ body.preview-page .image-gallery {
     padding: 15px;
     gap: 15px;
     background-color: #ffffff;
-    border-radius: 120px ;
+    border-radius: 120px;
     /* border-radius: 10px; */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     justify-content: center;
@@ -2169,7 +2175,7 @@ body.preview-page .image-gallery.multi-row {
     border-radius: 100px;
 }
 
-body.preview-page .image-gallery:hover{
+body.preview-page .image-gallery:hover {
     border-radius: 10px;
 }
 
@@ -2206,7 +2212,7 @@ body.preview-page .image-container {
     transition: all 0.5s;
 }
 
-body.preview-page .image-container:hover{
+body.preview-page .image-container:hover {
     border-radius: 8px;
 }
 
