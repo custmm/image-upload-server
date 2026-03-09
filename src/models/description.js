@@ -10,12 +10,17 @@ export default class Description extends Model {
           primaryKey: true 
         },
         file_id: { 
-          type: DataTypes.INTEGER, 
-          references: { model: "files", key: "id" }
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          references: { 
+            model: "files", 
+            key: "id" 
+          },
+          onDelete: "CASCADE"
         },
         text: { 
-          type: DataTypes.STRING(500),
-          allowNull: true,
+          type: DataTypes.TEXT,
+          allowNull: true
         },
       },
       {
