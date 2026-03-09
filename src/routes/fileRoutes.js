@@ -3,7 +3,7 @@ import { File, Category, Subcategory, Description, sequelize } from "../models/i
 import { upload, imagekit } from "../upload/multerConfig.js";  // ✅ `multerConfig.js` 가져오기
 import sanitizeHtml from "sanitize-html"; // 🔥 sanitize-html 라이브러리 추가
 import { fileURLToPath } from "url";
-import path,{ dirname } from "path";
+import path, { dirname } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -249,6 +249,7 @@ router.get("/subcategory-counts", async (req, res) => {
 
 // ✅ 파일 업로드 API (POST /api/files/upload)
 router.post("/upload", upload.single("file"), async (req, res) => {
+    const transaction = await sequelize.transaction();
     try {
         console.info("📌 요청 바디:", req.body);
         console.info("📌 요청 파일:", req.file);
@@ -315,7 +316,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
                     p: ["style"]
                 }
             }).trim()
-            : "";
+            : null;
 
         // 🔥 ImageKit 업로드
         const fileName = Date.now() + path.extname(req.file.originalname);
@@ -338,10 +339,12 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         }, { transaction });
 
         // 🔥 description을 별도 테이블에 저장
-        await Description.create({
-            file_id: fileData.id,
-            text: sanitizedDescription,
-        }, { transaction });
+        if (sanitizedDescription) {
+            await Description.create({
+                file_id: fileData.id,
+                text: sanitizedDescription,
+            }, { transaction });
+        }
 
         await transaction.commit();
 
