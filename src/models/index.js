@@ -59,6 +59,7 @@ Setting.init(sequelize);   // ✅ 추가
     });
     Category.hasMany(File, { 
         foreignKey: "category_id", 
+        as: "files",
         onDelete: "CASCADE" 
     });
 
@@ -70,6 +71,7 @@ Setting.init(sequelize);   // ✅ 추가
     });    
     Subcategory.hasMany(File, { 
         foreignKey: "subcategory_id", 
+        as: "files",
         onDelete: "CASCADE" 
     });
 
@@ -77,7 +79,8 @@ Setting.init(sequelize);   // ✅ 추가
     File.hasOne(Description, { 
         foreignKey: "file_id", 
         as: "description", 
-        onDelete: "CASCADE" 
+        onDelete: "CASCADE",
+        hooks:true 
     });
     Description.belongsTo(File, { 
         foreignKey: "file_id", 

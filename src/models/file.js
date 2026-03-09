@@ -47,7 +47,8 @@ export default class File extends Model {
         },
         updated_at: {
           type: DataTypes.DATE,
-          defaultValue: DataTypes.NOW
+          defaultValue: DataTypes.NOW,
+          onUpdate: DataTypes.NOW
         },
         is_deleted: {
           type: DataTypes.BOOLEAN,

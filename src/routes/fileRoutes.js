@@ -338,14 +338,16 @@ router.post("/upload", upload.single("file"), async (req, res) => {
             subcategory_id,
         }, { transaction });
 
-        // 🔥 description을 별도 테이블에 저장
-        if (sanitizedDescription) {
+
+        const descriptionText = sanitizedDescription?.trim();
+        
+        // description 저장
+        if (descriptionText && descriptionText.length > 0) {
             await Description.create({
                 file_id: fileData.id,
-                text: sanitizedDescription,
+                text: descriptionText
             }, { transaction });
         }
-
         await transaction.commit();
 
         console.info("✅ 파일 업로드 성공!");
