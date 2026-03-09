@@ -73,6 +73,7 @@ router.get("/", async (req, res) => {
             offset,
             limit,
             order: [["created_at", "DESC"]],
+            distinct:true
         });
 
         // 빈 배열이더라도 total은 0이 될 테니 그대로 반환
