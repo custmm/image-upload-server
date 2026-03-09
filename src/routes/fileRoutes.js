@@ -1,12 +1,9 @@
 import express from "express";
 import { File, Category, Subcategory, Description, sequelize } from "../models/index.js";
 import { upload, imagekit } from "../upload/multerConfig.js";  // ✅ `multerConfig.js` 가져오기
-import path, { join } from "path";
-import fs from "fs/promises";
-import * as fsSync from "fs";  // ← 추가
 import sanitizeHtml from "sanitize-html"; // 🔥 sanitize-html 라이브러리 추가
 import { fileURLToPath } from "url";
-import { dirname } from "path";
+import path,{ dirname } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
