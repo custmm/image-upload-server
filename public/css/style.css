@@ -2121,7 +2121,6 @@ body.preview-page .sidebar.open {
 
 body.preview-page .view-switch {
     display: flex;
-    gap: 8px;
     margin: 10px 0 10px 75%;
     border: 1px solid #fff;
     border-radius: 30px;
