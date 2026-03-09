@@ -73,6 +73,7 @@ router.get("/", async (req, res) => {
             offset,
             limit,
             order: [["created_at", "DESC"]],
+            subQuery: false,
             distinct:true
         });
 
