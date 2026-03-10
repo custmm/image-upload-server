@@ -2008,6 +2008,19 @@ body.search-page .search-container {
     border-radius: 15px;
 }
 
+body.search-page #searchResults{
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+    justify-content: center;
+}
+
+body.search-page #searchResults img{
+    width: 100px;
+    margin: 0 auto;
+
+}
+
 body.search-page .search-item {
     display: flex;
     gap: 15px;
