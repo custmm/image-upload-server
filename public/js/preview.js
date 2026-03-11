@@ -620,14 +620,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 6) Prev/번호/Next 렌더링
     function renderPagination(totalPages) {
+        const pag = document.getElementById("pagination-container");
+        if (!pag) return;  // pagination 요소가 없으면 아무것도 안 함
+        pag.innerHTML = "";
+
         const info = document.createElement("span");
         info.textContent = ` ${page + 1} / ${totalPages} `;
         info.style.margin = "0 10px";
         pag.appendChild(info);
-
-        const pag = document.getElementById("pagination-container");
-        if (!pag) return;  // pagination 요소가 없으면 아무것도 안 함
-        pag.innerHTML = "";
 
         // ◀ Prev 버튼
         const prev = document.createElement("button");
