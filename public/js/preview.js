@@ -620,6 +620,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 6) Prev/번호/Next 렌더링
     function renderPagination(totalPages) {
+        const info = document.createElement("span");
+        info.textContent = ` ${page + 1} / ${totalPages} `;
+        info.style.margin = "0 10px";
+        pag.appendChild(info);
+
         const pag = document.getElementById("pagination-container");
         if (!pag) return;  // pagination 요소가 없으면 아무것도 안 함
         pag.innerHTML = "";
@@ -627,7 +632,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // ◀ Prev 버튼
         const prev = document.createElement("button");
         prev.classList.add("pagination-button");
-        prev.textContent = "◀";                // 버튼 레이블 추가
+        prev.textContent = "이전";                // 버튼 레이블 추가
 
         prev.onclick = () => {
             if (page <= 0) {
@@ -639,15 +644,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
         pag.appendChild(prev);
 
-        const info = document.createElement("span");
-        info.textContent = ` ${page + 1} / ${totalPages} `;
-        info.style.margin = "0 10px";
-        pag.appendChild(info);
-
         // ▶ Next 버튼
         const next = document.createElement("button");
         next.classList.add("pagination-button");
-        next.textContent = "▶";                // 버튼 레이블 추가
+        next.textContent = "다음";                // 버튼 레이블 추가
 
         next.onclick = () => {
             if ((page + 1) >= totalPages) {
