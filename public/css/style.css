@@ -1408,7 +1408,9 @@ body.upload-page .category_container {
     flex-direction: column;
     width: 90%;
 }
-
+body.upload-page h3{
+    font-size: 15px;
+}
 body.upload-page #title_name {
     width: 75%;
     padding: 8px;
@@ -1562,10 +1564,11 @@ body.upload-page .editor-buttons i {
 
 body.upload-page select {
     width: 55%;
-    padding: 8px;
+    height: 45px;
+    padding: 0 10px;
     font-size: 16px;
     border-radius: 5px;
-    margin-bottom: 10px;
+    text-align: center;
 }
 
 /* ====== 클릭 페이지(click.html) ====== */
