@@ -82,13 +82,17 @@ body:not(.no-bg) {
 
 /* ====== 버튼 공통 ====== */
 button {
-    background-color: #000000;
+    background: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     color: white;
-    border: none;
+    border: 1px solid #fff;
     transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #755a6a;
 }
 
 body.login-page .back-button,
@@ -113,12 +117,9 @@ body.dashboard-page #selectContentEdit,
 body.dashboard-page #saveTitleBtn,
 body.dashboard-page #closeTitleBtn {
     color: black;
-    background: none;
 }
 
-button:hover {
-    background-color: #755a6a;
-}
+
 
 body.index-page .popup-confirm-button:hover,
 body.dashboard-page #saveEdit:hover,

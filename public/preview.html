@@ -13,15 +13,18 @@
   <link rel="stylesheet" href="./css/global.css">
   <style>
     @media (max-width :576px) {
-      body.preview-page .image-gallery{
+      body.preview-page .image-gallery {
         border-radius: 55px;
       }
+
       body.preview-page .image-gallery.multi-row {
         border-radius: 40px;
       }
-      body.preview-page .sidebar{
+
+      body.preview-page .sidebar {
         left: -100vh;
       }
+
       body.preview-page #welcomeMessage {
         font-size: 25px;
       }
@@ -59,7 +62,7 @@
       }
 
       body.preview-page .view-switch {
-                margin: 10px 0 10px 65%;
+        margin: 10px 0 10px 65%;
         width: 85px;
         gap: 5px;
         padding: 1px;
@@ -96,59 +99,67 @@
 
       }
 
-      body.preview-page .infor-popup,
-      body.preview-page .app-infor-popup {
-        width: 95%;
-        max-height: 90vh;
-        overflow: auto;
-        padding: 18px 16px;
-        font-size: 11px;
-        box-sizing: border-box;
+      body.preview-page .pagination-button {
+        padding: 8px 20%;
+        height: 30px;
+        border-radius: 15px;
+      }
+      body.preview-page #pagination-container {
+        gap: 30px;
       }
 
-      body.preview-page .app-infor-popup table {
-        width: 100%;
-        word-break: break-word;
-        font-size: 11px;
-      }
+        body.preview-page .infor-popup,
+        body.preview-page .app-infor-popup {
+          width: 95%;
+          max-height: 90vh;
+          overflow: auto;
+          padding: 18px 16px;
+          font-size: 11px;
+          box-sizing: border-box;
+        }
 
-      body.preview-page .app-infor-popup td,
-      body.preview-page .app-infor-popup th {
-        padding: 4px 6px;
-        /* 표 셀 간격도 줄이기 */
-      }
+        body.preview-page .app-infor-popup table {
+          width: 100%;
+          word-break: break-word;
+          font-size: 11px;
+        }
 
-      body.preview-page .sub-tab {
-        font-size: 10px;
-        padding: 4px 4px;
-      }
+        body.preview-page .app-infor-popup td,
+        body.preview-page .app-infor-popup th {
+          padding: 4px 6px;
+          /* 표 셀 간격도 줄이기 */
+        }
 
-      body.preview-page .opacitybtn {
-        height: 20px;
-        cursor: pointer;
-      }
+        body.preview-page .sub-tab {
+          font-size: 10px;
+          padding: 4px 4px;
+        }
 
-      body.preview-page .preview-images {
-        position: absolute;
-        display: flex;
-        top: -105px;
-        right: 10px;
-        cursor: grab;
-        align-items: center;
-        margin-left: 80%;
-      }
+        body.preview-page .opacitybtn {
+          height: 20px;
+          cursor: pointer;
+        }
 
-      body.preview-page .preview-images img {
-        display: block;
-        width: auto;
-        height: 65px;
-        border-radius: 5px;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-        z-index: 9999;
-      }
-    }
+        body.preview-page .preview-images {
+          position: absolute;
+          display: flex;
+          top: -105px;
+          right: 10px;
+          cursor: grab;
+          align-items: center;
+          margin-left: 80%;
+        }
 
+        body.preview-page .preview-images img {
+          display: block;
+          width: auto;
+          height: 65px;
+          border-radius: 5px;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+          z-index: 9999;
+        }
+      }
   </style>
 </head>
 

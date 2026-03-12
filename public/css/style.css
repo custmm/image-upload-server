@@ -2820,7 +2820,7 @@ body.preview-page #pagination-container {
     text-align: center;
     margin: 10px 0;
     justify-content: center;
-    gap: 10px;
+    gap: 40px;
 }
 
 body.preview-page .pagination-button {
@@ -2829,12 +2829,12 @@ body.preview-page .pagination-button {
     border: 1px solid #333;
     padding: 10px 20%;
     height: 40px;
+    border-radius: 20px;
 }
 
 body.preview-page .pagination-button:hover {
     background: yellowgreen;
     color: aqua;
-    transform: scale(1.03);
 }
 
 /* footer */
