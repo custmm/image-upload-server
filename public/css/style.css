@@ -2155,6 +2155,8 @@ body.preview-page .view-icon-btn {
     align-items: center;
     justify-content: center;
     transition: 0.2s ease;
+    box-shadow: none;
+    backdrop-filter: none;
 }
 
 body.preview-page .view-icon-btn i {
