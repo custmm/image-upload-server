@@ -1,21 +1,26 @@
     @charset "utf-8";
     
     body.post-page.dark-mode,
-    body.preview-page.dark-mode{
+    body.preview-page.dark-mode,
+    body.click-page.dark-mode{
         background: #222;
         color: #fff;
 
     }
 
     body.click-page.dark-mode .back-button,
-    body.preview-page.dark-mode .back-button {
+    body.preview-page.dark-mode .back-button,
+    body.click-page.dark-mode .back-button {
         background-color: #ffffff;
         color: #000;
     }
 
     body.click-page.dark-mode .back-button:hover,
-    body.preview-page.dark-mode .back-button:hover {
+    body.preview-page.dark-mode .back-button:hover,
+    body.click-page.dark-mode .back-button:hover {
         background-color: #755a6a;
+        color: #fff;
+        font-weight: 800;
     }
 
 

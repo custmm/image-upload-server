@@ -1605,6 +1605,7 @@ body.click-page .detail-toggle {
     cursor: pointer;
     background: none;
     color: black;
+    border: none;
 }
 
 body.click-page .detail-content {
@@ -2145,7 +2146,7 @@ body.preview-page .view-switch {
 body.preview-page .view-icon-btn {
     width: 40px;
     height: 40px;
-    border-radius: 10px;
+    border: none;
     background: none;
     cursor: pointer;
     display: flex;
