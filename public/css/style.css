@@ -1190,7 +1190,7 @@ body.dashboard-page .post-form-container.text-mode {
     display: flex;
     flex-direction: row;
     width: 100%;
-    min-height: 400px;
+    min-height: 300px;
     overflow-y: auto;
     box-sizing: border-box;
 }
