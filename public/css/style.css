@@ -2406,6 +2406,7 @@ body.preview-page .sidebar ul {
 }
 
 body.preview-page .sidebar ul li {
+    position: relative;
     margin: 15px 0;
 }
 
@@ -2428,8 +2429,8 @@ body.preview-page .sidebar-search {
 
 body.preview-page .sidebar-search input {
     flex: 1;
-    padding: 8px 10px;
-    border-radius: 15px;
+    padding: 21px 25px;
+    border-radius: 30px;
     border: 1px solid #ccc;
     font-size: 14px;
 }
@@ -2885,7 +2886,6 @@ body.icon-page h3 {
     width: 100%;
 }
 
-
 body.icon-page .icon-studio-wrapper {
     display: flex;
     flex-direction: column;
@@ -2896,8 +2896,6 @@ body.icon-page .icon-studio-wrapper {
     box-sizing: border-box;
     margin-bottom: 30px;
 }
-
-
 
 /* 소개팝업페이지(preview_popup.html */
 body.preview-popup-page {
@@ -2984,7 +2982,6 @@ body.tag-page .post-meta {
     flex-direction: column;
     justify-content: center;
     flex: 1;
-
 }
 
 body.tag-page .category {
@@ -3017,7 +3014,6 @@ body.tag-page .tag_post {
     margin: 30px auto;
     text-align: center;
 }
-
 
 body.tag-page #postList.post-list {
     display: flex;
