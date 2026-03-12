@@ -2275,6 +2275,7 @@ body.preview-page .image-container:hover .hover-message {
 }
 
 body.preview-page .image-container img {
+    background-color: #000;
     width: 13vw;
     height: 13vw;
     object-fit: cover;
