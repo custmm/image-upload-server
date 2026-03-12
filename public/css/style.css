@@ -1501,10 +1501,9 @@ body.upload-page .description-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffffff;
-
-    width: fit-content;
-
+    background-image: url("../images/controller_ester.webp");
+    background-size: 100%;
+    background-repeat: no-repeat;
     border-radius: 8px;
     width: 85%;
     padding: 10px;
@@ -2017,14 +2016,14 @@ body.search-page .search-container {
     border-radius: 15px;
 }
 
-body.search-page #searchResults{
+body.search-page #searchResults {
     display: flex;
     flex-direction: column;
     min-height: 250px;
     justify-content: center;
 }
 
-body.search-page #searchResults img{
+body.search-page #searchResults img {
     width: 100px;
     margin: 0 auto;
 
@@ -2424,7 +2423,7 @@ body.preview-page .sidebar ul li a:hover {
 body.preview-page .sidebar-search {
     display: flex;
     padding: 15px;
-    
+
     gap: 8px;
 }
 
@@ -2441,7 +2440,7 @@ body.preview-page .sidebar-search input:hover {
 }
 
 body.preview-page .search-icon-btn {
-        display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
