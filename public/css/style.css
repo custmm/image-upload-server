@@ -1407,6 +1407,7 @@ body.upload-page .category_container {
     display: flex;
     flex-direction: column;
     width: 90%;
+    align-items: center;
 }
 body.upload-page h3{
     font-size: 15px;
