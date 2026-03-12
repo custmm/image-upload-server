@@ -825,6 +825,8 @@ body.dashboard-page #saveEdit {
     border-radius: 5px;
     border: none;
     color: white;
+    box-shadow: none;
+    backdrop-filter: none;
 }
 
 body.dashboard-page .button-separator {
@@ -842,6 +844,8 @@ body.dashboard-page #closeEdit {
     border-radius: 5px;
     border: none;
     color: white;
+    box-shadow: none;
+    backdrop-filter: none;
 }
 
 
@@ -857,6 +861,8 @@ body.dashboard-page .change-button {
     font-size: 20px;
     cursor: pointer;
     transition: color 0.3s ease-in-out;
+    box-shadow: none;
+    backdrop-filter: none;
 }
 
 /* 🔥 버튼 기본 아이콘 색상 */
@@ -1769,6 +1775,8 @@ body.post-page #picture {
     padding: 0;
     border: none;
     background: none;
+    box-shadow: none;
+    backdrop-filter: none;
 }
 
 body.post-page #picture img {
@@ -2412,8 +2420,9 @@ body.preview-page .sidebar ul li a:hover {
 }
 
 body.preview-page .sidebar-search {
-    padding: 15px;
     display: flex;
+    padding: 15px;
+    
     gap: 8px;
 }
 
@@ -2425,24 +2434,32 @@ body.preview-page .sidebar-search input {
     font-size: 14px;
 }
 
+body.preview-page .sidebar-search input:hover {
+    transform: scale(1.1);
+}
+
 body.preview-page .search-icon-btn {
-    border: none;
-    border-radius: 6px;
-    background: none;
-    color: black;
-    display: flex;
+        display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    border-radius: 50%;
+    background: none;
+    color: black;
     cursor: pointer;
     transition: 0.2s;
-    position: relative;
+    right: 20px;
+    top: 19px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #000;
 }
 
 /* 🔍 돋보기 생성 */
 body.preview-page .search-icon-btn i[data-icon="search"] {
     position: relative;
-    width: 14px;
-    height: 14px;
+    width: 10px;
+    height: 10px;
     border: 2px solid black;
     border-radius: 50%;
     display: inline-block;
@@ -2451,11 +2468,11 @@ body.preview-page .search-icon-btn i[data-icon="search"] {
 body.preview-page .search-icon-btn i[data-icon="search"]::after {
     content: "";
     position: absolute;
-    width: 8px;
-    height: 2px;
+    width: 7px;
+    height: 3px;
     background: black;
     bottom: -4px;
-    right: -5px;
+    right: -6px;
     transform: rotate(45deg);
 }
 
