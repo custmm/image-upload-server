@@ -84,10 +84,15 @@ body:not(.no-bg) {
 button {
     background: none;
     padding: 10px 20px;
-    border-radius: 20px;
     cursor: pointer;
     color: white;
-    border: 1px solid #fff;
+    background-color: rgba(255, 255, 255, 0.15);
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s ease;
 }
 
