@@ -20,6 +20,7 @@ dotenv.config(); // .env 파일 로드
 
 const app = express();
 
+
 app.use(cors());
 app.use(express.json()); // ✅ JSON 데이터 파싱 미들웨어
 app.use(express.urlencoded({ extended: true })); // ✅ FormData 파싱 미들웨어
@@ -49,7 +50,10 @@ app.get("/api/health", (req, res) => {
     res.status(200).send("Server is alive");
 });
 
-// ✅ 검색 라우트: /search?tag=레고
+
+// ✅ 검색 라우트: /search?tag=<검색어>
+const { QueryTypes } = require("sequelize");
+
 app.get("/api/search", async (req, res) => {
     const { tag, keyword } = req.query;
 
@@ -81,14 +85,17 @@ app.get("/api/search", async (req, res) => {
 
         const posts = await sequelize.query(query, {
             replacements,
-            type: sequelize.QueryTypes.SELECT
+            type: QueryTypes.SELECT
         });
 
         res.json({ posts });
 
     } catch (err) {
         console.error("❌ 검색 실패:", err);
-        res.status(500).json({ error: "검색 오류", detail: err.message });
+        res.status(500).json({ 
+            error: "검색 오류", 
+            detail: err.message 
+        });
     }
 });
 
