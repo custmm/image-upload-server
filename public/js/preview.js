@@ -629,9 +629,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const info = document.createElement("span");
         info.textContent = ` ${page + 1} / ${totalPages} `;
-        info.style.display = "block";
-        info.style.textalign = "center";
-        info.style.margin = "0 10px";
 
         infoBox.appendChild(info);
 

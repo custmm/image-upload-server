@@ -76,9 +76,9 @@ function renderNextPosts() {
             <div class="post-meta">
               <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
                 <div class="desc">
-                    ${(post.text || post.description?.text ||"")
-                      .replace(/(<([^>]+)>)/gi, "")
-                      .slice(0, 50)}...
+                    ${(post.text || post.description?.text || "")
+        .replace(/(<([^>]+)>)/gi, "")
+        .slice(0, 50)}...
                 </div>
               </div>
               </a>
@@ -91,9 +91,13 @@ function renderNextPosts() {
 
 
 // ✅ "목록으로" 버튼 클릭 시 이전 페이지로 이동
-document.getElementById("backToListButton").addEventListener("click", () => {
-  window.history.back(); // 🔥 이전 페이지로 이동
-});
+const backBtn = document.getElementById("backToListButton");
+
+if (backBtn) {
+  backBtn.addEventListener("click", () => {
+    window.history.back();
+  });
+}
 
 
 
@@ -171,10 +175,13 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const tag = new URLSearchParams(location.search).get("tag");
+
   const tagTitle = document.getElementById("tagTitle");
   const postList = document.getElementById("postList");
 
+  if (!postList || !tagTitle) return;
+
+  const tag = new URLSearchParams(location.search).get("tag");
   if (!tag) {
     tagTitle.textContent = "❌ 태그 없음";
     return;
@@ -186,7 +193,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const response = await fetch(`/api/search?tag=${encodeURIComponent(tag)}`);
     const data = await response.json();
 
-    allPosts = Array.isArray(data.posts) ? data.posts : [data.posts].filter(Boolean);
+    allPosts = Array.isArray(data.posts) ? data.posts : [];
 
     if (allPosts.length === 0) {
       postList.innerHTML = "<li>관련 게시물이 없습니다.</li>";
@@ -195,18 +202,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     renderNextPosts();
 
-    // ✅ IntersectionObserver로 무한 스크롤 감지
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && currentIndex < allPosts.length) {
-        renderNextPosts();
-      }
-    });
-    const scrollTrigger = document.createElement("div");
-    scrollTrigger.id = "scrollTrigger";
-    document.body.appendChild(scrollTrigger);
-    observer.observe(scrollTrigger);
   } catch (err) {
     console.error("❌ 검색 중 오류:", err);
     postList.innerHTML = "<p>검색 오류가 발생했습니다.</p>";
   }
+
+  // ✅ IntersectionObserver로 무한 스크롤 감지
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && currentIndex < allPosts.length) {
+      renderNextPosts();
+    }
+  });
+
+  const scrollTrigger = document.createElement("div");
+  scrollTrigger.id = "scrollTrigger";
+  document.body.appendChild(scrollTrigger);
+  observer.observe(scrollTrigger);
+
 });

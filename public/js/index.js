@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = url;
         }, 1000);
     }
+    
     // 버튼 클릭 이벤트 설정 (존재할 경우에만)
     if (adminModeButton) {
         adminModeButton.addEventListener("click", () => {

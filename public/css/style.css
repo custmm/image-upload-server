@@ -2833,10 +2833,6 @@ body.preview-page .no-image-message {
     width: 100%;
 }
 
-body.preview-page .preview-page {
-    overflow-x: hidden;
-}
-
 /* 페이지 제네레이터 디자인 관련*/
 body.preview-page #pagination-container {
     display: flex;
@@ -2844,6 +2840,10 @@ body.preview-page #pagination-container {
     margin: 10px 0;
     justify-content: center;
     gap: 40px;
+}
+body.preview-page span{
+    display: block;
+    text-align: center;
 }
 
 body.preview-page .pagination-button {

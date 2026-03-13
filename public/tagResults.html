@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/global.css">
   <style>
-    @media (max-width: 768px) {
+    @media (max-width: 576px) {
       body.tag-page .post-item {
         flex-direction: row;
         align-items: center;
@@ -17,7 +17,6 @@
       }
 
       body.tag-page .post-item img {
-        /* ⬇️ 모바일에 맞게 크기 축소 */
         width: 60px;
         height: 60px;
       }
@@ -41,7 +40,7 @@
 </head>
 
 <body class="tag-page">
-  <div class="tag_title">
+  <button id="backToListButton"></button>
     <h2 id="tagTitle">#태그 관련 게시물</h2>
     <button id="resetTagButton">전체 태그보기</button>
   </div>
