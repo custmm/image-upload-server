@@ -157,27 +157,19 @@ body.index-page .popup-confirm-button {
 }
 
 /* 버튼을 감싸는 컨테이너 */
-body.index-page .button_container {
+body.index-page #modeSelection {    
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    padding: 20px;
     background-color: #f1f1f1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;    
     width: 300px;
     height: 200px;
-    padding: 20px;
     margin: 0 auto;
-    border-radius: 8px;
     border: 5px solid #0066cc;
     gap: 15px;
-}
-
-body.index-page #modeSelection {
-    position: relative;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
 }
 
 body.index-page #adminModeButton {
@@ -1409,9 +1401,11 @@ body.upload-page .category_container {
     width: 90%;
     align-items: center;
 }
-body.upload-page h3{
+
+body.upload-page h3 {
     font-size: 15px;
 }
+
 body.upload-page #title_name {
     width: 75%;
     padding: 8px;
@@ -2363,7 +2357,7 @@ body.preview-page .card-front:hover {
     border-radius: 10px;
 }
 
-body.preview-page card-face card-front:last-child {
+body.preview-page .card-front:last-child {
     border: none;
 }
 
@@ -2569,7 +2563,6 @@ body.preview-page .function-infor {
     position: relative;
     flex-direction: column;
     gap: 10px;
-    margin-top: 10px;
 }
 
 body.preview-page .message-container {
@@ -2841,7 +2834,8 @@ body.preview-page #pagination-container {
     justify-content: center;
     gap: 40px;
 }
-body.preview-page span{
+
+body.preview-page span {
     display: block;
     text-align: center;
 }
