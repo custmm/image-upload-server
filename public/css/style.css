@@ -1574,10 +1574,6 @@ body.upload-page select {
 
 /* ====== 클릭 페이지(click.html) ====== */
 
-body.click-page h1 {
-    text-align: center;
-}
-
 body.click-page .explan-container {
     max-width: 85%;
     margin: 70px auto;
@@ -1595,10 +1591,6 @@ body.click-page .explan-detail-container {
     border: 1px solid #ccc;
     border-radius: 8px;
     margin: 18px;
-}
-
-body.click-page #exper_font {
-    text-align: center;
 }
 
 body.click-page #exper_container {

@@ -104,9 +104,7 @@ body.login-page .back-button,
 body.dashboard-page .back-button,
 body.mode-page .back-button,
 body.upload-page .back-button,
-body.click-page .back-button,
-body.preview-page .back-button,
-body.search-page .back-button {
+body.preview-page .back-button {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -124,8 +122,6 @@ body.dashboard-page #closeTitleBtn {
     color: black;
 }
 
-
-
 body.index-page .popup-confirm-button:hover,
 body.dashboard-page #saveEdit:hover,
 body.dashboard-page #closeEdit:hover,
@@ -139,7 +135,8 @@ body.dashboard-page .edit-button:hover,
 body.dashboard-page .custom-chart-button:hover,
 body.mode-page .popup-confirm:hover,
 body.login-page .popup-button:hover,
-body.game-page #closePopupButton:hover,
+body.game-page #nextButton:hover,
+body.game-page #previewButton:hover body.game-page #closePopupButton:hover,
 body.game-page #pre-button:hover,
 body.game-page #victoryScreen button:hover,
 body.game-page .start-game-btn:hover,
@@ -150,24 +147,20 @@ body.post-page .custom-button:hover {
 }
 
 body.login-page .back-button:hover,
-body.mode-page .back-button:hover,
+body.login-page #loginButton:hover,
 body.upload-page .back-button:hover,
 body.upload-page .editor-buttons button:hover,
-body.click-page .back-button:hover,
+body.upload-page .upload-button:hover,
 body.preview-page .back-button:hover,
 body.dashboard-page .back-button:hover,
 body.dashboard-page .logout-button:hover,
-body.dashboard-page .custom-button:hover {
-    background-color: #755a6a;
-}
-
+body.dashboard-page .custom-button:hover,
 body.index-page button:hover,
+body.mode-page .back-button:hover,
 body.mode-page .upload-selection-button:hover,
 body.mode-page .preview-selection-button:hover,
 body.mode-page .admin-selection-button:hover,
 body.mode-page .logout-button:hover,
-body.upload-page .upload-button:hover,
-body.login-page #loginButton:hover,
 body.post-page .button:hover {
     background-color: #755a6a;
     animation: pulse 0.4s ease-in-out infinite;
@@ -184,57 +177,48 @@ body.post-page .page-footer {
 }
 
 
-/* 각page의 배경설정 */
+/**-------------------------- 각page의 배경설정 ----------------------------------------------*/
 body.click-page,
 body.login-page,
 body.upload-page,
 body.post-page,
 body.tag-page {
     padding: 20px;
+    text-align: center;
+}
+
+body.tag-page,
+body.upload-page,
+body.index-page {
+    position: relative;
 }
 
 body.preview-page,
 body.post-page {
-    text-align: center;
     transition: background-color 0.3s, color 0.3s;
 }
 
-body.index-page {
-    position: relative;
+body.mode-page,
+body.icon-page {
+    display: flex;
+}
+
+body.index-page,
+body.mode-page {
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+body.index-page {
     background-color: #c0c0c0;
 }
 
-body.tag-page {
-    position: relative;
-}
-
-body.click-page {
-    text-align: center;
-}
-
 body.mode-page {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    /* 전체 화면 높이 */
-}
-
-body.upload-page {
-    text-align: center;
-    position: relative;
-}
-
-body.login-page {
     text-align: center;
 }
 
 body.icon-page {
-    display: flex;
     flex-direction: column;
     align-items: center;
     background: #fff;
@@ -247,10 +231,19 @@ body.preview-popup-page {
     background: #fff;
 }
 
-/* ✅ 로딩 화면 스타일 */
+/*-------------------------- 로딩 화면 스타일 ----------------------------------------------*/
+
+body.post-page .loading-indicator,
+body.preview-page .loading-indicator,
+body.post-page .loading-image,
+body.preview-page .loading-image,
+body.post-page .loading-text,
+body.preview-page .loading-text {
+    position: fixed;
+}
+
 body.post-page .loading-indicator,
 body.preview-page .loading-indicator {
-    position: fixed;
     align-items: center;
     text-align: center;
     width: 100%;
@@ -261,10 +254,9 @@ body.preview-page .loading-indicator {
     z-index: 9999;
 }
 
-/* ✅ 로딩 이미지 크기 */
+/* 로딩 이미지 크기 */
 body.post-page .loading-image,
 body.preview-page .loading-image {
-    position: fixed;
     top: 50%;
     left: 50%;
     width: 50px;
@@ -273,10 +265,9 @@ body.preview-page .loading-image {
     /* 이미지 아래 여백 */
 }
 
-/* ✅ 로딩 텍스트 스타일 */
+/* 로딩 텍스트 스타일 */
 body.post-page .loading-text,
 body.preview-page .loading-text {
-    position: fixed;
     top: 58%;
     left: 50%;
     font-size: 16px;
@@ -284,13 +275,13 @@ body.preview-page .loading-text {
 }
 
 /* 각 페이지의 기본적 레이아웃 설정 */
-/* index-page공통 레이아웃 */
+/*-------------------------- index-page공통 레이아웃 ----------------------------------------------*/
 body.index-page html {
     height: 100%;
     overflow: visible;
 }
 
-/* login-page공통 레이아웃 */
+/*-------------------------- login-page공통 레이아웃 ----------------------------------------------*/
 body.login-page .floating-input input:focus+label,
 body.login-page .floating-input input:valid+label {
     top: -1px;
@@ -299,7 +290,7 @@ body.login-page .floating-input input:valid+label {
     color: #4a78c2;
 }
 
-/* preview-popup-page공통 레이아웃 */
+/*-------------------------- preview-popup-page공통 레이아웃 ----------------------------------------------*/
 body.preview-popup-page th,
 body.preview-popup-page tr,
 body.preview-popup-page td {
@@ -314,7 +305,7 @@ body.preview-popup-page td {
     text-align: center;
 }
 
-/* game-page공통 레이아웃 */
+/*-------------------------- game-page공통 레이아웃 ----------------------------------------------*/
 body.game-page,
 body.game-page html {
     overflow: hidden;
@@ -379,13 +370,7 @@ body.game-page #previewButton {
     padding-bottom: 10px;
 }
 
-body.game-page #nextButton:hover,
-body.game-page #previewButton:hover {
-    color: aqua;
-}
-
-
-/* mode-page공통 레이아웃 */
+/*-------------------------- mode-page공통 레이아웃 ----------------------------------------------*/
 body.mode-page html {
     width: 100%;
     overflow-x: hidden;
@@ -412,7 +397,7 @@ body.mode-page .admin-selection-button {
     font-size: 15px;
 }
 
-/* post-page공통 레이아웃 */
+/*-------------------------- post-page공통 레이아웃 ----------------------------------------------*/
 body.post-page .popup-button,
 body.post-page .custom-button {
     background-color: #fff;
@@ -423,7 +408,7 @@ body.post-page .custom-button {
     cursor: pointer;
 }
 
-/* dashboard-page공통 레이아웃 */
+/*-------------------------- dashboard-page공통 레이아웃 ----------------------------------------------*/
 body.dashboard-page html,
 body.dashboard-page {
     width: 100%;
@@ -454,7 +439,13 @@ body.dashboard-page .delete-button {
     color: white;
 }
 
-/* icon-page공통 레이아웃 */
+/*-------------------------- click-page공통 레이아웃 ----------------------------------------------*/
+body.click-page h1,
+body.click-page #exper_font {
+    text-align: center;
+}
+
+/*-------------------------- icon-page공통 레이아웃 ----------------------------------------------*/
 body.icon-page h1,
 body.icon-page h3,
 p {
@@ -497,13 +488,13 @@ body.icon-page .obj_icon img:hover {
 }
 
 
-/* upload-page공통 레이아웃 */
+/*-------------------------- upload-page공통 레이아웃 ----------------------------------------------*/
 body.upload-page .cat_name {
     display: flex;
     width: 80%;
     gap: 25px;
     align-items: center;
-    
+
 }
 
 body.upload-page h1,
