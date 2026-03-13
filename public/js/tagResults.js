@@ -72,7 +72,7 @@ function renderNextPosts() {
   setTimeout(() => {
     postList.innerHTML += nextPosts.map(post => `
           <a class="post-item" href="post?id=${post.id}">
-              <img src="${post.file_path}" alt="미리보기 이미지">
+              <img src="${post.file_path || '/image/no-image.png'}" alt="미리보기 이미지">
             <div class="post-meta">
               <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
                 <div class="desc">
@@ -123,11 +123,14 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
   // 이미 불러왔으면 다시 fetch 안 함
   if (tagLoaded) return;
 
+
   tagListDiv.innerHTML = "불러오는 중...";
 
   try {
     const response = await fetch("/api/korean-initials");
     const data = await response.json();
+
+    tagLoaded = true;
 
     const initialGroups = {};
 
@@ -163,9 +166,9 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
       .sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b))
       .map(initial => {
         const buttons = initialGroups[initial]
-          .map(tag => `<button onclick="location.href='tagResults.html?tag=${encodeURIComponent(tag)}'">#${tag}</button>`)
+          .map(tag => `<button onclick="location.href='tagResults?tag=${encodeURIComponent(tag)}'">#${tag}</button>`)
           .join(" ");
-        return `<div><h4>${initial}</h4><hr><div id="tag-container">${buttons}</div></div>`;
+        return `<div><h4>${initial}</h4><hr><div class="tag-container">${buttons}</div></div>`;
       }).join("");
 
     tagListDiv.style.display = "block";
@@ -191,12 +194,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const response = await fetch(`/api/search?tag=${encodeURIComponent(tag)}`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP 오류: ${response.status}`);
+    }
+
     const data = await response.json();
 
     allPosts = Array.isArray(data.posts) ? data.posts : [];
 
     if (allPosts.length === 0) {
-      postList.innerHTML = "<li>관련 게시물이 없습니다.</li>";
+      postList.innerHTML = "<p>관련 게시물이 없습니다.</p>";
       return;
     }
 
