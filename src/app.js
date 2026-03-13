@@ -12,6 +12,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import indicatorRoutes from "./routes/indicatorRoutes.js";
 import koreanTagRoutes from "./routes/korean-initials.js";
 import settingRoutes from "./routes/settingRoutes.js";
+import { QueryTypes } from "sequelize";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -52,8 +53,6 @@ app.get("/api/health", (req, res) => {
 
 
 // ✅ 검색 라우트: /search?tag=<검색어>
-const { QueryTypes } = require("sequelize");
-
 app.get("/api/search", async (req, res) => {
     const { tag, keyword } = req.query;
 
