@@ -623,12 +623,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const infoBox = document.getElementById("pagination-info");
         const pag = document.getElementById("pagination-container");
-        if (!pag ||!infoBox) return;  // pagination 요소가 없으면 아무것도 안 함
+        if (!pag || !infoBox) return;  // pagination 요소가 없으면 아무것도 안 함
         pag.innerHTML = "";
-        infoBox.innerHTML ="";
+        infoBox.innerHTML = "";
 
         const info = document.createElement("span");
         info.textContent = ` ${page + 1} / ${totalPages} `;
+        info.style.display = "block";
+        info.style.textalign = "center";
         info.style.margin = "0 10px";
 
         infoBox.appendChild(info);
