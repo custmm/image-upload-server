@@ -274,6 +274,14 @@ body.preview-page .loading-text {
 }
 
 /* 각 페이지의 기본적 레이아웃 설정 */
+body.click-page h1,
+body.click-page #exper_font,
+body.icon-page h1,
+body.icon-page h3,
+p {
+    text-align: center;
+}
+
 /*-------------------------- index-page공통 레이아웃 ----------------------------------------------*/
 body.index-page html {
     height: 100%;
@@ -438,19 +446,8 @@ body.dashboard-page .delete-button {
     color: white;
 }
 
-/*-------------------------- click-page공통 레이아웃 ----------------------------------------------*/
-body.click-page h1,
-body.click-page #exper_font {
-    text-align: center;
-}
 
 /*-------------------------- icon-page공통 레이아웃 ----------------------------------------------*/
-body.icon-page h1,
-body.icon-page h3,
-p {
-    text-align: center;
-}
-
 body.icon-page #icon_studio,
 body.icon-page .move_icon,
 body.icon-page .bulid_icon,
