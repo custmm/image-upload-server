@@ -104,12 +104,11 @@ body.login-page .back-button,
 body.dashboard-page .back-button,
 body.mode-page .back-button,
 body.upload-page .back-button,
-body.preview-page .back-button {
+body.preview-page .back-button,
+body.click-page .back-button {
     position: absolute;
     top: 10px;
     left: 10px;
-    transition: background-color 0.3s;
-    cursor: pointer;
     z-index: 10;
 }
 
