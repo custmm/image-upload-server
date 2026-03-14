@@ -173,7 +173,8 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
 
     tagListDiv.style.display = "block";
   } catch (err) {
-    tagListDiv.innerHTML = "태그를 불러오지 못했습니다.";
+    tagListDiv.innerHTML =
+    `<img src="/images/tag_error.png" alt="전체태그오류"><p>태그를 불러오지 못했습니다.</p>`; 
   }
 });
 
