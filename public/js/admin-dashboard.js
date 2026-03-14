@@ -908,6 +908,11 @@ function applyForceLayout(bubbles, iterations = 120) {
                 }
             }
         }
+        
+        bubbles.forEach(b => {
+            b.x *= 0.98;
+            b.y *= 0.98;
+        });
     }
 
     return bubbles;
