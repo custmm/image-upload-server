@@ -90,8 +90,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log("매칭 제목들:", filteredPosts.map(p => p.title));
 
         if (filteredPosts.length === 0) {
-            resultsContainer.innerHTML = 
-            `<img src="/images/no_result.png" alt="검색결과없음"><p>검색 결과가 없습니다.</p>`;
+            resultsContainer.innerHTML =
+                `<img src="/images/no_result.png" alt="검색결과없음"><p>검색 결과가 없습니다.</p>`;
             return;
         }
 
@@ -99,7 +99,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     } catch (error) {
         console.error("검색 중 오류:", error);
-        resultsContainer.innerHTML = "<p>데이터를 불러오지 못했습니다.</p>";
+        resultsContainer.innerHTML =
+            `<img src="/images/search_error.png" alt="검색오류"><p>데이터를 불러오지 못했습니다.</p>`;
     }
 
     function loadMore() {

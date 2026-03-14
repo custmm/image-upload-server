@@ -212,7 +212,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   } catch (err) {
     console.error("❌ 검색 중 오류:", err);
-    postList.innerHTML = "<p>검색 오류가 발생했습니다.</p>";
+    postList.innerHTML = 
+    `<img src="/images/search_error.png" alt="검색오류"><p>데이터를 불러오지 못했습니다.</p>`;
   }
 
   // ✅ IntersectionObserver로 무한 스크롤 감지
