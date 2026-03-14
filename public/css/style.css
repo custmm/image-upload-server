@@ -3012,13 +3012,16 @@ body.tag-page .tag_post {
     text-align: center;
 }
 
-body.tag-page #postList.post-list {
+body.tag-page #postList{
     display: flex;
     flex-direction: column;
     align-items: center;
     list-style: none;
     margin: 20px 0;
+}
 
+body.tag-page #postList img{
+    width: 100px;
 }
 
 body.tag-page .post-list li {
