@@ -25,7 +25,7 @@ if (!window.observer) {
             }
         });
     }, {
-       rootMargin: "400px"
+        rootMargin: "400px"
     });
 }
 
@@ -873,6 +873,46 @@ async function fetchCategoryCounts() {
     }
 }
 
+function applyForceLayout(bubbles, iterations = 120) {
+
+    const padding = 2;
+
+    for (let k = 0; k < iterations; k++) {
+
+        for (let i = 0; i < bubbles.length; i++) {
+            for (let j = i + 1; j < bubbles.length; j++) {
+
+                const a = bubbles[i];
+                const b = bubbles[j];
+
+                const dx = b.x - a.x;
+                const dy = b.y - a.y;
+
+                const dist = Math.sqrt(dx * dx + dy * dy) || 0.01;
+
+                const minDist = a.r + b.r + padding;
+
+                if (dist < minDist) {
+
+                    const force = (minDist - dist) / dist * 0.5;
+
+                    const moveX = dx * force;
+                    const moveY = dy * force;
+
+                    b.x += moveX;
+                    b.y += moveY;
+
+                    a.x -= moveX;
+                    a.y -= moveY;
+
+                }
+            }
+        }
+    }
+
+    return bubbles;
+}
+
 async function renderCharts() {
     const categoryData = await fetchCategoryCounts();
     const categories = categoryData.map(item => item.category_name);
@@ -1040,13 +1080,20 @@ async function renderCharts() {
     if (window.barChartInstance) window.barChartInstance.destroy();
 
     // ✅ bar chart 데이터셋 하나로
-    const bubbleData = categories.map((cat, i) => ({
-        x: i + 1,
-        y: 50,
-        r: Math.max(10, parseFloat(probabilities[i]) * 1.5),
-        label: cat,
-        value: probabilities[i]
-    }));
+    const bubbleData = categories.map((cat, i) => {
+
+        const value = parseFloat(probabilities[i]);
+
+        return {
+            x: (Math.random() - 0.5) * 10,
+            y: (Math.random() - 0.5) * 10,
+            r: Math.max(10, value * 1.5),
+            label: cat,
+            value: value
+        };
+
+    });
+    const arrangedBubbles = applyForceLayout(bubbleData);
 
     // 초기 차트 생성
     window.barChartInstance = new Chart(barCtx, {
@@ -1054,7 +1101,7 @@ async function renderCharts() {
         data: {
             datasets: [{
                 label: "게시물 비율",
-                data: bubbleData,
+                data: arrangedBubbles,
                 backgroundColor: [
                     "#FF6384",
                     "#36A2EB",
