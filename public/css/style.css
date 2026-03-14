@@ -875,7 +875,6 @@ body.dashboard-page .post-form-container {
     justify-content: center;
     align-items: center;
     max-height: 400px;
-    margin-bottom: 15px;
     border: 1px solid #ccc;
     background-color: #ffffff;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -1051,7 +1050,6 @@ body.dashboard-page #clearCanvas {
 
 /* 🔥 제목과 버튼을 한 줄로 정렬 */
 body.dashboard-page .section-header {
-    display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
@@ -1064,28 +1062,24 @@ body.dashboard-page .section-title {
 }
 
 body.dashboard-page .change-button-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-
-
 body.dashboard-page #devide {
-    display: flex;
-    flex-direction: row;
     margin: 0 auto;
     padding-top: 110px;
-    justify-content: center;
 }
 
-
 body.dashboard-page #loadToggleBtn {
+    color: #000;
+    background-color: #fff;
+    width: 100%;
     padding: 8px 12px;
-    border-radius: 6px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
 body.dashboard-page .section {
@@ -1173,15 +1167,11 @@ body.dashboard-page #editModal.hidden {
 }
 
 /* 갤러리 기본 컨테이너 */
-body.dashboard-page .gallery-container {
-    width: 100%;
-}
 
 /* 텍스트 모드 컨테이너 */
 body.dashboard-page .post-form-container.text-mode {
     display: flex;
     flex-direction: row;
-    width: 100%;
     min-height: 300px;
     overflow-y: auto;
     box-sizing: border-box;
@@ -1641,11 +1631,9 @@ body.game-page #playerNumber {
     font-size: 18px;
     font-weight: bold;
     color: blue;
-    display: none;
 }
 
 body.game-page #foundNumbers {
-    display: none;
     position: fixed;
     top: 10px;
     left: 10px;
@@ -1679,7 +1667,6 @@ body.game-page .game-hint {
 }
 
 body.game-page #victoryScreen {
-    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -1730,8 +1717,6 @@ body.game-page #instructionsPopup button {
 }
 
 body.game-page #gameControlsPopup {
-    display: none;
-    /* ✅ 게임 시작 전에 숨김 */
     position: fixed;
     top: 50%;
     left: 50%;
@@ -1752,10 +1737,9 @@ body.game-page #gameControlsPopup h2 {
 }
 
 /* ====== 게시글 보기(post.html) ====== */
+
 body.post-page .ptitle {
     display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 18px;
     gap: 10px;
 }
@@ -1799,8 +1783,6 @@ body.post-page .drawing-popup {
 body.post-page .post-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     background-color: #ffffff;
     border-radius: 10px;
     margin: 0 auto;
@@ -1812,8 +1794,6 @@ body.post-page .post-container {
 body.post-page .postcategory-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
     border: 1px solid #ccc;
     border-radius: 5px;
     height: auto;
@@ -1993,9 +1973,7 @@ body.post-page .hashtag-link:hover {
 
 /* ====== 검색결과 페이지(search_post.html) ====== */
 body.search-page .search-title {
-    display: flex;
     margin: 50px auto;
-    justify-content: center;
     font-weight: 600;
     font-size: 25px;
 }
@@ -2007,10 +1985,8 @@ body.search-page .search-container {
 }
 
 body.search-page #searchResults {
-    display: flex;
     flex-direction: column;
     min-height: 250px;
-    justify-content: center;
 }
 
 body.search-page #searchResults img {
@@ -2296,8 +2272,6 @@ body.preview-page .text-thumb {
 }
 
 body.preview-page .text-content {
-    display: flex;
-    justify-content: center;
     flex-direction: column;
     flex: 1;
     font-size: 14px;
@@ -2306,15 +2280,12 @@ body.preview-page .text-content {
 
 body.preview-page .text-preview {
     font-size: 18px;
-    font-weight: 800;
+    font-weight: 600;
     text-align: center;
     margin-bottom: 10px;
 }
 
 body.preview-page .text-hashtags {
-
-    display: flex;
-    justify-content: center;
     font-size: 15px;
 }
 
@@ -3012,11 +2983,11 @@ body.tag-page .tag_post {
     text-align: center;
 }
 
-body.tag-page .tag_post img{
+body.tag-page .tag_post img {
     width: 100px;
 }
 
-body.tag-page #postList{
+body.tag-page #postList {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3024,7 +2995,7 @@ body.tag-page #postList{
     margin: 20px 0;
 }
 
-body.tag-page #postList img{
+body.tag-page #postList img {
     width: 100px;
 }
 

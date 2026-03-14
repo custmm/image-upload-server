@@ -105,8 +105,8 @@ body.dashboard-page .back-button,
 body.mode-page .back-button,
 body.upload-page .back-button,
 body.preview-page .back-button,
-body.click-page .back-button, 
-body.tag-page #backToListButton{
+body.click-page .back-button,
+body.tag-page #backToListButton {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -378,6 +378,13 @@ body.game-page #previewButton {
     padding-bottom: 10px;
 }
 
+body.game-page #playerNumber,
+body.game-page #foundNumbers,
+body.game-page #victoryScreen,
+body.game-page #gameControlsPopup {
+    display: none;
+}
+
 /*-------------------------- mode-page공통 레이아웃 ----------------------------------------------*/
 body.mode-page html {
     width: 100%;
@@ -405,6 +412,13 @@ body.mode-page .admin-selection-button {
     font-size: 15px;
 }
 
+/*-------------------------- preview-page공통 레이아웃 ----------------------------------------------*/
+body.preview-page .text-content,
+body.preview-page .text-hashtags {
+    display: flex;
+    justify-content: center;
+}
+
 /*-------------------------- post-page공통 레이아웃 ----------------------------------------------*/
 body.post-page .popup-button,
 body.post-page .custom-button {
@@ -415,6 +429,21 @@ body.post-page .custom-button {
     padding: 10px 20px;
     cursor: pointer;
 }
+
+body.post-page .ptitle,
+body.post-page .post-container,
+body.post-page .postcategory-container {
+    align-items: center;
+    justify-content: center;
+}
+
+/*-------------------------- search-page공통 레이아웃 ----------------------------------------------*/
+body.search-page .search-title,
+body.search-page #searchResults {
+    display: flex;
+    justify-content: center;
+}
+
 
 /*-------------------------- dashboard-page공통 레이아웃 ----------------------------------------------*/
 body.dashboard-page html,
@@ -447,6 +476,22 @@ body.dashboard-page .delete-button {
     color: white;
 }
 
+body.dashboard-page .section-header,
+body.dashboard-page .change-button-group,
+body.dashboard-page #devide {
+    display: flex;
+}
+
+body.dashboard-page .change-button-group,
+body.dashboard-page #devide {
+    flex-direction: row;
+    justify-content: center;
+}
+
+body.dashboard-page .gallery-container,
+body.dashboard-page .post-form-container.text-mode {
+    width: 100%;
+}
 
 /*-------------------------- icon-page공통 레이아웃 ----------------------------------------------*/
 body.icon-page #icon_studio,
