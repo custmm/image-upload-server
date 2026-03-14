@@ -25,7 +25,7 @@ if (!window.observer) {
             }
         });
     }, {
-        rootMargin: "0px 0px 200px 0px" // 로딩되는 시점을 조정 (200px 만큼 미리 로드)
+       rootMargin: "400px"
     });
 }
 
@@ -112,6 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateLoadButton();
 
+    const loadToggleBtn = document.getElementById("loadToggleBtn");
+
     loadToggleBtn.addEventListener("click", () => {
         if (currentMode === "text") {
             if (!isLoading && !noMoreImages) {
@@ -149,23 +151,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function updateLoadButton() {
-    const loadToggleBtn = document.getElementById("loadToggleBtn");
     if (!loadToggleBtn) return;
 
+    // ✅ 텍스트 모드일 때만 버튼 표시
     if (currentMode === "text") {
+        loadToggleBtn.style.display = "inline-block";
         loadToggleBtn.textContent = "📄 게시물 더 불러오기";
         loadToggleBtn.classList.remove("paused");
         return;
     }
 
-    // 이미지 모드일 때만 pause 기능
-    if (isPaused) {
-        loadToggleBtn.textContent = "▶ 이미지 로딩 재개";
-        loadToggleBtn.classList.add("paused");
-    } else {
-        loadToggleBtn.textContent = "⏸ 이미지 로딩 중단";
-        loadToggleBtn.classList.remove("paused");
-    }
+    // ✅ 이미지 모드에서는 버튼 숨김
+    loadToggleBtn.style.display = "none";
 }
 
 function updateButtonState() {
@@ -216,11 +213,12 @@ async function fetchIndicatorStatus() {
 
 async function updateIndicatorStatusOnServer(payload = {}) {
     try {
-        await fetch("/api/settings/indicator-status", {
+        const response = await fetch("/api/settings/indicator-status", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
+
         const data = await response.json();
         console.log("서버 응답:", data);
     } catch (error) {
@@ -419,7 +417,8 @@ function renderTextMode(images, append = false) {
         postItem.appendChild(fileName);
         postItem.appendChild(buttonContainer);
 
-        container.appendChild(postItem);
+        const gallery = document.querySelector("#textGallery");
+        gallery.appendChild(postItem);
     });
 }
 
@@ -619,7 +618,7 @@ function openEditPopup(image) {
     // ✅ 항상 최신 내용 설정
     const editContent = modal.querySelector("#editContent");
     const descriptionCounter = modal.querySelector("#descriptionCounter");
-    editContent.innerHTML = image.text  || image.description?.text || "";
+    editContent.innerHTML = image.text || image.description?.text || "";
     const hashtagDisplay = modal.querySelector("#editHashtagDisplay");
 
     // ✅ 입력 시 실시간 글자 수 업데이트
@@ -944,6 +943,9 @@ async function renderCharts() {
 
                 // ✅ 표가 생기면 차트 정렬 왼쪽으로
                 document.querySelector(".post-chart-container");
+
+                const chartArea = document.getElementById("chartArea");
+
                 chartArea.style.display = "flex";
                 chartArea.style.flexDirection = "row";
                 chartArea.style.alignItems = "center";  // ⬅️ 중요!
@@ -986,10 +988,33 @@ async function renderCharts() {
                             type: "doughnut",
                             data: JSON.parse(JSON.stringify(window.originalDonutChartData)),
                             options: {
-                                ...window.originalDonutChartOptions,
                                 responsive: true,
                                 maintainAspectRatio: false,
-                                onClick: donutOptions.onClick // 다시 연결
+                                plugins: {
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function (context) {
+                                                const data = context.raw;
+                                                return `${data.label} : ${data.value}%`;
+                                            }
+                                        }
+                                    },
+                                    legend: {
+                                        display: false
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: "게시물 비율 버블 차트"
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        display: false
+                                    },
+                                    y: {
+                                        display: false
+                                    }
+                                }
                             }
                         });
                     }
@@ -1015,216 +1040,126 @@ async function renderCharts() {
     if (window.barChartInstance) window.barChartInstance.destroy();
 
     // ✅ bar chart 데이터셋 하나로
-    const barChartDataset = {
-        type: 'bar',
-        label: '카테고리별 게시물 비율',
-        data: probabilities.map((v) => parseFloat(v)),
-        backgroundColor: categories.map((_, i) =>
-            ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
-        ),
-        yAxisID: 'y'
-    };
-
-    // ✅ 초기 꺾은선 데이터셋
-    const lineDataset = {
-        type: 'line',
-        label: '',
-        data: [],
-        borderColor: 'rgba(75, 192, 192, 1)',
-        fill: false,
-        tension: 0.1,
-        yAxisID: 'y1'
-    };
+    const bubbleData = categories.map((cat, i) => ({
+        x: i + 1,
+        y: 50,
+        r: Math.max(10, parseFloat(probabilities[i]) * 1.5),
+        label: cat,
+        value: probabilities[i]
+    }));
 
     // 초기 차트 생성
     window.barChartInstance = new Chart(barCtx, {
+        type: "bubble",
         data: {
-            labels: categories, // ✅ 전체 카테고리 사용
-            datasets: [barChartDataset] // ✅ 원본 막대 데이터 + 빈 꺾은선
+            datasets: [{
+                label: "게시물 비율",
+                data: bubbleData,
+                backgroundColor: [
+                    "#FF6384",
+                    "#36A2EB",
+                    "#FFCE56",
+                    "#4BC0C0",
+                    "#9966FF"
+                ]
+            }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    position: "bottom",
-                    labels: {
-                        filter: function (legendItem, chartData) {
-                            const dataset = chartData.datasets[legendItem.datasetIndex];
-                            return !dataset.hiddenLegend;
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const data = context.raw;
+                            return `${data.label} : ${data.value}%`;
                         }
                     }
-                },
-                title: {
-                    display: true,
-                    text: "게시물 비율 및 카테고리 상대 비교"
                 }
             },
             scales: {
-                x: {
-                    grid: { display: false },
-                    offset: true,
-                    ticks: {
-                        display: false // ✅ 레이블 숨김
-                    },
-                    title: {
-                        display: false
-                    } // ✅ 제목도 숨김
-                },
-                y: {
-                    beginAtZero: true,
-                    max: 100,
-                    title: { display: true, text: "게시물 비율 (%)" },
-                    ticks: { callback: value => `${value}%` }
-                },
-                y1: {
-                    position: 'right',
-                    beginAtZero: true,
-                    grid: { drawOnChartArea: false },
-                    title: { display: true, text: "상대 비율 (%)" },
-                    ticks: { callback: value => `${value}%` }
-                }
+                x: { display: false },
+                y: { display: false }
             }
         }
     });
 
+    document.getElementById("showDonut").addEventListener("click", () => {
+        document.getElementById("donutWrapper").style.display = "flex";
+        document.getElementById("barWrapper").style.display = "none";
 
-    // 🔥 꺾은선그래프 캔버스 가져오기
-    const lineCanvas = document.getElementById("lineChart");
-    lineCanvas.style.display = "block";
+        const chartArea = document.getElementById("chartArea");
+        chartArea.style.justifyContent = "center";
+    });
 
-    const lineCtx = lineCanvas.getContext("2d");
-    let lineChartInstance = null;
+    document.getElementById("showRadar").addEventListener("click", () => {
+        document.getElementById("donutWrapper").style.display = "none";
+        document.getElementById("barWrapper").style.display = "flex";
 
-    // ✅ 막대그래프 클릭 이벤트
-    document.getElementById("radarChart").onclick = function (evt) {
-        const points = window.barChartInstance.getElementsAtEventForMode(evt, 'nearest', { intersect: false }, false);
-        if (points.length) {
-            const clickedIndex = points[0].index;
-            const targetCategory = categories[clickedIndex];
-            const targetValue = parseFloat(probabilities[clickedIndex]);
+        document.getElementById("lineChart").style.display = "none";
 
-            // ✅ filteredLabels 정의
-            const filteredLabels = categories; // ❗전체 그대로 사용
+        const wrapper = document.querySelector(".subcategory-wrapper");
+        if (wrapper) wrapper.remove();
 
-            // ✅ 막대 데이터셋: 선택된 항목 제거
-            const barData = probabilities.map((val, i) => i === clickedIndex ? null : val);
+        const chartArea = document.getElementById("chartArea");
+        chartArea.style.justifyContent = "center";
+    });
 
-            // ✅ 막대 데이터셋: 클릭한 항목만 null
-            const barChartDataset = {
-                type: 'bar',
-                label: '카테고리별 게시물 비율',
-                data: barData,
-                backgroundColor: filteredLabels.map((_, i) =>
-                    ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"][i % 5]
-                ),
-                yAxisID: 'y'
-            };
+    // ── [유틸리티 함수] ───────────────────────────────
+    function stripHtmlTags(html) {
+        let doc = new DOMParser().parseFromString(html, "text/html");
+        return doc.body.textContent || "";
+    }
 
-            // ✅ 비교 비율 계산
-            const compareValues = filteredLabels.map((_, i) => (
-                ((parseFloat(probabilities[categories.indexOf(filteredLabels[i])]) / targetValue) * 100).toFixed(2)
-            ));
+    // autoResize 함수 정의
+    function autoResize(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.max(textarea.scrollHeight, 50) + 'px';
+    }
 
-            // ✅ 꺾은선 데이터셋
-            const newLineDataset = {
-                type: 'line',
-                label: `${targetCategory} 대비 상대 비율`,
-                data: compareValues,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false,
-                tension: 0.1,
-                yAxisID: 'y1'
-            };
+    function showSubcategoryTable(subcategories, categoryName) {
+        // 기존 wrapper 제거
+        const oldWrapper = document.querySelector(".subcategory-wrapper");
+        if (oldWrapper) oldWrapper.remove();
 
-            // ✅ 차트 갱신
-            window.barChartInstance.data.labels = filteredLabels;
-            window.barChartInstance.data.datasets = [barChartDataset, newLineDataset];
-            window.barChartInstance.update();
-        }
-    };
-}
+        // 새 wrapper 생성
+        const wrapper = document.createElement("div");
+        wrapper.className = "subcategory-wrapper";
 
-document.getElementById("showDonut").addEventListener("click", () => {
-    document.getElementById("donutWrapper").style.display = "flex";
-    document.getElementById("barWrapper").style.display = "none";
+        const table = document.createElement("table");
+        table.id = "categoryInfoTable";
 
-    const chartArea = document.getElementById("chartArea");
-    chartArea.style.justifyContent = "center";
-});
-
-document.getElementById("showRadar").addEventListener("click", () => {
-    document.getElementById("donutWrapper").style.display = "none";
-    document.getElementById("barWrapper").style.display = "flex";
-
-    document.getElementById("lineChart").style.display = "none";
-
-    const wrapper = document.querySelector(".subcategory-wrapper");
-    if (wrapper) wrapper.remove();
-
-    const chartArea = document.getElementById("chartArea");
-    chartArea.style.justifyContent = "center";
-});
-
-// 페이지 로드 시 차트 렌더링
-document.addEventListener("DOMContentLoaded", renderCharts);
-setTimeout(() => {
-    renderCharts();
-}, 100);
-
-// ── [유틸리티 함수] ───────────────────────────────
-function stripHtmlTags(html) {
-    let doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent || "";
-}
-
-// autoResize 함수 정의
-function autoResize(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = Math.max(textarea.scrollHeight, 50) + 'px';
-}
-
-function showSubcategoryTable(subcategories, categoryName) {
-    // 기존 wrapper 제거
-    const oldWrapper = document.querySelector(".subcategory-wrapper");
-    if (oldWrapper) oldWrapper.remove();
-
-    // 새 wrapper 생성
-    const wrapper = document.createElement("div");
-    wrapper.className = "subcategory-wrapper";
-
-    const table = document.createElement("table");
-    table.id = "categoryInfoTable";
-
-    const headerRow = document.createElement("tr");
-    headerRow.innerHTML = `
+        const headerRow = document.createElement("tr");
+        headerRow.innerHTML = `
             <th>서브카테고리명</th>
             <th>게시물 수</th>
         `;
-    table.appendChild(headerRow);
+        table.appendChild(headerRow);
 
-    subcategories.forEach((item) => {
-        const dataRow = document.createElement("tr");
-        dataRow.innerHTML = `
+        subcategories.forEach((item) => {
+            const dataRow = document.createElement("tr");
+            dataRow.innerHTML = `
                 <td>${item.subcategory_name}</td>
                 <td>${item.count}개</td>
             `;
-        table.appendChild(dataRow);
-    });
+            table.appendChild(dataRow);
+        });
 
-    wrapper.appendChild(table);
+        wrapper.appendChild(table);
 
-    // ✅ chartArea 내에 표 추가 (도넛 차트 옆에 붙도록)
-    document.getElementById("chartArea").appendChild(wrapper);
-}
+        // ✅ chartArea 내에 표 추가 (도넛 차트 옆에 붙도록)
+        document.getElementById("chartArea").appendChild(wrapper);
+    }
 
-async function fetchSubcategoryCountsByCategory(categoryName) {
-    try {
-        const response = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error("서브카테고리 데이터 가져오기 실패", error);
-        return [];
+    async function fetchSubcategoryCountsByCategory(categoryName) {
+        try {
+            const response = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error("서브카테고리 데이터 가져오기 실패", error);
+            return [];
+        }
     }
 }
