@@ -112,6 +112,7 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
   // 🔽 이미 열려 있으면 → 닫기
   if (tagListDiv.style.display === "block") {
     tagListDiv.style.display = "none";
+    postList.style.display = "block";   // ✅ 게시글 다시 표시
     toggleBtn.textContent = "전체 태그 보기";
     return;
   }
