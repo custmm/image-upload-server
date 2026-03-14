@@ -1076,8 +1076,7 @@ body.dashboard-page #loadToggleBtn {
     background-color: #fff;
     width: 100%;
     padding: 8px 12px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 0px 0px 20px 20px;
     cursor: pointer;
     margin-bottom: 20px;
 }
