@@ -72,11 +72,14 @@ function renderNextPosts() {
   setTimeout(() => {
     postList.innerHTML += nextPosts.map(post => `
           <a class="post-item" href="post?id=${post.id}">
-              <img src="${post.file_path || '/image/no-image.png'}" alt="미리보기 이미지">
-            <div class="post-meta">
-              <div class="category">${post.category_name} ▶ ${post.subcategory_name}</div>
+              <img src="${post.file_path || '/images/no-image.png'}" alt="미리보기 이미지">
+            
+              <div class="post-meta">
+              <div class="category">
+              ${post.category_name || ""} ▶ ${post.subcategory_name || ""}
+              </div>
                 <div class="desc">
-                    ${(post.text || post.description?.text || "")
+                    ${(post.text || post.title || "")
         .replace(/(<([^>]+)>)/gi, "")
         .slice(0, 50)}...
                 </div>
@@ -174,7 +177,7 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
     tagListDiv.style.display = "block";
   } catch (err) {
     tagListDiv.innerHTML =
-    `<img src="/images/tag_error.png" alt="전체태그오류"><p>태그를 불러오지 못했습니다.</p>`; 
+      `<img src="/images/tag_error.png" alt="전체태그오류"><p>태그를 불러오지 못했습니다.</p>`;
   }
 });
 
@@ -213,8 +216,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   } catch (err) {
     console.error("❌ 검색 중 오류:", err);
-    postList.innerHTML = 
-    `<img src="/images/search_error.png" alt="검색오류"><p>데이터를 불러오지 못했습니다.</p>`;
+    postList.innerHTML =
+      `<img src="/images/search_error.png" alt="검색오류"><p>데이터를 불러오지 못했습니다.</p>`;
   }
 
   // ✅ IntersectionObserver로 무한 스크롤 감지

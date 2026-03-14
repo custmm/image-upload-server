@@ -58,17 +58,18 @@ app.get("/api/search", async (req, res) => {
 
     try {
         let query = `
-            SELECT 
-                id,
-                text,
-                file_name,
-                file_name AS title,
-                category_name,
-                subcategory_name,
-                file_path
-            FROM files
-            WHERE 1=1
+        SELECT 
+            f.id,
+            f.file_name,
+            f.file_path,
+            f.title,
+            d.text
+        FROM files f
+        LEFT JOIN descriptions d 
+        ON f.id = d.file_id
+        WHERE f.is_deleted = 0
         `;
+
 
         const replacements = {};
 
