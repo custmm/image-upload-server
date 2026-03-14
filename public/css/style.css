@@ -3012,6 +3012,10 @@ body.tag-page .tag_post {
     text-align: center;
 }
 
+body.tag-page .tag_post img{
+    width: 100px;
+}
+
 body.tag-page #postList{
     display: flex;
     flex-direction: column;
