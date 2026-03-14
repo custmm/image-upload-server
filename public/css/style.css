@@ -1978,9 +1978,10 @@ body.search-page .search-title {
 }
 
 body.search-page .search-container {
-    margin: 10px 30px 50px 30px;
+    margin: 0 auto;
     border: 2px solid #1da1f2;
     border-radius: 15px;
+    width: 80%;
 }
 
 body.search-page #searchResults {
