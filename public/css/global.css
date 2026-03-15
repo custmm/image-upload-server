@@ -412,6 +412,14 @@ body.mode-page .admin-selection-button {
     font-size: 15px;
 }
 
+body.mode-page .mode-selection-container,
+body.mode-page .button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 /*-------------------------- preview-page공통 레이아웃 ----------------------------------------------*/
 body.preview-page .text-content,
 body.preview-page .text-hashtags {
@@ -475,6 +483,24 @@ body.dashboard-page .delete-button {
     border-radius: 5px;
     color: white;
 }
+
+body.dashboard-page #saveEdit,
+body.dashboard-page #closeEdit,
+body.dashboard-page .change-button {
+    cursor: pointer;
+    border: none;
+}
+
+body.dashboard-page #saveEdit,
+body.dashboard-page #closeEdit {
+    background-color: #00000000;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
 
 body.dashboard-page .section-header,
 body.dashboard-page .change-button-group,

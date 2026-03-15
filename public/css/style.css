@@ -810,17 +810,6 @@ body.dashboard-page .delete-button:hover {
     transition-duration: 0.5s
 }
 
-body.dashboard-page #saveEdit {
-    background-color: #00000000;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    box-shadow: none;
-    backdrop-filter: none;
-}
-
 body.dashboard-page .button-separator {
     width: 2px;
     height: 30px;
@@ -829,19 +818,6 @@ body.dashboard-page .button-separator {
     align-self: center;
 }
 
-body.dashboard-page #closeEdit {
-    background-color: #00000000;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    box-shadow: none;
-    backdrop-filter: none;
-}
-
-
-
 body.dashboard-page .change-button {
     display: flex;
     align-items: center;
@@ -849,9 +825,7 @@ body.dashboard-page .change-button {
     width: 40px;
     height: 40px;
     background: none;
-    border: none;
     font-size: 20px;
-    cursor: pointer;
     transition: color 0.3s ease-in-out;
     box-shadow: none;
     backdrop-filter: none;
@@ -985,11 +959,12 @@ body.dashboard-page #chart-controls {
 
 /* 이미지 표시기 container부분 */
 body.dashboard-page .function-container {
-    width: 100%;
+    width: 90%;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: #ffffff;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
 }
 
 body.dashboard-page .function-container img {
@@ -1068,7 +1043,7 @@ body.dashboard-page .change-button-group {
 
 body.dashboard-page #devide {
     margin: 0 auto;
-    padding-top: 110px;
+    padding-top: 115px;
 }
 
 body.dashboard-page #loadToggleBtn {
@@ -1105,6 +1080,7 @@ body.dashboard-page .section {
 body.dashboard-page .section:first-child,
 body.dashboard-page .section:nth-child(2) {
     width: 50%;
+    margin: 0 30px;
 }
 
 /* 🔥 만약 내부 요소를 중앙 정렬하려면 추가 */
@@ -1128,8 +1104,8 @@ body.dashboard-page .section.shifted {
 body.dashboard-page .section-row {
     background: rgba(255, 255, 255, 0.5);
     border-radius: 15px;
-    padding: 10px 10px;
-    margin: 15px 10px;
+    padding: 10px;
+    margin: 15px 30px;
 }
 
 body.dashboard-page .subcategory-wrapper {
@@ -1212,7 +1188,8 @@ body.dashboard-page .post-form-container.image-mode {
     object-fit: cover;
     overflow-y: auto;
     width: 100%;
-    padding: 10px 0;
+    margin: 15px 0;
+    padding-top: 10px;
 }
 
 body.dashboard-page #categoryInfoTable {
@@ -1304,10 +1281,7 @@ body.mode-page .container {
 }
 
 body.mode-page .mode-selection-container {
-    display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     margin: 0 auto;
     background-color: #ffffff;
     width: 500px;
@@ -1317,9 +1291,6 @@ body.mode-page .mode-selection-container {
 
 /* 버튼 그룹 스타일 */
 body.mode-page .button-group {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 15px;
     width: 90%;
     box-sizing: border-box;
@@ -2261,7 +2232,6 @@ body.preview-page .image-container img:hover {
 
 
 /* 텍스트뷰 전용 */
-
 body.preview-page .text-thumb {
     width: 80px;
     height: 80px;
