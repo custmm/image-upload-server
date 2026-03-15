@@ -908,7 +908,7 @@ function applyForceLayout(bubbles, iterations = 120) {
                 }
             }
         }
-        
+
         bubbles.forEach(b => {
             b.x *= 0.98;
             b.y *= 0.98;
@@ -934,6 +934,34 @@ async function renderCharts() {
             backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
             hoverOffset: 10
         }]
+    };
+
+    const centerTextPlugin = {
+        id: "centerText",
+        afterDraw(chart) {
+
+            const { ctx } = chart;
+
+            ctx.save();
+
+            const centerX = chart.width / 2;
+            const centerY = chart.height / 2;
+
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            // 위 텍스트
+            ctx.font = "14px Arial";
+            ctx.fillStyle = "#666";
+            ctx.fillText("총 게시물", centerX, centerY - 10);
+
+            // 숫자
+            ctx.font = "bold 26px Arial";
+            ctx.fillStyle = "#000";
+            ctx.fillText(total, centerX, centerY + 12);
+
+            ctx.restore();
+        }
     };
 
     // 원본 데이터/옵션 저장
@@ -1072,8 +1100,11 @@ async function renderCharts() {
     window.donutChartInstance = new Chart(donutCtx, {
         type: "doughnut",
         data: chartData,
-        options: donutOptions
+        options: donutOptions,
+        plugins: [centerTextPlugin]
     });
+
+    
 
     // 막대 그래프 그대로 유지
     const barCtx = document.getElementById("radarChart").getContext("2d");
