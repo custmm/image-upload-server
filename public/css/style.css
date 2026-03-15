@@ -2346,6 +2346,7 @@ body.preview-page .sidebar ul {
 body.preview-page .sidebar ul li {
     position: relative;
     margin: 15px 0;
+    text-align: center;
 }
 
 body.preview-page .sidebar ul li a {
