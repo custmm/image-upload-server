@@ -1583,7 +1583,7 @@ body.game-page .game-container {
 }
 
 body.game-page .selected-image {
-    max-width: 100px;
+    max-width: 50px;
     border: 2px solid #000;
     border-radius: 10px;
     transition: transform 0.3s ease-in-out;
