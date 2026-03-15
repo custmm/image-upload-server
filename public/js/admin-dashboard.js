@@ -953,12 +953,12 @@ async function renderCharts() {
             // 위 텍스트
             ctx.font = "14px Arial";
             ctx.fillStyle = "#666";
-            ctx.fillText("총 게시물", centerX, centerY - 10);
+            ctx.fillText("총 게시물", centerX-100, centerY - 10);
 
             // 숫자
             ctx.font = "bold 26px Arial";
             ctx.fillStyle = "#000";
-            ctx.fillText(total, centerX, centerY + 12);
+            ctx.fillText(total, centerX-100, centerY + 12);
 
             ctx.restore();
         }
