@@ -462,6 +462,11 @@ body.dashboard-page {
     box-sizing: border-box;
 }
 
+body.dashboard-page .section:first-child,
+body.dashboard-page .section:nth-child(2) {
+    width: 50%;
+}
+
 body.dashboard-page #popup-ok,
 body.dashboard-page #popup-cancel {
     padding: 8px 15px;

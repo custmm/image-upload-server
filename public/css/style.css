@@ -1077,11 +1077,6 @@ body.dashboard-page .section {
     transition: transform 0.3s ease-in-out, left 0.3s ease-in-out;
 }
 
-body.dashboard-page .section:first-child,
-body.dashboard-page .section:nth-child(2) {
-    width: 50%;
-}
-
 body.dashboard-page .section:first-child {
     margin-left: 30px;
 }

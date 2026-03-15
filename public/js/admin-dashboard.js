@@ -91,6 +91,11 @@ function showeditpopup(message, callback) {
     }
 }
 
+// ✅ 글꼴 효과 적용 함수
+function formatText(command) {
+    document.execCommand(command, false, null);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     console.log("📌 모든 카테고리에서 이미지 로드 시작");
 
@@ -953,12 +958,12 @@ async function renderCharts() {
             // 위 텍스트
             ctx.font = "14px Arial";
             ctx.fillStyle = "#666";
-            ctx.fillText("총 게시물", centerX-75, centerY - 5);
+            ctx.fillText("총 게시물", centerX - 75, centerY - 5);
 
             // 숫자
             ctx.font = "bold 26px Arial";
             ctx.fillStyle = "#000";
-            ctx.fillText(total, centerX-75, centerY + 25);
+            ctx.fillText(total, centerX - 75, centerY + 25);
 
             ctx.restore();
         }
@@ -1104,7 +1109,7 @@ async function renderCharts() {
         plugins: [centerTextPlugin]
     });
 
-    
+
 
     // 막대 그래프 그대로 유지
     const barCtx = document.getElementById("radarChart").getContext("2d");

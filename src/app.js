@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
@@ -99,6 +100,17 @@ app.get("/api/search", async (req, res) => {
     }
 });
 
+app.post("/api/admin-token", (req, res) => {
+
+    const token = jwt.sign(
+        { role: "admin" },
+        process.env.JWT_SECRET,
+        { expiresIn: "30m" }
+    );
+
+    res.json({ token });
+
+});
 
 // ✅ 라우트 등록
 app.use("/api/auth", authRoutes);

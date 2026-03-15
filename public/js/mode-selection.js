@@ -71,8 +71,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (adminButton) {
         adminButton.addEventListener("click", () => {
-            showPopup("관리자 대시보드로 이동하시겠습니까?", () => {
-                window.location.href = "admin-dashboard.html";
+            showPopup("관리자 대시보드로 이동하시겠습니까?", async () => {
+
+                try {
+
+                    const res = await fetch("/api/admin-token", {
+                        method: "POST"
+                    });
+
+                    const data = await res.json();
+
+                    // JWT 저장
+                    localStorage.setItem("adminToken", data.token);
+
+                    // 관리자 페이지 이동
+                    window.location.href = "admin-dashboard.html";
+
+                } catch (err) {
+
+                    console.error("JWT 생성 실패", err);
+                    alert("관리자 인증 실패");
+
+                }
+
             });
         });
     }

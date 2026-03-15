@@ -189,10 +189,26 @@
     </div>
 
     <script>
-        // ✅ 글꼴 효과 적용 함수
-        function formatText(command) {
-            document.execCommand(command, false, null);
+        function isExpired(token) {
+            try {
+                const payload = JSON.parse(atob(token.split(".")[1]));
+                const now = Date.now() / 1000;
+
+                return payload.exp < now;
+            } catch {
+                return true;
+            }
         }
+
+        const token = localStorage.getItem("adminToken");
+
+        if (!token) {
+
+            alert("관리자 인증이 필요합니다.");
+            window.location.href = "admin-login.html";
+
+        }
+
     </script>
     <script src="js/admin-dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
