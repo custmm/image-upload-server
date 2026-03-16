@@ -763,6 +763,8 @@ body.dashboard-page .popup-edit-container p {
 
 /* edit 팝업 버튼 */
 body.dashboard-page .popup-edit-container button {
+    color: #000;
+    border-radius: 15px;
     border-radius: 5px;
     padding: 7px 15px;
     cursor: pointer;
