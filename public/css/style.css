@@ -764,10 +764,13 @@ body.dashboard-page .popup-edit-container p {
 /* edit 팝업 버튼 */
 body.dashboard-page .popup-edit-container button {
     color: #000;
-    border-radius: 15px;
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 7px 15px;
     cursor: pointer;
+}
+
+body.dashboard-page .popup-edit-container button:hover{
+    color: #fff;
 }
 
 /* 팝업 확인 버튼 스타일 */
