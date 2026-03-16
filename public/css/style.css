@@ -1009,6 +1009,13 @@ body.dashboard-page .button-group {
 
 }
 
+body.dashboard-page .util-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+}
+
 body.dashboard-page .popup-footer button {
     border-radius: 5px;
     padding: 8px 12px;
