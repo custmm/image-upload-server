@@ -1016,6 +1016,7 @@ body.dashboard-page .button-group {
 
 body.dashboard-page .util-group {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     width: 35%;
     gap: 10px;
