@@ -1,11 +1,6 @@
 @charset "utf-8";
-
 .toggle-switch_theme {
-    display: flex;
-}
-
-.toggle-switch_trans {
-    display: flex;
+    padding-left: 45px;
 }
 
 .toggle-switch_theme input {
