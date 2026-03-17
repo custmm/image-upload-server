@@ -8,6 +8,14 @@
     height: 40px;
     display: inline-block;
 }
+toggle-switch_theme{
+    display: flex;
+
+}
+
+toggle-switch_trans{
+display: flex;
+}
 
 .toggle-switch input {
     position: absolute;
