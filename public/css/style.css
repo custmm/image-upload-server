@@ -2080,8 +2080,8 @@ body.preview-page .setting-popup-overlay {
 }
 
 body.preview-page .setting-popup {
-    background: #222;
-    color: white;
+    background: #fff;
+    color: black;
     padding: 20px;
     border-radius: 15px;
     width: 300px;
@@ -2094,7 +2094,7 @@ body.preview-page .setting-item {
     margin: 15px 0;
 }
 
-body.preview-page img#settngBtn {
+body.preview-page #settingBtn {
     position: absolute;
     top: 20px;
     width: 45px;
