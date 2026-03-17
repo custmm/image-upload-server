@@ -2088,6 +2088,10 @@ body.preview-page .setting-popup {
     width: 300px;
 }
 
+body.preview-page .setting-popup h3{
+    text-align: center;
+}
+
 body.preview-page .setting_item {
     display: flex;
     margin: 15px 0;
