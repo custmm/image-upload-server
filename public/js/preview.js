@@ -873,9 +873,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     function checkOverlap(img) {
+        const popup = document.getElementById("settingPopup");
+
+        if (!popup || popup.style.display === "none") return;
+
+        const toggleEl = popup.querySelector('.toggle-switch .slider');
+        if (!img || !toggleEl) return;
+
         const imgRect = img.getBoundingClientRect();
-        const toggleRect = document.querySelector('.toggle-switch .slider').getBoundingClientRect();
-        console.log("[debug] imgRect, toggleRect:", imgRect, toggleRect);
+        const toggleRect = toggleEl.getBoundingClientRect();
 
         const x_overlap = Math.max(0, Math.min(imgRect.right, toggleRect.right) - Math.max(imgRect.left, toggleRect.left));
         const y_overlap = Math.max(0, Math.min(imgRect.bottom, toggleRect.bottom) - Math.max(imgRect.top, toggleRect.top));
@@ -883,17 +889,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const toggleArea = toggleRect.width * toggleRect.height;
         const ratioToggle = overlapArea / toggleArea;
-        console.log("[debug] overlapArea:", overlapArea,
-            "toggleArea:", toggleArea,
-            "ratioToggle:", ratioToggle);
 
-        // 토글 면적의 70% 이상 겹쳤을 때
         if (ratioToggle >= 0.7 && !wasOverlapping) {
             overlapTimer = setTimeout(() => window.location.href = "killing_game.html", 10000);
         }
+
         if (ratioToggle < 0.7 && wasOverlapping) {
             clearTimeout(overlapTimer);
         }
+
         wasOverlapping = ratioToggle >= 0.7;
     }
 
