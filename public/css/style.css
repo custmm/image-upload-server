@@ -2080,6 +2080,7 @@ body.preview-page .setting-popup-overlay {
 }
 
 body.preview-page .setting-popup {
+    position: relative;
     background: #fff;
     color: black;
     padding: 20px;
@@ -2087,7 +2088,7 @@ body.preview-page .setting-popup {
     width: 300px;
 }
 
-body.preview-page .setting-item {
+body.preview-page .setting_item {
     display: flex;
     justify-content: space-between;
     align-items: center;
