@@ -327,7 +327,10 @@
 
       <!-- 테마토글 -->
       <div class="setting_item">
-        <span>라이트/다크 모드</span>
+        <div class="toggle-text">
+          <span>라이트/다크 모드</span>
+        </div>
+        
 
         <div class="toggle-switch">
           <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
@@ -340,8 +343,10 @@
 
       <!-- 투명도 -->
       <div class="setting_item">
-        <span>게시물 투명도</span>
-
+        <div class="toggle-text">
+          <span>게시물 투명도</span>
+        </div>
+      
         <div class="toggle-switch">
           <div class="opacityControl" id="opacityControl">
             <label for="opacitySlider"></label>
@@ -349,7 +354,7 @@
             <img class="opacitybtn" id="opacityToggleBtn" src="images/toggle_leaf.svg" alt="Toggle Opacity Slider">
           </div>
         </div>
-        
+
       </div>
 
       <button id="closeSettingPopup">X</button>
