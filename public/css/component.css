@@ -1,19 +1,10 @@
 @charset "utf-8";
 
-.toggle-switch {
-    position: absolute;
-    top: 10px;
-    right: 60px;
-    width: 90px;
-    height: 40px;
-    display: inline-block;
-}
-toggle-switch_theme{
+.toggle-switch_theme{
     display: flex;
-
 }
 
-toggle-switch_trans{
+.toggle-switch_trans{
 display: flex;
 }
 
