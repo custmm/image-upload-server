@@ -291,12 +291,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    const settingsBtn = document.getElementById("settingsBtn");
-    const settingsPopup = document.getElementById("settingsPopup");
+    const btn = document.getElementById("settingBtn");
+    const popup = document.getElementById("settingPopup");
 
-    settingsBtn.addEventListener("click", () => {
-        settingsPopup.style.display = "flex";
-    });
+    if (btn && popup) {
+        btn.addEventListener("click", () => {
+            popup.style.display = "flex";
+        });
+    }
+
 
     function closeSettings() {
         settingsPopup.style.display = "none";
