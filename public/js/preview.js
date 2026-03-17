@@ -127,6 +127,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const iconLink = document.getElementById("iconlink");
     const urlParams = new URLSearchParams(window.location.search);
 
+    // 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
+    const categoryMappings = {
+        "puzzle": "퍼즐",
+        "bizz": "보석비즈",
+        "solidbodypuzzle": "입체퍼즐",
+        "deforme": "디폼블럭",
+        "brickfigure": "브릭피규어"
+    };
+
+    const iconMap = {
+        "퍼즐": "puzzle",
+        "보석비즈": "gem",
+        "입체퍼즐": "box",
+        "디폼블럭": "grid-3x3",
+        "브릭피규어": "toy-brick"
+    };
 
     // 상태값(이미지/텍스트모드관련)
     let currentView = "image";
@@ -199,22 +215,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 
-    // ✅ 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
-    const categoryMappings = {
-        "puzzle": "퍼즐",
-        "bizz": "보석비즈",
-        "solidbodypuzzle": "입체퍼즐",
-        "deforme": "디폼블럭",
-        "brickfigure": "브릭피규어"
-    };
-
-    const iconMap = {
-        "퍼즐": "puzzle",
-        "보석비즈": "gem",
-        "입체퍼즐": "box",
-        "디폼블럭": "grid-3x3",
-        "브릭피규어": "toy-brick"
-    };
 
 
     // ✅ URL에서 받은 카테고리가 영문이면 한글로 변환
@@ -290,6 +290,24 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         }
     }
+
+    const settingsBtn = document.getElementById("settingsBtn");
+    const settingsPopup = document.getElementById("settingsPopup");
+
+    settingsBtn.addEventListener("click", () => {
+        settingsPopup.style.display = "flex";
+    });
+
+    function closeSettings() {
+        settingsPopup.style.display = "none";
+    }
+
+    // 바깥 클릭 시 닫기
+    window.addEventListener("click", (e) => {
+        if (e.target === settingsPopup) {
+            settingsPopup.style.display = "none";
+        }
+    });
 
     // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
     function bindSidebarEvents() {

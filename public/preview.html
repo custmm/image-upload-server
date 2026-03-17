@@ -174,6 +174,7 @@
       onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기
     </button>
 
+
     <button class="sidebar-toggle" onclick="toggleSidebar()">
       <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
     </button>
@@ -224,25 +225,14 @@
       <div class="message-container">
         <a href="click.html" id="welcomeMessage">어서오세요</a>
       </div>
-
-      <div class="opacityControl" id="opacityControl">
-        <label for="opacitySlider"></label>
-        <input type="range" id="opacitySlider" min="0.2" max="1" step="0.025" value="0.825">
-        <img class="opacitybtn" id="opacityToggleBtn" src="images/toggle_leaf.svg" alt="Toggle Opacity Slider">
-      </div>
-
-      <div class="toggle-switch">
-        <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
-        <label class="slider" for="themeToggle">
-          <span id="themeIcon"></span>
-        </label>
-      </div>
+      <img src="images/toggle_set.png" id="settingBtn" alt="설정 버튼">
     </section>
 
     <!-- 로딩 상태 -->
     <section id="loadingIndicator" class="loading-indicator">
       <img src="images/loading.gif" alt="로딩 중..." class="loading-image">
       <p class="loading-text">로딩 중...</p>
+      
     </section>
 
     <!-- 메인 카테고리 탭 (큰 카테고리) -->
@@ -326,6 +316,40 @@
       <iframe id="previewFrameIcon" src="./ai_icon.html" loading="lazy"></iframe>
     </div>
   </div>
+
+  <div id="settingPopup" class="setting-popup-overlay" style="display:none;">
+    <div class="setting-popup">
+      <h3>Setting</h3>
+
+      <!-- 테마토글 -->
+      <div class="setting_item">
+        <span>라이트/다크 모드</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
+          <label class="slider" for="themeToggle">
+            <span id="themeIcon"></span>
+          </label>
+        </label>
+      </div>
+
+      <!-- 투명도 -->
+      <div class="setting_item">
+        <span>게시물 투명도</span>
+        <div class="toggle-switch">
+
+          <div class="opacityControl" id="opacityControl">
+            <label for="opacitySlider"></label>
+            <input type="range" id="opacitySlider" min="0.2" max="1" step="0.025" value="0.825">
+            <img class="opacitybtn" id="opacityToggleBtn" src="images/toggle_leaf.svg" alt="Toggle Opacity Slider">
+          </div>
+        </div>
+      </div>
+
+      <button id="closeSettingPopup">X</button>
+
+    </div>
+  </div>
+
 
   <!-- ✅ 푸터 -->
   <footer class="page-footer">
