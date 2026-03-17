@@ -302,13 +302,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     function closeSettings() {
-        settingsPopup.style.display = "none";
+        settingPopup.style.display = "none";
     }
 
     // 바깥 클릭 시 닫기
     window.addEventListener("click", (e) => {
-        if (e.target === settingsPopup) {
-            settingsPopup.style.display = "none";
+        if (e.target === settingPopup) {
+            settingPopup.style.display = "none";
         }
     });
 
