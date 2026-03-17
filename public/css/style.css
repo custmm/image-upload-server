@@ -2094,7 +2094,7 @@ body.preview-page .setting-item {
     margin: 15px 0;
 }
 
-body.preview-page #settngBtn {
+body.preview-page img#settngBtn {
     position: absolute;
     top: 20px;
     width: 45px;
