@@ -2097,8 +2097,11 @@ body.preview-page .setting-item {
 body.preview-page #settingBtn {
     position: absolute;
     top: 20px;
-    width: 45px;
     right: 30px;
+}
+
+body.preview-page #settingBtn img {
+    width: 45px;
 }
 
 /* 사이드바 열기 버튼 */
