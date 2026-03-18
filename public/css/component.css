@@ -1,4 +1,20 @@
 @charset "utf-8";
+
+.toggle-switch{
+    top: 10px; 
+    right: 55px; 
+    height: 40px; 
+    width: 90px;
+
+}
+.toggle-switch_ input:checked+.slider::before {
+    transform: translateX(53px);
+}
+
+.toggle-switch input:checked+.slider #themeIcon {
+    transform: translateX(53px);
+}
+
 .toggle-switch_theme {
     padding-left: 45px;
 }
