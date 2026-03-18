@@ -296,21 +296,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (btn && popup) {
         btn.addEventListener("click", () => {
-            popup.style.display = "flex";
+            popup.style.display = popup.style.display === "none" ? "block" : "none";
         });
     }
 
-
-    function closeSettings() {
-        settingPopup.style.display = "none";
-    }
-
-    // 바깥 클릭 시 닫기
-    window.addEventListener("click", (e) => {
-        if (e.target === settingPopup) {
-            settingPopup.style.display = "none";
-        }
-    });
 
     // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
     function bindSidebarEvents() {

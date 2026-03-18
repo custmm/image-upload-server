@@ -2066,17 +2066,23 @@ body.preview-page .setting-button img {
     cursor: pointer;
 }
 
-body.preview-page .setting-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+body.preview-page .setting-layer {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+
+  width: 250px;
+  padding: 15px;
+
+  background: rgba(30, 30, 30, 0.9);
+  backdrop-filter: blur(10px);
+
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+
+  z-index: 9999;
+
+  display: none; /* 기본 숨김 */
 }
 
 body.preview-page .setting-popup {
@@ -2086,6 +2092,8 @@ body.preview-page .setting-popup {
     padding: 20px;
     border-radius: 15px;
     width: 300px;
+        left: 37%;
+    bottom: 22%;
 }
 
 body.preview-page .setting-popup h3{
