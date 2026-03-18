@@ -8,6 +8,15 @@
     position: absolute;
 }
 
+.toggle-switch input {
+    position: absolute;
+    width: 90px;
+    height: 40px;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
 .toggle-switch_ input:checked+.slider::before {
     transform: translateX(53px);
 }
