@@ -2853,6 +2853,7 @@ body.preview-page #pagination-container {
 body.preview-page span {
     display: block;
     text-align: center;
+    font-size: 13px;
 }
 
 body.preview-page .pagination-button {
