@@ -46,21 +46,21 @@
 .toggle-switch_theme input:checked+.slider #themeIcon {
     transform: translateX(53px);
 }
-
+/* ✅ 공통 */
 .slider {
     position: absolute;
     cursor: pointer;
     width: 90px;
     height: 40px;
-    background-image: url('../images/light_toggle_bg.png');
+
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
+
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    /* 은은한 테두리 */
     border-radius: 20px;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
 }
 
 .slider::before {

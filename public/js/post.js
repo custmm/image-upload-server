@@ -145,29 +145,7 @@ function sanitizeDescription(html) {
   return doc.body.innerHTML.trim();
 }
 
-// ✅ 페이지 로드 시 데이터 불러오기
-document.addEventListener("DOMContentLoaded", () => {
-  applySavedTheme(); // ✅ 테마 초기화
-  loadPostData();
-  bindDrawingEvents();        // 🔥 이 줄 추가
-});
 
-// ✅ "목록으로" 버튼 클릭 시 이전 페이지로 이동
-document.getElementById("backToListButton").addEventListener("click", () => {
-  window.history.back(); // 🔥 이전 페이지로 이동
-});
-
-// ✅ "공유" 버튼 클릭 시 현재 페이지 URL 복사
-document.getElementById("shareButton").addEventListener("click", async () => {
-  try {
-    const postURL = window.location.href;
-    await navigator.clipboard.writeText(postURL);
-    showPopupMessage("📌 링크가 클립보드에 복사되었습니다!");
-  } catch (err) {
-    console.error("🚨 공유 실패:", err);
-    showPopupMessage("❌ 링크 복사에 실패했습니다.");
-  }
-});
 function bindDrawingEvents() {
   const drawingPopup = document.getElementById("drawing-popup");
   const openDrawingBtn = document.getElementById("picture");
@@ -314,6 +292,7 @@ function toggleTheme() {
     }
   }
 }
+
 function applySavedTheme() {
   const savedTheme = localStorage.getItem("theme") || "light";
   const themeIcon = document.getElementById("themeIcon");
@@ -333,3 +312,34 @@ function applySavedTheme() {
     }
   }
 }
+
+function setTheme(mode) {
+    document.body.classList.remove("light-mode", "dark-mode");
+    document.body.classList.add(mode);
+
+    localStorage.setItem("theme", mode);
+}
+
+// ✅ 페이지 로드 시 데이터 불러오기
+document.addEventListener("DOMContentLoaded", () => {
+  applySavedTheme(); // ✅ 테마 초기화
+  loadPostData();
+  bindDrawingEvents();        // 🔥 이 줄 추가
+});
+
+// ✅ "목록으로" 버튼 클릭 시 이전 페이지로 이동
+document.getElementById("backToListButton").addEventListener("click", () => {
+  window.history.back(); // 🔥 이전 페이지로 이동
+});
+
+// ✅ "공유" 버튼 클릭 시 현재 페이지 URL 복사
+document.getElementById("shareButton").addEventListener("click", async () => {
+  try {
+    const postURL = window.location.href;
+    await navigator.clipboard.writeText(postURL);
+    showPopupMessage("📌 링크가 클립보드에 복사되었습니다!");
+  } catch (err) {
+    console.error("🚨 공유 실패:", err);
+    showPopupMessage("❌ 링크 복사에 실패했습니다.");
+  }
+});

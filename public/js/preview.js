@@ -144,6 +144,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         "브릭피규어": "toy-brick"
     };
 
+    const savedTheme = localStorage.getItem("theme") || "light-mode";
+    setTheme(savedTheme);
+
+
     // 상태값(이미지/텍스트모드관련)
     let currentView = "image";
 
@@ -859,6 +863,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 themeIcon.style.backgroundImage = "url('../images/toggle_light.svg')";
             }
         }
+    }
+
+    function setTheme(mode) {
+        document.body.classList.remove("light-mode", "dark-mode");
+        document.body.classList.add(mode);
+
+        localStorage.setItem("theme", mode);
     }
 
     function checkOverlap(img) {

@@ -1,8 +1,16 @@
     @charset "utf-8";
-    
+
+    body.light-mode .slider {
+        background-image: url("../images/light_toggle_bg.png");
+    }
+
+    body.dark-mode .slider {
+        background-image: url("../images/dark_toggle_bg.png");
+    }
+
     body.post-page.dark-mode,
     body.preview-page.dark-mode,
-    body.click-page.dark-mode{
+    body.click-page.dark-mode {
         background: #222;
         color: #fff;
 
