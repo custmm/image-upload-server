@@ -234,7 +234,9 @@ body.preview-popup-page {
 /*-------------------------- 로딩 화면 스타일 ----------------------------------------------*/
 /* 중앙 정렬 */
 body.post-page .loading-indicator,
-body.preview-page .loading-indicator {
+body.preview-page .loading-indicator,
+body.tag-page .loading-indicator,
+body.search-page .loading-indicator {
     position: fixed;
     display: none;
     /* JS에서 켜기 */
@@ -468,7 +470,9 @@ body.preview-page .loading-indicator {
 
 /* 텍스트 */
 body.post-page .loading-text,
-body.preview-page .loading-text {
+body.preview-page .loading-text,
+body.tag-page .loading-text,
+body.search-page .loading-text {
     color: white;
     font-size: 16px;
 }
