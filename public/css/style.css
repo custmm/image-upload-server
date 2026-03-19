@@ -1987,9 +1987,10 @@ body.search-page #searchResults img {
 
 body.search-page .search-item {
     display: flex;
+    width: 100%;
     gap: 15px;
-    padding: 8px 2px;
-    margin: 0 8px;
+    padding: 10px 40px;
+    margin: 0 auto;
     cursor: pointer;
     transition:
         background 0.3s ease,
@@ -2012,6 +2013,7 @@ body.search-page .search-item img {
     object-fit: cover;
     border-radius: 6px;
 }
+
 
 /* ====== 미리보기 페이지(preview.html) ====== */
 
