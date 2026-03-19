@@ -1,36 +1,38 @@
-    let loaderStep = 1;
-    let loaderInterval = null;
+let loaderStep = 1;
+let loaderInterval = null;
 
-    function showLoading() {
-        const indicator = document.getElementById("loadingIndicator");
-        const loader = document.getElementById("mainLoader");
+function showLoading() {
+    const indicator = document.getElementById("loadingIndicator");
+    const loader = document.getElementById("mainLoader");
 
-        indicator.style.display = "flex";
+    indicator.style.display = "flex";
 
-        loaderInterval = setInterval(() => {
-            loaderStep++;
-            if (loaderStep > 4) loaderStep = 1;
+    loaderInterval = setInterval(() => {
+        loaderStep++;
+        if (loaderStep > 4) loaderStep = 1;
 
-            loader.className = "loader loader" + loaderStep;
-        }, 200); // 속도 조절 가능
-    }
+        loader.className = "loader loader" + loaderStep;
+    }, 1000); // 속도 조절 가능
+}
 
-    function hideLoading() {
-        clearInterval(loaderInterval);
-        loaderInterval = null;
+function hideLoading() {
+    clearInterval(loaderInterval);
+    loaderInterval = null;
 
-        document.getElementById("loadingIndicator").style.display = "none";
-    }
-    
-    document.addEventListener("DOMContentLoaded", async function () {
-    function normalize(text) {
-        return (text || "")
-            .toString()
-            .toLowerCase()
-            .normalize("NFC")              // 한글 정규화
-            .replace(/\s+/g, "")           // 공백 제거
-            .replace(/[^\w가-힣]/g, "");   // 특수문자 제거
-    }
+    document.getElementById("loadingIndicator").style.display = "none";
+}
+
+function normalize(text) {
+    return (text || "")
+        .toString()
+        .toLowerCase()
+        .normalize("NFC")              // 한글 정규화
+        .replace(/\s+/g, "")           // 공백 제거
+        .replace(/[^\w가-힣]/g, "");   // 특수문자 제거
+}
+
+document.addEventListener("DOMContentLoaded", async function () {
+
 
     const params = new URLSearchParams(window.location.search);
     const query = params.get("q");
