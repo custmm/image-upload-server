@@ -1,3 +1,23 @@
+function isExpired(token) {
+    try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        const now = Date.now() / 1000;
+
+        return payload.exp < now;
+    } catch {
+        return true;
+    }
+}
+
+const token = localStorage.getItem("adminToken");
+
+if (!token) {
+
+    alert("관리자 인증이 필요합니다.");
+    window.location.href = "admin-login.html";
+
+}
+
 function cleanExpiredToken() {
 
     const token = localStorage.getItem("adminToken");
@@ -193,20 +213,6 @@ function updateLoadButton() {
     loadToggleBtn.style.display = "none";
 }
 
-function updateButtonState() {
-    const showindicatorBtn = document.getElementById("show-indicator");
-    const hideindicatorBtn = document.getElementById("hide-indicator");
-    const previewState = localStorage.getItem("previewVisible");
-
-    if (previewState === "hidden") {
-        hideindicatorBtn.style.display = "none";
-        showindicatorBtn.style.display = "inline-block";
-    } else {
-        hideindicatorBtn.style.display = "inline-block";
-        showindicatorBtn.style.display = "none";
-    }
-}
-
 async function fetchIndicatorStatus() {
     try {
         const response = await fetch("/api/settings/indicator-status");
@@ -216,7 +222,6 @@ async function fetchIndicatorStatus() {
 
         const previewVisible = data.visible ? "visible" : "hidden";
         localStorage.setItem("previewVisible", previewVisible);
-        updateButtonState();
 
         const localModernized = localStorage.getItem("indicatorModernized");
         const modernized = localModernized !== null
@@ -263,27 +268,8 @@ function applyModernizedImages(isModernized) {
 }
 
 function bindIndicatorEvents() {
-    const showindicatorBtn = document.getElementById("show-indicator");
-    const hideindicatorBtn = document.getElementById("hide-indicator");
     const modernizeBtn = document.getElementById("modernize-indicator");
-
     let isModernized = localStorage.getItem("indicatorModernized") === "true";
-
-    // 표시기 숨기기
-    hideindicatorBtn.addEventListener("click", async function () {
-        localStorage.setItem("previewVisible", "hidden"); // 상태 저장
-        await updateIndicatorStatusOnServer(false); // 서버 반영
-        updateButtonState();
-        showpopup("이미지 표시기가 제거되었습니다."); // 팝업 추가
-    });
-
-    // 표시기 나타내기
-    showindicatorBtn.addEventListener("click", async function () {
-        localStorage.setItem("previewVisible", "visible");
-        await updateIndicatorStatusOnServer(true); // 서버 반영
-        updateButtonState();
-        showpopup("이미지 표시기가 나타났습니다."); // 팝업 추가
-    });
 
     // 현대화 버튼 이벤트 (서버 동기화 포함)
     modernizeBtn.addEventListener("click", async () => {
@@ -753,6 +739,7 @@ function bindSidebarEvents() {
             sidebarToggle.style.transform = `translateY(${scrollY}px)`;
         });
     }
+
     window.addEventListener("scroll", updateSidebarTogglePosition);
 
     // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
@@ -1131,8 +1118,6 @@ async function renderCharts() {
         options: donutOptions,
         plugins: [centerTextPlugin]
     });
-
-
 
     // 막대 그래프 그대로 유지
     const barCtx = document.getElementById("radarChart").getContext("2d");

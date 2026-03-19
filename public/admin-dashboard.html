@@ -137,8 +137,6 @@
         </div>
 
         <div class="button-group">
-            <button id="hide-indicator" class="custom-button">표시기 제거</button>
-            <button id="show-indicator" class="custom-button" style="display:none;">표시기 나타내기</button>
             <button id="modernize-indicator" class="custom-button">이미지 현대화</button> <!-- ✅ 추가 -->
         </div>
     </div>
@@ -147,38 +145,13 @@
         <div class="section-header">
             <h2 class="section-title">관리자용 버튼</h2>
         </div>
-            <div class="util-group">
-                <button id="edit" class="custom-button">레이아웃 변경</button>
-                <button id="pdf" class="custom-button">데이터 다운로드</button>
-            </div>
 
-        
-
-
+        <div class="util-group">
+            <button id="edit" class="custom-button">레이아웃 변경</button>
+            <button id="pdf" class="custom-button">데이터 다운로드</button>
+        </div>
     </div>
 
-    <script>
-        function isExpired(token) {
-            try {
-                const payload = JSON.parse(atob(token.split(".")[1]));
-                const now = Date.now() / 1000;
-
-                return payload.exp < now;
-            } catch {
-                return true;
-            }
-        }
-
-        const token = localStorage.getItem("adminToken");
-
-        if (!token) {
-
-            alert("관리자 인증이 필요합니다.");
-            window.location.href = "admin-login.html";
-
-        }
-
-    </script>
     <script src="js/admin-dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
