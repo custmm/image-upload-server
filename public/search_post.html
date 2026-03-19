@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ɐ휴욱슈욱Ɐ >> 검색결과</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/global.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ɐ휴욱슈욱Ɐ >> 검색결과</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/global.css">
 </head>
+
 <body class="search-page">
-    <button class="back-button" onclick="window.location.href='preview.html'">뒤로가기</button>
-    <div class="search-title">
-        <p id="searchKeyword"></p>
-    </div>
-    
-    <div class="search-container">
-    
-    <div id="searchResults" class="search-results">
-    </div>
+  <button class="back-button" onclick="window.location.href='preview.html'">뒤로가기</button>
+  <div class="search-title">
+    <p id="searchKeyword"></p>
   </div>
-      <div id="loadingIndicator" class="loading-indicator">
+  
+  <div id="loadingIndicator" class="loading-indicator">
     <div class="loader loader1" id="mainLoader">
       <div></div>
       <div></div>
@@ -32,9 +29,17 @@
 
     <p class="loading-text">게시물을 불러오는 중...</p>
   </div>
+
+  <div class="search-container">
+
+    <div id="searchResults" class="search-results">
+    </div>
+  </div>
+
   <div id="scrollTrigger" style="height: 1px;"></div>
 
 
   <script src="js/search_post.js"></script>
 </body>
+
 </html>
