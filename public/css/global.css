@@ -281,11 +281,15 @@ body.preview-page .loading-indicator {
     }
 }
 
-/* 로딩아이콘1 */
-.loader1 {
-    animation: spin 1s linear infinite;
+/* 로딩아이콘 부모요소 */
+.loader1,
+.loader2,
+.loader3,
+.loader4 {
+    animation: none;
 }
 
+/* 로딩아이콘1 */
 .loader1::before {
     content: "";
 }
@@ -340,10 +344,6 @@ body.preview-page .loading-indicator {
 }
 
 /* 로딩아이콘2 */
-.loader2 {
-    animation: spin 1.2s linear infinite;
-}
-
 .loader2 div:nth-child(1) {
     transform: rotate(0deg);
     background: #3a5ba0;
@@ -385,10 +385,6 @@ body.preview-page .loading-indicator {
 }
 
 /* 로딩아이콘3 */
-.loader3 {
-    animation: spin 0.9s linear infinite;
-}
-
 .loader3 div:nth-child(1) {
     transform: rotate(0deg);
     background: #6a4c93;
@@ -430,10 +426,6 @@ body.preview-page .loading-indicator {
 }
 
 /* 로딩아이콘4 */
-.loader4 {
-    animation: spin 1.1s linear infinite reverse;
-}
-
 .loader4 div:nth-child(1) {
     transform: rotate(0deg);
     background: #d94a8c;
