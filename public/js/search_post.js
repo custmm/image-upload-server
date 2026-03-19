@@ -94,8 +94,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             item.classList.add("search-item");
 
             item.innerHTML = `
-            <img src="${post.file_path}" alt="${post.title}">
-            <h3>${post.title}</h3>
+            <div class="search_image">
+                <img src="${post.file_path}" alt="${post.title}">
+            </div>
+            <div class="search_title">
+                <h3>${post.title}</h3>
+            </div>
         `;
 
             item.addEventListener("click", () => {
