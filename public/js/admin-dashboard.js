@@ -1,3 +1,26 @@
+function cleanExpiredToken() {
+
+    const token = localStorage.getItem("adminToken");
+
+    if (!token) return;
+
+    try {
+
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        const now = Date.now() / 1000;
+
+        if (payload.exp < now) {
+            localStorage.removeItem("adminToken");
+        }
+
+    } catch {
+        localStorage.removeItem("adminToken");
+    }
+}
+
+cleanExpiredToken();
+
+
 // 이미지로드
 let loadedImages = 0;
 let currentMode = "text";
