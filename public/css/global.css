@@ -648,14 +648,6 @@ body.post-page .postcategory-container {
     justify-content: center;
 }
 
-/*-------------------------- search-page공통 레이아웃 ----------------------------------------------*/
-body.search-page .search-title,
-body.search-page #searchResults {
-    display: flex;
-    justify-content: center;
-}
-
-
 /*-------------------------- dashboard-page공통 레이아웃 ----------------------------------------------*/
 body.dashboard-page html,
 body.dashboard-page {

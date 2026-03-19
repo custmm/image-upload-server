@@ -1973,6 +1973,8 @@ body.search-page .search-container {
 }
 
 body.search-page #searchResults {
+    display: flex;
+    justify-content: space-between;
     flex-direction: column;
     min-height: 250px;
 }
