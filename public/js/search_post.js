@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     function loadMore() {
         if (isLoading) return;
         isLoading = true;
-        showLoadingSpinner();
+        showLoading();
 
         const nextPosts = filteredPosts.slice(currentIndex, currentIndex + batchSize);
 
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
         currentIndex += batchSize;
-        hideLoadingSpinner();
+        hideLoading();
         isLoading = false;
 
         // 🔥 화면이 아직 짧으면 자동 추가 로딩
