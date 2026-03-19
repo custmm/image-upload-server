@@ -1,12 +1,26 @@
 
+let loaderStep = 1;
+let loaderInterval = null;
+
 function showLoading() {
-  document.getElementById("loadingIndicator").style.display = "flex";
+  const indicator = document.getElementById("loadingIndicator");
+  const loader = document.getElementById("mainLoader");
+
+  indicator.style.display = "flex";
+
+  loaderInterval = setInterval(() => {
+    loaderStep++;
+    if (loaderStep > 4) loaderStep = 1;
+
+    loader.className = "loader loader" + loaderStep;
+  }, 200); // 속도 조절 가능
 }
 
 function hideLoading() {
-  setTimeout(() => {
-    document.getElementById("loadingIndicator").style.display = "none";
-  }, 500); // 0.5초 후 숨김
+  clearInterval(loaderInterval);
+  loaderInterval = null;
+
+  document.getElementById("loadingIndicator").style.display = "none";
 }
 
 function showPopupMessage(message) {

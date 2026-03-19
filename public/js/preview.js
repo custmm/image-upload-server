@@ -171,6 +171,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 상태값(기타)
     let noMoreImages = false;
     let isCut = false;
+    // let loaderStep = 1;
+    // let loaderInterval = null;
+
+    // function showLoading() {
+    //     const indicator = document.getElementById("loadingIndicator");
+    //     const loader = document.getElementById("mainLoader");
+
+    //     indicator.style.display = "flex";
+
+    //     loaderInterval = setInterval(() => {
+    //         loaderStep++;
+    //         if (loaderStep > 4) loaderStep = 1;
+
+    //         loader.className = "loader loader" + loaderStep;
+    //     }, 200); // 속도 조절 가능
+    // }
+
+    // function hideLoading() {
+    //     clearInterval(loaderInterval);
+    //     loaderInterval = null;
+
+    //     document.getElementById("loadingIndicator").style.display = "none";
+    // }
 
 
     if (previewLink) {
