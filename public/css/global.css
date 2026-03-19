@@ -232,8 +232,66 @@ body.preview-popup-page {
 }
 
 /*-------------------------- 로딩 화면 스타일 ----------------------------------------------*/
-
+/* 중앙 정렬 */
 body.post-page .loading-indicator,
+body.preview-page .loading-indicator {
+    position: fixed;
+    display: none; /* JS에서 켜기 */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+/* 로딩 애니메이션 */
+.loader {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.loader span {
+    width: 12px;
+    height: 12px;
+    background: #555;
+    border-radius: 3px;
+    animation: loading 1.2s infinite;
+}
+
+/* 순서 애니메이션 */
+.loader span:nth-child(1) { animation-delay: 0s; }
+.loader span:nth-child(2) { animation-delay: 0.3s; }
+.loader span:nth-child(3) { animation-delay: 0.6s; }
+.loader span:nth-child(4) { animation-delay: 0.9s; }
+
+@keyframes loading {
+    0% {
+        background: #4facfe;
+        transform: scale(1.3);
+    }
+    25% {
+        background: #555;
+        transform: scale(1);
+    }
+    100% {
+        background: #555;
+        transform: scale(1);
+    }
+}
+
+/* 텍스트 */
+body.post-page .loading-text,
+body.preview-page .loading-text {
+    color: white;
+    font-size: 16px;
+}
+
+/* body.post-page .loading-indicator,
 body.preview-page .loading-indicator,
 body.post-page .loading-image,
 body.preview-page .loading-image,
@@ -254,7 +312,6 @@ body.preview-page .loading-indicator {
     z-index: 9999;
 }
 
-/* 로딩 이미지 크기 */
 body.post-page .loading-image,
 body.preview-page .loading-image {
     top: 50%;
@@ -262,17 +319,15 @@ body.preview-page .loading-image {
     width: 50px;
     height: 50px;
     margin-bottom: 10px;
-    /* 이미지 아래 여백 */
 }
 
-/* 로딩 텍스트 스타일 */
 body.post-page .loading-text,
 body.preview-page .loading-text {
     top: 58%;
     left: 50%;
     font-size: 16px;
     color: white;
-}
+} */
 
 /* 각 페이지의 기본적 레이아웃 설정 */
 body.click-page h1,

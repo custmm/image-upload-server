@@ -1,10 +1,8 @@
 
-// ✅ 로딩 화면 표시 함수
 function showLoading() {
   document.getElementById("loadingIndicator").style.display = "flex";
 }
 
-// ✅ 로딩 화면 숨김 함수
 function hideLoading() {
   setTimeout(() => {
     document.getElementById("loadingIndicator").style.display = "none";
