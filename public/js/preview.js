@@ -172,15 +172,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     let noMoreImages = false;
     let isCut = false;
 
-    function showLoading() {
-        document.getElementById("loadingIndicator").style.display = "flex";
-    }
-
-    function hideLoading() {
-        setTimeout(() => {
-            document.getElementById("loadingIndicator").style.display = "none";
-        }, 500);
-    }
 
     if (previewLink) {
         previewLink.addEventListener("click", (e) => {
@@ -424,7 +415,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 2) 카테고리 선택 시
     async function loadCategory(categoryId, tabButton) {
-        showLoading(); // 🔥 로딩 화면 표시
 
         // ✅ URL 업데이트 (브라우저 히스토리 변경)
         const newCategoryName = tabButton.textContent.trim();
@@ -455,7 +445,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         noMoreImages = false;
         clearGallery();
         await loadPage(categoryId, selectedSubcategory);
-        hideLoading(); // 🔥 로딩 완료 후 숨김
     };
 
     // 3) 서브카테고리 로드
@@ -506,7 +495,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 5) 페이지별 이미지 로드
     async function loadPage(categoryId, subcategoryId = null) {
-        showLoading();
         const offset = page * limit;
         let url = `/api/files?offset=${offset}&limit=${limit}&category_id=${categoryId}`;
         if (subcategoryId) url += `&subcategory_id=${subcategoryId}`;
@@ -627,8 +615,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             // page 증가는 버튼 클릭에서만 하므로 여기선 제거
         } catch (err) {
             console.error(err);
-        } finally {
-            hideLoading();
         }
     }
 
