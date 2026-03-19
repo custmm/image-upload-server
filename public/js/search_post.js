@@ -1,4 +1,28 @@
-document.addEventListener("DOMContentLoaded", async function () {
+    let loaderStep = 1;
+    let loaderInterval = null;
+
+    function showLoading() {
+        const indicator = document.getElementById("loadingIndicator");
+        const loader = document.getElementById("mainLoader");
+
+        indicator.style.display = "flex";
+
+        loaderInterval = setInterval(() => {
+            loaderStep++;
+            if (loaderStep > 4) loaderStep = 1;
+
+            loader.className = "loader loader" + loaderStep;
+        }, 200); // 속도 조절 가능
+    }
+
+    function hideLoading() {
+        clearInterval(loaderInterval);
+        loaderInterval = null;
+
+        document.getElementById("loadingIndicator").style.display = "none";
+    }
+    
+    document.addEventListener("DOMContentLoaded", async function () {
     function normalize(text) {
         return (text || "")
             .toString()
@@ -17,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const batchSize = 8;
     let filteredPosts = [];
     let isLoading = false;
-    let loadingInterval = null;
+
 
     if (!query) {
         keywordElement.textContent = "검색어가 없습니다.";
