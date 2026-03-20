@@ -518,11 +518,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 5) 페이지별 이미지 로드
     async function loadPage(categoryId, subcategoryId = null) {
-        const offset = page * limit;
-        let url = `/api/files?offset=${offset}&limit=${limit}&category_id=${categoryId}`;
-        if (subcategoryId) url += `&subcategory_id=${subcategoryId}`;
+        showLoading();
 
         try {
+            const offset = page * limit;
+            let url = `/api/files?offset=${offset}&limit=${limit}&category_id=${categoryId}`;
+            if (subcategoryId) url += `&subcategory_id=${subcategoryId}`;
+
             const response = await fetch(url);
             if (!response.ok) throw new Error("이미지 로드 실패");
             const { total, files: images } = await response.json();
@@ -532,6 +534,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             noMoreImages = images.length < limit;
 
             clearGallery();
+            
             images.forEach(image => {
 
                 if (currentView === "image") {
@@ -634,10 +637,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             renderPagination(totalPages);
 
-            adjustGalleryRadius(); // 🔥 여기 추가
+            adjustGalleryRadius(); // 여기 추가
             // page 증가는 버튼 클릭에서만 하므로 여기선 제거
         } catch (err) {
             console.error(err);
+        } finally {
+            hideLoading();
         }
     }
 
