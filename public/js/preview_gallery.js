@@ -12,6 +12,7 @@ export function renderImages(imageGallery, images, isExplanMode) {
 
     images.forEach(image => {
 
+        // 이미지모드
         if (currentView === "image") {
 
             const container = document.createElement("div");
@@ -28,7 +29,9 @@ export function renderImages(imageGallery, images, isExplanMode) {
             container.appendChild(img);
             imageGallery.appendChild(container);
 
-        } else {
+        } 
+        // 텍스트모드
+        else {
 
             const row = document.createElement("div");
             row.classList.add("text-row");
@@ -44,7 +47,7 @@ export function renderImages(imageGallery, images, isExplanMode) {
                 window.location.href = `post?id=${image.id}`;
             };
 
-            container.appendChild(row);
+            imageGallery.appendChild(row);
         }
     });
 }
