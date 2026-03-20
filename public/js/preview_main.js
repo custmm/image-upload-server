@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             subcategoryId
         });
 
-        setNoMoreImages(files.length < limit);
+        setNoMoreImages(files.length < currentLimit);
 
         clearGallery(gallery);
         renderImages(gallery, files, isExplanMode);
@@ -51,47 +51,39 @@ document.addEventListener("DOMContentLoaded", async () => {
     async function handleSubClick(categoryId, subId) {
         await loadPage(categoryId, subId);
     }
+    
+    if (imageBtn && textBtn) {
+        // 이미지 모드 버튼
+        imageBtn.addEventListener("click", async () => {
 
-    async function handleCategoryClick(categoryId) {
-        setPage(0); // 🔥 추가
-        await loadSubcategories(subContainer, categoryId, handleSubClick);
-        await loadPage(categoryId, null);
+            setView("image");
+            setPage(0);
+
+            imageBtn.classList.add("active");
+            textBtn.classList.remove("active");
+
+            gallery.classList.remove("text-view");
+            gallery.classList.add("image-view");
+
+            await loadPage(selectedCategory, selectedSubcategory);
+        });
+
+        // 텍스트 모드 버튼
+        textBtn.addEventListener("click", async () => {
+
+            setView("text");
+            setPage(0);
+
+            textBtn.classList.add("active");
+            imageBtn.classList.remove("active");
+
+            gallery.classList.remove("image-view");
+            gallery.classList.add("text-view");
+
+            await loadPage(selectedCategory, selectedSubcategory);
+        });
     }
 
-    async function handleSubClick(categoryId, subId) {
-        setPage(0); // 🔥 추가
-        await loadPage(categoryId, subId);
-    }
-
-    // 이미지 모드 버튼
-    imageBtn.addEventListener("click", async () => {
-
-        setView("image");
-        setPage(0);
-
-        imageBtn.classList.add("active");
-        textBtn.classList.remove("active");
-
-        gallery.classList.remove("text-view");
-        gallery.classList.add("image-view");
-
-        await loadPage(selectedCategory, selectedSubcategory);
-    });
-
-    // 텍스트 모드 버튼
-    textBtn.addEventListener("click", async () => {
-
-        setView("text");
-        setPage(0);
-
-        textBtn.classList.add("active");
-        imageBtn.classList.remove("active");
-
-        gallery.classList.remove("image-view");
-        gallery.classList.add("text-view");
-
-        await loadPage(selectedCategory, selectedSubcategory);
-    });
 
     // ⭐ 초기 실행
     await loadCategories(categoryContainer, handleCategoryClick);
