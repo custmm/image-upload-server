@@ -43,15 +43,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // ⭐ 카테고리 클릭 시
     async function handleCategoryClick(categoryId) {
+        setPage(0);
         await loadSubcategories(subContainer, categoryId, handleSubClick);
         await loadPage(categoryId, null);
     }
 
     // ⭐ 서브카테고리 클릭 시
     async function handleSubClick(categoryId, subId) {
+        setPage(0);
         await loadPage(categoryId, subId);
     }
-    
+
     if (imageBtn && textBtn) {
         // 이미지 모드 버튼
         imageBtn.addEventListener("click", async () => {
