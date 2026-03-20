@@ -252,6 +252,15 @@ body.search-page .loading-indicator {
     z-index: 9999;
 }
 
+/* 텍스트 */
+body.post-page .loading-text,
+body.preview-page .loading-text,
+body.tag-page .loading-text,
+body.search-page .loading-text {
+    color: white;
+    font-size: 16px;
+}
+
 .loader {
     width: 80px;
     height: 80px;
@@ -467,15 +476,6 @@ body.search-page .loading-indicator {
 .loader4 div:nth-child(8) {
     transform: rotate(315deg);
     background: red;
-}
-
-/* 텍스트 */
-body.post-page .loading-text,
-body.preview-page .loading-text,
-body.tag-page .loading-text,
-body.search-page .loading-text {
-    color: white;
-    font-size: 16px;
 }
 
 /* 각 페이지의 기본적 레이아웃 설정 */

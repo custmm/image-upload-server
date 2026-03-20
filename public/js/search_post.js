@@ -54,9 +54,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     try {
 
+        showLoading();
+
         //  서버에서 실제 게시글 가져오기
         const response = await fetch(`/api/search?keyword=${encodeURIComponent(query)}`);
         const data = await response.json();
+
+        hideLoading();
 
         //  배열이 어디에 있는지 추출
         const posts = data.posts || [];
@@ -84,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     function loadMore() {
         if (isLoading) return;
         isLoading = true;
-        showLoading();
+
 
         const nextPosts = filteredPosts.slice(currentIndex, currentIndex + batchSize);
 
@@ -111,7 +115,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
         currentIndex += batchSize;
-        hideLoading();
         isLoading = false;
 
         //  화면이 아직 짧으면 자동 추가 로딩
