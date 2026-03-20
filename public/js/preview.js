@@ -703,9 +703,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
 
             const images = await response.json();
-            console.log("✅ 서버 응답:", images);
+            console.log(" 서버 응답:", images);
 
-            clearGallery(); // ✅ 기존 이미지 삭제 (innerHTML = "" 대신 사용)
+            clearGallery(); // 기존 이미지 삭제 (innerHTML = "" 대신 사용)
 
             if (!Array.isArray(images) || images.length === 0) {
                 imageGallery.classList.remove("grid-layout");
@@ -713,7 +713,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 const noImageMessage = document.createElement("div");
                 noImageMessage.classList.add("no-image-message");
-                noImageMessage.innerHTML = "📂 해당 카테고리에 이미지가 없습니다.";
+                noImageMessage.innerHTML = " 해당 카테고리에 이미지가 없습니다.";
                 imageGallery.appendChild(noImageMessage);
                 return;
             }
@@ -731,13 +731,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     const img = document.createElement("img");
                     img.dataset.src = `${image.file_path}`;
-                    observer.observe(img); // ✅ Intersection Observer로 감지
+                    observer.observe(img); // Intersection Observer로 감지
 
                     const postURL = `post?id=${image.id}`;
 
                     img.onclick = () => {
-                        if (isExplanMode) return; // 🔒 체험모드에서는 클릭 무시
-                        console.log(`✅ 이동할 URL: ${postURL}`);
+                        if (isExplanMode) return; // 체험모드에서는 클릭 무시
+                        console.log(` 이동할 URL: ${postURL}`);
                         window.location.href = postURL;
                     };
 
@@ -825,7 +825,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             });
         } catch (error) {
-            console.error("🚨 이미지를 불러오는 중 오류 발생:", error);
+            console.error(" 이미지를 불러오는 중 오류 발생:", error);
             imageGallery.classList.remove("grid-layout");
             imageGallery.classList.add("flex-center");
             imageGallery.innerHTML = `<p class="no-image-message">오류: ${error.message}</p>`;
