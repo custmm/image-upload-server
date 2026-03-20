@@ -14,12 +14,18 @@ function showLoading() {
         loader.className = "loader loader" + loaderStep;
     }, 1000); // 속도 조절 가능
 }
-
 function hideLoading() {
+    const indicator = document.getElementById("loadingIndicator");
+
     clearInterval(loaderInterval);
     loaderInterval = null;
 
-    document.getElementById("loadingIndicator").style.display = "none";
+    indicator.style.opacity = "0"; // 🔥 서서히 투명
+
+    setTimeout(() => {
+        indicator.style.display = "none"; // 완전히 숨김
+        indicator.style.opacity = "1";    // 다음 사용 위해 복구
+    }, 300); // CSS transition 시간과 맞추기
 }
 
 // 페이지 이동 함수 정의 (전역)
@@ -520,6 +526,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     async function loadPage(categoryId, subcategoryId = null) {
         showLoading();
 
+        const startTime = Date.now(); // 시작 시간 기록
+
         try {
             const offset = page * limit;
             let url = `/api/files?offset=${offset}&limit=${limit}&category_id=${categoryId}`;
@@ -534,7 +542,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             noMoreImages = images.length < limit;
 
             clearGallery();
-            
+
             images.forEach(image => {
 
                 if (currentView === "image") {
@@ -642,6 +650,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         } catch (err) {
             console.error(err);
         } finally {
+            const minDuration = 500; // 최소 0.5초 보장
+            const elapsed = Date.now() - startTime;
+
+            if (elapsed < minDuration) {
+                await new Promise(res => setTimeout(res, minDuration - elapsed));
+            }
             hideLoading();
         }
     }
