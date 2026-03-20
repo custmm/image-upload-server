@@ -1,3 +1,14 @@
+import {
+    page,
+    limit,
+    selectedCategory,
+    selectedSubcategory,
+    currentView,
+    noMoreImages
+} from "./preview_state.js";
+import { fetchImages } from "./preview_api.js";
+
+
 let loaderStep = 1;
 let loaderInterval = null;
 
@@ -171,18 +182,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const savedTheme = localStorage.getItem("theme") || "light-mode";
     setTheme(savedTheme);
 
-
-    // 상태값(이미지/텍스트모드관련)
-    let currentView = "image";
-
-    // 상태값(페이지 제네레이션관련)
-    let page = 0;
-    let limit = 20;
-
     // 상태값(카테고리관련)
     let categoryParam = urlParams.get("category");
-    let selectedCategory = null;
-    let selectedSubcategory = null;
     let categories = [];
 
     // 상태값(토글관련)
@@ -193,7 +194,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     let wasOverlapping = false;
 
     // 상태값(기타)
-    let noMoreImages = false;
     let isCut = false;
 
 
@@ -520,8 +520,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 5) 페이지별 이미지 로드
     async function loadPage(categoryId, subcategoryId = null) {
-        const offset = page * limit;
-        let url = `/api/files?offset=${offset}&limit=${limit}&category_id=${categoryId}`;
+        const { total, files } = await fetchImages({
+            offset,
+            limit,
+            categoryId,
+            subcategoryId
+        });
         if (subcategoryId) url += `&subcategory_id=${subcategoryId}`;
 
         try {
