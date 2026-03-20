@@ -66,7 +66,7 @@ function renderNextPosts() {
 }
 
 
-// ✅ "목록으로" 버튼 클릭 시 이전 페이지로 이동
+// "목록으로" 버튼 클릭 시 이전 페이지로 이동
 const backBtn = document.getElementById("backToListButton");
 
 if (backBtn) {
@@ -82,17 +82,17 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
   const toggleBtn = document.getElementById("resetTagButton");
   const postList = document.getElementById("postList");
 
-  // 🔽 이미 열려 있으면 → 닫기
+  // 이미 열려 있으면 → 닫기
   if (tagListDiv.style.display === "block") {
     tagListDiv.style.display = "none";
-    postList.style.display = "";   // ✅ 게시글 다시 표시
+    postList.style.display = "";   // 게시글 다시 표시
     toggleBtn.textContent = "전체 태그 보기";
     return;
   }
 
-  // 🔼 닫혀 있으면 → 열기
+  // 닫혀 있으면 → 열기
   tagListDiv.style.display = "block";
-  postList.style.display = "none";      // ✅ 게시글 숨기기
+  postList.style.display = "none";      // 게시글 숨기기
   toggleBtn.textContent = "개별 태그 보기";
 
 
@@ -162,12 +162,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!postList || !tagTitle) return;
 
   const tag = new URLSearchParams(location.search).get("tag");
+
   if (!tag) {
-    tagTitle.textContent = "❌ 태그 없음";
+    tagTitle.textContent = " 태그 없음";
     return;
   }
 
   tagTitle.textContent = `#${tag} 관련 게시물`;
+
+  showLoading();
 
   try {
     const response = await fetch(`/api/search?tag=${encodeURIComponent(tag)}`);
@@ -188,12 +191,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderNextPosts();
 
   } catch (err) {
-    console.error("❌ 검색 중 오류:", err);
+    console.error(" 검색 중 오류:", err);
     postList.innerHTML =
       `<img src="/images/search_error.png" alt="검색오류"><p>데이터를 불러오지 못했습니다.</p>`;
+  }finally{
+    hideLoading();
   }
 
-  // ✅ IntersectionObserver로 무한 스크롤 감지
+  // IntersectionObserver로 무한 스크롤 감지
   const observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting && currentIndex < allPosts.length) {
       renderNextPosts();

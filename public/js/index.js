@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let glowClickCount = 0;
     let clickedCircles = [];
     const totalGlowClicksNeeded = 5;
-    let isPopupOpen = false;  // ✅ 팝업 상태 변수 추가
+    let isPopupOpen = false;  //  팝업 상태 변수 추가
 
     /* ---------------- 문 열기 + 페이지 이동 ---------------- */
     function openDoorAndRedirect(url) {
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = url;
         }, 1000);
     }
-    
+
     // 버튼 클릭 이벤트 설정 (존재할 경우에만)
     if (adminModeButton) {
         adminModeButton.addEventListener("click", () => {
@@ -63,8 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------------- 이스터에그 활성화 ---------------- */
     function showPopup(message, imageUrl, callback) {
-        if (isPopupOpen) return;  // ✅ 팝업이 열려 있으면 실행 중단
-        isPopupOpen = true;  // ✅ 팝업 열림 상태로 변경
+        if (isPopupOpen) return;  //  팝업이 열려 있으면 실행 중단
+        isPopupOpen = true;  //  팝업 열림 상태로 변경
 
         // 팝업 오버레이(배경 컨테이너) 생성
         const overlay = document.createElement("div");
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         confirmButton.className = "popup-confirm-button";
         confirmButton.addEventListener("click", () => {
             overlay.remove();
-            isPopupOpen = false;  // ✅ 팝업 닫힘 상태로 변경
+            isPopupOpen = false;  //  팝업 닫힘 상태로 변경
             if (callback) callback(); // 콜백 함수 실행
         });
         popup.appendChild(confirmButton);
@@ -107,9 +107,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     body.addEventListener("click", (event) => {
-        if (isPopupOpen) return;  // ✅ 팝업이 열려있으면 클릭 카운트 증가 X
+        if (isPopupOpen) return;  //  팝업이 열려있으면 클릭 카운트 증가 X
 
-        // ❌ UI 클릭은 불꽃 제외
+        // UI 클릭은 불꽃 제외
         if (
             event.target.closest(".container") ||
             event.target.closest("button") ||
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ) return;
 
         const x = event.clientX;
-        const y = event.clientY; // 🔥 scroll 보정
+        const y = event.clientY; // scroll 보정
 
         createFirework(x, y);
         playFireworkSound(); // 불꽃놀이 소리 재생
@@ -146,44 +146,44 @@ document.addEventListener("DOMContentLoaded", () => {
                 clickEventsData[globalClickCount].message,
                 clickEventsData[globalClickCount].imageUrl,
                 () => {
-                    // ✅ 존재 여부 체크 후 실행 (오류 방지)
+                    //  존재 여부 체크 후 실행 (오류 방지)
                     if (globalClickCount === 444) {
                         console.log("🎉 이스터에그 조건 충족! triggerEasterEgg() 실행");
-                        globalClickCount = 444;  // ✅ 더 이상 증가하지 않도록 고정
+                        globalClickCount = 444;  //  더 이상 증가하지 않도록 고정
                         triggerEasterEgg();
                     } else {
-                        console.log(`❌ ${globalClickCount}회 클릭했지만, 이스터에그 실행 조건 불충족`);
+                        console.log(` ${globalClickCount}회 클릭했지만, 이스터에그 실행 조건 불충족`);
                     }
                 }
             );
         }
     });
 
-    // ✅ 이스터에그 실행 함수
+    //  이스터에그 실행 함수
     function triggerEasterEgg() {
-        console.log("🔥 이스터에그 시작!");
+        console.log(" 이스터에그 시작!");
 
-        // ✅ 모든 요소 삭제
+        //  모든 요소 삭제
         document.querySelectorAll(".glow-circle").forEach(circle => circle.remove());
         if (document.getElementById("container")) document.getElementById("container").remove();
         if (document.getElementById("modeSelection")) document.getElementById("modeSelection").remove();
         if (document.getElementById("mainTitle")) document.getElementById("mainTitle").remove();
 
-        // ✅ 오디오 요소 확인
+        //  오디오 요소 확인
         console.log("🎵 오디오 요소 가져오기...");
         const audio = document.getElementById("easterEggAudio");
 
         if (!audio) {
-            console.error("❌ 오디오 요소를 찾을 수 없습니다. `id=easterEggAudio` 확인 필요!");
+            console.error(" 오디오 요소를 찾을 수 없습니다. `id=easterEggAudio` 확인 필요!");
             return;
         }
 
-        // ✅ 오디오 무한 반복 재생
+        //  오디오 무한 반복 재생
         console.log("🎵 오디오 재생 시도");
         audio.loop = true;
         audio.play()
-            .then(() => console.log("✅ 오디오 재생 시작"))
-            .catch(error => console.error("🚨 오디오 재생 오류:", error));
+            .then(() => console.log(" 오디오 재생 시작"))
+            .catch(error => console.error(" 오디오 재생 오류:", error));
     }
 
 
@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.backgroundColor = "#c0c0c0";
 
     function createFirework(x, y) {
-        console.log("🔥 불꽃놀이 생성 시작:", x, y);
+        console.log(" 불꽃놀이 생성 시작:", x, y);
         const fireworkContainer = document.createElement("div");
         fireworkContainer.classList.add("firework");
 
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fireworkContainer.style.top = `${y}px`;
 
         document.body.appendChild(fireworkContainer);
-        console.log("✅ fireworkContainer 추가됨:", fireworkContainer);
+        console.log(" fireworkContainer 추가됨:", fireworkContainer);
 
         for (let i = 0; i < 100; i++) {
             const particle = document.createElement("div");

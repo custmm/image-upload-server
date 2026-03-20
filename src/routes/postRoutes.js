@@ -1,9 +1,9 @@
 import express from "express";
-import { Post } from "../models/index.js"; // ✅ 이제 Post가 정상적으로 export됨
+import { Post } from "../models/index.js"; // 이제 Post가 정상적으로 export됨
 
 const router = express.Router();
 
-// ✅ 모든 게시물 조회 API
+// 모든 게시물 조회 API
 router.get("/", async (req, res) => {
     try {
         const posts = await Post.findAll();
@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-// ✅ 게시물 생성 API
+// 게시물 생성 API
 router.post("/", async (req, res) => {
     try {
         const { title, content, categoryId, subcategoryId } = req.body;

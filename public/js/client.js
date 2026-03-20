@@ -10,13 +10,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const descriptionCounter = document.getElementById("descriptionCounter");
 
 
-    // ✅ 팝업 스타일 메시지 표시 함수
+    //  팝업 스타일 메시지 표시 함수
     function showPopup(message) {
-        // ✅ 기존 팝업이 있으면 제거
+        //  기존 팝업이 있으면 제거
         const existingPopup = document.querySelector(".popup-message");
         if (existingPopup) existingPopup.remove();
 
-        // ✅ 팝업 요소 생성
+        //  팝업 요소 생성
         const popup = document.createElement("div");
         popup.className = "popup-message";
         popup.innerHTML = `
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             popup.remove();
         });
     }
-    // ✅ 팝업 메시지 스타일 추가
+    //  팝업 메시지 스타일 추가
     const style = document.createElement("style");
     style.innerHTML = `
     .popup-message {
@@ -92,19 +92,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         loadingDiv.style.height = "100%";
         loadingDiv.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
         loadingDiv.style.display = "flex";
-        loadingDiv.style.flexDirection = "column";  // 🔥 수직 정렬
+        loadingDiv.style.flexDirection = "column";  // 수직 정렬
         loadingDiv.style.justifyContent = "center";
         loadingDiv.style.alignItems = "center";
         loadingDiv.style.color = "#fff";
         loadingDiv.style.fontSize = "24px";
 
-        // ✅ 로딩 GIF 이미지 추가
+        //  로딩 GIF 이미지 추가
         const loadingImg = document.createElement("img");
         loadingImg.src = "images/loading.gif";
         loadingImg.alt = "로딩 중...";
-        loadingImg.style.width = "100px"; // 🔥 원하는 크기로 조절
+        loadingImg.style.width = "100px"; // 원하는 크기로 조절
         loadingImg.style.height = "100px";
-        loadingImg.style.marginBottom = "15px"; // 🔥 텍스트와 간격 조정
+        loadingImg.style.marginBottom = "15px"; // 텍스트와 간격 조정
 
         const loadingText = document.createElement("p");
         loadingText.textContent = "업로드 중입니다...";
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 
-    /** ✅ 요소가 존재하는 경우에만 이벤트 추가 */
+    /**  요소가 존재하는 경우에만 이벤트 추가 */
     if (fileInput) {
         fileInput.addEventListener("change", event => {
             const file = event.target.files[0];
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 
-    /** ✅ 3️⃣ 카테고리 및 서브카테고리 로드 */
+    /**  3️⃣ 카테고리 및 서브카테고리 로드 */
     categorySelect.addEventListener("change", (event) => {
         const categoryId = event.target.value;
         loadSubcategories(categoryId);
@@ -154,25 +154,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         descriptionEditor.addEventListener("input", () => {
             const rawText = descriptionEditor.innerText.trim();
 
-            // ✅ 한글 포함 해시태그 추출
+            //  한글 포함 해시태그 추출
             const hashtags = rawText.match(/#[\w가-힣]+/g) || [];
 
-            // ✅ 해시태그 제거한 텍스트 길이 계산
+            //  해시태그 제거한 텍스트 길이 계산
             const textWithoutTags = rawText.replace(/#[\w가-힣]+/g, '').trim();
             const length = textWithoutTags.length;
 
-            // ✅ 글자 수 표시
+            //  글자 수 표시
             descriptionCounter.textContent = `${length} / 500`;
             descriptionCounter.style.color = length > 500 ? "red" : "gray";
 
-            // ✅ 해시태그 표시 (왼쪽)
+            //  해시태그 표시 (왼쪽)
             const hashtagDisplay = document.getElementById("hashtagDisplay");
             if (hashtagDisplay) {
                 hashtagDisplay.textContent = hashtags.join(' ');
             }
         });
 
-        // ✅ 엔터 키 입력 시 `<br>` 삽입 (최신 방식)
+        //  엔터 키 입력 시 `<br>` 삽입 (최신 방식)
         descriptionEditor.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
                 event.preventDefault(); // 기본 엔터 동작 방지
@@ -196,11 +196,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
     function showuploadPopup(message, postURL = null) {
-        // ✅ 기존 팝업이 있으면 제거
+        //  기존 팝업이 있으면 제거
         const existingPopup = document.querySelector(".popup-message");
         if (existingPopup) existingPopup.remove();
 
-        // ✅ 팝업 요소 생성
+        //  팝업 요소 생성
         const popup = document.createElement("div");
         popup.className = "popup-message";
         popup.innerHTML = `
@@ -213,12 +213,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         document.body.appendChild(popup);
 
-        // ✅ "계속 업로드" 버튼 이벤트 (그냥 `upload.html`로 이동)
+        //  "계속 업로드" 버튼 이벤트 (그냥 `upload.html`로 이동)
         document.getElementById("continueUpload").addEventListener("click", () => {
             window.location.href = "upload.html";
         });
 
-        // ✅ "확인" 버튼 이벤트 (post.html로 이동)
+        //  "확인" 버튼 이벤트 (post.html로 이동)
         if (postURL) {
             document.getElementById("viewPost").addEventListener("click", () => {
                 window.location.href = postURL;
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // ✅ insertHTML 함수 정의
+    //  insertHTML 함수 정의
     window.insertHTML = function (text) {
         const selection = window.getSelection();
         if (!selection.rangeCount) return;
@@ -235,14 +235,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         const fragment = document.createDocumentFragment();
         const tempDiv = document.createElement("div");
 
-        tempDiv.innerHTML = text; // 🔥 삽입할 HTML을 임시 div에 넣기
+        tempDiv.innerHTML = text; // 삽입할 HTML을 임시 div에 넣기
 
         while (tempDiv.firstChild) {
             fragment.appendChild(tempDiv.firstChild);
         }
 
-        range.deleteContents(); // 🔥 기존 선택 영역 삭제
-        range.insertNode(fragment); // 🔥 새로운 HTML 삽입
+        range.deleteContents(); // 기존 선택 영역 삭제
+        range.insertNode(fragment); // 새로운 HTML 삽입
     };
 
     function handlePaste(event) {
@@ -253,12 +253,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (pasteHtml) {
             pasteHtml = pasteHtml
                 .replace(/<\/?(div|p)>/g, "<br>")  // `<div>`, `<p>` → `<br>` 변환
-                .replace(/(<br\s*\/?>){2,}/g, "<br>");  // ✅ 중복 `<br>` 제거
+                .replace(/(<br\s*\/?>){2,}/g, "<br>");  //  중복 `<br>` 제거
         } else {
             pasteHtml = pasteHtml.replace(/\n/g, "<br>");
         }
 
-        // ✅ 현재 커서 위치에 붙여넣기 내용 삽입
+        //  현재 커서 위치에 붙여넣기 내용 삽입
         const selection = window.getSelection();
         if (!selection.rangeCount) return;
 
@@ -275,13 +275,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         range.insertNode(fragment);
     }
 
-    // ✅ 붙여넣기 이벤트 적용
+    //  붙여넣기 이벤트 적용
     if (descriptionEditor) {
         descriptionEditor.removeEventListener("paste", handlePaste); // 기존 이벤트 제거
         descriptionEditor.addEventListener("paste", handlePaste);
     }
 
-    // ✅ 클라이언트에서도 허용된 태그만 유지
+    //  클라이언트에서도 허용된 태그만 유지
     function sanitizeDescription(html) {
         const allowedTags = ["b", "strong", "i", "em", "s", "strike", "u", "br", "span", "div", "p"];
         let doc = new DOMParser().parseFromString(html, "text/html");
@@ -302,14 +302,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         const categoryId = categorySelect.value;
         const subcategoryId = subcategorySelect.value || "";
 
-        // ✅ 올바른 category_name 가져오기 (categoryId와 매칭)
+        //  올바른 category_name 가져오기 (categoryId와 매칭)
         const categoryName = categorySelect.options[categorySelect.selectedIndex]?.text.trim();
         const subcategoryName = subcategorySelect.options[subcategorySelect.selectedIndex]?.text.trim() || "general";
 
-        let description = descriptionEditor.innerHTML.trim(); // ✅ HTML 태그 유지
-        description = sanitizeDescription(description); // 🔥 여기서 함수 사용 (불필요한 태그 제거)
+        let description = descriptionEditor.innerHTML.trim(); //  HTML 태그 유지
+        description = sanitizeDescription(description); // 여기서 함수 사용 (불필요한 태그 제거)
 
-        // ✅ 순수 텍스트 길이 검사 (HTML 태그 제외)
+        //  순수 텍스트 길이 검사 (HTML 태그 제외)
         function stripHtmlTags(html) {
             let doc = new DOMParser().parseFromString(html, "text/html");
             return doc.body.textContent || "";
@@ -356,7 +356,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         formData.append("title", title);
         formData.append("category_id", categoryId);
         formData.append("subcategory_id", subcategoryId);
-        formData.append("category_name", categoryName);  // ✅ 서버에 카테고리 이름 전송
+        formData.append("category_name", categoryName);  //  서버에 카테고리 이름 전송
         formData.append("subcategory_name", subcategoryName);
         formData.append("description", description);
 
@@ -366,7 +366,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         try {
-            showLoading(); // ✅ 로딩 시작
+            showLoading(); //  로딩 시작
 
             const response = await fetch("/api/files/upload", {
                 method: "POST",
@@ -376,32 +376,32 @@ document.addEventListener("DOMContentLoaded", async () => {
             const result = await response.json();
 
             setTimeout(() => {
-                hideLoading(); // ✅ 1초 후 로딩 제거
+                hideLoading(); //  1초 후 로딩 제거
 
                 if (!response.ok) {
-                    console.error("🚨 서버 오류 응답:", result);
+                    console.error(" 서버 오류 응답:", result);
                     showPopup(`업로드 실패: ${result.error || "알 수 없는 오류"}`);
                     return;
                 }
 
-                console.log("✅ 서버 응답:", result);
+                console.log(" 서버 응답:", result);
 
-                // ✅ 업로드된 파일 정보 가져오기
-                const { file_name, category_name, subcategory_name } = result.file; // 🔥 DB에서 가져온 값 사용
+                //  업로드된 파일 정보 가져오기
+                const { file_name, category_name, subcategory_name } = result.file; // DB에서 가져온 값 사용
 
-                // ✅ URL 생성 시 올바른 카테고리명 사용
+                //  URL 생성 시 올바른 카테고리명 사용
                 const postURL = `post?category=${encodeURIComponent(category_name)}&subcategory=${encodeURIComponent(subcategory_name)}&file=${encodeURIComponent(file_name)}`;
 
-                showuploadPopup("✅ 업로드 성공!", postURL);
-            }, 1000); // ✅ 1초 후 실행
+                showuploadPopup(" 업로드 성공!", postURL);
+            }, 1000); //  1초 후 실행
             resetForm();
         } catch (error) {
-            console.error("🚨 업로드 중 네트워크 오류:", error);
+            console.error(" 업로드 중 네트워크 오류:", error);
             showPopup("업로드 실패! 서버에 문제가 있습니다.");
         }
     });
 
-    // ✅ 카테고리 한글 매핑
+    //  카테고리 한글 매핑
     const categoryTranslations = {
         "puzzle": "퍼즐",
         "bizz": "보석비즈",
@@ -410,20 +410,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         "brickfigure": "브릭피규어"
     };
     
-    /** ✅ 3️⃣ 카테고리 & 서브카테고리 동적 불러오기 */
+    /**  3️⃣ 카테고리 & 서브카테고리 동적 불러오기 */
     async function loadCategories() {
         try {
             const response = await fetch("/api/categories");
             if (!response.ok) throw new Error("카테고리를 가져오는 데 실패함");
 
             const categories = await response.json();
-            categorySelect.innerHTML = "<option value=''>카테고리 선택</option>"; // ✅ 기본값 추가
+            categorySelect.innerHTML = "<option value=''>카테고리 선택</option>"; //  기본값 추가
 
             categories.forEach(category => {
-                if (category.name.toLowerCase() !== "uncategorized") { // ✅ uncategorized 제외
+                if (category.name.toLowerCase() !== "uncategorized") { //  uncategorized 제외
                     const option = document.createElement("option");
                     option.value = category.id;
-                    option.textContent = categoryTranslations[category.name] || category.name; // 🔥 한글 변환
+                    option.textContent = categoryTranslations[category.name] || category.name; // 한글 변환
                     categorySelect.appendChild(option);
                 }
             });
@@ -432,7 +432,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 loadSubcategories(categories[0].id);
             }
         } catch (error) {
-            console.error("🚨 카테고리를 불러오는 중 오류 발생:", error);
+            console.error(" 카테고리를 불러오는 중 오류 발생:", error);
         }
     }
 
@@ -442,7 +442,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (!response.ok) throw new Error("서브카테고리를 가져오는 데 실패함");
 
             const subcategories = await response.json();
-            subcategorySelect.innerHTML = "<option value=''>선택 없음</option>"; // ✅ 기본값 추가
+            subcategorySelect.innerHTML = "<option value=''>선택 없음</option>"; //  기본값 추가
             subcategories.forEach(sub => {
                 const option = document.createElement("option");
                 option.value = sub.id;
@@ -450,10 +450,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 subcategorySelect.appendChild(option);
             });
         } catch (error) {
-            console.error("🚨 서브카테고리를 불러오는 중 오류 발생:", error);
+            console.error(" 서브카테고리를 불러오는 중 오류 발생:", error);
         }
     }
-    /** ✅ 6️⃣ 폼 초기화 함수 */
+    /**  6️⃣ 폼 초기화 함수 */
     function resetForm() {
         previewContainer.innerHTML = "";
         descriptionEditor.innerHTML = "";
@@ -463,6 +463,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         subcategorySelect.innerHTML = "<option value=''>선택 없음</option>";
     }
 
-    /** ✅ 초기 데이터 로드 */
+    /**  초기 데이터 로드 */
     if (categorySelect) loadCategories();
 });

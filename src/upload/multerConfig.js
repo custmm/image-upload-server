@@ -11,7 +11,7 @@ const imagekit = new ImageKit({
   urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
 
-// ✅ 메모리 기반 multer 설정 (파일을 서버에 저장하지 않음)
+// 메모리 기반 multer 설정 (파일을 서버에 저장하지 않음)
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 15 * 1024 * 1024 }, // 최대 15MB

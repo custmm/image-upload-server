@@ -52,13 +52,13 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     try {
-        // ✅ descriptions 테이블에서 외래키 먼저 삭제
+        // descriptions 테이블에서 외래키 먼저 삭제
         await queryInterface.removeConstraint("descriptions", "descriptions_ibfk_1");
       } catch (error) {
         console.warn("⚠️ descriptions_ibfk_1 외래키가 존재하지 않음, 무시하고 진행");
       }
 
-    // ✅ files 테이블 삭제
+    // files 테이블 삭제
     await queryInterface.dropTable("files");
   },
 };

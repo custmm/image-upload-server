@@ -54,11 +54,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     try {
 
-        // 🔥 서버에서 실제 게시글 가져오기
+        //  서버에서 실제 게시글 가져오기
         const response = await fetch(`/api/search?keyword=${encodeURIComponent(query)}`);
         const data = await response.json();
 
-        // 🔥 배열이 어디에 있는지 추출
+        //  배열이 어디에 있는지 추출
         const posts = data.posts || [];
         console.log("API 응답:", posts);
 
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             return;
         }
 
-        loadMore(); // 🔥 처음 1번 실행
+        loadMore(); //  처음 1번 실행
 
     } catch (error) {
         console.error("검색 중 오류:", error);
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         hideLoading();
         isLoading = false;
 
-        // 🔥 화면이 아직 짧으면 자동 추가 로딩
+        //  화면이 아직 짧으면 자동 추가 로딩
         if (currentIndex < filteredPosts.length &&
             document.documentElement.scrollHeight <= window.innerHeight) {
             loadMore();

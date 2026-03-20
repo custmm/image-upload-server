@@ -593,7 +593,7 @@ body.game-page #gameControlsPopup {
 body.mode-page html {
     width: 100%;
     overflow-x: hidden;
-    /* ✅ 강제 좌우 스크롤 제거 */
+    /* 강제 좌우 스크롤 제거 */
     box-sizing: border-box;
 }
 
@@ -674,7 +674,7 @@ body.dashboard-page #popup-cancel {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* 🔥 수정/삭제 버튼 */
+/* 수정/삭제 버튼 */
 body.dashboard-page .edit-button,
 body.dashboard-page .delete-button {
     padding: 4px 8px;

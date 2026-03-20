@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 showPopup("로그인 실패!", "error", () => {
                     if (window.location.hash === "#explan") {
-                        showAdminButton(); // ✅ 설명용 링크일 때만 표시
+                        showAdminButton(); //  설명용 링크일 때만 표시
                     }
                 });
             }
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function showPopup(message, type = "info", callback = null) {
-    // ✅ 기존 팝업 제거 (중복 방지)
+    //  기존 팝업 제거 (중복 방지)
     const existingPopup = document.querySelector(".popup-message");
     if (existingPopup) existingPopup.remove();
 

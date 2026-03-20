@@ -6,11 +6,11 @@
             localStorage.setItem("selectedImage", `images/indicator/preview-gunff_${randomIndex}.png`);
         }
 
-        let isPopupOpen = false;  // ✅ 팝업 열려 있는지 여부를 추적하는 변수
+        let isPopupOpen = false;  //  팝업 열려 있는지 여부를 추적하는 변수
 
         function gamepopup(message) {
-            if (isPopupOpen) return;  // ✅ 팝업이 열려 있으면 실행 중단
-            isPopupOpen = true;  // ✅ 팝업 열림 상태로 변경
+            if (isPopupOpen) return;  //  팝업이 열려 있으면 실행 중단
+            isPopupOpen = true;  //  팝업 열림 상태로 변경
 
             // 팝업 오버레이(배경 컨테이너) 생성
             const overlay = document.createElement("div");
@@ -31,8 +31,8 @@
             confirmButton.textContent = "확인";
             confirmButton.addEventListener("click", () => {
                 overlay.remove();
-                isPopupOpen = false;  // ✅ 팝업 닫힘 상태로 변경
-                window.location.href = "preview.html"; // ✅ 이동 추가
+                isPopupOpen = false;  //  팝업 닫힘 상태로 변경
+                window.location.href = "preview.html"; //  이동 추가
             });
             popup.appendChild(confirmButton);
 
@@ -44,8 +44,8 @@
         }
 
         function hintpopup(message) {
-            if (isPopupOpen) return;  // ✅ 팝업이 열려 있으면 실행 중단
-            isPopupOpen = true;  // ✅ 팝업 열림 상태로 변경
+            if (isPopupOpen) return;  //  팝업이 열려 있으면 실행 중단
+            isPopupOpen = true;  //  팝업 열림 상태로 변경
 
             // 팝업 오버레이(배경 컨테이너) 생성
             const overlay = document.createElement("div");
@@ -66,7 +66,7 @@
             confirmButton.textContent = "확인";
             confirmButton.addEventListener("click", () => {
                 overlay.remove();
-                isPopupOpen = false;  // ✅ 팝업 닫힘 상태로 변경
+                isPopupOpen = false;  //  팝업 닫힘 상태로 변경
             });
             popup.appendChild(confirmButton);
 
@@ -163,7 +163,7 @@
             // 🔹 2️⃣ 이미지 클릭 시 게임 조작법 팝업 표시
             selectedImageElement.addEventListener("click", function () {
                 if (!instructionsClosed) { // 🔹 조작법 팝업이 닫힌 경우만 실행
-                    console.log("❌ 조작법 안내창이 열려있어 게임 대기화면으로 이동하지 않습니다.");
+                    console.log(" 조작법 안내창이 열려있어 게임 대기화면으로 이동하지 않습니다.");
                     return;
                 }
                 gameControlsPopup.style.display = "block";
@@ -239,10 +239,10 @@
                     const healthBar = document.getElementById("healthBar");
                     healthBar.style.width = `${health}%`;
 
-                    console.log(`🔥 체력 감소! 현재 체력: ${health}%`);
+                    console.log(` 체력 감소! 현재 체력: ${health}%`);
 
                     if (health === 0) {
-                        gamepopup("💀 체력이 0이 되었습니다! 이동 불가!");
+                        gamepopup(" 체력이 0이 되었습니다! 이동 불가!");
                         canMove = false;
                         isGameOver = true;
                     }
@@ -346,7 +346,7 @@
                 console.log("gameHint 요소 확인:", hintElement); // ❗ 디버깅용
 
                 if (!hintElement) {
-                    console.error("❌ gameHint 요소가 없습니다!");
+                    console.error(" gameHint 요소가 없습니다!");
                     return;
                 }
 
@@ -369,7 +369,7 @@
 
                     let numElem = document.createElement("div");
                     numElem.classList.add("hidden-number", "number");
-                    numElem.setAttribute("data-value", i); // ✅ `data-value` 추가  
+                    numElem.setAttribute("data-value", i); //  `data-value` 추가  
                     numElem.textContent = i;
 
                     // 고정된 위치에 표시되도록 절대 위치 지정
@@ -396,7 +396,7 @@
                 }, 25000);
             }
 
-            // ✅ "게임이 시작되었습니다" 메시지 생성 및 애니메이션 적용
+            //  "게임이 시작되었습니다" 메시지 생성 및 애니메이션 적용
             function showGameStartMessage() {
                 let messageElem = document.createElement("div");
                 messageElem.textContent = "게임이 시작되었습니다!";
@@ -412,11 +412,11 @@
                 messageElem.style.boxShadow = "0 0 10px rgba(255, 255, 255, 0.8)";
                 messageElem.style.zIndex = "9999";
                 messageElem.style.transition = "left 1.5s ease-in-out"; // 왼쪽 -> 중앙 이동
-                messageElem.style.whiteSpace = "nowrap"; // ✅ 줄바꿈 방지 추가
+                messageElem.style.whiteSpace = "nowrap"; //  줄바꿈 방지 추가
 
                 document.body.appendChild(messageElem);
 
-                // 🎵 ✅ MP3 파일 재생 코드 추가
+                // 🎵  MP3 파일 재생 코드 추가
                 let audio = new Audio("sounds/game_start.mp3");  // MP3 파일 경로 지정
                 audio.play().catch(e => console.error("🔇 오디오 재생 오류:", e));
 
@@ -436,7 +436,7 @@
                     canMove = true;
                     numbersGenerated = true; // 🔹 숫자 생성 완료 상태로 변경
                     updateHintVisibility();
-                    updateHintUI(); // ✅ 힌트 UI 업데이트 추가
+                    updateHintUI(); //  힌트 UI 업데이트 추가
                     console.log("🔎 숫자를 찾으세요!");
                     foundNumbersDisplay.style.display = "block";
                 }, 2500);
@@ -447,7 +447,7 @@
                 console.log("🔍 game-hint 요소 개수:", hintElements.length);
 
                 if (hintElements.length === 0) {
-                    console.error("❌ gameHint 요소를 찾을 수 없습니다!");
+                    console.error(" gameHint 요소를 찾을 수 없습니다!");
                     return;
                 }
 
@@ -455,7 +455,7 @@
                     hint.style.display = "block"; // 모든 힌트를 표시
                 });
 
-                console.log("✅ 힌트가 정상적으로 표시되었습니다!");
+                console.log(" 힌트가 정상적으로 표시되었습니다!");
             }
 
             // 통합된 keydown 이벤트 리스너
@@ -525,7 +525,7 @@
                         // 4) (기존 로직) 다음 목표 갱신 및 표식 생성
                         let newTarget = getNextTargetNumber();
                         if (!newTarget) {
-                            console.error("🚨 모든 숫자를 찾음!");
+                            console.error(" 모든 숫자를 찾음!");
                             return;
                         }
 
@@ -539,7 +539,7 @@
                         let oldMarker = document.getElementById("hint-marker");
                         if (oldMarker) oldMarker.remove();
 
-                        // ✅ 새로운 원형 표식 생성
+                        //  새로운 원형 표식 생성
                         let hintMarker = document.createElement("div");
                         hintMarker.id = "hint-marker";  // 고유 ID 부여
                         hintMarker.style.position = "absolute";
@@ -569,14 +569,14 @@
                 const hintContainer = document.getElementById('hints-container');
                 hintContainer.innerHTML = '';  // 기존 힌트 초기화
 
-                for (let i = 0; i < 4; i++) { // ✅ 힌트 개수 4개로 고정
+                for (let i = 0; i < 4; i++) { //  힌트 개수 4개로 고정
                     let hintIcon = document.createElement('img');
                     hintIcon.src = 'images/game_hint.png';
                     hintIcon.classList.add('game-hint');
                     hintContainer.appendChild(hintIcon);
                 }
 
-                // ✅ 힌트 컨테이너 표시
+                //  힌트 컨테이너 표시
                 hintContainer.style.display = "flex";
             }
 
@@ -590,12 +590,12 @@
 
                 let targetElement = document.querySelector(`.hidden-number.number[data-value='${targetInfo.number}']`);
                 if (targetElement) {
-                    // ✅ 숫자 강조 효과 추가
+                    //  숫자 강조 효과 추가
                     targetElement.style.border = "4px solid yellow";
                     targetElement.style.backgroundColor = "rgba(255, 255, 0, 0.7)";
                     targetElement.style.transition = "all 0.5s ease-in-out";
 
-                    // ✅ 깜빡이는 애니메이션 추가 (힌트 효과)
+                    //  깜빡이는 애니메이션 추가 (힌트 효과)
                     targetElement.animate([
                         { transform: "scale(1)", opacity: 1 },
                         { transform: "scale(1.3)", opacity: 0.6 },
@@ -614,7 +614,7 @@
 
             // 숫자를 찾았을 때 이벤트 처리
             function onNumberFound(number) {
-                console.log(`✅ 숫자 ${number} 찾음!`);
+                console.log(` 숫자 ${number} 찾음!`);
 
                 if (!foundNumbers.includes(number)) {
                     foundNumbers.push(number); // 📌 찾은 숫자 목록에 추가
@@ -626,11 +626,11 @@
                 if (foundElement && foundElement.dataset.highlighted) {
                     console.log(`🔵 숫자 ${number}의 강조 효과 제거`);
 
-                    // ✅ opacity를 줄여 서서히 사라지게 설정
+                    //  opacity를 줄여 서서히 사라지게 설정
                     foundElement.style.transition = "opacity 1s ease-out"; // 1초 동안 서서히 사라짐
                     foundElement.style.opacity = "0";
 
-                    // ✅ 1초 후 완전히 숨김 처리
+                    //  1초 후 완전히 숨김 처리
                     setTimeout(() => {
                         foundElement.style.display = "none"; // 최종적으로 완전히 제거
                         foundElement.style.border = "none";
@@ -641,7 +641,7 @@
                         foundElement.style.color = "";  // 글자 다시 보이게
                         foundElement.style.textShadow = "";
 
-                        // ✅ dataset에서 강조 표시 제거
+                        //  dataset에서 강조 표시 제거
                         delete foundElement.dataset.highlighted;
                     }, 1000);
                 }
@@ -651,13 +651,13 @@
                     console.log(`🔄 새로운 목표 숫자 갱신:`, newTarget);
                     currentTargetNumber = newTarget;
                 } else {
-                    console.error("🚨 더 이상 찾을 숫자가 없습니다!");
+                    console.error(" 더 이상 찾을 숫자가 없습니다!");
                 }
             }
 
             function highlightTargetNumber(targetNumber) {
                 if (!targetNumber) {
-                    console.error("❌ 강조할 숫자가 없습니다. targetNumber:", targetNumber);
+                    console.error(" 강조할 숫자가 없습니다. targetNumber:", targetNumber);
                     return;
                 }
 
@@ -667,7 +667,7 @@
                 let targetElement = document.querySelector(`.hidden-number.number[data-value="${targetNumber}"]`);
 
                 if (!targetElement) {
-                    console.error(`❌ 강조할 숫자를 찾을 수 없습니다. (targetNumber: ${targetNumber})`);
+                    console.error(` 강조할 숫자를 찾을 수 없습니다. (targetNumber: ${targetNumber})`);
                     return;
                 }
 
@@ -686,7 +686,7 @@
                 let oldMarker = document.getElementById("hint-marker");
                 if (oldMarker) oldMarker.remove();
 
-                // ✅ 새로운 원형 표식 생성
+                //  새로운 원형 표식 생성
                 let hintMarker = document.createElement("div");
                 hintMarker.id = "hint-marker";  // 고유 ID 부여
                 hintMarker.style.position = "absolute";
@@ -701,11 +701,11 @@
 
                 document.body.appendChild(hintMarker);
 
-                console.log(`✅ 힌트 사용됨 - 숫자 ${targetNumber} 위치 (${targetX}, ${targetY})에 원형 표식 표시됨`);
+                console.log(` 힌트 사용됨 - 숫자 ${targetNumber} 위치 (${targetX}, ${targetY})에 원형 표식 표시됨`);
             }
 
 
-            // ✅ 안전하게 목표 숫자를 가져오는 함수 (랜덤 방식 적용)
+            //  안전하게 목표 숫자를 가져오는 함수 (랜덤 방식 적용)
             function getNextTargetNumber() {
                 let numbers = Array.from(document.querySelectorAll('.hidden-number.number'));
 
@@ -721,7 +721,7 @@
                 for (let numElem of numbers) {
                     let targetValue = parseInt(numElem.textContent.trim(), 10);
 
-                    // **✅ 찾지 않은 숫자만 선택**
+                    // ** 찾지 않은 숫자만 선택**
                     if (foundNumbers.includes(targetValue)) continue;
 
                     let wasHidden = false;
@@ -743,7 +743,7 @@
 
                     console.log(`🎯 다음 목표 숫자: ${targetValue}, 위치: (${targetX}px, ${targetY}px)`);
 
-                    // ✅ **새로운 숫자 설정 후 강조 표시**
+                    //  **새로운 숫자 설정 후 강조 표시**
                     currentTargetNumber = targetValue;
                     currentTargetX = targetX;
                     currentTargetY = targetY;
@@ -768,7 +768,7 @@
 
                 // 숫자 위치 근처인지 체크 (50px 범위)
                 if (Math.abs(left - target.x) < 50 && Math.abs(top - target.y) < 50) {
-                    console.log(`✅ 숫자 ${currentNumber} 찾음!`);
+                    console.log(` 숫자 ${currentNumber} 찾음!`);
 
                     foundNumbers.push(currentNumber);
                     foundNumbersDisplay.textContent = `찾은 숫자: ${foundNumbers.join(", ")}`;
@@ -789,7 +789,7 @@
                     // 이 PNG는 제거하지 않으므로 그대로 남습니다.
                     document.body.appendChild(pngElement);
 
-                    // ✅ 체크 사운드 재생 추가
+                    //  체크 사운드 재생 추가
                     const sound = new Audio("sounds/number_catch.mp3"); // 효과음 경로
                     sound.play().catch(e => console.warn("사운드 재생 실패:", e));
 
@@ -805,7 +805,7 @@
 
                     if (currentNumber > 10) {
                         showVictoryScreen();
-                        // 🎵 ✅ MP3 파일 재생 코드 추가
+                        // 🎵  MP3 파일 재생 코드 추가
                         let audio = new Audio("sounds/game_finish.mp3");  // MP3 파일 경로 지정
                         audio.play().catch(e => console.error("🔇 오디오 재생 오류:", e));
                     }
@@ -824,7 +824,7 @@
                     return;
                 }
                 if (isGameOver) {
-                    gamepopup("❌ 체력이 0이 되어 더 이상 조작할 수 없습니다!");
+                    gamepopup(" 체력이 0이 되어 더 이상 조작할 수 없습니다!");
                     return;
                 }
 
@@ -832,7 +832,7 @@
                     event.preventDefault();
                     createHealthBar();
                     canMove = true;
-                    console.log("✅ 이동 및 충돌 감지 활성화됨!");
+                    console.log(" 이동 및 충돌 감지 활성화됨!");
                 }
             }
 

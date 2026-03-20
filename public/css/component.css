@@ -46,7 +46,7 @@
 .toggle-switch_theme input:checked+.slider #themeIcon {
     transform: translateX(53px);
 }
-/* ✅ 공통 */
+/* 공통 */
 .slider {
     position: absolute;
     cursor: pointer;

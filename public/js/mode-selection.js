@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("✅ 모드 선택 페이지가 로드되었습니다.");
+    console.log(" 모드 선택 페이지가 로드되었습니다.");
 
     // 버튼 요소 가져오기
     const uploadButton = document.querySelector(".upload-selection-button");

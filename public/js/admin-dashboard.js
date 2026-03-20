@@ -48,12 +48,12 @@ const batchSize = 24;
 let isLoading = false;
 let noMoreImages = false;
 let currentCategoryId = null;
-let isPaused = false;          // 🔥 로딩 중단 상태
-let currentController = null;  // 🔥 fetch 취소용
+let isPaused = false;          // 로딩 중단 상태
+let currentController = null;  // fetch 취소용
 
-let isPopupOpen = false;  // ✅ 팝업 상태 변수 추가
+let isPopupOpen = false;  //  팝업 상태 변수 추가
 let chartClickHandlerRegistered = false;
-let isModernized = false; // ✅ 이미지 현대화 상태 (전역)
+let isModernized = false; //  이미지 현대화 상태 (전역)
 
 if (!window.observer) {
     window.observer = new IntersectionObserver((entries, observer) => {
@@ -73,8 +73,8 @@ if (!window.observer) {
 }
 
 function showpopup(message) {
-    if (isPopupOpen) return;  // ✅ 팝업이 열려 있으면 실행 중단
-    isPopupOpen = true;  // ✅ 팝업 열림 상태로 변경
+    if (isPopupOpen) return;  //  팝업이 열려 있으면 실행 중단
+    isPopupOpen = true;  //  팝업 열림 상태로 변경
 
     // 팝업 오버레이(배경 컨테이너) 생성
     const overlay = document.createElement("div");
@@ -94,9 +94,9 @@ function showpopup(message) {
     confirmButton.classList.add("popup-confirm-button");  // ← 클래스 추가
     confirmButton.textContent = "확인";
     confirmButton.addEventListener("click", () => {
-        console.log("✅ 팝업 확인 버튼 클릭됨");  // 확인 로그
+        console.log(" 팝업 확인 버튼 클릭됨");  // 확인 로그
         overlay.remove();
-        isPopupOpen = false;  // ✅ 팝업 닫힘 상태로 변경
+        isPopupOpen = false;  //  팝업 닫힘 상태로 변경
     });
 
     // 확인 버튼을 팝업에 추가하고, 팝업을 오버레이에 추가 후, 오버레이를 body에 추가
@@ -134,7 +134,7 @@ function showeditpopup(message, callback) {
     }
 }
 
-// ✅ 글꼴 효과 적용 함수
+//  글꼴 효과 적용 함수
 function formatText(command) {
     document.execCommand(command, false, null);
 }
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // 🔥 IMAGE 모드용 (window 기준)
+    // IMAGE 모드용 (window 기준)
     window.addEventListener("scroll", throttle(() => {
         if (currentMode !== "image") return;
 
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function updateLoadButton() {
     if (!loadToggleBtn) return;
 
-    // ✅ 텍스트 모드일 때만 버튼 표시
+    //  텍스트 모드일 때만 버튼 표시
     if (currentMode === "text") {
         loadToggleBtn.style.display = "inline-block";
         loadToggleBtn.textContent = "📄 게시물 더 불러오기";
@@ -209,7 +209,7 @@ function updateLoadButton() {
         return;
     }
 
-    // ✅ 이미지 모드에서는 버튼 숨김
+    //  이미지 모드에서는 버튼 숨김
     loadToggleBtn.style.display = "none";
 }
 
@@ -240,7 +240,7 @@ async function fetchIndicatorStatus() {
         applyModernizedImages(isModernized);
 
     } catch (error) {
-        console.error("🚨 Indicator 상태 가져오기 오류:", error);
+        console.error(" Indicator 상태 가져오기 오류:", error);
     }
 }
 
@@ -255,7 +255,7 @@ async function updateIndicatorStatusOnServer(payload = {}) {
         const data = await response.json();
         console.log("서버 응답:", data);
     } catch (error) {
-        console.error("🚨 Indicator 서버 업데이트 오류:", error);
+        console.error(" Indicator 서버 업데이트 오류:", error);
     }
 }
 
@@ -318,7 +318,7 @@ async function fetchImages(mode = "image", append = false) {
             noMoreImages = (loadedImages + images.length) >= resJson.total;
         }
 
-        console.log("✅ 서버에서 불러온 이미지:", images);
+        console.log(" 서버에서 불러온 이미지:", images);
 
         let galleryContainer = mode === "image"
             ? document.querySelector("#imageGallery")
@@ -329,11 +329,11 @@ async function fetchImages(mode = "image", append = false) {
             galleryContainer = document.createElement("div");
             galleryContainer.id = mode === "image" ? "imageGallery" : "textGallery";
 
-            // ✅ 여기에 삽입
+            //  여기에 삽입
             document.querySelector(".post-form-container").appendChild(galleryContainer);
         }
 
-        // ✅ 기존 데이터 유지하면서 추가
+        //  기존 데이터 유지하면서 추가
         if (mode === "image") {
             renderImageMode(images, append);
         } else {
@@ -345,7 +345,7 @@ async function fetchImages(mode = "image", append = false) {
         if (error.name === "AbortError") {
             console.log("⛔ 이미지 로딩 강제 중단");
         } else {
-            console.error("🚨 이미지 불러오기 오류:", error);
+            console.error(" 이미지 불러오기 오류:", error);
         }
     } finally {
         isLoading = false;
@@ -460,7 +460,7 @@ async function updatePostTitle(postId, newTitle) {
         }
 
     } catch (error) {
-        console.error("🚨 제목 수정 오류:", error);
+        console.error(" 제목 수정 오류:", error);
         showeditpopup("오류가 발생했습니다.");
     }
 }
@@ -490,7 +490,7 @@ async function updatePostDescription(postId, newDescription) {
             showeditpopup("게시물 수정에 실패했습니다.");
         }
     } catch (error) {
-        console.error("🚨 게시물 수정 오류:", error);
+        console.error(" 게시물 수정 오류:", error);
         showeditpopup("수정 중 오류가 발생했습니다.");
     }
 }
@@ -626,20 +626,20 @@ function openEditPopup(image) {
 
         document.body.appendChild(modal);
     }
-    modal.classList.remove("hidden");   // 🔥 표시
+    modal.classList.remove("hidden");   // 표시
 
 
-    // ✅ 항상 최신 내용 설정
+    //  항상 최신 내용 설정
     const editContent = modal.querySelector("#editContent");
     const descriptionCounter = modal.querySelector("#descriptionCounter");
     editContent.innerHTML = image.text || image.description?.text || "";
     const hashtagDisplay = modal.querySelector("#editHashtagDisplay");
 
-    // ✅ 입력 시 실시간 글자 수 업데이트
+    //  입력 시 실시간 글자 수 업데이트
     editContent.addEventListener("input", () => {
         const rawText = editContent.innerText;
 
-        // ✅ 한글 해시태그까지 포함
+        //  한글 해시태그까지 포함
         const hashtags = rawText.match(/#[\w가-힣]+/g) || [];
 
         // 해시태그 제거 후 글자 수 계산
@@ -649,22 +649,22 @@ function openEditPopup(image) {
         // 카운터 표시 업데이트
         descriptionCounter.textContent = `${charCount} / 500`;
 
-        // ✅ 해시태그 표시에도 사용
+        //  해시태그 표시에도 사용
         hashtagDisplay.textContent = hashtags.join(' ');
 
     });
 
 
-    // ✅ 저장 버튼
+    //  저장 버튼
     const saveButton = modal.querySelector("#saveEdit");
     const closeButton = modal.querySelector("#closeEdit");
 
-    // ✅ 기존 이벤트 제거
+    //  기존 이벤트 제거
     saveButton.onclick = null;
     closeButton.onclick = null;
 
 
-    // ✅ 새 이벤트 등록
+    //  새 이벤트 등록
     saveButton.onclick = async () => {
         // 1) 원본 innerHTML 그대로 가져오기
         const newDescription = editContent.innerHTML;
@@ -689,7 +689,7 @@ function openEditPopup(image) {
                 modal.style.display = "none";
             } catch (error) {
                 console.error("수정 오류:", error);
-                showeditpopup("❌ 수정에 실패했습니다.");
+                showeditpopup("수정에 실패했습니다.");
             }
         });
     };
@@ -720,7 +720,7 @@ async function deletePost(id) {
                 showeditpopup(`삭제 실패: ${data.error || data.message}`);
             }
         } catch (error) {
-            console.error('🚨 삭제 중 오류 발생:', error);
+            console.error(' 삭제 중 오류 발생:', error);
             showeditpopup('삭제 중 오류가 발생했습니다.');
         }
     });
@@ -742,13 +742,13 @@ function bindSidebarEvents() {
 
     window.addEventListener("scroll", updateSidebarTogglePosition);
 
-    // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
+    //  사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
     document.querySelectorAll(".sidebar a").forEach(menuItem => {
         menuItem.addEventListener("click", () => {
-            sidebar.classList.remove("open"); // ✅ 사이드바 닫기
-            adminBar.classList.remove("hidden"); // ✅ adminbar-container 다시 보이기
+            sidebar.classList.remove("open"); //  사이드바 닫기
+            adminBar.classList.remove("hidden"); //  adminbar-container 다시 보이기
 
-            // ✅ 모든 section-container 원래 위치로 복귀
+            //  모든 section-container 원래 위치로 복귀
             sectionContainers.forEach(section => {
                 section.classList.toggle("shifted");
 
@@ -761,7 +761,7 @@ function bindSidebarEvents() {
         });
     });
 
-    // ✅ 모든 change-button에 클릭 효과 추가
+    //  모든 change-button에 클릭 효과 추가
     document.querySelectorAll(".change-button").forEach(button => {
         button.addEventListener("click", () => {
             // 기존에 활성화된 버튼의 클래스를 제거하여 원래 색상으로 복귀
@@ -778,7 +778,7 @@ function bindSidebarEvents() {
 function createLazyImage(img, src) {
     const imgElement = document.createElement("img");
     imgElement.dataset.src = src;
-    imgElement.loading = "lazy"; // ✅ Lazy Load 속성 추가
+    imgElement.loading = "lazy"; //  Lazy Load 속성 추가
     observer.observe(imgElement); // Intersection Observer 적용
     return imgElement;
 }
@@ -883,7 +883,7 @@ async function fetchCategoryCounts() {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error("🚨 카테고리 데이터 불러오기 오류:", error);
+        console.error(" 카테고리 데이터 불러오기 오류:", error);
         return [];
     }
 }
@@ -1008,7 +1008,7 @@ async function renderCharts() {
     const donutOptions = {
         ...window.originalDonutChartOptions,
         responsive: true,
-        maintainAspectRatio: false, // 🔥 반드시 false
+        maintainAspectRatio: false, // 반드시 false
         onClick: async (evt, elements) => {
             if (evt.native) evt.native.stopPropagation();
 
@@ -1029,7 +1029,7 @@ async function renderCharts() {
                 const subcategoryData = await fetchSubcategoryCountsByCategory(categoryName);
                 showSubcategoryTable(subcategoryData, categoryName);
 
-                // ✅ 표가 생기면 차트 정렬 왼쪽으로
+                //  표가 생기면 차트 정렬 왼쪽으로
                 document.querySelector(".post-chart-container");
 
                 const chartArea = document.getElementById("chartArea");
@@ -1049,14 +1049,14 @@ async function renderCharts() {
                     const isClickInsideChart = chartArea.contains(event.target);
 
                     if (table && !isClickInsideChart) {
-                        // ✅ 서브카테고리 래퍼 제거
+                        //  서브카테고리 래퍼 제거
                         const wrapper = chartArea.querySelector(".subcategory-wrapper");
                         if (wrapper) wrapper.remove();
 
-                        // ✅ chartArea 중앙 정렬 복원
+                        //  chartArea 중앙 정렬 복원
                         chartArea.style.justifyContent = "center";
 
-                        // ✅ donutChart 재삽입 (필요 시)
+                        //  donutChart 재삽입 (필요 시)
                         const donutCanvas = document.getElementById("donutChart");
                         if (!chartArea.contains(donutCanvas)) {
                             chartArea.innerHTML = ""; // chartArea 초기화
@@ -1066,7 +1066,7 @@ async function renderCharts() {
                             chartArea.appendChild(canvasWrapper);
                         }
 
-                        // ✅ 도넛 차트 재생성
+                        //  도넛 차트 재생성
                         if (window.donutChartInstance) {
                             window.donutChartInstance.destroy();
                         }
@@ -1128,7 +1128,7 @@ async function renderCharts() {
     // 기존 차트 제거
     if (window.barChartInstance) window.barChartInstance.destroy();
 
-    // ✅ bar chart 데이터셋 하나로
+    //  bar chart 데이터셋 하나로
     const bubbleData = categories.map((cat, i) => {
 
         const value = parseFloat(probabilities[i]);
@@ -1244,7 +1244,7 @@ async function renderCharts() {
 
         wrapper.appendChild(table);
 
-        // ✅ chartArea 내에 표 추가 (도넛 차트 옆에 붙도록)
+        //  chartArea 내에 표 추가 (도넛 차트 옆에 붙도록)
         document.getElementById("chartArea").appendChild(wrapper);
     }
 

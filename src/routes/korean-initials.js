@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
     res.json({ tags: sortedTags });
 
   } catch (error) {
-    console.error("🚨 태그 추출 실패:", error);
+    console.error(" 태그 추출 실패:", error);
     
     res.status(500).json({ error: "서버 오류로 태그를 가져올 수 없습니다." });
   }

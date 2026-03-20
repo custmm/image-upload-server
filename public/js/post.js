@@ -35,7 +35,7 @@ function closePopup() {
   document.getElementById("popupMessage").style.display = "none";
 }
 
-// ✅ URL에서 파라미터 가져오기
+//  URL에서 파라미터 가져오기
 function getParamsFromURL() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
@@ -67,7 +67,7 @@ function renderHashtags(text) {
   });
 }
 
-// ✅ 서버에서 데이터 가져오기
+//  서버에서 데이터 가져오기
 async function loadPostData() {
   let { id } = getParamsFromURL();
 
@@ -141,7 +141,7 @@ async function loadPostData() {
   }
 }
 
-// ✅ HTML 태그 유지 및 불필요한 태그 제거
+//  HTML 태그 유지 및 불필요한 태그 제거
 function sanitizeDescription(html) {
   // 글자 효과를 위해 필요한 태그를 추가할 수 있습니다.
   const allowedTags = ["b", "strong", "i", "em", "s", "strike", "u", "br", "span", "div", "p"];
@@ -236,7 +236,7 @@ function bindDrawingEvents() {
   openDrawingBtn.addEventListener("click", function () {
     drawingPopup.style.display = "block";
 
-    // 🔥 canvas 크기를 화면 표시 크기에 맞춰 재설정
+    //  canvas 크기를 화면 표시 크기에 맞춰 재설정
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
   });
@@ -284,7 +284,7 @@ function initDrawingCanvas() {
   });
 }
 
-// ✅ 다크 모드 토글 함수
+//  다크 모드 토글 함수
 function toggleTheme() {
   const body = document.body;
   const isDarkMode = body.classList.toggle("dark-mode");
@@ -332,26 +332,26 @@ function setTheme(mode) {
     localStorage.setItem("theme", mode);
 }
 
-// ✅ 페이지 로드 시 데이터 불러오기
+//  페이지 로드 시 데이터 불러오기
 document.addEventListener("DOMContentLoaded", () => {
-  applySavedTheme(); // ✅ 테마 초기화
+  applySavedTheme(); //  테마 초기화
   loadPostData();
-  bindDrawingEvents();        // 🔥 이 줄 추가
+  bindDrawingEvents();        //  이 줄 추가
 });
 
-// ✅ "목록으로" 버튼 클릭 시 이전 페이지로 이동
+//  "목록으로" 버튼 클릭 시 이전 페이지로 이동
 document.getElementById("backToListButton").addEventListener("click", () => {
-  window.history.back(); // 🔥 이전 페이지로 이동
+  window.history.back(); //  이전 페이지로 이동
 });
 
-// ✅ "공유" 버튼 클릭 시 현재 페이지 URL 복사
+//  "공유" 버튼 클릭 시 현재 페이지 URL 복사
 document.getElementById("shareButton").addEventListener("click", async () => {
   try {
     const postURL = window.location.href;
     await navigator.clipboard.writeText(postURL);
     showPopupMessage("📌 링크가 클립보드에 복사되었습니다!");
   } catch (err) {
-    console.error("🚨 공유 실패:", err);
-    showPopupMessage("❌ 링크 복사에 실패했습니다.");
+    console.error(" 공유 실패:", err);
+    showPopupMessage(" 링크 복사에 실패했습니다.");
   }
 });

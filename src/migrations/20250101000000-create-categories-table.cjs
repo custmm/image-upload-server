@@ -29,13 +29,13 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     try {
-      // ✅ post 테이블의 외래키 먼저 삭제
+      // post 테이블의 외래키 먼저 삭제
       await queryInterface.removeConstraint("post", "post_ibfk_1");
     } catch (error) {
       console.warn("⚠️ post_ibfk_1 외래키가 존재하지 않음, 무시하고 진행");
     }
 
-    // ✅ categories 테이블 삭제
+    // categories 테이블 삭제
     await queryInterface.dropTable("categories");
   },
 };

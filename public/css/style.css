@@ -474,14 +474,14 @@ body.dashboard-page .logout-button {
     right: 25px;
 }
 
-/* 🔥 왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
+/*  왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
 body.dashboard-page .left-section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-/* 🔥 닫기 버튼 */
+/*  닫기 버튼 */
 body.dashboard-page .close-sidebar {
     display: block;
     position: absolute;
@@ -495,7 +495,7 @@ body.dashboard-page .close-sidebar {
     margin-bottom: 20px;
 }
 
-/* 🔥 사이드바 열기 버튼 */
+/*  사이드바 열기 버튼 */
 body.dashboard-page .sidebar-toggle {
     position: relative;
     background-color: #00000000;
@@ -505,16 +505,16 @@ body.dashboard-page .sidebar-toggle {
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.5s, transform 0.5s ease-in-out;
-    /* ✅ 다른 요소에 가려지지 않도록 변경 */
+    /* 다른 요소에 가려지지 않도록 변경 */
     z-index: 1000;
-    /* ✅ 다른 요소 위에 배치 */
+    /* 다른 요소 위에 배치 */
 }
 
 body.dashboard-page .sidebar-toggle:hover {
     background-color: #666;
 }
 
-/* 🔥 사이드바 스타일 */
+/*  사이드바 스타일 */
 body.dashboard-page .sidebar {
     position: fixed;
     top: 0;
@@ -527,12 +527,12 @@ body.dashboard-page .sidebar {
     z-index: 9999;
 }
 
-/* 🔥 사이드바 열렸을 때 */
+/*  사이드바 열렸을 때 */
 body.dashboard-page .sidebar.open {
     left: 0;
 }
 
-/* 🔥 사이드바 메뉴 */
+/*  사이드바 메뉴 */
 body.dashboard-page .sidebar ul {
     list-style: none;
     padding: 0;
@@ -567,7 +567,7 @@ body.dashboard-page .adminbar-container {
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-/* 🔥 사이드바 열리면 adminbar-container 내부 요소들이 위로 사라짐 */
+/*  사이드바 열리면 adminbar-container 내부 요소들이 위로 사라짐 */
 body.dashboard-page .adminbar-container.hidden {
     transform: translateY(-100px);
     opacity: 0;
@@ -683,7 +683,7 @@ body.dashboard-page hr {
     /* 상하 간격 */
 }
 
-/* ✅ 점선 스타일 */
+/* 점선 스타일 */
 body.dashboard-page .dashed-line {
     width: 100%;
     border: none;
@@ -699,9 +699,9 @@ body.dashboard-page #descriptionCounter {
     text-align: right;
     margin-top: 5px;
     display: block;
-    /* 🔥 인라인 요소가 아닌 블록 요소로 설정 */
+    /*  인라인 요소가 아닌 블록 요소로 설정 */
     width: 100%;
-    /* 🔥 부모 요소의 전체 너비 사용 */
+    /*  부모 요소의 전체 너비 사용 */
 }
 
 body.dashboard-page .button-separator {
@@ -836,14 +836,14 @@ body.dashboard-page .change-button {
     backdrop-filter: none;
 }
 
-/* 🔥 버튼 기본 아이콘 색상 */
+/*  버튼 기본 아이콘 색상 */
 body.dashboard-page .change-button i {
     font-size: 24px;
     color: #444;
     transition: color 0.3s ease-in-out, transform 0.1s ease-out;
 }
 
-/* 🔥 클릭 후 아이콘 색상 변경 */
+/*  클릭 후 아이콘 색상 변경 */
 body.dashboard-page .change-button.active i {
     color: #007bff;
 }
@@ -862,7 +862,7 @@ body.dashboard-page .post-form-container {
     overflow-x: hidden;
 }
 
-/* 🔥 이미지 스타일 */
+/*  이미지 스타일 */
 body.dashboard-page .post-image {
     display: flex;
     width: 30px;
@@ -876,7 +876,7 @@ body.dashboard-page .post-image:hover {
     border: 4px solid #007bff;
 }
 
-/* 🔥 텍스트 모드 - 버튼 */
+/*  텍스트 모드 - 버튼 */
 body.dashboard-page .post-item .buttons {
     display: flex;
     gap: 5px;
@@ -1002,7 +1002,7 @@ body.dashboard-page .custom-chart-button {
     border: 1px solid #ccc;
 }
 
-/* 🔥 버튼을 일렬로 배치 */
+/*  버튼을 일렬로 배치 */
 body.dashboard-page .button-group {
     display: flex;
     justify-content: center;
@@ -1038,7 +1038,7 @@ body.dashboard-page #clearCanvas {
     color: black;
 }
 
-/* 🔥 제목과 버튼을 한 줄로 정렬 */
+/*  제목과 버튼을 한 줄로 정렬 */
 body.dashboard-page .section-header {
     align-items: center;
     justify-content: space-between;
@@ -1100,7 +1100,7 @@ body.dashboard-page .section:nth-child(2) {
     margin-right: 30px;
 }
 
-/* 🔥 만약 내부 요소를 중앙 정렬하려면 추가 */
+/*  만약 내부 요소를 중앙 정렬하려면 추가 */
 body.dashboard-page .section.flex-center {
     display: flex;
     align-items: center;
@@ -1109,7 +1109,7 @@ body.dashboard-page .section.flex-center {
 }
 
 
-/* 🔥 사이드바 열릴 때 section-container 이동 */
+/*  사이드바 열릴 때 section-container 이동 */
 body.dashboard-page .section.shifted {
     margin: 0 210px;
     width: calc(100% - 210px);
@@ -1191,7 +1191,7 @@ body.dashboard-page .post-form-container.image-mode .gallery-container {
     align-items: center;
 }
 
-/* 🔥 이미지 모드 전용 썸네일 고정 */
+/*  이미지 모드 전용 썸네일 고정 */
 body.dashboard-page .post-form-container.image-mode .gallery-container img {
     width: 100px;
     height: 100px;
@@ -1263,7 +1263,7 @@ body.dashboard-page .chart-wrapper {
     width: 350px;
     height: 350px;
     min-height: 300px;
-    /* ✅ 최소 높이 지정 */
+    /* 최소 높이 지정 */
 
 }
 
@@ -1286,7 +1286,7 @@ body.mode-page h1 {
     overflow: hidden;
 }
 
-/* ✅ container를 화면 정중앙으로 이동 */
+/* container를 화면 정중앙으로 이동 */
 body.mode-page .container {
     position: absolute;
     width: 90vw;
@@ -1398,7 +1398,7 @@ body.upload-page hr {
     /* 상하 간격 */
 }
 
-/* ✅ 점선 스타일 */
+/* 점선 스타일 */
 body.upload-page .dashed-line {
     width: 100%;
     border: none;
@@ -1490,7 +1490,7 @@ body.upload-page .text-editor {
     outline: none;
     font-size: 16px;
     text-align: left;
-    /* ✅ 기본값을 왼쪽 정렬로 설정 */
+    /* 기본값을 왼쪽 정렬로 설정 */
 }
 
 body.upload-page .description-box {
@@ -1501,16 +1501,16 @@ body.upload-page .description-box {
     overflow-y: auto;
 }
 
-/* ✅ 글자 수 표시 스타일 (오른쪽 정렬) */
+/* 글자 수 표시 스타일 (오른쪽 정렬) */
 body.upload-page #descriptionCounter {
     font-size: 14px;
     color: gray;
     text-align: right;
     margin-top: 5px;
     display: block;
-    /* 🔥 인라인 요소가 아닌 블록 요소로 설정 */
+    /*  인라인 요소가 아닌 블록 요소로 설정 */
     width: 100%;
-    /* 🔥 부모 요소의 전체 너비 사용 */
+    /*  부모 요소의 전체 너비 사용 */
 }
 
 body.upload-page .editor-buttons {
@@ -1749,7 +1749,7 @@ body.post-page h1 {
     margin: 20px 0;
 }
 
-/* 🔥 그림 그리기 팝업창 스타일 */
+/*  그림 그리기 팝업창 스타일 */
 body.post-page .drawing-popup {
     display: none;
     border-radius: 5px;
@@ -1869,7 +1869,7 @@ body.post-page #drawingCanvas {
     display: block;
 }
 
-/* ✅ 클릭 가능한 스타일 추가 */
+/* 클릭 가능한 스타일 추가 */
 body.post-page .clickable-category {
     cursor: pointer;
     color: black;
@@ -1904,7 +1904,7 @@ body.post-page .custom-button {
     transition: background-color 0.3s;
 }
 
-/* ✅ 게시물 이미지 */
+/* 게시물 이미지 */
 body.post-page .post-image {
     max-width: 100%;
     max-height: 50vh;
@@ -1916,7 +1916,7 @@ body.post-page #postTitle {
     font-weight: bold;
 }
 
-/* ✅ 게시물 설명 */
+/* 게시물 설명 */
 body.post-page .post-description {
     font-size: 18px;
     text-align: left;
@@ -2043,14 +2043,14 @@ body.preview-page .menubar-container {
 
 }
 
-/* 🔥 왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
+/*  왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
 body.preview-page .left-section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-/* 🔥 닫기 버튼 */
+/*  닫기 버튼 */
 body.preview-page .close-sidebar {
     position: absolute;
     top: 50px;
@@ -2187,7 +2187,7 @@ body.preview-page .view-icon-btn.active {
     background-color: #fff;
 }
 
-/* ✅ 이미지 갤러리 (4x5 배열) */
+/* 이미지 갤러리 (4x5 배열) */
 body.preview-page .image-gallery {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -2227,7 +2227,7 @@ body.preview-page .image-gallery.text-view {
     border-radius: 10px;
 }
 
-/* ✅ 이미지 갤러리 중앙 정렬 */
+/* 이미지 갤러리 중앙 정렬 */
 body.preview-page .image-gallery-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -2334,7 +2334,7 @@ body.preview-page .flip-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    /* 🔥 핵심 */
+    /*  핵심 */
     transition: transform 0.6s ease;
     transform-style: preserve-3d;
 }
@@ -2347,7 +2347,7 @@ body.preview-page .text-row {
     perspective: 1000px;
     position: relative;
     height: 120px;
-    /* 🔥 추가 */
+    /*  추가 */
     width: 100%;
 }
 
@@ -2486,7 +2486,7 @@ body.preview-page .search-icon-btn i[data-icon="search"]::after {
     transform: rotate(45deg);
 }
 
-/* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
+/* 중앙 정보 팝업 (inforPopupMessage용) */
 body.preview-page .infor-popup {
     position: fixed;
     top: 50%;
@@ -2525,7 +2525,7 @@ body.preview-page .info-popup .table-wrapper table {
     text-align: center;
 }
 
-/* ✅ 닫기 버튼 스타일 */
+/* 닫기 버튼 스타일 */
 body.preview-page .infor-popup-close {
     position: absolute;
     top: 3px;
@@ -2535,7 +2535,7 @@ body.preview-page .infor-popup-close {
     color: #666;
 }
 
-/* ✅ 중앙 정보 팝업 (inforPopupMessage용) */
+/* 중앙 정보 팝업 (inforPopupMessage용) */
 body.preview-page .app-infor-popup {
     position: fixed;
     top: 50%;
@@ -2551,7 +2551,7 @@ body.preview-page .app-infor-popup {
     text-align: center;
 }
 
-/* ✅ 닫기 버튼 스타일 */
+/* 닫기 버튼 스타일 */
 body.preview-page .app-infor-popup-close {
     position: absolute;
     top: 3px;
@@ -2816,7 +2816,7 @@ body.preview-page #currentCategory:hover {
 }
 
 
-/* ✅ 이미지가 있을 때 (4x5 그리드) */
+/* 이미지가 있을 때 (4x5 그리드) */
 body.preview-page .grid-layout {
     display: grid;
     gap: 10px;
@@ -2827,7 +2827,7 @@ body.preview-page .grid-layout {
     max-width: 90%;
 }
 
-/* ✅ 이미지가 없을 때 (중앙 정렬) */
+/* 이미지가 없을 때 (중앙 정렬) */
 body.preview-page .flex-center {
     display: flex;
     flex-wrap: wrap;
@@ -2836,7 +2836,7 @@ body.preview-page .flex-center {
     height: 300px;
 }
 
-/* ✅ 이미지가 없을 때 메시지 스타일 */
+/* 이미지가 없을 때 메시지 스타일 */
 body.preview-page .no-image-message {
     font-size: 18px;
     font-weight: bold;

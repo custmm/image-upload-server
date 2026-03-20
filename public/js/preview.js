@@ -63,7 +63,7 @@ window.toggleSidebar = function () {
     const isOpening = !sidebar.classList.contains("open");
     sidebar.classList.toggle("open");
 
-    // 🔥 사이드바를 "열 때만" 서브메뉴 전부 닫기 (완전 초기화)
+    // 사이드바를 "열 때만" 서브메뉴 전부 닫기 (완전 초기화)
     if (isOpening) {
         document.querySelectorAll(".sub-menu").forEach(menu => {
             menu.classList.remove("open");
@@ -91,7 +91,7 @@ window.goCategory = function (categoryName) {
     );
 
     if (!targetBtn) {
-        console.error("❌ 해당 카테고리 버튼을 찾을 수 없음:", categoryName);
+        console.error(" 해당 카테고리 버튼을 찾을 수 없음:", categoryName);
         return;
     }
 
@@ -200,14 +200,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (previewLink) {
         previewLink.addEventListener("click", (e) => {
-            e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
+            e.preventDefault(); // 새 창 / 페이지 이동 차단
             openPreviewPopup();
         });
     }
 
     if (iconLink) {
         iconLink.addEventListener("click", (e) => {
-            e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
+            e.preventDefault(); // 새 창 / 페이지 이동 차단
             openAiIconPopup();
         });
     }
@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-    // ✅ URL에서 받은 카테고리가 영문이면 한글로 변환
+    //  URL에서 받은 카테고리가 영문이면 한글로 변환
     if (categoryParam && categoryMappings[categoryParam]) {
         categoryParam = categoryMappings[categoryParam];
     }
@@ -291,8 +291,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (isExplanMode) {
             welcomeEl.addEventListener("click", (e) => {
-                // ✅ a 태그 클릭이면 막지 않음
-                e.preventDefault(); // ✅ 이때만 링크 이동 막기
+                //  a 태그 클릭이면 막지 않음
+                e.preventDefault(); //  이때만 링크 이동 막기
 
                 const activeTab = document.querySelector(".tab-btn.active");
                 const tabName = activeTab?.textContent.trim() || "알 수 없음";
@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 
-    // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
+    //  사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
     function bindSidebarEvents() {
         const sidebar = document.getElementById("sidebar");
         const menubar = document.querySelector(".menubar-container");
@@ -402,7 +402,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             categories = await response.json();
             categories = categories.filter(category => category.name.toLowerCase() !== "uncategorized");
 
-            clearCategoryTabs(); // ✅ 기존 카테고리 탭 삭제
+            clearCategoryTabs(); //  기존 카테고리 탭 삭제
 
             categories.forEach((category, index) => {
                 const btn = document.createElement("button");
@@ -427,21 +427,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                 };
                 categoryTabContainer.appendChild(btn);
             });
-            lucide.createIcons(); // 🔥 아이콘 다시 렌더
+            lucide.createIcons(); // 아이콘 다시 렌더
 
             setTimeout(() => initializeCategorySelection(), 300);
 
             return categories;
         } catch (error) {
-            console.error("🚨 카테고리를 불러오는 중 오류 발생:", error);
+            console.error(" 카테고리를 불러오는 중 오류 발생:", error);
         }
     }
-    await loadCategories(); // ✅ 카테고리 불러오기 실행
+    await loadCategories(); //  카테고리 불러오기 실행
 
     // 2) 카테고리 선택 시
     async function loadCategory(categoryId, tabButton) {
 
-        // ✅ URL 업데이트 (브라우저 히스토리 변경)
+        //  URL 업데이트 (브라우저 히스토리 변경)
         const newCategoryName = tabButton.textContent.trim();
         if (!isExplanMode) {
             const newURL = `preview?category=${encodeURIComponent(newCategoryName)}`;
@@ -457,7 +457,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.querySelectorAll(".tab-btn.active").forEach(btn => btn.classList.remove("active"));
         tabButton.classList.add("active");
 
-        // ✅ 현재 선택된 카테고리명 업데이트 (요소가 존재할 경우에만)
+        //  현재 선택된 카테고리명 업데이트 (요소가 존재할 경우에만)
         if (currentCategory) {
             currentCategory.textContent = newCategoryName;
         }
@@ -500,7 +500,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             firstBtn.classList.add("active");
             selectedSubcategory = subcategories[0].id;
         } catch (error) {
-            console.error("🚨 서브카테고리를 불러오는 중 오류 발생:", error);
+            console.error(" 서브카테고리를 불러오는 중 오류 발생:", error);
         }
     }
 
@@ -605,13 +605,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                     content.appendChild(textEl);
                     content.appendChild(hashtagContainer);
 
-                    // 🔥 앞면
+                    // 앞면
                     const front = document.createElement("div");
                     front.classList.add("card-face", "card-front");
                     front.appendChild(thumb);
                     front.appendChild(content);
 
-                    // 🔥 뒷면
+                    // 뒷면
                     const back = document.createElement("div");
                     back.classList.add("card-face", "card-back");
 
@@ -636,7 +636,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             renderPagination(totalPages);
 
-            adjustGalleryRadius(); // 🔥 여기 추가
+            adjustGalleryRadius(); // 여기 추가
             // page 증가는 버튼 클릭에서만 하므로 여기선 제거
         } catch (err) {
             console.error(err);
@@ -688,7 +688,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         pag.appendChild(next);
     }
 
-    /** ✅ 이미지 불러오기 (4x5 배열 적용) */
+    /**  이미지 불러오기 (4x5 배열 적용) */
     async function loadImages(categoryId, subcategoryId = null) {
         try {
             let url = `/api/files?category_id=${categoryId}`;
@@ -705,9 +705,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
 
             const images = await response.json();
-            console.log("✅ 서버 응답:", images);
+            console.log(" 서버 응답:", images);
 
-            clearGallery(); // ✅ 기존 이미지 삭제 (innerHTML = "" 대신 사용)
+            clearGallery(); //  기존 이미지 삭제 (innerHTML = "" 대신 사용)
 
             if (!Array.isArray(images) || images.length === 0) {
                 imageGallery.classList.remove("grid-layout");
@@ -733,13 +733,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     const img = document.createElement("img");
                     img.dataset.src = `${image.file_path}`;
-                    observer.observe(img); // ✅ Intersection Observer로 감지
+                    observer.observe(img); //  Intersection Observer로 감지
 
                     const postURL = `post?id=${image.id}`;
 
                     img.onclick = () => {
                         if (isExplanMode) return; // 🔒 체험모드에서는 클릭 무시
-                        console.log(`✅ 이동할 URL: ${postURL}`);
+                        console.log(` 이동할 URL: ${postURL}`);
                         window.location.href = postURL;
                     };
 
@@ -763,7 +763,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
 
                     // ======================
-                    // 🔥 앞면
+                    // 앞면
                     // ======================
 
                     const front = document.createElement("div");
@@ -797,7 +797,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     front.appendChild(frontContent);
 
                     // ======================
-                    // 🔥 뒷면
+                    // 뒷면
                     // ======================
 
                     const back = document.createElement("div");
@@ -827,14 +827,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             });
         } catch (error) {
-            console.error("🚨 이미지를 불러오는 중 오류 발생:", error);
+            console.error(" 이미지를 불러오는 중 오류 발생:", error);
             imageGallery.classList.remove("grid-layout");
             imageGallery.classList.add("flex-center");
             imageGallery.innerHTML = `<p class="no-image-message">오류: ${error.message}</p>`;
         }
     }
 
-    /** ✅ 다크 모드 토글 기능 */
+    /**  다크 모드 토글 기능 */
     window.toggleTheme = function () {
         const body = document.body;
         const isDarkMode = body.classList.toggle("dark-mode");
@@ -855,7 +855,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    /** ✅ 페이지 로드 시 저장된 다크 모드 적용 */
+    /**  페이지 로드 시 저장된 다크 모드 적용 */
     function applySavedTheme() {
         const savedTheme = localStorage.getItem("theme") || "light";
         const themeIcon = document.getElementById("themeIcon");
@@ -926,10 +926,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         const totalPreviews = 12;
         const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
 
-        // ✅ 현대화 여부 확인
+        //  현대화 여부 확인
         const isModernized = localStorage.getItem("indicatorModernized") === "true";
 
-        // ✅ 선택 이미지 경로 결정
+        //  선택 이미지 경로 결정
         let selectedImage = isModernized
             ? `images/indicator/preview-gunff_${randomIndex}re.png`
             : `images/indicator/preview-gunff_${randomIndex}.png`;
@@ -1062,17 +1062,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         checkOverlap(img);
     }
 
-    // ✅ 서버에서 Indicator 상태 가져오기 함수 추가
+    //  서버에서 Indicator 상태 가져오기 함수 추가
     async function fetchIndicatorStatusAndApply() {
         try {
             const response = await fetch("/api/settings/indicator-status");
             if (!response.ok) throw new Error("서버 응답 오류");
             const data = await response.json();
 
-            // ✅ visible 은 서버 우선
+            //  visible 은 서버 우선
             localStorage.setItem('previewVisible', data.visible ? 'visible' : 'hidden');
 
-            // ✅ modernized 는 localStorage 우선
+            //  modernized 는 localStorage 우선
             const localModernized = localStorage.getItem('indicatorModernized');
             const isModernized = localModernized !== null
                 ? localModernized === "true"
@@ -1084,7 +1084,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             updatePreviewVisibility && updatePreviewVisibility();
             applyModernizedImages(isModernized);
         } catch (error) {
-            console.error("🚨 Indicator 상태 가져오기 오류:", error);
+            console.error(" Indicator 상태 가져오기 오류:", error);
         }
     }
 
@@ -1093,7 +1093,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const previewState = localStorage.getItem("previewVisible");
 
         if (!previewContainer) {
-            console.error("❌ #previewImagesContainer 요소를 찾을 수 없음!");
+            console.error(" #previewImagesContainer 요소를 찾을 수 없음!");
             return;
         }
 
@@ -1125,11 +1125,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // ✅ `localStorage` 변경 감지 (admin-dashboard에서 변경되면 자동 반영)
+    //  `localStorage` 변경 감지 (admin-dashboard에서 변경되면 자동 반영)
     window.addEventListener("storage", updatePreviewVisibility);
 
 
-    // ✅ 뒤로 가기(←) 또는 앞으로 가기(→) 시 카테고리 변경 처리
+    //  뒤로 가기(←) 또는 앞으로 가기(→) 시 카테고리 변경 처리
     window.onpopstate = async function (event) {
         const urlParams = new URLSearchParams(window.location.search);
         let categoryParam = urlParams.get("category");
@@ -1138,7 +1138,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         console.log(`🔄 뒤로 가기 이벤트 발생, 선택할 카테고리: ${categoryParam}`);
 
-        // ✅ 현재 로드된 `categories` 배열에서 `category_name`을 기반으로 `category_id` 찾기
+        //  현재 로드된 `categories` 배열에서 `category_name`을 기반으로 `category_id` 찾기
         const matchedCategory = categories.find(cat => cat.name.trim() === categoryParam.trim());
 
         if (!matchedCategory) {
@@ -1146,20 +1146,20 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        const categoryId = matchedCategory.id; // ✅ 올바른 category_id 가져오기
+        const categoryId = matchedCategory.id; //  올바른 category_id 가져오기
 
-        // ✅ 카테고리 버튼 찾기
+        //  카테고리 버튼 찾기
         const categoryButton = [...document.querySelectorAll(".tab-btn")]
             .find(btn => btn.textContent.trim() === categoryParam.trim());
 
         if (categoryButton) {
-            console.log(`✅ 뒤로 가기로 ${categoryParam} 선택 (category_id: ${categoryId})`);
-            await loadCategory(categoryId, categoryButton); // ✅ 올바른 category_id로 loadCategory 실행
+            console.log(` 뒤로 가기로 ${categoryParam} 선택 (category_id: ${categoryId})`);
+            await loadCategory(categoryId, categoryButton); //  올바른 category_id로 loadCategory 실행
         }
     };
 
 
-    // ✅ 모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
+    //  모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
     async function initializeCategorySelection(retryCount = 5) {
         const urlParams = new URLSearchParams(window.location.search);
         let categoryParam = urlParams.get("category");
@@ -1174,14 +1174,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (categories.length > 0) {
                 categoryParam = categories[0].name;
             } else {
-                console.error("🚨 사용할 수 있는 카테고리가 없음!");
+                console.error(" 사용할 수 있는 카테고리가 없음!");
                 return;
             }
         }
 
         console.log(`📌 URL에서 전달된 카테고리: ${categoryParam}`);
 
-        // ✅ 현재 로드된 `categories` 배열에서 `category_name`을 기반으로 `category_id` 찾기
+        //  현재 로드된 `categories` 배열에서 `category_name`을 기반으로 `category_id` 찾기
         const matchedCategory = categories.find(cat => cat.name.trim() === categoryParam.trim());
 
         if (!matchedCategory) {
@@ -1192,12 +1192,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         // 여기서 categoryId를 추출
         const categoryId = matchedCategory.id;
 
-        // ✅ 카테고리 이름과 매칭되는 버튼을 찾아 클릭 실행
+        //  카테고리 이름과 매칭되는 버튼을 찾아 클릭 실행
         const categoryButton = [...document.querySelectorAll(".tab-btn")]
             .find(btn => btn.textContent.trim() === categoryParam.trim());
 
         if (categoryButton) {
-            console.log(`✅ 카테고리 자동 선택: ${categoryParam} (category_id: ${categoryId})`);
+            console.log(` 카테고리 자동 선택: ${categoryParam} (category_id: ${categoryId})`);
             await loadCategory(categoryId, categoryButton);
         }
     }
@@ -1237,13 +1237,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // ✅ Intersection Observer 먼저 정의
+    //  Intersection Observer 먼저 정의
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                img.src = img.dataset.src; // ✅ 실제 이미지 로드
-                observer.unobserve(img); // ✅ 감지 중지
+                img.src = img.dataset.src; //  실제 이미지 로드
+                observer.unobserve(img); //  감지 중지
             }
         });
     }, { rootMargin: "100px", threshold: 0.1 });
@@ -1253,7 +1253,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     applySavedTheme();
 
     // ===============================
-    // 🔥 팝업 드래그 기능 추가
+    // 팝업 드래그 기능 추가
     // ===============================
 
     function makePopupDraggable(overlayId) {

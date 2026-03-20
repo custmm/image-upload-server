@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config(); // .env 파일에서 환경 변수 로드
 
-// ✅ PlanetScale URL 기반 Sequelize 인스턴스 생성
+// PlanetScale URL 기반 Sequelize 인스턴스 생성
 const sequelize = new Sequelize(
   process.env.DB_NAME, 
   process.env.DB_USER, 
@@ -26,20 +26,20 @@ const sequelize = new Sequelize(
   }
 );
 
-// ✅ 연결 테스트 및 모델 동기화
+// 연결 테스트 및 모델 동기화
 async function testDBConnection() {
   try {
     await sequelize.authenticate();
-    console.log("✅ Railway MySQL 연결 성공!");
+    console.log(" Railway MySQL 연결 성공!");
 
     await sequelize.sync({ alter: false });
-    console.log("✅ 모델 동기화 완료");
+    console.log(" 모델 동기화 완료");
   } catch (error) {
-    console.error("❌ Railway MySQL 연결 실패:", error);
+    console.error(" Railway MySQL 연결 실패:", error);
   }
 }
 
-// ✅ DB 연결 테스트 실행
+// DB 연결 테스트 실행
 testDBConnection();
 
 export { sequelize };

@@ -63,18 +63,18 @@
                 <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
                 <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
             </div>
-            <!-- ✅ 점선 구분선 추가 -->
+            <!-- 점선 구분선 추가 -->
             <hr class="dashed-line">
             <div id="descriptionEditor" contenteditable="true" class="text-editor"></div>
             <p style="display: flex; justify-content: space-between; width: 100%;">
                 <span id="hashtagDisplay" style="font-size: 14px; color: #333;"></span>
                 <span id="descriptionCounter">0 / 500</span>
-            </p> <!-- 🔥 글자 수 표시 -->
+            </p> <!-- 글자 수 표시 -->
         </div>
         <button id="uploadButton" class="upload-button">업로드</button>
     </div>
     <script>
-        // ✅ 글꼴 효과 적용 함수
+        // 글꼴 효과 적용 함수
         function formatText(command) {
             document.execCommand(command, false, null);
         }

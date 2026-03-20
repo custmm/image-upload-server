@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// ✅ 다크 모드 토글 함수
+// 다크 모드 토글 함수
 function toggleTheme() {
   const body = document.body;
   const isDarkMode = body.classList.toggle("dark-mode");

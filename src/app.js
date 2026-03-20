@@ -4,7 +4,7 @@ import express from "express";
 import cors from "cors";
 import path, { join, dirname } from "path";
 import { fileURLToPath } from "url";
-import { sequelize } from "./models/index.js"; // ✅ Sequelize 인스턴스 가져오기
+import { sequelize } from "./models/index.js"; //  Sequelize 인스턴스 가져오기
 import authRoutes from "./routes/authRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import fileRoutes from "./routes/fileRoutes.js";
@@ -24,10 +24,10 @@ const app = express();
 
 
 app.use(cors());
-app.use(express.json()); // ✅ JSON 데이터 파싱 미들웨어
-app.use(express.urlencoded({ extended: true })); // ✅ FormData 파싱 미들웨어
+app.use(express.json()); //  JSON 데이터 파싱 미들웨어
+app.use(express.urlencoded({ extended: true })); //  FormData 파싱 미들웨어
 
-// ✅ ① .html → 없는 버전으로 리디렉션 처리
+//  ① .html → 없는 버전으로 리디렉션 처리
 app.use((req, res, next) => {
     if (req.url.endsWith(".html")) {
         const newUrl = req.url.replace(/\.html$/, "");
@@ -36,14 +36,14 @@ app.use((req, res, next) => {
     next();
 });
 
-// ✅ 정적 파일 제공
+//  정적 파일 제공
 app.use(express.static(join(__dirname, "..", "public"), {
     extensions: ['html']
 }));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 
-// ✅ Favicon 직접 서빙 (필요 시)
+//  Favicon 직접 서빙 (필요 시)
 app.get("/favicon.ico", (req, res) => {
     res.sendFile(path.join(__dirname, "..", "public", "favicon.ico"));
 });
@@ -53,7 +53,7 @@ app.get("/api/health", (req, res) => {
 });
 
 
-// ✅ 검색 라우트: /search?tag=<검색어>
+//  검색 라우트: /search?tag=<검색어>
 app.get("/api/search", async (req, res) => {
     const { tag, keyword } = req.query;
 
@@ -92,7 +92,7 @@ app.get("/api/search", async (req, res) => {
         res.json({ posts });
 
     } catch (err) {
-        console.error("❌ 검색 실패:", err);
+        console.error(" 검색 실패:", err);
         res.status(500).json({ 
             error: "검색 오류", 
             detail: err.message 
@@ -112,7 +112,7 @@ app.post("/api/admin-token", (req, res) => {
 
 });
 
-// ✅ 라우트 등록
+//  라우트 등록
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/files", fileRoutes);
@@ -123,4 +123,4 @@ app.use("/api/korean-initials", koreanTagRoutes);
 app.use("/api/settings", settingRoutes);
 
 
-export default app; // 🔹 Express 인스턴스 내보내기
+export default app; // Express 인스턴스 내보내기
