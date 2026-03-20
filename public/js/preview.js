@@ -168,7 +168,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         "브릭피규어": "toy-brick"
     };
 
+    const btn = document.getElementById("settingBtn");
+    const popup = document.getElementById("settingPopup");
+
     const savedTheme = localStorage.getItem("theme") || "light-mode";
+
     setTheme(savedTheme);
 
 
@@ -196,8 +200,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     let noMoreImages = false;
     let isCut = false;
 
+    // URL에서 받은 카테고리가 영문이면 한글로 변환
+    if (categoryParam && categoryMappings[categoryParam]) {
+        categoryParam = categoryMappings[categoryParam];
+    }
 
-
+    // 다른html을 popup으로 열기
     if (previewLink) {
         previewLink.addEventListener("click", (e) => {
             e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
@@ -212,6 +220,32 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
+    if (btn && popup) {
+        btn.addEventListener("click", () => {
+            popup.style.display = popup.style.display === "none" ? "block" : "none";
+        });
+    }
+
+    function openPreviewPopup() {
+        const overlay = document.getElementById("previewOverlayInfo");
+        const frame = document.getElementById("previewFrameInfo");
+
+        if (!overlay || !frame) return;
+
+        frame.src = "preview_popup.html";
+        overlay.style.display = "flex";
+    }
+
+    function openAiIconPopup() {
+        const overlay = document.getElementById("previewOverlayIcon");
+        const frame = document.getElementById("previewFrameIcon");
+
+        if (!overlay || !frame) return;
+
+        frame.src = "ai_icon.html";
+        overlay.style.display = "flex";
+    }
+
     document.querySelectorAll(".preview-close").forEach(btn => {
         btn.addEventListener("click", (e) => {
 
@@ -223,6 +257,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
+    // 메뉴 사이드바 열기
     if (searchBtn && searchInput) {
         searchBtn.addEventListener("click", function () {
             const keyword = searchInput.value.trim();
@@ -234,17 +269,57 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
+    function bindSidebarEvents() {
+        const sidebar = document.getElementById("sidebar");
+        const menubar = document.querySelector(".menubar-container");
 
+        document.querySelectorAll("#sidebar a").forEach(link => {
+            link.addEventListener("click", () => {
 
+                sidebar.classList.remove("open");
+                menubar.classList.remove("hidden");
+            });
+        });
+    }
 
-    // ✅ URL에서 받은 카테고리가 영문이면 한글로 변환
-    if (categoryParam && categoryMappings[categoryParam]) {
-        categoryParam = categoryMappings[categoryParam];
+    // 모드전환
+    function bindViewSwitchEvents() {
+        const imageBtn = document.getElementById("preview-image-mode");
+        const textBtn = document.getElementById("preview-text-mode");
+        const gallery = document.getElementById("imageGallery");
+
+        imageBtn.addEventListener("click", async () => {
+            currentView = "image";
+
+            imageBtn.classList.add("active");
+            textBtn.classList.remove("active");
+
+            gallery.classList.remove("text-view");
+            gallery.classList.add("image-view");
+
+            page = 0;
+            limit = 20; // 이미지뷰는 20개
+            await loadPage(selectedCategory, selectedSubcategory);
+        });
+
+        textBtn.addEventListener("click", async () => {
+            currentView = "text";
+
+            textBtn.classList.add("active");
+            imageBtn.classList.remove("active");
+
+            gallery.classList.remove("image-view");
+            gallery.classList.add("text-view");
+
+            page = 0;
+            limit = 10; // 텍스트뷰는 10개
+            await loadPage(selectedCategory, selectedSubcategory);
+        });
     }
 
     if (welcomeEl) {
+        // 슬라이더 조작
         if (opacitySlider) {
-            // 슬라이더 조작 시
             opacitySlider.addEventListener("input", () => {
                 const value = opacitySlider.value;
 
@@ -289,10 +364,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         }
 
+        // 가이드모드
         if (isExplanMode) {
             welcomeEl.addEventListener("click", (e) => {
-                // ✅ a 태그 클릭이면 막지 않음
-                e.preventDefault(); // ✅ 이때만 링크 이동 막기
+                // a 태그 클릭이면 막지 않음
+                e.preventDefault(); // 이때만 링크 이동 막기
 
                 const activeTab = document.querySelector(".tab-btn.active");
                 const tabName = activeTab?.textContent.trim() || "알 수 없음";
@@ -311,84 +387,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    const btn = document.getElementById("settingBtn");
-    const popup = document.getElementById("settingPopup");
-
-    if (btn && popup) {
-        btn.addEventListener("click", () => {
-            popup.style.display = popup.style.display === "none" ? "block" : "none";
-        });
-    }
-
-
-    // ✅ 사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
-    function bindSidebarEvents() {
-        const sidebar = document.getElementById("sidebar");
-        const menubar = document.querySelector(".menubar-container");
-
-        document.querySelectorAll("#sidebar a").forEach(link => {
-            link.addEventListener("click", () => {
-
-                sidebar.classList.remove("open");
-                menubar.classList.remove("hidden");
-            });
-        });
-    }
-
-    function bindViewSwitchEvents() {
-        const imageBtn = document.getElementById("preview-image-mode");
-        const textBtn = document.getElementById("preview-text-mode");
-        const gallery = document.getElementById("imageGallery");
-
-        imageBtn.addEventListener("click", async () => {
-            currentView = "image";
-
-            imageBtn.classList.add("active");
-            textBtn.classList.remove("active");
-
-            gallery.classList.remove("text-view");
-            gallery.classList.add("image-view");
-
-            page = 0;
-            limit = 20; // 이미지뷰는 20개
-            await loadPage(selectedCategory, selectedSubcategory);
-        });
-
-        textBtn.addEventListener("click", async () => {
-            currentView = "text";
-
-            textBtn.classList.add("active");
-            imageBtn.classList.remove("active");
-
-            gallery.classList.remove("image-view");
-            gallery.classList.add("text-view");
-
-            page = 0;
-            limit = 10; // 텍스트뷰는 10개
-            await loadPage(selectedCategory, selectedSubcategory);
-        });
-    }
-
-    function openPreviewPopup() {
-        const overlay = document.getElementById("previewOverlayInfo");
-        const frame = document.getElementById("previewFrameInfo");
-
-        if (!overlay || !frame) return;
-
-        frame.src = "preview_popup.html";
-        overlay.style.display = "flex";
-    }
-
-    function openAiIconPopup() {
-        const overlay = document.getElementById("previewOverlayIcon");
-        const frame = document.getElementById("previewFrameIcon");
-
-        if (!overlay || !frame) return;
-
-        frame.src = "ai_icon.html";
-        overlay.style.display = "flex";
-    }
-
 
     // 1) 카테고리 로드
     async function loadCategories() {
@@ -402,7 +400,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             categories = await response.json();
             categories = categories.filter(category => category.name.toLowerCase() !== "uncategorized");
 
-            clearCategoryTabs(); // ✅ 기존 카테고리 탭 삭제
+            clearCategoryTabs(); // 기존 카테고리 탭 삭제
 
             categories.forEach((category, index) => {
                 const btn = document.createElement("button");
@@ -427,21 +425,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                 };
                 categoryTabContainer.appendChild(btn);
             });
-            lucide.createIcons(); // 🔥 아이콘 다시 렌더
+            lucide.createIcons(); // 아이콘 다시 렌더
 
             setTimeout(() => initializeCategorySelection(), 300);
 
             return categories;
         } catch (error) {
-            console.error("🚨 카테고리를 불러오는 중 오류 발생:", error);
+            console.error(" 카테고리를 불러오는 중 오류 발생:", error);
         }
     }
-    await loadCategories(); // ✅ 카테고리 불러오기 실행
+    await loadCategories(); // 카테고리 불러오기 실행
 
     // 2) 카테고리 선택 시
     async function loadCategory(categoryId, tabButton) {
 
-        // ✅ URL 업데이트 (브라우저 히스토리 변경)
+        // URL 업데이트 (브라우저 히스토리 변경)
         const newCategoryName = tabButton.textContent.trim();
         if (!isExplanMode) {
             const newURL = `preview?category=${encodeURIComponent(newCategoryName)}`;
@@ -457,7 +455,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.querySelectorAll(".tab-btn.active").forEach(btn => btn.classList.remove("active"));
         tabButton.classList.add("active");
 
-        // ✅ 현재 선택된 카테고리명 업데이트 (요소가 존재할 경우에만)
+        // 현재 선택된 카테고리명 업데이트 (요소가 존재할 경우에만)
         if (currentCategory) {
             currentCategory.textContent = newCategoryName;
         }
@@ -482,7 +480,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             subTabContainer.innerHTML = "";
 
             if (subcategories.length === 0) {
-                console.log("📌 서브카테고리가 없습니다. 기본 카테고리 이미지 로딩.");
+                console.log(" 서브카테고리가 없습니다. 기본 카테고리 이미지 로딩.");
                 selectedSubcategory = null;
                 return;
             }
@@ -500,7 +498,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             firstBtn.classList.add("active");
             selectedSubcategory = subcategories[0].id;
         } catch (error) {
-            console.error("🚨 서브카테고리를 불러오는 중 오류 발생:", error);
+            console.error(" 서브카테고리를 불러오는 중 오류 발생:", error);
         }
     }
 
@@ -688,7 +686,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         pag.appendChild(next);
     }
 
-    /** ✅ 이미지 불러오기 (4x5 배열 적용) */
+    /** 이미지 불러오기 (4x5 배열 적용) */
     async function loadImages(categoryId, subcategoryId = null) {
         try {
             let url = `/api/files?category_id=${categoryId}`;
@@ -834,7 +832,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    /** ✅ 다크 모드 토글 기능 */
+    /** 다크 모드 토글 기능 */
     window.toggleTheme = function () {
         const body = document.body;
         const isDarkMode = body.classList.toggle("dark-mode");
@@ -855,7 +853,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    /** ✅ 페이지 로드 시 저장된 다크 모드 적용 */
+    /** 페이지 로드 시 저장된 다크 모드 적용 */
     function applySavedTheme() {
         const savedTheme = localStorage.getItem("theme") || "light";
         const themeIcon = document.getElementById("themeIcon");
@@ -1062,17 +1060,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         checkOverlap(img);
     }
 
-    // ✅ 서버에서 Indicator 상태 가져오기 함수 추가
+    // 서버에서 Indicator 상태 가져오기 함수 추가
     async function fetchIndicatorStatusAndApply() {
         try {
             const response = await fetch("/api/settings/indicator-status");
             if (!response.ok) throw new Error("서버 응답 오류");
             const data = await response.json();
 
-            // ✅ visible 은 서버 우선
+            //  visible 은 서버 우선
             localStorage.setItem('previewVisible', data.visible ? 'visible' : 'hidden');
 
-            // ✅ modernized 는 localStorage 우선
+            // modernized 는 localStorage 우선
             const localModernized = localStorage.getItem('indicatorModernized');
             const isModernized = localModernized !== null
                 ? localModernized === "true"
@@ -1125,11 +1123,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // ✅ `localStorage` 변경 감지 (admin-dashboard에서 변경되면 자동 반영)
+    // `localStorage` 변경 감지 (admin-dashboard에서 변경되면 자동 반영)
     window.addEventListener("storage", updatePreviewVisibility);
 
 
-    // ✅ 뒤로 가기(←) 또는 앞으로 가기(→) 시 카테고리 변경 처리
+    // 뒤로 가기(←) 또는 앞으로 가기(→) 시 카테고리 변경 처리
     window.onpopstate = async function (event) {
         const urlParams = new URLSearchParams(window.location.search);
         let categoryParam = urlParams.get("category");
@@ -1159,7 +1157,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
 
-    // ✅ 모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
+    // 모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
     async function initializeCategorySelection(retryCount = 5) {
         const urlParams = new URLSearchParams(window.location.search);
         let categoryParam = urlParams.get("category");
@@ -1237,7 +1235,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // ✅ Intersection Observer 먼저 정의
+    // Intersection Observer 먼저 정의
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
