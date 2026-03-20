@@ -2038,9 +2038,8 @@ body.preview-page .menubar-container {
     top: 0;
     left: 0;
     right: 0;
-    width: 100vw;
+    width: 100%;
     height: 110px;
-
 }
 
 /*  왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
