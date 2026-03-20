@@ -33,14 +33,18 @@ export function renderImages(imageGallery, images, isExplanMode) {
             const row = document.createElement("div");
             row.classList.add("text-row");
 
-            row.textContent = image.title || "제목 없음";
+            const title = document.createElement("div");
+            title.classList.add("text-preview");
+            title.textContent = image.title || "제목 없음";
+
+            row.appendChild(title);
 
             row.onclick = () => {
                 if (isExplanMode) return;
                 window.location.href = `post?id=${image.id}`;
             };
 
-            imageGallery.appendChild(row);
+            container.appendChild(row);
         }
     });
 }

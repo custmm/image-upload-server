@@ -1,14 +1,13 @@
 // preview_main.js
-
 import {
     page,
-    limit,
     selectedCategory,
     selectedSubcategory,
     setPage,
-    setNoMoreImages
+    setNoMoreImages,
+    setView,
+    currentView
 } from "./preview_state.js";
-
 import { fetchImages } from "./preview_api.js";
 import { renderImages, clearGallery } from "./preview_gallery.js";
 import { loadCategories, loadSubcategories } from "./preview_category.js";
@@ -18,17 +17,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const categoryContainer = document.querySelector(".tab-design");
     const subContainer = document.getElementById("subTabContainer");
     const gallery = document.getElementById("imageGallery");
+    const imageBtn = document.getElementById("preview-image-mode");
+    const textBtn = document.getElementById("preview-text-mode");
 
     const isExplanMode = window.location.hash.includes("explan");
 
     // ⭐ 핵심 함수 (페이지 로드)
     async function loadPage(categoryId, subcategoryId) {
 
-        const offset = page * limit;
+        const currentLimit = currentView === "image" ? 20 : 10;
+        const offset = page * currentLimit;
 
         const { total, files } = await fetchImages({
             offset,
-            limit,
+            limit: currentLimit,
             categoryId,
             subcategoryId
         });
@@ -49,6 +51,47 @@ document.addEventListener("DOMContentLoaded", async () => {
     async function handleSubClick(categoryId, subId) {
         await loadPage(categoryId, subId);
     }
+
+    async function handleCategoryClick(categoryId) {
+        setPage(0); // 🔥 추가
+        await loadSubcategories(subContainer, categoryId, handleSubClick);
+        await loadPage(categoryId, null);
+    }
+
+    async function handleSubClick(categoryId, subId) {
+        setPage(0); // 🔥 추가
+        await loadPage(categoryId, subId);
+    }
+
+    // 이미지 모드 버튼
+    imageBtn.addEventListener("click", async () => {
+
+        setView("image");
+        setPage(0);
+
+        imageBtn.classList.add("active");
+        textBtn.classList.remove("active");
+
+        gallery.classList.remove("text-view");
+        gallery.classList.add("image-view");
+
+        await loadPage(selectedCategory, selectedSubcategory);
+    });
+
+    // 텍스트 모드 버튼
+    textBtn.addEventListener("click", async () => {
+
+        setView("text");
+        setPage(0);
+
+        textBtn.classList.add("active");
+        imageBtn.classList.remove("active");
+
+        gallery.classList.remove("image-view");
+        gallery.classList.add("text-view");
+
+        await loadPage(selectedCategory, selectedSubcategory);
+    });
 
     // ⭐ 초기 실행
     await loadCategories(categoryContainer, handleCategoryClick);
