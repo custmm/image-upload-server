@@ -3,18 +3,26 @@
     body .slider {
         display: flex;
         background-image: url("../images/light_toggle_bg.png");
+        height: 100%;
+        width: 100%;
+        background-size: cover;
+        border-radius: 20px;
     }
 
     body.dark-mode .slider {
         background-image: url("../images/dark_toggle_bg.png");
     }
 
-    body .slider_util{
+    body .slider_util {
         display: flex;
-        background-image: url("../images/light_toggle_bg.png");
+        background: url("../images/light_toggle_bg.png") no-repeat center;
+        height: 100%;
+        width: 100%;
+        background-size: cover;
+        border-radius: 20px;
     }
 
-    body.dark-mode .slider_util{
+    body.dark-mode .slider_util {
         background-image: url("../images/dark_toggle_bg.png");
     }
 
