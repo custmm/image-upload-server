@@ -1,6 +1,4 @@
-// 상태값(표시기관련)
-let overlapTimer = null;
-let wasOverlapping = false;
+
 
 function showLoading() {
     const indicator = document.getElementById("loadingIndicator");
@@ -168,6 +166,14 @@ function updatePreviewVisibility() {
 
     if (!previewContainer) return;
 
+    // 상태값(표시기관련)
+    overlapTimer = null;
+    clearTimeout(overlapTimer);
+    wasOverlapping = false;
+
+    previewContainer.innerHTML = "";
+    previewContainer.style.position = "relative";
+
     // let으로 변경 (재할당 가능)
     let img = previewContainer.querySelector("img");
 
@@ -183,6 +189,9 @@ function updatePreviewVisibility() {
 }
 
 function updatePreviewImage() {
+    const previewContainer = document.getElementById("previewImagesContainer");
+    if (!previewContainer) return;
+
     wasOverlapping = false; // 이전 상태 추적
     clearTimeout(overlapTimer);
     overlapTimer = null;
