@@ -1987,11 +1987,12 @@ body.search-page #searchResults img {
 
 body.search-page .search-item {
     display: flex;
-    width: 100%;
+    width: 90%;
     gap: 15px;
     padding: 10px 40px;
     margin: 0 auto;
     cursor: pointer;
+    justify-items: center;
     transition:
         background 0.3s ease,
         border-radius 0.3s ease,
