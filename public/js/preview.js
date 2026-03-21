@@ -1,5 +1,3 @@
-let loaderStep = 1;
-let loaderInterval = null;
 
 function showLoading() {
     const indicator = document.getElementById("loadingIndicator");
@@ -7,19 +5,28 @@ function showLoading() {
 
     indicator.style.display = "flex";
 
+    if (loaderInterval) {
+        clearInterval(loaderInterval);
+        loaderInterval = null;
+    }
+
+    loaderStep = 1;
+
     loaderInterval = setInterval(() => {
         loaderStep++;
         if (loaderStep > 4) loaderStep = 1;
 
         loader.className = "loader loader" + loaderStep;
-    }, 1000); // 속도 조절 가능
+    }, 500);
 }
 
 function hideLoading() {
     const indicator = document.getElementById("loadingIndicator");
 
-    clearInterval(loaderInterval);
-    loaderInterval = null;
+    if (loaderInterval) {
+        clearInterval(loaderInterval);
+        loaderInterval = null;
+    }
 
     indicator.style.opacity = "0"; // 서서히 투명
 
@@ -380,6 +387,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     setTheme(savedTheme);
 
+    let isLoadingPage = false;
 
     // 상태값(이미지/텍스트모드관련)
     let currentView = "image";
@@ -743,6 +751,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 5) 페이지별 이미지 로드
     async function loadPage(categoryId, subcategoryId = null) {
+        if (isLoadingPage) return;
+        isLoadingPage = true;
+
         showLoading();
 
         const startTime = Date.now(); // 시작 시간 기록
@@ -876,6 +887,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 await new Promise(res => setTimeout(res, minDuration - elapsed));
             }
             hideLoading();
+            isLoadingPage = false;
         }
     }
 
