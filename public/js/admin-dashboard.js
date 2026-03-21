@@ -1,40 +1,42 @@
 // 먼저 화면 잠금 (body 존재 보장)
 document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("auth-lock");
+
+    function isExpired(token) {
+        try {
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            const now = Date.now() / 1000;
+            return payload.exp < now;
+        } catch {
+            return true;
+        }
+    }
+    function redirectToLogin() {
+        alert("관리자 인증이 필요합니다.");
+        window.location.href = "admin-login.html";
+    }
+
+    function checkAuth() {
+        const token = localStorage.getItem("adminToken");
+        const loader = document.getElementById("authLoader");
+
+        // 토큰 없거나 만료
+        if (!token || isExpired(token)) {
+            localStorage.removeItem("adminToken"); // 정리까지 같이
+            redirectToLogin();
+            return;
+        }
+
+        // 인증 성공
+        if (loader) loader.style.display = "none";
+        document.body.classList.remove("auth-lock");
+    }
+
+    // 실행
+    checkAuth();
+
 });
 
-function isExpired(token) {
-    try {
-        const payload = JSON.parse(atob(token.split(".")[1]));
-        const now = Date.now() / 1000;
-        return payload.exp < now;
-    } catch {
-        return true;
-    }
-}
-function redirectToLogin(){
-    alert("관리자 인증이 필요합니다.");
-    window.location.href = "admin-login.html";
-}
-
-function checkAuth() {
-    const token = localStorage.getItem("adminToken");
-    const loader = document.getElementById("authLoader");
-
-    // 토큰 없거나 만료
-    if (!token || isExpired(token)) {
-        localStorage.removeItem("adminToken"); // 정리까지 같이
-        redirectToLogin();
-        return;
-    }
-
-    // 인증 성공
-    if (loader) loader.style.display = "none";
-    document.body.classList.remove("auth-lock");
-}
-
-// 실행
-checkAuth();
 
 
 // 이미지로드
