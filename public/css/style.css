@@ -2074,7 +2074,6 @@ body.preview-page .setting-layer {
     top: 80px;
     right: 20px;
     width: 250px;
-    background: rgba(30, 30, 30, 0.9);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
@@ -2085,13 +2084,10 @@ body.preview-page .setting-layer {
 
 body.preview-page .setting-popup {
     position: relative;
-    background: #fff;
     color: black;
     padding: 20px;
     border-radius: 20px;
     width: 250px;
-    top: 0px;
-    right: 40px;
 }
 
 body.preview-page .setting-popup h3 {
@@ -2195,9 +2191,8 @@ body.preview-page .toggle-switch_ind{
 
 body.preview-page .indicate_btn{
     color: #555;
-    border-radius: 2px;
-    background-color: aqua;
-
+    border-radius: 30px;
+    border: 1px solid #000;
 }
 /* 이미지 갤러리 (4x5 배열) */
 body.preview-page .image-gallery {
