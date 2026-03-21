@@ -2186,9 +2186,17 @@ body.preview-page .view-icon-btn.active {
     background-color: #fff;
 }
 body.preview-page .toggle-switch_ind{
+    display: flex;
+    justify-content: space-between;
     border: 1px solid #333;
-    width: 90px;
-    height: 45px;
+    width: 180px;
+    height: 50px;
+}
+
+body.preview-page .indicate_btn{
+    color: #555;
+    border-radius: 2px;
+    background-color: aqua;
 
 }
 /* 이미지 갤러리 (4x5 배열) */
