@@ -2202,6 +2202,12 @@ body.preview-page .indicate_btn{
     border-radius: 30px;
     border: 1px solid #000;
 }
+
+body.preview-page .indicate_btn:active{
+    background-color: #00cc8f;
+    color: #fff;
+}
+
 /* 이미지 갤러리 (4x5 배열) */
 body.preview-page .image-gallery {
     display: grid;

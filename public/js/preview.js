@@ -590,8 +590,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-
-
     if (welcomeEl) {
         // 슬라이더 조작
         if (opacitySlider) {
