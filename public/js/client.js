@@ -1,3 +1,44 @@
+function isExpired(token) {
+    try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        const now = Date.now() / 1000;
+
+        return payload.exp < now;
+    } catch {
+        return true;
+    }
+}
+
+const token = localStorage.getItem("adminToken");
+
+if (!token) {
+
+    alert("관리자 인증이 필요합니다.");
+    window.location.href = "upload.html";
+
+}
+
+function cleanExpiredToken() {
+
+    const token = localStorage.getItem("adminToken");
+
+    if (!token) return;
+
+    try {
+
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        const now = Date.now() / 1000;
+
+        if (payload.exp < now) {
+            localStorage.removeItem("adminToken");
+        }
+
+    } catch {
+        localStorage.removeItem("adminToken");
+    }
+}
+
+cleanExpiredToken();
 
 document.addEventListener("DOMContentLoaded", async () => {
     const fileInput = document.getElementById("fileInput");
