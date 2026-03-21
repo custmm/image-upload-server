@@ -1,3 +1,6 @@
+// 상태값(표시기관련)
+let overlapTimer = null;
+let wasOverlapping = false;
 
 function showLoading() {
     const indicator = document.getElementById("loadingIndicator");
@@ -404,10 +407,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 상태값(토글관련)
     let isVisible = true;
-
-    // 상태값(표시기관련)
-    let overlapTimer = null;
-    let wasOverlapping = false;
 
     // 상태값(기타)
     let noMoreImages = false;
