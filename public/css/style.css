@@ -2185,7 +2185,12 @@ body.preview-page .view-icon-btn.active {
     border-radius: 50%;
     background-color: #fff;
 }
+body.preview-page .toggle-switch_ind{
+    border: 1px solid #333;
+    width: 90px;
+    height: 45px;
 
+}
 /* 이미지 갤러리 (4x5 배열) */
 body.preview-page .image-gallery {
     display: grid;
