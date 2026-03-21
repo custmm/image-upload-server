@@ -153,6 +153,7 @@ body.upload-page .back-button:hover,
 body.upload-page .editor-buttons button:hover,
 body.upload-page .upload-button:hover,
 body.preview-page .back-button:hover,
+body.preview-page .indicate_btn:hover,
 body.dashboard-page .back-button:hover,
 body.dashboard-page .logout-button:hover,
 body.dashboard-page .custom-button:hover,
@@ -180,7 +181,8 @@ body.click-page,
 body.login-page,
 body.upload-page,
 body.post-page,
-body.tag-page {
+body.tag-page,
+body.mode-page {
     padding: 20px;
     text-align: center;
 }
@@ -210,10 +212,6 @@ body.mode-page {
 
 body.index-page {
     background-color: #c0c0c0;
-}
-
-body.mode-page {
-    text-align: center;
 }
 
 body.icon-page {
