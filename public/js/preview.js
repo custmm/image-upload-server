@@ -20,7 +20,7 @@ function hideLoading() {
     clearInterval(loaderInterval);
     loaderInterval = null;
 
-    indicator.style.opacity = "0"; // 🔥 서서히 투명
+    indicator.style.opacity = "0"; // 서서히 투명
 
     setTimeout(() => {
         indicator.style.display = "none"; // 완전히 숨김
@@ -155,6 +155,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const closeBtn = document.querySelector(".preview-close");
     const previewLink = document.getElementById("previewLink");
     const iconLink = document.getElementById("iconlink");
+    const etcLink = document.getElementById("etcLink");
     const urlParams = new URLSearchParams(window.location.search);
 
     // 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
@@ -214,15 +215,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 다른html을 popup으로 열기
     if (previewLink) {
         previewLink.addEventListener("click", (e) => {
-            e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
+            e.preventDefault(); // 새 창 / 페이지 이동 차단
             openPreviewPopup();
         });
     }
 
     if (iconLink) {
         iconLink.addEventListener("click", (e) => {
-            e.preventDefault(); // 🔥 새 창 / 페이지 이동 차단
+            e.preventDefault(); // 새 창 / 페이지 이동 차단
             openAiIconPopup();
+        });
+    }
+
+    if (etcLink) {
+        etcLink.addEventListener("click", (e) => {
+            e.preventDefault(); // 새 창 / 페이지 이동 차단
+            openEtcPopup();
         });
     }
 
@@ -250,6 +258,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         frame.src = "ai_icon.html";
         overlay.style.display = "flex";
+    }
+
+    function openEtcPopup() {
+        const overlay = document.getElementById("previewOverlayIcon");
+        const frame = document.getElementById("previewFrameIcon");
+
+        if (!overlay || !frame) return;
+
+        frame.src = "etc_util.html";
+        overlay.style.display = "flex";
+
     }
 
     document.querySelectorAll(".preview-close").forEach(btn => {

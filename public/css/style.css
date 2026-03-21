@@ -2906,7 +2906,7 @@ body.icon-page .icon-studio-wrapper {
     margin-bottom: 30px;
 }
 
-/* 소개팝업페이지(preview_popup.html */
+/* 소개팝업페이지(preview_popup.html) */
 body.preview-popup-page {
     width: 100%
 }
@@ -2932,6 +2932,45 @@ body.preview-popup-page caption.title {
 }
 
 body.preview-popup-page table.function_box {
+    width: 95%
+}
+
+body.preview-popup-page p.appfunction {
+    text-align: left;
+    font-size: 20px;
+    margin: 10px 5px;
+}
+
+body.preview-popup-page hr {
+    margin: 24px 0;
+}
+
+/* 기타기능 페이지(etc_util.html) */
+body.etc-page {
+    width: 100%
+}
+
+body.etc-page h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+body.etc-page ul {
+    font-size: 17px;
+    list-style: none;
+}
+
+body.etc-page table {
+    border-collapse: collapse;
+}
+
+body.etc-page caption.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 5px;
+}
+
+body.etc-page table.function_box {
     width: 95%
 }
 
