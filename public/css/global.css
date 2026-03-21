@@ -179,6 +179,10 @@ body.post-page .page-footer {
 
 
 /**-------------------------- 각page의 배경설정 ----------------------------------------------*/
+body.auth-lock {
+    visibility: hidden;
+}
+
 body.click-page,
 body.login-page,
 body.upload-page,
