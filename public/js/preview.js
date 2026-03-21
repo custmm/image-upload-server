@@ -14,6 +14,7 @@ function showLoading() {
         loader.className = "loader loader" + loaderStep;
     }, 1000); // 속도 조절 가능
 }
+
 function hideLoading() {
     const indicator = document.getElementById("loadingIndicator");
 
@@ -69,7 +70,7 @@ window.toggleSidebar = function () {
     const isOpening = !sidebar.classList.contains("open");
     sidebar.classList.toggle("open");
 
-    // 🔥 사이드바를 "열 때만" 서브메뉴 전부 닫기 (완전 초기화)
+    // 사이드바를 "열 때만" 서브메뉴 전부 닫기 (완전 초기화)
     if (isOpening) {
         document.querySelectorAll(".sub-menu").forEach(menu => {
             menu.classList.remove("open");
@@ -97,7 +98,7 @@ window.goCategory = function (categoryName) {
     );
 
     if (!targetBtn) {
-        console.error("❌ 해당 카테고리 버튼을 찾을 수 없음:", categoryName);
+        console.error(" 해당 카테고리 버튼을 찾을 수 없음:", categoryName);
         return;
     }
 
@@ -121,6 +122,27 @@ function showPopupMessage(msg) {
         popup.style.opacity = "0";
         setTimeout(() => popup.remove(), 300);
     }, 2000);
+}
+
+function indicatorButton() {
+    const showindicatorBtn = document.getElementById("show-indicate");
+    const hideindicatorBtn = document.getElementById("hide-indicate");
+
+    // 표시기 숨기기
+    hideindicatorBtn.addEventListener("click", async function () {
+        localStorage.setItem("previewVisible", "hidden"); // 상태 저장
+        await updateIndicatorStatusOnServer(false); // 서버 반영
+        indicatorButton();
+        showpopup("이미지 표시기가 제거되었습니다."); // 팝업 추가
+    });
+
+    // 표시기 나타내기
+    showindicatorBtn.addEventListener("click", async function () {
+        localStorage.setItem("previewVisible", "visible");
+        await updateIndicatorStatusOnServer(true); // 서버 반영
+        indicatorButton();
+        showpopup("이미지 표시기가 나타났습니다."); // 팝업 추가
+    });
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -212,7 +234,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         categoryParam = categoryMappings[categoryParam];
     }
 
-    // 다른html을 popup으로 열기
     if (previewLink) {
         previewLink.addEventListener("click", (e) => {
             e.preventDefault(); // 새 창 / 페이지 이동 차단
@@ -341,6 +362,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             await loadPage(selectedCategory, selectedSubcategory);
         });
     }
+
+
 
     if (welcomeEl) {
         // 슬라이더 조작
