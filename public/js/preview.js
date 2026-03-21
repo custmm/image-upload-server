@@ -924,7 +924,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (!popup || popup.style.display === "none") return;
 
-        const toggleEl = popup.querySelector('.toggle-switch .slider_uttl');
+        const toggleEl = popup.querySelector('.toggle-switch .slider_util');
         if (!img || !toggleEl) return;
 
         const imgRect = img.getBoundingClientRect();
