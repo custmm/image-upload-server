@@ -24,6 +24,13 @@
 .toggle-switch input:checked+.slider #themeIcon {
     transform: translateX(53px);
 }
+.toggle-switch_ input:checked+.slider_util::before {
+    transform: translateX(53px);
+}
+
+.toggle-switch input:checked+.slider_util #themeIcon {
+    transform: translateX(53px);
+}
 
 .toggle-switch_theme {
     display: flex;
