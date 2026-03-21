@@ -2,8 +2,11 @@
 
     body .slider {
         display: flex;
-        top: 45px;
         background-image: url("../images/light_toggle_bg.png");
+    }
+
+    body .slider_util{
+        display: flex;
     }
 
     body.dark-mode .slider {
