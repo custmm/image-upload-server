@@ -2962,6 +2962,7 @@ body.etc-page ul {
 
 body.etc-page table {
     border-collapse: collapse;
+    border: 1px solid#333;
 }
 
 body.etc-page caption.title {
@@ -2974,13 +2975,13 @@ body.etc-page table.function_box {
     width: 95%
 }
 
-body.preview-popup-page p.appfunction {
+body.etc-page p.appfunction {
     text-align: left;
     font-size: 20px;
     margin: 10px 5px;
 }
 
-body.preview-popup-page hr {
+body.etc-page hr {
     margin: 24px 0;
 }
 

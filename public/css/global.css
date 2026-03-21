@@ -225,7 +225,8 @@ body.icon-page {
     background: #fff;
 }
 
-body.preview-popup-page {
+body.preview-popup-page,
+body.etc-page {
     padding: 16px;
     line-height: 1.6;
     box-sizing: border-box;
@@ -515,6 +516,21 @@ body.preview-popup-page td {
 
 body.preview-popup-page tr,
 body.preview-popup-page td {
+    text-align: center;
+}
+
+/*-------------------------- etc-page공통 레이아웃 ----------------------------------------------*/
+body.etc-page th,
+body.etc-page tr,
+body.etc-page td {
+    border-collapse: collapse;
+    border: 1px solid #555;
+    font-size: 15px;
+    padding: 4px;
+}
+
+body.etc-page tr,
+body.etc-page td {
     text-align: center;
 }
 
