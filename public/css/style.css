@@ -2921,30 +2921,6 @@ body.preview-popup-page ul {
     list-style: none;
 }
 
-body.preview-popup-page table {
-    border-collapse: collapse;
-}
-
-body.preview-popup-page caption.title {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px 5px;
-}
-
-body.preview-popup-page table.function_box {
-    width: 95%
-}
-
-body.preview-popup-page p.appfunction {
-    text-align: left;
-    font-size: 20px;
-    margin: 10px 5px;
-}
-
-body.preview-popup-page hr {
-    margin: 24px 0;
-}
-
 /* 기타기능 페이지(etc_util.html) */
 body.etc-page {
     width: 100%
