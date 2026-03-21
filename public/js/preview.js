@@ -1,3 +1,5 @@
+let loaderInterval = null;
+let loaderStep = 1;
 let overlapTimer = null;
 let wasOverlapping = false;
 
