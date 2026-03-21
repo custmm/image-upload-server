@@ -1,3 +1,5 @@
+let overlapTimer = null;
+let wasOverlapping = false;
 
 
 function showLoading() {
@@ -159,6 +161,36 @@ function indicatorButton() {
         showPopupMessage("이미지 표시기가 나타났습니다."); // 팝업 추가
     });
 }
+
+function checkOverlap(img) {
+    const popup = document.getElementById("settingPopup");
+
+    if (!popup || popup.style.display === "none") return;
+
+    const toggleEl = popup.querySelector('.toggle-switch .slider_util');
+    if (!img || !toggleEl) return;
+
+    const imgRect = img.getBoundingClientRect();
+    const toggleRect = toggleEl.getBoundingClientRect();
+
+    const x_overlap = Math.max(0, Math.min(imgRect.right, toggleRect.right) - Math.max(imgRect.left, toggleRect.left));
+    const y_overlap = Math.max(0, Math.min(imgRect.bottom, toggleRect.bottom) - Math.max(imgRect.top, toggleRect.top));
+    const overlapArea = x_overlap * y_overlap;
+
+    const toggleArea = toggleRect.width * toggleRect.height;
+    const ratioToggle = overlapArea / toggleArea;
+
+    if (ratioToggle >= 0.7 && !wasOverlapping) {
+        overlapTimer = setTimeout(() => window.location.href = "killing_game.html", 10000);
+    }
+
+    if (ratioToggle < 0.7 && wasOverlapping) {
+        clearTimeout(overlapTimer);
+    }
+
+    wasOverlapping = ratioToggle >= 0.7;
+}
+
 // 표시기 상태 업데이트 함수
 function updatePreviewVisibility() {
     const previewState = localStorage.getItem("previewVisible");
@@ -166,10 +198,11 @@ function updatePreviewVisibility() {
 
     if (!previewContainer) return;
 
-    // 상태값(표시기관련)
-    overlapTimer = null;
-    clearTimeout(overlapTimer);
     wasOverlapping = false;
+    // 상태값(표시기관련)
+    clearTimeout(overlapTimer);
+    overlapTimer = null;
+
 
     previewContainer.innerHTML = "";
     previewContainer.style.position = "relative";
@@ -244,7 +277,7 @@ function updatePreviewImage() {
 
     img.addEventListener("click", togglePreviewImage);
 
-    // 🧠 드래그 상태 추적
+    // 드래그 상태 추적
     let isDragging = false;
     let offsetX = 0;
     let offsetY = 0;
@@ -276,7 +309,7 @@ function updatePreviewImage() {
         offsetY = e.clientY - rect.top;
         img.style.cursor = "grabbing";
         e.preventDefault();
-        startOverlapCheckLoop(img); // 👈 겹침 감지 루프 시작
+        startOverlapCheckLoop(img); // 겹침 감지 루프 시작
     });
 
     document.addEventListener("mousemove", (e) => {
@@ -286,14 +319,14 @@ function updatePreviewImage() {
         let top = e.clientY - containerRect.top - offsetY;
         img.style.left = left + "px";
         img.style.top = top + "px";
-        checkOverlap(img); // 👈 실시간 감지용 강제 호출 추가!
+        checkOverlap(img); // 실시간 감지용 강제 호출 추가!
     });
 
     document.addEventListener("mouseup", () => {
         if (isDragging) {
             isDragging = false;
             img.style.cursor = "grab";
-            stopOverlapCheckLoop(); // 👈 루프 멈추기
+            stopOverlapCheckLoop(); // 루프 멈추기
         }
     });
 
@@ -1137,35 +1170,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.body.classList.add(mode);
 
         localStorage.setItem("theme", mode);
-    }
-
-    function checkOverlap(img) {
-        const popup = document.getElementById("settingPopup");
-
-        if (!popup || popup.style.display === "none") return;
-
-        const toggleEl = popup.querySelector('.toggle-switch .slider_util');
-        if (!img || !toggleEl) return;
-
-        const imgRect = img.getBoundingClientRect();
-        const toggleRect = toggleEl.getBoundingClientRect();
-
-        const x_overlap = Math.max(0, Math.min(imgRect.right, toggleRect.right) - Math.max(imgRect.left, toggleRect.left));
-        const y_overlap = Math.max(0, Math.min(imgRect.bottom, toggleRect.bottom) - Math.max(imgRect.top, toggleRect.top));
-        const overlapArea = x_overlap * y_overlap;
-
-        const toggleArea = toggleRect.width * toggleRect.height;
-        const ratioToggle = overlapArea / toggleArea;
-
-        if (ratioToggle >= 0.7 && !wasOverlapping) {
-            overlapTimer = setTimeout(() => window.location.href = "killing_game.html", 10000);
-        }
-
-        if (ratioToggle < 0.7 && wasOverlapping) {
-            clearTimeout(overlapTimer);
-        }
-
-        wasOverlapping = ratioToggle >= 0.7;
     }
 
 
