@@ -2073,7 +2073,8 @@ body.preview-page .setting-layer {
     position: fixed;
     top: 80px;
     right: 20px;
-    width: 250px;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
@@ -2087,7 +2088,8 @@ body.preview-page .setting-popup {
     color: black;
     padding: 20px;
     border-radius: 20px;
-    width: 250px;
+    width: 300px;
+    text-align: center;
 }
 
 body.preview-page .setting-popup h3 {
@@ -2096,8 +2098,10 @@ body.preview-page .setting-popup h3 {
 
 body.preview-page .setting_item {
     display: flex;
-    margin: 15px 0;
+    margin: 0 auto;
+    align-items: center;
     padding: 10px 0;
+    gap: 15px;
 }
 
 body.preview-page #settingBtn {

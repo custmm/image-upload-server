@@ -1,6 +1,8 @@
     @charset "utf-8";
 
     body .slider {
+        display: flex;
+        top: 45px;
         background-image: url("../images/light_toggle_bg.png");
     }
 

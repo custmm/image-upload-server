@@ -26,16 +26,19 @@
 }
 
 .toggle-switch_theme {
-    padding-left: 45px;
+    display: flex;
 }
 
 .toggle-switch_theme input {
+    display: flex;
+    align-items: center;
     position: absolute;
     width: 90px;
     height: 40px;
     opacity: 0;
     cursor: pointer;
     z-index: 2;
+    top: 45px;
     /* 필요시 클릭 우선순위 */
 }
 
