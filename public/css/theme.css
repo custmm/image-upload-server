@@ -5,13 +5,20 @@
         background-image: url("../images/light_toggle_bg.png");
     }
 
-    body .slider_util{
-        display: flex;
-    }
-
     body.dark-mode .slider {
         background-image: url("../images/dark_toggle_bg.png");
     }
+
+    body .slider_util{
+        display: flex;
+        background-image: url("../images/light_toggle_bg.png");
+    }
+
+    body.dark-mode .slider_util{
+        background-image: url("../images/dark_toggle_bg.png");
+    }
+
+
 
     body.post-page.dark-mode,
     body.preview-page.dark-mode,
