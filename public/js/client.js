@@ -14,7 +14,7 @@ const token = localStorage.getItem("adminToken");
 if (!token) {
 
     alert("관리자 인증이 필요합니다.");
-    window.location.href = "upload.html";
+    window.location.href = "admin-login.html";
 
 }
 
