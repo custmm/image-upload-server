@@ -132,7 +132,7 @@ function indicatorButton() {
     hideindicatorBtn.addEventListener("click", async function () {
         localStorage.setItem("previewVisible", "hidden"); // 상태 저장
         await updateIndicatorStatusOnServer(false); // 서버 반영
-        indicatorButton();
+        updatePreviewVisibility();
         showpopup("이미지 표시기가 제거되었습니다."); // 팝업 추가
     });
 
@@ -140,7 +140,7 @@ function indicatorButton() {
     showindicatorBtn.addEventListener("click", async function () {
         localStorage.setItem("previewVisible", "visible");
         await updateIndicatorStatusOnServer(true); // 서버 반영
-        indicatorButton();
+        updatePreviewVisibility();
         showpopup("이미지 표시기가 나타났습니다."); // 팝업 추가
     });
 }
@@ -435,7 +435,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-
+    indicatorButton();
+    
     // 1) 카테고리 로드
     async function loadCategories() {
         if (!isExplanMode) {
