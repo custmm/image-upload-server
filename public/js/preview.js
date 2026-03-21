@@ -195,7 +195,7 @@ function checkOverlap(img) {
 
 // 표시기 상태 업데이트 함수
 function updatePreviewVisibility() {
-    const previewState = localStorage.getItem("previewVisible");
+    
     const previewContainer = document.getElementById("previewImagesContainer");
 
     if (!previewContainer) return;
@@ -216,11 +216,10 @@ function updatePreviewVisibility() {
         if (!img) return;
     }
 
-    // 🔥 상태 적용 (여기만 남기면 됨)
+    // 🔥 상태 적용
+    const previewState = localStorage.getItem("previewVisible");
     if (previewState === "hidden") {
         img.classList.add("preview-hidden");
-    } else {
-        img.classList.remove("preview-hidden");
     }
 }
 
