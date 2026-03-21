@@ -367,7 +367,6 @@ function updatePreviewImage() {
         }
     });
 
-
     img.onerror = function () {
         console.error(`이미지 로드 실패: ${img.src}`);
     };

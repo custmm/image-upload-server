@@ -96,18 +96,6 @@ button {
     transition: background-color 0.2s ease;
 }
 
-#previewImagesContainer img {
-    opacity: 1;
-    transition: opacity 0.4s ease;
-}
-
-/* 숨김 상태 */
-.preview-hidden {
-    opacity: 0;
-    pointer-events: none; /* 클릭 방지 */
-    transition: opacity 0.3s ease;
-}
-
 body.login-page .back-button,
 body.dashboard-page .back-button,
 body.mode-page .back-button,
