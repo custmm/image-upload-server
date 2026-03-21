@@ -216,7 +216,7 @@ function updatePreviewVisibility() {
         if (!img) return;
     }
 
-    // 🔥 상태 적용
+    // 🔥 상태 적용 (여기만 남기면 됨)
     if (previewState === "hidden") {
         img.classList.add("preview-hidden");
     } else {
