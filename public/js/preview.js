@@ -201,25 +201,22 @@ function updatePreviewVisibility() {
     if (!previewContainer) return;
 
     wasOverlapping = false;
-    // 상태값(표시기관련)
+
     clearTimeout(overlapTimer);
     overlapTimer = null;
 
-
-    previewContainer.innerHTML = "";
     previewContainer.style.position = "relative";
 
-    // let으로 변경 (재할당 가능)
     let img = previewContainer.querySelector("img");
 
-    // previewContainer 내의 img 요소 찾기
+    // 🔥 없을 때만 생성
     if (!img) {
         updatePreviewImage();
         img = previewContainer.querySelector("img");
-        if (!img) return; // 그래도 없으면 그냥 리턴
+        if (!img) return;
     }
 
-    // 표시 상태 적용
+    // 🔥 상태 적용
     if (previewState === "hidden") {
         img.classList.add("preview-hidden");
     } else {

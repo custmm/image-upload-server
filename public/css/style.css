@@ -2206,6 +2206,7 @@ body.preview-page #previewImagesContainer img {
 body.preview-page .preview-hidden {
     opacity: 0;
     pointer-events: none; /* 클릭 방지 */
+    transition: opacity 0.3s ease;
 }
 body.preview-page .indicate_btn{
     color: #555;
