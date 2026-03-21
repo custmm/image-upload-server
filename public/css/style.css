@@ -2197,17 +2197,6 @@ body.preview-page .toggle-switch_ind{
     border-radius: 30px;
 }
 
-body.preview-page #previewImagesContainer img {
-    opacity: 1;
-    transition: opacity 0.4s ease;
-}
-
-/* 숨김 상태 */
-body.preview-page .preview-hidden {
-    opacity: 0;
-    pointer-events: none; /* 클릭 방지 */
-    transition: opacity 0.3s ease;
-}
 body.preview-page .indicate_btn{
     color: #555;
     border-radius: 30px;
