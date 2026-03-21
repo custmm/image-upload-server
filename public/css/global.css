@@ -96,10 +96,6 @@ button {
     transition: background-color 0.2s ease;
 }
 
-button:hover {
-    background-color: #755a6a;
-}
-
 body.login-page .back-button,
 body.dashboard-page .back-button,
 body.mode-page .back-button,
@@ -135,18 +131,22 @@ body.dashboard-page .popup-confirm-button:hover,
 body.dashboard-page .edit-button:hover,
 body.dashboard-page .custom-chart-button:hover,
 body.mode-page .popup-confirm:hover,
+body.mode-page .back-button:hover,
+body.mode-page .upload-selection-button:hover,
+body.mode-page .preview-selection-button:hover,
+body.mode-page .admin-selection-button:hover,
+body.mode-page .logout-button:hover,
+body.post-page .button:hover,
 body.login-page .popup-button:hover,
 body.game-page #nextButton:hover,
-body.game-page #previewButton:hover body.game-page #closePopupButton:hover,
+body.game-page #previewButton:hover, 
+body.game-page #closePopupButton:hover,
 body.game-page #pre-button:hover,
 body.game-page #victoryScreen button:hover,
 body.game-page .start-game-btn:hover,
 body.game-page .hint-confirm-button:hover,
 body.post-page .popup-button:hover,
-body.post-page .custom-button:hover {
-    background-color: aqua;
-}
-
+body.post-page .custom-button:hover,
 body.login-page .back-button:hover,
 body.login-page #loginButton:hover,
 body.upload-page .back-button:hover,
@@ -156,15 +156,8 @@ body.preview-page .back-button:hover,
 body.dashboard-page .back-button:hover,
 body.dashboard-page .logout-button:hover,
 body.dashboard-page .custom-button:hover,
-body.index-page button:hover,
-body.mode-page .back-button:hover,
-body.mode-page .upload-selection-button:hover,
-body.mode-page .preview-selection-button:hover,
-body.mode-page .admin-selection-button:hover,
-body.mode-page .logout-button:hover,
-body.post-page .button:hover {
-    background-color: #755a6a;
-    animation: pulse 0.4s ease-in-out infinite;
+body.index-page button:hover{
+    background-color: aqua;
 }
 
 body.preview-page .page-footer,
