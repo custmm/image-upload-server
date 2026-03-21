@@ -130,7 +130,7 @@ function indicatorButton() {
 
     if (!showindicatorBtn || !hideindicatorBtn) return;
 
-        // 기존 이벤트 제거 후 다시 등록
+    // 기존 이벤트 제거 후 다시 등록
     showindicatorBtn.replaceWith(showindicatorBtn.cloneNode(true));
     hideindicatorBtn.replaceWith(hideindicatorBtn.cloneNode(true));
 
@@ -151,6 +151,26 @@ function indicatorButton() {
         showPopupMessage("이미지 표시기가 나타났습니다."); // 팝업 추가
     });
 }
+// 표시기 상태 업데이트 함수
+function updatePreviewVisibility() {
+    const previewState = localStorage.getItem("previewVisible");
+    const previewContainer = document.getElementById("previewImagesContainer");
+
+    if (!previewContainer) return;
+
+    // let으로 변경 (재할당 가능)
+    let img = previewContainer.querySelector("img");
+
+    // previewContainer 내의 img 요소 찾기
+    if (!img) {
+        updatePreviewImage();
+        img = previewContainer.querySelector("img");
+        if (!img) return; // 그래도 없으면 그냥 리턴
+    }
+
+    // 표시 상태 적용
+    img.style.display = (previewState === "hidden") ? "none" : "flex";
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -169,7 +189,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // container관련
     const currentCategory = document.getElementById("currentCategory"); // 현재 카테고리 표시
-    const previewContainer = document.getElementById("previewImagesContainer");
     const imageGallery = document.getElementById("imageGallery"); // 이미지 갤러리
     const paginationContainer = document.getElementById("pagination-container");
 
@@ -1152,34 +1171,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             applyModernizedImages(isModernized);
         } catch (error) {
             console.error("🚨 Indicator 상태 가져오기 오류:", error);
-        }
-    }
-
-    // 표시기 상태 업데이트 함수
-    function updatePreviewVisibility() {
-        const previewState = localStorage.getItem("previewVisible");
-
-        if (!previewContainer) {
-            console.error("❌ #previewImagesContainer 요소를 찾을 수 없음!");
-            return;
-        }
-
-        // let으로 변경 (재할당 가능)
-        let img = previewContainer.querySelector("img");
-
-        // previewContainer 내의 img 요소 찾기
-        if (!img) {
-            console.warn("⚠️ 표시할 이미지가 없음. 새로 생성합니다.");
-            updatePreviewImage();
-            img = previewContainer.querySelector("img");
-            if (!img) return; // 그래도 없으면 그냥 리턴
-        }
-
-        // 표시 상태 적용
-        if (previewState === "hidden") {
-            img.style.display = "none"; // 숨기기
-        } else {
-            img.style.display = "flex"; // 보이기
         }
     }
 
