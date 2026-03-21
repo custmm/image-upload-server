@@ -5,6 +5,7 @@
         background-image: url("../images/light_toggle_bg.png");
         height: 40px;
         width: 90px;
+        top: 45px;
         background-size: cover;
         border-radius: 20px;
         transition: all 0.3s;
