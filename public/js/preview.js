@@ -220,7 +220,11 @@ function updatePreviewVisibility() {
     }
 
     // 표시 상태 적용
-    img.style.display = (previewState === "hidden") ? "none" : "flex";
+    if (previewState === "hidden") {
+        img.classList.add("preview-hidden");
+    } else {
+        img.classList.remove("preview-hidden");
+    }
 }
 
 function updatePreviewImage() {
