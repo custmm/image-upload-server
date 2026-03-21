@@ -128,20 +128,27 @@ function indicatorButton() {
     const showindicatorBtn = document.getElementById("show-indicate");
     const hideindicatorBtn = document.getElementById("hide-indicate");
 
+    if (!showindicatorBtn || !hideindicatorBtn) return;
+
+        // 기존 이벤트 제거 후 다시 등록
+    showindicatorBtn.replaceWith(showindicatorBtn.cloneNode(true));
+    hideindicatorBtn.replaceWith(hideindicatorBtn.cloneNode(true));
+
+    const newShowBtn = document.getElementById("show-indicate");
+    const newHideBtn = document.getElementById("hide-indicate");
+
     // 표시기 숨기기
-    hideindicatorBtn.addEventListener("click", async function () {
+    newHideBtn.addEventListener("click", async function () {
         localStorage.setItem("previewVisible", "hidden"); // 상태 저장
-        await updateIndicatorStatusOnServer(false); // 서버 반영
         updatePreviewVisibility();
-        showpopup("이미지 표시기가 제거되었습니다."); // 팝업 추가
+        showPopupMessage("이미지 표시기가 제거되었습니다."); // 팝업 추가
     });
 
     // 표시기 나타내기
-    showindicatorBtn.addEventListener("click", async function () {
+    newShowBtn.addEventListener("click", async function () {
         localStorage.setItem("previewVisible", "visible");
-        await updateIndicatorStatusOnServer(true); // 서버 반영
         updatePreviewVisibility();
-        showpopup("이미지 표시기가 나타났습니다."); // 팝업 추가
+        showPopupMessage("이미지 표시기가 나타났습니다."); // 팝업 추가
     });
 }
 
@@ -436,7 +443,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     indicatorButton();
-    
+
     // 1) 카테고리 로드
     async function loadCategories() {
         if (!isExplanMode) {
