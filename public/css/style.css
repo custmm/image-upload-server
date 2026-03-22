@@ -2450,7 +2450,7 @@ body.preview-page .sidebar ul li a {
 }
 
 body.preview-page .sidebar ul li a:hover {
-    text-decoration: underline;
+   color: #00cc8f;
 }
 
 body.preview-page .sidebar-search {
