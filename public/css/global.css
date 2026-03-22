@@ -155,7 +155,8 @@ body.preview-page .indicate_btn:hover,
 body.dashboard-page .back-button:hover,
 body.dashboard-page .logout-button:hover,
 body.dashboard-page .custom-button:hover,
-body.click-page .back-button:hover
+body.click-page .back-button:hover,
+body.tag-page #backToListButton
 {
     background-color: aqua;
 }
