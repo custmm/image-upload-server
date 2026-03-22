@@ -1176,7 +1176,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         localStorage.setItem("theme", mode);
     }
 
-
     // 서버에서 Indicator 상태 가져오기 함수 추가
     async function fetchIndicatorStatusAndApply() {
         try {
@@ -1186,6 +1185,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             //  visible 은 서버 우선
             localStorage.setItem('previewVisible', data.visible ? 'visible' : 'hidden');
+            if (localVisible === null) {
+                localStorage.setItem('previewVisible', data.visual ? 'visual' : 'hidden');
+            }
 
             // modernized 는 localStorage 우선
             const localModernized = localStorage.getItem('indicatorModernized');
@@ -1199,7 +1201,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             updatePreviewVisibility && updatePreviewVisibility();
             applyModernizedImages(isModernized);
         } catch (error) {
-            console.error("🚨 Indicator 상태 가져오기 오류:", error);
+            console.error(" Indicator 상태 가져오기 오류:", error);
         }
     }
 
