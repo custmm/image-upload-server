@@ -72,12 +72,9 @@ body:not(.no-bg) {
     background: linear-gradient(180deg,
             #afa846 0%,
             #e5bfe6 100%);
-    background-repeat: no-repeat;
-    /* ❗ 반복 금지 */
-    background-attachment: fixed;
-    /* ❗ 화면 기준으로 고정 */
-    min-height: 100vh;
-    /* ❗ 최소 화면 높이 확보 */
+    background-repeat: no-repeat;/* 반복 금지 */
+    background-attachment: fixed;/* 화면 기준으로 고정 */
+    min-height: 100vh;/* 최소 화면 높이 확보 */
 }
 
 /* ====== 버튼 공통 ====== */
@@ -120,6 +117,7 @@ body.dashboard-page #closeTitleBtn {
 }
 
 body.index-page .popup-confirm-button:hover,
+body.index-page button:hover,
 body.dashboard-page #saveEdit:hover,
 body.dashboard-page #closeEdit:hover,
 body.dashboard-page #clearCanvas:hover,
@@ -157,7 +155,8 @@ body.preview-page .indicate_btn:hover,
 body.dashboard-page .back-button:hover,
 body.dashboard-page .logout-button:hover,
 body.dashboard-page .custom-button:hover,
-body.index-page button:hover{
+body.click-page .back-button:hover
+{
     background-color: aqua;
 }
 
