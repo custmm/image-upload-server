@@ -374,6 +374,9 @@ function updatePreviewImage() {
     };
 
     previewContainer.appendChild(img);
+    
+    const previewState = localStorage.getItem("previewVisible");
+
     if (previewState === "hidden") {
         img.classList.add("preview-hidden");
     }
