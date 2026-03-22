@@ -195,7 +195,7 @@ function checkOverlap(img) {
 
 // 표시기 상태 업데이트 함수
 function updatePreviewVisibility() {
-    
+
     const previewContainer = document.getElementById("previewImagesContainer");
 
     if (!previewContainer) return;
@@ -220,6 +220,8 @@ function updatePreviewVisibility() {
     const previewState = localStorage.getItem("previewVisible");
     if (previewState === "hidden") {
         img.classList.add("preview-hidden");
+    } else {
+        img.classList.remove("preview-hidden"); // 이거 반드시 필요
     }
 }
 
@@ -372,6 +374,9 @@ function updatePreviewImage() {
     };
 
     previewContainer.appendChild(img);
+    if (previewState === "hidden") {
+        img.classList.add("preview-hidden");
+    }
     checkOverlap(img);
 }
 
