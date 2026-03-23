@@ -3003,16 +3003,30 @@ body.etc-page .detail-toggle {
 }
 
 body.etc-page .detail-content {
+    display: none;
     margin: 10px auto;
     padding-left: 10px;
-    display: none;
 }
+
+/* 열렸을 때 */
+body.etc-page .detail-content.active {
+    display: block;
+}
+
 body.etc-page button{
     background: none;
 }
-body.etc-page button.detail-toggle{
+
+body.etc-page button.detail-toggle {
     display: flex;
-    margin: 0 auto;
+    margin: 10px auto;
+    font-size: 16px;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+}
+
+body.etc-page button.detail-toggle:hover {
+    transform: scale(1.05);
 }
 
 

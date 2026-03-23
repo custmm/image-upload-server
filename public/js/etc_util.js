@@ -1,12 +1,11 @@
 document.querySelectorAll(".detail-toggle").forEach(button => {
     button.addEventListener("click", () => {
 
-        // 그냥 바로 다음 요소 잡기
-        const detail = button.parentElement.querySelector("#detail-content");
+        // 바로 옆 요소 가져오기 (제일 안정적)
+        const detail = button.nextElementSibling;
 
-        if (!detail) return; // 안전장치
+        if (!detail || !detail.classList.contains("detail-content")) return;
 
-        const isVisible = detail.style.display === "block";
-        detail.style.display = isVisible ? "none" : "block";
+        detail.classList.toggle("active");
     });
 });
