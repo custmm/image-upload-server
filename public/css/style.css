@@ -1588,7 +1588,6 @@ body.click-page .detail-content {
     padding-left: 10px;
     display: none;
 }
-
 /* ====== 게임 페이지(killing_game.html) ====== */
 
 body.game-page h1 {
@@ -2985,6 +2984,38 @@ body.etc-page p.appfunction {
 body.etc-page hr {
     margin: 24px 0;
 }
+
+body.etc-page .explan-detail-container {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 18px;
+    padding: 10px;
+}
+
+body.etc-page .detail-toggle {
+    margin-left: 10px;
+    font-size: 12px;
+    padding: 4px 8px;
+    cursor: pointer;
+    background: none;
+    color: black;
+    border: none;
+}
+
+body.etc-page .detail-content {
+    margin: 10px auto;
+    padding-left: 10px;
+    display: none;
+}
+body.etc-page button{
+    background: none;
+}
+body.etc-page button.detail-toggle{
+    display: flex;
+    margin: 0 auto;
+}
+
+
 
 /* ====== 태그 검색 결과(tagResult.html) ====== */
 
