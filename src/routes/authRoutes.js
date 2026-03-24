@@ -1,12 +1,13 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
 dotenv.config();
 const router = express.Router();
 
 const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
-console.log("🔍 .env에서 불러온 ADMIN_PASSWORD_HASH:", ADMIN_PASSWORD_HASH);
+const JWT_SECRET = process.env.JWT_SECRET;
 
 //  .env에서 해시가 제대로 불러와졌는지 확인
 if (!ADMIN_PASSWORD_HASH) {
@@ -32,7 +33,16 @@ router.post("/login", async (req, res) => {
 
         if (isMatch) {
             console.log(" 비밀번호 일치");
-            return res.json({ success: true });
+            const token = jwt.sign(
+                { role: "admin" },
+                JWT_SECRET,
+                { expiresIn: "1h" }
+            );
+
+            return res.json({
+                success: true,
+                token: token
+            });
         } else {
             console.log(" 비밀번호 불일치");
             return res.status(401).json({ error: "비밀번호가 틀렸습니다." });

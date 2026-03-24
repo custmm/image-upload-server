@@ -62,6 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const result = await response.json();
 
             if (response.ok && result.success) {
+                localStorage.setItem("adminToken", result.token);
+                
                 showPopup("로그인 성공!", "success", () => {
                     showAdminButton();
                 });

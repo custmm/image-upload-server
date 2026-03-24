@@ -55,8 +55,26 @@ document.addEventListener("DOMContentLoaded", () => {
     // 버튼 클릭 이벤트 추가 (팝업 확인 후 이동)
     if (uploadButton) {
         uploadButton.addEventListener("click", () => {
-            showPopup("업로드 페이지로 이동하시겠습니까?", () => {
-                window.location.href = "upload.html";
+            showPopup("업로드 페이지로 이동하시겠습니까?", async () => {
+                try {
+                    const res = await fetch("/api/admin-token", {
+                        method: "POST"
+                    });
+
+                    const data = await res.json();
+
+                    // JWT 저장
+                    localStorage.setItem("adminToken", data.token);
+
+
+                    window.location.href = "upload.html";
+                } catch (err) {
+
+                    console.error("JWT 생성 실패", err);
+                    alert("관리자 인증 실패");
+
+                }
+
             });
         });
     }

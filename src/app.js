@@ -93,9 +93,9 @@ app.get("/api/search", async (req, res) => {
 
     } catch (err) {
         console.error(" 검색 실패:", err);
-        res.status(500).json({ 
-            error: "검색 오류", 
-            detail: err.message 
+        res.status(500).json({
+            error: "검색 오류",
+            detail: err.message
         });
     }
 });
@@ -105,10 +105,13 @@ app.post("/api/admin-token", (req, res) => {
     const token = jwt.sign(
         { role: "admin" },
         process.env.JWT_SECRET,
-        { expiresIn: "30m" }
+        { expiresIn: "1h" }
     );
 
-    res.json({ token });
+    return res.json({
+        success: true,
+        token: token
+    });
 
 });
 
