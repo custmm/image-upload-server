@@ -374,7 +374,7 @@ function updatePreviewImage() {
     };
 
     previewContainer.appendChild(img);
-    
+
     const previewState = localStorage.getItem("previewVisible");
 
     if (previewState === "hidden") {
@@ -415,6 +415,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const previewLink = document.getElementById("previewLink");
     const iconLink = document.getElementById("iconlink");
     const etcLink = document.getElementById("etcLink");
+    const contactLink = document.getElementById("contactLink");
     const urlParams = new URLSearchParams(window.location.search);
 
     // 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
@@ -489,6 +490,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
+    if (contactLink) {
+        contactLink.addEventListener("click", (e) => {
+            e.preventDefault(); // 새 창 / 페이지 이동 차단
+            openContactPopup();
+        });
+    }
+
     if (btn && popup) {
         btn.addEventListener("click", () => {
             popup.style.display = popup.style.display === "none" ? "block" : "none";
@@ -522,6 +530,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!overlay || !frame) return;
 
         frame.src = "etc_util.html";
+        overlay.style.display = "flex";
+
+    }
+
+    function openContactPopup() {
+        const overlay = document.getElementById("previewOverlayIcon");
+        const frame = document.getElementById("previewFrameIcon");
+
+        if (!overlay || !frame) return;
+
+        frame.src = "contact.html";
         overlay.style.display = "flex";
 
     }
