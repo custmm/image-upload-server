@@ -846,6 +846,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const imgContainer = document.createElement("div");
                     imgContainer.classList.add("image-container");
 
+                    // --- 1. AOS 속성 추가 ---
+                    imgContainer.setAttribute("data-aos", "fade-right");
+
+                    // --- 2. 시간차(Stagger) 효과 추가 (선택사항) ---
+                    // 0.1초(100ms) 간격으로 이미지가 순차적으로 나타납니다.
+                    imgContainer.setAttribute("data-aos-delay", (index * 100).toString());
+
                     const placeholder = document.createElement("div");
                     placeholder.classList.add("image-placeholder");
 
@@ -1042,6 +1049,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 if (currentView === "image") {
                     const imgContainer = document.createElement("div");
                     imgContainer.classList.add("image-container");
+
+                    // --- 1. AOS 속성 추가 ---
+                    imgContainer.setAttribute("data-aos", "fade-right");
+
+                    // --- 2. 시간차(Stagger) 효과 추가 (선택사항) ---
+                    // 0.1초(100ms) 간격으로 이미지가 순차적으로 나타납니다.
+                    imgContainer.setAttribute("data-aos-delay", (index * 100).toString());
 
                     const placeholder = document.createElement("div");
                     placeholder.classList.add("image-placeholder");
