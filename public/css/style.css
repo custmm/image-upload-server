@@ -2769,8 +2769,8 @@ body.preview-page .tab-btn:hover {
 
 body.preview-page .tab-btn.active {
     flex: 2;
-    border-bottom: 3px solid #c2dbd8;
-    background: rgba(0, 200, 255, 0.6);
+    border-bottom: 7px solid #c2dbd8;
+    background: #c2f7f170;
     color: #333;
     font-weight: 500;
     box-shadow: none;
