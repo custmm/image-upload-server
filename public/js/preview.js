@@ -840,7 +840,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             clearGallery();
 
-            images.forEach((image,index) => {
+            images.forEach((image, index) => {
 
                 if (currentView === "image") {
                     const imgContainer = document.createElement("div");
@@ -963,9 +963,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             hideLoading();
             isLoadingPage = false;
 
-            // 🔥 동적 요소 생성 후 AOS 초기화/새로고침
+            // 동적 요소 생성 후 AOS 초기화/새로고침
             if (window.Aos) {
-                Aos.refresh();
+                setTimeout(() => {
+                    Aos.refresh();
+                }, 500);
             }
         }
     }
@@ -1050,7 +1052,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             imageGallery.classList.remove("flex-center");
             imageGallery.classList.add("grid-layout");
 
-            images.forEach((image,index) => {
+            images.forEach((image, index) => {
                 if (currentView === "image") {
                     const imgContainer = document.createElement("div");
                     imgContainer.classList.add("image-container");
@@ -1223,6 +1225,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             const response = await fetch("/api/settings/indicator-status");
             if (!response.ok) throw new Error("서버 응답 오류");
             const data = await response.json();
+
+            // 수정 포인트: localVisible 변수를 먼저 정의합니다.
+            const localVisible = localStorage.getItem('previewVisible');
 
             //  visible 은 서버 우선
             localStorage.setItem('previewVisible', data.visible ? 'visible' : 'hidden');
