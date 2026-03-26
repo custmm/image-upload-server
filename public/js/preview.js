@@ -840,7 +840,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             clearGallery();
 
-            images.forEach(image => {
+            images.forEach((image,index) => {
 
                 if (currentView === "image") {
                     const imgContainer = document.createElement("div");
@@ -1050,7 +1050,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             imageGallery.classList.remove("flex-center");
             imageGallery.classList.add("grid-layout");
 
-            images.forEach(image => {
+            images.forEach((image,index) => {
                 if (currentView === "image") {
                     const imgContainer = document.createElement("div");
                     imgContainer.classList.add("image-container");
