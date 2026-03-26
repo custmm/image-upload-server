@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ɐ휴욱슈욱Ɐ >> 업로드된 이미지</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/theme.css">
   <link rel="stylesheet" href="./css/component.css">
@@ -303,7 +304,7 @@
       </header>
 
       <section class="image-gallery-wrapper">
-        <div id="imageGallery" class="image-gallery">
+        <div id="imageGallery" class="image-gallery" data-aos="fade-right" data-aos-duration="1000">
         </div>
       </section>
 
@@ -386,6 +387,11 @@
       <a href="./contact.html" id="contactLink">Contact</a>
     </p>
   </footer>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 
   <script src="js/preview.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
