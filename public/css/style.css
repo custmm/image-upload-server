@@ -2764,7 +2764,7 @@ body.preview-page .tab-btn {
 }
 
 body.preview-page .tab-btn:hover {
-    background: rgba(0, 200, 255, 0.3);
+    background: #c2f7f135;
 }
 
 body.preview-page .tab-btn.active {
