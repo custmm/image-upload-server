@@ -2155,7 +2155,7 @@ body.preview-page .sidebar.open {
 body.preview-page .view-switch {
     display: flex;
     margin: 10px 0 10px 75%;
-    border: 1px solid #f4f4f4;
+    border: 2px solid #d0d0d0;
     border-radius: 30px;
     width: 90px;
     padding: 3px;
@@ -2165,6 +2165,7 @@ body.preview-page .view-switch {
 body.preview-page .view-icon-btn {
     width: 40px;
     height: 40px;
+    color: #d0d0d0;
     border: none;
     background: none;
     cursor: pointer;
