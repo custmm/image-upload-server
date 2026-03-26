@@ -844,6 +844,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 if (currentView === "image") {
                     const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("image-container", "appear-ani"); // 기본 클래스
+                    imgContainer.style.animationDelay = `${index * 50}ms`; // 지연 시간만 JS로 조절
+
                     imgContainer.classList.add("image-container");
 
                     // --- 1. AOS 속성 추가 ---
@@ -1055,6 +1058,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             images.forEach((image, index) => {
                 if (currentView === "image") {
                     const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("image-container", "appear-ani"); // 기본 클래스
+                    imgContainer.style.animationDelay = `${index * 50}ms`; // 지연 시간만 JS로 조절
+
                     imgContainer.classList.add("image-container");
 
                     // --- 1. AOS 속성 추가 ---
@@ -1377,11 +1383,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                img.src = img.dataset.src; // ✅ 실제 이미지 로드
-                observer.unobserve(img); // ✅ 감지 중지
+                img.src = img.dataset.src;
+
+                // 🔥 이미지가 보일 때 부모 컨테이너에 애니메이션 클래스 추가
+                const container = img.closest('.image-container');
+                if (container) container.classList.add('is-visible');
+
+                observer.unobserve(img);
             }
         });
-    }, { rootMargin: "100px", threshold: 0.1 });
+    }, { rootMargin: "50px" });
 
     bindViewSwitchEvents();
     bindSidebarEvents();
