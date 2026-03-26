@@ -962,6 +962,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
             hideLoading();
             isLoadingPage = false;
+
+            // 🔥 동적 요소 생성 후 AOS 초기화/새로고침
+            if (window.Aos) {
+                Aos.refresh();
+            }
         }
     }
 
