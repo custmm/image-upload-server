@@ -2217,7 +2217,7 @@ body.preview-page .image-gallery {
     grid-template-rows: auto;
     padding: 15px;
     gap: 15px;
-    background-color: #ffffff;
+    background-color: #f4f4f4;
     border-radius: 120px;
     /* border-radius: 10px; */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
