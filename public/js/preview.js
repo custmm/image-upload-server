@@ -76,6 +76,8 @@ window.closePreviewPopup = function (type) {
 };
 
 window.toggleSidebar = function () {
+    event.stopPropagation(); // 💥 핵심
+    
     const sidebar = document.getElementById("sidebar");
     if (!sidebar) return;
 
@@ -89,6 +91,20 @@ window.toggleSidebar = function () {
         });
     }
 };
+
+document.addEventListener("click", (e) => {
+    const sidebar = document.getElementById("sidebar");
+    const button = document.querySelector(".sidebar-toggle");
+
+    if (!sidebar || !button) return;
+
+    const isClickInside =
+        sidebar.contains(e.target) || button.contains(e.target);
+
+    if (!isClickInside) {
+        sidebar.classList.remove("open");
+    }
+});
 
 window.toggleMenu = function (menuId) {
     const menus = document.querySelectorAll('.sub-menu');
