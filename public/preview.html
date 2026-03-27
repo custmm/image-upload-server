@@ -177,12 +177,13 @@
   </header>
 
   <div class="menu-wrapper">    
-    <button class="sidebar-toggle" onclick="toggleSidebar(event)">
+    <button class="sidebar-toggle" >
       <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
     </button>
-  <!-- 사이드 네비게이션 -->
-  <nav id="sidebar" class="sidebar">
 
+
+  <!-- 사이드 네비게이션 -->
+  <nav class="top-menu">
     <ul class="main-menu">
       <li class="menu-item">
         <button class="menu-title" onclick="toggleMenu('board')">게시판</button>
@@ -206,8 +207,8 @@
           </li>
         </ul>
       </li>
-      <!-- 🔍 검색 영역 -->
-      <li class="sidebar-search">
+
+      <li class="menu-item sidebar-search">
         <input type="text" id="sidebarSearchInput" placeholder="작품 검색..." />
         <button id="sidebarSearchBtn" class="search-icon-btn">
           <i data-icon="search"></i>
