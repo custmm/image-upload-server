@@ -2022,53 +2022,28 @@ body.search-page .search-item img {
 
 /* ====== 미리보기 페이지(preview.html) ====== */
 
-body.preview-page .popup-message {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    z-index: 9999;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-body.preview-page .menubar-container {
+/* 표시기css */
+body.preview-page .preview-images {
     display: flex;
     align-items: center;
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 110px;
+    top: -105px;
+    right: 10px;
+    cursor: grab;
+    margin-left: 80%;
 }
 
-/*  왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
-body.preview-page .left-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-/*  닫기 버튼 */
-body.preview-page .close-sidebar {
-    position: absolute;
-    top: 50px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: #333;
-    font-size: 30px;
-    cursor: pointer;
+body.preview-page .preview-images img {
     display: block;
-    box-shadow: none;
-    backdrop-filter: none;
+    width: auto;
+    height: 85px;
+    border-radius: 5px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    z-index: 9999;
 }
-/* 사이드바 열기 버튼 */
+
+/* 메뉴바css(사이드바 버튼) */
 body.preview-page .sidebar-toggle {
     position: fixed;
     background-color: #00000000;
@@ -2085,7 +2060,7 @@ body.preview-page .sidebar-toggle:hover {
     border: none;
 }
 
-/* 사이드바 스타일 */
+/* 메뉴바css(사이드바 스타일) */
 body.preview-page .sidebar {
     position: fixed;
     top: 0;
@@ -2102,7 +2077,7 @@ body.preview-page .sidebar.open {
     left: 0;
 }
 
-/* 사이드바 메뉴 */
+/* 메뉴바css(사이드바 메뉴) */
 body.preview-page .sidebar ul {
     list-style: none;
     padding: 0;
@@ -2124,6 +2099,7 @@ body.preview-page .sidebar ul li a:hover {
    color: #00cc8f;
 }
 
+/* 메뉴바css(사이드바 검색창) */
 body.preview-page .sidebar-search {
     display: flex;
     padding: 15px;
@@ -2159,7 +2135,6 @@ body.preview-page .search-icon-btn {
     border: 1px solid #000;
 }
 
-/* 🔍 돋보기 생성 */
 body.preview-page .search-icon-btn i[data-icon="search"] {
     position: relative;
     width: 10px;
@@ -2179,6 +2154,96 @@ body.preview-page .search-icon-btn i[data-icon="search"]::after {
     right: -6px;
     transform: rotate(45deg);
 }
+
+/* 메뉴바css(메뉴바container) */
+body.preview-page .menubar-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 110px;
+}
+
+/* 메뉴바css(뷰모드관련) */
+body.preview-page .view-switch {
+    display: flex;
+    margin: 10px 0 10px 75%;
+    border: 2px solid #d0d0d0;
+    border-radius: 30px;
+    width: 90px;
+    padding: 3px;
+    gap: 10px;
+}
+
+body.preview-page .view-icon-btn {
+    width: 40px;
+    height: 40px;
+    color: #d0d0d0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+body.preview-page .view-icon-btn i {
+    font-size: 16px;
+}
+
+body.preview-page .view-icon-btn:hover {
+    color: #fff352;
+}
+
+body.preview-page .view-icon-btn.active {
+    color: #4caf50;
+    border-radius: 50%;
+    background-color: #f4f4f4;
+}
+
+body.preview-page .popup-message {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+
+/*  왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
+body.preview-page .left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/*  닫기 버튼 */
+body.preview-page .close-sidebar {
+    position: absolute;
+    top: 50px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 30px;
+    cursor: pointer;
+    display: block;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
 
 body.preview-page .setting-button img {
     width: 40px;
@@ -2230,46 +2295,6 @@ body.preview-page #settingBtn img {
     width: 45px;
 }
 
-
-
-body.preview-page .view-switch {
-    display: flex;
-    margin: 10px 0 10px 75%;
-    border: 2px solid #d0d0d0;
-    border-radius: 30px;
-    width: 90px;
-    padding: 3px;
-    gap: 10px;
-}
-
-body.preview-page .view-icon-btn {
-    width: 40px;
-    height: 40px;
-    color: #d0d0d0;
-    border: none;
-    background: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s ease;
-    box-shadow: none;
-    backdrop-filter: none;
-}
-
-body.preview-page .view-icon-btn i {
-    font-size: 16px;
-}
-
-body.preview-page .view-icon-btn:hover {
-    color: #fff352;
-}
-
-body.preview-page .view-icon-btn.active {
-    color: #4caf50;
-    border-radius: 50%;
-    background-color: #f4f4f4;
-}
 body.preview-page .toggle-switch_ind{
     display: flex;
     justify-content: space-between;
@@ -2625,26 +2650,6 @@ body.preview-page .opacityControl {
     gap: 8px;
 }
 
-/* 표시기이미지 배치 */
-body.preview-page .preview-images {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    top: -105px;
-    right: 10px;
-    cursor: grab;
-    margin-left: 80%;
-}
-
-body.preview-page .preview-images img {
-    display: block;
-    width: auto;
-    height: 85px;
-    border-radius: 5px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-    z-index: 9999;
-}
 
 /* 메인 탭 컨테이너 (큰 카테고리) */
 body.preview-page .tab-design {
