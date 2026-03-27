@@ -2022,7 +2022,7 @@ body.search-page .search-item img {
 
 /* ====== 미리보기 페이지(preview.html) ====== */
 
-/* 표시기css */
+/*====== 표시기css ======*/
 body.preview-page .preview-images {
     display: flex;
     align-items: center;
@@ -2043,7 +2043,7 @@ body.preview-page .preview-images img {
     z-index: 9999;
 }
 
-/* 메뉴바css(사이드바 버튼) */
+/*====== 메뉴바css(사이드바 버튼) ======*/
 body.preview-page .sidebar-toggle {
     position: fixed;
     background-color: #00000000;
@@ -2060,7 +2060,7 @@ body.preview-page .sidebar-toggle:hover {
     border: none;
 }
 
-/* 메뉴바css(사이드바 스타일) */
+/*====== 메뉴바css(사이드바 스타일) ======*/
 body.preview-page .sidebar {
     position: fixed;
     top: 0;
@@ -2077,7 +2077,7 @@ body.preview-page .sidebar.open {
     left: 0;
 }
 
-/* 메뉴바css(사이드바 메뉴) */
+/*====== 메뉴바css(사이드바 메뉴) ======*/
 body.preview-page .sidebar ul {
     list-style: none;
     padding: 0;
@@ -2099,7 +2099,7 @@ body.preview-page .sidebar ul li a:hover {
    color: #00cc8f;
 }
 
-/* 메뉴바css(사이드바 검색창) */
+/*====== 메뉴바css(사이드바 검색창) ======*/
 body.preview-page .sidebar-search {
     display: flex;
     padding: 15px;
@@ -2155,7 +2155,7 @@ body.preview-page .search-icon-btn i[data-icon="search"]::after {
     transform: rotate(45deg);
 }
 
-/* 메뉴바css(메뉴바container) */
+/*====== 메뉴바css(메뉴바container) ======*/
 body.preview-page .menubar-container {
     display: flex;
     align-items: center;
@@ -2167,7 +2167,21 @@ body.preview-page .menubar-container {
     height: 110px;
 }
 
-/* 메뉴바css(뷰모드관련) */
+body.preview-page .close-sidebar {
+    position: absolute;
+    top: 50px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 30px;
+    cursor: pointer;
+    display: block;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+/*====== 메뉴바css(뷰모드관련) ======*/
 body.preview-page .view-switch {
     display: flex;
     margin: 10px 0 10px 75%;
@@ -2207,6 +2221,7 @@ body.preview-page .view-icon-btn.active {
     background-color: #f4f4f4;
 }
 
+/*====== 팝업관련css ======*/
 body.preview-page .popup-message {
     position: fixed;
     bottom: 30px;
@@ -2221,6 +2236,323 @@ body.preview-page .popup-message {
     transition: opacity 0.3s ease-in-out;
 }
 
+body.preview-page .setting-popup {
+    position: relative;
+    color: black;
+    padding: 20px;
+    border-radius: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+body.preview-page .setting-popup h3 {
+    text-align: center;
+}
+
+/*====== 중앙 정보 팝업 (inforPopupMessage용) ======*/
+body.preview-page .infor-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    background: #fff;
+    color: black;
+    border: 1px solid #ccc;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: left;
+}
+
+body.preview-page .info-popup .table-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+body.preview-page .info-popup .table-wrapper .inner {
+    max-width: 1150px;
+    /* 필요시 조정 */
+    width: 100%;
+    overflow: auto;
+    /* 가로 스크롤 방지(작은 화면 대비) */
+}
+
+body.preview-page .info-popup .table-wrapper table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+body.preview-page .infor-popup-close {
+    position: absolute;
+    top: 3px;
+    right: 8px;
+    cursor: pointer;
+    font-size: 25px;
+    color: #666;
+}
+
+body.preview-page .app-infor-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    /* 더 어두운 반투명 배경 */
+    ;
+    color: black;
+    z-index: 1000;
+    text-align: center;
+}
+
+body.preview-page .app-infor-popup-close {
+    position: absolute;
+    top: 3px;
+    right: 8px;
+    cursor: pointer;
+    font-size: 25px;
+    color: #666;
+}
+
+body.preview-page .preview-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 10000;
+}
+
+body.preview-page .preview-popup {
+    position: absolute;
+    padding: 30px;
+    width: 85%;
+    max-width: 900px;
+    height: 80vh;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+body.preview-page .preview-popup iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+body.preview-page .preview-popup iframe #previewFrame {
+    background: #fff;
+}
+
+/*====== 팝업안 요소css ======*/
+body.preview-page .indicate_btn{
+    color: #555;
+    border-radius: 30px;
+    border: 1px solid #000;
+}
+
+body.preview-page .indicate_btn:active{
+    background-color: #00cc8f;
+    color: #fff;
+}
+
+/*====== 탭디자인css(큰 카테고리 탭) ======*/
+body.preview-page .tab-design {
+    display: flex;
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-radius: 8px;
+    width: 95%;
+}
+
+body.preview-page .tab-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #dedede;
+    background: none;
+    border-radius: 0px;
+
+    gap: 6px;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 500;
+
+    box-sizing: border-box;
+    cursor: pointer;
+
+    border: none;
+
+
+    transition:
+        flex 0.35s ease,
+        background-color 0.3s,
+        color 0.3s;
+}
+
+body.preview-page .tab-btn:hover {
+    background: #c2f7f135;
+}
+
+body.preview-page .tab-btn.active {
+    flex: 2;
+    border-bottom: 7px solid #c2f7f1;
+    background: #c2f7f170;
+    color: #333;
+    font-weight: 500;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+body.preview-page .tab-btn svg {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition:
+        opacity 0.3s ease,
+        width 0.3s ease,
+        transform 0.3s ease;
+}
+
+body.preview-page .tab-btn.active svg {
+    opacity: 1;
+    width: 18px;
+    transform: scale(1.05);
+}
+
+body.preview-page .tab-btn:last-child {
+    border-right: none;
+}
+
+/*====== 탭디자인css(작은 카테고리 탭) ======*/
+body.preview-page .sub-tab {
+    flex-shrink: 0;
+    font-size: 14px;
+    padding: 8px 12px;
+    text-align: center;
+    align-items: center;
+    color: #555;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.preview-page .sub-tab-wrapper {
+    flex-wrap: wrap;
+    flex: 1;
+    text-align: center;
+}
+
+body.preview-page .sub-tab-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 5px;
+    padding-top: 65px;
+    margin-bottom: 10px;
+}
+
+body.preview-page .sub-tab.active {
+    flex-wrap: wrap;
+    background-color: #00ff95e8;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+body.preview-page .sub-tab:hover {
+    flex-wrap: wrap;
+    background-color: #00ff953c;
+}
+
+/*====== marge-container내 이미지썸네일관련css ======*/
+body.preview-page .image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    transition: all 0.5s;
+}
+
+body.preview-page .image-container:hover {
+    border-radius: 8px;
+}
+
+body.preview-page .image-container:hover .hover-overlay {
+    opacity: 1;
+}
+
+body.preview-page .image-container:hover .hover-message {
+    transform: translateY(0);
+}
+
+body.preview-page .image-container img {
+    background-color: #000;
+    width: 13vw;
+    height: 13vw;
+    object-fit: cover;
+    border: none;
+    border-radius: 50%;
+    filter: grayscale(80%) brightness(0.5) blur(10px);
+    transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
+}
+
+body.preview-page .image-container img:hover {
+    cursor: pointer;
+    background: #f7f7f7;
+    border: 3px solid #0066cc;
+    border-radius: 8px;
+    transform: scale(1.2);
+    filter: blur(4px);
+}
+
+body.preview-page .hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+
+body.preview-page .hover-message {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transform: translateY(10px);
+    transition: transform 0.35s ease;
+}
+
+/*====== marge-container내 카테고리 제목 스타일 ======*/
+body.preview-page #currentCategory {
+    font-size: 30px;
+    color: #00cc8f;
+    margin: 25px 0 15px;
+    padding-left: 20px;
+}
+
+body.preview-page #currentCategory:hover {
+    color: cyan;
+    text-shadow: 0 0 20px black;
+}
 
 /*  왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
 body.preview-page .left-section {
@@ -2228,22 +2560,6 @@ body.preview-page .left-section {
     flex-direction: column;
     align-items: flex-start;
 }
-
-/*  닫기 버튼 */
-body.preview-page .close-sidebar {
-    position: absolute;
-    top: 50px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: #333;
-    font-size: 30px;
-    cursor: pointer;
-    display: block;
-    box-shadow: none;
-    backdrop-filter: none;
-}
-
 
 body.preview-page .setting-button img {
     width: 40px;
@@ -2262,19 +2578,6 @@ body.preview-page .setting-layer {
     z-index: 9000;
     display: none;
     /* 기본 숨김 */
-}
-
-body.preview-page .setting-popup {
-    position: relative;
-    color: black;
-    padding: 20px;
-    border-radius: 20px;
-    width: 300px;
-    text-align: center;
-}
-
-body.preview-page .setting-popup h3 {
-    text-align: center;
 }
 
 body.preview-page .setting_item {
@@ -2305,16 +2608,6 @@ body.preview-page .toggle-switch_ind{
     border-radius: 30px;
 }
 
-body.preview-page .indicate_btn{
-    color: #555;
-    border-radius: 30px;
-    border: 1px solid #000;
-}
-
-body.preview-page .indicate_btn:active{
-    background-color: #00cc8f;
-    color: #fff;
-}
 
 /* 이미지 갤러리 (4x5 배열) */
 body.preview-page .image-gallery {
@@ -2365,68 +2658,6 @@ body.preview-page .image-gallery-wrapper {
     height: auto;
     margin: 40px auto;
     width: 95%;
-}
-
-body.preview-page .image-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 50%;
-    transition: all 0.5s;
-}
-
-body.preview-page .image-container:hover {
-    border-radius: 8px;
-}
-
-
-body.preview-page .hover-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    pointer-events: none;
-}
-
-body.preview-page .hover-message {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    transform: translateY(10px);
-    transition: transform 0.35s ease;
-}
-
-body.preview-page .image-container:hover .hover-overlay {
-    opacity: 1;
-}
-
-body.preview-page .image-container:hover .hover-message {
-    transform: translateY(0);
-}
-
-body.preview-page .image-container img {
-    background-color: #000;
-    width: 13vw;
-    height: 13vw;
-    object-fit: cover;
-    border: none;
-    border-radius: 50%;
-    filter: grayscale(80%) brightness(0.5) blur(10px);
-    transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
-}
-
-body.preview-page .image-container img:hover {
-    cursor: pointer;
-    background: #f7f7f7;
-    border: 3px solid #0066cc;
-    border-radius: 8px;
-    transform: scale(1.2);
-    filter: blur(4px);
 }
 
 
@@ -2537,82 +2768,6 @@ body.preview-page .sub-menu.open {
 }
 
 
-/* 중앙 정보 팝업 (inforPopupMessage용) */
-body.preview-page .infor-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%;
-    background: #fff;
-    color: black;
-    border: 1px solid #ccc;
-    padding: 25px 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    text-align: left;
-}
-
-body.preview-page .info-popup .table-wrapper {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-body.preview-page .info-popup .table-wrapper .inner {
-    max-width: 1150px;
-    /* 필요시 조정 */
-    width: 100%;
-    overflow: auto;
-    /* 가로 스크롤 방지(작은 화면 대비) */
-}
-
-body.preview-page .info-popup .table-wrapper table {
-    width: 100%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    text-align: center;
-}
-
-/* 닫기 버튼 스타일 */
-body.preview-page .infor-popup-close {
-    position: absolute;
-    top: 3px;
-    right: 8px;
-    cursor: pointer;
-    font-size: 25px;
-    color: #666;
-}
-
-/* 중앙 정보 팝업 (inforPopupMessage용) */
-body.preview-page .app-infor-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.6);
-    /* 더 어두운 반투명 배경 */
-    ;
-    color: black;
-    z-index: 1000;
-    text-align: center;
-}
-
-/* 닫기 버튼 스타일 */
-body.preview-page .app-infor-popup-close {
-    position: absolute;
-    top: 3px;
-    right: 8px;
-    cursor: pointer;
-    font-size: 25px;
-    color: #666;
-}
-
-
 body.preview-page #welcomeMessage {
     text-align: center;
     font-weight: bold;
@@ -2650,69 +2805,6 @@ body.preview-page .opacityControl {
     gap: 8px;
 }
 
-
-/* 메인 탭 컨테이너 (큰 카테고리) */
-body.preview-page .tab-design {
-    display: flex;
-    text-align: center;
-    position: relative;
-    margin: 0 auto;
-    padding-top: 20px;
-    border-radius: 8px;
-    width: 95%;
-}
-
-/* 새로 추가한 래퍼로 남은 공간을 채우고 중앙 정렬 */
-body.preview-page .sub-tab-wrapper {
-    flex-wrap: wrap;
-    flex: 1;
-    text-align: center;
-}
-
-/* 서브 탭 컨테이너 (작은 카테고리) */
-body.preview-page .sub-tab-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    gap: 5px;
-    padding-top: 65px;
-    margin-bottom: 10px;
-}
-
-body.preview-page .preview-overlay {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.65);
-    z-index: 10000;
-}
-
-body.preview-page .preview-popup {
-    position: absolute;
-    padding: 30px;
-    width: 85%;
-    max-width: 900px;
-    height: 80vh;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-body.preview-page .preview-popup iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-body.preview-page .preview-popup iframe #previewFrame {
-    background: #fff;
-}
-
 body.preview-page .preview-close {
     position: absolute;
     top: 10px;
@@ -2744,106 +2836,6 @@ body.preview-page .category-subtab-container {
     margin-bottom: 20px;
 }
 
-/* 큰 카테고리 탭 디자인 */
-body.preview-page .tab-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #dedede;
-    background: none;
-    border-radius: 0px;
-
-    gap: 6px;
-    padding: 12px 0;
-    font-size: 16px;
-    font-weight: 500;
-
-    box-sizing: border-box;
-    cursor: pointer;
-
-    border: none;
-
-
-    transition:
-        flex 0.35s ease,
-        background-color 0.3s,
-        color 0.3s;
-}
-
-body.preview-page .tab-btn:hover {
-    background: #c2f7f135;
-}
-
-body.preview-page .tab-btn.active {
-    flex: 2;
-    border-bottom: 7px solid #c2f7f1;
-    background: #c2f7f170;
-    color: #333;
-    font-weight: 500;
-    box-shadow: none;
-    backdrop-filter: none;
-}
-
-body.preview-page .tab-btn svg {
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
-    transition:
-        opacity 0.3s ease,
-        width 0.3s ease,
-        transform 0.3s ease;
-}
-
-body.preview-page .tab-btn.active svg {
-    opacity: 1;
-    width: 18px;
-    transform: scale(1.05);
-}
-
-body.preview-page .tab-btn:last-child {
-    border-right: none;
-}
-
-/* 작은 카테고리 탭 디자인 */
-body.preview-page .sub-tab {
-    flex-shrink: 0;
-    font-size: 14px;
-    padding: 8px 12px;
-    text-align: center;
-    align-items: center;
-    color: #555;
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-body.preview-page .sub-tab.active {
-    flex-wrap: wrap;
-    background-color: #00ff95e8;
-    color: #ffffff;
-    font-weight: bold;
-}
-
-body.preview-page .sub-tab:hover {
-    flex-wrap: wrap;
-    background-color: #00ff953c;
-}
-
-
-/* 카테고리 제목 스타일 */
-body.preview-page #currentCategory {
-    font-size: 30px;
-    color: #00cc8f;
-    margin: 25px 0 15px;
-    padding-left: 20px;
-}
-
-body.preview-page #currentCategory:hover {
-    color: cyan;
-    text-shadow: 0 0 20px black;
-}
 
 
 /* 이미지가 있을 때 (4x5 그리드) */

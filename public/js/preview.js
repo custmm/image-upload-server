@@ -75,8 +75,8 @@ window.closePreviewPopup = function (type) {
     target.overlay.style.display = "none";
 };
 
-window.toggleSidebar = function () {
-    event.stopPropagation(); // 💥 핵심
+window.toggleSidebar = function (event) {
+    event.stopPropagation(); // 클릭 전파 막기
     
     const sidebar = document.getElementById("sidebar");
     if (!sidebar) return;
@@ -84,7 +84,7 @@ window.toggleSidebar = function () {
     const isOpening = !sidebar.classList.contains("open");
     sidebar.classList.toggle("open");
 
-    // 사이드바를 "열 때만" 서브메뉴 전부 닫기 (완전 초기화)
+    // 열 때만 서브메뉴 초기화
     if (isOpening) {
         document.querySelectorAll(".sub-menu").forEach(menu => {
             menu.classList.remove("open");
