@@ -2036,53 +2036,15 @@ body.preview-page .popup-message {
     transition: opacity 0.3s ease-in-out;
 }
 
-/* 플로팅 메뉴바 컨테이너 */
 body.preview-page .menubar-container {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* 메뉴 아이템 양쪽 배치 */
-    position: fixed; /* 스크롤 따라 움직이지 않고 항상 화면 상단에 */
-    top: 20px; /* 상단 간격 */
-    left: 50%; 
-    transform: translateX(-50%); /* 가운데 정렬 */
-    width: auto; /* 내용에 따라 너비 자동 */
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.9); /* 반투명 배경 */
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    backdrop-filter: blur(8px); /* 흐림 효과 */
-}
-
-/* 메뉴 버튼 스타일 */
-body.preview-page .menubar-container button {
-    background: none;
-    border: none;
-    color: #333;
-    font-size: 20px;
-    margin: 0 10px;
-    cursor: pointer;
-    transition: transform 0.3s, color 0.3s;
-}
-
-body.preview-page .menubar-container button:hover {
-    color: #000;
-    transform: scale(1.1);
-}
-
-/* 메뉴 아이콘 또는 닫기 버튼 제거, 항상 보이게 */
-body.preview-page .close-sidebar,
-body.preview-page .sidebar-toggle,
-body.preview-page .sidebar {
-    display: none; /* 기존 사이드바 관련 요소 숨김 */
-}
-
-body.preview-page .sidebar.open {
+    position: absolute;
+    top: 0;
     left: 0;
-}
-
-body.preview-page .sidebar-toggle:hover {
-    border: none;
+    right: 0;
+    width: 100%;
+    height: 110px;
 }
 
 /*  왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
@@ -2090,6 +2052,132 @@ body.preview-page .left-section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+/*  닫기 버튼 */
+body.preview-page .close-sidebar {
+    position: absolute;
+    top: 50px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 30px;
+    cursor: pointer;
+    display: block;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+/* 사이드바 열기 버튼 */
+body.preview-page .sidebar-toggle {
+    position: fixed;
+    background-color: #00000000;
+    top: 45px;
+    padding: 15px 19px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.5s, transform 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+body.preview-page .sidebar-toggle:hover {
+    border: none;
+}
+
+/* 사이드바 스타일 */
+body.preview-page .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+    padding: 100px 100px 0 100px;
+    transition: left 0.5s ease-in-out;
+    z-index: 9999;
+}
+
+body.preview-page .sidebar.open {
+    left: 0;
+}
+
+/* 사이드바 메뉴 */
+body.preview-page .sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+body.preview-page .sidebar ul li {
+    position: relative;
+    margin: 15px 0;
+    text-align: center;
+}
+
+body.preview-page .sidebar ul li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+body.preview-page .sidebar ul li a:hover {
+   color: #00cc8f;
+}
+
+body.preview-page .sidebar-search {
+    display: flex;
+    padding: 15px;
+    gap: 8px;
+}
+
+body.preview-page .sidebar-search input {
+    flex: 1;
+    padding: 21px 25px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+body.preview-page .sidebar-search input:hover {
+    transform: scale(1.1);
+}
+
+body.preview-page .search-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    border-radius: 50%;
+    background: none;
+    color: black;
+    cursor: pointer;
+    transition: 0.2s;
+    right: 20px;
+    top: 19px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #000;
+}
+
+/* 🔍 돋보기 생성 */
+body.preview-page .search-icon-btn i[data-icon="search"] {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+body.preview-page .search-icon-btn i[data-icon="search"]::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 3px;
+    background: black;
+    bottom: -4px;
+    right: -6px;
+    transform: rotate(45deg);
 }
 
 body.preview-page .setting-button img {
@@ -2423,84 +2511,6 @@ body.preview-page .sub-menu.open {
     display: block;
 }
 
-/* 사이드바 메뉴 */
-body.preview-page .sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-body.preview-page .sidebar ul li {
-    position: relative;
-    margin: 15px 0;
-    text-align: center;
-}
-
-body.preview-page .sidebar ul li a {
-    color: #333;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-body.preview-page .sidebar ul li a:hover {
-   color: #00cc8f;
-}
-
-body.preview-page .sidebar-search {
-    display: flex;
-    padding: 15px;
-
-    gap: 8px;
-}
-
-body.preview-page .sidebar-search input {
-    flex: 1;
-    padding: 21px 25px;
-    border-radius: 30px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-}
-
-body.preview-page .sidebar-search input:hover {
-    transform: scale(1.1);
-}
-
-body.preview-page .search-icon-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    border-radius: 50%;
-    background: none;
-    color: black;
-    cursor: pointer;
-    transition: 0.2s;
-    right: 20px;
-    top: 19px;
-    width: 50px;
-    height: 50px;
-    border: 1px solid #000;
-}
-
-/* 🔍 돋보기 생성 */
-body.preview-page .search-icon-btn i[data-icon="search"] {
-    position: relative;
-    width: 10px;
-    height: 10px;
-    border: 2px solid black;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-body.preview-page .search-icon-btn i[data-icon="search"]::after {
-    content: "";
-    position: absolute;
-    width: 7px;
-    height: 3px;
-    background: black;
-    bottom: -4px;
-    right: -6px;
-    transform: rotate(45deg);
-}
 
 /* 중앙 정보 팝업 (inforPopupMessage용) */
 body.preview-page .infor-popup {
