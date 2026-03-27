@@ -2036,15 +2036,53 @@ body.preview-page .popup-message {
     transition: opacity 0.3s ease-in-out;
 }
 
+/* 플로팅 메뉴바 컨테이너 */
 body.preview-page .menubar-container {
     display: flex;
     align-items: center;
-    position: absolute;
-    top: 0;
+    justify-content: space-between; /* 메뉴 아이템 양쪽 배치 */
+    position: fixed; /* 스크롤 따라 움직이지 않고 항상 화면 상단에 */
+    top: 20px; /* 상단 간격 */
+    left: 50%; 
+    transform: translateX(-50%); /* 가운데 정렬 */
+    width: auto; /* 내용에 따라 너비 자동 */
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.9); /* 반투명 배경 */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    backdrop-filter: blur(8px); /* 흐림 효과 */
+}
+
+/* 메뉴 버튼 스타일 */
+body.preview-page .menubar-container button {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.3s, color 0.3s;
+}
+
+body.preview-page .menubar-container button:hover {
+    color: #000;
+    transform: scale(1.1);
+}
+
+/* 메뉴 아이콘 또는 닫기 버튼 제거, 항상 보이게 */
+body.preview-page .close-sidebar,
+body.preview-page .sidebar-toggle,
+body.preview-page .sidebar {
+    display: none; /* 기존 사이드바 관련 요소 숨김 */
+}
+
+body.preview-page .sidebar.open {
     left: 0;
-    right: 0;
-    width: 100%;
-    height: 110px;
+}
+
+body.preview-page .sidebar-toggle:hover {
+    border: none;
 }
 
 /*  왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
@@ -2052,21 +2090,6 @@ body.preview-page .left-section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-/*  닫기 버튼 */
-body.preview-page .close-sidebar {
-    position: absolute;
-    top: 50px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: #333;
-    font-size: 30px;
-    cursor: pointer;
-    display: block;
-    box-shadow: none;
-    backdrop-filter: none;
 }
 
 body.preview-page .setting-button img {
@@ -2119,39 +2142,7 @@ body.preview-page #settingBtn img {
     width: 45px;
 }
 
-/* 사이드바 열기 버튼 */
-body.preview-page .sidebar-toggle {
-    position: fixed;
-    background-color: #00000000;
-    top: 45px;
-    padding: 15px 19px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.5s, transform 0.5s ease-in-out;
-    z-index: 1000;
-}
 
-body.preview-page .sidebar-toggle:hover {
-    border: none;
-}
-
-/* 사이드바 스타일 */
-body.preview-page .sidebar {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.8);
-    color: #333;
-    padding: 100px 100px 0 100px;
-    transition: left 0.5s ease-in-out;
-    z-index: 9999;
-}
-
-body.preview-page .sidebar.open {
-    left: 0;
-}
 
 body.preview-page .view-switch {
     display: flex;
