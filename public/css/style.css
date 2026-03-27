@@ -497,45 +497,32 @@ body.dashboard-page .close-sidebar {
 
 /*  사이드바 열기 버튼 */
 body.dashboard-page .sidebar-toggle {
-    position: fixed;
-
-    top: 20px;
-    left: 20px;
-
-    width: 50px;
-    height: 50px;
-
+    position: relative;
+    background-color: #00000000;
+    color: black;
+    padding: 15px 19px;
+    border: none;
     border-radius: 50%;
-    background: rgba(0,0,0,0.7);
-
-    z-index: 10000;
+    cursor: pointer;
+    transition: background-color 0.5s, transform 0.5s ease-in-out;
+    /* 다른 요소에 가려지지 않도록 변경 */
+    z-index: 1000;
+    /* 다른 요소 위에 배치 */
 }
 
 body.dashboard-page .sidebar-toggle:hover {
     background-color: #666;
 }
 
-/*  사이드바 스타일 */
 body.dashboard-page .sidebar {
     position: fixed;
-
-    top: 80px;   /* 버튼 아래 위치 */
-    left: 20px;
-
-    width: 220px;
-    height: auto;
-
-    background: rgba(0, 0, 0, 0.9);
-    border-radius: 12px;
-
-    padding: 20px;
-
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-10px) scale(0.95);
-
-    transition: all 0.3s ease;
-
+    top: 0;
+    left: -250px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 40px 70px 0 30px;
+    transition: left 0.5s ease-in-out;
     z-index: 9999;
 }
 

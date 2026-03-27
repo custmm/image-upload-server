@@ -174,16 +174,14 @@
     <button class="back-button"
       onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기
     </button>
-
-
-    <button class="sidebar-toggle" onclick="toggleSidebar(event)">
-      <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
-    </button>
   </header>
 
+  <div class="menu-wrapper">    
+    <button class="sidebar-toggle">
+      <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
+    </button>
   <!-- 사이드 네비게이션 -->
   <nav id="sidebar" class="sidebar">
-    <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
 
     <ul class="main-menu">
       <li class="menu-item">
@@ -218,6 +216,9 @@
 
     </ul>
   </nav>
+</div>
+
+
   <!-- 메인 콘텐츠 영역 -->
   <main>
 
