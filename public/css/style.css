@@ -2436,29 +2436,6 @@ body.preview-page .tab-btn:last-child {
 }
 
 /*====== 탭디자인css(작은 카테고리 탭) ======*/
-body.preview-page .sub-tab {
-    flex-shrink: 0;
-    font-size: 14px;
-    padding: 8px 12px;
-    text-align: center;
-    align-items: center;
-    color: #555;
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 0px;
-    cursor: pointer;     
-    /* transform 효과 */
-     transform: scalex(0);
-     transform-origin: left bottom;
-     transition: all 1s;
-}
-
-body.preview-page .sub-tab:hover {
-    flex-wrap: wrap;
-    background-color: #00ff953c;
-    transform: scaleX(1);
-}
-
 body.preview-page .sub-tab-wrapper {
     flex-wrap: wrap;
     flex: 1;
@@ -2475,6 +2452,43 @@ body.preview-page .sub-tab-container {
     gap: 5px;
     padding-top: 65px;
     margin-bottom: 10px;
+}
+
+body.preview-page .sub-tab {
+    flex-shrink: 0;
+    font-size: 14px;
+    padding: 8px 12px;
+    text-align: center;
+    align-items: center;
+    color: #555;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 0px;
+    cursor: pointer;       
+    position: relative;
+    overflow: hidden;
+    z-index: 0; /* 기준 */
+}
+
+body.preview-page .sub-tab::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: #00ff953c;
+    transition: width 0.3s ease;
+    z-index: -1; /* 핵심 */
+}
+
+body.preview-page .sub-tab:hover {
+    flex-wrap: wrap;
+    background-color: #00ff953c;
+}
+
+body.preview-page .sub-tab:hover::before {
+    width: 100%;
 }
 
 body.preview-page .sub-tab.active {
