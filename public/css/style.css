@@ -2445,6 +2445,7 @@ body.preview-page .sub-tab {
     color: #555;
     background-color: #f8f9fa;
     border: 1px solid #ddd;
+    border-radius: 0px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 }
