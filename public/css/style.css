@@ -2446,8 +2446,17 @@ body.preview-page .sub-tab {
     background-color: #f8f9fa;
     border: 1px solid #ddd;
     border-radius: 0px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;     
+    /* transform 효과 */
+     transform: scalex(0);
+     transform-origin: left bottom;
+     transition: all 1s;
+}
+
+body.preview-page .sub-tab:hover {
+    flex-wrap: wrap;
+    background-color: #00ff953c;
+    transform: scaleX(1);
 }
 
 body.preview-page .sub-tab-wrapper {
@@ -2475,10 +2484,6 @@ body.preview-page .sub-tab.active {
     font-weight: bold;
 }
 
-body.preview-page .sub-tab:hover {
-    flex-wrap: wrap;
-    background-color: #00ff953c;
-}
 
 /*====== marge-container내 이미지썸네일관련css ======*/
 body.preview-page .image-container {
