@@ -897,13 +897,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    // 1. 개별 카드(기차 칸) 생성
+                    // ✅ 게이밍 허브 스타일 카드 생성
                     const card = document.createElement("div");
-                    // CSS에서 설정한 클래스명 'text-card-item'을 사용합니다.
                     card.classList.add("text-card-item", "appear-ani");
                     card.style.animationDelay = `${index * 50}ms`;
-
-                    // 게이밍 허브처럼 슥 나타나는 효과 (AOS)
                     card.setAttribute("data-aos", "zoom-in");
 
                     // 2. 상단 이미지(배너) 생성
@@ -923,15 +920,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // 해시태그 (게이밍 허브 하단 설명 느낌)
                     const hashtagContainer = document.createElement("div");
                     hashtagContainer.classList.add("text-hashtags");
-                    hashtagContainer.style.marginTop = "8px"; // 간격 살짝 추가
-
                     const fullText = image.text || image.description?.text || "";
                     const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
-                    hashtags.slice(0, 2).forEach(tag => { // 2개 정도가 적당
+                    hashtags.slice(0, 2).forEach(tag => {
                         const tagEl = document.createElement("span");
                         tagEl.classList.add("text-hashtag");
                         tagEl.textContent = tag;
-                        tagEl.style.fontSize = "13px"; // 게이밍 허브는 설명이 조금 작음
                         hashtagContainer.appendChild(tagEl);
                     });
 
@@ -1095,13 +1089,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    // 1. 개별 카드(기차 칸) 생성
+                    // ✅ 게이밍 허브 스타일 카드 생성
                     const card = document.createElement("div");
-                    // CSS에서 설정한 클래스명 'text-card-item'을 사용합니다.
                     card.classList.add("text-card-item", "appear-ani");
                     card.style.animationDelay = `${index * 50}ms`;
-
-                    // 게이밍 허브처럼 슥 나타나는 효과 (AOS)
                     card.setAttribute("data-aos", "zoom-in");
 
                     // 2. 상단 이미지(배너) 생성
@@ -1121,15 +1112,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // 해시태그 (게이밍 허브 하단 설명 느낌)
                     const hashtagContainer = document.createElement("div");
                     hashtagContainer.classList.add("text-hashtags");
-                    hashtagContainer.style.marginTop = "8px"; // 간격 살짝 추가
-
                     const fullText = image.text || image.description?.text || "";
                     const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
-                    hashtags.slice(0, 2).forEach(tag => { // 2개 정도가 적당
+                    hashtags.slice(0, 2).forEach(tag => {
                         const tagEl = document.createElement("span");
                         tagEl.classList.add("text-hashtag");
                         tagEl.textContent = tag;
-                        tagEl.style.fontSize = "13px"; // 게이밍 허브는 설명이 조금 작음
                         hashtagContainer.appendChild(tagEl);
                     });
 
@@ -1150,6 +1138,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     imageGallery.appendChild(card);
                 }
             });
+            renderPagination(totalPages);
+            adjustGalleryRadius();
         } catch (error) {
             console.error(" 이미지를 불러오는 중 오류 발생:", error);
             imageGallery.classList.remove("grid-layout");
