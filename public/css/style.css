@@ -2376,6 +2376,10 @@ body.preview-page .tab-design {
 }
 
 body.preview-page .tab-btn {
+    position: relative; /*  기준 */
+    overflow: hidden;   /* 넘침 숨김 */
+    z-index: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2391,18 +2395,34 @@ body.preview-page .tab-btn {
 
     box-sizing: border-box;
     cursor: pointer;
-
     border: none;
-
 
     transition:
         flex 0.35s ease,
-        background-color 0.3s,
         color 0.3s;
 }
 
-body.preview-page .tab-btn:hover {
+/* 채워지는 레이어 */
+body.preview-page .tab-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
     background: #c2f7f135;
+    transition: width 0.35s ease;
+    z-index: -1;
+}
+
+/* hover 시 왼쪽 → 오른쪽 채움 */
+body.preview-page .tab-btn:hover::before {
+    width: 100%;
+}
+
+/* 텍스트 색 변화 (옵션) */
+body.preview-page .tab-btn:hover {
+    color: #ffffff;
 }
 
 body.preview-page .tab-btn.active {
