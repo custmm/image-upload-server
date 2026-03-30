@@ -897,105 +897,38 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    // 1. 행 컨테이너 생성
-                    const row = document.createElement("div");
-                    row.classList.add("swipe-row", "appear-ani");
-                    row.style.animationDelay = `${index * 50}ms`;
-                    row.setAttribute("data-aos", "fade-up");
+                    // 1. 개별 카드 생성
+                    const card = document.createElement("div");
+                    card.classList.add("text-card-item", "appear-ani");
+                    card.style.animationDelay = `${index * 50}ms`;
+                    card.setAttribute("data-aos", "fade-up");
 
-                    const track = document.createElement("div");
-                    track.classList.add("swipe-track");
+                    // 2. 이미지 생성
+                    const thumb = document.createElement("img");
+                    thumb.src = image.file_path;
+                    thumb.classList.add("card-img");
 
-                    // 슬라이드 내용 생성 함수 (DB의 image 객체 활용)
-                    const createSlide = () => {
-                        const slide = document.createElement("div");
-                        slide.classList.add("slide");
+                    // 3. 정보 컨테이너 생성
+                    const info = document.createElement("div");
+                    info.classList.add("card-info");
 
-                        const thumb = document.createElement("img");
-                        thumb.src = image.file_path;
-                        thumb.classList.add("text-thumb");
+                    const titleEl = document.createElement("div");
+                    titleEl.classList.add("card-title");
+                    titleEl.innerHTML = `${image.title || "제목 없음"} <span class="arrow">></span>`;
 
-                        const content = document.createElement("div");
-                        content.classList.add("text-content");
+                    // 조립
+                    info.appendChild(titleEl);
+                    card.appendChild(thumb);
+                    card.appendChild(info);
 
-                        const titleEl = document.createElement("div");
-                        titleEl.classList.add("text-preview");
-                        titleEl.textContent = image.title || "제목 없음";
-
-                        const hashtagContainer = document.createElement("div");
-                        hashtagContainer.classList.add("text-hashtags");
-
-                        const fullText = image.text || image.description?.text || "";
-                        const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
-                        hashtags.slice(0, 4).forEach(tag => {
-                            const tagEl = document.createElement("span");
-                            tagEl.classList.add("text-hashtag");
-                            tagEl.textContent = tag;
-                            hashtagContainer.appendChild(tagEl);
-                        });
-
-                        content.appendChild(titleEl);
-                        content.appendChild(hashtagContainer);
-                        slide.appendChild(thumb);
-                        slide.appendChild(content);
-
-                        // 클릭 시 상세페이지 이동 (기존 로직 유지)
-                        slide.onclick = () => {
-                            if (typeof isExplanMode !== 'undefined' && isExplanMode) return;
-                            window.location.href = `post?id=${image.id}`;
-                        };
-
-                        return slide;
+                    // 클릭 이벤트
+                    card.onclick = () => {
+                        if (typeof isExplanMode !== 'undefined' && isExplanMode) return;
+                        window.location.href = `post?id=${image.id}`;
                     };
 
-                    // 트랙에 앞/뒤 슬라이드 추가
-                    track.appendChild(createSlide());
-                    track.appendChild(createSlide());
-                    row.appendChild(track);
-                    imageGallery.appendChild(row);
-
-                    // --- 인터랙션 로직 (제공해주신 원본 기반 최적화) ---
-                    let startX = 0;
-                    let currentX = 0;
-                    let isDragging = false;
-
-                    const handleStart = (e) => {
-                        isDragging = true;
-                        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-                        track.style.transition = "none";
-                    };
-
-                    const handleMove = (e) => {
-                        if (!isDragging) return;
-                        currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-                        const diff = currentX - startX;
-                        // 왼쪽으로 드래그할 때만 움직이게 하거나 자유롭게 조절
-                        if (diff <= 0) {
-                            track.style.transform = `translateX(${diff}px)`;
-                        }
-                    };
-
-                    const handleEnd = () => {
-                        if (!isDragging) return;
-                        isDragging = false;
-                        const diff = currentX - startX;
-                        track.style.transition = "transform 0.3s ease";
-
-                        // 50px 이상 밀었을 때 다음 슬라이드로 (-50%는 트랙의 절반)
-                        if (diff < -50) {
-                            track.style.transform = "translateX(-50%)";
-                        } else {
-                            track.style.transform = "translateX(0%)";
-                        }
-                    };
-
-                    row.addEventListener("mousedown", handleStart);
-                    window.addEventListener("mousemove", handleMove);
-                    window.addEventListener("mouseup", handleEnd);
-
-                    row.addEventListener("touchstart", handleStart, { passive: true });
-                    row.addEventListener("touchmove", handleMove, { passive: true });
-                    row.addEventListener("touchend", handleEnd);
+                    // 갤러리에 바로 추가 (row/track 없이 직렬로 나열)
+                    imageGallery.appendChild(card);
                 }
             });
 
@@ -1141,107 +1074,39 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    // 1. 행 컨테이너 생성
-                    const row = document.createElement("div");
-                    row.classList.add("swipe-row", "appear-ani");
-                    row.style.animationDelay = `${index * 50}ms`;
-                    row.setAttribute("data-aos", "fade-up");
+                    // 1. 개별 카드 생성
+                    const card = document.createElement("div");
+                    card.classList.add("text-card-item", "appear-ani");
+                    card.style.animationDelay = `${index * 50}ms`;
+                    card.setAttribute("data-aos", "fade-up");
 
-                    const track = document.createElement("div");
-                    track.classList.add("swipe-track");
+                    // 2. 이미지 생성
+                    const thumb = document.createElement("img");
+                    thumb.src = image.file_path;
+                    thumb.classList.add("card-img");
 
-                    // 슬라이드 내용 생성 함수 (DB의 image 객체 활용)
-                    const createSlide = () => {
-                        const slide = document.createElement("div");
-                        slide.classList.add("slide");
+                    // 3. 정보 컨테이너 생성
+                    const info = document.createElement("div");
+                    info.classList.add("card-info");
 
-                        const thumb = document.createElement("img");
-                        thumb.src = image.file_path;
-                        thumb.classList.add("text-thumb");
+                    const titleEl = document.createElement("div");
+                    titleEl.classList.add("card-title");
+                    titleEl.innerHTML = `${image.title || "제목 없음"} <span class="arrow">></span>`;
 
-                        const content = document.createElement("div");
-                        content.classList.add("text-content");
 
-                        const titleEl = document.createElement("div");
-                        titleEl.classList.add("text-preview");
-                        titleEl.textContent = image.title || "제목 없음";
+                    // 조립
+                    info.appendChild(titleEl);
+                    card.appendChild(thumb);
+                    card.appendChild(info);
 
-                        const hashtagContainer = document.createElement("div");
-                        hashtagContainer.classList.add("text-hashtags");
-
-                        const fullText = image.text || image.description?.text || "";
-                        const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
-                        hashtags.slice(0, 4).forEach(tag => {
-                            const tagEl = document.createElement("span");
-                            tagEl.classList.add("text-hashtag");
-                            tagEl.textContent = tag;
-                            hashtagContainer.appendChild(tagEl);
-                        });
-
-                        content.appendChild(titleEl);
-                        content.appendChild(hashtagContainer);
-                        slide.appendChild(thumb);
-                        slide.appendChild(content);
-
-                        // 클릭 시 상세페이지 이동 (기존 로직 유지)
-                        slide.onclick = () => {
-                            if (typeof isExplanMode !== 'undefined' && isExplanMode) return;
-                            window.location.href = `post?id=${image.id}`;
-                        };
-
-                        return slide;
+                    // 클릭 이벤트
+                    card.onclick = () => {
+                        if (typeof isExplanMode !== 'undefined' && isExplanMode) return;
+                        window.location.href = `post?id=${image.id}`;
                     };
 
-                    // 트랙에 앞/뒤 슬라이드 추가
-                    track.appendChild(createSlide());
-                    track.appendChild(createSlide());
-                    row.appendChild(track);
-                    imageGallery.appendChild(row);
-
-                    // --- 인터랙션 로직 (제공해주신 원본 기반 최적화) ---
-                    let startX = 0;
-                    let currentX = 0;
-                    let isDragging = false;
-
-                    const handleStart = (e) => {
-                        isDragging = true;
-                        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-                        track.style.transition = "none";
-                    };
-
-                    const handleMove = (e) => {
-                        if (!isDragging) return;
-                        currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-                        const diff = currentX - startX;
-                        // 왼쪽으로 드래그할 때만 움직이게 하거나 자유롭게 조절
-                        if (diff <= 0) {
-                            track.style.transform = `translateX(${diff}px)`;
-                        }
-                    };
-
-                    const handleEnd = () => {
-                        if (!isDragging) return;
-                        isDragging = false;
-                        const diff = currentX - startX;
-                        track.style.transition = "transform 0.3s ease";
-
-                        // 50px 이상 밀었을 때 다음 슬라이드로 (-50%는 트랙의 절반)
-                        if (diff < -50) {
-                            track.style.transform = "translateX(-50%)";
-                        } else {
-                            track.style.transform = "translateX(0%)";
-                        }
-                    };
-
-                    row.addEventListener("mousedown", handleStart);
-                    window.addEventListener("mousemove", handleMove);
-                    window.addEventListener("mouseup", handleEnd);
-
-                    row.addEventListener("touchstart", handleStart, { passive: true });
-                    row.addEventListener("touchmove", handleMove, { passive: true });
-                    row.addEventListener("touchend", handleEnd);
-
-
+                    // 갤러리에 바로 추가 (row/track 없이 직렬로 나열)
+                    imageGallery.appendChild(card);
                 }
             });
         } catch (error) {
