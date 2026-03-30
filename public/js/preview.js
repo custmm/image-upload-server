@@ -77,7 +77,7 @@ window.closePreviewPopup = function (type) {
 
 window.toggleSidebar = function (event) {
     event.stopPropagation(); // 클릭 전파 막기
-    
+
     const sidebar = document.getElementById("sidebar");
     if (!sidebar) return;
 
@@ -1245,31 +1245,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     async function fetchIndicatorStatusAndApply() {
         try {
             const response = await fetch("/api/settings/indicator-status");
-            if (!response.ok) throw new Error("서버 응답 오류");
-            const data = await response.json();
 
-            // 수정 포인트: localVisible 변수를 먼저 정의합니다.
-            const localVisible = localStorage.getItem('previewVisible');
-
-            //  visible 은 서버 우선
-            localStorage.setItem('previewVisible', data.visible ? 'visible' : 'hidden');
-            if (localVisible === null) {
-                localStorage.setItem('previewVisible', data.visual ? 'visual' : 'hidden');
+            if (!response.ok) {
+                console.warn("⚠️ 서버 응답 실패, 기본값 유지");
+                return;
             }
 
-            // modernized 는 localStorage 우선
+            const data = await response.json();
+
+            // 🔥 visible 처리 (서버 우선, 최초 1회만 적용)
+            const localVisible = localStorage.getItem('previewVisible');
+
+            if (localVisible === null) {
+                localStorage.setItem(
+                    'previewVisible',
+                    data.visible ? 'visible' : 'hidden'
+                );
+            }
+
+            // 🔥 modernized 처리 (로컬 우선)
             const localModernized = localStorage.getItem('indicatorModernized');
+
             const isModernized = localModernized !== null
                 ? localModernized === "true"
                 : data.modernized;
 
-            localStorage.setItem('indicatorModernized', isModernized ? 'true' : 'false');
+            localStorage.setItem(
+                'indicatorModernized',
+                isModernized ? 'true' : 'false'
+            );
 
-            // 상태 반영
-            updatePreviewVisibility && updatePreviewVisibility();
+            // 🔥 상태 반영
+            if (typeof updatePreviewVisibility === "function") {
+                updatePreviewVisibility();
+            }
+
             applyModernizedImages(isModernized);
+
         } catch (error) {
-            console.error(" Indicator 상태 가져오기 오류:", error);
+            console.error("❌ Indicator 상태 가져오기 오류:", error);
         }
     }
 
