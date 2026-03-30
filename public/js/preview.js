@@ -897,16 +897,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    // ✅ 게이밍 허브 스타일 카드 생성
+                    // 1. 개별 카드 생성
                     const card = document.createElement("div");
                     card.classList.add("text-card-item", "appear-ani");
                     card.style.animationDelay = `${index * 50}ms`;
                     card.setAttribute("data-aos", "zoom-in");
 
-                    // 2. 상단 이미지(배너) 생성
+                    // 🖼️ 2. 이미지 컨테이너(틀) 생성 및 이미지 추가
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("card-img-container"); // 컨테이너 클래스 추가
+
                     const thumb = document.createElement("img");
                     thumb.src = image.file_path;
                     thumb.classList.add("card-img");
+
+                    imgContainer.appendChild(thumb); // 이미지를 컨테이너 안에 쏙!
 
                     // 3. 하단 정보 컨테이너 생성
                     const info = document.createElement("div");
@@ -1087,16 +1092,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    // ✅ 게이밍 허브 스타일 카드 생성
+                    // 1. 개별 카드 생성
                     const card = document.createElement("div");
                     card.classList.add("text-card-item", "appear-ani");
                     card.style.animationDelay = `${index * 50}ms`;
                     card.setAttribute("data-aos", "zoom-in");
 
-                    // 2. 상단 이미지(배너) 생성
+                    // 🖼️ 2. 이미지 컨테이너(틀) 생성 및 이미지 추가
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("card-img-container"); // 컨테이너 클래스 추가
+
                     const thumb = document.createElement("img");
                     thumb.src = image.file_path;
                     thumb.classList.add("card-img");
+
+                    imgContainer.appendChild(thumb); // 이미지를 컨테이너 안에 쏙!
 
                     // 3. 하단 정보 컨테이너 생성
                     const info = document.createElement("div");
