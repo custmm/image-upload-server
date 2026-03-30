@@ -2686,12 +2686,91 @@ body.preview-page .image-gallery.image-view {
     gap: 12px;
 }
 
-/* 텍스트 모드 */
+/* 텍스트 모드 (이미지 갤러리 전체 설정) */
 body.preview-page .image-gallery.text-view {
+    display: flex !important;       /* 리스트(column)가 아닌 가로(row) 나열 */
+    flex-direction: row !important;
+    overflow-x: auto;               /* 가로 스크롤 활성화 */
+    scroll-snap-type: x mandatory;    /* 카드가 멈출 때 자석 효과 */
+    gap: 20px;                      /* 카드 사이 간격 */
+    padding: 30px 20px;             /* 위아래/좌우 여백 */
+    background-color: transparent;  /* 배경 투명하게 (취향껏 조절) */
+    box-shadow: none;
+    width: 100%;
+    -webkit-overflow-scrolling: touch; /* 모바일 부드러운 스크롤 */
+}
+
+/* 스크롤바 숨기기 */
+body.preview-page .image-gallery.text-view::-webkit-scrollbar {
+    display: none;
+}
+
+/* 한 줄 컨테이너 (이제 개별 카드 역할을 함) */
+body.preview-page .text-row {
+    flex: 0 0 85%;                  /* 화면의 85% 차지 (옆 카드가 살짝 보임) */
+    max-width: 350px;               /* 너무 커지는 것 방지 */
+    overflow: visible;              /* 메뉴를 숨기던 hidden 해제 */
+    background: #ffffff;
+    border-radius: 25px;            /* 둥근 카드 디자인 */
+    border: none;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 카드 입체감 */
+    scroll-snap-align: center;      /* 스크롤 시 화면 정중앙에 고정 */
+    transition: transform 0.3s ease;
+}
+
+/* 실제 움직이는 트랙 (카드 UI에서는 무의미해지므로 100%로 고정) */
+body.preview-page .swipe-track {
     display: flex;
-    flex-direction: column;
-    padding: 5px;
-    border-radius: 10px;
+    flex-direction: column;         /* 카드 내부 요소 세로 배치 */
+    width: 100% !important;         /* 125%였던 것을 100%로 환원 */
+    height: auto;
+    transition: none;
+}
+
+/* 텍스트가 보이는 메인 영역 (카드 본체) */
+body.preview-page .slide-main {
+    width: 100% !important;         /* 80%였던 것을 100%로 환원 */
+    display: flex;
+    flex-direction: column;         /* 이미지 아래 텍스트가 오도록 */
+    align-items: flex-start;
+    padding: 0;                     /* 내부 여백은 자식 요소에서 처리 */
+    gap: 0;
+}
+
+/* 카드 썸네일 (게이밍 배너 스타일) */
+body.preview-page .text-thumb {
+    width: 100% !important;
+    height: 180px !important;       /* 고정 높이 */
+    filter: blur(10px);
+    aspect-ratio: 16 / 9;
+    border-radius: 25px 25px 0 0 !important; /* 위쪽만 둥글게 */
+    object-fit: cover;
+    filter: none !important;        /* 기존 blur(10px) 제거 */
+    padding: 0 !important;
+}
+
+/* 카드 텍스트 컨텐츠 영역 */
+body.preview-page .text-content {
+       flex-direction: column;
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 카드 제목 */
+body.preview-page .text-preview {
+    font-size: 1.2rem !important;
+    font-weight: 600;
+    text-align: center !important;
+    margin-bottom: 10px !important;    
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* 이미지 갤러리 중앙 정렬 */
@@ -2705,62 +2784,13 @@ body.preview-page .image-gallery-wrapper {
     width: 95%;
 }
 
-
-/* 텍스트뷰 전용 */
-body.preview-page .text-thumb {
-    width: 80px;
-    height: 80px;
-    filter: blur(10px);
-    object-fit: cover;
-    border-radius: 20px;
-    padding: 5px;
+/* 해시태그 레이아웃 */
+body.preview-page .text-hashtag {
+    margin-top: 5px;
+    font-size: 15px;
+    color: #6dbf9f;
 }
 
-body.preview-page .text-content {
-    flex-direction: column;
-    flex: 1;
-    font-size: 14px;
-    line-height: 1.5;
-    overflow: hidden;
-}
-
-body.preview-page .text-preview {
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 10px;    
-    color: #333;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* 한 줄 컨테이너 */
-body.preview-page .text-row {
-    width: 100%;
-    overflow: hidden; /* 옆으로 튀어나온 '숨겨진 메뉴'를 가림 */
-    border-bottom: 1px solid #e0e0e0;
-    background-color: #fff;
-}
-
-/* 실제 움직이는 트랙 */
-body.preview-page .swipe-track {
-    display: flex;
-    width: 125%; /* 기본 100% + 숨겨진 메뉴 영역 25% */
-    transition: transform 0.3s ease;
-    align-items: center;
-}
-
-/* 텍스트가 보이는 메인 영역 */
-body.preview-page .slide-main {
-    width: 80%; /* 트랙의 100% (전체 화면 너비) */
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    gap: 12px;
-    box-sizing: border-box;
-}
 
 /* 빽빽한 텍스트 스타일 */
 body.preview-page .text-thumb {
@@ -2783,11 +2813,6 @@ body.preview-page .slide-menu {
     font-weight: bold;
 }
 
-body.preview-page .text-hashtag {
-    margin-right: 6px;
-    font-size: 15px;
-    color: #6dbf9f;
-}
 
 /* 사이드바 타이틀 */
 body.preview-page .menu-title {
