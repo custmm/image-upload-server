@@ -951,7 +951,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                     track.appendChild(slide1);
                     track.appendChild(slide2);
                     row.appendChild(track);
-                    imageGallery.appendChild(row);
 
                     let startX = 0;
                     let currentX = 0;
@@ -992,8 +991,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                     row.addEventListener("touchmove", (e) => {
                         currentX = e.touches[0].clientX;
                         const diff = currentX - startX;
-
-                        track.style.transition = "none";
                         track.style.transform = `translateX(${diff}px)`;
                     });
 
@@ -1010,6 +1007,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     });
                 }
             });
+
+            imageGallery.appendChild(row);
 
             renderPagination(totalPages);
 
