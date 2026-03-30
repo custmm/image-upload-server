@@ -3,7 +3,6 @@ let loaderStep = 1;
 let overlapTimer = null;
 let wasOverlapping = false;
 
-
 function showLoading() {
     const indicator = document.getElementById("loadingIndicator");
     const loader = document.getElementById("mainLoader");
@@ -898,12 +897,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-
                     const row = document.createElement("div");
                     row.classList.add("text-row");
 
-                    const flipInner = document.createElement("div");
-                    flipInner.classList.add("flip-inner");
+                    const track = document.createElement("div");
+                    track.classList.add("swipe-track");
 
                     const thumb = document.createElement("img");
                     thumb.src = image.file_path;
@@ -922,6 +920,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         image.text ||
                         image.description?.text ||
                         "";
+
                     const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
 
                     const hashtagContainer = document.createElement("div");
@@ -937,32 +936,78 @@ document.addEventListener("DOMContentLoaded", async () => {
                     content.appendChild(textEl);
                     content.appendChild(hashtagContainer);
 
-                    // 🔥 앞면
-                    const front = document.createElement("div");
-                    front.classList.add("card-face", "card-front");
-                    front.appendChild(thumb);
-                    front.appendChild(content);
+                    // 🔥 슬라이드 1 (앞)
+                    const slide1 = document.createElement("div");
+                    slide1.classList.add("slide");
+                    slide1.appendChild(thumb);
+                    slide1.appendChild(content);
 
-                    // 🔥 뒷면
-                    const back = document.createElement("div");
-                    back.classList.add("card-face", "card-back");
+                    // 🔥 슬라이드 2 (뒷)
+                    const slide2 = document.createElement("div");
+                    slide2.classList.add("slide");
+                    slide2.appendChild(thumb.cloneNode(true));
+                    slide2.appendChild(content.cloneNode(true));
 
-                    const thumbClone = thumb.cloneNode(true);
-                    const contentClone = content.cloneNode(true);
-
-                    back.appendChild(thumbClone);
-                    back.appendChild(contentClone);
-
-                    flipInner.appendChild(front);
-                    flipInner.appendChild(back);
-                    row.appendChild(flipInner);
-
-                    row.onclick = () => {
-                        if (isExplanMode) return;
-                        window.location.href = `post?id=${image.id}`;
-                    };
-
+                    track.appendChild(slide1);
+                    track.appendChild(slide2);
+                    row.appendChild(track);
                     imageGallery.appendChild(row);
+
+                    let startX = 0;
+                    let currentX = 0;
+                    let isDragging = false;
+
+                    row.addEventListener("mousedown", (e) => {
+                        isDragging = true;
+                        startX = e.clientX;
+                    });
+
+                    row.addEventListener("mousemove", (e) => {
+                        if (!isDragging) return;
+                        currentX = e.clientX;
+                        const diff = currentX - startX;
+                        track.style.transition = "none";
+                        track.style.transform = `translateX(${diff}px)`;
+                    });
+
+                    row.addEventListener("mouseup", () => {
+                        isDragging = false;
+
+                        const diff = currentX - startX;
+
+                        track.style.transition = "transform 0.3s ease";
+
+                        if (diff < -50) {
+                            track.style.transform = "translateX(-100%)";
+                        } else {
+                            track.style.transform = "translateX(0%)";
+                        }
+                    });
+
+                    // 🔥 터치
+                    row.addEventListener("touchstart", (e) => {
+                        startX = e.touches[0].clientX;
+                    });
+
+                    row.addEventListener("touchmove", (e) => {
+                        currentX = e.touches[0].clientX;
+                        const diff = currentX - startX;
+
+                        track.style.transition = "none";
+                        track.style.transform = `translateX(${diff}px)`;
+                    });
+
+                    row.addEventListener("touchend", () => {
+                        const diff = currentX - startX;
+
+                        track.style.transition = "transform 0.3s ease";
+
+                        if (diff < -50) {
+                            track.style.transform = "translateX(-100%)";
+                        } else {
+                            track.style.transform = "translateX(0%)";
+                        }
+                    });
                 }
             });
 
@@ -1106,81 +1151,60 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-
                     const row = document.createElement("div");
                     row.classList.add("text-row");
 
-                    const flipInner = document.createElement("div");
-                    flipInner.classList.add("flip-inner");
+                    const track = document.createElement("div");
+                    track.classList.add("swipe-track");
+
+                    const thumb = document.createElement("img");
+                    thumb.src = image.file_path;
+                    thumb.classList.add("text-thumb");
+
+                    const content = document.createElement("div");
+                    content.classList.add("text-content");
 
                     const titleText = image.title || "제목 없음";
+
+                    const textEl = document.createElement("div");
+                    textEl.classList.add("text-preview");
+                    textEl.textContent = titleText;
+
                     const fullText =
                         image.text ||
                         image.description?.text ||
                         "";
+
                     const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
 
-                    // ======================
-                    // 🔥 앞면
-                    // ======================
-
-                    const front = document.createElement("div");
-                    front.classList.add("card-face", "card-front");
-
-                    const frontThumb = document.createElement("img");
-                    frontThumb.src = image.file_path;
-                    frontThumb.classList.add("text-thumb");
-
-                    const frontContent = document.createElement("div");
-                    frontContent.classList.add("text-content");
-
-                    const frontPreview = document.createElement("div");
-                    frontPreview.classList.add("text-preview");
-                    frontPreview.textContent = titleText;
-
-                    const frontHashtagContainer = document.createElement("div");
-                    frontHashtagContainer.classList.add("text-hashtags");
+                    const hashtagContainer = document.createElement("div");
+                    hashtagContainer.classList.add("text-hashtags");
 
                     hashtags.slice(0, 4).forEach(tag => {
                         const tagEl = document.createElement("span");
                         tagEl.classList.add("text-hashtag");
                         tagEl.textContent = tag;
-                        frontHashtagContainer.appendChild(tagEl);
+                        hashtagContainer.appendChild(tagEl);
                     });
 
-                    frontContent.appendChild(frontPreview);
-                    frontContent.appendChild(frontHashtagContainer);
+                    content.appendChild(textEl);
+                    content.appendChild(hashtagContainer);
 
-                    front.appendChild(frontThumb);
-                    front.appendChild(frontContent);
+                    // 🔥 슬라이드 1 (앞)
+                    const slide1 = document.createElement("div");
+                    slide1.classList.add("slide");
+                    slide1.appendChild(thumb);
+                    slide1.appendChild(content);
 
-                    // ======================
-                    // 🔥 뒷면
-                    // ======================
+                    // 🔥 슬라이드 2 (뒷)
+                    const slide2 = document.createElement("div");
+                    slide2.classList.add("slide");
+                    slide2.appendChild(thumb.cloneNode(true));
+                    slide2.appendChild(content.cloneNode(true));
 
-                    const back = document.createElement("div");
-                    back.classList.add("card-face", "card-back");
-
-                    const backThumb = frontThumb.cloneNode(true);
-                    const backContent = frontContent.cloneNode(true);
-
-                    back.appendChild(backThumb);
-                    back.appendChild(backContent);
-
-                    // ======================
-                    // 구조 완성
-                    // ======================
-
-                    flipInner.appendChild(front);
-                    flipInner.appendChild(back);
-
-                    row.appendChild(flipInner);
-
-                    row.onclick = () => {
-                        if (isExplanMode) return;
-                        window.location.href = `post?id=${image.id}`;
-                    };
-
+                    track.appendChild(slide1);
+                    track.appendChild(slide2);
+                    row.appendChild(track);
                     imageGallery.appendChild(row);
                 }
             });
