@@ -2721,97 +2721,71 @@ body.preview-page .text-content {
     flex: 1;
     font-size: 14px;
     line-height: 1.5;
+    overflow: hidden;
 }
 
 body.preview-page .text-preview {
     font-size: 18px;
     font-weight: 600;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 10px;    
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-body.preview-page .text-hashtags {
-    font-size: 15px;
+/* 한 줄 컨테이너 */
+body.preview-page .text-row {
+    width: 100%;
+    overflow: hidden; /* 옆으로 튀어나온 '숨겨진 메뉴'를 가림 */
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #fff;
 }
 
-/* 1. 전체 컨테이너 (imageGallery 등) */
-/* 텍스트 모드일 때 가로 스크롤이 가능하도록 설정 */
-body.preview-page #imageGallery.text-view {
-    display: flex !important;
-    flex-direction: row !important;
-    overflow-x: auto;
-    /* 가로 스크롤 활성화 */
-    scroll-snap-type: x mandatory;
-    /* 스크롤 정지 시 카드에 딱 붙게 함 */
-    gap: 16px;
-    /* 카드 사이 간격 */
-    padding: 20px;
-    -webkit-overflow-scrolling: touch;
-    /* iOS 부드러운 스크롤 */
-    scroll-behavior: smooth;
-}
-
-/* 스크롤바 숨기기 (깔끔한 UI를 위해) */
-body.preview-page #imageGallery.text-view::-webkit-scrollbar {
-    display: none;
-}
-
-/* 2. 개별 카드 (기존의 .slide 역할을 함) */
-body.preview-page .text-card-item {
-    flex: 0 0 280px;
-    /* 카드의 고정 너비 (중요) */
-    background: rgba(255, 255, 255, 0.6);
-    /* GIF처럼 투명감 있는 배경 */
-    border-radius: 25px;
-    /* 둥근 모서리 */
-    padding: 15px;
-    scroll-snap-align: center;
-    /* 스크롤 시 카드가 화면 중앙에 멈춤 */
-
+/* 실제 움직이는 트랙 */
+body.preview-page .swipe-track {
     display: flex;
-    flex-direction: column;
+    width: 125%; /* 기본 100% + 숨겨진 메뉴 영역 25% */
+    transition: transform 0.3s ease;
     align-items: center;
+}
 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+/* 텍스트가 보이는 메인 영역 */
+body.preview-page .slide-main {
+    width: 80%; /* 트랙의 100% (전체 화면 너비) */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    gap: 12px;
     box-sizing: border-box;
 }
 
-/* 3. 이미지 설정 */
-body.preview-page .card-img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    /* 정사각형 유지 */
+/* 빽빽한 텍스트 스타일 */
+body.preview-page .text-thumb {
+    width: 45px; /* 크기 대폭 축소 */
+    height: 45px;
+    border-radius: 4px;
     object-fit: cover;
-    border-radius: 20px;
-    margin-bottom: 15px;
 }
 
-/* 4. 텍스트 정보 영역 */
-body.preview-page .card-info {
-    width: 100%;
-    text-align: left;
-    padding: 0 5px;
-}
-
-body.preview-page .card-title {
-    font-size: 1.1rem;
+/* 옆으로 밀었을 때 나타나는 숨겨진 버튼 영역 */
+body.preview-page .slide-menu {
+    width: 20%; /* 나머지 25% 영역 */
+    height: 100%;
+    display: flex;
+    background-color: #ff3b30; /* 삭제 느낌의 빨간색 혹은 포인트 컬러 */
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-/* 5. Hover 효과 (선택 사항) */
-body.preview-page .text-card-item:hover {
-    background: #ffffff;
-    transform: translateY(-5px);
-    /* 살짝 들리는 효과 */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
 }
 
 body.preview-page .text-hashtag {
     margin-right: 6px;
+    font-size: 15px;
     color: #6dbf9f;
 }
 
