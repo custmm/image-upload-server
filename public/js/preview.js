@@ -897,9 +897,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    const row = document.createElement("div");
-                    row.classList.add("text-row");
-
                     const track = document.createElement("div");
                     track.classList.add("swipe-track");
 
@@ -1149,9 +1146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     imgContainer.appendChild(img);
 
                     imageGallery.appendChild(imgContainer);
-                } else if (currentView === "text") {
-                    const row = document.createElement("div");
-                    row.classList.add("text-row");
+                } else if (currentView === "text") {;
 
                     const track = document.createElement("div");
                     track.classList.add("swipe-track");
