@@ -897,111 +897,105 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
+                    // 1. 행 컨테이너 생성
+                    const row = document.createElement("div");
+                    row.classList.add("swipe-row", "appear-ani");
+                    row.style.animationDelay = `${index * 50}ms`;
+                    row.setAttribute("data-aos", "fade-up");
+
                     const track = document.createElement("div");
                     track.classList.add("swipe-track");
 
-                    const thumb = document.createElement("img");
-                    thumb.src = image.file_path;
-                    thumb.classList.add("text-thumb");
+                    // 슬라이드 내용 생성 함수 (DB의 image 객체 활용)
+                    const createSlide = () => {
+                        const slide = document.createElement("div");
+                        slide.classList.add("slide");
 
-                    const content = document.createElement("div");
-                    content.classList.add("text-content");
+                        const thumb = document.createElement("img");
+                        thumb.src = image.file_path;
+                        thumb.classList.add("text-thumb");
 
-                    const titleText = image.title || "제목 없음";
+                        const content = document.createElement("div");
+                        content.classList.add("text-content");
 
-                    const textEl = document.createElement("div");
-                    textEl.classList.add("text-preview");
-                    textEl.textContent = titleText;
+                        const titleEl = document.createElement("div");
+                        titleEl.classList.add("text-preview");
+                        titleEl.textContent = image.title || "제목 없음";
 
-                    const fullText =
-                        image.text ||
-                        image.description?.text ||
-                        "";
+                        const hashtagContainer = document.createElement("div");
+                        hashtagContainer.classList.add("text-hashtags");
 
-                    const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
+                        const fullText = image.text || image.description?.text || "";
+                        const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
+                        hashtags.slice(0, 4).forEach(tag => {
+                            const tagEl = document.createElement("span");
+                            tagEl.classList.add("text-hashtag");
+                            tagEl.textContent = tag;
+                            hashtagContainer.appendChild(tagEl);
+                        });
 
-                    const hashtagContainer = document.createElement("div");
-                    hashtagContainer.classList.add("text-hashtags");
+                        content.appendChild(titleEl);
+                        content.appendChild(hashtagContainer);
+                        slide.appendChild(thumb);
+                        slide.appendChild(content);
 
-                    hashtags.slice(0, 4).forEach(tag => {
-                        const tagEl = document.createElement("span");
-                        tagEl.classList.add("text-hashtag");
-                        tagEl.textContent = tag;
-                        hashtagContainer.appendChild(tagEl);
-                    });
+                        // 클릭 시 상세페이지 이동 (기존 로직 유지)
+                        slide.onclick = () => {
+                            if (typeof isExplanMode !== 'undefined' && isExplanMode) return;
+                            window.location.href = `post?id=${image.id}`;
+                        };
 
-                    content.appendChild(textEl);
-                    content.appendChild(hashtagContainer);
+                        return slide;
+                    };
 
-                    // 🔥 슬라이드 1 (앞)
-                    const slide1 = document.createElement("div");
-                    slide1.classList.add("slide");
-                    slide1.appendChild(thumb);
-                    slide1.appendChild(content);
-
-                    // 🔥 슬라이드 2 (뒷)
-                    const slide2 = document.createElement("div");
-                    slide2.classList.add("slide");
-                    slide2.appendChild(thumb.cloneNode(true));
-                    slide2.appendChild(content.cloneNode(true));
-
-                    track.appendChild(slide1);
-                    track.appendChild(slide2);
+                    // 트랙에 앞/뒤 슬라이드 추가
+                    track.appendChild(createSlide());
+                    track.appendChild(createSlide());
                     row.appendChild(track);
+                    imageGallery.appendChild(row);
 
+                    // --- 인터랙션 로직 (제공해주신 원본 기반 최적화) ---
                     let startX = 0;
                     let currentX = 0;
                     let isDragging = false;
 
-                    row.addEventListener("mousedown", (e) => {
+                    const handleStart = (e) => {
                         isDragging = true;
-                        startX = e.clientX;
-                    });
-
-                    row.addEventListener("mousemove", (e) => {
-                        if (!isDragging) return;
-                        currentX = e.clientX;
-                        const diff = currentX - startX;
+                        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
                         track.style.transition = "none";
-                        track.style.transform = `translateX(${diff}px)`;
-                    });
+                    };
 
-                    row.addEventListener("mouseup", () => {
+                    const handleMove = (e) => {
+                        if (!isDragging) return;
+                        currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                        const diff = currentX - startX;
+                        // 왼쪽으로 드래그할 때만 움직이게 하거나 자유롭게 조절
+                        if (diff <= 0) {
+                            track.style.transform = `translateX(${diff}px)`;
+                        }
+                    };
+
+                    const handleEnd = () => {
+                        if (!isDragging) return;
                         isDragging = false;
-
                         const diff = currentX - startX;
-
                         track.style.transition = "transform 0.3s ease";
 
+                        // 50px 이상 밀었을 때 다음 슬라이드로 (-50%는 트랙의 절반)
                         if (diff < -50) {
-                            track.style.transform = "translateX(-100%)";
+                            track.style.transform = "translateX(-50%)";
                         } else {
                             track.style.transform = "translateX(0%)";
                         }
-                    });
+                    };
 
-                    // 🔥 터치
-                    row.addEventListener("touchstart", (e) => {
-                        startX = e.touches[0].clientX;
-                    });
+                    row.addEventListener("mousedown", handleStart);
+                    window.addEventListener("mousemove", handleMove);
+                    window.addEventListener("mouseup", handleEnd);
 
-                    row.addEventListener("touchmove", (e) => {
-                        currentX = e.touches[0].clientX;
-                        const diff = currentX - startX;
-                        track.style.transform = `translateX(${diff}px)`;
-                    });
-
-                    row.addEventListener("touchend", () => {
-                        const diff = currentX - startX;
-
-                        track.style.transition = "transform 0.3s ease";
-
-                        if (diff < -50) {
-                            track.style.transform = "translateX(-100%)";
-                        } else {
-                            track.style.transform = "translateX(0%)";
-                        }
-                    });
+                    row.addEventListener("touchstart", handleStart, { passive: true });
+                    row.addEventListener("touchmove", handleMove, { passive: true });
+                    row.addEventListener("touchend", handleEnd);
                 }
             });
 
@@ -1146,60 +1140,108 @@ document.addEventListener("DOMContentLoaded", async () => {
                     imgContainer.appendChild(img);
 
                     imageGallery.appendChild(imgContainer);
-                } else if (currentView === "text") {;
+                } else if (currentView === "text") {
+                    // 1. 행 컨테이너 생성
+                    const row = document.createElement("div");
+                    row.classList.add("swipe-row", "appear-ani");
+                    row.style.animationDelay = `${index * 50}ms`;
+                    row.setAttribute("data-aos", "fade-up");
 
                     const track = document.createElement("div");
                     track.classList.add("swipe-track");
 
-                    const thumb = document.createElement("img");
-                    thumb.src = image.file_path;
-                    thumb.classList.add("text-thumb");
+                    // 슬라이드 내용 생성 함수 (DB의 image 객체 활용)
+                    const createSlide = () => {
+                        const slide = document.createElement("div");
+                        slide.classList.add("slide");
 
-                    const content = document.createElement("div");
-                    content.classList.add("text-content");
+                        const thumb = document.createElement("img");
+                        thumb.src = image.file_path;
+                        thumb.classList.add("text-thumb");
 
-                    const titleText = image.title || "제목 없음";
+                        const content = document.createElement("div");
+                        content.classList.add("text-content");
 
-                    const textEl = document.createElement("div");
-                    textEl.classList.add("text-preview");
-                    textEl.textContent = titleText;
+                        const titleEl = document.createElement("div");
+                        titleEl.classList.add("text-preview");
+                        titleEl.textContent = image.title || "제목 없음";
 
-                    const fullText =
-                        image.text ||
-                        image.description?.text ||
-                        "";
+                        const hashtagContainer = document.createElement("div");
+                        hashtagContainer.classList.add("text-hashtags");
 
-                    const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
+                        const fullText = image.text || image.description?.text || "";
+                        const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
+                        hashtags.slice(0, 4).forEach(tag => {
+                            const tagEl = document.createElement("span");
+                            tagEl.classList.add("text-hashtag");
+                            tagEl.textContent = tag;
+                            hashtagContainer.appendChild(tagEl);
+                        });
 
-                    const hashtagContainer = document.createElement("div");
-                    hashtagContainer.classList.add("text-hashtags");
+                        content.appendChild(titleEl);
+                        content.appendChild(hashtagContainer);
+                        slide.appendChild(thumb);
+                        slide.appendChild(content);
 
-                    hashtags.slice(0, 4).forEach(tag => {
-                        const tagEl = document.createElement("span");
-                        tagEl.classList.add("text-hashtag");
-                        tagEl.textContent = tag;
-                        hashtagContainer.appendChild(tagEl);
-                    });
+                        // 클릭 시 상세페이지 이동 (기존 로직 유지)
+                        slide.onclick = () => {
+                            if (typeof isExplanMode !== 'undefined' && isExplanMode) return;
+                            window.location.href = `post?id=${image.id}`;
+                        };
 
-                    content.appendChild(textEl);
-                    content.appendChild(hashtagContainer);
+                        return slide;
+                    };
 
-                    // 🔥 슬라이드 1 (앞)
-                    const slide1 = document.createElement("div");
-                    slide1.classList.add("slide");
-                    slide1.appendChild(thumb);
-                    slide1.appendChild(content);
-
-                    // 🔥 슬라이드 2 (뒷)
-                    const slide2 = document.createElement("div");
-                    slide2.classList.add("slide");
-                    slide2.appendChild(thumb.cloneNode(true));
-                    slide2.appendChild(content.cloneNode(true));
-
-                    track.appendChild(slide1);
-                    track.appendChild(slide2);
+                    // 트랙에 앞/뒤 슬라이드 추가
+                    track.appendChild(createSlide());
+                    track.appendChild(createSlide());
                     row.appendChild(track);
                     imageGallery.appendChild(row);
+
+                    // --- 인터랙션 로직 (제공해주신 원본 기반 최적화) ---
+                    let startX = 0;
+                    let currentX = 0;
+                    let isDragging = false;
+
+                    const handleStart = (e) => {
+                        isDragging = true;
+                        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                        track.style.transition = "none";
+                    };
+
+                    const handleMove = (e) => {
+                        if (!isDragging) return;
+                        currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                        const diff = currentX - startX;
+                        // 왼쪽으로 드래그할 때만 움직이게 하거나 자유롭게 조절
+                        if (diff <= 0) {
+                            track.style.transform = `translateX(${diff}px)`;
+                        }
+                    };
+
+                    const handleEnd = () => {
+                        if (!isDragging) return;
+                        isDragging = false;
+                        const diff = currentX - startX;
+                        track.style.transition = "transform 0.3s ease";
+
+                        // 50px 이상 밀었을 때 다음 슬라이드로 (-50%는 트랙의 절반)
+                        if (diff < -50) {
+                            track.style.transform = "translateX(-50%)";
+                        } else {
+                            track.style.transform = "translateX(0%)";
+                        }
+                    };
+
+                    row.addEventListener("mousedown", handleStart);
+                    window.addEventListener("mousemove", handleMove);
+                    window.addEventListener("mouseup", handleEnd);
+
+                    row.addEventListener("touchstart", handleStart, { passive: true });
+                    row.addEventListener("touchmove", handleMove, { passive: true });
+                    row.addEventListener("touchend", handleEnd);
+
+
                 }
             });
         } catch (error) {

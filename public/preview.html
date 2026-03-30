@@ -6,8 +6,13 @@
   <meta name="google-site-verification" content="kMxKqlA9cKbHdJGw51M2sE21fjyzL3SvY1ryWISJMT0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ɐ퓨챠휼Ɐ >> 업로드된 이미지</title>
+
+  <!-- 외부 링크 css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+
+  <!-- 파일 내 css -->
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/theme.css">
   <link rel="stylesheet" href="./css/component.css">
@@ -176,48 +181,48 @@
     </button>
   </header>
 
-  <div class="menu-wrapper">    
+  <div class="menu-wrapper">
     <button class="sidebar-toggle" onclick="toggleSidebar(event)">
       <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
     </button>
 
 
-  <!-- 사이드 네비게이션 -->
-  <nav id="sidebar" class="sidebar">
-    <ul class="main-menu">
-      <li class="menu-item">
-        <button class="menu-title" onclick="toggleMenu('board')">게시판</button>
-        <ul id="board" class="sub-menu">
-          <li><a href="#" onclick="goCategory('퍼즐')">퍼즐</a></li>
-          <li><a href="#" onclick="goCategory('보석비즈')">보석비즈</a></li>
-          <li><a href="#" onclick="goCategory('입체퍼즐')">입체퍼즐</a></li>
-          <li><a href="#" onclick="goCategory('디폼블럭')">디폼블럭</a></li>
-          <li><a href="#" onclick="goCategory('브릭피규어')">브릭피규어</a></li>
-        </ul>
-      </li>
+    <!-- 사이드 네비게이션 -->
+    <nav id="sidebar" class="sidebar">
+      <ul class="main-menu">
+        <li class="menu-item">
+          <button class="menu-title" onclick="toggleMenu('board')">게시판</button>
+          <ul id="board" class="sub-menu">
+            <li><a href="#" onclick="goCategory('퍼즐')">퍼즐</a></li>
+            <li><a href="#" onclick="goCategory('보석비즈')">보석비즈</a></li>
+            <li><a href="#" onclick="goCategory('입체퍼즐')">입체퍼즐</a></li>
+            <li><a href="#" onclick="goCategory('디폼블럭')">디폼블럭</a></li>
+            <li><a href="#" onclick="goCategory('브릭피규어')">브릭피규어</a></li>
+          </ul>
+        </li>
 
-      <li class="menu-item">
-        <button class="menu-title" onclick="toggleMenu('etc')">
-          부가기능</button>
-        <ul id="etc" class="sub-menu">
-          <li><a href="click.html">숨겨진기능 체험하기</a></li>
-          <li><a href="killing_game.html">게임하기</a></li>
-          <li>
-            <a href="./ai_icon.html" id="iconlink">아이콘 스튜디오</a>
-          </li>
-        </ul>
-      </li>
+        <li class="menu-item">
+          <button class="menu-title" onclick="toggleMenu('etc')">
+            부가기능</button>
+          <ul id="etc" class="sub-menu">
+            <li><a href="click.html">숨겨진기능 체험하기</a></li>
+            <li><a href="killing_game.html">게임하기</a></li>
+            <li>
+              <a href="./ai_icon.html" id="iconlink">아이콘 스튜디오</a>
+            </li>
+          </ul>
+        </li>
 
-      <li class="sidebar-search">
-        <input type="text" id="sidebarSearchInput" placeholder="작품 검색..." />
-        <button id="sidebarSearchBtn" class="search-icon-btn">
-          <i data-icon="search"></i>
-        </button>
-      </li>
+        <li class="sidebar-search">
+          <input type="text" id="sidebarSearchInput" placeholder="작품 검색..." />
+          <button id="sidebarSearchBtn" class="search-icon-btn">
+            <i data-icon="search"></i>
+          </button>
+        </li>
 
-    </ul>
-  </nav>
-</div>
+      </ul>
+    </nav>
+  </div>
 
 
   <!-- 메인 콘텐츠 영역 -->
@@ -338,7 +343,7 @@
 
       <!-- 테마토글 -->
       <div class="setting_item">
-          <p>라이트/다크 모드</p>
+        <p>라이트/다크 모드</p>
 
         <div class="toggle-switch_theme">
           <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
@@ -351,7 +356,7 @@
 
       <!-- 투명도 -->
       <div class="setting_item">
-          <p>게시물 투명도</p>
+        <p>게시물 투명도</p>
 
         <div class="toggle-switch_trans">
           <div class="opacityControl" id="opacityControl">
@@ -365,7 +370,7 @@
 
       <!-- 표시기관련 -->
       <div class="setting_item">
-          <p>표시기</p>
+        <p>표시기</p>
 
         <div class="toggle-switch_ind">
           <button id="show-indicate" class="indicate_btn">Show
@@ -391,6 +396,7 @@
   </footer>
 
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
   <script>
     AOS.init();
   </script>
