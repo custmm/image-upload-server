@@ -897,37 +897,58 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    // 1. 개별 카드 생성
+                    // 1. 개별 카드(기차 칸) 생성
                     const card = document.createElement("div");
+                    // CSS에서 설정한 클래스명 'text-card-item'을 사용합니다.
                     card.classList.add("text-card-item", "appear-ani");
                     card.style.animationDelay = `${index * 50}ms`;
-                    card.setAttribute("data-aos", "fade-up");
 
-                    // 2. 이미지 생성
+                    // 게이밍 허브처럼 슥 나타나는 효과 (AOS)
+                    card.setAttribute("data-aos", "zoom-in");
+
+                    // 2. 상단 이미지(배너) 생성
                     const thumb = document.createElement("img");
                     thumb.src = image.file_path;
                     thumb.classList.add("card-img");
 
-                    // 3. 정보 컨테이너 생성
+                    // 3. 하단 정보 컨테이너 생성
                     const info = document.createElement("div");
                     info.classList.add("card-info");
 
+                    // 제목 + 화살표
                     const titleEl = document.createElement("div");
                     titleEl.classList.add("card-title");
                     titleEl.innerHTML = `${image.title || "제목 없음"} <span class="arrow">></span>`;
 
-                    // 조립
+                    // 해시태그 (게이밍 허브 하단 설명 느낌)
+                    const hashtagContainer = document.createElement("div");
+                    hashtagContainer.classList.add("text-hashtags");
+                    hashtagContainer.style.marginTop = "8px"; // 간격 살짝 추가
+
+                    const fullText = image.text || image.description?.text || "";
+                    const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
+                    hashtags.slice(0, 2).forEach(tag => { // 2개 정도가 적당
+                        const tagEl = document.createElement("span");
+                        tagEl.classList.add("text-hashtag");
+                        tagEl.textContent = tag;
+                        tagEl.style.fontSize = "13px"; // 게이밍 허브는 설명이 조금 작음
+                        hashtagContainer.appendChild(tagEl);
+                    });
+
+                    // 조립: info에 제목과 해시태그 넣고, card에 이미지와 info 넣기
                     info.appendChild(titleEl);
+                    info.appendChild(hashtagContainer);
+
                     card.appendChild(thumb);
                     card.appendChild(info);
 
-                    // 클릭 이벤트
+                    // 4. 클릭 이벤트 (상세 페이지 이동)
                     card.onclick = () => {
                         if (typeof isExplanMode !== 'undefined' && isExplanMode) return;
                         window.location.href = `post?id=${image.id}`;
                     };
 
-                    // 갤러리에 바로 추가 (row/track 없이 직렬로 나열)
+                    // 🔥 핵심: imageGallery에 row나 track 없이 바로 추가!
                     imageGallery.appendChild(card);
                 }
             });
@@ -1074,38 +1095,58 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    // 1. 개별 카드 생성
+                    // 1. 개별 카드(기차 칸) 생성
                     const card = document.createElement("div");
+                    // CSS에서 설정한 클래스명 'text-card-item'을 사용합니다.
                     card.classList.add("text-card-item", "appear-ani");
                     card.style.animationDelay = `${index * 50}ms`;
-                    card.setAttribute("data-aos", "fade-up");
 
-                    // 2. 이미지 생성
+                    // 게이밍 허브처럼 슥 나타나는 효과 (AOS)
+                    card.setAttribute("data-aos", "zoom-in");
+
+                    // 2. 상단 이미지(배너) 생성
                     const thumb = document.createElement("img");
                     thumb.src = image.file_path;
                     thumb.classList.add("card-img");
 
-                    // 3. 정보 컨테이너 생성
+                    // 3. 하단 정보 컨테이너 생성
                     const info = document.createElement("div");
                     info.classList.add("card-info");
 
+                    // 제목 + 화살표
                     const titleEl = document.createElement("div");
                     titleEl.classList.add("card-title");
                     titleEl.innerHTML = `${image.title || "제목 없음"} <span class="arrow">></span>`;
 
+                    // 해시태그 (게이밍 허브 하단 설명 느낌)
+                    const hashtagContainer = document.createElement("div");
+                    hashtagContainer.classList.add("text-hashtags");
+                    hashtagContainer.style.marginTop = "8px"; // 간격 살짝 추가
 
-                    // 조립
+                    const fullText = image.text || image.description?.text || "";
+                    const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
+                    hashtags.slice(0, 2).forEach(tag => { // 2개 정도가 적당
+                        const tagEl = document.createElement("span");
+                        tagEl.classList.add("text-hashtag");
+                        tagEl.textContent = tag;
+                        tagEl.style.fontSize = "13px"; // 게이밍 허브는 설명이 조금 작음
+                        hashtagContainer.appendChild(tagEl);
+                    });
+
+                    // 조립: info에 제목과 해시태그 넣고, card에 이미지와 info 넣기
                     info.appendChild(titleEl);
+                    info.appendChild(hashtagContainer);
+
                     card.appendChild(thumb);
                     card.appendChild(info);
 
-                    // 클릭 이벤트
+                    // 4. 클릭 이벤트 (상세 페이지 이동)
                     card.onclick = () => {
                         if (typeof isExplanMode !== 'undefined' && isExplanMode) return;
                         window.location.href = `post?id=${image.id}`;
                     };
 
-                    // 갤러리에 바로 추가 (row/track 없이 직렬로 나열)
+                    // 🔥 핵심: imageGallery에 row나 track 없이 바로 추가!
                     imageGallery.appendChild(card);
                 }
             });
