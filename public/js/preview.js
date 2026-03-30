@@ -947,8 +947,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             });
 
-            imageGallery.appendChild(row);
-
             renderPagination(totalPages);
 
             adjustGalleryRadius(); // 여기 추가
