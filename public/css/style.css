@@ -2705,6 +2705,12 @@ body.preview-page .image-gallery.text-view::-webkit-scrollbar {
     display: none;
 }
 
+body.preview-page .card-img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover
+}
+
 /* 한 줄 컨테이너 (이제 개별 카드 역할을 함) */
 body.preview-page .text-row {
     flex: 0 0 85%;                  /* 화면의 85% 차지 (옆 카드가 살짝 보임) */
