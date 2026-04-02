@@ -45,13 +45,15 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            // 1. 스크립트 허용 (AOS, Swiper, Lucide 등)
+            // 1. 외부 서버와 통신(Fetch, XHR, SourceMaps) 허용
+            connectSrc: ["'self'", "https://unpkg.com", "https://cdn.jsdelivr.net", "https://ik.imagekit.io"],
+            // 2. 자바스크립트 허용
             scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com", "https://cdn.jsdelivr.net"],
-            // 2. 스타일시트 허용 (FontAwesome, AOS, Swiper 등)
+            // 3. 스타일시트 허용
             styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://unpkg.com", "https://cdn.jsdelivr.net"],
-            // 3. 이미지 허용 (ImageKit 포함)
+            // 4. 이미지 허용
             imgSrc: ["'self'", "data:", "https://ik.imagekit.io"],
-            // 4. 폰트 허용 (FontAwesome 등)
+            // 5. 폰트 허용
             fontSrc: ["'self'", "https://cdnjs.cloudflare.com"],
         },
     },
