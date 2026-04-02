@@ -41,17 +41,18 @@ const __dirname = dirname(__filename);
 
 // 1. 보안 관련 설정 (수정됨)
 app.use(helmet({
-    // (1) 리소스 공유 정책 설정 (이미지 로딩 허용)
     crossOriginResourcePolicy: false,
-    
-    // (2) 콘텐츠 보안 정책(CSP) 설정
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            // 핵심: 'self', data: 외에 ImageKit 도메인을 추가합니다.
+            // 1. 스크립트 허용 (AOS, Swiper, Lucide 등)
+            scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com", "https://cdn.jsdelivr.net"],
+            // 2. 스타일시트 허용 (FontAwesome, AOS, Swiper 등)
+            styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://unpkg.com", "https://cdn.jsdelivr.net"],
+            // 3. 이미지 허용 (ImageKit 포함)
             imgSrc: ["'self'", "data:", "https://ik.imagekit.io"],
-            scriptSrc: ["'self'", "'unsafe-inline'"], // 필요한 경우 추가
-            styleSrc: ["'self'", "'unsafe-inline'"],
+            // 4. 폰트 허용 (FontAwesome 등)
+            fontSrc: ["'self'", "https://cdnjs.cloudflare.com"],
         },
     },
 }));
