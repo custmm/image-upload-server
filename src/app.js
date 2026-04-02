@@ -1,10 +1,24 @@
-import jwt from "jsonwebtoken";
+// 1. 환경 설정 및 핵심 라이브러리 (가장 먼저!)
 import dotenv from "dotenv";
+dotenv.config(); // 다른 모듈들이 process.env를 쓰기 전에 실행되어야 함
+
+// 2. 외부 패키지 (가장 대중적인 것부터)
 import express from "express";
 import cors from "cors";
+import helmet from "helmet"; // 보안
+import compression from "compression"; // 압축
+import jwt from "jsonwebtoken";
+import ImageKit from "imagekit";
+
+// 3. Node.js 내장 모듈
 import path, { join, dirname } from "path";
 import { fileURLToPath } from "url";
-import { sequelize } from "./models/index.js"; //  Sequelize 인스턴스 가져오기
+
+// 4. 내 프로젝트 내부 설정/모델 (Sequelize 등)
+import { sequelize } from "./models/index.js";
+import { QueryTypes } from "sequelize";
+
+// 5. 라우트 파일들 (가장 아래)
 import authRoutes from "./routes/authRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import fileRoutes from "./routes/fileRoutes.js";
@@ -13,21 +27,42 @@ import adminRoutes from "./routes/adminRoutes.js";
 import indicatorRoutes from "./routes/indicatorRoutes.js";
 import koreanTagRoutes from "./routes/korean-initials.js";
 import settingRoutes from "./routes/settingRoutes.js";
-import { QueryTypes } from "sequelize";
+
+const app = express();
+
+const imagekit = new ImageKit({
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
+});
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-dotenv.config(); // .env 파일 로드
+// 1. 보안 관련 설정 (가장 먼저!)
+app.use(helmet({
+    crossOriginResourcePolicy: false, // ImageKit 이미지 허용
+}));
 
-const app = express();
+// 2. 응답 압축 (CORS 전에 적용하여 데이터 전송 효율 극대화)
+app.use(compression()); // 모든 응답 데이터를 압축해서 전송
 
+// 3. CORS 설정 (브라우저의 사전 요청을 처리해야 함)
+app.use(cors({
+    origin: [
+        'https://www.karisdify.site',    // 내 실제 사이트 도메인
+        'https://karisdify.site',        // www가 없는 버전도 추가
+        'http://localhost:42057',         // 로컬 개발 환경 (Vite/CRA 등)
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // 허용할 HTTP 메서드
+    credentials: true // 쿠키나 인증 헤더를 허용하려면 true
+}));
 
-app.use(cors());
+// 4. 데이터 파싱 (라우트에 도달하기 전 데이터를 읽을 수 있게 함)
 app.use(express.json()); //  JSON 데이터 파싱 미들웨어
 app.use(express.urlencoded({ extended: true })); //  FormData 파싱 미들웨어
 
-//  ① .html → 없는 버전으로 리디렉션 처리
+// 5. URL 리디렉션 처리 (.html 제거 등)
 app.use((req, res, next) => {
     if (req.url.endsWith(".html")) {
         const newUrl = req.url.replace(/\.html$/, "");
@@ -36,24 +71,21 @@ app.use((req, res, next) => {
     next();
 });
 
-//  정적 파일 제공
+// 6. 정적 파일 서빙 (public 폴더 및 업로드 폴더)
 app.use(express.static(join(__dirname, "..", "public"), {
     extensions: ['html']
 }));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
-
-//  Favicon 직접 서빙 (필요 시)
+// --- 개별 라우트 (API 엔드포인트) ---
 app.get("/favicon.ico", (req, res) => {
     res.sendFile(path.join(__dirname, "..", "public", "favicon.ico"));
 });
-
 app.get("/api/health", (req, res) => {
     res.status(200).send("Server is alive");
 });
 
-
-//  검색 라우트: /search?tag=<검색어>
+// 검색 및 인증 API
 app.get("/api/search", async (req, res) => {
     const { tag, keyword } = req.query;
 
@@ -99,9 +131,11 @@ app.get("/api/search", async (req, res) => {
         });
     }
 });
-
+app.get("/api/imagekit-auth", (req, res) => {
+    const result = imagekit.getAuthenticationParameters();
+    res.send(result);
+});
 app.post("/api/admin-token", (req, res) => {
-
     const token = jwt.sign(
         { role: "admin" },
         process.env.JWT_SECRET,
@@ -112,10 +146,9 @@ app.post("/api/admin-token", (req, res) => {
         success: true,
         token: token
     });
-
 });
 
-//  라우트 등록
+// --- [STEP 4] 외부 라우터 등록 ---
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/files", fileRoutes);
