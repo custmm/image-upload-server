@@ -39,9 +39,21 @@ const imagekit = new ImageKit({
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// 1. 보안 관련 설정 (가장 먼저!)
+// 1. 보안 관련 설정 (수정됨)
 app.use(helmet({
-    crossOriginResourcePolicy: false, // ImageKit 이미지 허용
+    // (1) 리소스 공유 정책 설정 (이미지 로딩 허용)
+    crossOriginResourcePolicy: false,
+    
+    // (2) 콘텐츠 보안 정책(CSP) 설정
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            // 핵심: 'self', data: 외에 ImageKit 도메인을 추가합니다.
+            imgSrc: ["'self'", "data:", "https://ik.imagekit.io"],
+            scriptSrc: ["'self'", "'unsafe-inline'"], // 필요한 경우 추가
+            styleSrc: ["'self'", "'unsafe-inline'"],
+        },
+    },
 }));
 
 // 2. 응답 압축 (CORS 전에 적용하여 데이터 전송 효율 극대화)
