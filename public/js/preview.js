@@ -920,7 +920,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // 제목 + 화살표
                     const titleEl = document.createElement("div");
                     titleEl.classList.add("card-title");
-                    titleEl.innerHTML = `${image.title || "제목 없음"} <span class="arrow">></span>`;
+                    titleEl.innerHTML = `${image.title || "제목 없음"}`;
 
                     // 해시태그 (게이밍 허브 하단 설명 느낌)
                     const hashtagContainer = document.createElement("div");
@@ -1115,7 +1115,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // 제목 + 화살표
                     const titleEl = document.createElement("div");
                     titleEl.classList.add("card-title");
-                    titleEl.innerHTML = `${image.title || "제목 없음"} <span class="arrow">></span>`;
+                    titleEl.innerHTML = `${image.title || "제목 없음"}`;
 
                     // 해시태그 (게이밍 허브 하단 설명 느낌)
                     const hashtagContainer = document.createElement("div");

@@ -2688,16 +2688,23 @@ body.preview-page .image-gallery.image-view {
 
 /* 텍스트 모드 (이미지 갤러리 전체 설정) */
 body.preview-page .image-gallery.text-view {
-    display: flex !important;       /* 리스트(column)가 아닌 가로(row) 나열 */
+    display: flex !important;
+    /* 리스트(column)가 아닌 가로(row) 나열 */
     flex-direction: row !important;
-    overflow-x: auto;               /* 가로 스크롤 활성화 */
-    scroll-snap-type: x mandatory;    /* 카드가 멈출 때 자석 효과 */
-    gap: 20px;                      /* 카드 사이 간격 */
-    padding: 30px 20px;             /* 위아래/좌우 여백 */
-    background-color: transparent;  /* 배경 투명하게 (취향껏 조절) */
+    overflow-x: auto;
+    /* 가로 스크롤 활성화 */
+    scroll-snap-type: x mandatory;
+    /* 카드가 멈출 때 자석 효과 */
+    gap: 20px;
+    /* 카드 사이 간격 */
+    padding: 30px 20px;
+    /* 위아래/좌우 여백 */
+    background-color: transparent;
+    /* 배경 투명하게 (취향껏 조절) */
     box-shadow: none;
     width: 100%;
-    -webkit-overflow-scrolling: touch; /* 모바일 부드러운 스크롤 */
+    -webkit-overflow-scrolling: touch;
+    /* 모바일 부드러운 스크롤 */
 }
 
 /* 스크롤바 숨기기 */
@@ -2705,7 +2712,7 @@ body.preview-page .image-gallery.text-view::-webkit-scrollbar {
     display: none;
 }
 
-body.preview-page .card-img{
+body.preview-page .card-img {
     width: 100px;
     height: 100px;
     object-fit: cover
@@ -2713,51 +2720,65 @@ body.preview-page .card-img{
 
 /* 한 줄 컨테이너 (이제 개별 카드 역할을 함) */
 body.preview-page .text-row {
-    flex: 0 0 85%;                  /* 화면의 85% 차지 (옆 카드가 살짝 보임) */
-    max-width: 350px;               /* 너무 커지는 것 방지 */
-    overflow: visible;              /* 메뉴를 숨기던 hidden 해제 */
+    flex: 0 0 85%;
+    /* 화면의 85% 차지 (옆 카드가 살짝 보임) */
+    max-width: 350px;
+    /* 너무 커지는 것 방지 */
+    overflow: visible;
+    /* 메뉴를 숨기던 hidden 해제 */
     background: #ffffff;
-    border-radius: 25px;            /* 둥근 카드 디자인 */
+    border-radius: 25px;
+    /* 둥근 카드 디자인 */
     border: none;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 카드 입체감 */
-    scroll-snap-align: center;      /* 스크롤 시 화면 정중앙에 고정 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    /* 카드 입체감 */
+    scroll-snap-align: center;
+    /* 스크롤 시 화면 정중앙에 고정 */
     transition: transform 0.3s ease;
 }
 
 /* 실제 움직이는 트랙 (카드 UI에서는 무의미해지므로 100%로 고정) */
 body.preview-page .swipe-track {
     display: flex;
-    flex-direction: column;         /* 카드 내부 요소 세로 배치 */
-    width: 100% !important;         /* 125%였던 것을 100%로 환원 */
+    flex-direction: column;
+    /* 카드 내부 요소 세로 배치 */
+    width: 100% !important;
+    /* 125%였던 것을 100%로 환원 */
     height: auto;
     transition: none;
 }
 
 /* 텍스트가 보이는 메인 영역 (카드 본체) */
 body.preview-page .slide-main {
-    width: 100% !important;         /* 80%였던 것을 100%로 환원 */
+    width: 100% !important;
+    /* 80%였던 것을 100%로 환원 */
     display: flex;
-    flex-direction: column;         /* 이미지 아래 텍스트가 오도록 */
+    flex-direction: column;
+    /* 이미지 아래 텍스트가 오도록 */
     align-items: flex-start;
-    padding: 0;                     /* 내부 여백은 자식 요소에서 처리 */
+    padding: 0;
+    /* 내부 여백은 자식 요소에서 처리 */
     gap: 0;
 }
 
 /* 카드 썸네일 (게이밍 배너 스타일) */
 body.preview-page .text-thumb {
     width: 100% !important;
-    height: 180px !important;       /* 고정 높이 */
+    height: 180px !important;
+    /* 고정 높이 */
     filter: blur(10px);
     aspect-ratio: 16 / 9;
-    border-radius: 25px 25px 0 0 !important; /* 위쪽만 둥글게 */
+    border-radius: 25px 25px 0 0 !important;
+    /* 위쪽만 둥글게 */
     object-fit: cover;
-    filter: none !important;        /* 기존 blur(10px) 제거 */
+    filter: none !important;
+    /* 기존 blur(10px) 제거 */
     padding: 0 !important;
 }
 
 /* 카드 텍스트 컨텐츠 영역 */
 body.preview-page .text-content {
-       flex-direction: column;
+    flex-direction: column;
     flex: 1;
     font-size: 14px;
     line-height: 1.5;
@@ -2772,7 +2793,7 @@ body.preview-page .text-preview {
     font-size: 1.2rem !important;
     font-weight: 600;
     text-align: center !important;
-    margin-bottom: 10px !important;    
+    margin-bottom: 10px !important;
     color: #333;
     white-space: nowrap;
     overflow: hidden;
@@ -2800,7 +2821,8 @@ body.preview-page .text-hashtag {
 
 /* 빽빽한 텍스트 스타일 */
 body.preview-page .text-thumb {
-    width: 45px; /* 크기 대폭 축소 */
+    width: 45px;
+    /* 크기 대폭 축소 */
     height: 45px;
     border-radius: 4px;
     object-fit: cover;
@@ -2808,10 +2830,12 @@ body.preview-page .text-thumb {
 
 /* 옆으로 밀었을 때 나타나는 숨겨진 버튼 영역 */
 body.preview-page .slide-menu {
-    width: 20%; /* 나머지 25% 영역 */
+    width: 20%;
+    /* 나머지 25% 영역 */
     height: 100%;
     display: flex;
-    background-color: #ff3b30; /* 삭제 느낌의 빨간색 혹은 포인트 컬러 */
+    background-color: #ff3b30;
+    /* 삭제 느낌의 빨간색 혹은 포인트 컬러 */
     color: white;
     align-items: center;
     justify-content: center;
@@ -2948,12 +2972,6 @@ body.preview-page #pagination-container {
     gap: 40px;
 }
 
-body.preview-page span {
-    display: block;
-    text-align: center;
-    font-size: 13px;
-}
-
 body.preview-page .pagination-button {
     background: none;
     color: black;
@@ -2963,7 +2981,7 @@ body.preview-page .pagination-button {
     border-radius: 20px;
 }
 
-body.preview-page .pagination-button:hover {
+body.preview-page .paginaticardon-button:hover {
     background: yellowgreen;
     color: aqua;
 }
