@@ -1,6 +1,7 @@
 {
   "type": "module",
   "dependencies": {
+    "@imagekit/nodejs": "^7.3.0",
     "@imagekit/react": "^5.0.2",
     "aos": "^2.3.4",
     "bcrypt": "^5.1.1",
