@@ -2834,7 +2834,7 @@ body.preview-page .card-img-container {
 }
 
 body.preview-page .card-img {
-    width: 150px;
+    width: 85px;
     height: 150px;
     object-fit: cover;
 }
