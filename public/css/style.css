@@ -2799,51 +2799,74 @@ body.preview-page .text-preview {
 body.preview-page .text-card-item {
     width: 185px;
     height: 285px;
-    background: rgba(255, 255, 255, 0.6); /* 반투명 배경 */
-    backdrop-filter: blur(8px);           /* 유리 질감 효과 */
+    background: rgba(255, 255, 255, 0.6);
+    /* 반투명 배경 */
+    backdrop-filter: blur(8px);
+    /* 유리 질감 효과 */
     -webkit-backdrop-filter: blur(8px);
-    
+
     /* 🔥 테두리 설정 */
-    border: 1.5px solid rgba(137, 154, 171, 0.3); /* #899aab 색상에 투명도 적용 */
-    border-radius: 16px;                         /* 둥근 모서리 */
-    
+    border: 1.5px solid rgba(137, 154, 171, 0.3);
+    /* #899aab 색상에 투명도 적용 */
+    border-radius: 16px;
+    /* 둥근 모서리 */
+
     padding: 12px;
     transition: all 0.3s ease;
     cursor: pointer;
-    overflow: hidden; /* 이미지가 튀어나가지 않게 */
+    overflow: hidden;
+    /* 이미지가 튀어나가지 않게 */
     display: flex;
     flex-direction: column;
     gap: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    /* 은은한 그림자 */
 }
 
 /* 마우스 호버 시 테두리 강조 */
 body.preview-page .text-card-item:hover {
-    border-color: #899aab; /* 호버 시 테두리 진하게 */
-    transform: translateY(-5px); /* 살짝 떠오르는 효과 */
+    border-color: #899aab;
+    /* 호버 시 테두리 진하게 */
+    transform: translateY(-5px);
+    /* 살짝 떠오르는 효과 */
     box-shadow: 0 8px 25px rgba(137, 154, 171, 0.2);
 }
 
 /* 이미지 틀 스타일 */
 body.preview-page .card-img-container {
     width: 100%;
-    aspect-ratio: 16 / 9; /* 이미지 비율 고정 */
+    aspect-ratio: 16 / 9;
+    /* 이미지 비율 고정 */
     overflow: hidden;
     border-radius: 10px;
     background: #f5f5f5;
+    display: flex;
+    /* 플렉스 박스 활성화 */
+    justify-content: center;
+    /* 가로 중앙 정렬 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
 }
 
 body.preview-page .card-img {
     width: 85px;
+    /* 고정 너비 */
     height: 150px;
+    /* 고정 높이 */
     object-fit: cover;
+    /* 비율 유지하며 꽉 채우기 */
+    display: block;
+    /* 불필요한 하단 공백 제거 */
 }
 
-body.preview-page .card-title{
+body.preview-page .card-title {
     font-size: 15px;
     text-align: center;
+    margin-top: 8px;
+    /* 이미지와 간격 확보 */
 
 }
+
 /* 이미지 갤러리 중앙 정렬 */
 body.preview-page .image-gallery-wrapper {
     display: flex;
