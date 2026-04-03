@@ -900,6 +900,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // 1. 개별 카드 생성
                     const card = document.createElement("div");
                     card.classList.add("text-card-item", "appear-ani");
+                    
                     card.style.animationDelay = `${index * 50}ms`;
                     card.setAttribute("data-aos", "zoom-in");
 
