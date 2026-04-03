@@ -2712,11 +2712,6 @@ body.preview-page .image-gallery.text-view::-webkit-scrollbar {
     display: none;
 }
 
-body.preview-page .card-img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover
-}
 
 /* 한 줄 컨테이너 (이제 개별 카드 역할을 함) */
 body.preview-page .text-row {
@@ -2802,6 +2797,8 @@ body.preview-page .text-preview {
 
 /* 텍스트 모드 개별 카드 컨테이너 스타일 */
 body.preview-page .text-card-item {
+    width: 185px;
+    height: 285px;
     background: rgba(255, 255, 255, 0.6); /* 반투명 배경 */
     backdrop-filter: blur(8px);           /* 유리 질감 효과 */
     -webkit-backdrop-filter: blur(8px);
@@ -2837,8 +2834,8 @@ body.preview-page .card-img-container {
 }
 
 body.preview-page .card-img {
-    width: 100%;
-    height: 100%;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
 }
 
