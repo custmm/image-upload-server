@@ -771,21 +771,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 2) 카테고리 선택 시
     async function loadCategory(categoryId, tabButton) {
-
-        // URL 업데이트 (브라우저 히스토리 변경)
         const newCategoryName = tabButton.textContent.trim();
         // 현재 URL의 카테고리 파라미터 가져오기
         const currentParams = new URLSearchParams(window.location.search);
         const currentCategoryInUrl = currentParams.get("category");
 
-        if (!isExplanMode) {
-            // 현재 카테고리와 새로 선택한 카테고리가 다를 때만 pushState 실행
+        // 🔥 뒤로가기(isPopState가 true)가 아닐 때만 히스토리를 쌓습니다.
+        if (!isExplanMode && !isPopState) {
+            const newURL = `preview?category=${encodeURIComponent(newCategoryName)}`;
+            const currentCategoryInUrl = new URLSearchParams(window.location.search).get("category");
+
             if (currentCategoryInUrl !== newCategoryName) {
-                const newURL = `preview?category=${encodeURIComponent(newCategoryName)}`;
-                // state 객체에 categoryName을 명시적으로 저장
-                history.pushState({ category: newCategoryName }, "", newURL);
+                history.pushState({ categoryName: newCategoryName }, "", newURL);
             }
         }
+
         selectedCategory = categoryId;
         selectedSubcategory = null;
         subTabContainer.innerHTML = "";
@@ -1289,37 +1289,34 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     // 뒤로 가기(←) 또는 앞으로 가기(→) 시 카테고리 변경 처리
-window.onpopstate = async function (event) {
-    const urlParams = new URLSearchParams(window.location.search);
-    let categoryParam = urlParams.get("category");
+    window.onpopstate = async function (event) {
+        const urlParams = new URLSearchParams(window.location.search);
+        let categoryParam = urlParams.get("category");
 
-    // 1. URL에서 받은 카테고리가 영문이면 한글로 변환 (매핑 테이블 활용)
-    if (categoryParam && categoryMappings[categoryParam]) {
-        categoryParam = categoryMappings[categoryParam];
-    }
-
-    // 2. 카테고리가 없으면 첫 번째 카테고리로 기본값 설정
-    if (!categoryParam && categories.length > 0) {
-        categoryParam = categories[0].name;
-    }
-
-    console.log(` 뒤로 가기/앞으로 가기 감지: ${categoryParam}`);
-
-    // 3. 현재 로드된 categories 배열에서 ID 찾기
-    const matchedCategory = categories.find(cat => cat.name.trim() === categoryParam?.trim());
-
-    if (matchedCategory) {
-        // 4. 화면상의 탭 버튼들 중 이름이 일치하는 버튼 찾기
-        const categoryButton = [...document.querySelectorAll(".tab-btn")]
-            .find(btn => btn.textContent.trim() === matchedCategory.name.trim());
-
-        if (categoryButton) {
-            // 중요: loadCategory를 직접 실행하되, 다시 pushState가 되지 않도록 
-            // 위 1번에서 작성한 'URL 중복 체크' 로직이 이를 방어합니다.
-            await loadCategory(matchedCategory.id, categoryButton);
+        // 1. URL에서 받은 카테고리가 영문이면 한글로 변환 (매핑 테이블 활용)
+        if (categoryParam && categoryMappings[categoryParam]) {
+            categoryParam = categoryMappings[categoryParam];
         }
-    }
-};
+        if (!categoryParam && categories.length > 0) {
+            categoryParam = categories[0].name;
+        }
+
+        console.log(` 뒤로 가기/앞으로 가기 감지: ${categoryParam}`);
+
+        // 2. 현재 메모리에 로드된 카테고리 데이터에서 매칭되는 ID 찾기
+        const matchedCategory = categories.find(cat => cat.name.trim() === categoryParam?.trim());
+
+        if (matchedCategory) {
+            const categoryButton = [...document.querySelectorAll(".tab-btn")]
+                .find(btn => btn.textContent.trim() === matchedCategory.name.trim());
+
+            if (categoryButton) {
+                // 중요: loadCategory를 직접 실행하되, 다시 pushState가 되지 않도록 
+                // 위 1번에서 작성한 'URL 중복 체크' 로직이 이를 방어합니다.
+                await loadCategory(matchedCategory.id, categoryButton);
+            }
+        }
+    };
 
 
     // 모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
