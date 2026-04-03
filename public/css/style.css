@@ -2841,6 +2841,7 @@ body.preview-page .card-img {
 
 body.preview-page .card-title{
     font-size: 15px;
+    text-align: center;
 
 }
 /* 이미지 갤러리 중앙 정렬 */
