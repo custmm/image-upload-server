@@ -503,7 +503,7 @@ function openEditSelectPopup(image) {
         modal.innerHTML = `
             <div class="edit-modal">
                 <div class="edit-modal-content">
-                <button id="closeSelectModal">X</button>
+                    <button id="closeSelectModal">X</button>
                     <h2>수정 메뉴</h2>
                     <p>수정할 항목을 선택하십시오.</p>
                     <div class="edit-button-group">
@@ -516,24 +516,41 @@ function openEditSelectPopup(image) {
         `;
 
         document.body.appendChild(modal);
+
+        // 🔥 [중요] 이벤트 리스너를 '생성 시점'에 한 번만 등록합니다.
+        const titleBtn = modal.querySelector("#selectTitleEdit");
+        const contentBtn = modal.querySelector("#selectContentEdit");
+        const closeBtn = modal.querySelector("#closeSelectModal");
+
+        titleBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+            // 여기서 image는 클로저(Closure)를 통해 전달됩니다.
+            // 하지만 매번 다른 이미지를 처리해야 하므로 아래 호출 방식을 유지합니다.
+        });
+
+        contentBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
     }
 
+    // 🔥 매번 호출될 때마다 버튼의 동작이 해당 'image'를 가리키도록 업데이트
     const titleBtn = modal.querySelector("#selectTitleEdit");
     const contentBtn = modal.querySelector("#selectContentEdit");
-    const closeBtn = modal.querySelector("#closeSelectModal");
 
+    // 기존 리스너와 충돌을 피하기 위해, 호출 시점에 로직을 다시 할당하거나 
+    // 위에서 등록한 리스너가 최신 image를 참조하게 만듭니다.
+    // 가장 간단한 방법은 아래처럼 재할당하는 것입니다.
     titleBtn.onclick = () => {
         modal.style.display = "none";
         openTitleEditPopup(image);
     };
-
     contentBtn.onclick = () => {
         modal.style.display = "none";
         openEditPopup(image);
-    };
-
-    closeBtn.onclick = () => {
-        modal.style.display = "none";
     };
 
     modal.style.display = "flex";
