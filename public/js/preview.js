@@ -431,6 +431,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const iconLink = document.getElementById("iconlink");
     const etcLink = document.getElementById("etcLink");
     const contactLink = document.getElementById("contactLink");
+    const historyLink = document.getElementById("historyLink");
     const urlParams = new URLSearchParams(window.location.search);
 
     // 카테고리 한글 ↔ 영문 매핑 (필요한 경우 적용)
@@ -512,6 +513,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
+    if (historyLink) {
+        historyLink.addEventListener("click", (e) => {
+            e.preventDefault(); // 새 창 / 페이지 이동 차단
+            openHistoryPopup();
+        });
+    }
+
     if (btn && popup) {
         btn.addEventListener("click", () => {
             popup.style.display = popup.style.display === "none" ? "block" : "none";
@@ -558,6 +566,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         frame.src = "contact.html";
         overlay.style.display = "flex";
 
+    }
+
+    function openHistoryPopup() {
+        const overlay = document.getElementById("previewOverlayIcon");
+        const frame = document.getElementById("previewFrameIcon");
+
+        if (!overlay || !frame) return;
+
+        frame.src = "history.html";
+        overlay.style.display = "flex";
     }
 
     document.querySelectorAll(".preview-close").forEach(btn => {
@@ -900,7 +918,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // 1. 개별 카드 생성
                     const card = document.createElement("div");
                     card.classList.add("text-card-item", "appear-ani");
-                    
+
                     card.style.animationDelay = `${index * 50}ms`;
                     card.setAttribute("data-aos", "zoom-in");
 
