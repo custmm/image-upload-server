@@ -240,163 +240,163 @@ function updatePreviewVisibility() {
     }
 }
 
-function updatePreviewImage() {
-    const previewContainer = document.getElementById("previewImagesContainer");
-    if (!previewContainer) return;
+// function updatePreviewImage() {
+//     const previewContainer = document.getElementById("previewImagesContainer");
+//     if (!previewContainer) return;
 
-    wasOverlapping = false; // 이전 상태 추적
-    clearTimeout(overlapTimer);
-    overlapTimer = null;
+//     wasOverlapping = false; // 이전 상태 추적
+//     clearTimeout(overlapTimer);
+//     overlapTimer = null;
 
-    previewContainer.innerHTML = "";
-    previewContainer.style.position = "relative";
+//     previewContainer.innerHTML = "";
+//     previewContainer.style.position = "relative";
 
-    // _cut 버전을 지원하는 번호 배열
-    let previewTimer = null;
-    const allowedCutIndices = [1, 2, 3, 4, 5, 8, 9, 11, 12];
-    const totalPreviews = 12;
-    const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
+//     // _cut 버전을 지원하는 번호 배열
+//     let previewTimer = null;
+//     const allowedCutIndices = [1, 2, 3, 4, 5, 8, 9, 11, 12];
+//     const totalPreviews = 12;
+//     const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
 
-    // ✅ 현대화 여부 확인
-    const isModernized = localStorage.getItem("indicatorModernized") === "true";
+//     // ✅ 현대화 여부 확인
+//     const isModernized = localStorage.getItem("indicatorModernized") === "true";
 
-    // ✅ 선택 이미지 경로 결정
-    let selectedImage = isModernized
-        ? `images/indicator/preview-gunff_${randomIndex}re.png`
-        : `images/indicator/preview-gunff_${randomIndex}.png`;
+//     // ✅ 선택 이미지 경로 결정
+//     let selectedImage = isModernized
+//         ? `images/indicator/preview-gunff_${randomIndex}re.png`
+//         : `images/indicator/preview-gunff_${randomIndex}.png`;
 
-    localStorage.setItem("selectedImage", selectedImage);
+//     localStorage.setItem("selectedImage", selectedImage);
 
-    const img = document.createElement("img");
-    img.src = selectedImage;
-    img.alt = `Preview Image`;
-    img.style.position = "absolute";
-    img.style.cursor = "grab";
-    img.style.left = "0px";  // 초기 좌표 설정
-    img.style.top = "0px";   // 초기 좌표 설정
+//     const img = document.createElement("img");
+//     img.src = selectedImage;
+//     img.alt = `Preview Image`;
+//     img.style.position = "absolute";
+//     img.style.cursor = "grab";
+//     img.style.left = "0px";  // 초기 좌표 설정
+//     img.style.top = "0px";   // 초기 좌표 설정
 
-    // 🔁 클릭/터치 시 이미지 전환 로직 함수화
-    let isCut = false;
+//     // 🔁 클릭/터치 시 이미지 전환 로직 함수화
+//     let isCut = false;
 
-    function togglePreviewImage() {
-        if (!allowedCutIndices.includes(randomIndex)) return;
+//     function togglePreviewImage() {
+//         if (!allowedCutIndices.includes(randomIndex)) return;
 
-        if (!isCut) {
-            img.src = isModernized
-                ? `images/indicator/preview-gunff_${randomIndex}re_cut.png`
-                : `images/indicator/preview-gunff_${randomIndex}_cut.png`;
-        } else {
-            img.src = isModernized
-                ? `images/indicator/preview-gunff_${randomIndex}re.png`
-                : `images/indicator/preview-gunff_${randomIndex}.png`;
-        }
-        localStorage.setItem("selectedImage", img.src);
-        isCut = !isCut;
-    }
+//         if (!isCut) {
+//             img.src = isModernized
+//                 ? `images/indicator/preview-gunff_${randomIndex}re_cut.png`
+//                 : `images/indicator/preview-gunff_${randomIndex}_cut.png`;
+//         } else {
+//             img.src = isModernized
+//                 ? `images/indicator/preview-gunff_${randomIndex}re.png`
+//                 : `images/indicator/preview-gunff_${randomIndex}.png`;
+//         }
+//         localStorage.setItem("selectedImage", img.src);
+//         isCut = !isCut;
+//     }
 
-    img.addEventListener("click", togglePreviewImage);
+//     img.addEventListener("click", togglePreviewImage);
 
-    // 드래그 상태 추적
-    let isDragging = false;
-    let offsetX = 0;
-    let offsetY = 0;
-    let animationFrameId = null;
-    let touchMoved = false;
+//     // 드래그 상태 추적
+//     let isDragging = false;
+//     let offsetX = 0;
+//     let offsetY = 0;
+//     let animationFrameId = null;
+//     let touchMoved = false;
 
-    function startOverlapCheckLoop(img) {
-        function loop() {
-            if (isDragging) {
-                checkOverlap(img);
-                animationFrameId = requestAnimationFrame(loop);
-            }
-        }
-        animationFrameId = requestAnimationFrame(loop);
-    }
+//     function startOverlapCheckLoop(img) {
+//         function loop() {
+//             if (isDragging) {
+//                 checkOverlap(img);
+//                 animationFrameId = requestAnimationFrame(loop);
+//             }
+//         }
+//         animationFrameId = requestAnimationFrame(loop);
+//     }
 
-    function stopOverlapCheckLoop() {
-        if (animationFrameId) {
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
-        }
-    }
+//     function stopOverlapCheckLoop() {
+//         if (animationFrameId) {
+//             cancelAnimationFrame(animationFrameId);
+//             animationFrameId = null;
+//         }
+//     }
 
-    // 마우스 이벤트
-    img.addEventListener("mousedown", (e) => {
-        isDragging = true;
-        const rect = img.getBoundingClientRect();
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-        img.style.cursor = "grabbing";
-        e.preventDefault();
-        startOverlapCheckLoop(img); // 겹침 감지 루프 시작
-    });
+//     // 마우스 이벤트
+//     img.addEventListener("mousedown", (e) => {
+//         isDragging = true;
+//         const rect = img.getBoundingClientRect();
+//         offsetX = e.clientX - rect.left;
+//         offsetY = e.clientY - rect.top;
+//         img.style.cursor = "grabbing";
+//         e.preventDefault();
+//         startOverlapCheckLoop(img); // 겹침 감지 루프 시작
+//     });
 
-    document.addEventListener("mousemove", (e) => {
-        if (!isDragging) return;
-        const containerRect = previewContainer.getBoundingClientRect();
-        let left = e.clientX - containerRect.left - offsetX;
-        let top = e.clientY - containerRect.top - offsetY;
-        img.style.left = left + "px";
-        img.style.top = top + "px";
-        checkOverlap(img); // 실시간 감지용 강제 호출 추가!
-    });
+//     document.addEventListener("mousemove", (e) => {
+//         if (!isDragging) return;
+//         const containerRect = previewContainer.getBoundingClientRect();
+//         let left = e.clientX - containerRect.left - offsetX;
+//         let top = e.clientY - containerRect.top - offsetY;
+//         img.style.left = left + "px";
+//         img.style.top = top + "px";
+//         checkOverlap(img); // 실시간 감지용 강제 호출 추가!
+//     });
 
-    document.addEventListener("mouseup", () => {
-        if (isDragging) {
-            isDragging = false;
-            img.style.cursor = "grab";
-            stopOverlapCheckLoop(); // 루프 멈추기
-        }
-    });
+//     document.addEventListener("mouseup", () => {
+//         if (isDragging) {
+//             isDragging = false;
+//             img.style.cursor = "grab";
+//             stopOverlapCheckLoop(); // 루프 멈추기
+//         }
+//     });
 
-    // 터치 이벤트 추가
-    img.addEventListener("touchstart", (e) => {
-        isDragging = true;
-        touchMoved = false;
-        const touch = e.touches[0];
-        const rect = img.getBoundingClientRect();
-        offsetX = touch.clientX - rect.left;
-        offsetY = touch.clientY - rect.top;
-        img.style.cursor = "grabbing";
-        startOverlapCheckLoop(img);
-        e.preventDefault();
-    });
+//     // 터치 이벤트 추가
+//     img.addEventListener("touchstart", (e) => {
+//         isDragging = true;
+//         touchMoved = false;
+//         const touch = e.touches[0];
+//         const rect = img.getBoundingClientRect();
+//         offsetX = touch.clientX - rect.left;
+//         offsetY = touch.clientY - rect.top;
+//         img.style.cursor = "grabbing";
+//         startOverlapCheckLoop(img);
+//         e.preventDefault();
+//     });
 
-    document.addEventListener("touchmove", (e) => {
-        if (!isDragging) return;
-        touchMoved = true;
-        const touch = e.touches[0];
-        const containerRect = previewContainer.getBoundingClientRect();
-        let left = touch.clientX - containerRect.left - offsetX;
-        let top = touch.clientY - containerRect.top - offsetY;
-        img.style.left = left + "px";
-        img.style.top = top + "px";
-        checkOverlap(img);
-    });
+//     document.addEventListener("touchmove", (e) => {
+//         if (!isDragging) return;
+//         touchMoved = true;
+//         const touch = e.touches[0];
+//         const containerRect = previewContainer.getBoundingClientRect();
+//         let left = touch.clientX - containerRect.left - offsetX;
+//         let top = touch.clientY - containerRect.top - offsetY;
+//         img.style.left = left + "px";
+//         img.style.top = top + "px";
+//         checkOverlap(img);
+//     });
 
-    document.addEventListener("touchend", () => {
-        if (isDragging) {
-            isDragging = false;
-            img.style.cursor = "grab";
-            stopOverlapCheckLoop();
+//     document.addEventListener("touchend", () => {
+//         if (isDragging) {
+//             isDragging = false;
+//             img.style.cursor = "grab";
+//             stopOverlapCheckLoop();
 
-            togglePreviewImage();
-        }
-    });
+//             togglePreviewImage();
+//         }
+//     });
 
-    img.onerror = function () {
-        console.error(`이미지 로드 실패: ${img.src}`);
-    };
+//     img.onerror = function () {
+//         console.error(`이미지 로드 실패: ${img.src}`);
+//     };
 
-    previewContainer.appendChild(img);
+//     previewContainer.appendChild(img);
 
-    const previewState = localStorage.getItem("previewVisible");
+//     const previewState = localStorage.getItem("previewVisible");
 
-    if (previewState === "hidden") {
-        img.classList.add("preview-hidden");
-    }
-    checkOverlap(img);
-}
+//     if (previewState === "hidden") {
+//         img.classList.add("preview-hidden");
+//     }
+//     checkOverlap(img);
+// }
 
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -774,13 +774,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // URL 업데이트 (브라우저 히스토리 변경)
         const newCategoryName = tabButton.textContent.trim();
+        // 현재 URL의 카테고리 파라미터 가져오기
+        const currentParams = new URLSearchParams(window.location.search);
+        const currentCategoryInUrl = currentParams.get("category");
+
         if (!isExplanMode) {
-            const newURL = `preview?category=${encodeURIComponent(newCategoryName)}`;
-            if (window.location.search !== `?category=${encodeURIComponent(newCategoryName)}`) {
+            // 현재 카테고리와 새로 선택한 카테고리가 다를 때만 pushState 실행
+            if (currentCategoryInUrl !== newCategoryName) {
+                const newURL = `preview?category=${encodeURIComponent(newCategoryName)}`;
+                // state 객체에 categoryName을 명시적으로 저장
                 history.pushState({ category: newCategoryName }, "", newURL);
             }
         }
-
         selectedCategory = categoryId;
         selectedSubcategory = null;
         subTabContainer.innerHTML = "";
@@ -1284,33 +1289,37 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     // 뒤로 가기(←) 또는 앞으로 가기(→) 시 카테고리 변경 처리
-    window.onpopstate = async function (event) {
-        const urlParams = new URLSearchParams(window.location.search);
-        let categoryParam = urlParams.get("category");
+window.onpopstate = async function (event) {
+    const urlParams = new URLSearchParams(window.location.search);
+    let categoryParam = urlParams.get("category");
 
-        if (!categoryParam) return; // URL에 카테고리 정보가 없으면 실행하지 않음
+    // 1. URL에서 받은 카테고리가 영문이면 한글로 변환 (매핑 테이블 활용)
+    if (categoryParam && categoryMappings[categoryParam]) {
+        categoryParam = categoryMappings[categoryParam];
+    }
 
-        console.log(`🔄 뒤로 가기 이벤트 발생, 선택할 카테고리: ${categoryParam}`);
+    // 2. 카테고리가 없으면 첫 번째 카테고리로 기본값 설정
+    if (!categoryParam && categories.length > 0) {
+        categoryParam = categories[0].name;
+    }
 
-        // ✅ 현재 로드된 `categories` 배열에서 `category_name`을 기반으로 `category_id` 찾기
-        const matchedCategory = categories.find(cat => cat.name.trim() === categoryParam.trim());
+    console.log(` 뒤로 가기/앞으로 가기 감지: ${categoryParam}`);
 
-        if (!matchedCategory) {
-            console.error(`⚠ 카테고리 (${categoryParam})에 해당하는 category_id를 찾을 수 없음`);
-            return;
-        }
+    // 3. 현재 로드된 categories 배열에서 ID 찾기
+    const matchedCategory = categories.find(cat => cat.name.trim() === categoryParam?.trim());
 
-        const categoryId = matchedCategory.id; // ✅ 올바른 category_id 가져오기
-
-        // ✅ 카테고리 버튼 찾기
+    if (matchedCategory) {
+        // 4. 화면상의 탭 버튼들 중 이름이 일치하는 버튼 찾기
         const categoryButton = [...document.querySelectorAll(".tab-btn")]
-            .find(btn => btn.textContent.trim() === categoryParam.trim());
+            .find(btn => btn.textContent.trim() === matchedCategory.name.trim());
 
         if (categoryButton) {
-            console.log(`✅ 뒤로 가기로 ${categoryParam} 선택 (category_id: ${categoryId})`);
-            await loadCategory(categoryId, categoryButton); // ✅ 올바른 category_id로 loadCategory 실행
+            // 중요: loadCategory를 직접 실행하되, 다시 pushState가 되지 않도록 
+            // 위 1번에서 작성한 'URL 중복 체크' 로직이 이를 방어합니다.
+            await loadCategory(matchedCategory.id, categoryButton);
         }
-    };
+    }
+};
 
 
     // 모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
