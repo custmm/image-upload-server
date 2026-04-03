@@ -2839,6 +2839,10 @@ body.preview-page .card-img {
     object-fit: cover;
 }
 
+body.preview-page .card-title{
+    font-size: 15px;
+
+}
 /* 이미지 갤러리 중앙 정렬 */
 body.preview-page .image-gallery-wrapper {
     display: flex;
