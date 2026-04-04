@@ -10,27 +10,27 @@
   <link rel="stylesheet" href="./css/theme.css">
   <link rel="stylesheet" href="./css/component.css">
   <link rel="stylesheet" href="./css/global.css">
-<style>
-  @media (max-width: 576px) {
-        body.click-page .toggle-switch {
+  <style>
+    @media (max-width: 576px) {
+      body.click-page .toggle-switch {
         top: 10px;
         right: 60px;
         height: 30px;
         width: 80px;
-    }
-        body.click-page #themeIcon {
+      }
+
+      body.click-page #themeIcon {
         width: 23px;
         height: 36px;
+      }
     }
-  }
-
-</style>
+  </style>
 </head>
 
 <body class="click-page">
   <button class="back-button" id="backBtn"">뒤로가기</button>
   <h1>찾으셨군요!!</h1>
-  <div class="explan-container">
+  <div class=" explan-container">
     <div class="plus_container">
       <p id="exper_font">
         preview.html기능
@@ -40,14 +40,18 @@
       <div class="detail-content">
         <div class="explan-detail-container">
           <p id="exper_container">
-            어느 날… 한 웹사이트에 들어간 누군가가 있었다.<br>
-            우리는 우측 상단의 이상한 아이콘을 클릭했다.<br>
-            1. 그 아이콘은… 끌면 움직였다. 마치 살아 있는 것처럼<br>
-            2. 반복해서 만지면 원상복구도 되었지만, 자꾸만 같은 자리에 돌아왔다.<br>
-            3. 아이콘을 특정 지점(빛/어둠의 경계)에 놓으면… 숨겨진 무언가가 나왔다. 게임인지… 의식인지 모를 이상한 화면이 나왔다.<br>
-            4. "어서오세요"라는 문장을 누르자, 각종 카테고리의 내용물을 알려주는 팝업이 나왔다.<br>
-            5. 여기서 뒤로가기를 누르면 어떻게되는지 호기심이 생겨서 눌러보았다.<br>
-            <span style="color:red">'뒤로가기'를 누르니 다시 돌아왔다.</span>
+            <b>"당신은 이 사이트의 방문자인가요, 아니면 수집된 데이터인가요?"</b>
+
+            우측 상단, 그 이질적인 아이콘에 커서를 올린 순간 직감했다. <br>
+            이건 단순한 오브제가 아니다. <br>
+            드래그하는 대로 끌려오는 감각이 마치 살아있는 생명체의 뒷덜미를 잡은 것 같았으니까. <br>
+            억지로 제자리에 돌려놓아도 소용없다. <br>
+            잠시 한눈을 팔면 아이콘은 기어코 자신의 원래 궤도로 조용히 미끄러져 돌아온다. <br>
+            마치 무언가를 감시하려는 것처럼. <br>
+            빛과 어둠이 충돌하는 그 '경계'에 아이콘을 유기하자, 봉인됐던 이면의 세계가 열렸다.(아직 공사중입니다.) <br>
+            그건 게임일까, 아니면 누군가의 기괴한 의식일까.(아직 공사중입니다.) <br>
+            "어서오세요." 그 무미건조한 환대에 홀린 듯 클릭하자, 이 세계가 집어삼킨 카테고리들의 파편이 팝업으로 쏟아졌다. <br>
+            도망치듯 '뒤로가기'를 눌렀다. 하지만 브라우저는 비웃듯 나를 다시 이 화면으로 밀어 넣었다. 탈출구는 처음부터 없었던 것이다. <br>
           </p>
         </div>
       </div>
@@ -97,18 +101,18 @@
         </div>
       </div>
     </div>
-  </div>
-  <!-- 다크 모드 토글 스위치 -->
-  <div class="toggle-switch">
-    <input type="checkbox" id="themeToggle">
+    </div>
+    <!-- 다크 모드 토글 스위치 -->
+    <div class="toggle-switch">
+      <input type="checkbox" id="themeToggle">
 
-    <label class="slider_util" for="themeToggle">
-      <span id="themeIcon"></span>
-    </label>
-  </div>
-  <!-- 토글 기능 스크립트 -->
+      <label class="slider_util" for="themeToggle">
+        <span id="themeIcon"></span>
+      </label>
+    </div>
+    <!-- 토글 기능 스크립트 -->
 
-  <script src="js/click.js"></script>
+    <script src="js/click.js"></script>
 
 </body>
 
