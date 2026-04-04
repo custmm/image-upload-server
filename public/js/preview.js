@@ -210,28 +210,22 @@ function checkOverlap(img) {
 
 // 표시기 상태 업데이트 함수
 function updatePreviewVisibility() {
-
     const previewContainer = document.getElementById("previewImagesContainer");
-
     if (!previewContainer) return;
 
+    // 초기화
     wasOverlapping = false;
-
-    clearTimeout(overlapTimer);
-    overlapTimer = null;
-
-    previewContainer.style.position = "relative";
+    stopOverlapCheckLoop();
 
     let img = previewContainer.querySelector("img");
 
-    // 🔥 없을 때만 생성
+    // 이미지가 없으면 생성, 있으면 상태만 업데이트
     if (!img) {
         updatePreviewImage();
-        img = previewContainer.querySelector("img");
-        if (!img) return;
+        return; // updatePreviewImage 내부에서 나머지를 처리함
     }
 
-    // 🔥 상태 적용
+    // 상태 적용
     const previewState = localStorage.getItem("previewVisible");
     if (previewState === "hidden") {
         img.classList.add("preview-hidden");
@@ -240,163 +234,124 @@ function updatePreviewVisibility() {
     }
 }
 
-// function updatePreviewImage() {
-//     const previewContainer = document.getElementById("previewImagesContainer");
-//     if (!previewContainer) return;
+// --- [이미지 생성 및 이벤트 바인딩] ---
+function updatePreviewImage() {
+    const previewContainer = document.getElementById("previewImagesContainer");
+    if (!previewContainer) return;
 
-//     wasOverlapping = false; // 이전 상태 추적
-//     clearTimeout(overlapTimer);
-//     overlapTimer = null;
+    // 초기 상태 초기화
+    wasOverlapping = false;
+    stopOverlapCheckLoop(); // 기존 루프가 있다면 정지
+    previewContainer.innerHTML = "";
+    previewContainer.style.position = "relative";
 
-//     previewContainer.innerHTML = "";
-//     previewContainer.style.position = "relative";
+    const allowedCutIndices = [1, 2, 3, 4, 5, 8, 9, 11, 12];
+    const totalPreviews = 12;
+    const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
+    const isModernized = localStorage.getItem("indicatorModernized") === "true";
 
-//     // _cut 버전을 지원하는 번호 배열
-//     let previewTimer = null;
-//     const allowedCutIndices = [1, 2, 3, 4, 5, 8, 9, 11, 12];
-//     const totalPreviews = 12;
-//     const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
+    let selectedImage = isModernized
+        ? `images/indicator/preview-gunff_${randomIndex}re.png`
+        : `images/indicator/preview-gunff_${randomIndex}.png`;
 
-//     // ✅ 현대화 여부 확인
-//     const isModernized = localStorage.getItem("indicatorModernized") === "true";
+    const img = document.createElement("img");
+    img.src = selectedImage;
+    img.alt = `Preview Image`;
+    img.style.position = "absolute";
+    img.style.cursor = "grab";
+    img.style.left = "0px";
+    img.style.top = "0px";
 
-//     // ✅ 선택 이미지 경로 결정
-//     let selectedImage = isModernized
-//         ? `images/indicator/preview-gunff_${randomIndex}re.png`
-//         : `images/indicator/preview-gunff_${randomIndex}.png`;
+    let isCut = false;
+    let isDragging = false;
+    let dragMoved = false; // 드래그 여부 판별 (클릭 오작동 방지)
+    let offsetX = 0;
+    let offsetY = 0;
 
-//     localStorage.setItem("selectedImage", selectedImage);
+    // --- [공통 로직 함수화] ---
 
-//     const img = document.createElement("img");
-//     img.src = selectedImage;
-//     img.alt = `Preview Image`;
-//     img.style.position = "absolute";
-//     img.style.cursor = "grab";
-//     img.style.left = "0px";  // 초기 좌표 설정
-//     img.style.top = "0px";   // 초기 좌표 설정
+    // 1. 이미지 전환 함수
+    const togglePreviewImage = () => {
+        if (!allowedCutIndices.includes(randomIndex)) return;
+        isCut = !isCut;
+        const suffix = isCut ? "_cut.png" : ".png";
+        const base = isModernized ? `re${suffix}` : suffix;
+        img.src = `images/indicator/preview-gunff_${randomIndex}${base}`;
+        localStorage.setItem("selectedImage", img.src);
+    };
 
-//     // 🔁 클릭/터치 시 이미지 전환 로직 함수화
-//     let isCut = false;
+    // 2. 드래그 시작 로직
+    const startDrag = (clientX, clientY) => {
+        isDragging = true;
+        dragMoved = false; // 시작할 때는 이동하지 않은 상태
+        const rect = img.getBoundingClientRect();
+        offsetX = clientX - rect.left;
+        offsetY = clientY - rect.top;
+        img.style.cursor = "grabbing";
+        startOverlapCheckLoop(img);
+    };
 
-//     function togglePreviewImage() {
-//         if (!allowedCutIndices.includes(randomIndex)) return;
+    // 3. 드래그 이동 로직
+    const moveDrag = (clientX, clientY) => {
+        if (!isDragging) return;
+        dragMoved = true; // 이동이 발생함
+        const containerRect = previewContainer.getBoundingClientRect();
+        img.style.left = `${clientX - containerRect.left - offsetX}px`;
+        img.style.top = `${clientY - containerRect.top - offsetY}px`;
+        checkOverlap(img); // 실시간 감지
+    };
 
-//         if (!isCut) {
-//             img.src = isModernized
-//                 ? `images/indicator/preview-gunff_${randomIndex}re_cut.png`
-//                 : `images/indicator/preview-gunff_${randomIndex}_cut.png`;
-//         } else {
-//             img.src = isModernized
-//                 ? `images/indicator/preview-gunff_${randomIndex}re.png`
-//                 : `images/indicator/preview-gunff_${randomIndex}.png`;
-//         }
-//         localStorage.setItem("selectedImage", img.src);
-//         isCut = !isCut;
-//     }
+    // 4. 드래그 종료 로직
+    const endDrag = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        img.style.cursor = "grab";
+        stopOverlapCheckLoop();
+    };
 
-//     img.addEventListener("click", togglePreviewImage);
+    // --- [이벤트 바인딩] ---
 
-//     // 드래그 상태 추적
-//     let isDragging = false;
-//     let offsetX = 0;
-//     let offsetY = 0;
-//     let animationFrameId = null;
-//     let touchMoved = false;
+    // 마우스 이벤트
+    img.addEventListener("mousedown", (e) => {
+        if (e.button !== 0) return; // 좌클릭만 허용
+        e.preventDefault();
+        startDrag(e.clientX, e.clientY);
+    });
 
-//     function startOverlapCheckLoop(img) {
-//         function loop() {
-//             if (isDragging) {
-//                 checkOverlap(img);
-//                 animationFrameId = requestAnimationFrame(loop);
-//             }
-//         }
-//         animationFrameId = requestAnimationFrame(loop);
-//     }
+    document.addEventListener("mousemove", (e) => moveDrag(e.clientX, e.clientY));
+    document.addEventListener("mouseup", endDrag);
 
-//     function stopOverlapCheckLoop() {
-//         if (animationFrameId) {
-//             cancelAnimationFrame(animationFrameId);
-//             animationFrameId = null;
-//         }
-//     }
+    // 터치 이벤트
+    img.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        startDrag(touch.clientX, touch.clientY);
+    }, { passive: false });
 
-//     // 마우스 이벤트
-//     img.addEventListener("mousedown", (e) => {
-//         isDragging = true;
-//         const rect = img.getBoundingClientRect();
-//         offsetX = e.clientX - rect.left;
-//         offsetY = e.clientY - rect.top;
-//         img.style.cursor = "grabbing";
-//         e.preventDefault();
-//         startOverlapCheckLoop(img); // 겹침 감지 루프 시작
-//     });
+    document.addEventListener("touchmove", (e) => {
+        const touch = e.touches[0];
+        moveDrag(touch.clientX, touch.clientY);
+    });
 
-//     document.addEventListener("mousemove", (e) => {
-//         if (!isDragging) return;
-//         const containerRect = previewContainer.getBoundingClientRect();
-//         let left = e.clientX - containerRect.left - offsetX;
-//         let top = e.clientY - containerRect.top - offsetY;
-//         img.style.left = left + "px";
-//         img.style.top = top + "px";
-//         checkOverlap(img); // 실시간 감지용 강제 호출 추가!
-//     });
+    document.addEventListener("touchend", endDrag);
 
-//     document.addEventListener("mouseup", () => {
-//         if (isDragging) {
-//             isDragging = false;
-//             img.style.cursor = "grab";
-//             stopOverlapCheckLoop(); // 루프 멈추기
-//         }
-//     });
+    // 클릭 이벤트 (드래그하지 않았을 때만 실행되도록 보호)
+    img.addEventListener("click", () => {
+        if (!dragMoved) {
+            togglePreviewImage();
+        }
+    });
 
-//     // 터치 이벤트 추가
-//     img.addEventListener("touchstart", (e) => {
-//         isDragging = true;
-//         touchMoved = false;
-//         const touch = e.touches[0];
-//         const rect = img.getBoundingClientRect();
-//         offsetX = touch.clientX - rect.left;
-//         offsetY = touch.clientY - rect.top;
-//         img.style.cursor = "grabbing";
-//         startOverlapCheckLoop(img);
-//         e.preventDefault();
-//     });
+    img.onerror = () => console.error(`이미지 로드 실패: ${img.src}`);
 
-//     document.addEventListener("touchmove", (e) => {
-//         if (!isDragging) return;
-//         touchMoved = true;
-//         const touch = e.touches[0];
-//         const containerRect = previewContainer.getBoundingClientRect();
-//         let left = touch.clientX - containerRect.left - offsetX;
-//         let top = touch.clientY - containerRect.top - offsetY;
-//         img.style.left = left + "px";
-//         img.style.top = top + "px";
-//         checkOverlap(img);
-//     });
+    previewContainer.appendChild(img);
 
-//     document.addEventListener("touchend", () => {
-//         if (isDragging) {
-//             isDragging = false;
-//             img.style.cursor = "grab";
-//             stopOverlapCheckLoop();
-
-//             togglePreviewImage();
-//         }
-//     });
-
-//     img.onerror = function () {
-//         console.error(`이미지 로드 실패: ${img.src}`);
-//     };
-
-//     previewContainer.appendChild(img);
-
-//     const previewState = localStorage.getItem("previewVisible");
-
-//     if (previewState === "hidden") {
-//         img.classList.add("preview-hidden");
-//     }
-//     checkOverlap(img);
-// }
+    // 초기 가시성 설정
+    if (localStorage.getItem("previewVisible") === "hidden") {
+        img.classList.add("preview-hidden");
+    }
+    checkOverlap(img);
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
 
