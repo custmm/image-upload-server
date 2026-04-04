@@ -1,8 +1,31 @@
+// 1. 최상단: 전역 변수 선언들
 let loaderInterval = null;
 let loaderStep = 1;
 let overlapTimer = null;
 let wasOverlapping = false;
+let animationFrameId = null;
 
+// 2. 루프 제어 함수 (전역 함수)
+// 어디서든 호출할 수 있도록 함수 밖에 정의합니다.
+function startOverlapCheckLoop(img) {
+    stopOverlapCheckLoop(); 
+    const loop = () => {
+        if (typeof checkOverlap === "function") {
+            checkOverlap(img);
+        }
+        animationFrameId = requestAnimationFrame(loop);
+    };
+    animationFrameId = requestAnimationFrame(loop);
+}
+
+function stopOverlapCheckLoop() {
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+    }
+}
+
+// 3. 그 다음 기존 함수들 (showLoading, hideLoading 등...)
 function showLoading() {
     const indicator = document.getElementById("loadingIndicator");
     const loader = document.getElementById("mainLoader");
@@ -38,6 +61,32 @@ function hideLoading() {
         indicator.style.display = "none"; // 완전히 숨김
         indicator.style.opacity = "1";    // 다음 사용 위해 복구
     }, 300); // CSS transition 시간과 맞추기
+}
+
+// 4.표시기 상태 업데이트 함수
+function updatePreviewVisibility() {
+    const previewContainer = document.getElementById("previewImagesContainer");
+    if (!previewContainer) return;
+
+    // 초기화
+    wasOverlapping = false;
+    stopOverlapCheckLoop();
+
+    let img = previewContainer.querySelector("img");
+
+    // 이미지가 없으면 생성, 있으면 상태만 업데이트
+    if (!img) {
+        updatePreviewImage();
+        return; // updatePreviewImage 내부에서 나머지를 처리함
+    }
+
+    // 상태 적용
+    const previewState = localStorage.getItem("previewVisible");
+    if (previewState === "hidden") {
+        img.classList.add("preview-hidden");
+    } else {
+        img.classList.remove("preview-hidden"); // 이거 반드시 필요
+    }
 }
 
 // 페이지 이동 함수 정의 (전역)
@@ -177,61 +226,6 @@ function indicatorButton() {
         updatePreviewVisibility();
         showPopupMessage("이미지 표시기가 나타났습니다."); // 팝업 추가
     });
-}
-
-function checkOverlap(img) {
-    const popup = document.getElementById("settingPopup");
-
-    if (!popup || popup.style.display === "none") return;
-
-    const toggleEl = popup.querySelector('.toggle-switch .slider_util');
-    if (!img || !toggleEl) return;
-
-    const imgRect = img.getBoundingClientRect();
-    const toggleRect = toggleEl.getBoundingClientRect();
-
-    const x_overlap = Math.max(0, Math.min(imgRect.right, toggleRect.right) - Math.max(imgRect.left, toggleRect.left));
-    const y_overlap = Math.max(0, Math.min(imgRect.bottom, toggleRect.bottom) - Math.max(imgRect.top, toggleRect.top));
-    const overlapArea = x_overlap * y_overlap;
-
-    const toggleArea = toggleRect.width * toggleRect.height;
-    const ratioToggle = overlapArea / toggleArea;
-
-    if (ratioToggle >= 0.7 && !wasOverlapping) {
-        overlapTimer = setTimeout(() => window.location.href = "killing_game.html", 10000);
-    }
-
-    if (ratioToggle < 0.7 && wasOverlapping) {
-        clearTimeout(overlapTimer);
-    }
-
-    wasOverlapping = ratioToggle >= 0.7;
-}
-
-// 표시기 상태 업데이트 함수
-function updatePreviewVisibility() {
-    const previewContainer = document.getElementById("previewImagesContainer");
-    if (!previewContainer) return;
-
-    // 초기화
-    wasOverlapping = false;
-    stopOverlapCheckLoop();
-
-    let img = previewContainer.querySelector("img");
-
-    // 이미지가 없으면 생성, 있으면 상태만 업데이트
-    if (!img) {
-        updatePreviewImage();
-        return; // updatePreviewImage 내부에서 나머지를 처리함
-    }
-
-    // 상태 적용
-    const previewState = localStorage.getItem("previewVisible");
-    if (previewState === "hidden") {
-        img.classList.add("preview-hidden");
-    } else {
-        img.classList.remove("preview-hidden"); // 이거 반드시 필요
-    }
 }
 
 // --- [이미지 생성 및 이벤트 바인딩] ---
