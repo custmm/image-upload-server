@@ -28,7 +28,7 @@
 </head>
 
 <body class="click-page">
-  <button class="back-button" onclick="window.location.href='preview.html'">뒤로가기</button>
+  <button class="back-button" id="backBtn"">뒤로가기</button>
   <h1>찾으셨군요!!</h1>
   <div class="explan-container">
     <div class="plus_container">
@@ -100,7 +100,8 @@
   </div>
   <!-- 다크 모드 토글 스위치 -->
   <div class="toggle-switch">
-    <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
+    <input type="checkbox" id="themeToggle">
+
     <label class="slider_util" for="themeToggle">
       <span id="themeIcon"></span>
     </label>
