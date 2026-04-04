@@ -381,7 +381,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const opacitySlider = document.getElementById("opacitySlider");
     const opacityToggleBtn = document.getElementById("opacityToggleBtn");
     const opacityControl = document.getElementById("opacityControl");
-    
+
 
     // 탭관련
     const categoryTabContainer = document.querySelector(".tab-design"); // 메인 카테고리 탭
@@ -829,11 +829,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (isLoadingPage) return;
         isLoadingPage = true;
 
-        // 1. 로딩 시작 시 에일리언 로더 + 스켈레톤 UI 동시 노출
+        // 1. 로딩 시작 (에일리언 로더 + 스켈레톤 UI)
         showLoading();
         clearGallery();
 
-        // limit(20개)만큼 스켈레톤 박스를 미리 그려둡니다.
+        // 갤러리 모드에 따른 클래스 정리 (상태 확실히 분리)
+        imageGallery.classList.toggle("image-view", currentView === "image");
+        imageGallery.classList.toggle("text-view", currentView === "text");
+
+        // 스켈레톤 생성 (limit만큼 반복)
         for (let i = 0; i < limit; i++) {
             const skeleton = document.createElement("div");
             skeleton.className = (currentView === "image") ? "skeleton-image-card" : "skeleton-text-card";
@@ -848,83 +852,88 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (subcategoryId) url += `&subcategory_id=${subcategoryId}`;
 
             const response = await fetch(url);
-            if (!response.ok) throw new Error("이미지 로드 실패");
+            if (!response.ok) throw new Error("데이터 로드 실패");
             const { total, files: images } = await response.json();
 
             const totalPages = Math.ceil(total / limit);
             noMoreImages = images.length < limit;
 
-            // [추가] 2. 데이터가 오면 스켈레톤 UI를 싹 지웁니다.
+            // 2. 데이터 수신 완료 - 스켈레톤 제거 후 실제 데이터 렌더링
             clearGallery();
 
-            images.forEach((image, index) => {
-                if (currentView === "image") {
-                    const imgContainer = document.createElement("div");
-                    imgContainer.classList.add("image-container", "appear-ani");
-                    imgContainer.setAttribute("data-aos", "fade-right");
-                    imgContainer.setAttribute("data-aos-delay", (index * 100).toString());
+            if (images.length === 0) {
+                imageGallery.innerHTML = '<p class="no-data">표시할 컨텐츠가 없습니다.</p>';
+            } else {
+                images.forEach((image, index) => {
+                    if (currentView === "image") {
+                        // --- 이미지 뷰 (Grid) ---
+                        const imgContainer = document.createElement("div");
+                        imgContainer.className = "image-container appear-ani";
+                        imgContainer.setAttribute("data-aos", "fade-right");
+                        imgContainer.setAttribute("data-aos-delay", (index * 50).toString());
 
-                    const img = document.createElement("img");
-                    img.dataset.src = image.file_path;
-                    observer.observe(img);
+                        const img = document.createElement("img");
+                        img.dataset.src = image.file_path;
+                        observer.observe(img); // 지연 로딩 관찰 시작
 
-                    img.onclick = () => {
-                        if (!isExplanMode) window.location.href = `post?id=${image.id}`;
-                    };
+                        img.onclick = () => {
+                            if (!isExplanMode) window.location.href = `post?id=${image.id}`;
+                        };
 
-                    imgContainer.appendChild(img);
-                    imageGallery.appendChild(imgContainer);
-                } else if (currentView === "text") {
-                    const card = document.createElement("div");
-                    card.classList.add("text-card-item", "appear-ani");
-                    card.style.animationDelay = `${index * 50}ms`;
-                    card.setAttribute("data-aos", "zoom-in");
+                        imgContainer.appendChild(img);
+                        imageGallery.appendChild(imgContainer);
 
-                    // 제목 및 해시태그 추출 로직
-                    const fullText = image.text || "";
-                    const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
-                    const tagsHtml = hashtags.slice(0, 2).map(tag => `<span class="text-hashtag">${tag}</span>`).join("");
+                    } else if (currentView === "text") {
+                        // --- 텍스트 뷰 (가로 스크롤 카드) ---
+                        const card = document.createElement("div");
+                        card.className = "text-card-item appear-ani";
+                        // 텍스트 모드일 때는 fade-up이 더 자연스럽습니다.
+                        card.setAttribute("data-aos", "fade-up");
+                        card.style.animationDelay = `${index * 50}ms`;
 
-                    card.innerHTML = `
-            <div class="card-img-container">
-                <img src="${image.file_path}" class="card-img">
-            </div>
-            <div class="card-info">
-                <div class="card-title">${image.title || "제목 없음"}</div>
-                <div class="text-hashtags">${tagsHtml}</div>
-            </div>
-        `;
+                        const hashtags = (image.text || "").match(/#([\w가-힣]+)/g) || [];
+                        const tagsHtml = hashtags.slice(0, 2).map(tag => `<span class="text-hashtag">${tag}</span>`).join("");
 
-                    card.onclick = () => {
-                        if (!isExplanMode) window.location.href = `post?id=${image.id}`;
-                    };
+                        card.innerHTML = `
+                        <div class="card-img-container">
+                            <img src="${image.file_path}" class="card-img" loading="lazy">
+                        </div>
+                        <div class="card-info">
+                            <div class="card-title">${image.title || "제목 없음"}</div>
+                            <div class="text-hashtags">${tagsHtml}</div>
+                        </div>
+                    `;
 
-                    imageGallery.appendChild(card);
-                }
-            });
+                        card.onclick = () => {
+                            if (!isExplanMode) window.location.href = `post?id=${image.id}`;
+                        };
+
+                        imageGallery.appendChild(card);
+                    }
+                });
+            }
 
             renderPagination(totalPages);
             adjustGalleryRadius();
 
         } catch (err) {
-            console.error(err);
-            clearGallery(); // 에러 시 빈 화면 방지
+            console.error("❌ 로드 중 오류:", err);
+            imageGallery.innerHTML = '<p class="error-msg">데이터를 불러오는 중 오류가 발생했습니다.</p>';
         } finally {
-            // Render 서버가 너무 빠를 경우 스켈레톤이 깜빡거리지 않게 최소 로딩 시간(0.5초) 보장
-            const minDuration = 500;
+            // Render 서버 속도에 맞춘 최소 로딩 시간(0.5초) 보장
             const elapsed = Date.now() - startTime;
-            if (elapsed < minDuration) {
-                await new Promise(res => setTimeout(res, minDuration - elapsed));
+            if (elapsed < 500) {
+                await new Promise(res => setTimeout(res, 500 - elapsed));
             }
 
-            hideLoading(); // 에일리언 로더 숨김
+            hideLoading();
             isLoadingPage = false;
 
+            // AOS 애니메이션 갱신 (DOM이 완전히 그려진 후 실행)
             if (window.Aos) {
-                // 렌더링 완료 후 약간의 지연 시간을 주어 AOS가 요소를 인식하게 합니다.
                 setTimeout(() => {
                     Aos.refresh();
-                }, 300);
+                }, 100);
             }
         }
     }
