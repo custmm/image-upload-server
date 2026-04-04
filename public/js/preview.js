@@ -358,12 +358,30 @@ function updatePreviewImage() {
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    // 1. 필요한 요소 가져오기
+    const themeToggle = document.getElementById("themeToggle");
+
+    // 2. [초기화] 저장된 테마 불러와서 즉시 적용
+    const savedTheme = localStorage.getItem("theme") || "light-mode";
+
+    setTheme(savedTheme);
+
+    // 3. [이벤트 연결] 체크박스(스위치) 클릭 시 테마 변경
+    if (themeToggle) {
+        // 기존의 onclick 속성 대신 addEventListener를 사용하여 보안(CSP) 에러를 방지합니다.
+        themeToggle.addEventListener("change", () => {
+            const newMode = themeToggle.checked ? "dark-mode" : "light-mode";
+            setTheme(newMode);
+        });
+    }
+
+
     // 슬라이더 관련
     const sidebarToggle = document.querySelector(".sidebar-toggle");
     const opacitySlider = document.getElementById("opacitySlider");
     const opacityToggleBtn = document.getElementById("opacityToggleBtn");
     const opacityControl = document.getElementById("opacityControl");
-    const themeToggle = document.getElementById("themeToggle");
+    
 
     // 탭관련
     const categoryTabContainer = document.querySelector(".tab-design"); // 메인 카테고리 탭
@@ -412,9 +430,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const btn = document.getElementById("settingBtn");
     const popup = document.getElementById("settingPopup");
 
-    const savedTheme = localStorage.getItem("theme") || "light-mode";
 
-    setTheme(savedTheme);
 
     let isLoadingPage = false;
 
@@ -1134,12 +1150,36 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
+    // 테마 상태를 UI에 일괄 적용하는 함수
     function setTheme(mode) {
-        document.body.classList.remove("light-mode", "dark-mode");
-        document.body.classList.add(mode);
+        const isDark = mode === "dark-mode" || mode === "dark";
+        const actualMode = isDark ? "dark-mode" : "light-mode";
+        const themeIcon = document.getElementById("themeIcon");
+        const themeToggle = document.getElementById("themeToggle");
 
-        localStorage.setItem("theme", mode);
+        // 1. Body 클래스 교체
+        document.body.classList.remove("light-mode", "dark-mode");
+        document.body.classList.add(actualMode);
+
+        // 2. 체크박스 상태 동기화
+        if (themeToggle) themeToggle.checked = isDark;
+
+        // 3. 배경 아이콘 교체
+        if (themeIcon) {
+            const iconName = isDark ? "toggle_dark.svg" : "toggle_light.svg";
+            themeIcon.style.backgroundImage = `url('../images/${iconName}')`;
+        }
+
+        // 4. 로컬 스토리지 저장
+        localStorage.setItem("theme", actualMode);
     }
+
+    // 전역에서 호출 가능하도록 window에 등록 (HTML onclick 대응)
+    window.toggleTheme = function () {
+        const isDark = document.body.classList.contains("dark-mode");
+        const newMode = isDark ? "light-mode" : "dark-mode";
+        setTheme(newMode);
+    };
 
     // 서버에서 Indicator 상태 가져오기 함수 추가
     async function fetchIndicatorStatusAndApply() {
