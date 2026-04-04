@@ -859,14 +859,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (isLoadingPage) return;
         isLoadingPage = true;
 
-        showLoading(); // 기존 로더(에일리언) 실행
-
-        // [추가] 1. 실제 데이터를 부르기 전, 갤러리를 비우고 스켈레톤 UI 먼저 렌더링
+        // 1. 로딩 시작 시 에일리언 로더 + 스켈레톤 UI 동시 노출
+        showLoading();
         clearGallery();
+
+        // limit(20개)만큼 스켈레톤 박스를 미리 그려둡니다.
         for (let i = 0; i < limit; i++) {
             const skeleton = document.createElement("div");
-            // CSS에서 .skeleton-card 스타일을 정의해야 합니다.
-            skeleton.className = currentView === "image" ? "skeleton-image-card" : "skeleton-text-card";
+            skeleton.className = (currentView === "image") ? "skeleton-image-card" : "skeleton-text-card";
             imageGallery.appendChild(skeleton);
         }
 
@@ -888,12 +888,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             clearGallery();
 
             images.forEach((image, index) => {
-                // ... (기존 이미지/텍스트 카드 생성 로직 그대로 유지) ...
                 if (currentView === "image") {
-                    // ... (이미지 컨테이너 생성 코드)
+                    // ... (이미지 컨테이너 생성 코드 - 기존 로직 유지)
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    // ... (텍스트 카드 생성 코드)
+                    // ... (텍스트 카드 생성 코드 - 기존 로직 유지)
                     imageGallery.appendChild(card);
                 }
             });
@@ -903,20 +902,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         } catch (err) {
             console.error(err);
+            clearGallery(); // 에러 시 빈 화면 방지
         } finally {
+            // Render 서버가 너무 빠를 경우 스켈레톤이 깜빡거리지 않게 최소 로딩 시간(0.5초) 보장
             const minDuration = 500;
             const elapsed = Date.now() - startTime;
-
             if (elapsed < minDuration) {
                 await new Promise(res => setTimeout(res, minDuration - elapsed));
             }
-            hideLoading();
+
+            hideLoading(); // 에일리언 로더 숨김
             isLoadingPage = false;
 
             if (window.Aos) {
                 setTimeout(() => {
                     Aos.refresh();
-                }, 500);
+                }, 100);
             }
         }
     }
