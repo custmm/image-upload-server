@@ -5,10 +5,19 @@ let overlapTimer = null;
 let wasOverlapping = false;
 let animationFrameId = null;
 
+// 여기에 checkOverlap 함수를 배치하세요
+function checkOverlap(img) {
+    const popup = document.getElementById("settingPopup");
+    if (!popup || popup.style.display === "none") return;
+    const toggleEl = popup.querySelector('.toggle-switch .slider_util');
+    if (!img || !toggleEl) return;
+    // ... (기존 checkOverlap 내용)
+}
+
 // 2. 루프 제어 함수 (전역 함수)
 // 어디서든 호출할 수 있도록 함수 밖에 정의합니다.
 function startOverlapCheckLoop(img) {
-    stopOverlapCheckLoop(); 
+    stopOverlapCheckLoop();
     const loop = () => {
         if (typeof checkOverlap === "function") {
             checkOverlap(img);
@@ -719,18 +728,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadCategories(); // 카테고리 불러오기 실행
 
     // 2) 카테고리 선택 시
-    async function loadCategory(categoryId, tabButton) {
+    async function loadCategory(categoryId, tabButton, isPopState = false) {
         const newCategoryName = tabButton.textContent.trim();
-        // 현재 URL의 카테고리 파라미터 가져오기
         const currentParams = new URLSearchParams(window.location.search);
         const currentCategoryInUrl = currentParams.get("category");
 
-        // 🔥 뒤로가기(isPopState가 true)가 아닐 때만 히스토리를 쌓습니다.
+        // 이제 이 조건문에서 isPopState를 정상적으로 인식합니다.
         if (!isExplanMode && !isPopState) {
-            const newURL = `preview?category=${encodeURIComponent(newCategoryName)}`;
-            const currentCategoryInUrl = new URLSearchParams(window.location.search).get("category");
-
             if (currentCategoryInUrl !== newCategoryName) {
+                const newURL = `preview?category=${encodeURIComponent(newCategoryName)}`;
                 history.pushState({ categoryName: newCategoryName }, "", newURL);
             }
         }
@@ -742,7 +748,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.querySelectorAll(".tab-btn.active").forEach(btn => btn.classList.remove("active"));
         tabButton.classList.add("active");
 
-        // 현재 선택된 카테고리명 업데이트 (요소가 존재할 경우에만)
         if (currentCategory) {
             currentCategory.textContent = newCategoryName;
         }
@@ -838,10 +843,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             images.forEach((image, index) => {
                 if (currentView === "image") {
-                    // ... (이미지 컨테이너 생성 코드 - 기존 로직 유지)
+                    const imgContainer = document.createElement("div"); // 여기서 선언
+                    imgContainer.classList.add("image-container", "appear-ani");
+                    // ... (중략)
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    // ... (텍스트 카드 생성 코드 - 기존 로직 유지)
+                    const card = document.createElement("div"); // 여기서 선언
+                    card.classList.add("text-card-item", "appear-ani");
+                    // ... (중략)
                     imageGallery.appendChild(card);
                 }
             });
