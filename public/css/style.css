@@ -2678,6 +2678,35 @@ body.preview-page .toggle-switch_ind {
     border-radius: 30px;
 }
 
+/* 텍스트 뷰 갤러리 컨테이너 */
+body.preview-page #imageGallery.text-view {
+    display: flex !important;           /* 세로가 아닌 가로로 나열 */
+    flex-wrap: nowrap;                  /* 줄바꿈 금지 */
+    overflow-x: auto;                   /* 가로 스크롤 활성화 */
+    gap: 15px;                          /* 카드 사이 간격 */
+    padding: 20px 10px;
+    scroll-behavior: smooth;            /* 부드러운 스크롤 */
+    -webkit-overflow-scrolling: touch;  /* 모바일 가속 */
+}
+
+/* 개별 카드 아이템 (한 화면에 약 3개 보이기) */
+body.preview-page #imageGallery.text-view .text-card-item {
+    flex: 0 0 calc(33.333% - 20px);     /* 핵심: 너비를 정확히 1/3로 고정 */
+    min-width: 250px;                    /* 너무 작아지지 않게 최소 너비 설정 */
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 스크롤바 디자인 (AutoCAD처럼 깔끔하게) */
+body.preview-page #imageGallery.text-view::-webkit-scrollbar {
+    height: 6px;
+}
+
+body.preview-page #imageGallery.text-view::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
 
 /* 이미지 갤러리 (4x5 배열) */
 body.preview-page .image-gallery {
