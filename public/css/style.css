@@ -2022,7 +2022,32 @@ body.search-page .search-item img {
 
 
 /* ====== 미리보기 페이지(preview.html) ====== */
+/*====== 뼈대 스타일 ======*/
+.skeleton-card {
+    width: 100%;
+    height: 280px; /* 실제 카드 높이와 맞추세요 */
+    background: #e0e0e0;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+}
 
+/* 빛이 흐르는 애니메이션 */
+.skeleton-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: skeleton-sweep 1.5s infinite;
+}
+
+@keyframes skeleton-sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
 /*====== 표시기css ======*/
 body.preview-page .preview-images {
     display: flex;

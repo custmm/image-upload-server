@@ -859,9 +859,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (isLoadingPage) return;
         isLoadingPage = true;
 
-        showLoading();
+        showLoading(); // 기존 로더(에일리언) 실행
 
-        const startTime = Date.now(); // 시작 시간 기록
+        // [추가] 1. 실제 데이터를 부르기 전, 갤러리를 비우고 스켈레톤 UI 먼저 렌더링
+        clearGallery();
+        for (let i = 0; i < limit; i++) {
+            const skeleton = document.createElement("div");
+            // CSS에서 .skeleton-card 스타일을 정의해야 합니다.
+            skeleton.className = currentView === "image" ? "skeleton-image-card" : "skeleton-text-card";
+            imageGallery.appendChild(skeleton);
+        }
+
+        const startTime = Date.now();
 
         try {
             const offset = page * limit;
@@ -872,118 +881,30 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (!response.ok) throw new Error("이미지 로드 실패");
             const { total, files: images } = await response.json();
 
-            // 총 페이지 계산
             const totalPages = Math.ceil(total / limit);
             noMoreImages = images.length < limit;
 
+            // [추가] 2. 데이터가 오면 스켈레톤 UI를 싹 지웁니다.
             clearGallery();
 
             images.forEach((image, index) => {
-
+                // ... (기존 이미지/텍스트 카드 생성 로직 그대로 유지) ...
                 if (currentView === "image") {
-                    const imgContainer = document.createElement("div");
-                    imgContainer.classList.add("image-container", "appear-ani"); // 기본 클래스
-                    imgContainer.style.animationDelay = `${index * 50}ms`; // 지연 시간만 JS로 조절
-
-                    imgContainer.classList.add("image-container");
-
-                    // --- 1. AOS 속성 추가 ---
-                    imgContainer.setAttribute("data-aos", "fade-right");
-
-                    // --- 2. 시간차(Stagger) 효과 추가 (선택사항) ---
-                    // 0.1초(100ms) 간격으로 이미지가 순차적으로 나타납니다.
-                    imgContainer.setAttribute("data-aos-delay", (index * 100).toString());
-
-                    const placeholder = document.createElement("div");
-                    placeholder.classList.add("image-placeholder");
-
-                    const img = document.createElement("img");
-                    img.dataset.src = image.file_path;
-                    observer.observe(img);
-
-                    img.onclick = () => {
-                        if (isExplanMode) return;
-                        window.location.href = `post?id=${image.id}`;
-                    };
-
-                    imgContainer.appendChild(placeholder);
-                    imgContainer.appendChild(img);
-                    const overlay = document.createElement("div");
-                    overlay.classList.add("hover-overlay");
-
-                    const message = document.createElement("div");
-                    message.classList.add("hover-message");
-                    message.textContent = "클릭하여 상세 보기";
-
-                    overlay.appendChild(message);
-                    imgContainer.appendChild(overlay);
-
+                    // ... (이미지 컨테이너 생성 코드)
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    // 1. 개별 카드 생성
-                    const card = document.createElement("div");
-                    card.classList.add("text-card-item", "appear-ani");
-
-                    card.style.animationDelay = `${index * 50}ms`;
-                    card.setAttribute("data-aos", "zoom-in");
-
-                    // 🖼️ 2. 이미지 컨테이너(틀) 생성 및 이미지 추가
-                    const imgContainer = document.createElement("div");
-                    imgContainer.classList.add("card-img-container"); // 컨테이너 클래스 추가
-
-                    const thumb = document.createElement("img");
-                    thumb.src = image.file_path;
-                    thumb.classList.add("card-img");
-
-                    imgContainer.appendChild(thumb); // 이미지를 컨테이너 안에 쏙!
-
-                    // 3. 하단 정보 컨테이너 생성
-                    const info = document.createElement("div");
-                    info.classList.add("card-info");
-
-                    // 제목 + 화살표
-                    const titleEl = document.createElement("div");
-                    titleEl.classList.add("card-title");
-                    titleEl.innerHTML = `${image.title || "제목 없음"}`;
-
-                    // 해시태그 (게이밍 허브 하단 설명 느낌)
-                    const hashtagContainer = document.createElement("div");
-                    hashtagContainer.classList.add("text-hashtags");
-                    const fullText = image.text || image.description?.text || "";
-                    const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
-                    hashtags.slice(0, 2).forEach(tag => {
-                        const tagEl = document.createElement("span");
-                        tagEl.classList.add("text-hashtag");
-                        tagEl.textContent = tag;
-                        hashtagContainer.appendChild(tagEl);
-                    });
-
-                    // 조립: info에 제목과 해시태그 넣고, card에 이미지와 info 넣기
-                    info.appendChild(titleEl);
-                    info.appendChild(hashtagContainer);
-
-                    card.appendChild(thumb);
-                    card.appendChild(info);
-
-                    // 4. 클릭 이벤트 (상세 페이지 이동)
-                    card.onclick = () => {
-                        if (typeof isExplanMode !== 'undefined' && isExplanMode) return;
-                        window.location.href = `post?id=${image.id}`;
-                    };
-
-                    // 🔥 핵심: imageGallery에 row나 track 없이 바로 추가!
+                    // ... (텍스트 카드 생성 코드)
                     imageGallery.appendChild(card);
                 }
             });
 
             renderPagination(totalPages);
+            adjustGalleryRadius();
 
-            adjustGalleryRadius(); // 여기 추가
-            // page 증가는 버튼 클릭에서만 하므로 여기선 제거
         } catch (err) {
             console.error(err);
         } finally {
-            const minDuration = 500; // 최소 0.5초 보장
+            const minDuration = 500;
             const elapsed = Date.now() - startTime;
 
             if (elapsed < minDuration) {
@@ -992,7 +913,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             hideLoading();
             isLoadingPage = false;
 
-            // 동적 요소 생성 후 AOS 초기화/새로고침
             if (window.Aos) {
                 setTimeout(() => {
                     Aos.refresh();
