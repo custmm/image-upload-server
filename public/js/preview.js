@@ -843,14 +843,46 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             images.forEach((image, index) => {
                 if (currentView === "image") {
-                    const imgContainer = document.createElement("div"); // 여기서 선언
+                    const imgContainer = document.createElement("div");
                     imgContainer.classList.add("image-container", "appear-ani");
-                    // ... (중략)
+                    imgContainer.setAttribute("data-aos", "fade-right");
+                    imgContainer.setAttribute("data-aos-delay", (index * 100).toString());
+
+                    const img = document.createElement("img");
+                    img.dataset.src = image.file_path;
+                    observer.observe(img);
+
+                    img.onclick = () => {
+                        if (!isExplanMode) window.location.href = `post?id=${image.id}`;
+                    };
+
+                    imgContainer.appendChild(img);
                     imageGallery.appendChild(imgContainer);
                 } else if (currentView === "text") {
-                    const card = document.createElement("div"); // 여기서 선언
+                    const card = document.createElement("div");
                     card.classList.add("text-card-item", "appear-ani");
-                    // ... (중략)
+                    card.style.animationDelay = `${index * 50}ms`;
+                    card.setAttribute("data-aos", "zoom-in");
+
+                    // 제목 및 해시태그 추출 로직
+                    const fullText = image.text || "";
+                    const hashtags = fullText.match(/#([\w가-힣]+)/g) || [];
+                    const tagsHtml = hashtags.slice(0, 2).map(tag => `<span class="text-hashtag">${tag}</span>`).join("");
+
+                    card.innerHTML = `
+            <div class="card-img-container">
+                <img src="${image.file_path}" class="card-img">
+            </div>
+            <div class="card-info">
+                <div class="card-title">${image.title || "제목 없음"}</div>
+                <div class="text-hashtags">${tagsHtml}</div>
+            </div>
+        `;
+
+                    card.onclick = () => {
+                        if (!isExplanMode) window.location.href = `post?id=${image.id}`;
+                    };
+
                     imageGallery.appendChild(card);
                 }
             });
@@ -873,9 +905,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             isLoadingPage = false;
 
             if (window.Aos) {
+                // 렌더링 완료 후 약간의 지연 시간을 주어 AOS가 요소를 인식하게 합니다.
                 setTimeout(() => {
                     Aos.refresh();
-                }, 100);
+                }, 300);
             }
         }
     }
