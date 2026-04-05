@@ -2576,26 +2576,6 @@ body.preview-page .image-container:hover .hover-message {
     transform: translateY(0);
 }
 
-body.preview-page .image-container img {
-    background-color: #000;
-    width: 13vw;
-    height: 13vw;
-    object-fit: cover;
-    border: none;
-    border-radius: 50%;
-    filter: grayscale(80%) brightness(0.5) blur(10px);
-    transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
-}
-
-body.preview-page .image-container img:hover {
-    cursor: pointer;
-    background: #f7f7f7;
-    border: 3px solid #0066cc;
-    border-radius: 8px;
-    transform: scale(1.2);
-    filter: blur(4px);
-}
-
 body.preview-page .hover-overlay {
     position: absolute;
     inset: 0;
@@ -2617,6 +2597,28 @@ body.preview-page .hover-message {
     transform: translateY(10px);
     transition: transform 0.35s ease;
 }
+
+body.preview-page .image-container img {
+    background-color: #000;
+    width: 13vw;
+    height: 13vw;
+    object-fit: cover;
+    border: none;
+    border-radius: 50%;
+    filter: grayscale(80%) brightness(0.5) blur(10px);
+    transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
+}
+
+
+body.preview-page .image-container img:hover {
+    cursor: pointer;
+    background: #f7f7f7;
+    border: 3px solid #0066cc;
+    border-radius: 8px;
+    filter: blur(4px);
+}
+
+
 
 /*====== marge-container내 카테고리 제목 스타일 ======*/
 body.preview-page #currentCategory {
@@ -3170,18 +3172,22 @@ body.preview-popup-page ul {
     font-size: 17px;
     list-style: none;
 }
+
 /* 웹사이트 계기(history.html) */
-body.history-page{
+body.history-page {
     margin: 50px auto;
 }
-body.history-page h2{
+
+body.history-page h2 {
     text-align: center;
     padding-bottom: 50px;
 }
-body.history-page p{
+
+body.history-page p {
     text-align: left;
 }
-body.history-page ul li{
+
+body.history-page ul li {
     display: flex;
     margin: 0 auto;
     flex-direction: column;
@@ -3190,10 +3196,12 @@ body.history-page ul li{
     width: 500px;
     padding: 25px;
 }
+
 body.history-page #exper_container {
     padding: 15px 30px;
     text-align: left;
 }
+
 body.history-page .detail-content {
     display: none;
     margin: 10px auto;

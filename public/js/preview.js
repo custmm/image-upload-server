@@ -869,6 +869,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         imgContainer.setAttribute("data-aos", "fade-right");
                         imgContainer.setAttribute("data-aos-delay", (index * 50).toString());
 
+                        // 1. 이미지 생성
                         const img = document.createElement("img");
                         img.dataset.src = image.file_path;
                         observer.observe(img); // 지연 로딩 관찰 시작
@@ -877,7 +878,20 @@ document.addEventListener("DOMContentLoaded", async () => {
                             if (!isExplanMode) window.location.href = `post?id=${image.id}`;
                         };
 
+                        // 2. [추가] 호버 시 나타날 오버레이 레이어 생성
+                        const overlay = document.createElement("div");
+                        overlay.className = "hover-overlay"; // CSS의 .hover-overlay와 매칭
+
+                        // 3. [추가] 오버레이 안에 들어갈 문구 생성
+                        const message = document.createElement("span");
+                        message.className = "hover-message"; // CSS의 .hover-message와 매칭
+                        message.textContent = "클릭 시 자세히 볼 수 있습니다";
+
+                        // 4. 조립
+                        overlay.appendChild(message);
                         imgContainer.appendChild(img);
+
+                        imgContainer.appendChild(overlay); // 이미지 위에 오버레이 추가
                         imageGallery.appendChild(imgContainer);
 
                     } else if (currentView === "text") {
@@ -1328,7 +1342,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function adjustGalleryRadius() {
         const gallery = document.querySelector(".image-gallery");
-        
+
         if (gallery) {
             gallery.addEventListener("wheel", (e) => {
                 // 텍스트 뷰 모드일 때만 작동하도록 조건 설정
