@@ -248,7 +248,7 @@ function updatePreviewImage() {
     previewContainer.innerHTML = "";
     previewContainer.style.position = "relative";
 
-    const totalPreviews = 9;
+    const totalPreviews = 8;
     const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
     const isModernized = localStorage.getItem("indicatorModernized") === "true";
 
