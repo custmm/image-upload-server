@@ -3190,7 +3190,20 @@ body.history-page ul li{
     width: 500px;
     padding: 25px;
 }
+body.history-page #exper_container {
+    padding: 15px 30px;
+    text-align: left;
+}
+body.history-page .detail-content {
+    display: none;
+    margin: 10px auto;
+    padding-left: 10px;
+}
 
+/* 열렸을 때 */
+body.history-page .detail-content.active {
+    display: block;
+}
 
 /* 기타기능 페이지(etc_util.html) */
 body.etc-page {
