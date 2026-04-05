@@ -79,10 +79,7 @@ ul li {
 
 body:not(.no-bg) {
     font-family: Arial, sans-serif;
-    background:#afa846;
-    background-repeat: no-repeat;/* 반복 금지 */
-    background-attachment: fixed;/* 화면 기준으로 고정 */
-    min-height: 100vh;/* 최소 화면 높이 확보 */
+    background-color: #F0F4F8;
 }
 
 /* ====== 버튼 공통 ====== */
