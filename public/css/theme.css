@@ -2,7 +2,7 @@
 
     body .slider {
         display: flex;
-        background-image: url("../images/light_toggle_bg.png");
+        background-image: url("../images/toggle/light_toggle_bg.png");
         height: 40px;
         width: 90px;
         top: 45px;
@@ -12,12 +12,12 @@
     }
 
     body.dark-mode .slider {
-        background-image: url("../images/dark_toggle_bg.png");
+        background-image: url("../images/toggle/dark_toggle_bg.png");
     }
 
     body .slider_util {
         display: flex;
-        background: url("../images/light_toggle_bg.png") no-repeat center;
+        background: url("../images/toggle/light_toggle_bg.png") no-repeat center;
         height: 100%;
         width: 100%;
         background-size: cover;
@@ -26,7 +26,7 @@
     }
 
     body.dark-mode .slider_util {
-        background-image: url("../images/dark_toggle_bg.png");
+        background-image: url("../images/toggle/dark_toggle_bg.png");
     }
 
 

@@ -99,7 +99,7 @@ function setThemeUI(isDark) {
 
   // 아이콘 이미지 변경
   if (themeIcon) {
-    themeIcon.style.backgroundImage = `url('../images/toggle_${mode}.svg')`;
+    themeIcon.style.backgroundImage = `url('../images/toggle/toggle_${mode}.svg')`;
   }
 
   // 데이터 저장
