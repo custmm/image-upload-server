@@ -3170,7 +3170,12 @@ body.preview-popup-page ul {
     font-size: 17px;
     list-style: none;
 }
+/* 웹사이트 계기(history.html) */
+body.history-page ul li{
+    display: flex;
+    margin: 0 auto;
 
+}
 /* 기타기능 페이지(etc_util.html) */
 body.etc-page {
     width: 100%
