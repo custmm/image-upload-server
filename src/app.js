@@ -9,6 +9,7 @@ import helmet from "helmet"; // 보안
 import compression from "compression"; // 압축
 import jwt from "jsonwebtoken";
 import ImageKit from "imagekit";
+import chalk from "chalk"; // <--- [추가] 로그를 꾸미기 위한 chalk 임포트
 
 // 3. Node.js 내장 모듈
 import path, { join, dirname } from "path";
@@ -58,6 +59,22 @@ app.use(helmet({
         },
     },
 }));
+
+// [추가] 커스텀 로깅 미들웨어 (보안 설정 직후, 다른 처리 이전에 두는 것이 좋습니다)
+app.use((req, res, next) => {
+    const start = Date.now();
+    res.on('finish', () => {
+        const duration = Date.now() - start;
+        const statusColor = res.statusCode >= 400 ? chalk.red : chalk.green;
+        const methodColor = chalk.bold.cyan;
+
+        console.log(
+            `${chalk.bgBlue(' INFO ')} ${methodColor(req.method)} ${chalk.gray(req.url)} - ` +
+            `${statusColor(res.statusCode)} ${chalk.yellow(`(${duration}ms)`)}`
+        );
+    });
+    next();
+});
 
 // 2. 응답 압축 (CORS 전에 적용하여 데이터 전송 효율 극대화)
 app.use(compression()); // 모든 응답 데이터를 압축해서 전송
