@@ -3174,15 +3174,16 @@ body.preview-popup-page ul {
 body.history-page{
     margin: 50px auto;
 }
-
-body.history-page ul li{
-    display: flex;
-    margin: 0 auto;
-}
-
 body.history-page h2{
     text-align: center;
 }
+body.history-page ul li{
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+
 /* 기타기능 페이지(etc_util.html) */
 body.etc-page {
     width: 100%
