@@ -248,8 +248,7 @@ function updatePreviewImage() {
     previewContainer.innerHTML = "";
     previewContainer.style.position = "relative";
 
-    const allowedCutIndices = [1, 2, 3, 4, 5, 8, 9, 11, 12];
-    const totalPreviews = 12;
+    const totalPreviews = 9;
     const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
     const isModernized = localStorage.getItem("indicatorModernized") === "true";
 
@@ -275,8 +274,6 @@ function updatePreviewImage() {
 
     // 1. 이미지 전환 함수
     const togglePreviewImage = () => {
-        if (!allowedCutIndices.includes(randomIndex)) return;
-        isCut = !isCut;
         const suffix = isCut ? "_cut.png" : ".png";
         const base = isModernized ? `re${suffix}` : suffix;
         img.src = `images/indicator/preview-gunff_${randomIndex}${base}`;
