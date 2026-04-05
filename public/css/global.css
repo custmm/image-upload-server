@@ -79,7 +79,8 @@ ul li {
 
 body:not(.no-bg) {
     font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #2B2092 0%, #ffe229 95%)
+    background: linear-gradient(180deg, #2B2092 0%, #ffe229 95%);
+    height: 100vh;
 }
 
 /* ====== 버튼 공통 ====== */
