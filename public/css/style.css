@@ -3176,6 +3176,10 @@ body.history-page{
 }
 body.history-page h2{
     text-align: center;
+    padding-bottom: 50px;
+}
+body.history-page p{
+    text-align: left;
 }
 body.history-page ul li{
     display: flex;
@@ -3183,7 +3187,7 @@ body.history-page ul li{
     flex-direction: column;
     background-color: #f5f5f5;
     border-radius: 25px;
-    width: 30%;
+    width: 500px;
 }
 
 
