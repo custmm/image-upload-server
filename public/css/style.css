@@ -2702,9 +2702,9 @@ body.preview-page #imageGallery.text-view {
     /* 모바일 가속 */
 }
 
-/* 개별 카드 아이템 (한 화면에 약 3개 보이기) */
+/* 개별 카드 아이템 (한 화면에 약 5개 보이기) */
 body.preview-page #imageGallery.text-view .text-card-item {
-    flex: 0 0 calc(33.333% - 20px);
+    flex: 0 0 calc(20% - 20px);
     /* 핵심: 너비를 정확히 1/3로 고정 */
     min-width: 215px;
     /* 너무 작아지지 않게 최소 너비 설정 */
