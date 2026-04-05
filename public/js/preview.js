@@ -1331,7 +1331,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function adjustGalleryRadius() {
         const gallery = document.querySelector(".image-gallery");
-        if (!gallery) return;
+        
+        if (gallery) {
+            gallery.addEventListener("wheel", (e) => {
+                // 텍스트 뷰 모드일 때만 작동하도록 조건 설정
+                if (gallery.classList.contains("text-view")) {
+                    // 세로 스크롤(deltaY) 발생 시 가로 스크롤(scrollLeft)로 변환
+                    if (e.deltaY !== 0) {
+                        e.preventDefault(); // 페이지 전체가 아래로 내려가는 것 방지
+                        gallery.scrollLeft += e.deltaY;
+                    }
+                }
+            }, { passive: false });
+        }
 
         const items = gallery.querySelectorAll(".image-container");
         if (items.length === 0) return;
