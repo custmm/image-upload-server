@@ -87,6 +87,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 1. 기초 UI 설정
     applySavedTheme();
 
+    // --- [모드 전환 버튼 이벤트 연결 구역] ---
+    const imageModeBtn = document.getElementById("preview-image-mode");
+    const textModeBtn = document.getElementById("preview-text-mode");
+
+    if (imageModeBtn && textModeBtn) {
+        // 이미지 그리드 모드 버튼 클릭 시
+        imageModeBtn.addEventListener("click", async () => {
+            Gallery.setView("image"); // 갤러리 모듈의 뷰 모드를 "image"로 변경
+            imageModeBtn.classList.add("active");
+            textModeBtn.classList.remove("active");
+            
+            Gallery.setPage(0); // 페이지 번호 초기화
+            // 현재 카테고리 데이터를 유지하며 다시 로드
+            await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
+        });
+
+        // 텍스트 좌우 스크롤 모드 버튼 클릭 시
+        textModeBtn.addEventListener("click", async () => {
+            Gallery.setView("text"); // 갤러리 모듈의 뷰 모드를 "text"로 변경
+            textModeBtn.classList.add("active");
+            imageModeBtn.classList.remove("active");
+            
+            Gallery.setPage(0); // 페이지 번호 초기화
+            await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
+        });
+    }
+
     // 2. 테마 토글 버튼 리스너 (CSP 위반 방지)
     const themeToggle = document.getElementById("themeToggle");
     if (themeToggle) {

@@ -638,7 +638,7 @@ body.mode-page .admin-selection-button {
     /* 버튼 너비 일정하게 */
     height: 50px;
     transition: transform 0.3s ease-in-out;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
     border: none;
     margin-top: 30px;

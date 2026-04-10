@@ -1303,7 +1303,7 @@ body.mode-page .mode-selection-container {
     margin: 0 auto;
     background-color: #ffffff;
     width: 500px;
-    border-radius: 8px;
+    border-radius: 30px;
     gap: 30px;
 }
 
@@ -1321,7 +1321,7 @@ body.mode-page .logout-button {
     width: 150px;
     height: 50px;
     transition: transform 0.3s ease-in-out;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
     border: none;
     font-size: 16px;
