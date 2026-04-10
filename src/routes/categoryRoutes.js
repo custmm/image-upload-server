@@ -7,7 +7,7 @@ const router = express.Router();
 const categoryTranslations = {
     "puzzle": "퍼즐",
     "bizz": "보석비즈",
-    "solidbodypuzzle": "입체퍼즐",
+    "solidbodypuzzle": "3D퍼즐",
     "deforme": "디폼블럭",
     "brickfigure": "브릭피규어"
 };

@@ -20,7 +20,10 @@ export default class Description extends Model {
         },
         text: { 
           type: DataTypes.TEXT,
-          allowNull: true
+          allowNull: true,
+          validate:{
+            len:[0,1000]
+          }
         },
       },
       {

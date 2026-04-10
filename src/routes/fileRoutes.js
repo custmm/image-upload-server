@@ -4,6 +4,7 @@ import { upload, imagekit } from "../upload/multerConfig.js";  //  `multerConfig
 import sanitizeHtml from "sanitize-html"; // sanitize-html 라이브러리 추가
 import { fileURLToPath } from "url";
 import path, { dirname } from "path";
+import { uploadImageToIK } from "../services/imageService.js"; // 서비스 불러오기
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -74,7 +75,7 @@ router.get("/", async (req, res) => {
             limit,
             order: [["created_at", "DESC"]],
             subQuery: false,
-            distinct:true
+            distinct: true
         });
 
         // 빈 배열이더라도 total은 0이 될 테니 그대로 반환
@@ -252,97 +253,50 @@ router.get("/subcategory-counts", async (req, res) => {
 //  파일 업로드 API (POST /api/files/upload)
 router.post("/upload", upload.single("file"), async (req, res) => {
     const transaction = await sequelize.transaction();
+
     try {
-        console.info("📌 요청 바디:", req.body);
-        console.info("📌 요청 파일:", req.file);
+        let { category_id, subcategory_id, title, description } = req.body;
 
-        let {
-            category_id,
-            subcategory_id,
-            title,
-            description
-        } = req.body;
+        // [1] 기본 검증
+        if (!category_id || isNaN(category_id)) return res.status(400).json({ error: "유효한 카테고리 ID가 필요합니다." });
+        if (!req.file) return res.status(400).json({ error: "파일이 없습니다." });
 
-        if (!category_id || isNaN(category_id)) {
-            return res.status(400).json({ error: " 유효한 category_id가 필요합니다." });
-        }
-
-        if (!req.file || !req.file.buffer) {
-            return res.status(400).json({ error: " 파일이 업로드되지 않았습니다." });
-        }
-
-        category_id = parseInt(category_id, 10);
-
+        // [2] 카테고리/서브카테고리 정보 조회 및 폴더 경로 생성
         const category = await Category.findByPk(category_id);
+        if (!category) return res.status(400).json({ error: "존재하지 않는 카테고리입니다." });
 
-        if (!category) {
-            return res.status(400).json({ error: " 존재하지 않는 카테고리입니다." });
-        }
-
-        const categoryName = category.name.trim();
-
-        let dbSubcategoryName = "general"; // 기본값
-
+        let dbSubcategoryName = "general";
         if (subcategory_id && !isNaN(subcategory_id)) {
-            subcategory_id = parseInt(subcategory_id, 10);
-
-            const subcategory = await Subcategory.findOne({
-                where: {
-                    id: subcategory_id,
-                    category_id: category.id
-                }
-            });
-
-            if (!subcategory) {
-                return res.status(400).json({ error: " 존재하지 않는 서브카테고리입니다." });
-            }
-
-            dbSubcategoryName = subcategory.name.trim();
-        } else {
-            subcategory_id = null;
+            const sub = await Subcategory.findOne({ where: { id: subcategory_id, category_id: category.id } });
+            if (sub) dbSubcategoryName = sub.name.trim();
         }
+        const folderPath = `${category.name.trim()}/${dbSubcategoryName}`;
 
-        const sanitizedTitle = title
-            ? sanitizeHtml(title, {
-                allowedTags: [],
-                allowedAttributes: {}
-            }).trim()
-            : null;
+        // [3] 이미지 업로드 실행 (위에서 만든 서비스 호출)
+        // 이제 파일명 변환 로직은 이 안에서 안전하게 처리됩니다.
+        const uploadResult = await uploadImageToIK(imagekit, req.file, folderPath);
 
-        const sanitizedDescription = description
-            ? sanitizeHtml(description, {
-                allowedTags: ["b", "strong", "i", "em", "s", "strike", "u", "br"],
-                allowedAttributes: {
-                    span: ["style"],
-                    div: ["style"],
-                    p: ["style"]
-                }
-            }).trim()
-            : null;
+        // [4] 보안 처리 (Sanitize)
+        const sanitizedTitle = title ? sanitizeHtml(title, { allowedTags: [], allowedAttributes: {} }).trim() : "제목 없음";
 
-        // ImageKit 업로드
-        const fileName = Date.now() + path.extname(req.file.originalname);
-        const folder = `${categoryName}/${dbSubcategoryName}`;
+        const sanitizedDescription = description ? sanitizeHtml(description, {
+            allowedTags: ["b", "strong", "i", "em", "s", "strike", "u", "br"],
+            allowedAttributes: { span: ["style"], div: ["style"], p: ["style"] }
+        }).trim() : null;
 
-        const uploadResult = await imagekit.upload({
-            file: req.file.buffer,
-            fileName,
-            folder,
-        });
-
-        //  DB에 정확한 카테고리명과 서브카테고리명을 저장
+        // [5] DB 레코드 생성
         const fileData = await File.create({
-            file_name: fileName,
+            file_name: uploadResult.name, // 서비스에서 변환된 파일명
             file_path: uploadResult.url,
-            title: sanitizedTitle || "제목 없음",
+            title: sanitizedTitle,
             imagekit_file_id: uploadResult.fileId,
             category_id: category.id,
-            subcategory_id,
+            subcategory_id: subcategory_id || null,
         }, { transaction });
 
 
         const descriptionText = sanitizedDescription?.trim();
-        
+
         // description 저장
         if (descriptionText && descriptionText.length > 0) {
             await Description.create({
@@ -350,14 +304,12 @@ router.post("/upload", upload.single("file"), async (req, res) => {
                 text: descriptionText
             }, { transaction });
         }
-        await transaction.commit();
 
-        console.info(" 파일 업로드 성공!");
+        await transaction.commit();
         res.json({ message: " 파일 업로드 성공!", file: fileData });
 
     } catch (error) {
         await transaction.rollback();
-
         console.error(" 파일 업로드 중 서버 오류 발생:", error);
         res.status(500).json({ error: "파일 업로드 중 서버 오류 발생" });
     }

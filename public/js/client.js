@@ -201,8 +201,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             const length = textWithoutTags.length;
 
             //  글자 수 표시
-            descriptionCounter.textContent = `${length} / 500`;
-            descriptionCounter.style.color = length > 500 ? "red" : "gray";
+            descriptionCounter.textContent = `${length} / 1000`;
+            descriptionCounter.style.color = length > 1000 ? "red" : "gray";
 
             //  해시태그 표시 (왼쪽)
             const hashtagDisplay = document.getElementById("hashtagDisplay");
@@ -385,8 +385,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        if (textOnlyDescription.length > 500) {
-            showPopup("설명은 최대 500자까지만 입력 가능합니다.");
+        if (textOnlyDescription.length > 1000) {
+            showPopup("설명은 최대 1000자까지만 입력 가능합니다.");
             return;
         }
 
@@ -444,7 +444,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const categoryTranslations = {
         "puzzle": "퍼즐",
         "bizz": "보석비즈",
-        "solidbodypuzzle": "입체퍼즐",
+        "solidbodypuzzle": "3D퍼즐",
         "deforme": "디폼블럭",
         "brickfigure": "브릭피규어"
     };
