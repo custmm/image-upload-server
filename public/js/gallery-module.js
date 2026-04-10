@@ -1,22 +1,6 @@
 // 1. 초기 상태값 및 설정값 선언
 export const isExplanMode = window.location.hash.includes("explan");
 
-export let isLoadingPage = false;
-export let currentView = "image";
-export let page = 0;
-export let limit = 20;
-export let selectedCategory = null;
-export let selectedSubcategory = null;
-export let categories = [];
-export let noMoreImages = false;
-
-// setter 함수들 (main.js에서 상태 변경 시 사용)
-export const setPage = (val) => page = val;
-export const setView = (val) => {
-    currentView = val;
-    limit = (val === "image") ? 20 : 10;
-};
-
 // 카테고리 아이콘 매핑
 const iconMap = {
     "퍼즐": "puzzle",
@@ -35,7 +19,24 @@ const categoryMappings = {
     "brickfigure": "브릭피규어"
 };
 
-// 2. 기초 UI 조작 함수
+// 2. 상태값 선언
+export let isLoadingPage = false;
+export let currentView = "image";
+export let page = 0;
+export let limit = 20;
+export let selectedCategory = null;
+export let selectedSubcategory = null;
+export let categories = [];
+export let noMoreImages = false;
+
+// 3. Setter 함수들 (main.js에서 호출용)
+export const setPage = (val) => page = val;
+export const setView = (val) => {
+    currentView = val;
+    limit = (val === "image") ? 20 : 10;
+};
+
+// 4. 기초 UI 조작 함수
 export function clearGallery() {
     const imageGallery = document.getElementById("imageGallery");
     if (!imageGallery) return;
@@ -52,7 +53,7 @@ export function clearCategoryTabs() {
     }
 }
 
-// 3. 핵심 데이터 로드 함수 (loadPage)
+// 5. 핵심: 페이지 로드 함수
 export async function loadPage(categoryId, subcategoryId = null) {
     if (isLoadingPage) return;
     isLoadingPage = true;
@@ -102,7 +103,7 @@ export async function loadPage(categoryId, subcategoryId = null) {
         adjustGalleryRadius();
 
     } catch (err) {
-        console.error("❌ 로드 중 오류:", err);
+        console.error(" 로드 중 오류:", err);
         imageGallery.innerHTML = '<p class="error-msg">데이터를 불러오는 중 오류가 발생했습니다.</p>';
     } finally {
         const elapsed = Date.now() - startTime;
@@ -111,7 +112,9 @@ export async function loadPage(categoryId, subcategoryId = null) {
         setTimeout(() => {
             if (typeof window.hideLoading === "function") window.hideLoading();
             isLoadingPage = false;
-            if (window.AOS) window.AOS.refresh();
+
+            // 전역 AOS 새로고침
+            if (window.Aos) window.Aos.refresh();
         }, delay);
     }
 }
@@ -165,7 +168,7 @@ function renderCard(image, index, container) {
     }
 }
 
-// 4. 카테고리 관련 로직
+// 6. 카테고리 로직
 export async function loadCategories() {
     if (!isExplanMode) {
         setTimeout(() => initializeCategorySelection(), 300);
