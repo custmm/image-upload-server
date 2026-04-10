@@ -297,20 +297,32 @@ export function renderPagination(totalPages) {
     pag.innerHTML = "";
     infoBox.innerHTML = `<span> ${page + 1} / ${totalPages} </span>`;
 
+    // ◀ 이전 버튼
     const prev = document.createElement("button");
     prev.className = "pagination-button";
     prev.textContent = "이전";
-    prev.onclick = () => {
-        if (page > 0) { page--; loadPage(selectedCategory, selectedSubcategory); }
-        else if (window.showPopupMessage) window.showPopupMessage("첫 페이지입니다.");
+    prev.onclick = async() => {
+        if (page > 0) { 
+            page--; 
+            await loadPage(selectedCategory, selectedSubcategory); 
+        }else{
+            if (window.showPopupMessage) window.showPopupMessage("첫 페이지입니다.");
+            else alert("첫 페이지입니다.");
+        } 
     };
 
+    // ▶ 다음 버튼
     const next = document.createElement("button");
     next.className = "pagination-button";
     next.textContent = "다음";
-    next.onclick = () => {
-        if ((page + 1) < totalPages) { page++; loadPage(selectedCategory, selectedSubcategory); }
-        else if (window.showPopupMessage) window.showPopupMessage("마지막 페이지입니다.");
+    next.onclick = async() => {
+        if ((page + 1) < totalPages) { 
+            page++; 
+            await loadPage(selectedCategory, selectedSubcategory); 
+        }else{
+            if (window.showPopupMessage) window.showPopupMessage("마지막 페이지입니다.");
+            else alert("마지막 페이지입니다.");
+        } 
     };
 
     pag.appendChild(prev);
