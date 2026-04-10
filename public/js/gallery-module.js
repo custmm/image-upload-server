@@ -163,7 +163,7 @@ export async function loadPage(categoryId, subcategoryId = null) {
 }
 
 
-async function loadCategories() {
+ export async function loadCategories() {
     if (!isExplanMode) {
         setTimeout(() => initializeCategorySelection(), 300);
     }
@@ -210,7 +210,7 @@ async function loadCategories() {
 }
 
 // 3) 서브카테고리 로드
-async function loadSubcategories(categoryId) {
+export async function loadSubcategories(categoryId) {
     try {
         const response = await fetch(`/api/categories/${categoryId}/subcategories`);
         if (!response.ok) throw new Error("서브카테고리를 가져오는 데 실패함");
@@ -242,7 +242,7 @@ async function loadSubcategories(categoryId) {
 }
 
 // 모든 카테고리 로드 후, URL 파라미터와 일치하는 카테고리 자동 선택
-async function initializeCategorySelection(retryCount = 5) {
+export async function initializeCategorySelection(retryCount = 5) {
     const urlParams = new URLSearchParams(window.location.search);
     let categoryParam = urlParams.get("category");
 
@@ -285,7 +285,7 @@ async function initializeCategorySelection(retryCount = 5) {
 }
 
 /** 이미지 불러오기 (4x5 배열 적용) */
-async function loadImages(categoryId, subcategoryId = null) {
+export async function loadImages(categoryId, subcategoryId = null) {
     try {
         let url = `/api/files?category_id=${categoryId}`;
         if (subcategoryId) {
