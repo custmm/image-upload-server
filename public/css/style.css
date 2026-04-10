@@ -2749,7 +2749,9 @@ body.preview-page .image-gallery.multi-row {
 body.preview-page .image-gallery:hover {
     border-radius: 10px;
 }
-
+body.preview-page .image-gallery text-view{
+    border-radius: 10px;
+}
 /* 사진 모드 */
 body.preview-page .image-gallery.image-view {
     display: grid;
