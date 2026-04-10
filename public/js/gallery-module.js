@@ -113,6 +113,11 @@ export async function loadPage(categoryId, subcategoryId = null) {
             if (typeof window.hideLoading === "function") window.hideLoading();
             isLoadingPage = false;
 
+            // --- [수정 포인트 1] 텍스트 모드일 때 입체 슬라이드 실행 ---
+            if (currentView === "text") {
+                applyTextSlidingGallery();
+            }
+            // -------------------------------------------------------
             // 전역 AOS 새로고침
             if (window.Aos) window.Aos.refresh();
         }, delay);
@@ -129,7 +134,7 @@ function renderCard(image, index, container) {
 
         const img = document.createElement("img");
         img.dataset.src = image.file_path;
-        
+
         // Intersection Observer (main.js 등에 선언된 전역 객체 참조)
         if (window.observer) window.observer.observe(img);
         else img.src = image.file_path; // 옵저버 없으면 즉시 로드
@@ -147,20 +152,24 @@ function renderCard(image, index, container) {
         container.appendChild(imgContainer);
     } else {
         const card = document.createElement("div");
+        // [중요] 라이브러리가 직접 제어할 수 있도록 img 태그를 카드의 직계 자식이나 주요 요소로 배치합니다.
         card.className = "text-card-item appear-ani";
         card.setAttribute("data-aos", "fade-up");
         card.style.animationDelay = `${index * 50}ms`;
 
+        // 라이브러리는 가로/세로 모드를 판단하므로 layout 속성을 넣어주면 더 정확합니다.
         const hashtags = (image.text || "").match(/#([\w가-힣]+)/g) || [];
         const tagsHtml = hashtags.slice(0, 2).map(tag => `<span class="text-hashtag">${tag}</span>`).join("");
 
         card.innerHTML = `
-            <div class="card-img-container"><img src="${image.file_path}" class="card-img" loading="lazy"></div>
+            <div class="card-img-container">
+                <img src="${image.file_path}" class="card-img" loading="lazy">
+            </div>
             <div class="card-info">
                 <div class="card-title">${image.title || "제목 없음"}</div>
                 <div class="text-hashtags">${tagsHtml}</div>
             </div>`;
-        
+
         card.onclick = () => {
             if (!isExplanMode) window.location.href = `post?id=${image.id}`;
         };
@@ -203,7 +212,7 @@ export async function loadCategories() {
 
 export async function loadCategory(categoryId, tabButton, isPopState = false) {
     const newCategoryName = tabButton.textContent.trim();
-    
+
     if (!isExplanMode && !isPopState) {
         const currentParams = new URLSearchParams(window.location.search);
         if (currentParams.get("category") !== newCategoryName) {
@@ -214,7 +223,7 @@ export async function loadCategory(categoryId, tabButton, isPopState = false) {
 
     selectedCategory = categoryId;
     selectedSubcategory = null;
-    
+
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     tabButton.classList.add("active");
 
@@ -301,28 +310,28 @@ export function renderPagination(totalPages) {
     const prev = document.createElement("button");
     prev.className = "pagination-button";
     prev.textContent = "이전";
-    prev.onclick = async() => {
-        if (page > 0) { 
-            page--; 
-            await loadPage(selectedCategory, selectedSubcategory); 
-        }else{
+    prev.onclick = async () => {
+        if (page > 0) {
+            page--;
+            await loadPage(selectedCategory, selectedSubcategory);
+        } else {
             if (window.showPopupMessage) window.showPopupMessage("첫 페이지입니다.");
             else alert("첫 페이지입니다.");
-        } 
+        }
     };
 
     // ▶ 다음 버튼
     const next = document.createElement("button");
     next.className = "pagination-button";
     next.textContent = "다음";
-    next.onclick = async() => {
-        if ((page + 1) < totalPages) { 
-            page++; 
-            await loadPage(selectedCategory, selectedSubcategory); 
-        }else{
+    next.onclick = async () => {
+        if ((page + 1) < totalPages) {
+            page++;
+            await loadPage(selectedCategory, selectedSubcategory);
+        } else {
             if (window.showPopupMessage) window.showPopupMessage("마지막 페이지입니다.");
             else alert("마지막 페이지입니다.");
-        } 
+        }
     };
 
     pag.appendChild(prev);
@@ -347,4 +356,39 @@ export function adjustGalleryRadius() {
     const firstTop = items[0].offsetTop;
     const multiRow = [...items].some(item => item.offsetTop !== firstTop);
     gallery.classList.toggle("multi-row", multiRow);
+}
+
+export function applyTextSlidingGallery() {
+    const $gallery = $('#imageGallery');
+    // 텍스트 카드를 슬라이딩 요소로 지정합니다.
+    const $items = $gallery.find('.text-card-item');
+
+    if ($items.length > 0) {
+        // 1. 기존 바인딩 제거 및 초기화
+        $items.unbind(); 
+        $items.removeClass('start').css({ position: 'absolute', display: 'none' });
+
+        // 2. 첫 번째 요소에 라이브러리 시작 클래스 부여
+        $items.first().addClass('start');
+
+        // 3. 슬라이딩 갤러리 실행 (텍스트 카드 비율에 최적화)
+        $items.slidingGallery({
+            Lheight: 280,        // 측면 카드 높이
+            Lwidth: 380,         // 측면 카드 너비
+            Pheight: 350,        // 중앙 강조 카드 높이
+            Pwidth: 480,         // 중앙 강조 카드 너비
+            slideSpeed: 'normal',
+            gutterWidth: 60,      // 카드 간 겹침 간격 (입체감 조절)
+            container: $gallery,
+            useCaptions: false    // 자체 UI를 쓰므로 라이브러리 캡션은 끔
+        });
+        
+        // 부모 컨테이너가 붕 뜨지 않게 높이 고정
+        $gallery.css({
+            'display': 'block',
+            'position': 'relative',
+            'height': '450px',
+            'overflow': 'visible'
+        });
+    }
 }
