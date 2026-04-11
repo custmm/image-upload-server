@@ -16,6 +16,25 @@ if (!ADMIN_PASSWORD_HASH) {
 
 //  로그인 API
 router.post("/login", async (req, res) => {
+    // --- [추가 시작] 빛의 속도를 이용한 지연 시간 방어막 ---
+    const clientTime = req.headers['x-latency-check']; 
+    const serverTime = Date.now();
+
+    // 1. 헤더가 아예 없으면 차단
+    if (!clientTime) {
+        console.log("🚨 보안 헤더 누락으로 차단됨");
+        return res.status(403).json({ error: "비정상적인 접근입니다." });
+    }
+
+    const diff = serverTime - parseInt(clientTime);
+
+    // 2. 지연 시간이 너무 짧거나(기계), 너무 길면(재전송 공격) 차단
+    // 로그인은 민감하므로 10ms(0.01초)로 조금 더 넉넉하게 잡았습니다.
+    if (diff < 10 || diff > 15000) { 
+        console.log(`🚨 [공격 의심] 지연 시간: ${diff}ms - IP: ${req.ip}`);
+        return res.status(403).json({ error: "물리적 보안 정책에 의해 차단되었습니다." });
+    }
+    // --- [추가 끝] ---
     const { password } = req.body;
 
     //  비밀번호 입력 여부 확인

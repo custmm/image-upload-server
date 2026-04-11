@@ -55,11 +55,20 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const response = await fetch("/api/auth/login", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { 
+                    "Content-Type": "application/json", 
+                    "x-latency-check": Date.now().toString()
+                },
                 body: JSON.stringify({ password }),
             });
 
             const result = await response.json();
+
+            // 403 에러 처리 추가 (보안 차단 시)
+        if (response.status === 403) {
+            showPopup("보안 정책: 접근 속도가 너무 빠릅니다.", "error");
+            return;
+        }
 
             if (response.ok && result.success) {
                 localStorage.setItem("adminToken", result.token);
