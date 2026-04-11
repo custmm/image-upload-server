@@ -311,38 +311,36 @@ export function renderPagination(totalPages) {
     pag.innerHTML = "";
     infoBox.innerHTML = `<span> ${page + 1} / ${totalPages} </span>`;
 
-    // ◀ 이전 버튼
+    // ◀ 이전 버튼 (원형 화살표)
     const prev = document.createElement("button");
-    prev.className = "pagination-button";
-    prev.textContent = "이전";
+    prev.className = "pagination-circle-btn";
+    prev.innerHTML = `<i data-lucide="chevron-left"></i>`; // 화살표 아이콘
+    prev.disabled = (page === 0); // 첫 페이지면 비활성화
     prev.onclick = async () => {
         if (page > 0) {
             page--;
             await loadPage(selectedCategory, selectedSubcategory);
-        } else {
-            if (window.showPopupMessage) window.showPopupMessage("첫 페이지입니다.");
-            else alert("첫 페이지입니다.");
         }
     };
 
-    // ▶ 다음 버튼
+    // ▶ 다음 버튼 (원형 화살표)
     const next = document.createElement("button");
-    next.className = "pagination-button";
-    next.textContent = "다음";
+    next.className = "pagination-circle-btn";
+    next.innerHTML = `<i data-lucide="chevron-right"></i>`; // 화살표 아이콘
+    next.disabled = (page + 1 >= totalPages); // 마지막 페이지면 비활성화
     next.onclick = async () => {
         if ((page + 1) < totalPages) {
             page++;
             await loadPage(selectedCategory, selectedSubcategory);
-        } else {
-            if (window.showPopupMessage) window.showPopupMessage("마지막 페이지입니다.");
-            else alert("마지막 페이지입니다.");
         }
     };
 
     pag.appendChild(prev);
     pag.appendChild(next);
-}
 
+    // 아이콘 생성 실행
+    if (window.lucide) window.lucide.createIcons();
+}
 export function adjustGalleryRadius() {
     const gallery = document.querySelector(".image-gallery");
     if (!gallery) return;
@@ -374,7 +372,7 @@ export function applyTextSlidingGallery() {
 
         // 2. 텍스트 뷰 전용 클래스 확인 (CSS에서 스크롤 처리)
         $gallery.addClass('text-view-scroll');
-        
+
         console.log("좌우 스크롤 모드로 전환 완료");
     }
 }
