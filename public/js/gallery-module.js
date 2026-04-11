@@ -173,7 +173,6 @@ function renderCard(image, index, container) {
             </div>
             <div class="card-info">
                 <div class="card-title">${image.title || "제목 없음"}</div>
-                <div class="text-hashtags">${tagsHtml}</div>
             </div>`;
 
         card.onclick = () => {

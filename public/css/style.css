@@ -2908,8 +2908,8 @@ body.preview-page .text-card-item {
     visibility: visible !important;
     
     /* 카드 크기 (아까 JS에서 설정한 Pwidth, Pheight보다 작으면 안 됨) */
-    width: 300px; 
-    height: 400px;
+    width: 150px; 
+    height: 200px;
     
     background: #fff;
     border-radius: 20px;
