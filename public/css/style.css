@@ -2880,29 +2880,6 @@ body.preview-page .text-card-item {
     transition: transform 0.3s ease;
 }
 
-/* 2. 개별 카드: 라이브러리가 주는 값을 우선시하되, 사라지지 않게 설정 */
-body.preview-page .text-card-item {
-    /* 라이브러리가 주는 top: 234px 같은 값을 무시하고 무조건 중앙(50%) 고정 */
-    top: 50% !important; 
-    left: 50% !important;
-    position: absolute !important;
-    
-    /* [핵심] translate(-50%, -50%)가 있어야 진짜 정중앙에 옵니다! */
-    /* 라이브러리가 transform을 써서 카드를 좌우로 밀 때, -50%를 유지하게 만듭니다. */
-    transform: translate(-50%, -50%) !important;
-    
-    width: 280px;
-    height: 380px;
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    
-    /* 나타날 때 스르르 사라지지 않게 보장 */
-    opacity: 1 !important;
-    visibility: visible !important;
-    transition: left 0.5s ease, transform 0.5s ease !important;
-}
-
 /* 1. 이미지 컨테이너 블러 제거 및 크기 고정 */
 body.preview-page .card-img-container {
     width: 100px !important;
