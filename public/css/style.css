@@ -2915,6 +2915,7 @@ body.preview-page .image-gallery-wrapper {
     height: auto;
     margin: 40px auto;
     width: 95%;
+    position: relative;
 }
 
 /* 해시태그 레이아웃 */
@@ -3075,9 +3076,13 @@ body.preview-page .no-image-message {
 body.preview-page #pagination-container {
     display: flex;
     text-align: center;
-    margin: 10px 0;
+    margin: 0 auto;
     justify-content: center;
-    gap: 40px;
+    gap: 70vw;
+    position: absolute;
+    top: 60%;
+    right: 10%;
+
 }
 
 body.preview-page .pagination-button {
