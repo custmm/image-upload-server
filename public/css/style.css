@@ -2931,6 +2931,8 @@ body.preview-page .card-img {
     /* 비율 유지하며 꽉 채우기 */
     display: block;
     /* 불필요한 하단 공백 제거 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 body.preview-page .card-title {
