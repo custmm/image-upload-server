@@ -2726,21 +2726,14 @@ body.preview-page .image-gallery.image-view {
 /* 텍스트 모드 (이미지 갤러리 전체 설정) */
 body.preview-page .image-gallery.text-view {
     display: flex !important;
-    /* 리스트(column)가 아닌 가로(row) 나열 */
-    flex-direction: row !important;
     overflow-x: auto;
     /* 가로 스크롤 활성화 */
     scroll-snap-type: x mandatory;
     /* 카드가 멈출 때 자석 효과 */
-    gap: 20px;
-    /* 카드 사이 간격 */
-    padding: 30px 20px;
-    /* 위아래/좌우 여백 */
     background-color: transparent;
     /* 배경 투명하게 (취향껏 조절) */
     box-shadow: none;
-    height: 500px;
-    width: 100%;
+    border-radius: 10px;
     -webkit-overflow-scrolling: touch;
     /* 모바일 부드러운 스크롤 */
 }
