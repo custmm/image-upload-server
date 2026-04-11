@@ -3183,6 +3183,61 @@ body.preview-popup-page ul {
     list-style: none;
 }
 
+body.preview-popup-page #board {
+    width: 1000px;
+    margin: 50px auto;
+}
+body.preview-popup-page #board ul {
+    border-top: 1px solid lightslategray;
+}
+body.preview-popup-page #board ul li {
+    border-bottom: 1px solid lightslategrey;
+}
+body.preview-popup-page .question {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+body.preview-popup-page .question p {
+    display: flex;
+}
+body.preview-popup-page .question strong {
+    display: block;
+    font-size: 30px;
+    color: lightcoral;
+    padding: 0 10px;
+}
+body.preview-popup-page .question em {
+    font-style: normal;
+    /* 이탤릭체를 기본모드로 변경 */
+}
+body.preview-popup-page .question span {
+    display: block;
+    padding-right: 30px;
+}
+body.preview-popup-page .question span img {
+    transition: all 0.5s;
+}
+body.preview-popup-page .turn {
+    transform: rotate(180deg);
+}
+body.preview-popup-page .answer {
+    display: flex;
+    background-color: lightgoldenrodyellow;
+    padding: 20px 0;
+    border-top: 1px solid lightpink;
+}
+body.preview-popup-page .answer strong {
+    display: block;
+    padding: 0 30px 0 20px;
+}
+body.preview-popup-page .question strong {
+    display: block;
+    font-size: 30px;
+    color: lightcoral;
+    padding: 0 10px;
+}
+
 /* 웹사이트 계기(history.html) */
 body.history-page {
     margin: 50px auto;
