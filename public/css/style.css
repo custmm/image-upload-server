@@ -2932,8 +2932,8 @@ body.preview-page .card-img-container {
 
 /* 2. 실제 이미지 설정 */
 body.preview-page .card-img {
-    width: 100% !important;
-    height: 100% !important;
+    width: 100px !important;
+    height: 100px !important;
     object-fit: cover !important; /* 이미지가 틀에 꽉 차게 */
     filter: none !important;
     filter: blur(10px);
