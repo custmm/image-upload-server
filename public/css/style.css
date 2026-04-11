@@ -2687,23 +2687,7 @@ body.preview-page .toggle-switch_ind {
     border-radius: 30px;
 }
 
-/* 개별 카드 아이템 (한 화면에 약 5개 보이기) */
-body.preview-page #imageGallery.text-view .text-card-item {
-    flex: 0 0 calc(20% - 20px);
-    /* 핵심: 너비를 정확히 1/3로 고정 */
-    display: flex;
-    flex-direction: column;
-}
 
-/* 스크롤바 디자인 (AutoCAD처럼 깔끔하게) */
-body.preview-page #imageGallery.text-view::-webkit-scrollbar {
-    height: 6px;
-}
-
-body.preview-page #imageGallery.text-view::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
-}
 
 /* 이미지 갤러리 (4x5 배열) */
 body.preview-page .image-gallery {
@@ -2884,36 +2868,52 @@ body.preview-page .text-card-item:hover {
     /* 살짝 떠오르는 효과 */
     box-shadow: 0 8px 25px rgba(137, 154, 171, 0.2);
 }
+/* 개별 카드 아이템 (한 화면에 약 5개 보이기) */
+body.preview-page #imageGallery.text-view .text-card-item {
+    flex: 0 0 calc(20% - 20px);
+    /* 핵심: 너비를 정확히 1/3로 고정 */
+    display: flex;
+    flex-direction: column;
+}
 
+/* 스크롤바 디자인 (AutoCAD처럼 깔끔하게) */
+body.preview-page #imageGallery.text-view::-webkit-scrollbar {
+    height: 6px;
+}
+
+body.preview-page #imageGallery.text-view::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
 /* 1. 갤러리 무대: 높이가 너무 낮으면 카드가 바닥 아래로 사라집니다 */
 body.preview-page #imageGallery.text-view {
     display: block !important;
     position: relative !important;
-    width: 100%;
-    height: 600px; /* [중요] 높이를 넉넉하게 늘려주세요! */
-    margin: 50px auto;
+    height: 500px !important; /* 넉넉한 높이 */
     overflow: visible !important;
-    perspective: 1200px;
 }
 
 /* 2. 개별 카드: 라이브러리가 주는 값을 우선시하되, 사라지지 않게 설정 */
 body.preview-page .text-card-item {
+    /* 라이브러리가 주는 top: 234px 같은 값을 무시하고 무조건 중앙(50%) 고정 */
+    top: 50% !important; 
+    left: 50% !important;
     position: absolute !important;
-    /* 라이브러리가 top/left를 계산하므로 초기값은 0으로 두거나 라이브러리에 맡깁니다 */
-    display: block !important;
-    opacity: 1 !important; /* 사라지지 않게 강제 */
-    visibility: visible !important;
     
-    /* 카드 크기 (아까 JS에서 설정한 Pwidth, Pheight보다 작으면 안 됨) */
-    width: 150px; 
-    height: 250px;
+    /* [핵심] translate(-50%, -50%)가 있어야 진짜 정중앙에 옵니다! */
+    /* 라이브러리가 transform을 써서 카드를 좌우로 밀 때, -50%를 유지하게 만듭니다. */
+    transform: translate(-50%, -50%) !important;
     
+    width: 280px;
+    height: 380px;
     background: #fff;
     border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     
-    /* 아래로 스르르 사라지는 애니메이션이 있다면 강제 고정 */
-    transition: transform 0.5s ease, opacity 0.5s ease !important;
+    /* 나타날 때 스르르 사라지지 않게 보장 */
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: left 0.5s ease, transform 0.5s ease !important;
 }
 
 /* 1. 이미지 컨테이너 블러 제거 및 크기 고정 */

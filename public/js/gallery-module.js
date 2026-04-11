@@ -58,7 +58,7 @@ export async function loadPage(categoryId, subcategoryId = null) {
     // [추가] categoryId가 없으면 에러를 뿜지 말고 조용히 종료합니다.
     if (!categoryId) {
         console.log("카테고리 ID가 아직 설정되지 않았습니다. 로드를 대기합니다.");
-        return; 
+        return;
     }
 
     if (isLoadingPage) return;
@@ -367,55 +367,41 @@ export function applyTextSlidingGallery() {
     const $gallery = $('#imageGallery');
     const $items = $gallery.find('.text-card-item');
 
-    if ($items.length >= 1) { 
-        console.log("갤러리 초기화 시작, 아이템 개수:", $items.length);
-
+    if ($items.length >= 1) {
+        // 1. 초기화 (라이브러리 간섭 제거)
         $items.removeAttr('style').removeClass('start');
         
-        // 초기 배치
-        $items.css({
-            'position': 'absolute',
-            'top': '50%',
-            'left': '50%',
-            'transform': 'translate(-50%, -50%)',
-            'display': 'block',
-            'visibility': 'visible',
-            'z-index': '1'
-        });
-
+        // 2. 무대 설정 (라이브러리가 높이를 계산할 수 있게 정확한 높이 부여)
         $gallery.css({
-            'position': 'relative',
-            'height': '600px', 
             'display': 'block',
+            'position': 'relative',
+            'height': '500px', // 실제 카드가 놀 수 있는 명확한 높이
             'overflow': 'visible',
-            'perspective': '1200px'
+            'perspective': '1500px'
         });
 
         setTimeout(() => {
-            // 1. 라이브러리 실행
+            // 3. 라이브러리 실행
             $items.slidingGallery({
                 Pheight: 380, 
                 Pwidth: 280,
-                Lheight: 280,
-                Lwidth: 200,
+                Lheight: 260,
+                Lwidth: 190,
                 slideSpeed: 'normal',
-                gutterWidth: -80, 
+                gutterWidth: -90, // 음수값을 더 키워 확실히 겹치게 함
                 container: $gallery,
                 useCaptions: false
             });
-            
-            // 2. [강력 수정] 라이브러리가 계산한 top 값을 무시하고 50%로 강제 고정
-            // !important를 JS에서 직접 먹이는 방법입니다.
+
+            // 4. [핵심] 라이브러리가 계산한 위치값을 무시하고 CSS의 중앙 정렬을 강제함
+            // 이 작업을 안 하면 라이브러리가 멋대로 top 값을 px로 박아버립니다.
             $items.each(function() {
-                this.style.setProperty('top', '50%', 'important');
-                this.style.setProperty('opacity', '1', 'important');
-                this.style.setProperty('visibility', 'visible', 'important');
+                // 인라인 스타일로 박힌 top 값을 제거하여 CSS 파일의 설정을 따르게 함
+                this.style.removeProperty('top');
+                this.style.removeProperty('margin-top');
             });
 
-            // 3. 첫 번째 아이템 강제 활성화
             $items.first().addClass('start').css('z-index', '100');
-            
-            console.log("슬라이딩 갤러리 중앙 고정 완료!");
-        }, 500); 
+        }, 300);
     }
 }
