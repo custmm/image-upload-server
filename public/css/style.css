@@ -2977,21 +2977,6 @@ body.preview-page .card-title {
     text-align: center;
 }
 
-/* 측면 카드는 흐릿하고 어둡게 (입체감 극대화) */
-body.preview-page .text-card-item {
-    filter: brightness(0.7) blur(1px);
-    transform: scale(0.8);
-}
-
-/* 중앙 주인공 카드 (z-index가 높은 녀석) */
-/* slidingGallery는 보통 z-index를 직접 조작하므로 인라인 스타일이 이김 */
-/* 아래 설정은 강조를 위해 추가 */
-body.preview-page .text-card-item.start,
-body.preview-page .text-card-item[style*="z-index: 10"] {
-    filter: brightness(1) blur(0px);
-    transform: scale(1);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-}
 
 /* 이미지 갤러리 중앙 정렬 */
 body.preview-page .image-gallery-wrapper {
