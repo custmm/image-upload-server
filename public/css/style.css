@@ -2405,7 +2405,7 @@ body.preview-page .tab-design {
     margin: 0 auto;
     padding-top: 20px;
     border-radius: 8px;
-    width: 95%;
+    width: 8%;
 }
 
 body.preview-page .tab-btn {
@@ -3018,7 +3018,7 @@ body.preview-page .marge-container {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    max-width: 95%;
+    max-width: 85%;
     margin: 0 auto;
     gap: 25px;
     background-color: #fff;
