@@ -2939,7 +2939,6 @@ body.preview-page .card-img {
 /* 3. 카드 하단 정보창 */
 body.preview-page .card-info {
     width: 100%;
-    height: 30%;
     padding-top: 50px;
     background: #fff;
     display: flex;
@@ -2955,9 +2954,9 @@ body.preview-page .card-title {
     font-weight: bold;
     color: #333;
     margin: 0;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; /* 제목이 길면 ... 처리 */
+    text-align: center;
 }
 
 /* 측면 카드는 흐릿하고 어둡게 (입체감 극대화) */
