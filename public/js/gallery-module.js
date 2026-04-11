@@ -60,7 +60,7 @@ export async function loadPage(categoryId, subcategoryId = null) {
         console.log("카테고리 ID가 아직 설정되지 않았습니다. 로드를 대기합니다.");
         return; 
     }
-    
+
     if (isLoadingPage) return;
     isLoadingPage = true;
 
@@ -373,6 +373,7 @@ export function applyTextSlidingGallery() {
 
         $items.removeAttr('style').removeClass('start');
         
+        // 초기 배치
         $items.css({
             'position': 'absolute',
             'top': '50%',
@@ -385,7 +386,7 @@ export function applyTextSlidingGallery() {
 
         $gallery.css({
             'position': 'relative',
-            'height': '600px', // 높이를 좀 더 넉넉하게 수정
+            'height': '600px', 
             'display': 'block',
             'overflow': 'visible',
             'perspective': '1200px'
@@ -394,21 +395,22 @@ export function applyTextSlidingGallery() {
         setTimeout(() => {
             // 1. 라이브러리 실행
             $items.slidingGallery({
-                Pheight: 380, // 컨테이너 높이에 맞춰 살짝 조절
+                Pheight: 380, 
                 Pwidth: 280,
                 Lheight: 280,
                 Lwidth: 200,
                 slideSpeed: 'normal',
-                gutterWidth: -80, // 너무 많이 겹치면 -80 정도로 조절
+                gutterWidth: -80, 
                 container: $gallery,
                 useCaptions: false
             });
             
-            // 2. [핵심 고정장치] 라이브러리가 카드를 바닥으로 던지지 못하게 강제 견인
-            $items.css({
-                'top': '50%',
-                'opacity': '1',
-                'visibility': 'visible'
+            // 2. [강력 수정] 라이브러리가 계산한 top 값을 무시하고 50%로 강제 고정
+            // !important를 JS에서 직접 먹이는 방법입니다.
+            $items.each(function() {
+                this.style.setProperty('top', '50%', 'important');
+                this.style.setProperty('opacity', '1', 'important');
+                this.style.setProperty('visibility', 'visible', 'important');
             });
 
             // 3. 첫 번째 아이템 강제 활성화
