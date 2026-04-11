@@ -58,8 +58,15 @@
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ====== 공통 스타일 ====== */
@@ -73,8 +80,8 @@ ul li {
 }
 
 .appear-ani {
-  opacity: 0;
-  animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+    animation: fadeInUp 0.5s ease-out forwards;
 }
 
 body:not(.no-bg) {
@@ -143,7 +150,7 @@ body.mode-page .logout-button:hover,
 body.post-page .button:hover,
 body.login-page .popup-button:hover,
 body.game-page #nextButton:hover,
-body.game-page #previewButton:hover, 
+body.game-page #previewButton:hover,
 body.game-page #closePopupButton:hover,
 body.game-page #pre-button:hover,
 body.game-page #victoryScreen button:hover,
@@ -162,8 +169,7 @@ body.dashboard-page .back-button:hover,
 body.dashboard-page .logout-button:hover,
 body.dashboard-page .custom-button:hover,
 body.click-page .back-button:hover,
-body.tag-page #backToListButton:hover
-{
+body.tag-page #backToListButton:hover {
     background-color: aqua;
 }
 
@@ -239,7 +245,9 @@ body.etc-page {
 body.post-page .loading-indicator,
 body.preview-page .loading-indicator,
 body.tag-page .loading-indicator,
-body.search-page .loading-indicator {
+body.search-page .loading-indicator,
+body.login-page .loading-indicator
+ {
     position: fixed;
     display: none;
     /* JS에서 켜기 */
@@ -259,7 +267,8 @@ body.search-page .loading-indicator {
 body.post-page .loading-text,
 body.preview-page .loading-text,
 body.tag-page .loading-text,
-body.search-page .loading-text {
+body.search-page .loading-text,
+body.login-page .loading-text {
     color: white;
     font-size: 16px;
 }

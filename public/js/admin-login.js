@@ -1,3 +1,25 @@
+function showLoading() {
+    const indicator = document.getElementById("loadingIndicator");
+    const loader = document.getElementById("mainLoader");
+
+    indicator.style.display = "flex";
+
+    loaderInterval = setInterval(() => {
+        loaderStep++;
+        if (loaderStep > 4) loaderStep = 1;
+
+        loader.className = "loader loader" + loaderStep;
+    }, 1000); // 속도 조절 가능
+}
+
+function hideLoading() {
+    clearInterval(loaderInterval);
+    loaderInterval = null;
+
+    document.getElementById("loadingIndicator").style.display = "none";
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const loginButton = document.getElementById("loginButton");
     const passwordInput = document.getElementById("password");
