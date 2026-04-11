@@ -2936,6 +2936,7 @@ body.preview-page .card-img {
     height: 100% !important;
     object-fit: cover !important; /* 이미지가 틀에 꽉 차게 */
     filter: none !important;
+    filter: blur(10px);
 }
 
 /* 3. 카드 하단 정보창 */
