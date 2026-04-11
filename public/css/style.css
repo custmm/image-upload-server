@@ -2961,17 +2961,23 @@ body.preview-page .text-card-item {
     backface-visibility: hidden;
 }
 
-/* 이미지 컨테이너 비율 유지 */
+/* 1. 이미지 컨테이너 블러 제거 및 크기 고정 */
 body.preview-page .card-img-container {
-    width: 100%;
-    height: 70%;
+    width: 100% !important;
+    height: 70% !important; /* 전체 카드 높이의 70% 차지 */
     overflow: hidden;
+    background: #f0f0f0;
+    filter: none !important; /* [필수] 뿌연 효과 제거 */
+    border-radius: 15px 15px 0 0; /* 위쪽만 둥글게 */
+    display: block !important;
 }
 
+/* 2. 실제 이미지 설정 */
 body.preview-page .card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* 이미지가 틀에 꽉 차게 */
+    filter: none !important;
 }
 
 /* 텍스트 정보창 */
