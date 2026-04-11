@@ -2838,7 +2838,7 @@ body.preview-page .text-preview {
 body.preview-page .text-card-item {
     position: relative !important; /* absolute 해제 */
     flex: 0 0 280px; /* 카드 너비 고정 */
-    height: 400px;
+    height: 330px;
     top: 0 !important;
     left: 0 !important;
     transform: none !important; /* 중앙 정렬 해제 */
