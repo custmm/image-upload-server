@@ -1,3 +1,8 @@
+// 전역 변수 설정 (함수 밖 최상단에 위치)
+let loaderInterval = null;
+let loaderStep = 0;
+
+
 function showLoading() {
     const indicator = document.getElementById("loadingIndicator");
     const loader = document.getElementById("mainLoader");
@@ -73,28 +78,34 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // [추가] 로그인 프로세스 시작 시 로딩바 표시
+        showLoading();
+
         // 서버로 비밀번호 전송 후 확인
         try {
             const response = await fetch("/api/auth/login", {
                 method: "POST",
-                headers: { 
-                    "Content-Type": "application/json", 
+                headers: {
+                    "Content-Type": "application/json",
                     "x-latency-check": Date.now().toString()
                 },
                 body: JSON.stringify({ password }),
             });
 
+            // 결과 처리가 시작되기 전에 로딩바를 먼저 숨깁니다.
+            hideLoading();
+
             const result = await response.json();
 
             // 403 에러 처리 추가 (보안 차단 시)
-        if (response.status === 403) {
-            showPopup("보안 정책: 접근 속도가 너무 빠릅니다.", "error");
-            return;
-        }
+            if (response.status === 403) {
+                showPopup("보안 정책: 접근 속도가 너무 빠릅니다.", "error");
+                return;
+            }
 
             if (response.ok && result.success) {
                 localStorage.setItem("adminToken", result.token);
-                
+
                 showPopup("로그인 성공!", "success", () => {
                     showAdminButton();
                 });
