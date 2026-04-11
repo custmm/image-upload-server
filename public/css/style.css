@@ -2861,25 +2861,6 @@ body.preview-page .text-card-item {
     /* 은은한 그림자 */
 }
 
-
-/* 3. 개별 카드: 겹치지 않고 나란히 서기 */
-body.preview-page .text-card-item {
-    position: relative !important; /* absolute 해제 */
-    flex: 0 0 280px; /* 카드 너비 고정 */
-    height: 400px;
-    top: 0 !important;
-    left: 0 !important;
-    transform: none !important; /* 중앙 정렬 해제 */
-    opacity: 1 !important;
-    visibility: visible !important;
-    scroll-snap-align: center; /* 스크롤 멈출 때 중앙에 딱! */
-    
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
 /* 1. 이미지 컨테이너 블러 제거 및 크기 고정 */
 body.preview-page .card-img-container {
     width: 100px !important;
