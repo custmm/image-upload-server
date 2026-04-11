@@ -1,4 +1,5 @@
 {
+  "name": "karisdify-xollf",
   "type": "module",
   "dependencies": {
     "@imagekit/nodejs": "^7.3.0",
