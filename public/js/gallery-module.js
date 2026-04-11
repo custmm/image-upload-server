@@ -362,11 +362,9 @@ export function applyTextSlidingGallery() {
     const $gallery = $('#imageGallery');
     const $items = $gallery.find('.text-card-item');
 
-    // 카드가 최소 3개는 있어야 입체 효과가 납니다!
     if ($items.length >= 1) { 
         console.log("갤러리 초기화 시작, 아이템 개수:", $items.length);
 
-        // 1. 기존 라이브러리 흔적 강제 제거 및 스타일 초기화
         $items.removeAttr('style').removeClass('start');
         
         $items.css({
@@ -379,34 +377,38 @@ export function applyTextSlidingGallery() {
             'z-index': '1'
         });
 
-        // 2. 컨테이너 스타일 강제 고정
         $gallery.css({
             'position': 'relative',
-            'height': '550px', // 높이를 넉넉히!
+            'height': '600px', // 높이를 좀 더 넉넉하게 수정
             'display': 'block',
             'overflow': 'visible',
             'perspective': '1200px'
         });
 
-        // 3. 브라우저가 렌더링을 마칠 시간을 충분히 줍니다 (500ms)
         setTimeout(() => {
+            // 1. 라이브러리 실행
             $items.slidingGallery({
-                Pheight: 420, // 주인공은 크게!
-                Pwidth: 320,
-                Lheight: 300, // 옆은 작게!
-                Lwidth: 230,
+                Pheight: 380, // 컨테이너 높이에 맞춰 살짝 조절
+                Pwidth: 280,
+                Lheight: 280,
+                Lwidth: 200,
                 slideSpeed: 'normal',
-                // [필살기] 마이너스 값을 더 크게 줘서 강제로 겹치게 만듭니다.
-                gutterWidth: -100, 
+                gutterWidth: -80, // 너무 많이 겹치면 -80 정도로 조절
                 container: $gallery,
                 useCaptions: false
             });
             
-            // 첫 번째 아이템 강제 활성화
+            // 2. [핵심 고정장치] 라이브러리가 카드를 바닥으로 던지지 못하게 강제 견인
+            $items.css({
+                'top': '50%',
+                'opacity': '1',
+                'visibility': 'visible'
+            });
+
+            // 3. 첫 번째 아이템 강제 활성화
             $items.first().addClass('start').css('z-index', '100');
-            console.log("슬라이딩 갤러리 실행 완료!");
+            
+            console.log("슬라이딩 갤러리 중앙 고정 완료!");
         }, 500); 
-    } else {
-        console.warn("아이템이 너무 적어서 갤러리를 실행할 수 없습니다.");
     }
 }
