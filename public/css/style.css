@@ -2713,9 +2713,11 @@ body.preview-page .image-gallery.multi-row {
 body.preview-page .image-gallery:hover {
     border-radius: 10px;
 }
-body.preview-page .image-gallery text-view{
+
+body.preview-page .image-gallery text-view {
     border-radius: 10px;
 }
+
 /* 사진 모드 */
 body.preview-page .image-gallery.image-view {
     display: grid;
@@ -2761,6 +2763,11 @@ body.preview-page .text-row {
     scroll-snap-align: center;
     /* 스크롤 시 화면 정중앙에 고정 */
     transition: transform 0.3s ease;
+}
+
+body.preview-page .lucide lucide-chevron-left,
+body.preview-page .lucide lucide-chevron-right {
+    color: #90caf9;
 }
 
 /* 실제 움직이는 트랙 (카드 UI에서는 무의미해지므로 100%로 고정) */
@@ -2829,31 +2836,38 @@ body.preview-page .text-preview {
 
 /* 3. 개별 카드: 겹치지 않고 나란히 서기 */
 body.preview-page .text-card-item {
-    position: relative !important; /* absolute 해제 */
-    flex: 0 0 280px; /* 카드 너비 고정 */
+    position: relative !important;
+    /* absolute 해제 */
+    flex: 0 0 280px;
+    /* 카드 너비 고정 */
     height: 330px;
     top: 0 !important;
     left: 0 !important;
-    transform: none !important; /* 중앙 정렬 해제 */
+    transform: none !important;
+    /* 중앙 정렬 해제 */
     opacity: 1 !important;
     visibility: visible !important;
-    scroll-snap-align: center; /* 스크롤 멈출 때 중앙에 딱! */
-    
+    scroll-snap-align: center;
+    /* 스크롤 멈출 때 중앙에 딱! */
+
     background: #fff;
     border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
 /* 1. 이미지 컨테이너 블러 제거 및 크기 고정 */
 body.preview-page .card-img-container {
     width: 150px !important;
-    height: 150px !important; /* 전체 카드 높이의 70% 차지 */
+    height: 150px !important;
+    /* 전체 카드 높이의 70% 차지 */
     margin: 20px auto;
     overflow: hidden;
     background: #f0f0f0;
-    filter: blur(10px) !important; /* [필수] 뿌연 효과 제거 */
-    border-radius: 15px 15px 0 0; /* 위쪽만 둥글게 */
+    filter: blur(10px) !important;
+    /* [필수] 뿌연 효과 제거 */
+    border-radius: 15px 15px 0 0;
+    /* 위쪽만 둥글게 */
     display: block !important;
 }
 
@@ -2861,9 +2875,10 @@ body.preview-page .card-img-container {
 body.preview-page .card-img {
     width: 150px !important;
     height: 150px !important;
-    object-fit: cover !important; /* 이미지가 틀에 꽉 차게 */
+    object-fit: cover !important;
+    /* 이미지가 틀에 꽉 차게 */
     filter: none !important;
-    
+
 }
 
 /* 3. 카드 하단 정보창 */
@@ -2885,7 +2900,8 @@ body.preview-page .card-title {
     color: #333;
     margin: 0;
     overflow: hidden;
-    text-overflow: ellipsis; /* 제목이 길면 ... 처리 */
+    text-overflow: ellipsis;
+    /* 제목이 길면 ... 처리 */
     text-align: center;
 }
 
@@ -2976,7 +2992,7 @@ body.preview-page .function-infor {
     gap: 10px;
 }
 
-body.preview-page #pagination-info{
+body.preview-page #pagination-info {
     text-align: center;
 }
 
@@ -3130,50 +3146,62 @@ body.preview-popup-page #board {
     width: 1000px;
     margin: 50px auto;
 }
+
 body.preview-popup-page #board ul {
     border-top: 1px solid lightslategray;
 }
+
 body.preview-popup-page #board ul li {
     border-bottom: 1px solid lightslategrey;
 }
+
 body.preview-popup-page .question {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
 }
+
 body.preview-popup-page .question p {
     display: flex;
 }
+
 body.preview-popup-page .question strong {
     display: block;
     font-size: 30px;
     color: #00cc8f;
     padding: 0 10px;
 }
+
 body.preview-popup-page .question em {
     font-style: normal;
     /* 이탤릭체를 기본모드로 변경 */
 }
+
 body.preview-popup-page .question span {
     display: block;
     padding-right: 30px;
 }
+
 body.preview-popup-page .question span img {
     transition: all 0.5s;
 }
+
 body.preview-popup-page .turn {
     transform: rotate(180deg);
 }
+
 body.preview-popup-page .answer {
     display: flex;
     background-color: #90caf9;
     padding: 20px 0;
     border-top: 1px solid rgba(0, 220, 255, 0.6);
 }
+
 body.preview-popup-page .answer strong {
     display: block;
     padding: 0 30px 0 20px;
 }
+
 body.preview-popup-page .question strong {
     display: block;
     font-size: 30px;
