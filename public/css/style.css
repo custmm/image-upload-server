@@ -2909,7 +2909,7 @@ body.preview-page .text-card-item {
     
     /* 카드 크기 (아까 JS에서 설정한 Pwidth, Pheight보다 작으면 안 됨) */
     width: 150px; 
-    height: 200px;
+    height: 250px;
     
     background: #fff;
     border-radius: 20px;
