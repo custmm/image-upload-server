@@ -2921,8 +2921,8 @@ body.preview-page .text-card-item {
 
 /* 1. 이미지 컨테이너 블러 제거 및 크기 고정 */
 body.preview-page .card-img-container {
-    width: 100% !important;
-    height: 70% !important; /* 전체 카드 높이의 70% 차지 */
+    width: 100px !important;
+    height: 100px !important; /* 전체 카드 높이의 70% 차지 */
     overflow: hidden;
     background: #f0f0f0;
     filter: none !important; /* [필수] 뿌연 효과 제거 */
