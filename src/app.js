@@ -40,16 +40,22 @@ const imagekit = new ImageKit({
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// 1. 보안 관련 설정 (수정됨)
+// 1. 보안 관련 설정 (jQuery 및 외부 CDN 허용 추가)
 app.use(helmet({
     crossOriginResourcePolicy: false,
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            // 1. 외부 서버와 통신(Fetch, XHR, SourceMaps) 허용
+            // 1. 외부 서버와 통신 허용
             connectSrc: ["'self'", "https://unpkg.com", "https://cdn.jsdelivr.net", "https://ik.imagekit.io"],
-            // 2. 자바스크립트 허용
-            scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com", "https://cdn.jsdelivr.net"],
+            // 2. 자바스크립트 허용 (code.jquery.com 추가!)
+            scriptSrc: [
+                "'self'", 
+                "'unsafe-inline'", 
+                "https://unpkg.com", 
+                "https://cdn.jsdelivr.net", 
+                "https://code.jquery.com" // <-- 여기 추가!
+            ],
             // 3. 스타일시트 허용
             styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://unpkg.com", "https://cdn.jsdelivr.net"],
             // 4. 이미지 허용
@@ -59,7 +65,6 @@ app.use(helmet({
         },
     },
 }));
-
 // [추가] 커스텀 로깅 미들웨어 (기존 코드)
 app.use((req, res, next) => {
     const start = Date.now();
