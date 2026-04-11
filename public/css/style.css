@@ -2518,11 +2518,10 @@ body.preview-page .sub-tab {
     color: #555;
     background-color: #f8f9fa;
     border: 1px solid #ddd;
-    border-radius: 0px;
+    border-radius: 20px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    z-index: 0;
     /* 기준 */
 }
 
@@ -2549,7 +2548,6 @@ body.preview-page .sub-tab:hover::before {
 }
 
 body.preview-page .sub-tab.active {
-    flex-wrap: wrap;
     background-color: #00ff95e8;
     color: #ffffff;
     font-weight: bold;
