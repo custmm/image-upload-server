@@ -363,40 +363,51 @@ export function applyTextSlidingGallery() {
     const $items = $gallery.find('.text-card-item');
 
     if ($items.length > 0) {
-        // 기존 스타일 제거 및 초기화
+        // 1. 초기화: 라이브러리가 위치를 잡기 전 중앙에 모아둡니다.
         $items.stop(true, true).removeClass('start');
         
-        // 텍스트 모드일 때는 absolute 배치가 필수이므로 강제 적용
         $items.css({
             'position': 'absolute',
-            'display': 'block' // none으로 하면 라이브러리가 크기 계산을 못함
+            'top': '50%',
+            'left': '50%',
+            'transform': 'translate(-50%, -50%)', // 라이브러리가 실행 전까지 겹쳐있게 함
+            'display': 'block',
+            'visibility': 'visible'
         });
 
         $items.first().addClass('start');
 
-        // 이미지들이 모두 로드된 시점에 실행하는 것이 안전함
         const initSlider = () => {
             $items.slidingGallery({
-                Lheight: 280,
-                Lwidth: 380,
-                Pheight: 350,
-                Pwidth: 480,
+                // [수정 포인트 1] 주인공(P)과 조연(L)의 크기 차이를 확실히 줍니다.
+                Pheight: 400, // 가운데 큰 카드 높이
+                Pwidth: 300,  // 가운데 큰 카드 너비
+                Lheight: 300, // 옆으로 밀려난 작은 카드 높이
+                Lwidth: 220,  // 옆으로 밀려난 작은 카드 너비
+                
                 slideSpeed: 'normal',
-                gutterWidth: 80, // 입체감을 위해 더 겹치게 수정
+                
+                // [수정 포인트 2] 마이너스(-) 값을 주어야 아이스크림처럼 카드가 겹칩니다!
+                // 숫자가 커질수록(예: -100) 더 많이 겹칩니다.
+                gutterWidth: -60, 
+                
                 container: $gallery,
                 useCaptions: false
             });
         };
 
-        // 약간의 지연을 주어 DOM 렌더링 완료 후 실행
-        setTimeout(initSlider, 100);
+        // DOM 렌더링 및 이미지 로드 시간을 고려해 약간 더 지연
+        setTimeout(initSlider, 200);
 
+        // 컨테이너 스타일 보강
         $gallery.css({
             'display': 'block',
             'position': 'relative',
-            'height': '480px',
+            'height': '500px', // 카드 높이보다 넉넉하게
+            'width': '100%',
+            'margin': '0 auto',
             'overflow': 'visible',
-            'perspective': '1000px' // 입체감을 극대화하는 CSS 속성
+            'perspective': '1200px' 
         });
     }
 }
