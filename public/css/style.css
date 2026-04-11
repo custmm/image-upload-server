@@ -2878,7 +2878,7 @@ body.preview-page .text-card-item {
     /* 유리 질감 효과 */
     -webkit-backdrop-filter: blur(8px);
 
-    /* 🔥 테두리 설정 */
+    /* 테두리 설정 */
     border: 1.5px solid rgba(137, 154, 171, 0.3);
     /* #899aab 색상에 투명도 적용 */
     border-radius: 16px;
@@ -2921,6 +2921,7 @@ body.preview-page .card-img-container {
     align-items: center;
     /* 세로 중앙 정렬 */
     margin: 0 auto;
+    filter: blur(10px);
 }
 
 body.preview-page .card-img {
