@@ -87,7 +87,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 1. 기초 UI 설정
     applySavedTheme();
 
-    // --- [모드 전환 버튼 이벤트 연결 구역] ---
+    // 2. 갤러리 초기 데이터 로드 (순서가 중요!)
+    if (Gallery.loadCategories) {
+        // [수정] 카테고리를 먼저 완전히 가져온 뒤에 로직을 진행합니다.
+        await Gallery.loadCategories(); 
+        
+        // [추가] 카테고리 로드 후, 만약 선택된 카테고리가 있다면 첫 페이지 로드
+        if (Gallery.selectedCategory) {
+            await Gallery.loadPage(Gallery.selectedCategory);
+        } else {
+            // 카테고리는 로드됐는데 선택된 게 없다면 초기화 함수 강제 호출
+            await Gallery.initializeCategorySelection();
+        }
+    }
+
+   // 3. 모드 전환 버튼 이벤트 연결
     const imageModeBtn = document.getElementById("preview-image-mode");
     const textModeBtn = document.getElementById("preview-text-mode");
 

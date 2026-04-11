@@ -55,6 +55,12 @@ export function clearCategoryTabs() {
 
 // 5. 핵심: 페이지 로드 함수
 export async function loadPage(categoryId, subcategoryId = null) {
+    // [추가] categoryId가 없으면 에러를 뿜지 말고 조용히 종료합니다.
+    if (!categoryId) {
+        console.log("카테고리 ID가 아직 설정되지 않았습니다. 로드를 대기합니다.");
+        return; 
+    }
+    
     if (isLoadingPage) return;
     isLoadingPage = true;
 
