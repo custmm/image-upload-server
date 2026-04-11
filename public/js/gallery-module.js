@@ -360,35 +360,43 @@ export function adjustGalleryRadius() {
 
 export function applyTextSlidingGallery() {
     const $gallery = $('#imageGallery');
-    // 텍스트 카드를 슬라이딩 요소로 지정합니다.
     const $items = $gallery.find('.text-card-item');
 
     if ($items.length > 0) {
-        // 1. 기존 바인딩 제거 및 초기화
-        $items.unbind(); 
-        $items.removeClass('start').css({ position: 'absolute', display: 'none' });
+        // 기존 스타일 제거 및 초기화
+        $items.stop(true, true).removeClass('start');
+        
+        // 텍스트 모드일 때는 absolute 배치가 필수이므로 강제 적용
+        $items.css({
+            'position': 'absolute',
+            'display': 'block' // none으로 하면 라이브러리가 크기 계산을 못함
+        });
 
-        // 2. 첫 번째 요소에 라이브러리 시작 클래스 부여
         $items.first().addClass('start');
 
-        // 3. 슬라이딩 갤러리 실행 (텍스트 카드 비율에 최적화)
-        $items.slidingGallery({
-            Lheight: 280,        // 측면 카드 높이
-            Lwidth: 380,         // 측면 카드 너비
-            Pheight: 350,        // 중앙 강조 카드 높이
-            Pwidth: 480,         // 중앙 강조 카드 너비
-            slideSpeed: 'normal',
-            gutterWidth: 60,      // 카드 간 겹침 간격 (입체감 조절)
-            container: $gallery,
-            useCaptions: false    // 자체 UI를 쓰므로 라이브러리 캡션은 끔
-        });
-        
-        // 부모 컨테이너가 붕 뜨지 않게 높이 고정
+        // 이미지들이 모두 로드된 시점에 실행하는 것이 안전함
+        const initSlider = () => {
+            $items.slidingGallery({
+                Lheight: 280,
+                Lwidth: 380,
+                Pheight: 350,
+                Pwidth: 480,
+                slideSpeed: 'normal',
+                gutterWidth: 80, // 입체감을 위해 더 겹치게 수정
+                container: $gallery,
+                useCaptions: false
+            });
+        };
+
+        // 약간의 지연을 주어 DOM 렌더링 완료 후 실행
+        setTimeout(initSlider, 100);
+
         $gallery.css({
             'display': 'block',
             'position': 'relative',
-            'height': '450px',
-            'overflow': 'visible'
+            'height': '480px',
+            'overflow': 'visible',
+            'perspective': '1000px' // 입체감을 극대화하는 CSS 속성
         });
     }
 }
