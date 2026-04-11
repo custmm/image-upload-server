@@ -2920,6 +2920,7 @@ body.preview-page .card-img-container {
     /* 가로 중앙 정렬 */
     align-items: center;
     /* 세로 중앙 정렬 */
+    margin: 0 auto;
 }
 
 body.preview-page .card-img {
