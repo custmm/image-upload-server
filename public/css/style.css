@@ -2687,23 +2687,6 @@ body.preview-page .toggle-switch_ind {
     border-radius: 30px;
 }
 
-/* 텍스트 뷰 갤러리 컨테이너 */
-body.preview-page #imageGallery.text-view {
-    display: flex !important;
-    /* 세로가 아닌 가로로 나열 */
-    flex-wrap: nowrap;
-    /* 줄바꿈 금지 */
-    overflow-x: auto;
-    /* 가로 스크롤 활성화 */
-    gap: 15px;
-    /* 카드 사이 간격 */
-    padding: 20px 10px;
-    scroll-behavior: smooth;
-    /* 부드러운 스크롤 */
-    -webkit-overflow-scrolling: touch;
-    /* 모바일 가속 */
-}
-
 /* 개별 카드 아이템 (한 화면에 약 5개 보이기) */
 body.preview-page #imageGallery.text-view .text-card-item {
     flex: 0 0 calc(20% - 20px);
@@ -2944,6 +2927,7 @@ body.preview-page .card-title {
     /* 이미지와 간격 확보 */
 
 }
+
 /* 갤러리 무대 설정 */
 body.preview-page #imageGallery.text-view {
     position: relative;
@@ -2951,7 +2935,7 @@ body.preview-page #imageGallery.text-view {
     height: 500px; 
     margin: 50px auto; /* 위아래 여백을 줘서 입체감을 강조 */
     overflow: visible; 
-    display: block;
+    display: block !important;
     /* 3D 원근감 추가 (수치가 작을수록 더 튀어나와 보임) */
     perspective: 1500px; 
 }
