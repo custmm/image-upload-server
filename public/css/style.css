@@ -2868,29 +2868,47 @@ body.preview-page .text-card-item:hover {
     /* 살짝 떠오르는 효과 */
     box-shadow: 0 8px 25px rgba(137, 154, 171, 0.2);
 }
-/* 개별 카드 아이템 (한 화면에 약 5개 보이기) */
-body.preview-page #imageGallery.text-view .text-card-item {
-    flex: 0 0 calc(20% - 20px);
-    /* 핵심: 너비를 정확히 1/3로 고정 */
-    display: flex;
-    flex-direction: column;
+
+
+/* 1. 컨테이너: 가로 기차 트랙 만들기 */
+body.preview-page #imageGallery.text-view {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important; /* 가로 스크롤 활성화 */
+    gap: 20px;
+    padding: 40px 20px;
+    scroll-snap-type: x mandatory; /* 자석 효과 */
+    -webkit-overflow-scrolling: touch;
+    height: auto !important; /* 높이 고정 해제 */
+    perspective: none !important; /* 입체 효과 제거 */
 }
 
-/* 스크롤바 디자인 (AutoCAD처럼 깔끔하게) */
+/* 2. 스크롤바 디자인 */
 body.preview-page #imageGallery.text-view::-webkit-scrollbar {
-    height: 6px;
+    height: 8px;
 }
-
 body.preview-page #imageGallery.text-view::-webkit-scrollbar-thumb {
-    background: #ccc;
+    background: #899aab;
     border-radius: 10px;
 }
-/* 1. 갤러리 무대: 높이가 너무 낮으면 카드가 바닥 아래로 사라집니다 */
-body.preview-page #imageGallery.text-view {
-    display: block !important;
-    position: relative !important;
-    height: 500px !important; /* 넉넉한 높이 */
-    overflow: visible !important;
+
+/* 3. 개별 카드: 겹치지 않고 나란히 서기 */
+body.preview-page .text-card-item {
+    position: relative !important; /* absolute 해제 */
+    flex: 0 0 280px; /* 카드 너비 고정 */
+    height: 400px;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important; /* 중앙 정렬 해제 */
+    opacity: 1 !important;
+    visibility: visible !important;
+    scroll-snap-align: center; /* 스크롤 멈출 때 중앙에 딱! */
+    
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
 }
 
 /* 2. 개별 카드: 라이브러리가 주는 값을 우선시하되, 사라지지 않게 설정 */
