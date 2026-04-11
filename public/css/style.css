@@ -3233,7 +3233,7 @@ body.preview-popup-page .question p {
 body.preview-popup-page .question strong {
     display: block;
     font-size: 30px;
-    color: lightcoral;
+    color: #00cc8f;
     padding: 0 10px;
 }
 body.preview-popup-page .question em {
@@ -3252,9 +3252,9 @@ body.preview-popup-page .turn {
 }
 body.preview-popup-page .answer {
     display: flex;
-    background-color: lightgoldenrodyellow;
+    background-color: #90caf9;
     padding: 20px 0;
-    border-top: 1px solid lightpink;
+    border-top: 1px solid rgba(0, 220, 255, 0.6);
 }
 body.preview-popup-page .answer strong {
     display: block;
