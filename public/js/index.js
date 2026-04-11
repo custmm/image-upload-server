@@ -1,3 +1,31 @@
+// [보안 추가] 서버 지연 시간 검증용 헤더 생성 함수
+function getSecurityHeaders() {
+    return {
+        "Content-Type": "application/json",
+        "x-latency-check": Date.now().toString() // 서버의 app.js에서 검사할 값
+    };
+}
+
+// 예시: 관리자 토큰을 요청하는 함수가 있다면?
+async function requestAdminToken() {
+    try {
+        const response = await fetch("/api/admin-token", {
+            method: "POST",
+            headers: getSecurityHeaders(), // 여기서 위에서 만든 함수를 사용합니다!
+            body: JSON.stringify({ role: "admin" })
+        });
+
+        if (response.status === 403) {
+            alert("보안 체크 실패: 접속 속도가 너무 빠릅니다.");
+            return;
+        }
+
+        const data = await response.json();
+        // ... 후속 처리
+    } catch (err) {
+        console.error("보안 통신 오류:", err);
+    }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     const body = document.body;

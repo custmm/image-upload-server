@@ -60,19 +60,50 @@ app.use(helmet({
     },
 }));
 
-// [추가] 커스텀 로깅 미들웨어 (보안 설정 직후, 다른 처리 이전에 두는 것이 좋습니다)
+// [추가] 커스텀 로깅 미들웨어 (기존 코드)
 app.use((req, res, next) => {
     const start = Date.now();
     res.on('finish', () => {
         const duration = Date.now() - start;
         const statusColor = res.statusCode >= 400 ? chalk.red : chalk.green;
-        const methodColor = chalk.bold.cyan;
-
-        console.log(
-            `${chalk.bgBlue(' INFO ')} ${methodColor(req.method)} ${chalk.gray(req.url)} - ` +
-            `${statusColor(res.statusCode)} ${chalk.yellow(`(${duration}ms)`)}`
-        );
+        console.log(`${chalk.bgBlue(' INFO ')} ${chalk.bold.cyan(req.method)} ${chalk.gray(req.url)} - ${statusColor(res.statusCode)} ${chalk.yellow(`(${duration}ms)`)}`);
     });
+    next();
+});
+
+// --- [여기에 방어막 추가] 빛의 속도 지연 시간 필터링 ---
+app.use((req, res, next) => {
+    // 1. 제외할 경로 설정 (정적 파일이나 특정 API는 제외하고 싶을 때)
+    if (req.url.startsWith('/favicon.ico') || req.url.startsWith('/uploads')) {
+        return next();
+    }
+
+    // 2. 클라이언트가 보낸 발신 시간 확인
+    const clientTime = req.headers['x-latency-check']; 
+    const serverTime = Date.now();
+
+    if (!clientTime) {
+        // 보안을 강화하려면 여기서 차단(403)하고, 테스트 중이라면 그냥 통과(next) 시키세요.
+        return next(); 
+    }
+
+    const diff = serverTime - parseInt(clientTime);
+
+    // 3. 지연 시간 검증 (5ms 미만은 물리적으로 불가능한 속도로 간주)
+    // 네트워크 상황에 따라 5~15ms 사이로 조정해 보세요.
+    if (diff < 5) {
+        console.log(chalk.bgRed.white(' [SECURITY ALERT] ') + chalk.red(` 비정상적 지연 시간 감지: ${diff}ms - IP: ${req.ip}`));
+        return res.status(403).json({
+            error: "Security Check Failed",
+            message: "Access speed is abnormally fast (Physical limit exceeded)."
+        });
+    }
+
+    // 너무 오래된 요청 (예: 10초 이상)도 차단하여 재전송 공격 방지
+    if (diff > 10000) {
+        return res.status(403).json({ error: "Request Timeout", message: "The request is too old." });
+    }
+
     next();
 });
 
