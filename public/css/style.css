@@ -3238,46 +3238,6 @@ body.preview-popup-page .question strong {
     padding: 0 10px;
 }
 
-/* 웹사이트 계기(history.html) */
-body.history-page {
-    margin: 50px auto;
-}
-
-body.history-page h2 {
-    text-align: center;
-    padding-bottom: 50px;
-}
-
-body.history-page p {
-    text-align: left;
-}
-
-body.history-page ul li {
-    display: flex;
-    margin: 0 auto;
-    flex-direction: column;
-    background-color: #f5f5f5;
-    border-radius: 25px;
-    width: 500px;
-    padding: 25px;
-}
-
-body.history-page #exper_container {
-    padding: 15px 30px;
-    text-align: left;
-}
-
-body.history-page .detail-content {
-    display: none;
-    margin: 10px auto;
-    padding-left: 10px;
-}
-
-/* 열렸을 때 */
-body.history-page .detail-content.active {
-    display: block;
-}
-
 /* 기타기능 페이지(etc_util.html) */
 body.etc-page {
     width: 100%

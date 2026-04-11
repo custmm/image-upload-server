@@ -4,7 +4,6 @@ export const popupActions = {
     icon: () => openFrame("previewOverlayIcon", "previewFrameIcon", "ai_icon.html"),
     etc: () => openFrame("previewOverlayIcon", "previewFrameIcon", "etc_util.html"),
     contact: () => openFrame("previewOverlayIcon", "previewFrameIcon", "contact.html"),
-    history: () => openFrame("previewOverlayIcon", "previewFrameIcon", "history.html")
 };
 
 function openFrame(overlayId, frameId, src) {
