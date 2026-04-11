@@ -59,19 +59,30 @@
         <div class="description-container">
             <div class="editor-buttons">
                 <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
-                <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
                 <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
-                <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
             </div>
             <!-- 점선 구분선 추가 -->
             <hr class="dashed-line">
             <div id="descriptionEditor" contenteditable="true" class="text-editor"></div>
             <p style="display: flex; justify-content: space-between; width: 100%;">
                 <span id="hashtagDisplay" style="font-size: 14px; color: #333;"></span>
-                <span id="descriptionCounter">0 / 500</span>
+                <span id="descriptionCounter">0 / 1000</span>
             </p> <!-- 글자 수 표시 -->
         </div>
         <button id="uploadButton" class="upload-button">업로드</button>
+    </div>
+    <div id="loadingIndicator" class="loading-indicator">
+        <div class="loader loader1" id="mainLoader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p class="loading-text">업로드 중...</p>
     </div>
     <script>
         // 글꼴 효과 적용 함수

@@ -122,47 +122,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.head.appendChild(style);
 
     function showLoading() {
-        const loadingDiv = document.createElement("div");
-        loadingDiv.id = "loadingScreen";
-        loadingDiv.style.position = "fixed";
-        loadingDiv.style.top = "0";
-        loadingDiv.style.left = "0";
-        loadingDiv.style.width = "100%";
-        loadingDiv.style.height = "100%";
-        loadingDiv.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-        loadingDiv.style.display = "flex";
-        loadingDiv.style.flexDirection = "column";  // 수직 정렬
-        loadingDiv.style.justifyContent = "center";
-        loadingDiv.style.alignItems = "center";
-        loadingDiv.style.color = "#fff";
-        loadingDiv.style.fontSize = "24px";
+        const indicator = document.getElementById("loadingIndicator");
+        const loader = document.getElementById("mainLoader");
 
-        //  로딩 GIF 이미지 추가
-        const loadingImg = document.createElement("img");
-        loadingImg.src = "images/loading.gif";
-        loadingImg.alt = "로딩 중...";
-        loadingImg.style.width = "100px"; // 원하는 크기로 조절
-        loadingImg.style.height = "100px";
-        loadingImg.style.marginBottom = "15px"; // 텍스트와 간격 조정
+        indicator.style.display = "flex";
 
-        const loadingText = document.createElement("p");
-        loadingText.textContent = "업로드 중입니다...";
-        loadingText.style.margin = "0";
-        loadingText.style.padding = "0";
-        loadingText.style.color = "#fff";
-        loadingText.style.fontSize = "20px";
+        loaderInterval = setInterval(() => {
+            loaderStep++;
+            if (loaderStep > 4) loaderStep = 1;
 
-        loadingDiv.appendChild(loadingImg);
-        loadingDiv.appendChild(loadingText);
-
-        document.body.appendChild(loadingDiv);
+            loader.className = "loader loader" + loaderStep;
+        }, 1000); // 속도 조절 가능
     }
 
     function hideLoading() {
-        const loadingDiv = document.getElementById("loadingScreen");
-        if (loadingDiv) {
-            loadingDiv.remove();
-        }
+        clearInterval(loaderInterval);
+        loaderInterval = null;
+
+        document.getElementById("loadingIndicator").style.display = "none";
     }
 
 
