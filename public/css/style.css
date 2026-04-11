@@ -2888,38 +2888,6 @@ body.preview-page .text-card-item:hover {
     box-shadow: 0 8px 25px rgba(137, 154, 171, 0.2);
 }
 
-/* 이미지 틀 스타일 */
-body.preview-page .card-img-container {
-    width: 85px;
-    height: 150px;
-    aspect-ratio: 16 / 9;
-    /* 이미지 비율 고정 */
-    overflow: hidden;
-    border-radius: 10px;
-    background: #f5f5f5;
-    display: flex;
-    /* 플렉스 박스 활성화 */
-    justify-content: center;
-    /* 가로 중앙 정렬 */
-    align-items: center;
-    /* 세로 중앙 정렬 */
-    margin: 0 auto;
-    filter: blur(10px);
-}
-
-body.preview-page .card-img {
-    width: 85px;
-    /* 고정 너비 */
-    height: 150px;
-    /* 고정 높이 */
-    object-fit: cover;
-    /* 비율 유지하며 꽉 채우기 */
-    display: block;
-    /* 불필요한 하단 공백 제거 */
-    margin-left: auto;
-    margin-right: auto;
-}
-
 /* 1. 갤러리 무대: 높이가 너무 낮으면 카드가 바닥 아래로 사라집니다 */
 body.preview-page #imageGallery.text-view {
     display: block !important;
