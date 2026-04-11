@@ -3031,7 +3031,7 @@ body.preview-page .function-infor {
     gap: 10px;
 }
 
-body.preview-page .pagination-info{
+body.preview-page #pagination-info{
     text-align: center;
 }
 
