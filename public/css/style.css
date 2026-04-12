@@ -3141,8 +3141,8 @@ body.preview-page .page-footer li a:hover {
 /* 쓰레기통 컨테이너 고정 */
 body.preview-page .fixed-trash-container {
     position: fixed;
-    bottom: 20px; /* 바닥에서 20px 띄움 */
-    right: 20px;  /* 우측에서 20px 띄움 */
+    bottom: 10px; /* 바닥에서 20px 띄움 */
+    right: 110px;  /* 우측에서 20px 띄움 */
     width: 60px;  /* 아이콘 크기 조절 */
     height: 60px;
     z-index: 1000; /* 다른 요소보다 위에 표시 */
