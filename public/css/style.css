@@ -2830,6 +2830,7 @@ body.preview-page .text-preview {
 /* 3. 개별 카드: 겹치지 않고 나란히 서기 */
 body.preview-page .text-card-item {
     position: relative !important;
+    overflow: hidden; /* 테두리 밖으로 나가는 가상 요소 정제 */
     /* absolute 해제 */
     flex: 0 0 280px;
     /* 카드 너비 고정 */
@@ -2848,19 +2849,33 @@ body.preview-page .text-card-item {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
-body.preview-page .text-card-item::before{
+
+/* 1. 회전하는 테두리 효과 (::before) */
+body.preview-page .text-card-item::before {
+    content: ""; /* 반드시 추가! */
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%; /* 부모보다 크게 만들어 회전 시 빈틈 방지 */
+    height: 200%;
     background: conic-gradient(#00cc8f 20deg, transparent 120deg);
     animation: rotate 3s infinite linear;
-
+    z-index: -2; /* 배경 뒤로 보냄 */
 }
-body.preview-page .text-card-item::after{
-    background: #007bff;
+
+/* 2. 내부를 채우는 카드 본체 (::after) */
+body.preview-page .text-card-item::after {
+    content: ""; /* 반드시 추가! */
+    position: absolute;
+    top: 2.5%; /* 중앙 정렬을 위한 수치 (100% - 95% = 5%의 절반) */
+    left: 2.5%;
     width: 95%;
     height: 95%;
+    background: #007bff;
     box-shadow: 5px 5px 15px #333 inset;
     border-radius: 20px;
+    z-index: -1; /* before보다는 위에, 실제 텍스트보다는 아래에 */
 }
-
 @keyframes rotate{
     100%{
         transform: translate(-50%,-50%) rotate(-360deg);
