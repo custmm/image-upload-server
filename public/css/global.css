@@ -90,6 +90,9 @@ body:not(.no-bg) {
     height: 100vh;
 }
 
+body{
+    line-height: 1.5;
+}
 /* ====== 버튼 공통 ====== */
 button {
     background: none;
@@ -188,6 +191,8 @@ body.auth-lock {
     visibility: hidden;
 }
 
+    
+
 body.click-page,
 body.login-page,
 body.upload-page,
@@ -234,7 +239,6 @@ body.icon-page {
 body.preview-popup-page,
 body.etc-page {
     padding: 16px;
-    line-height: 1.6;
     box-sizing: border-box;
     background: #fff;
 }
