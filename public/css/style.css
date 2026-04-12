@@ -2848,12 +2848,12 @@ body.preview-page .text-card-item {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
-body.preview-page .text-card-item appear-ani::before{
+body.preview-page .text-card-item::before{
     background: conic-gradient(#00cc8f 20deg, transparent 120deg);
     animation: rotate 3s infinite linear;
 
 }
-body.preview-page .text-card-item appear-ani::after{
+body.preview-page .text-card-item::after{
     background: #007bff;
     width: 95%;
     height: 95%;
