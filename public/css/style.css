@@ -2854,6 +2854,10 @@ body.preview-page .text-card-item {
 body.preview-page .text-card-item::before {
     content: ""; /* 반드시 추가! */
     position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%; /* 부모보다 크게 만들어 회전 시 빈틈 방지 */
+    height: 200%;
     background: conic-gradient(#00cc8f 20deg, transparent 120deg);
     animation: rotate 3s infinite linear;
     z-index: -2; /* 배경 뒤로 보냄 */
