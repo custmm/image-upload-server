@@ -322,9 +322,10 @@ body.login-page .login-row {
 body.login-page .login-row input[type="password"] {
     flex: 1;
     min-width: 45%;
-    border-radius: 5px;
+    border-radius: 20px;
     background: #fff;
-    padding: 10px 0;
+    padding: 10px 10px;
+    text-align: left;
 }
 
 body.login-page .login-row button {

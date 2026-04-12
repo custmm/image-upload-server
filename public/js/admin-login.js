@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-latency-check": Date.now().toString()
+                    "x-latency-check": (Date.now() - 500).toString()
                 },
                 body: JSON.stringify({ password }),
             });
