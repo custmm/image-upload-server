@@ -3138,6 +3138,48 @@ body.preview-page .page-footer a:hover {
     text-decoration: underline;
 }
 
+/* 쓰레기통 컨테이너 고정 */
+body.preview-page .fixed-trash-container {
+    position: fixed;
+    bottom: 20px; /* 바닥에서 20px 띄움 */
+    right: 20px;  /* 우측에서 20px 띄움 */
+    width: 60px;  /* 아이콘 크기 조절 */
+    height: 60px;
+    z-index: 1000; /* 다른 요소보다 위에 표시 */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+/* 아이콘 기본 스타일 */
+body.preview-page .trash-icon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease;
+}
+
+/* 호버 전: 2번 아이콘 숨기기 */
+body.preview-page .hover-icon {
+    opacity: 0;
+}
+
+/* 호버 시: 1번 숨기고 2번 보이기 */
+body.preview-page .fixed-trash-container:hover .main-icon {
+    opacity: 0;
+}
+body.preview-page .fixed-trash-container:hover .hover-icon {
+    opacity: 1;
+}
+
+/* 호버 시 살짝 커지는 효과 */
+body.preview-page .fixed-trash-container:hover {
+    transform: scale(1.1);
+}
+
+
 /* 아이콘페이지(ai_icon.html) */
 body.icon-page h1 {
     padding-bottom: 30px;
