@@ -1463,7 +1463,7 @@ body.upload-page .popup-buttons button {
     cursor: pointer;
 }
 
-upload-page #previewContainer.preview-container{
+body.upload-page #previewContainer.preview-container{
     width: 85%;
     min-height: 200px;
     border: 3px dashed #555;
