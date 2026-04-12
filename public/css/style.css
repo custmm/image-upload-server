@@ -2871,6 +2871,7 @@ body.preview-page .text-card-item::after {
     left: 2.5%;
     width: 95%;
     height: 95%;
+    background: #fff;
     box-shadow: 5px 5px 15px #333 inset;
     border-radius: 20px;
     z-index: -1; /* before보다는 위에, 실제 텍스트보다는 아래에 */
