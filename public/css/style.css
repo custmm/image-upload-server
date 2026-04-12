@@ -2763,11 +2763,6 @@ body.preview-page .text-row {
     transition: transform 0.3s ease;
 }
 
-body.preview-page .lucide lucide-chevron-left,
-body.preview-page .lucide lucide-chevron-right {
-    color: #90caf9;
-}
-
 /* 실제 움직이는 트랙 (카드 UI에서는 무의미해지므로 100%로 고정) */
 body.preview-page .swipe-track {
     display: flex;
@@ -2853,7 +2848,24 @@ body.preview-page .text-card-item {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
+body.preview-page .text-card-item::before{
+    background: conic-gradient(#00cc8f 20deg, transparent 120deg);
+    animation: rotate 3s infinite linear;
 
+}
+body.preview-page .text-card-item::after{
+    background: #007bff;
+    width: 95%;
+    height: 95%;
+    box-shadow: 5px 5px 15px #333 inset;
+    border-radius: 20px;
+}
+
+@keyframes rotate{
+    100%{
+        transform: translate(-50%,-50%) rotate(-360deg);
+    }
+}
 /* 1. 이미지 컨테이너 블러 제거 및 크기 고정 */
 body.preview-page .card-img-container {
     width: 150px !important;
