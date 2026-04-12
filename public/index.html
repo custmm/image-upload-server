@@ -8,72 +8,7 @@
     <title>Ɐ퓨챠휼Ɐ</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/global.css">
-    <style>
-        /* 제목과 컨테이너를 감싸는 부모 요소 */
-        @media (max-width: 576px) {
-            body {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-            }
-
-            /* 제목의 크기를 줄임 */
-            body.index-page #mainTitle {
-                font-size: 28px;
-                margin-bottom: 20px;
-                text-align: center;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            body.index-page #modeSelection {
-                position: relative;
-                padding: 20px;
-                background-color: #fff;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-                width: 85%;
-                justify-content: center;
-            }
-
-            body.index-page #adminModeButton {
-                width: auto;
-                display: none;
-                /* 초기에는 숨김 */
-                border: none;
-            }
-
-            body.index-page #userModeButton {
-                width: auto;
-                border: none;
-            }
-
-            /* 캔버스가 화면을 꽉 채우는 대신 모바일에 맞게 조정 */
-            body.index-page canvas {
-                width: 100%;
-                height: auto;
-            }
-
-            body.index-page .glow-circle {
-                width: 30px;
-                height: 30px;
-                filter: blur(5px);
-            }
-
-            body.index-page .container {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="./css/mobile.css">
 </head>
 
 <body class="index-page no-bg">

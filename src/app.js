@@ -147,7 +147,7 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 // --- 개별 라우트 (API 엔드포인트) ---
 app.get("/favicon.ico", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "public", "favicon.ico"));
+    res.sendFile(path.join(__dirname, "..", "public","images", "favicon.ico"));
 });
 app.get("/api/health", (req, res) => {
     res.status(200).send("Server is alive");

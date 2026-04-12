@@ -1,0 +1,513 @@
+@media (min-width:576px) {
+
+    /* dashboard-page의 css */
+    body.dashboard-page .section-title {
+        font-size: 18px;
+    }
+
+    body.dashboard-page .edit-modal-content {
+        width: 95%;
+    }
+
+    body.dashboard-page .change-button {
+        width: 20px;
+        height: 20px;
+    }
+
+    body.dashboard-page .post-form-container.image-mode .gallery-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+    }
+
+    body.dashboard-page .post-form-container.image-mode .gallery-container img {
+        width: 30px;
+        height: 30px;
+
+    }
+
+    body.dashboard-page .post-image {
+        width: 25px;
+        height: 25px;
+    }
+
+    body.dashboard-page .post-item img {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* login-page의 css */
+    body.login-page .login-container {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: aliceblue;
+        width: 75%;
+        margin: 70px auto;
+        box-sizing: border-box;
+        transition: width 0.5s ease-in-out;
+    }
+
+    body.login-page .login-row {
+        display: flex;
+        gap: 25px;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    /* icon-page의 css */
+    body.icon-page {
+        width: 100%
+    }
+
+    body.icon-page #icon_studio,
+    body.icon-page .move_icon,
+    body.icon-page .bulid_icon,
+    body.icon-page .structure_icon,
+    body.icon-page .obj_icon {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 5px;
+        width: fit-content;
+        margin: 5px 0 5px;
+        justify-items: center;
+    }
+
+    body.icon-page #icon_studio img,
+    body.icon-page .move_icon img,
+    body.icon-page .bulid_icon img,
+    body.icon-page .structure_icon img,
+    body.icon-page .obj_icon img {
+        width: 60px;
+        object-fit: contain;
+        object-position: center;
+        justify-self: center;
+        align-self: center;
+        cursor: pointer;
+        transition: transform 0.15s ease;
+    }
+
+    /* click-page의 css */
+
+    body.click-page .toggle-switch {
+        top: 10px;
+        right: 60px;
+        height: 30px;
+        width: 80px;
+    }
+
+    body.click-page #themeIcon {
+        width: 23px;
+        height: 36px;
+    }
+
+    /* etc-page의 css */
+    body.etc-page {
+        width: 95%
+    }
+
+    body.etc-page h2 {
+        text-align: center;
+        margin-top: 0;
+    }
+
+    body.etc-page ul {
+        font-size: 15px;
+        list-style: none;
+    }
+
+    body.etc-page table {
+        border-collapse: collapse;
+        border: 1px solid #555;
+        margin: 15px auto;
+        font-size: 15px;
+    }
+
+    body.etc-page table.mode_box {
+        padding: 12px;
+
+    }
+
+    body.etc-page caption.title {
+        font-size: 20px;
+    }
+
+    body.etc-page th,
+    body.etc-page tr,
+    body.etc-page td {
+        border-collapse: collapse;
+        border: 1px solid #555;
+        font-size: 12px;
+    }
+
+    body.etc-page tr,
+    body.etc-page td {
+        text-align: center;
+    }
+
+    body.etc-page p.appfunction {
+        text-align: left;
+        font-size: 15px;
+        margin: 10px 0;
+    }
+
+    body.etc-page table.function_box {
+        width: 90%
+    }
+
+    /* index-page의css */
+    body.index-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    /* 제목의 크기를 줄임 */
+    body.index-page #mainTitle {
+        font-size: 28px;
+        margin-bottom: 20px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    body.index-page #modeSelection {
+        position: relative;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        width: 85%;
+        justify-content: center;
+    }
+
+    body.index-page #adminModeButton {
+        width: auto;
+        display: none;
+        /* 초기에는 숨김 */
+        border: none;
+    }
+
+    body.index-page #userModeButton {
+        width: auto;
+        border: none;
+    }
+
+    /* 캔버스가 화면을 꽉 채우는 대신 모바일에 맞게 조정 */
+    body.index-page canvas {
+        width: 100%;
+        height: auto;
+    }
+
+    body.index-page .glow-circle {
+        width: 30px;
+        height: 30px;
+        filter: blur(5px);
+    }
+
+    body.index-page .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* mode-page의css */
+    body.mode-page .mode-selection-container {
+        width: 95% !important;
+    }
+
+    body.mode-page .upload-selection-button,
+    body.mode-page .preview-selection-button,
+    body.mode-page .admin-selection-button {
+        background-color: #000000;
+        color: white;
+        padding: 10px 15px;
+        width: 150px;
+        /* 버튼 너비 일정하게 */
+        transition: transform 0.3s ease-in-out;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        margin-top: 30px;
+        font-size: 10px;
+    }
+
+    body.mode-page h1 {
+        font-size: 25px;
+        margin-bottom: 20px;
+        /* 제목과 버튼 간의 간격 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* post-page의css */
+    body.post-page .post-container {
+        display: flex;
+        background-color: #ffffff;
+        border-radius: 10px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        width: 90%;
+        margin: 20px auto;
+    }
+
+    body.post-page .toggle-switch {
+        top: 10px;
+        right: 55px;
+        height: 30px;
+        width: 80px;
+    }
+
+    body.post-page .toggle-switch input:checked+.slider_util::before {
+        transform: translateX(48px);
+    }
+
+    body.post-page .toggle-switch input:checked+.slider_util #themeIcon {
+        transform: translateX(48px);
+    }
+
+    body.post-page #themeIcon {
+        width: 23px;
+        height: 36px;
+    }
+
+    body.post-page .post-description {
+        font-size: 12px;
+    }
+
+    body.post-page .postcategory-container {
+        flex-direction: column;
+        /* 좁은 화면에서 세로 정렬 */
+        gap: 5px;
+        text-align: center;
+    }
+
+    body.post-page .button {
+        width: 100%;
+        /* 버튼도 꽉 차게 */
+        max-width: 300px;
+        margin: 5px auto;
+    }
+/* preview-popup-page의css */
+    body.preview-popup-page {
+        width: 95%
+    }
+
+    body.preview-popup-page h2 {
+        text-align: center;
+        margin-top: 0;
+    }
+
+    body.preview-popup-page ul {
+        font-size: 15px;
+        list-style: none;
+    }
+
+    /* preview-page의css */
+    body.preview-page .image-gallery {
+        border-radius: 55px;
+    }
+
+    body.preview-page .image-gallery.multi-row {
+        border-radius: 40px;
+    }
+
+    body.preview-page .sidebar {
+        left: -100vh;
+    }
+
+    body.preview-page #welcomeMessage {
+        font-size: 25px;
+    }
+
+    body.preview-page .toggle-switch {
+        top: 10px;
+        right: 10px;
+        height: 30px;
+        width: 80px;
+    }
+
+    body.preview-page .toggle-switch input:checked+.slider::before {
+        transform: translateX(48px);
+    }
+
+    body.preview-page .toggle-switch input:checked+.slider #themeIcon {
+        transform: translateX(48px);
+    }
+
+    body.preview-page #themeIcon {
+        width: 23px;
+        height: 36px;
+    }
+
+    body.preview-page #opacitySlider {
+        width: 85px;
+    }
+
+    body.preview-page #currentCategory {
+        font-size: 23px;
+    }
+
+    body.preview-page .view-icon-btn i {
+        font-size: 14px;
+    }
+
+    body.preview-page .view-switch {
+        margin: 10px 0 10px 65%;
+        width: 85px;
+        gap: 5px;
+        padding: 1px;
+        border-radius: 20px;
+    }
+
+    body.preview-page .sub-tab-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 5px;
+        margin-top: 10px;
+
+    }
+
+    body.preview-page .image-gallery-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        margin: 20px auto;
+        width: 95%;
+        overflow-x: hidden;
+
+    }
+
+    body.preview-page .sidebar {
+        padding: 80px 0 0 0;
+        width: 100vw;
+
+    }
+
+    body.preview-page .pagination-button {
+        padding: 8px 17%;
+        height: 30px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    body.preview-page .text-card-item {
+        height: 250px;
+
+    }
+
+    body.preview-page #pagination-container {
+        gap: 30px;
+    }
+
+    body.preview-page .infor-popup,
+    body.preview-page .app-infor-popup {
+        width: 95%;
+        max-height: 90vh;
+        overflow: auto;
+        padding: 18px 16px;
+        font-size: 11px;
+        box-sizing: border-box;
+    }
+
+    body.preview-page .app-infor-popup table {
+        width: 100%;
+        word-break: break-word;
+        font-size: 11px;
+    }
+
+    body.preview-page .app-infor-popup td,
+    body.preview-page .app-infor-popup th {
+        padding: 4px 6px;
+        /* 표 셀 간격도 줄이기 */
+    }
+
+    body.preview-page .sub-tab {
+        font-size: 10px;
+        padding: 4px 4px;
+    }
+
+    body.preview-page .opacitybtn {
+        height: 20px;
+        cursor: pointer;
+    }
+
+    body.preview-page .preview-images {
+        position: absolute;
+        display: flex;
+        top: -105px;
+        right: 10px;
+        cursor: grab;
+        align-items: center;
+        margin-left: 80%;
+    }
+
+    body.preview-page .preview-images img {
+        display: block;
+        width: auto;
+        height: 65px;
+        border-radius: 5px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        z-index: 9999;
+    }
+
+/* tag-page의css */
+    body.tag-page .post-item {
+        flex-direction: row;
+        align-items: center;
+        /* 중앙 정렬로 수정 */
+    }
+
+    body.tag-page .post-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+    body.tag-page .post-list {
+        list-style: none;
+        padding: 0;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    body.tag-page .category {
+        font-size: 0.9rem;
+    }
+
+    body.tag-page .desc {
+        font-size: 0.85rem;
+    }
+
+    /* upload-page의css */
+
+    body.upload-page .upload-container {
+        width: 90%;
+        margin: 0 auto;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f3f3f3;
+        padding: 5px;
+    }
+}

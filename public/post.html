@@ -11,60 +11,8 @@
   <link rel="stylesheet" href="./css/theme.css">
   <link rel="stylesheet" href="./css/component.css">
   <link rel="stylesheet" href="./css/global.css">
-  <style>
-    @media (max-width: 576px) {
-      body.post-page .post-container {
-        display: flex;
-        background-color: #ffffff;
-        border-radius: 10px;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-        width: 90%;
-        margin: 20px auto;
-      }
+  <link rel="stylesheet" href="./css/mobile.css">
 
-      body.post-page .toggle-switch {
-        top: 10px;
-        right: 55px;
-        height: 30px;
-        width: 80px;
-      }
-
-      body.post-page .toggle-switch input:checked+.slider_util::before {
-        transform: translateX(48px);
-      }
-
-      body.post-page .toggle-switch input:checked+.slider_util #themeIcon {
-        transform: translateX(48px);
-      }
-
-      body.post-page #themeIcon {
-        width: 23px;
-        height: 36px;
-      }
-
-      body.post-page .post-description {
-        font-size: 12px;
-      }
-
-      body.post-page .postcategory-container {
-        flex-direction: column;
-        /* 좁은 화면에서 세로 정렬 */
-        gap: 5px;
-        text-align: center;
-      }
-
-      body.post-page .button {
-        width: 100%;
-        /* 버튼도 꽉 차게 */
-        max-width: 300px;
-        margin: 5px auto;
-      }
-    }
-  </style>
 </head>
 
 <body class="post-page">
