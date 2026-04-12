@@ -249,7 +249,8 @@ body.post-page .loading-indicator,
 body.preview-page .loading-indicator,
 body.tag-page .loading-indicator,
 body.search-page .loading-indicator,
-body.login-page .loading-indicator
+body.login-page .loading-indicator,
+body.upload-page .loading-indicator
  {
     position: fixed;
     display: none;
@@ -271,7 +272,8 @@ body.post-page .loading-text,
 body.preview-page .loading-text,
 body.tag-page .loading-text,
 body.search-page .loading-text,
-body.login-page .loading-text {
+body.login-page .loading-text,
+body.upload-page .loading-text {
     color: white;
     font-size: 16px;
 }
