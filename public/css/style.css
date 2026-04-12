@@ -1925,6 +1925,7 @@ body.post-page .post-description {
     font-size: 18px;
     text-align: left;
     white-space: pre-wrap;
+        padding: 0 30px;
 }
 
 body.post-page .post-desc {
