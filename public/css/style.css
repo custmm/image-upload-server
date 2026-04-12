@@ -3447,10 +3447,11 @@ body.etc-page button.detail-toggle:hover {
     transform: scale(1.05);
 }
 
-body.etc-page .app_process {
+body.etc-page ul.app_process {
     display: flex;
     flex-direction: column;
 }
+
 body.etc-page #my_project li:first-child{
 
 }
@@ -3459,6 +3460,18 @@ body.etc-page #my_project li:nth-child(2) #method1 .img_wrap img{
     height: 300px;
     margin: 0 auto;
     display: flex;
+}
+#method1 h3{
+    margin-bottom: 15px;
+}
+body.etc-page .rc_car_intro_1{
+    display: flex;
+
+}
+
+
+body.etc-page strong{
+    text-align: center;
 }
 
 body.etc-page #my_project li:nth-child(3) p{
