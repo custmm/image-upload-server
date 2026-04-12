@@ -2908,7 +2908,8 @@ body.preview-page .card-img {
 
 /* 3. 카드 하단 정보창 */
 body.preview-page .card-info {
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     padding-top: 50px;
     background: #fff;
     display: flex;
