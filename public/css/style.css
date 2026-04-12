@@ -1420,7 +1420,7 @@ body.upload-page .upload-container {
 }
 
 body.upload-page .upload-container input[type="file"] {
-    margin: 10px 0;
+    margin: 88px auto;
 }
 
 body.upload-page .upload-button {
