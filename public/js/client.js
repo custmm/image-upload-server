@@ -1,3 +1,38 @@
+// 전역 변수로 선언하여 어디서든 접근 가능하게 합니다.
+let loaderInterval = null;
+let loaderStep = 1;
+
+function showLoading() {
+    const indicator = document.getElementById("loadingIndicator");
+    const loader = document.getElementById("mainLoader");
+
+    if (!indicator || !loader) return;
+
+    indicator.style.display = "flex";
+    
+    // 초기화
+    loaderStep = 1;
+    if (loaderInterval) clearInterval(loaderInterval);
+
+    // 클래스를 순차적으로 변경하여 애니메이션 효과를 줍니다.
+    loaderInterval = setInterval(() => {
+        loader.className = "loader loader" + loaderStep;
+        loaderStep++;
+        if (loaderStep > 8) loaderStep = 1; // HTML에 div가 8개이므로 8단계까지 순환
+    }, 150); // 1000ms는 너무 느리므로 150ms 정도로 변경 권장
+}
+
+function hideLoading() {
+    if (loaderInterval) {
+        clearInterval(loaderInterval);
+        loaderInterval = null;
+    }
+    const indicator = document.getElementById("loadingIndicator");
+    if (indicator) {
+        indicator.style.display = "none";
+    }
+}
+
 // 먼저 화면 잠금 (body 존재 보장)
 document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("auth-lock");
@@ -121,26 +156,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }`;
     document.head.appendChild(style);
 
-    function showLoading() {
-        const indicator = document.getElementById("loadingIndicator");
-        const loader = document.getElementById("mainLoader");
-
-        indicator.style.display = "flex";
-
-        loaderInterval = setInterval(() => {
-            loaderStep++;
-            if (loaderStep > 4) loaderStep = 1;
-
-            loader.className = "loader loader" + loaderStep;
-        }, 1000); // 속도 조절 가능
-    }
-
-    function hideLoading() {
-        clearInterval(loaderInterval);
-        loaderInterval = null;
-
-        document.getElementById("loadingIndicator").style.display = "none";
-    }
 
 
     /**  요소가 존재하는 경우에만 이벤트 추가 */
