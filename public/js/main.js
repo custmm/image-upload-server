@@ -87,6 +87,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 1. 기초 UI 설정
     applySavedTheme();
 
+    // [추가] 설정 팝업 제어 로직
+    const settingBtn = document.getElementById("settingBtn");
+    const settingPopup = document.getElementById("settingPopup");
+
+    if (settingBtn && settingPopup) {
+        settingBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            settingPopup.classList.toggle("active");
+        });
+
+        // 외부 클릭 시 닫기
+        document.addEventListener("click", (e) => {
+            if (settingPopup.classList.contains("active")) {
+                if (!settingPopup.contains(e.target) && !settingBtn.contains(e.target)) {
+                    settingPopup.classList.remove("active");
+                }
+            }
+        });
+    }
+
     // 2. 갤러리 초기 데이터 로드 (순서가 중요!)
     if (Gallery.loadCategories) {
         // [수정] 카테고리를 먼저 완전히 가져온 뒤에 로직을 진행합니다.
