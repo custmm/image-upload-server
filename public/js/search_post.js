@@ -12,7 +12,7 @@ function showLoading() {
         if (loaderStep > 4) loaderStep = 1;
 
         loader.className = "loader loader" + loaderStep;
-    }, 1000); // 속도 조절 가능
+    }, 150); // 속도 조절 가능
 }
 
 function hideLoading() {
