@@ -3160,6 +3160,11 @@ body.preview-page .paginaticardon-button:hover {
 }
 
 /* footer */
+body.preview-page .page-footer #footer_link{
+    display: flex;
+    margin: 0 auto;
+
+}
 body.preview-page .page-footer li {
     display: flex;
     flex-direction: row;
@@ -3220,11 +3225,7 @@ body.preview-page .fixed-trash-container:hover .hover-icon {
 body.preview-page .fixed-trash-container:hover {
     transform: scale(1);
 }
-body.preview-page #footer_link{
-    display: flex;
-    margin: 0 auto;
 
-}
 
 /* 아이콘페이지(ai_icon.html) */
 body.icon-page h1 {
