@@ -1463,6 +1463,13 @@ body.upload-page .popup-buttons button {
     cursor: pointer;
 }
 
+upload-page #previewContainer.preview-container{
+    width: 85%;
+    min-height: 200px;
+    border: 3px dashed #555;
+    border-radius: 20px;
+}
+
 body.upload-page .preview-container img {
     border: 3px solid #000000;
     border-radius: 5px;
@@ -1472,18 +1479,12 @@ body.upload-page .preview-container img {
 
 }
 
-upload-page .preview-container{
-    width: 85%;
-    min-height: 200px;
-    border: 3px dashed #555;
-    border-radius: 20px;
-}
 
 body.upload-page .description-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border-radius: 8px;
     width: 85%;
     padding: 10px;
