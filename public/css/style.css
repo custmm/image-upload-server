@@ -1464,7 +1464,7 @@ body.upload-page .popup-buttons button {
     cursor: pointer;
 }
 
-body.upload-page #previewContainer.preview-container{
+body.upload-page #previewContainer.preview-container {
     width: 85%;
     min-height: 200px;
     border: 3px dashed #555;
@@ -3167,8 +3167,10 @@ body.preview-page .paginaticardon-button:hover {
 /* 1. 푸터 전체 컨테이너 정렬 */
 body.preview-page .page-footer {
     display: flex;
-    flex-direction: column; /* 텍스트와 링크를 세로로 나열 */
-    align-items: center;    /* 가로 중앙 정렬 */
+    flex-direction: column;
+    /* 텍스트와 링크를 세로로 나열 */
+    align-items: center;
+    /* 가로 중앙 정렬 */
     justify-content: center;
     text-align: center;
     padding: 30px 0;
@@ -3177,11 +3179,16 @@ body.preview-page .page-footer {
 /* 2. 링크 목록(ul) 정렬 */
 body.preview-page .page-footer #footer_link {
     display: flex;
-    justify-content: center; /* 내부 아이템들을 중앙으로 모음 */
-    list-style: none;       /* 불릿 제거 */
-    padding: 0;             /* 브라우저 기본 padding-left(약 40px) 제거! 필수! */
-    margin: 15px 0 0 0;     /* 위쪽 문구와 간격만 조절 */
-    width: 100%;            /* 전체 너비 확보 */
+    justify-content: center;
+    /* 내부 아이템들을 중앙으로 모음 */
+    list-style: none;
+    /* 불릿 제거 */
+    padding: 0;
+    /* 브라우저 기본 padding-left(약 40px) 제거! 필수! */
+    margin: 15px 0 0 0;
+    /* 위쪽 문구와 간격만 조절 */
+    width: 100%;
+    /* 전체 너비 확보 */
 }
 
 /* 3. 개별 리스트(li) 설정 */
@@ -3194,7 +3201,8 @@ body.preview-page .page-footer li {
 body.preview-page .page-footer li a {
     color: #007bff;
     text-decoration: none;
-    margin: 0 15px;         /* 링크 사이의 간격 */
+    margin: 0 15px;
+    /* 링크 사이의 간격 */
     font-size: 14px;
     transition: all 0.3s ease;
 }
@@ -3442,6 +3450,15 @@ body.etc-page button.detail-toggle:hover {
 body.etc-page .app_process {
     display: flex;
     flex-direction: column;
+}
+body.etc-page #my_project li:first-child{
+
+}
+body.etc-page #my_project li:nth-child(2) #method1 .img_wrap img{
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    display: flex;
 }
 
 
