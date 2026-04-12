@@ -3176,7 +3176,7 @@ body.preview-page .fixed-trash-container:hover .hover-icon {
 
 /* 호버 시 살짝 커지는 효과 */
 body.preview-page .fixed-trash-container:hover {
-    transform: scale(1.1);
+    transform: scale(1);
 }
 
 
