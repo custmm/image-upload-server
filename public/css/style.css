@@ -3220,7 +3220,11 @@ body.preview-page .fixed-trash-container:hover .hover-icon {
 body.preview-page .fixed-trash-container:hover {
     transform: scale(1);
 }
+body.preview-page #footer_link{
+    display: flex;
+    margin: 0 auto;
 
+}
 
 /* 아이콘페이지(ai_icon.html) */
 body.icon-page h1 {
