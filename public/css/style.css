@@ -3461,6 +3461,11 @@ body.etc-page #my_project li:nth-child(2) #method1 .img_wrap img{
     display: flex;
 }
 
+body.etc-page #my_project li:nth-child(3) p{
+    text-align: left;
+    padding-bottom: 20px;
+}
+
 
 /* ====== 태그 검색 결과(tagResult.html) ====== */
 
