@@ -1472,6 +1472,13 @@ body.upload-page .preview-container img {
 
 }
 
+upload-page .preview-container{
+    width: 85%;
+    min-height: 200px;
+    border: 3px dashed #555;
+    border-radius: 20px;
+}
+
 body.upload-page .description-container {
     display: flex;
     flex-direction: column;
