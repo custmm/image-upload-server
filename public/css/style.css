@@ -3128,13 +3128,13 @@ body.preview-page .paginaticardon-button:hover {
 }
 
 /* footer */
-body.preview-page .page-footer a {
+body.preview-page .page-footer li a {
     color: #007bff;
     text-decoration: none;
     margin: 0 10px;
 }
 
-body.preview-page .page-footer a:hover {
+body.preview-page .page-footer li a:hover {
     text-decoration: underline;
 }
 
