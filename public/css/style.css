@@ -2652,7 +2652,6 @@ body.preview-page .setting-layer {
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     z-index: 9000;
     display: none;
     /* 기본 숨김 */
@@ -2665,16 +2664,19 @@ body.preview-page .setting_item {
     padding: 10px 0;
     gap: 15px;
 }
+
 /* 기본 상태: 화면에서 아예 숨김 */
 body.preview-page #settingPopup {
-    display: none !important; 
+    display: none !important;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* 배경 반투명 검정 */
-    z-index: 10000; /* 모든 요소보다 위에 */
+    background: rgba(0, 0, 0, 0.5);
+    /* 배경 반투명 검정 */
+    z-index: 10000;
+    /* 모든 요소보다 위에 */
 }
 
 /* active 클래스가 추가되면 나타남 */
@@ -2682,12 +2684,17 @@ body.preview-page #settingPopup.active {
     display: flex !important;
     justify-content: center;
     align-items: center;
+    width: 320px;
+    height: 240px;
+    top: 10%;
+    left: 75%;
 }
 
 body.preview-page #settingBtn {
     position: absolute;
     top: 20px;
-    right: 30px;
+    right: 75px;
+
 }
 
 body.preview-page #settingBtn img {
