@@ -91,18 +91,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const settingBtn = document.getElementById("settingBtn");
     const settingPopup = document.getElementById("settingPopup");
 
-    if (settingBtn && settingPopup) {
-        settingBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
+    // 버튼과 팝업이 존재하는지 콘솔로 확인 (F12 눌러서 보임)
+    console.log("Setting Button:", settingBtn);
+    console.log("Setting Popup:", settingPopup);
+    
+if (settingBtn && settingPopup) {
+        settingBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation(); // 이벤트가 딴 데로 안 튀게 막음
             settingPopup.classList.toggle("active");
+            console.log("Popup class list:", settingPopup.classList);
         });
 
-        // 외부 클릭 시 닫기
-        document.addEventListener("click", (e) => {
-            if (settingPopup.classList.contains("active")) {
-                if (!settingPopup.contains(e.target) && !settingBtn.contains(e.target)) {
-                    settingPopup.classList.remove("active");
-                }
+        // 팝업 내부 클릭 시 닫히는 거 방지
+        settingPopup.addEventListener("click", function(e) {
+            if (e.target === settingPopup) {
+                settingPopup.classList.remove("active");
             }
         });
     }
