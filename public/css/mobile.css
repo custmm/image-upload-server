@@ -1,4 +1,4 @@
-@media (min-width:576px) {
+@media (max-width:576px) {
 
     /* dashboard-page의 css */
     body.dashboard-page .section-title {
