@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" 
-          content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;">
-    
+    <meta http-equiv="Content-Security-Policy"
+        content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;">
+
     <meta name="google-site-verification" content="kMxKqlA9cKbHdJGw51M2sE21fjyzL3SvY1ryWISJMT0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ɐ퓨챠휼Ɐ >> 관리자페이지</title>
@@ -55,27 +55,17 @@
             </div>
             <button id="loadToggleBtn" style="display:none"></button>
         </div>
-
         <div class="section">
             <div class="section-header">
-                <h2 class="section-title">게시물 비율</h2>
+                <h2 class="section-title">관리자용 버튼</h2>
             </div>
-            <div class="post-chart-container">
-                <div class="chart-area" id="chartArea">
-                    <div class="chart-wrapper" id="donutWrapper">
-                        <canvas id="donutChart"></canvas>
-                    </div>
-                    <div class="chart-wrapper" id="barWrapper" style="display: none;">
-                        <canvas id="radarChart"></canvas>
-                        <canvas id="lineChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
-                    </div>
-                    <div id="chart-controls">
-                        <button id="showDonut" class="custom-chart-button" style="padding: 2px 10px;">도넛 차트</button>
-                        <button id="showRadar" class="custom-chart-button" style="padding: 2px 10px;">버블 차트</button>
-                    </div>
-                </div>
+            <div class="util-group">
+                <button id="edit" class="custom-button">레이아웃 변경</button>
+                <button id="pdf" class="custom-button">데이터 다운로드</button>
+                <button id="check-duplicate" class="custom-button">게시글 중복 확인</button>
             </div>
         </div>
+
     </div>
 
     <div class="section-row">
@@ -101,12 +91,22 @@
 
     <div class="section-row">
         <div class="section-header">
-            <h2 class="section-title">관리자용 버튼</h2>
+            <h2 class="section-title">게시물 비율</h2>
         </div>
-        <div class="util-group">
-            <button id="edit" class="custom-button">레이아웃 변경</button>
-            <button id="pdf" class="custom-button">데이터 다운로드</button>
-            <button id="check-duplicate" class="custom-button">게시글 중복 확인</button>
+        <div class="post-chart-container">
+            <div class="chart-area" id="chartArea">
+                <div class="chart-wrapper" id="donutWrapper">
+                    <canvas id="donutChart"></canvas>
+                </div>
+                <div class="chart-wrapper" id="barWrapper" style="display: none;">
+                    <canvas id="radarChart"></canvas>
+                    <canvas id="lineChart" style="position: absolute; top: 0; left: 0; display: none;"></canvas>
+                </div>
+                <div id="chart-controls">
+                    <button id="showDonut" class="custom-chart-button" style="padding: 2px 10px;">도넛 차트</button>
+                    <button id="showRadar" class="custom-chart-button" style="padding: 2px 10px;">버블 차트</button>
+                </div>
+            </div>
         </div>
     </div>
 
