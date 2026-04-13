@@ -3,6 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" 
+          content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;">
+    
     <meta name="google-site-verification" content="kMxKqlA9cKbHdJGw51M2sE21fjyzL3SvY1ryWISJMT0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ɐ퓨챠휼Ɐ >> 관리자페이지</title>
@@ -14,7 +17,6 @@
 
 <body class="dashboard-page no-bg">
 
-    <!-- admin헤드바 -->
     <div class="adminbar-container">
         <div class="left-section">
             <button class="back-button" onclick="window.location.href='mode-selection.html'">뒤로가기</button>
@@ -26,7 +28,6 @@
         <button class="logout-button" onclick="window.location.href='admin-login.html'">나가기</button>
     </div>
 
-    <!-- 사이드바 -->
     <div id="sidebar" class="sidebar">
         <button class="close-sidebar" onclick="toggleSidebar()">✖</button>
         <ul>
@@ -43,11 +44,10 @@
                 <h2 class="section-title">게시물 정보</h2>
                 <div class="change-button-group">
                     <button class="change-button" id="text-mode">
-                        <i class="fas fa-file-alt"></i> <!-- 📝 텍스트 모드 아이콘 -->
+                        <i class="fas fa-file-alt"></i>
                     </button>
-
                     <button class="change-button" id="image-mode">
-                        <i class="fas fa-images"></i> <!-- 🖼️ 이미지 모드 아이콘 -->
+                        <i class="fas fa-images"></i>
                     </button>
                 </div>
             </div>
@@ -82,7 +82,6 @@
         <div class="section-header">
             <h2 class="section-title">이미지 표시기</h2>
         </div>
-
         <div class="function-container">
             <div class="sorting-wrapper">
                 <img src="images/indicator/preview-gunff_1re.png" alt="Preview 1">
@@ -93,12 +92,10 @@
                 <img src="images/indicator/preview-gunff_6re.png" alt="Preview 6">
                 <img src="images/indicator/preview-gunff_7re.png" alt="Preview 7">
                 <img src="images/indicator/preview-gunff_8re.png" alt="Preview 8">
-
             </div>
         </div>
-
         <div class="button-group">
-            <button id="modernize-indicator" class="custom-button">이미지 현대화</button> <!-- 추가 -->
+            <button id="modernize-indicator" class="custom-button">이미지 현대화</button>
         </div>
     </div>
 
@@ -106,7 +103,6 @@
         <div class="section-header">
             <h2 class="section-title">관리자용 버튼</h2>
         </div>
-
         <div class="util-group">
             <button id="edit" class="custom-button">레이아웃 변경</button>
             <button id="pdf" class="custom-button">데이터 다운로드</button>
@@ -115,7 +111,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/admin-dashboard.js"></script>
