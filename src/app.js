@@ -52,13 +52,14 @@ app.use(helmet({
                 "https://unpkg.com", 
                 "https://cdn.jsdelivr.net", 
                 "https://ik.imagekit.io",
-                "https://storage.googleapis.com" // 🔥 AI 모델 파일을 받아오기 위해 필수!
+                "https://storage.googleapis.com", // AI 모델 파일을 받아오기 위해 필수!
+                "https://tfhub.dev" // AI 모델 설정 파일을 읽어오기 위해 필수!
             ],
             // 2. 자바스크립트 허용 ('unsafe-eval' 추가!)
             scriptSrc: [
                 "'self'", 
                 "'unsafe-inline'", 
-                "'unsafe-eval'", // 🔥 TensorFlow.js의 동적 코드 실행을 위해 필수!
+                "'unsafe-eval'", // TensorFlow.js의 동적 코드 실행을 위해 필수!
                 "https://unpkg.com", 
                 "https://cdn.jsdelivr.net", 
                 "https://code.jquery.com"
