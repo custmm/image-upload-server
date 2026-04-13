@@ -9,7 +9,7 @@ function showLoading() {
     if (!indicator || !loader) return;
 
     indicator.style.display = "flex";
-    
+
     // 초기화
     loaderStep = 1;
     if (loaderInterval) clearInterval(loaderInterval);
@@ -226,32 +226,34 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         });
     }
+
     function showuploadPopup(message, postURL = null) {
-        //  기존 팝업이 있으면 제거
         const existingPopup = document.querySelector(".popup-message");
         if (existingPopup) existingPopup.remove();
 
-        //  팝업 요소 생성
         const popup = document.createElement("div");
         popup.className = "popup-message";
+
+        // 로직 가독성을 위해 innerHTML을 깔끔하게 정리
         popup.innerHTML = `
-            <p>${message}</p>
-            <div class="popup-buttons">
-                <button class="popup-button" id="continueUpload">계속 업로드</button>
-                ${postURL ? `<button class="popup-button" id="viewPost">확인</button>` : ""}
-            </div>
-        `;
+        <p style="margin-bottom: 15px;">${message}</p>
+        <div class="popup-buttons" style="display: flex; gap: 10px; justify-content: center;">
+            <button class="popup-button" id="continueUpload">계속 업로드</button>
+            ${postURL ? `<button class="popup-button" id="viewPost">확인</button>` : ""}
+        </div>
+    `;
 
         document.body.appendChild(popup);
 
-        //  "계속 업로드" 버튼 이벤트 (그냥 `upload.html`로 이동)
+        // 계속 업로드: 현재 페이지를 새로고침하거나 초기화하여 폼을 비움
         document.getElementById("continueUpload").addEventListener("click", () => {
-            window.location.href = "upload.html";
+            window.location.reload(); // 단순히 upload.html로 가는 것보다 폼 초기화에 효과적
         });
 
-        //  "확인" 버튼 이벤트 (post.html로 이동)
+        // 확인 버튼: 전달받은 postURL로 이동
         if (postURL) {
             document.getElementById("viewPost").addEventListener("click", () => {
+                // 주소 인코딩이 꼬이지 않도록 한 번 더 확인하며 이동
                 window.location.href = postURL;
             });
         }
@@ -405,6 +407,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             const result = await response.json();
+
+            if (response.ok) {
+                // 서버 응답에서 id를 가져옵니다. (서버가 result.file.id를 준다고 가정)
+                const postId = result.file.id;
+
+                // 복잡한 쿼리 대신 id 하나만 보냅니다.
+                // .html을 명시하는 것이 경로 인식 오류를 줄여줍니다.
+                const postURL = `post.html?id=${postId}`;
+
+                showuploadPopup("업로드 성공!", postURL);
+            }
 
             setTimeout(() => {
                 hideLoading(); //  1초 후 로딩 제거
