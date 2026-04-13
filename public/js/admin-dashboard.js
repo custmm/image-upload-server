@@ -144,7 +144,7 @@ async function loadAIModel() {
         console.log("모델 로딩 시작...");
         net = await mobilenet.load();
         console.log("모델 로딩 완료!");
-        
+
         const checkBtn = document.getElementById("check-duplicate");
         if (checkBtn) {
             checkBtn.disabled = false;
@@ -182,33 +182,85 @@ document.addEventListener("DOMContentLoaded", () => {
     const checkBtn = document.getElementById("check-duplicate");
     if (checkBtn) {
         checkBtn.addEventListener("click", async () => {
-            if (!net) return alert("AI 모델이 아직 로딩 중입니다.");
+            // 1. 로딩 아이콘 시작 (기존 함수 호출)
+            if (typeof showLoading === "function") showLoading();
 
-            const imgs = document.querySelectorAll("#imageGallery img");
-            if (imgs.length < 2) return alert("비교할 이미지가 부족합니다.");
-
-            showpopup("중복 분석을 시작합니다. 잠시만 기다려주세요...");
-
-            const embeddings = [];
-            // 특징 추출
-            for (let img of imgs) {
-                const activation = net.infer(img, true);
-                embeddings.push({ el: img, vec: activation.dataSync() });
+            // 2. 분석 로그 창 생성 (프론트엔드 시각화)
+            let logContainer = document.getElementById("analysisLogContainer");
+            if (!logContainer) {
+                logContainer = document.createElement("div");
+                logContainer.id = "analysisLogContainer";
+                logContainer.style.cssText = `
+                position: fixed; 
+                top: 60%; 
+                left: 50%; 
+                transform: translateX(-50%);
+                width: 320px; 
+                max-height: 150px; 
+                background: rgba(0,0,0,0.7);
+                color: #00ff00; 
+                font-family: 'Courier New', monospace; 
+                font-size: 12px;
+                padding: 10px; 
+                border-radius: 5px; 
+                overflow-y: auto; z-index: 10001;
+                border: 1px solid #444; 
+                line-height: 1.5;
+            `;
+                document.body.appendChild(logContainer);
             }
+            logContainer.innerHTML = "<div>> 시스템 초기화 중...</div>";
 
-            let foundCount = 0;
-            // 유사도 비교 (코사인 유사도)
-            for (let i = 0; i < embeddings.length; i++) {
-                for (let j = i + 1; j < embeddings.length; j++) {
-                    const sim = calculateSimilarity(embeddings[i].vec, embeddings[j].vec);
-                    if (sim > 0.96) { // 96% 이상 유사 시
-                        embeddings[j].el.style.outline = "5px solid red";
-                        embeddings[j].el.style.outlineOffset = "-5px";
-                        foundCount++;
-                    }
+            const addLog = (msg) => {
+                const line = document.createElement("div");
+                line.innerText = `> ${msg}`;
+                logContainer.appendChild(line);
+                logContainer.scrollTop = logContainer.scrollHeight; // 항상 최하단 스크롤
+            };
+
+            try {
+                addLog("데이터베이스 연결 시도...");
+                addLog("TensorFlow AI 모델 대기 중...");
+
+                // 가짜 로그 효과 (사용자 지루함 방지)
+                setTimeout(() => addLog("ImageKit 저장소 탐색 중..."), 800);
+                setTimeout(() => addLog("이미지 픽셀 데이터 추출 시작..."), 1600);
+
+                // 3. 실제 서버 요청 시작
+                const response = await fetch("/api/admin/check-all-duplicates");
+
+                // 응답 대기 중에 반복 로그 발생
+                const slowLog = setInterval(() => {
+                    addLog("벡터 유사도 비교 연산 중...");
+                }, 3000);
+
+                const result = await response.json();
+                clearInterval(slowLog); // 결과 나오면 반복 중단
+
+                if (result.success) {
+                    addLog(`분석 완료: 총 ${result.duplicateCount}쌍 발견.`);
+
+                    // 4. 로딩 및 로그창 제거 후 결과 발표
+                    setTimeout(() => {
+                        if (typeof hideLoading === "function") hideLoading();
+                        logContainer.remove();
+
+                        if (result.duplicateCount > 0) {
+                            let msg = `[분석 결과] 중복 의심 항목 ${result.duplicateCount}쌍\n\n`;
+                            result.details.forEach(d => {
+                                msg += `• ${d.pair[0]} ↔ ${d.pair[1]} (${d.similarity}%)\n`;
+                            });
+                            alert(msg);
+                        } else {
+                            alert("중복된 이미지가 발견되지 않았습니다.");
+                        }
+                    }, 800);
                 }
+            } catch (error) {
+                if (typeof hideLoading === "function") hideLoading();
+                logContainer.remove();
+                alert("서버 통신 중 오류가 발생했습니다.");
             }
-            alert(foundCount > 0 ? `${foundCount}개의 중복 의심 이미지를 발견했습니다.` : "중복된 이미지가 없습니다.");
         });
     }
 
