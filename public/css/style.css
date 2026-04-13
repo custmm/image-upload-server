@@ -2954,8 +2954,8 @@ body.preview-page .text-card-item::after {
 
 /* 1. 이미지 컨테이너 블러 제거 및 크기 고정 */
 body.preview-page .card-img-container {
-    width: 150px !important;
-    height: 150px !important;
+    width: 125px !important;
+    height: 125px !important;
     /* 전체 카드 높이의 70% 차지 */
     margin: 20px auto;
     overflow: hidden;
@@ -2969,11 +2969,13 @@ body.preview-page .card-img-container {
 
 /* 2. 실제 이미지 설정 */
 body.preview-page .card-img {
-    width: 150px !important;
-    height: 150px !important;
+    width: 125px !important;
+    height: 125px !important;
     object-fit: cover !important;
     /* 이미지가 틀에 꽉 차게 */
     filter: none !important;
+        margin: 10px auto;
+    display: flex;
 
 }
 
