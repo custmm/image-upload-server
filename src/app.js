@@ -40,31 +40,39 @@ const imagekit = new ImageKit({
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// 1. 보안 관련 설정 (jQuery 및 외부 CDN 허용 추가)
+// 1. 보안 관련 설정 수정
 app.use(helmet({
     crossOriginResourcePolicy: false,
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            // 1. 외부 서버와 통신 허용
-            connectSrc: ["'self'", "https://unpkg.com", "https://cdn.jsdelivr.net", "https://ik.imagekit.io"],
-            // 2. 자바스크립트 허용 (code.jquery.com 추가!)
+            // 1. 외부 서버와 통신 허용 (TensorFlow 모델 다운로드 주소 추가)
+            connectSrc: [
+                "'self'", 
+                "https://unpkg.com", 
+                "https://cdn.jsdelivr.net", 
+                "https://ik.imagekit.io",
+                "https://storage.googleapis.com" // 🔥 AI 모델 파일을 받아오기 위해 필수!
+            ],
+            // 2. 자바스크립트 허용 ('unsafe-eval' 추가!)
             scriptSrc: [
                 "'self'", 
                 "'unsafe-inline'", 
+                "'unsafe-eval'", // 🔥 TensorFlow.js의 동적 코드 실행을 위해 필수!
                 "https://unpkg.com", 
                 "https://cdn.jsdelivr.net", 
-                "https://code.jquery.com" // <-- 여기 추가!
+                "https://code.jquery.com"
             ],
             // 3. 스타일시트 허용
             styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://unpkg.com", "https://cdn.jsdelivr.net"],
-            // 4. 이미지 허용
-            imgSrc: ["'self'", "data:", "https://ik.imagekit.io"],
+            // 4. 이미지 허용 (데이터 URL 및 외부 이미지 서버)
+            imgSrc: ["'self'", "data:", "https://ik.imagekit.io", "https://cdn.jsdelivr.net"],
             // 5. 폰트 허용
             fontSrc: ["'self'", "https://cdnjs.cloudflare.com"],
         },
     },
 }));
+
 // [추가] 커스텀 로깅 미들웨어 (기존 코드)
 app.use((req, res, next) => {
     const start = Date.now();
