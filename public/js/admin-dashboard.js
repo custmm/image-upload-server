@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 transform: translateX(-50%);
                 width: 320px; 
                 max-height: 150px; 
-                background: rgba(0,0,0,0.7);
+                background: transparent;
                 color: #00ff00; 
                 font-family: 'Courier New', monospace; 
                 font-size: 12px;
