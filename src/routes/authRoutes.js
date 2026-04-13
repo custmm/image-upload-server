@@ -6,18 +6,24 @@ import jwt from "jsonwebtoken";
 dotenv.config();
 const router = express.Router();
 
+// [수정] 환경 변수가 없을 경우를 대비해 로직 보완
 const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || "default_local_secret"; // 비밀키 기본값 설정
 
-//  .env에서 해시가 제대로 불러와졌는지 확인
+// .env에서 해시가 제대로 불러와졌는지 확인 (서버 시작 시점에 경고 표시)
 if (!ADMIN_PASSWORD_HASH) {
-    console.error(" ERROR: .env 파일에서 ADMIN_PASSWORD_HASH가 설정되지 않았습니다!");
+    console.warn("⚠️  WARNING: ADMIN_PASSWORD_HASH가 설정되지 않았습니다. 로컬 테스트 중이라면 .env 파일을 확인하세요.");
 }
 
 //  로그인 API
 router.post("/login", async (req, res) => {
+    // [중요] 해시값이 없으면 비교 자체가 불가능하므로 즉시 차단
+    if (!ADMIN_PASSWORD_HASH) {
+        return res.status(500).json({ error: "서버 설정 오류: 관리자 비밀번호가 설정되지 않았습니다." });
+    }
+
     // --- [추가 시작] 빛의 속도를 이용한 지연 시간 방어막 ---
-    const clientTime = req.headers['x-latency-check']; 
+    const clientTime = req.headers['x-latency-check'];
     const serverTime = Date.now();
 
     // 1. 헤더가 아예 없으면 차단
@@ -27,10 +33,7 @@ router.post("/login", async (req, res) => {
     }
 
     const diff = serverTime - parseInt(clientTime);
-
-    // 2. 지연 시간이 너무 짧거나(기계), 너무 길면(재전송 공격) 차단
-    // 로그인은 민감하므로 10ms(0.01초)로 조금 더 넉넉하게 잡았습니다.
-    if (diff < 10 || diff > 15000) { 
+    if (diff < 10 || diff > 15000) {
         console.log(`🚨 [공격 의심] 지연 시간: ${diff}ms - IP: ${req.ip}`);
         return res.status(403).json({ error: "물리적 보안 정책에 의해 차단되었습니다." });
     }
