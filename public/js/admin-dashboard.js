@@ -52,6 +52,7 @@ let currentController = null;  // fetch 취소용
 let isPopupOpen = false;  //  팝업 상태 변수 추가
 let chartClickHandlerRegistered = false;
 let isModernized = false; //  이미지 현대화 상태 (전역)
+let net;// [추가] AI 모델 변수 및 스피너 스타일
 
 if (!window.observer) {
     window.observer = new IntersectionObserver((entries, observer) => {
@@ -137,13 +138,71 @@ function formatText(command) {
     document.execCommand(command, false, null);
 }
 
+// [추가] AI 모델 로드 함수
+async function loadAIModel() {
+    try {
+        console.log("AI 모델 로딩 중...");
+        net = await mobilenet.load();
+        console.log("AI 모델 준비 완료");
+    } catch (e) {
+        console.error("AI 모델 로드 실패", e);
+    }
+}
+loadAIModel();
+
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("📌 모든 카테고리에서 이미지 로드 시작");
 
     currentMode = "text";
     currentCategoryId = null;
 
     const container = document.querySelector(".post-form-container");
+
+    // [수정] 1. 이미지 모드일 때 내부 컨테이너 스크롤 감시
+    container.addEventListener("scroll", throttle(() => {
+        if (currentMode !== "image") return;
+
+        // 컨테이너 스크롤 바닥 감지 (바닥에서 20px 여유)
+        if (container.scrollTop + container.clientHeight >= container.scrollHeight - 20) {
+            if (!isLoading && !noMoreImages && !isPaused) {
+                // 디바운스 대신 즉시 혹은 짧은 지연으로 호출
+                fetchImages("image");
+            }
+        }
+    }, 300));
+
+    // [추가] 2. 게시글 중복 확인 버튼 이벤트
+    const checkBtn = document.getElementById("check-duplicate");
+    if (checkBtn) {
+        checkBtn.addEventListener("click", async () => {
+            if (!net) return alert("AI 모델이 아직 로딩 중입니다.");
+
+            const imgs = document.querySelectorAll("#imageGallery img");
+            if (imgs.length < 2) return alert("비교할 이미지가 부족합니다.");
+
+            showpopup("중복 분석을 시작합니다. 잠시만 기다려주세요...");
+
+            const embeddings = [];
+            // 특징 추출
+            for (let img of imgs) {
+                const activation = net.infer(img, true);
+                embeddings.push({ el: img, vec: activation.dataSync() });
+            }
+
+            let foundCount = 0;
+            // 유사도 비교 (코사인 유사도)
+            for (let i = 0; i < embeddings.length; i++) {
+                for (let j = i + 1; j < embeddings.length; j++) {
+                    const sim = calculateSimilarity(embeddings[i].vec, embeddings[j].vec);
+                    if (sim > 0.96) { // 96% 이상 유사 시
+                        embeddings[j].el.style.outline = "5px solid red";
+                        embeddings[j].el.style.outlineOffset = "-5px";
+                        foundCount++;
+                    }
+                }
+            }
+            alert(foundCount > 0 ? `${foundCount}개의 중복 의심 이미지를 발견했습니다.` : "중복된 이미지가 없습니다.");
+        });
+    }
 
     container.classList.add("text-mode");
     container.classList.remove("image-mode");
@@ -293,18 +352,24 @@ function bindIndicatorEvents() {
 
 async function fetchImages(mode = "image", append = false) {
 
-    if (isPaused) return;
-    if (isLoading || noMoreImages) return;
+    if (isPaused || isLoading || noMoreImages) return;
 
     isLoading = true;
+    const container = document.querySelector(".post-form-container");
+    let loader = document.getElementById("image-loader");
+
+    // 로딩 아이콘 표시
+    if (mode === "image" && !loader) {
+        loader = document.createElement("div");
+        loader.id = "image-loader";
+        loader.innerHTML = `<div class="spinner"></div><p>이미지 로드 중...</p>`;
+        container.appendChild(loader);
+    }
 
     try {
         const url = `/api/files?offset=${loadedImages}&limit=${batchSize}`;
-        console.log(`이미지 요청 URL: ${url}`);
-
         const response = await fetch(url);
-
-        if (!response.ok) throw new Error(`서버 응답 오류: ${response.status} ${response.statusText}`);
+        if (!response.ok) throw new Error(`서버 응답 오류: ${response.status}`);
 
         // 1) API가 { total, files } 형태로 내려주면 files 프로퍼티를, 아니면 그대로 배열로 처리
         const resJson = await response.json();
@@ -312,7 +377,6 @@ async function fetchImages(mode = "image", append = false) {
 
         // 2) 전체 개수가 필요하면 resJson.total을 사용 가능
         if (resJson.total !== undefined) {
-            // 예: 더 이상 로드할 게 없으면 noMoreImages = true
             noMoreImages = (loadedImages + images.length) >= resJson.total;
         }
 
@@ -340,14 +404,22 @@ async function fetchImages(mode = "image", append = false) {
 
         loadedImages += images.length;
     } catch (error) {
-        if (error.name === "AbortError") {
-            console.log("⛔ 이미지 로딩 강제 중단");
-        } else {
-            console.error(" 이미지 불러오기 오류:", error);
-        }
+        console.error("로딩 실패:", error);
     } finally {
         isLoading = false;
+        if (loader) loader.remove(); // 로딩 완료 후 아이콘 제거
     }
+}
+
+// [추가] 유사도 계산 함수
+function calculateSimilarity(v1, v2) {
+    let dot = 0, nA = 0, nB = 0;
+    for (let i = 0; i < v1.length; i++) {
+        dot += v1[i] * v2[i];
+        nA += v1[i] * v1[i];
+        nB += v2[i] * v2[i];
+    }
+    return dot / (Math.sqrt(nA) * Math.sqrt(nB));
 }
 
 // 이미지모드진입시
