@@ -208,68 +208,81 @@ document.addEventListener("DOMContentLoaded", () => {
     const checkBtn = document.getElementById("check-duplicate");
     if (checkBtn) {
         checkBtn.addEventListener("click", async () => {
-            // 1. 로딩 아이콘 시작 (기존 함수 호출)
+            // 1. 로딩 아이콘 시작
             if (typeof showLoading === "function") showLoading();
 
-            // 2. 분석 로그 창 생성 (프론트엔드 시각화)
-            let logContainer = document.getElementById("analysisLogContainer");
-            if (!logContainer) {
-                logContainer = document.createElement("div");
-                logContainer.id = "analysisLogContainer";
-                logContainer.style.cssText = `
-                position: fixed; 
-                top: 60%; 
-                left: 50%; 
-                transform: translateX(-50%);
-                width: 320px; 
-                max-height: 150px; 
-                background: transparent;
-                color: #00ff00; 
-                font-family: 'Courier New', monospace; 
-                font-size: 12px;
-                padding: 10px; 
-                border-radius: 5px; 
-                overflow-y: auto; z-index: 10001;
-                border: 1px solid #444; 
-                line-height: 1.5;
+            // 2. 분석 컨테이너(로그 + 로딩바) 생성
+            let analysisWrapper = document.getElementById("analysisWrapper");
+            if (!analysisWrapper) {
+                analysisWrapper = document.createElement("div");
+                analysisWrapper.id = "analysisWrapper";
+                analysisWrapper.style.cssText = `
+                position: fixed; top: 60%; left: 50%; transform: translateX(-50%);
+                width: 350px; background: rgba(0, 0, 0, 0.85); border-radius: 12px;
+                padding: 20px; z-index: 10001; border: 1px solid #00ff00;
+                box-shadow: 0 0 20px rgba(0, 255, 0, 0.2); font-family: 'Courier New', monospace;
             `;
-                document.body.appendChild(logContainer);
+                document.body.appendChild(analysisWrapper);
             }
-            logContainer.innerHTML = "<div>> 시스템 초기화 중...</div>";
 
-            const addLog = (msg) => {
-                const line = document.createElement("div");
-                line.innerText = `> ${msg}`;
-                logContainer.appendChild(line);
-                logContainer.scrollTop = logContainer.scrollHeight; // 항상 최하단 스크롤
+            // 컨테이너 내부 구조 (로딩바 + 퍼센트 + 로그창)
+            analysisWrapper.innerHTML = `
+            <div style="display: flex; justify-content: space-between; color: #00ff00; font-size: 14px; margin-bottom: 8px;">
+                <span>AI 분석 진행률</span>
+                <span id="analysisPercent">0%</span>
+            </div>
+            <div style="width: 100%; height: 10px; background: #222; border-radius: 5px; overflow: hidden; margin-bottom: 15px;">
+                <div id="analysisBar" style="width: 0%; height: 100%; background: #00ff00; transition: width 0.3s ease;"></div>
+            </div>
+            <div id="analysisLog" style="height: 100px; overflow-y: auto; color: #00ff00; font-size: 11px; line-height: 1.5;">
+                <div>> 시스템 초기화 중...</div>
+            </div>
+        `;
+
+            const progressBar = document.getElementById("analysisBar");
+            const percentText = document.getElementById("analysisPercent");
+            const logArea = document.getElementById("analysisLog");
+
+            // 로그 추가 및 UI 업데이트 함수
+            const updateProgress = (percent, msg) => {
+                progressBar.style.width = `${percent}%`;
+                percentText.innerText = `${percent}%`;
+                if (msg) {
+                    const line = document.createElement("div");
+                    line.innerText = `> ${msg}`;
+                    logArea.appendChild(line);
+                    logArea.scrollTop = logArea.scrollHeight;
+                }
             };
 
             try {
-                addLog("데이터베이스 연결 시도...");
-                addLog("TensorFlow AI 모델 대기 중...");
+                updateProgress(10, "데이터베이스 연결 시도...");
+                updateProgress(20, "TensorFlow AI 모델 대기 중...");
 
-                // 가짜 로그 효과 (사용자 지루함 방지)
-                setTimeout(() => addLog("ImageKit 저장소 탐색 중..."), 800);
-                setTimeout(() => addLog("이미지 픽셀 데이터 추출 시작..."), 1600);
+                // 3. 가짜 진행률 (서버 응답 전까지 사용자를 안심시키는 효과)
+                let currentPercent = 20;
+                const progressTimer = setInterval(() => {
+                    if (currentPercent < 90) {
+                        currentPercent += Math.floor(Math.random() * 3) + 1; // 1~3%씩 랜덤 증가
+                        updateProgress(currentPercent);
 
-                // 3. 실제 서버 요청 시작
+                        if (currentPercent === 40) updateProgress(40, "ImageKit 저장소 탐색 및 데이터 추출...");
+                        if (currentPercent === 70) updateProgress(70, "유사도 벡터 비교 연산 수행 중...");
+                    }
+                }, 600);
+
+                // 4. 실제 서버 요청 시작
                 const response = await fetch("/api/admin/check-all-duplicates");
-
-                // 응답 대기 중에 반복 로그 발생
-                const slowLog = setInterval(() => {
-                    addLog("벡터 유사도 비교 연산 중...");
-                }, 3000);
-
                 const result = await response.json();
-                clearInterval(slowLog); // 결과 나오면 반복 중단
+
+                clearInterval(progressTimer); // 응답 오면 타이머 중단
 
                 if (result.success) {
-                    addLog(`분석 완료: 총 ${result.duplicateCount}쌍 발견.`);
+                    updateProgress(100, `분석 완료: 총 ${result.duplicateCount}쌍 발견.`);
 
-                    // 4. 로딩 및 로그창 제거 후 결과 발표
                     setTimeout(() => {
                         if (typeof hideLoading === "function") hideLoading();
-                        logContainer.remove();
+                        analysisWrapper.remove();
 
                         if (result.duplicateCount > 0) {
                             let msg = `[분석 결과] 중복 의심 항목 ${result.duplicateCount}쌍\n\n`;
@@ -280,11 +293,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         } else {
                             alert("중복된 이미지가 발견되지 않았습니다.");
                         }
-                    }, 800);
+                    }, 1000);
                 }
             } catch (error) {
+                clearInterval(progressTimer);
                 if (typeof hideLoading === "function") hideLoading();
-                logContainer.remove();
+                analysisWrapper.remove();
                 alert("서버 통신 중 오류가 발생했습니다.");
             }
         });
