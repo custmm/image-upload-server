@@ -141,13 +141,21 @@ function formatText(command) {
 // [추가] AI 모델 로드 함수
 async function loadAIModel() {
     try {
-        console.log("AI 모델 로딩 중...");
+        console.log("모델 로딩 시작...");
         net = await mobilenet.load();
-        console.log("AI 모델 준비 완료");
-    } catch (e) {
-        console.error("AI 모델 로드 실패", e);
+        console.log("모델 로딩 완료!");
+        
+        const checkBtn = document.getElementById("check-duplicate");
+        if (checkBtn) {
+            checkBtn.disabled = false;
+            checkBtn.textContent = "게시글 중복 확인";
+        }
+    } catch (err) {
+        console.error("AI 모델 로드 중 오류 발생:", err);
     }
 }
+
+// 스크립트가 로드되자마자 즉시 호출
 loadAIModel();
 
 document.addEventListener("DOMContentLoaded", () => {
