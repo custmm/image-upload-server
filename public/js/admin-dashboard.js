@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // 1. 로딩 아이콘 시작
             if (typeof showLoading === "function") showLoading();
 
-            // 2. 분석 컨테이너(로그 + 로딩바) 생성
+            // 2. 분석 컨테이너 생성 및 초기화
             let analysisWrapper = document.getElementById("analysisWrapper");
             if (!analysisWrapper) {
                 analysisWrapper = document.createElement("div");
@@ -225,7 +225,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.body.appendChild(analysisWrapper);
             }
 
-            // 컨테이너 내부 구조 (로딩바 + 퍼센트 + 로그창)
             analysisWrapper.innerHTML = `
             <div style="display: flex; justify-content: space-between; color: #00ff00; font-size: 14px; margin-bottom: 8px;">
                 <span>AI 분석 진행률</span>
@@ -243,11 +242,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const percentText = document.getElementById("analysisPercent");
             const logArea = document.getElementById("analysisLog");
 
-            // 로그 추가 및 UI 업데이트 함수
             const updateProgress = (percent, msg) => {
-                progressBar.style.width = `${percent}%`;
-                percentText.innerText = `${percent}%`;
-                if (msg) {
+                if (progressBar) progressBar.style.width = `${percent}%`;
+                if (percentText) percentText.innerText = `${percent}%`;
+                if (msg && logArea) {
                     const line = document.createElement("div");
                     line.innerText = `> ${msg}`;
                     logArea.appendChild(line);
@@ -255,27 +253,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             };
 
+            // 🔥 [수정] 타이머 변수를 미리 선언하여 catch 블록에서도 접근 가능하게 함
+            let currentPercent = 20;
+            let progressTimer = null;
+
             try {
                 updateProgress(10, "데이터베이스 연결 시도...");
                 updateProgress(20, "TensorFlow AI 모델 대기 중...");
 
-                // 3. 가짜 진행률 (서버 응답 전까지 사용자를 안심시키는 효과)
-                let currentPercent = 20;
-                const progressTimer = setInterval(() => {
+                // 가짜 진행률 타이머 시작
+                progressTimer = setInterval(() => {
                     if (currentPercent < 90) {
-                        currentPercent += Math.floor(Math.random() * 3) + 1; // 1~3%씩 랜덤 증가
+                        currentPercent += Math.floor(Math.random() * 3) + 1;
                         updateProgress(currentPercent);
-
-                        if (currentPercent === 40) updateProgress(40, "ImageKit 저장소 탐색 및 데이터 추출...");
-                        if (currentPercent === 70) updateProgress(70, "유사도 벡터 비교 연산 수행 중...");
+                        if (currentPercent === 45) updateProgress(45, "ImageKit 저장소 데이터 분석 중...");
+                        if (currentPercent === 75) updateProgress(75, "유사도 벡터 비교 연산 수행 중...");
                     }
                 }, 600);
 
                 // 4. 실제 서버 요청 시작
                 const response = await fetch("/api/admin/check-all-duplicates");
+
+                // 🔥 [추가] 502 Bad Gateway 등 서버 에러 체크
+                if (!response.ok) {
+                    throw new Error(`서버 응답 에러 (Status: ${response.status})`);
+                }
+
                 const result = await response.json();
 
-                clearInterval(progressTimer); // 응답 오면 타이머 중단
+                // 응답이 오면 타이머 즉시 종료
+                if (progressTimer) clearInterval(progressTimer);
 
                 if (result.success) {
                     updateProgress(100, `분석 완료: 총 ${result.duplicateCount}쌍 발견.`);
@@ -296,10 +303,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     }, 1000);
                 }
             } catch (error) {
-                clearInterval(progressTimer);
+                // 🔥 [수정] 에러 발생 시 모든 타이머와 로딩창 정리
+                if (progressTimer) clearInterval(progressTimer);
                 if (typeof hideLoading === "function") hideLoading();
-                analysisWrapper.remove();
-                alert("서버 통신 중 오류가 발생했습니다.");
+                if (analysisWrapper) analysisWrapper.remove();
+
+                console.error("분석 중 에러 발생:", error);
+                alert("서버가 너무 바쁘거나 응답이 없습니다(502/Timeout). 잠시 후 다시 시도해 주세요.");
             }
         });
     }
