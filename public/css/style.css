@@ -3294,29 +3294,6 @@ body.preview-page .fixed-trash-container:hover {
     transform: scale(1);
 }
 
-
-/* 아이콘페이지(ai_icon.html) */
-body.icon-page h1 {
-    padding-bottom: 30px;
-}
-
-body.icon-page h3 {
-    padding: 10px;
-    border-bottom: 2px solid #333;
-    width: 100%;
-}
-
-body.icon-page .icon-studio-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: #fff;
-    min-height: 100vh;
-    box-sizing: border-box;
-    margin-bottom: 30px;
-}
-
 /* 소개팝업페이지(preview_popup.html) */
 body.preview-popup-page {
     width: 100%

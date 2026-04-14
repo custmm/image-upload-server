@@ -55,37 +55,6 @@
         flex-wrap: wrap;
     }
 
-    /* icon-page의 css */
-    body.icon-page {
-        width: 100%
-    }
-
-    body.icon-page #icon_studio,
-    body.icon-page .move_icon,
-    body.icon-page .bulid_icon,
-    body.icon-page .structure_icon,
-    body.icon-page .obj_icon {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 5px;
-        width: fit-content;
-        margin: 5px 0 5px;
-        justify-items: center;
-    }
-
-    body.icon-page #icon_studio img,
-    body.icon-page .move_icon img,
-    body.icon-page .bulid_icon img,
-    body.icon-page .structure_icon img,
-    body.icon-page .obj_icon img {
-        width: 60px;
-        object-fit: contain;
-        object-position: center;
-        justify-self: center;
-        align-self: center;
-        cursor: pointer;
-        transition: transform 0.15s ease;
-    }
 
     /* click-page의 css */
 

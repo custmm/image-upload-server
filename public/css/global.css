@@ -214,8 +214,7 @@ body.post-page {
     transition: background-color 0.3s, color 0.3s;
 }
 
-body.mode-page,
-body.icon-page {
+body.mode-page {
     display: flex;
 }
 
@@ -230,11 +229,6 @@ body.index-page {
     background-color: #c0c0c0;
 }
 
-body.icon-page {
-    flex-direction: column;
-    align-items: center;
-    background: #fff;
-}
 
 body.preview-popup-page,
 body.etc-page {
@@ -510,8 +504,6 @@ body.dashboard-page .loading-text {
 /* 각 페이지의 기본적 레이아웃 설정 */
 body.click-page h1,
 body.click-page #exper_font,
-body.icon-page h1,
-body.icon-page h3,
 p {
     text-align: center;
 }
@@ -762,42 +754,6 @@ body.dashboard-page #devide {
 body.dashboard-page .gallery-container,
 body.dashboard-page .post-form-container.text-mode {
     width: 100%;
-}
-
-/*-------------------------- icon-page공통 레이아웃 ----------------------------------------------*/
-body.icon-page #icon_studio,
-body.icon-page .move_icon,
-body.icon-page .bulid_icon,
-body.icon-page .structure_icon,
-body.icon-page .obj_icon {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
-    width: fit-content;
-    margin: 0 auto;
-    justify-items: center;
-}
-
-body.icon-page #icon_studio img,
-body.icon-page .move_icon img,
-body.icon-page .bulid_icon img,
-body.icon-page .structure_icon img,
-body.icon-page .obj_icon img {
-    width: 90px;
-    object-fit: contain;
-    object-position: center;
-    justify-self: center;
-    align-self: center;
-    cursor: pointer;
-    transition: transform 0.15s ease;
-}
-
-body.icon-page #icon_studio img:hover,
-body.icon-page .move_icon img:hover,
-body.icon-page .bulid_icon img:hover,
-body.icon-page .structure_icon img:hover,
-body.icon-page .obj_icon img:hover {
-    transform: scale(1.15);
 }
 
 
