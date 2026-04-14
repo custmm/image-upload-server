@@ -1,7 +1,6 @@
 // [1] 팝업 열기 함수들
 export const popupActions = {
     info: () => openFrame("previewOverlayInfo", "previewFrameInfo", "preview_popup.html"),
-    icon: () => openFrame("previewOverlayIcon", "previewFrameIcon", "ai_icon.html"),
     etc: () => openFrame("previewOverlayIcon", "previewFrameIcon", "etc_util.html"),
     contact: () => openFrame("previewOverlayIcon", "previewFrameIcon", "contact.html"),
 };
