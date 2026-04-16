@@ -201,17 +201,18 @@ export async function loadCategories() {
             const btn = document.createElement("button");
             btn.className = "tab-btn";
             
-            // 초기 로드 시 첫 번째 탭 배경 설정
-            if (index === 0) {
-                btn.classList.add("active");
-                categoryTabContainer.classList.add("active-0"); // 첫 번째 SVG 배경 적용
-            }
+            // [수정] 첫 번째 탭 active 설정 (부모 클래스 active-0 등은 삭제)
+            if (index === 0) btn.classList.add("active");
 
             const iconName = iconMap[category.name] || "folder";
-            btn.innerHTML = `${category.name} <i data-lucide="${iconName}" class="tab-icon"></i>`;
+            // [수정] 텍스트와 아이콘만 깔끔하게 넣기 (외부 SVG 파일 삽입 금지)
+            btn.innerHTML = `
+                <span class="tab-text">${category.name}</span>
+                <i data-lucide="${iconName}" class="tab-icon"></i>
+            `;
 
-            // [수정] index 인자를 세 번째 매개변수로 전달합니다.
-            btn.onclick = () => loadCategory(category.id, btn, false, index);
+            // [수정] index 인자 전달 불필요, 깔끔하게 categoryId와 btn만 전달
+            btn.onclick = () => loadCategory(category.id, btn);
             categoryTabContainer.appendChild(btn);
         });
 
@@ -222,10 +223,10 @@ export async function loadCategories() {
 }
 
 // [수정] loadCategory 함수
-// index 파라미터를 추가하여 부모 클래스를 제어합니다.
-export async function loadCategory(categoryId, tabButton, isPopState = false, index = null) {
+// [수정] loadCategory 함수에서 index 파라미터 제거
+export async function loadCategory(categoryId, tabButton, isPopState = false) {
     const newCategoryName = tabButton.textContent.trim();
-    const categoryTabContainer = document.querySelector(".tab-design");
+    // [수정] categoryTabContainer 변수 선언은 유지하되 클래스 조작은 안 함
 
     if (!isExplanMode && !isPopState) {
         const currentParams = new URLSearchParams(window.location.search);
@@ -238,21 +239,9 @@ export async function loadCategory(categoryId, tabButton, isPopState = false, in
     selectedCategory = categoryId;
     selectedSubcategory = null;
 
-    // 1. 버튼 활성화 상태 변경
+    // [수정] 버튼 활성화 상태만 토글 (부모 배경 바꾸는 코드는 삭제)
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     tabButton.classList.add("active");
-
-    // 2. [추가] 부모 컨테이너 배경 클래스 변경 (index 활용)
-    if (index !== null) {
-        // 기존에 붙어있던 active-X 클래스들을 모두 제거
-        categoryTabContainer.classList.forEach(className => {
-            if (className.startsWith('active-')) {
-                categoryTabContainer.classList.remove(className);
-            }
-        });
-        // 새 인덱스 클래스 추가 (이게 CSS에서 SVG 배경을 바꿈)
-        categoryTabContainer.classList.add(`active-${index}`);
-    }
 
     const currentCategoryEl = document.getElementById("currentCategory");
     if (currentCategoryEl) currentCategoryEl.textContent = newCategoryName;
