@@ -3144,7 +3144,7 @@ body.preview-page .marge-container {
     margin: 0 auto;
     gap: 25px;
     background-color: #fff;
-    border-radius: 0 0 25px 25px;
+    border-radius: 25px;
 }
 
 body.preview-page .category-subtab-container {
@@ -3520,7 +3520,7 @@ body.etc-page #my_project li:nth-child(2) #method1 .img_wrap img {
     display: flex;
 }
 
-#method1 h3 {
+body.etc-page #method1 h3 {
     margin-bottom: 15px;
 }
 
@@ -3529,6 +3529,46 @@ body.etc-page .rc_car_intro_1 {
 
 }
 
+
+body.etc-page .app_dev img{
+    width: 100px;
+    height: 100px;
+}
+
+/* 1. 부모 컨테이너를 그리드로 설정 */
+body.etc-page .dev_wrap {
+    display: grid;
+    /* 한 행에 동일한 비율(1fr)로 5개의 열을 생성 */
+    grid-template-columns: repeat(5, 1fr); 
+    /* 아이콘들 사이의 간격 (가로, 세로 모두 적용) */
+    gap: 15px; 
+    margin: 20px 0;
+    padding: 10px;
+}
+
+/* 2. 각 아이콘 요소 스타일 */
+body.etc-page .app_dev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9; /* 배경색 (필요시) */
+    border-radius: 12px;      /* 모서리 둥글게 */
+    padding: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 3. 호버 시 효과 (선택 사항) */
+body.etc-page .app_dev:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* 4. 이미지(SVG) 크기 조절 */
+body.etc-page .app_dev img {
+    width: 50px;  /* 아이콘 크기에 맞춰 조절하세요 */
+    height: 50px;
+    display: block;
+}
 
 body.etc-page strong {
     text-align: center;
