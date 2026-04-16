@@ -3552,7 +3552,9 @@ body.etc-page .app_dev {
     justify-content: center;
     align-items: center;
     background-color: #f9f9f9; /* 배경색 (필요시) */
-    border-radius: 12px;      /* 모서리 둥글게 */
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
     padding: 10px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
