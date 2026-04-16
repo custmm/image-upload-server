@@ -2462,7 +2462,7 @@ body.preview-page .tab-design {
     height: 50px;
     background: #c2f7f170; /* 전체 바 배경색 */
     border-radius: 15px;
-    padding: 0 20px; /* 양옆 여백 */
+    padding: 0 0 20px 0;
     align-items: flex-end;
     
     /* [핵심] 이걸 넣어야 버튼 밖으로 나가는 그림자가 잘려서 뿔이 안 생깁니다 */
