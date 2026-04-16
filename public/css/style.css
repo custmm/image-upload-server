@@ -2459,78 +2459,66 @@ body.preview-page .tab-design {
     position: relative;
     margin: 20px auto;
     width: 85%;
-    height: 50px;
-    background: #c2f7f170; /* 전체 바 배경색 */
-    border-radius: 15px;
+    height: 60px;
+    /* 높이를 살짝 키워 여유를 줍니다 */
+    background: #2db6d5e8;
+    /* 전체 바 배경색 */
+    border-radius: 50px;
+    /* 양 끝을 아주 둥글게 (알약 형태) */
     padding: 0 0 20px 0;
-    align-items: flex-end;
-    
-    /* [핵심] 이걸 넣어야 버튼 밖으로 나가는 그림자가 잘려서 뿔이 안 생깁니다 */
-    overflow: hidden; 
+    align-items: center;
+    /* 버튼들을 세로 중앙 정렬 */
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 /* 2. 공통 버튼 스타일 */
 body.preview-page .tab-btn {
     flex: 1;
-    height: 40px;
+    height: 100%; /* 부모 높이(패딩 제외)에 꽉 차게 */
     border: none;
-    background: transparent !important; /* 기본 상태는 배경 없음 */
+    background: transparent !important;
     color: #555;
     font-size: 15px;
     cursor: pointer;
     position: relative;
     z-index: 1;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease;
+    border-radius: 50px; /* 비활성 상태에도 둥근 모양 유지 */
 }
 
-/* 3. 활성화된 버튼: 쏙 파인 화이트 영역 */
+/* 3. 활성화된 버튼: 바 위로 떠오르는 알약 모양 */
 body.preview-page .tab-btn.active {
-    /* [주의] 아래 배경색은 반드시 사이트 본문 배경색과 일치시켜야 합니다 */
-    background: #ffffff !important; 
+    background: #ffffff !important; /* 순백색 배경 */
     color: #333333;
-    font-weight: 700;
-    border-radius: 25px;
-    height: 50px; /* 바 높이와 일치 */
-    z-index: 2;
-    transform: none; /* 이전의 translateY(5px) 등은 제거합니다 */
+    font-weight: 800;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 살짝 떠 있는 느낌의 그림자 */
+    border-radius: 50px; /* 완벽한 알약 모양 */
+    height: 100%; /* 패딩 안쪽 공간을 꽉 채움 */
 }
 
-/* 4. 핵심: 뿔 대신 부드러운 곡선을 만드는 역곡률 (Inverted Radius) */
+/* 4. 기존에 있던 뿔(가상 요소) 제거 */
 body.preview-page .tab-btn.active::before,
 body.preview-page .tab-btn.active::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    width: 20px;
-    height: 20px;
-    background: transparent;
-    pointer-events: none; /* 클릭 방해 금지 */
+    display: none; /* 역곡률 뿔 디자인 삭제 */
 }
-
-/* 왼쪽 곡선 */
-body.preview-page .tab-btn.active::before {
-    left: -20px;
-    border-radius: 0 0 25px 0; /* 오른쪽 아래만 둥글게 */
-    /* active 배경색과 동일한 그림자로 채우기 */
-    box-shadow: 5px 5px 0 5px #ffffff; 
-}
-
-/* 오른쪽 곡선 */
-body.preview-page .tab-btn.active::after {
-    right: -20px;
-    border-radius: 0 0 0 25px; /* 왼쪽 아래만 둥글게 */
-    box-shadow: -5px 5px 0 5px #ffffff;
+/* 호버 효과 */
+body.preview-page .tab-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.3) !important; /* 살짝 밝아지는 효과 */
+    color: #fff;
 }
 
 /* 호버 시 텍스트 색상만 변경 */
 body.preview-page .tab-btn:hover {
-    color: #ffffff;
+    background-color: #17ff06;
 }
+
 body.preview-page .tab-btn.active:hover {
-    color: #333333; /* 활성 버튼은 색 유지 */
+    color: #333333;
+    /* 활성 버튼은 색 유지 */
 }
 
 body.preview-page .tab-btn svg {
