@@ -2465,7 +2465,7 @@ body.preview-page .tab-design {
     /* 전체 바 배경색 */
     border-radius: 50px;
     /* 양 끝을 아주 둥글게 (알약 형태) */
-    padding: 0 0 20px 0;
+    padding: 0 20px 20px 20px;
     align-items: center;
     /* 버튼들을 세로 중앙 정렬 */
     box-sizing: border-box;
@@ -2477,7 +2477,7 @@ body.preview-page .tab-btn {
     flex: 1;
     height: 100%; /* 부모 높이(패딩 제외)에 꽉 차게 */
     border: none;
-    background: transparent !important;
+    background: #fff;
     color: #555;
     font-size: 15px;
     cursor: pointer;
@@ -2492,7 +2492,7 @@ body.preview-page .tab-btn {
 
 /* 3. 활성화된 버튼: 바 위로 떠오르는 알약 모양 */
 body.preview-page .tab-btn.active {
-    background: #ffffff !important; /* 순백색 배경 */
+    background: #11aa31; /* 순백색 배경 */
     color: #333333;
     font-weight: 800;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 살짝 떠 있는 느낌의 그림자 */
@@ -2511,15 +2511,6 @@ body.preview-page .tab-btn:hover:not(.active) {
     color: #fff;
 }
 
-/* 호버 시 텍스트 색상만 변경 */
-body.preview-page .tab-btn:hover {
-    background-color: #17ff06;
-}
-
-body.preview-page .tab-btn.active:hover {
-    color: #333333;
-    /* 활성 버튼은 색 유지 */
-}
 
 body.preview-page .tab-btn svg {
     opacity: 0;
