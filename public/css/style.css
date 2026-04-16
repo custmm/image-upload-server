@@ -2453,17 +2453,20 @@ body.preview-page .indicate_btn:active {
 }
 
 /*====== 탭디자인css(큰 카테고리 탭) ======*/
-/* 1. 부모 컨테이너: 전체적인 바 형태만 잡기 */
+/* 1. 부모 컨테이너: 삐져나온 뿔(그림자)을 잘라내는 울타리 */
 body.preview-page .tab-design {
     display: flex;
     position: relative;
-    margin: 0 auto;
+    margin: 20px auto;
     width: 85%;
     height: 50px;
-    background: #c2f7f170; /* 전체 바의 배경색 */
-    border-radius: 15px 15px 0 0; /* 상단만 둥글게 */
-    padding: 0 10px;
-    align-items: flex-end; /* 버튼들이 바닥에 붙도록 */
+    background: #c2f7f170; /* 전체 바 배경색 */
+    border-radius: 15px 15px 0 0;
+    padding: 0 20px; /* 양옆 여백 */
+    align-items: flex-end;
+    
+    /* [핵심] 이걸 넣어야 버튼 밖으로 나가는 그림자가 잘려서 뿔이 안 생깁니다 */
+    overflow: hidden; 
 }
 
 /* 2. 공통 버튼 스타일 */
@@ -2471,25 +2474,31 @@ body.preview-page .tab-btn {
     flex: 1;
     height: 40px;
     border: none;
-    background: transparent;
+    background: transparent !important; /* 기본 상태는 배경 없음 */
     color: #555;
     font-size: 15px;
     cursor: pointer;
     position: relative;
+    z-index: 1;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* 3. 활성화된 버튼: 아래로 파인 효과 */
+/* 3. 활성화된 버튼: 쏙 파인 화이트 영역 */
 body.preview-page .tab-btn.active {
-    background: #f8f9fa; /* 본문 배경색과 동일하게 맞춰서 '파인' 느낌 연출 */
-    color: #333;
+    /* [주의] 아래 배경색은 반드시 사이트 본문 배경색과 일치시켜야 합니다 */
+    background: #ffffff !important; 
+    color: #333333;
     font-weight: 700;
-    border-radius: 15px 15px 0 0; /* 위쪽을 둥글게 */
-    height: 50px; /* 바의 높이와 맞춰서 꽉 차게 */
+    border-radius: 15px 15px 0 0;
+    height: 50px; /* 바 높이와 일치 */
     z-index: 2;
+    transform: none; /* 이전의 translateY(5px) 등은 제거합니다 */
 }
 
-/* 4. 핵심: 양옆의 오목한 곡선 (Inverted Radius) */
+/* 4. 핵심: 뿔 대신 부드러운 곡선을 만드는 역곡률 (Inverted Radius) */
 body.preview-page .tab-btn.active::before,
 body.preview-page .tab-btn.active::after {
     content: "";
@@ -2498,35 +2507,30 @@ body.preview-page .tab-btn.active::after {
     width: 20px;
     height: 20px;
     background: transparent;
+    pointer-events: none; /* 클릭 방해 금지 */
 }
 
-/* 왼쪽 역곡률 */
+/* 왼쪽 곡선 */
 body.preview-page .tab-btn.active::before {
     left: -20px;
-    border-radius: 0 0 20px 0; /* 오른쪽 아래만 둥글게 */
-    box-shadow: 10px 0 0 0 #f8f9fa; /* 배경색과 같은 그림자로 공간을 채움 */
+    border-radius: 0 0 15px 0; /* 오른쪽 아래만 둥글게 */
+    /* active 배경색과 동일한 그림자로 채우기 */
+    box-shadow: 5px 5px 0 5px #ffffff; 
 }
 
-/* 오른쪽 역곡률 */
+/* 오른쪽 곡선 */
 body.preview-page .tab-btn.active::after {
     right: -20px;
-    border-radius: 0 0 0 20px; /* 왼쪽 아래만 둥글게 */
-    box-shadow: -10px 0 0 0 #f8f9fa;
+    border-radius: 0 0 0 15px; /* 왼쪽 아래만 둥글게 */
+    box-shadow: -5px 5px 0 5px #ffffff;
 }
 
-/* 텍스트 색 변화 (옵션) */
+/* 호버 시 텍스트 색상만 변경 */
 body.preview-page .tab-btn:hover {
     color: #ffffff;
 }
-
-body.preview-page .tab-btn.active {
-    flex: 1; /* SVG 홈 위치가 고정적이라면 flex: 2 보다는 1이 안정적일 수 있음 */
-    background: none; /* 배경 제거 (SVG가 배경임) */
-    border-bottom: none; /* 보더 제거 */
-    color: #333333; /* 오목한 홈 안에서 잘 보이도록 어두운 색상 */
-    font-weight: 700;
-    /* 버튼 위치를 약간 아래로 내려서 홈 안에 안착시키는 느낌 */
-    transform: translateY(5px); 
+body.preview-page .tab-btn.active:hover {
+    color: #333333; /* 활성 버튼은 색 유지 */
 }
 
 body.preview-page .tab-btn svg {
