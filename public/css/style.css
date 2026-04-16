@@ -2453,64 +2453,73 @@ body.preview-page .indicate_btn:active {
 }
 
 /*====== 탭디자인css(큰 카테고리 탭) ======*/
-/* 1. 부모 컨테이너: 삐져나온 뿔(그림자)을 잘라내는 울타리 */
+/* 1. 부모 컨테이너: 버튼들을 감싸는 공중에 뜬 바 */
 body.preview-page .tab-design {
     display: flex;
     position: relative;
-    margin: 20px auto;
+    margin: 30px auto; /* 위아래 여백을 줘서 더 띄워 보임 */
     width: 85%;
-    height: 60px;
-    /* 높이를 살짝 키워 여유를 줍니다 */
-    background: #2db6d5e8;
-    /* 전체 바 배경색 */
+    height: 70px; /* 높이를 조금 더 여유 있게 조정 */
+    background: #2db6d5e8; /* 배경색 유지 */
     border-radius: 50px;
-    /* 양 끝을 아주 둥글게 (알약 형태) */
-    padding: 0 20px 20px 20px;
-    align-items: center;
-    /* 버튼들을 세로 중앙 정렬 */
+    
+    /* 핵심 수정 포인트 */
+    padding: 0 15px; /* 양옆 여백 */
+    gap: 15px;      /* [중요] 탭과 탭 사이의 거리를 벌려줌 */
+    align-items: center; /* 내부 버튼들을 세로 중앙 정렬 */
+    justify-content: center;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: visible; /* 버튼이 위로 튀어나올 수 있게 hidden 해제 */
 }
 
-/* 2. 공통 버튼 스타일 */
+/* 2. 공통 버튼 스타일: 기본적으로 공중에 뜬 느낌 */
 body.preview-page .tab-btn {
     flex: 1;
-    height: 100%; /* 부모 높이(패딩 제외)에 꽉 차게 */
+    height: 45px; /* 바 높이보다 작게 설정해서 떠 있는 느낌 연출 */
     border: none;
-    background: #fff;
-    color: #555;
+    background: rgba(255, 255, 255, 0.9); /* 살짝 투명한 흰색 */
+    color: #444;
     font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
     position: relative;
     z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    border-radius: 50px; /* 비활성 상태에도 둥근 모양 유지 */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 50px;
+    
+    /* 살짝 띄워주는 효과 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* 3. 활성화된 버튼: 바 위로 떠오르는 알약 모양 */
+/* 3. 활성화된 버튼: 더 높이 뜨고 색상 변경 */
 body.preview-page .tab-btn.active {
-    background: #11aa31; /* 순백색 배경 */
-    color: #333333;
+    background: #11aa31 !important; /* 요청하신 녹색 계열 */
+    color: #ffffff; /* 녹색 배경에 흰색 글자 가독성 */
     font-weight: 800;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 살짝 떠 있는 느낌의 그림자 */
-    border-radius: 50px; /* 완벽한 알약 모양 */
-    height: 100%; /* 패딩 안쪽 공간을 꽉 채움 */
+    
+    /* 위로 띄워주는 핵심 로직 */
+    transform: translateY(-8px); /* 위로 띄움 */
+    height: 50px; /* 크기를 살짝 키움 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* 그림자를 아래로 길게 빼서 띄워진 느낌 강조 */
+    z-index: 2;
 }
 
-/* 4. 기존에 있던 뿔(가상 요소) 제거 */
+/* 4. 호버 효과: 활성화되지 않은 버튼도 살짝 들림 */
+body.preview-page .tab-btn:hover:not(.active) {
+    background: #ffffff !important;
+    transform: translateY(-4px); /* 호버 시에도 살짝 띄움 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    color: #2db6d5;
+}
+
+/* 가상 요소(뿔) 제거 유지 */
 body.preview-page .tab-btn.active::before,
 body.preview-page .tab-btn.active::after {
-    display: none; /* 역곡률 뿔 디자인 삭제 */
+    display: none;
 }
-/* 호버 효과 */
-body.preview-page .tab-btn:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.3) !important; /* 살짝 밝아지는 효과 */
-    color: #fff;
-}
-
 
 body.preview-page .tab-btn svg {
     opacity: 0;
