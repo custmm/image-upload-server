@@ -2513,7 +2513,7 @@ body.preview-page .tab-btn.active::after {
 /* 왼쪽 곡선 */
 body.preview-page .tab-btn.active::before {
     left: -20px;
-    border-radius: 0 0 0 25px; /* 오른쪽 아래만 둥글게 */
+    border-radius: 0 0 25px 0; /* 오른쪽 아래만 둥글게 */
     /* active 배경색과 동일한 그림자로 채우기 */
     box-shadow: 5px 5px 0 5px #ffffff; 
 }
@@ -2521,7 +2521,7 @@ body.preview-page .tab-btn.active::before {
 /* 오른쪽 곡선 */
 body.preview-page .tab-btn.active::after {
     right: -20px;
-    border-radius: 0 0 25px 0; /* 왼쪽 아래만 둥글게 */
+    border-radius: 0 0 0 25px; /* 왼쪽 아래만 둥글게 */
     box-shadow: -5px 5px 0 5px #ffffff;
 }
 
