@@ -3477,7 +3477,41 @@ body.etc-page ul.app_process {
     flex-direction: column;
 }
 
-body.etc-page #my_project li:first-child {}
+/* 1. 토글 컨테이너: 아이콘과 텍스트 한 줄 정렬 */
+body.etc-page .toggle_wrap {
+    display: flex;             /* 가로 정렬 */
+    flex-direction: row;       /* 기본값이지만 명시적 설정 */
+    align-items: center;      /* 수직 중앙 정렬 (아이콘과 글자 높이 맞춤) */
+    justify-content: center;   /* 버튼이 중앙 정렬일 경우 내부 요소도 중앙으로 */
+    gap: 8px;                 /* 아이콘과 텍스트 사이 간격 */
+}
+
+/* 2. 아이콘 박스 설정 */
+body.etc-page .icon_wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;              /* 아이콘 크기에 맞게 조절 */
+    height: 24px;
+}
+
+body.etc-page .icon_wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 3. 리스트(텍스트) 박스 설정 */
+body.etc-page .list_wrap {
+    display: flex;
+    align-items: center;
+}
+
+body.etc-page .list_wrap a {
+    text-decoration: none;    /* 밑줄 제거 */
+    color: inherit;           /* 부모 색상 유지 */
+    line-height: 1;           /* 텍스트 줄바꿈 방지 및 정렬 보조 */
+}
 
 body.etc-page #my_project li:nth-child(2) #method1 .img_wrap img {
     width: 300px;
