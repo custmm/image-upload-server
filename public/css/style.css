@@ -2473,23 +2473,23 @@ body.preview-page .tab-design {
 
 /* JS로 클래스를 부여한다고 가정 (예: active-tab-1) */
 .tab-design.active-0 {
-    background-image: url('images/tab1_active.svg');
+    background-image: url('../images/tab1_active.svg');
 }
 
 .tab-design.active-1 {
-    background-image: url('images/tab2_active.svg');
+    background-image: url('../images/tab2_active.svg');
 }
 
 .tab-design.active-2 {
-    background-image: url('images/tab3_active.svg');
+    background-image: url('../images/tab3_active.svg');
 }
 
 .tab-design.active-3 {
-    background-image: url('images/tab4_active.svg');
+    background-image: url('../images/tab4_active.svg');
 }
 
 .tab-design.active-4 {
-    background-image: url('images/tab5_active.svg');
+    background-image: url('../images/tab5_active.svg');
 }
 
 body.preview-page .tab-btn {
