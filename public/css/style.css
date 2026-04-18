@@ -2115,14 +2115,14 @@ body.preview-page .preview-images img {
 /*====== 메뉴바css(사이드바 버튼) ======*/
 body.preview-page .sidebar-toggle {
     position: fixed;
-    background-color: #00000000;
     top: 45px;
-    padding: 15px 19px;
+    left: 20px; /* 버튼 위치 고정 */
+    background-color: transparent;
+    padding: 15px;
     border: none;
-    border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.5s, transform 0.5s ease-in-out;
-    z-index: 1000;
+    transition: all 0.3s ease;
+    z-index: 10001; /* 사이드바보다 1 높게 설정하여 항상 보이게 함 */
 }
 
 body.preview-page .sidebar-toggle:hover {
@@ -2133,35 +2133,43 @@ body.preview-page .sidebar-toggle:hover {
 body.preview-page .sidebar {
     position: fixed;
     top: 0;
-    left: -100%;
+    left: -320px; /* 사이드바 너비 + 여유분만큼 왼쪽으로 숨김 */
+    width: 300px;  /* 사이드바 너비 명시 */
     height: 100vh;
-    background: rgba(255, 255, 255, 0.8);
+    /* 배경: 다크모드/라이트모드에 맞게 반투명 처리 */
+    background: rgba(255, 255, 255, 0.95); 
     color: #333;
-    padding: 100px 100px 0 100px;
-    transition: left 0.5s ease-in-out;
-    z-index: 9999;
+    padding: 100px 20px 20px 20px; /* 상단만 버튼 피해서 패딩 */
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* 부드러운 가속도 추가 */
+    z-index: 10000; /* 갤러리보다 무조건 위 */
+    box-shadow: none;
+    display: block !important; /* display:none이 혹시 있다면 해제 */
 }
 
+/* open 클래스가 붙으면 화면에 등장 */
 body.preview-page .sidebar.open {
-    left: 0;
+    left: 0 !important;
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3);
 }
 
 /*====== 메뉴바css(사이드바 메뉴) ======*/
 body.preview-page .sidebar ul {
     list-style: none;
     padding: 0;
+    margin-top: 20px;
 }
 
 body.preview-page .sidebar ul li {
-    position: relative;
-    margin: 15px 0;
-    text-align: center;
+    margin: 20px 0;
+    text-align: left; /* 왼쪽 정렬이 더 깔끔함 */
 }
 
 body.preview-page .sidebar ul li a {
-    color: #333;
+    color: inherit; /* 부모 색상 따라감 */
     text-decoration: none;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: 500;
+    transition: color 0.3s;
 }
 
 body.preview-page .sidebar ul li a:hover {
@@ -2171,16 +2179,28 @@ body.preview-page .sidebar ul li a:hover {
 /*====== 메뉴바css(사이드바 검색창) ======*/
 body.preview-page .sidebar-search {
     display: flex;
-    padding: 15px;
-    gap: 8px;
+    margin-top: 30px;
+    padding: 0;
+    gap: 10px;
 }
 
 body.preview-page .sidebar-search input {
-    flex: 1;
-    padding: 21px 25px;
-    border-radius: 30px;
-    border: 1px solid #ccc;
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
     font-size: 14px;
+    outline: none;
+}
+
+body.preview-page .sidebar-search button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 0 15px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 body.preview-page .sidebar-search input:hover {
