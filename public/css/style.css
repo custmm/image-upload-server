@@ -1967,7 +1967,7 @@ body.post-page #postTitle {
 
 /* 게시물 설명 */
 body.post-page .post-description {
-    font-size: 18px;
+    font-size: 25px;
     text-align: left;
     white-space: pre-wrap;
     padding: 0 30px;
