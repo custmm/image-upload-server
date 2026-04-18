@@ -81,9 +81,15 @@ window.toggleTheme = () => {
 };
 
 window.toggleSidebar = (event) => {
-    if (event) event.stopPropagation();
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
     const sidebar = document.getElementById("sidebar");
-    if (sidebar) sidebar.classList.toggle("open");
+    if (sidebar) {
+        sidebar.classList.toggle("open");
+        console.log("사이드바 클래스:", sidebar.className); // F12 콘솔에서 확인용
+    }
 };
 
 window.closePreviewPopup = (type) => {

@@ -2133,23 +2133,17 @@ body.preview-page .sidebar-toggle:hover {
 body.preview-page .sidebar {
     position: fixed;
     top: 0;
-    left: -320px; /* 사이드바 너비 + 여유분만큼 왼쪽으로 숨김 */
-    width: 300px;  /* 사이드바 너비 명시 */
+    left: -300px; /* -100% 대신 구체적인 너비값만큼만 밀어두기 */
+    width: 280px;
     height: 100vh;
-    /* 배경: 다크모드/라이트모드에 맞게 반투명 처리 */
-    background: rgba(255, 255, 255, 0.95); 
-    color: #333;
-    padding: 100px 20px 20px 20px; /* 상단만 버튼 피해서 패딩 */
-    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* 부드러운 가속도 추가 */
-    z-index: 10000; /* 갤러리보다 무조건 위 */
-    box-shadow: none;
-    display: block !important; /* display:none이 혹시 있다면 해제 */
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 10000; /* 무조건 최상단 */
+    transition: left 0.3s ease-in-out; /* 0.5초보다 0.3초가 더 빠릿합니다 */
+    display: block !important; /* 혹시 모를 숨김 방지 */
 }
 
-/* open 클래스가 붙으면 화면에 등장 */
 body.preview-page .sidebar.open {
-    left: 0 !important;
-    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3);
+    left: 0 !important; /* open 클래스가 붙으면 0 위치로 */
 }
 
 /*====== 메뉴바css(사이드바 메뉴) ======*/
