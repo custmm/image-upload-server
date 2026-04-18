@@ -330,13 +330,10 @@
 
     /* active 클래스가 추가되면 나타남 */
     body.preview-page #settingPopup.active {
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-        width: 320px;
-        height: 240px;
-        top: 10%;
-        left: 50%;
+        width: 270px;
+        height: 210px;
+        top: 8%;
+        left: 40%;
     }
 
     body.preview-page .view-icon-btn i {
