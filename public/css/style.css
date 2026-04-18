@@ -2116,13 +2116,15 @@ body.preview-page .preview-images img {
 body.preview-page .sidebar-toggle {
     position: fixed;
     top: 45px;
-    left: 20px; /* 버튼 위치 고정 */
+    left: 20px;
+    /* 버튼 위치 고정 */
     background-color: transparent;
     padding: 15px;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 10001; /* 사이드바보다 1 높게 설정하여 항상 보이게 함 */
+    z-index: 10001;
+    /* 사이드바보다 1 높게 설정하여 항상 보이게 함 */
 }
 
 body.preview-page .sidebar-toggle:hover {
@@ -2133,17 +2135,23 @@ body.preview-page .sidebar-toggle:hover {
 body.preview-page .sidebar {
     position: fixed;
     top: 0;
-    left: -300px; /* -100% 대신 구체적인 너비값만큼만 밀어두기 */
+    left: -300px;
+    /* -100% 대신 구체적인 너비값만큼만 밀어두기 */
     width: 280px;
     height: 100vh;
     background: rgba(255, 255, 255, 0.95);
-    z-index: 10000; /* 무조건 최상단 */
-    transition: left 0.3s ease-in-out; /* 0.5초보다 0.3초가 더 빠릿합니다 */
-    display: block !important; /* 혹시 모를 숨김 방지 */
+    z-index: 10000;
+    /* 무조건 최상단 */
+    transition: left 0.3s ease-in-out;
+    /* 0.5초보다 0.3초가 더 빠릿합니다 */
+    display: block !important;
+    /* 혹시 모를 숨김 방지 */
 }
 
 body.preview-page .sidebar.open {
-    left: 0 !important; /* open 클래스가 붙으면 0 위치로 */
+    left: 0 !important;
+    /* open 클래스가 붙으면 0 위치로 */
+    padding: 0 75px;
 }
 
 /*====== 메뉴바css(사이드바 메뉴) ======*/
@@ -2155,11 +2163,13 @@ body.preview-page .sidebar ul {
 
 body.preview-page .sidebar ul li {
     margin: 20px 0;
-    text-align: left; /* 왼쪽 정렬이 더 깔끔함 */
+    text-align: left;
+    /* 왼쪽 정렬이 더 깔끔함 */
 }
 
 body.preview-page .sidebar ul li a {
-    color: inherit; /* 부모 색상 따라감 */
+    color: inherit;
+    /* 부모 색상 따라감 */
     text-decoration: none;
     font-size: 20px;
     font-weight: 500;
@@ -2180,21 +2190,25 @@ body.preview-page .sidebar-search {
 
 body.preview-page .sidebar-search input {
     width: 100%;
-    padding: 12px 15px;
-    border-radius: 10px;
+    padding: 22px 15px;
+    border-radius: 30px;
     border: 1px solid #ddd;
     background: #f9f9f9;
     font-size: 14px;
     outline: none;
+    position: relative;
 }
 
 body.preview-page .sidebar-search button {
-    background: #333;
+
     color: white;
     border: none;
     padding: 0 15px;
     border-radius: 10px;
     cursor: pointer;
+    position: absolute;
+    top: 24%;
+    right: 19%;
 }
 
 body.preview-page .sidebar-search input:hover {

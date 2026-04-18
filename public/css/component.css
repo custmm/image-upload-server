@@ -114,7 +114,7 @@
 }
 
 .popup-container.guide-mode {
-    background: #ffffff;
+    background: #d8faffa8;
     color: #333;
     padding: 30px;
     border-radius: 20px;
@@ -145,7 +145,7 @@
     padding-left: 15px;
     font-size: 14px;
     color: #666;
-    background: #f9f9f9;
+    background: #bdf0c787;
     padding: 10px;
     border-radius: 10px;
 }
