@@ -2316,6 +2316,8 @@ body.preview-page .setting-popup {
 
 body.preview-page .setting-popup h3 {
     text-align: center;
+    padding-bottom: 20px;
+    font-size: 22px;
 }
 
 /*====== 중앙 정보 팝업 (inforPopupMessage용) ======*/
@@ -2438,27 +2440,36 @@ body.preview-page .indicate_btn:active {
 body.preview-page .tab-design {
     display: flex;
     position: relative;
-    margin: 30px auto; /* 위아래 여백을 줘서 더 띄워 보임 */
+    margin: 30px auto;
+    /* 위아래 여백을 줘서 더 띄워 보임 */
     width: 85%;
-    height: 70px; /* 높이를 조금 더 여유 있게 조정 */
-    background: #2db6d5e8; /* 배경색 유지 */
+    height: 70px;
+    /* 높이를 조금 더 여유 있게 조정 */
+    background: #2db6d5e8;
+    /* 배경색 유지 */
     border-radius: 50px;
-    
+
     /* 핵심 수정 포인트 */
-    padding: 0 15px; /* 양옆 여백 */
-    gap: 15px;      /* [중요] 탭과 탭 사이의 거리를 벌려줌 */
-    align-items: center; /* 내부 버튼들을 세로 중앙 정렬 */
+    padding: 0 15px;
+    /* 양옆 여백 */
+    gap: 15px;
+    /* [중요] 탭과 탭 사이의 거리를 벌려줌 */
+    align-items: center;
+    /* 내부 버튼들을 세로 중앙 정렬 */
     justify-content: center;
     box-sizing: border-box;
-    overflow: visible; /* 버튼이 위로 튀어나올 수 있게 hidden 해제 */
+    overflow: visible;
+    /* 버튼이 위로 튀어나올 수 있게 hidden 해제 */
 }
 
 /* 2. 공통 버튼 스타일: 기본적으로 공중에 뜬 느낌 */
 body.preview-page .tab-btn {
     flex: 1;
-    height: 45px; /* 바 높이보다 작게 설정해서 떠 있는 느낌 연출 */
+    height: 45px;
+    /* 바 높이보다 작게 설정해서 떠 있는 느낌 연출 */
     border: none;
-    background: rgba(255, 255, 255, 0.9); /* 살짝 투명한 흰색 */
+    background: rgba(255, 255, 255, 0.9);
+    /* 살짝 투명한 흰색 */
     color: #444;
     font-size: 15px;
     font-weight: 500;
@@ -2470,28 +2481,34 @@ body.preview-page .tab-btn {
     justify-content: center;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     border-radius: 50px;
-    
+
     /* 살짝 띄워주는 효과 */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* 3. 활성화된 버튼: 더 높이 뜨고 색상 변경 */
 body.preview-page .tab-btn.active {
-    background: #11aa31 !important; /* 요청하신 녹색 계열 */
-    color: #ffffff; /* 녹색 배경에 흰색 글자 가독성 */
+    background: #11aa31 !important;
+    /* 요청하신 녹색 계열 */
+    color: #ffffff;
+    /* 녹색 배경에 흰색 글자 가독성 */
     font-weight: 800;
-    
+
     /* 위로 띄워주는 핵심 로직 */
-    transform: translateY(-8px); /* 위로 띄움 */
-    height: 50px; /* 크기를 살짝 키움 */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* 그림자를 아래로 길게 빼서 띄워진 느낌 강조 */
+    transform: translateY(-8px);
+    /* 위로 띄움 */
+    height: 50px;
+    /* 크기를 살짝 키움 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    /* 그림자를 아래로 길게 빼서 띄워진 느낌 강조 */
     z-index: 2;
 }
 
 /* 4. 호버 효과: 활성화되지 않은 버튼도 살짝 들림 */
 body.preview-page .tab-btn:hover:not(.active) {
     background: #ffffff !important;
-    transform: translateY(-4px); /* 호버 시에도 살짝 띄움 */
+    transform: translateY(-4px);
+    /* 호버 시에도 살짝 띄움 */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
     color: #2db6d5;
 }
@@ -2777,9 +2794,11 @@ body.preview-page .image-gallery.image-view {
     grid-template-columns: repeat(5, 1fr);
     gap: 12px;
 }
+
 /* [추가] 첫 번째 카드 아이템에 왼쪽 여백 부여 */
 body.preview-page .image-gallery.text-view .text-card-item:first-child {
-    margin-left: 20px; /* 원하는 만큼 띄워주세요 */
+    margin-left: 20px;
+    /* 원하는 만큼 띄워주세요 */
 }
 
 /* [추가] 마지막 카드 뒤에도 여백을 줘야 끝까지 시원하게 스크롤됩니다 */
@@ -2791,26 +2810,35 @@ body.preview-page .image-gallery.text-view .text-card-item:last-child {
 /* 미디어 쿼리 밖에 작성하여 PC/모바일 공통 적용 */
 body.preview-page .image-gallery.text-view {
     display: flex !important;
-    flex-wrap: nowrap !important;   /* PC에서도 아래로 떨어지지 않고 옆으로 나열 */
+    flex-wrap: nowrap !important;
+    /* PC에서도 아래로 떨어지지 않고 옆으로 나열 */
     flex-direction: row !important;
-    overflow-x: auto !important;    /* 가로 스크롤바 활성화 */
-    overflow-y: hidden !important;  /* 세로 스크롤은 차단 */
+    overflow-x: auto !important;
+    /* 가로 스크롤바 활성화 */
+    overflow-y: hidden !important;
+    /* 세로 스크롤은 차단 */
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     padding: 20px 0 !important;
-    gap: 0; 
+    gap: 0;
 }
 
 /* 1. 갤러리 컨테이너: 가로 스크롤 및 정렬 설정 */
 body.preview-page .image-gallery.text-view,
 body.preview-page .image-gallery.text-view-scroll {
     display: flex !important;
-    flex-direction: row !important; /* 가로 나열 강제 */
-    overflow-x: auto !important;    /* 가로 스크롤 활성화 */
-    scroll-snap-type: x mandatory;   /* 자석 효과 */
-    padding: 20px 0 !important;      /* 위아래 여백만 유지 */
-    justify-content: flex-start !important; /* 왼쪽부터 차곡차곡 */
-    gap: 0;                          /* 간격은 마진으로 조절 */
+    flex-direction: row !important;
+    /* 가로 나열 강제 */
+    overflow-x: auto !important;
+    /* 가로 스크롤 활성화 */
+    scroll-snap-type: x mandatory;
+    /* 자석 효과 */
+    padding: 20px 0 !important;
+    /* 위아래 여백만 유지 */
+    justify-content: flex-start !important;
+    /* 왼쪽부터 차곡차곡 */
+    gap: 0;
+    /* 간격은 마진으로 조절 */
     background-color: transparent;
     box-shadow: none;
     border-radius: 10px;
@@ -2827,12 +2855,15 @@ body.preview-page .image-gallery.text-view-scroll::-webkit-scrollbar {
 body.preview-page .text-card-item {
     position: relative !important;
     overflow: hidden;
-    flex: 0 0 280px;         /* 카드 너비 고정 */
-    height: 330px;           /* 카드 높이 고정 */
-    margin-right: 20px;      /* 카드 사이 간격 */
-    
+    flex: 0 0 280px;
+    /* 카드 너비 고정 */
+    height: 330px;
+    /* 카드 높이 고정 */
+    margin-right: 20px;
+    /* 카드 사이 간격 */
+
     /* [핵심] center 대신 start를 써야 첫 번째 카드가 잘리지 않습니다 */
-    scroll-snap-align: start; 
+    scroll-snap-align: start;
 
     /* 기존 스타일 및 레이아웃 초기화 */
     top: 0 !important;
@@ -2848,11 +2879,13 @@ body.preview-page .text-card-item {
 
 /* 3. 첫 번째와 마지막 카드 여백 (완벽한 가시성 확보) */
 body.preview-page .text-card-item:first-child {
-    margin-left: 25px !important; /* 왼쪽 벽에서 띄워줌으로써 잘림 방지 */
+    margin-left: 25px !important;
+    /* 왼쪽 벽에서 띄워줌으로써 잘림 방지 */
 }
 
 body.preview-page .text-card-item:last-child {
-    margin-right: 25px !important; /* 끝까지 스크롤 가능하게 함 */
+    margin-right: 25px !important;
+    /* 끝까지 스크롤 가능하게 함 */
 }
 
 /* 1. 회전하는 테두리 효과 (::before) */
@@ -3486,11 +3519,16 @@ body.etc-page ul.app_process {
 
 /* 1. 토글 컨테이너: 아이콘과 텍스트 한 줄 정렬 */
 body.etc-page .toggle_wrap {
-    display: flex;             /* 가로 정렬 */
-    flex-direction: row;       /* 기본값이지만 명시적 설정 */
-    align-items: center;      /* 수직 중앙 정렬 (아이콘과 글자 높이 맞춤) */
-    justify-content: center;   /* 버튼이 중앙 정렬일 경우 내부 요소도 중앙으로 */
-    gap: 8px;                 /* 아이콘과 텍스트 사이 간격 */
+    display: flex;
+    /* 가로 정렬 */
+    flex-direction: row;
+    /* 기본값이지만 명시적 설정 */
+    align-items: center;
+    /* 수직 중앙 정렬 (아이콘과 글자 높이 맞춤) */
+    justify-content: center;
+    /* 버튼이 중앙 정렬일 경우 내부 요소도 중앙으로 */
+    gap: 8px;
+    /* 아이콘과 텍스트 사이 간격 */
 }
 
 /* 2. 아이콘 박스 설정 */
@@ -3498,7 +3536,8 @@ body.etc-page .icon_wrap {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;              /* 아이콘 크기에 맞게 조절 */
+    width: 24px;
+    /* 아이콘 크기에 맞게 조절 */
     height: 24px;
 }
 
@@ -3515,9 +3554,12 @@ body.etc-page .list_wrap {
 }
 
 body.etc-page .list_wrap a {
-    text-decoration: none;    /* 밑줄 제거 */
-    color: inherit;           /* 부모 색상 유지 */
-    line-height: 1;           /* 텍스트 줄바꿈 방지 및 정렬 보조 */
+    text-decoration: none;
+    /* 밑줄 제거 */
+    color: inherit;
+    /* 부모 색상 유지 */
+    line-height: 1;
+    /* 텍스트 줄바꿈 방지 및 정렬 보조 */
 }
 
 body.etc-page #my_project li:nth-child(2) #method1 .img_wrap img {
@@ -3537,7 +3579,7 @@ body.etc-page .rc_car_intro_1 {
 }
 
 
-body.etc-page .app_dev img{
+body.etc-page .app_dev img {
     width: 100px;
     height: 100px;
 }
@@ -3545,16 +3587,19 @@ body.etc-page .app_dev img{
 /* 1. 부모 컨테이너: 가로 간격을 넉넉히 주어 선이 보일 공간 확보 */
 body.etc-page .dev_wrap {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); 
-    gap: 30px 40px; /* 세로 30px, 가로 40px 간격 */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px 40px;
+    /* 세로 30px, 가로 40px 간격 */
     margin: 20px 0;
     padding: 10px;
-    position: relative; /* 가상 요소의 기준 */
+    position: relative;
+    /* 가상 요소의 기준 */
 }
 
 /* 2. 각 아이콘 요소 스타일 */
 body.etc-page .app_dev {
-    position: relative; /* 선(::after)의 기준점 */
+    position: relative;
+    /* 선(::after)의 기준점 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -3564,20 +3609,27 @@ body.etc-page .app_dev {
     border-radius: 50%;
     padding: 10px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    z-index: 1; /* 아이콘이 선보다 위로 오도록 */
+    z-index: 1;
+    /* 아이콘이 선보다 위로 오도록 */
 }
 
 /* 3. 연결선 구현 (가상 요소) */
 body.etc-page .app_dev::after {
     content: "";
     position: absolute;
-    top: 50%;          /* 수직 중앙 */
-    left: 100%;        /* 아이콘 오른쪽 끝에서 시작 */
-    width: 40px;       /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
-    height: 2px;       /* 선 두께 */
-    background-color: #ccc; /* 선 색상 */
+    top: 50%;
+    /* 수직 중앙 */
+    left: 100%;
+    /* 아이콘 오른쪽 끝에서 시작 */
+    width: 40px;
+    /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
+    height: 2px;
+    /* 선 두께 */
+    background-color: #ccc;
+    /* 선 색상 */
     transform: translateY(-50%);
-    z-index: -1;       /* 아이콘 박스 뒤로 숨김 */
+    z-index: -1;
+    /* 아이콘 박스 뒤로 숨김 */
 }
 
 /* 4. 각 줄의 마지막 아이콘(5, 10, 15...번째)은 다음 연결선 제거 */
@@ -3588,12 +3640,13 @@ body.etc-page .app_dev:nth-child(5n)::after {
 /* 3. 호버 시 효과 (선택 사항) */
 body.etc-page .app_dev:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* 4. 이미지(SVG) 크기 조절 */
 body.etc-page .app_dev img {
-    width: 50px;  /* 아이콘 크기에 맞춰 조절하세요 */
+    width: 50px;
+    /* 아이콘 크기에 맞춰 조절하세요 */
     height: 50px;
     display: block;
 }

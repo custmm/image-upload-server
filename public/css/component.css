@@ -34,6 +34,9 @@
 
 .toggle-switch_theme {
     display: flex;
+    position: absolute;
+    top: 10%;
+    right: 45%;
 }
 
 .toggle-switch_theme input {

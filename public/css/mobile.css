@@ -331,9 +331,8 @@
     /* active 클래스가 추가되면 나타남 */
     body.preview-page #settingPopup.active {
         width: 270px;
-        height: 210px;
-        top: 8%;
-        left: 40%;
+        height: 250px;
+        left: 55%;
     }
 
     body.preview-page .view-icon-btn i {
@@ -401,7 +400,8 @@
     }
 
     body.preview-page #pagination-container {
-        gap: 30px;
+        gap: 60vw;
+        top: 65%;
     }
 
     body.preview-page .infor-popup,
