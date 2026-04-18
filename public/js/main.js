@@ -8,6 +8,30 @@ let animationFrameId = null;
 let wasOverlapping = false;
 
 // --- [UI 공통 함수] ---
+// [추가] Preview 페이지 안내 팝업 제어 함수
+function initPreviewGuide() {
+    const guidePopup = document.getElementById("preview-guide-popup");
+    const closeBtn = document.getElementById("close-guide-btn");
+
+    if (guidePopup) {
+        // 팝업 표시
+        guidePopup.style.display = "flex";
+        document.body.style.overflow = "hidden"; // 배경 스크롤 방지
+
+        // 확인 버튼 클릭 시 닫기
+        if (closeBtn) {
+            closeBtn.addEventListener("click", () => {
+                guidePopup.style.opacity = "0";
+                guidePopup.style.transition = "opacity 0.3s ease";
+                
+                setTimeout(() => {
+                    guidePopup.style.display = "none";
+                    document.body.style.overflow = "auto"; // 스크롤 복구
+                }, 300);
+            });
+        }
+    }
+}
 
 // 테마 설정
 function setTheme(mode) {
@@ -86,6 +110,9 @@ window.closePreviewPopup = function(type) {
 document.addEventListener("DOMContentLoaded", async () => {
     // 1. 기초 UI 설정
     applySavedTheme();
+
+    // [추가] 안내 팝업 실행
+    initPreviewGuide();
 
     // [추가] 설정 팝업 제어 로직
     const settingBtn = document.getElementById("settingBtn");
