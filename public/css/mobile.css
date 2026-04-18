@@ -387,8 +387,17 @@
     }
 
     body.preview-page .text-card-item {
-        height: 250px;
+        flex: 0 0 175px;
 
+    }
+
+    body.preview-page .card-info {
+        width: 50%;
+
+    }
+
+    body.preview-page .card-title {
+        font-size: 18px;
     }
 
     body.preview-page #pagination-container {
