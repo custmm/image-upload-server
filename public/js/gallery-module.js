@@ -200,7 +200,7 @@ export async function loadCategories() {
         categories.forEach((category, index) => {
             const btn = document.createElement("button");
             btn.className = "tab-btn";
-            
+
             // [수정] 첫 번째 탭 active 설정 (부모 클래스 active-0 등은 삭제)
             if (index === 0) btn.classList.add("active");
 
@@ -356,13 +356,18 @@ export function adjustGalleryRadius() {
     const gallery = document.querySelector(".image-gallery");
     if (!gallery) return;
 
-    // 휠 가로 스크롤 로직
-    gallery.onwheel = (e) => {
-        if (gallery.classList.contains("text-view") && e.deltaY !== 0) {
-            e.preventDefault();
-            gallery.scrollLeft += e.deltaY;
+    // [수정] 기존 휠 로직을 더 부드럽고 확실하게 변경
+    gallery.onwheel = null; // 기존 바인딩 초기화
+    gallery.addEventListener("wheel", (e) => {
+        // text-view 혹은 text-view-scroll 클래스가 있을 때 작동
+        if (gallery.classList.contains("text-view") || gallery.classList.contains("text-view-scroll")) {
+            if (e.deltaY !== 0) {
+                e.preventDefault();
+                // 스크롤 양 조절 (deltaY 값을 더해줌)
+                gallery.scrollLeft += e.deltaY;
+            }
         }
-    };
+    }, { passive: false }); // preventDefault를 위해 반드시 false
 
     const items = gallery.querySelectorAll(".image-container, .text-card-item");
     if (items.length === 0) return;
