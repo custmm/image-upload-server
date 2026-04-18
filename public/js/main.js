@@ -161,38 +161,45 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // [중요: PC 휠 스크롤 복구] 
-    // 갤러리 영역에서 휠을 굴릴 때 가로로 이동하도록 강제 설정
-    if (galleryEl) {
-        galleryEl.addEventListener("wheel", (e) => {
-            // 줄글 모드(text-view)일 때만 작동하도록 조건 설정
+    // 이벤트 위임 방식을 사용하여 갤러리가 새로 그려져도 작동하게 합니다.
+    document.addEventListener("wheel", (e) => {
+        const galleryEl = document.getElementById("imageGallery");
+        if (!galleryEl) return;
+
+        // 마우스 포인터가 갤러리 영역 위에 있는지 확인
+        const isOverGallery = e.target.closest("#imageGallery");
+
+        if (isOverGallery) {
+            // 줄글 모드(text-view) 클래스가 있을 때만 실행
             if (galleryEl.classList.contains("text-view") || galleryEl.classList.contains("text-view-scroll")) {
                 if (e.deltaY !== 0) {
-                    e.preventDefault(); // 페이지 전체가 위아래로 움직이는 것 방지
-                    galleryEl.scrollLeft += e.deltaY; // 위아래 휠 값을 왼쪽/오른쪽 이동 값으로 변환
+                    // PC에서 해상도 상관없이 무조건 가로로 밀기
+                    e.preventDefault();
+                    galleryEl.scrollLeft += e.deltaY;
                 }
             }
-        }, { passive: false }); // preventDefault()를 작동시키기 위해 passive: false 필수
-    }
+        }
+    }, { passive: false });
 
     // 2. 테마 토글 버튼 리스너 (CSP 위반 방지)
     const themeToggle = document.getElementById("themeToggle");
-    if (themeToggle) {
-        themeToggle.addEventListener("change", () => {
-            const newMode = themeToggle.checked ? "dark-mode" : "light-mode";
-            setTheme(newMode);
-        });
-    }
+    
+if (themeToggle) {
+    themeToggle.addEventListener("change", () => {
+        const newMode = themeToggle.checked ? "dark-mode" : "light-mode";
+        setTheme(newMode);
+    });
+}
 
-    // 3. 갤러리 초기 데이터 로드 (Gallery 모듈 호출)
-    // gallery-module.js 안에 loadCategories가 있어야 합니다.
-    if (Gallery.loadCategories) {
-        await Gallery.loadCategories();
-    }
+// 3. 갤러리 초기 데이터 로드 (Gallery 모듈 호출)
+// gallery-module.js 안에 loadCategories가 있어야 합니다.
+if (Gallery.loadCategories) {
+    await Gallery.loadCategories();
+}
 
-    // 4. 기타 UI 바인딩 (드래그 등)
-    if (typeof makePopupDraggable === "function") {
-        makePopupDraggable("previewOverlayInfo");
-        makePopupDraggable("previewOverlayIcon");
-    }
+// 4. 기타 UI 바인딩 (드래그 등)
+if (typeof makePopupDraggable === "function") {
+    makePopupDraggable("previewOverlayInfo");
+    makePopupDraggable("previewOverlayIcon");
+}
 });

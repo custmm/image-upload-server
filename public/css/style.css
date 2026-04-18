@@ -2788,21 +2788,17 @@ body.preview-page .image-gallery.text-view .text-card-item:last-child {
 }
 
 /* 텍스트 모드 (이미지 갤러리 전체 설정) */
+/* 미디어 쿼리 밖에 작성하여 PC/모바일 공통 적용 */
 body.preview-page .image-gallery.text-view {
     display: flex !important;
-    overflow-x: auto;
+    flex-wrap: nowrap !important;   /* PC에서도 아래로 떨어지지 않고 옆으로 나열 */
+    flex-direction: row !important;
+    overflow-x: auto !important;    /* 가로 스크롤바 활성화 */
+    overflow-y: hidden !important;  /* 세로 스크롤은 차단 */
     scroll-snap-type: x mandatory;
-    background-color: transparent;
-    box-shadow: none;
-    border-radius: 10px;
     -webkit-overflow-scrolling: touch;
-    
-    /* [수정] 컨테이너 자체 패딩은 제거하거나 0으로 설정 */
-    padding-left: 0 !important; 
-    padding-right: 0 !important;
-    
-    /* [추가] 아이템들이 왼쪽부터 정렬되도록 보장 */
-    justify-content: flex-start !important;
+    padding: 20px 0 !important;
+    gap: 0; 
 }
 
 /* 1. 갤러리 컨테이너: 가로 스크롤 및 정렬 설정 */
