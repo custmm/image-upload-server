@@ -1532,6 +1532,9 @@ body.upload-page .description-container {
 
 body.upload-page #source_url{
     position: absolute;
+        top: 70%;
+    left: 71%;
+    padding: 10px 15px;
 }
 
 body.upload-page .text-editor {
