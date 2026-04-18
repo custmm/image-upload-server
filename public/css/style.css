@@ -2796,20 +2796,96 @@ body.preview-page .image-gallery.image-view {
     grid-template-columns: repeat(5, 1fr);
     gap: 12px;
 }
+/* 3. 개별 카드: 겹치지 않고 나란히 서기 */
+body.preview-page .text-card-item {
+    position: relative !important;
+    overflow: hidden;
+    
+    /* [수정] 고정 너비 설정 */
+    flex: 0 0 280px;
+    height: 330px;
+    
+    /* [수정] 첫 번째 이미지 잘림 방지: center 대신 start 권장 */
+    scroll-snap-align: start; 
 
+    /* 기존 스타일 유지 */
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    /* [추가] 카드 사이의 간격 */
+    margin-right: 20px; 
+}
+
+/* [추가] 첫 번째 이미지가 왼쪽 벽에 너무 붙지 않게 여백 부여 */
+body.preview-page .text-card-item:first-child {
+    margin-left: 25px; 
+}
+
+/* 1. 회전하는 테두리 효과 (::before) */
+body.preview-page .text-card-item::before {
+    content: "";
+    /* 반드시 추가! */
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    /* 부모보다 크게 만들어 회전 시 빈틈 방지 */
+    height: 200%;
+    background: conic-gradient(#00cc8f 20deg, transparent 120deg);
+    animation: rotate 3s infinite linear;
+    z-index: -2;
+    /* 배경 뒤로 보냄 */
+}
+
+/* 2. 내부를 채우는 카드 본체 (::after) */
+body.preview-page .text-card-item::after {
+    content: "";
+    /* 반드시 추가! */
+    position: absolute;
+    top: 2.5%;
+    /* 중앙 정렬을 위한 수치 (100% - 95% = 5%의 절반) */
+    left: 2.5%;
+    width: 95%;
+    height: 95%;
+    background: #fff;
+    box-shadow: 5px 5px 15px #333 inset;
+    border-radius: 20px;
+    z-index: -1;
+    /* before보다는 위에, 실제 텍스트보다는 아래에 */
+}
 /* 텍스트 모드 (이미지 갤러리 전체 설정) */
 body.preview-page .image-gallery.text-view {
     display: flex !important;
     overflow-x: auto;
-    /* 가로 스크롤 활성화 */
     scroll-snap-type: x mandatory;
-    /* 카드가 멈출 때 자석 효과 */
     background-color: transparent;
-    /* 배경 투명하게 (취향껏 조절) */
     box-shadow: none;
     border-radius: 10px;
     -webkit-overflow-scrolling: touch;
-    /* 모바일 부드러운 스크롤 */
+    
+    /* [수정] 컨테이너 자체 패딩은 제거하거나 0으로 설정 */
+    padding-left: 0 !important; 
+    padding-right: 0 !important;
+    
+    /* [추가] 아이템들이 왼쪽부터 정렬되도록 보장 */
+    justify-content: flex-start !important;
+}
+
+/* [추가] 첫 번째 카드 아이템에 왼쪽 여백 부여 */
+body.preview-page .image-gallery.text-view .text-card-item:first-child {
+    margin-left: 20px; /* 원하는 만큼 띄워주세요 */
+}
+
+/* [추가] 마지막 카드 뒤에도 여백을 줘야 끝까지 시원하게 스크롤됩니다 */
+body.preview-page .image-gallery.text-view .text-card-item:last-child {
+    margin-right: 20px;
 }
 
 /* 스크롤바 숨기기 */
@@ -2901,62 +2977,7 @@ body.preview-page .text-preview {
 }
 
 
-/* 3. 개별 카드: 겹치지 않고 나란히 서기 */
-body.preview-page .text-card-item {
-    position: relative !important;
-    overflow: hidden;
-    /* 테두리 밖으로 나가는 가상 요소 정제 */
-    /* absolute 해제 */
-    flex: 0 0 280px;
-    /* 카드 너비 고정 */
-    height: 330px;
-    top: 0 !important;
-    left: 0 !important;
-    transform: none !important;
-    /* 중앙 정렬 해제 */
-    opacity: 1 !important;
-    visibility: visible !important;
-    scroll-snap-align: center;
-    /* 스크롤 멈출 때 중앙에 딱! */
 
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-/* 1. 회전하는 테두리 효과 (::before) */
-body.preview-page .text-card-item::before {
-    content: "";
-    /* 반드시 추가! */
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    /* 부모보다 크게 만들어 회전 시 빈틈 방지 */
-    height: 200%;
-    background: conic-gradient(#00cc8f 20deg, transparent 120deg);
-    animation: rotate 3s infinite linear;
-    z-index: -2;
-    /* 배경 뒤로 보냄 */
-}
-
-/* 2. 내부를 채우는 카드 본체 (::after) */
-body.preview-page .text-card-item::after {
-    content: "";
-    /* 반드시 추가! */
-    position: absolute;
-    top: 2.5%;
-    /* 중앙 정렬을 위한 수치 (100% - 95% = 5%의 절반) */
-    left: 2.5%;
-    width: 95%;
-    height: 95%;
-    background: #fff;
-    box-shadow: 5px 5px 15px #333 inset;
-    border-radius: 20px;
-    z-index: -1;
-    /* before보다는 위에, 실제 텍스트보다는 아래에 */
-}
 
 @keyframes rotate {
     100% {
