@@ -36,7 +36,9 @@
 
 
     <!-- 사이드 네비게이션 -->
-     <div class="swiper-slide menu-slide">
+    <div class="swiper sidebar-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide menu-slide">
           <nav id="sidebar" class="sidebar">
             <ul class="main-menu">
               <li class="menu-item">
@@ -68,224 +70,226 @@
 
             </ul>
           </nav>
-        </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 메인 콘텐츠 영역 -->
+  <main>
+
+    <!-- 기능 제어 영역 -->
+    <section class="function-infor">
+      <div class="message-container">
+        <a href="click.html" id="welcomeMessage">어서오세요</a>
       </div>
 
+      <div id="settingBtn">
+        <img src="images/toggle/toggle_set.svg" alt="설정 버튼">
+      </div>
 
-        <!-- 메인 콘텐츠 영역 -->
-        <main>
+    </section>
 
-          <!-- 기능 제어 영역 -->
-          <section class="function-infor">
-            <div class="message-container">
-              <a href="click.html" id="welcomeMessage">어서오세요</a>
-            </div>
+    <section id="loadingIndicator" class="loading-indicator">
+      <div class="loader loader1" id="mainLoader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
 
-            <div id="settingBtn">
-              <img src="images/toggle/toggle_set.svg" alt="설정 버튼">
-            </div>
+      <p class="loading-text">게시물을 불러오는 중...</p>
+    </section>
 
-          </section>
+    <!-- 메인 카테고리 탭 (큰 카테고리) -->
+    <section class="tab-design">
+      <div class="tab-container">
 
-          <section id="loadingIndicator" class="loading-indicator">
-            <div class="loader loader1" id="mainLoader">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+        <button class="tab-btn active" data-category="퍼즐">
+          퍼즐
+          <i data-lucide="puzzle" class="tab-icon"></i>
+        </button>
 
-            <p class="loading-text">게시물을 불러오는 중...</p>
-          </section>
+        <button class="tab-btn" data-category="보석비즈">
+          보석비즈
+          <i data-lucide="gem" class="tab-icon"></i>
+        </button>
 
-          <!-- 메인 카테고리 탭 (큰 카테고리) -->
-          <section class="tab-design">
-            <div class="tab-container">
+        <button class="tab-btn" data-category="3D퍼즐">
+          3D퍼즐
+          <i data-lucide="box" class="tab-icon"></i>
+        </button>
 
-              <button class="tab-btn active" data-category="퍼즐">
-                퍼즐
-                <i data-lucide="puzzle" class="tab-icon"></i>
-              </button>
+        <button class="tab-btn" data-category="디폼블럭">
+          디폼블럭
+          <i data-lucide="grid-3x3" class="tab-icon"></i>
+        </button>
 
-              <button class="tab-btn" data-category="보석비즈">
-                보석비즈
-                <i data-lucide="gem" class="tab-icon"></i>
-              </button>
+        <button class="tab-btn" data-category="브릭피규어">
+          브릭피규어
+          <i data-lucide="toy-brick" class="tab-icon"></i>
+        </button>
 
-              <button class="tab-btn" data-category="3D퍼즐">
-                3D퍼즐
-                <i data-lucide="box" class="tab-icon"></i>
-              </button>
+      </div>
+    </section>
 
-              <button class="tab-btn" data-category="디폼블럭">
-                디폼블럭
-                <i data-lucide="grid-3x3" class="tab-icon"></i>
-              </button>
+    <!-- 프리뷰 이미지 컨테이너 -->
+    <section class="preview-images" id="previewImagesContainer"></section>
 
-              <button class="tab-btn" data-category="브릭피규어">
-                브릭피규어
-                <i data-lucide="toy-brick" class="tab-icon"></i>
-              </button>
+    <!-- 서브 카테고리 + 갤러리 -->
+    <section class="marge-container" id="marge-container">
 
-            </div>
-          </section>
+      <header class="category-subtab-container">
+        <h2 id="currentCategory"></h2>
 
-          <!-- 프리뷰 이미지 컨테이너 -->
-          <section class="preview-images" id="previewImagesContainer"></section>
+        <div class="sub-tab-wrapper">
+          <div class="sub-tab-container" id="subTabContainer"></div>
 
-          <!-- 서브 카테고리 + 갤러리 -->
-          <section class="marge-container" id="marge-container">
+          <div class="view-switch">
+            <button id="preview-image-mode" class="view-icon-btn active">
+              <i class="fas fa-th-large"></i>
+            </button>
+            <button id="preview-text-mode" class="view-icon-btn">
+              <i class="fas fa-list"></i>
+            </button>
+          </div>
+        </div>
+      </header>
 
-            <header class="category-subtab-container">
-              <h2 id="currentCategory"></h2>
+      <section class="image-gallery-wrapper">
+        <div id="imageGallery" class="image-gallery">
+        </div>
+      </section>
 
-              <div class="sub-tab-wrapper">
-                <div class="sub-tab-container" id="subTabContainer"></div>
+      <nav id="pagination-info"></nav>
+      <nav id="pagination-container"></nav>
+    </section>
+  </main>
 
-                <div class="view-switch">
-                  <button id="preview-image-mode" class="view-icon-btn active">
-                    <i class="fas fa-th-large"></i>
-                  </button>
-                  <button id="preview-text-mode" class="view-icon-btn">
-                    <i class="fas fa-list"></i>
-                  </button>
-                </div>
-              </div>
-            </header>
+  <!-- 미리보기 팝업 -->
+  <div id="previewOverlayInfo" class="preview-overlay" style="display:none;">
+    <div class="preview-popup">
+      <button class="preview-close" onclick="closePreviewPopup()">✖</button>
 
-            <section class="image-gallery-wrapper">
-              <div id="imageGallery" class="image-gallery">
-              </div>
-            </section>
+      <iframe id="previewFrameInfo" src="./preview_popup.html" loading="lazy"></iframe>
+    </div>
+  </div>
 
-            <nav id="pagination-info"></nav>
-            <nav id="pagination-container"></nav>
-          </section>
-        </main>
 
-        <!-- 미리보기 팝업 -->
-        <div id="previewOverlayInfo" class="preview-overlay" style="display:none;">
-          <div class="preview-popup">
-            <button class="preview-close" onclick="closePreviewPopup()">✖</button>
+  <div id="settingPopup" class="setting-layer">
+    <div class="setting-popup">
+      <h3>Setting</h3>
 
-            <iframe id="previewFrameInfo" src="./preview_popup.html" loading="lazy"></iframe>
+      <!-- 테마토글 -->
+      <div class="setting_item">
+        <p>라이트/다크 모드</p>
+
+        <div class="toggle-switch_theme">
+          <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
+          <label class="slider" for="themeToggle">
+            <span id="themeIcon"></span>
+          </label>
+        </div>
+
+      </div>
+
+      <!-- 투명도 -->
+      <div class="setting_item">
+        <p>게시물 투명도</p>
+
+        <div class="toggle-switch_trans">
+          <div class="opacityControl" id="opacityControl">
+            <label for="opacitySlider"></label>
+            <input type="range" id="opacitySlider" min="0.2" max="1" step="0.025" value="0.825">
+            <img class="opacitybtn" id="opacityToggleBtn" src="images/toggle/toggle_leaf.svg"
+              alt="Toggle Opacity Slider">
           </div>
         </div>
 
+      </div>
 
-        <div id="settingPopup" class="setting-layer">
-          <div class="setting-popup">
-            <h3>Setting</h3>
+      <!-- 표시기관련 -->
+      <div class="setting_item">
+        <p>표시기</p>
 
-            <!-- 테마토글 -->
-            <div class="setting_item">
-              <p>라이트/다크 모드</p>
-
-              <div class="toggle-switch_theme">
-                <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
-                <label class="slider" for="themeToggle">
-                  <span id="themeIcon"></span>
-                </label>
-              </div>
-
-            </div>
-
-            <!-- 투명도 -->
-            <div class="setting_item">
-              <p>게시물 투명도</p>
-
-              <div class="toggle-switch_trans">
-                <div class="opacityControl" id="opacityControl">
-                  <label for="opacitySlider"></label>
-                  <input type="range" id="opacitySlider" min="0.2" max="1" step="0.025" value="0.825">
-                  <img class="opacitybtn" id="opacityToggleBtn" src="images/toggle/toggle_leaf.svg"
-                    alt="Toggle Opacity Slider">
-                </div>
-              </div>
-
-            </div>
-
-            <!-- 표시기관련 -->
-            <div class="setting_item">
-              <p>표시기</p>
-
-              <div class="toggle-switch_ind">
-                <button id="show-indicate" class="indicate_btn">Show
-                </button>
-                <button id="hide-indicate" class="indicate_btn">Hide
-                </button>
-              </div>
-            </div>
-
-          </div>
+        <div class="toggle-switch_ind">
+          <button id="show-indicate" class="indicate_btn">Show
+          </button>
+          <button id="hide-indicate" class="indicate_btn">Hide
+          </button>
         </div>
+      </div>
+
+    </div>
+  </div>
 
 
-        <!-- 푸터 -->
-        <footer class="page-footer">
-          <p>같은 유형의 물체 설명이 반복될 수 있습니다.<br>© 2025 퓨챠휼 All rights reserved.</p>
-          <ul id="footer_link">
-            <li>
-              <a href="./preview_popup.html" id="previewLink">소개</a>
-            </li>
-            <li>
-              <a href="./etc_util.html" id="etcLink">Lab</a>
-            </li>
-            <li>
-              <a href="https://github.com/custmm/image-upload-server" target="_blank">GitHub</a>
-            </li>
-            <li>
+  <!-- 푸터 -->
+  <footer class="page-footer">
+    <p>같은 유형의 물체 설명이 반복될 수 있습니다.<br>© 2025 퓨챠휼 All rights reserved.</p>
+    <ul id="footer_link">
+      <li>
+        <a href="./preview_popup.html" id="previewLink">소개</a>
+      </li>
+      <li>
+        <a href="./etc_util.html" id="etcLink">Lab</a>
+      </li>
+      <li>
+        <a href="https://github.com/custmm/image-upload-server" target="_blank">GitHub</a>
+      </li>
+      <li>
 
-              <a href="./contact.html" id="contactLink">Contact</a>
-            </li>
-          </ul>
+        <a href="./contact.html" id="contactLink">Contact</a>
+      </li>
+    </ul>
 
-          <div class="fixed-trash-container">
-            <img src="images/trash_icon1.svg" alt="쓰레기통" class="trash-icon main-icon">
-            <img src="images/trash_icon2.svg" alt="쓰레기통 열림" class="trash-icon hover-icon">
-          </div>
+    <div class="fixed-trash-container">
+      <img src="images/trash_icon1.svg" alt="쓰레기통" class="trash-icon main-icon">
+      <img src="images/trash_icon2.svg" alt="쓰레기통 열림" class="trash-icon hover-icon">
+    </div>
 
-        </footer>
+  </footer>
 
-        <div id="preview-guide-popup" class="popup-overlay" style="display: none;">
-          <div class="popup-container guide-mode">
-            <h2 class="guide-title">Notice</h2>
-            <div class="guide-content">
-              <p>1. 확대해석 금지!</p>
-              <p>2. 이 공간은 제작자의 취미공간입니다.</p>
+  <div id="preview-guide-popup" class="popup-overlay" style="display: none;">
+    <div class="popup-container guide-mode">
+      <h2 class="guide-title">Notice</h2>
+      <div class="guide-content">
+        <p>1. 확대해석 금지!</p>
+        <p>2. 이 공간은 제작자의 취미공간입니다.</p>
 
-              <p>3. 게시글 이용안내</p>
-              <ul class="guide-sub-list">
-                <p>3-a. <b>바둑판모드</b>(<i class="fas fa-th-large"></i>): 원형 썸네일(5*4 배열), hover 시 둥근 네모로 변형</p>
-                <p>3-b. <b>줄글모드</b>(<i class="fas fa-list"></i>): 좌우 슬라이드 동작 가능</p>
-                <p>3-c. 페이지네이션 버튼으로 이전/다음 이동 가능</p>
-              </ul>
+        <p>3. 게시글 이용안내</p>
+        <ul class="guide-sub-list">
+          <p>3-a. <b>바둑판모드</b>(<i class="fas fa-th-large"></i>): 원형 썸네일(5*4 배열), hover 시 둥근 네모로 변형</p>
+          <p>3-b. <b>줄글모드</b>(<i class="fas fa-list"></i>): 좌우 슬라이드 동작 가능</p>
+          <p>3-c. 페이지네이션 버튼으로 이전/다음 이동 가능</p>
+        </ul>
 
-              <p>4. 좌우 슬라이드 동작 안내</p>
-              <ul class="guide-sub-list">
-                <li>4-a. 모바일: 좌우로 밀기</li>
-                <li>4-b. PC: 마우스 위/아래 휠</li>
-              </ul>
-            </div>
-            <button id="close-guide-btn" class="popup-button">확인했습니다</button>
-          </div>
-        </div>
+        <p>4. 좌우 슬라이드 동작 안내</p>
+        <ul class="guide-sub-list">
+          <li>4-a. 모바일: 좌우로 밀기</li>
+          <li>4-b. PC: 마우스 위/아래 휠</li>
+        </ul>
+      </div>
+      <button id="close-guide-btn" class="popup-button">확인했습니다</button>
+    </div>
+  </div>
 
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://code.jquery.com/jquery-migrate-3.4.1.min.js"></script>
-        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-        <script>
-          AOS.init();
-        </script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-3.4.1.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  <script>
+    AOS.init();
+  </script>
 
-        <script type="module" src="js/main.js"></script>
-        <script src="https://unpkg.com/lucide@latest"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script type="module" src="js/main.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
 
 </body>
 
