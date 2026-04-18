@@ -1527,6 +1527,11 @@ body.upload-page .description-container {
     border-radius: 8px;
     width: 85%;
     padding: 10px;
+    position: relative;
+}
+
+body.upload-page #source_url{
+    position: absolute;
 }
 
 body.upload-page .text-editor {

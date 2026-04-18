@@ -6,7 +6,8 @@
     <meta name="google-site-verification" content="kMxKqlA9cKbHdJGw51M2sE21fjyzL3SvY1ryWISJMT0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ɐ퓨챠휼Ɐ >>이미지 업로드</title>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/global.css">
@@ -18,8 +19,8 @@
     <button class="back-button" onclick="window.location.href='mode-selection.html'">뒤로가기</button>
     <h1>이미지 업로드</h1>
     <div class="upload-container">
-        <div class="preview-container" id="previewContainer"> 
-           <input type="file" id="fileInput" accept="image/*"> 
+        <div class="preview-container" id="previewContainer">
+            <input type="file" id="fileInput" accept="image/*">
         </div>
 
         <div class="category_container">
@@ -52,9 +53,11 @@
             <!-- 점선 구분선 추가 -->
             <hr class="dashed-line">
             <div id="descriptionEditor" contenteditable="true" class="text-editor"></div>
+            
+            <div class="source">
+                <input type="text" id="source_url" placeholder="텍스트 출처 링크를 입력하세요">
+            </div>
 
-            <h2>출처 (URL)</h2>
-<input type="text" id="source_url" placeholder="텍스트 출처 링크를 입력하세요">
             <p style="display: flex; justify-content: space-between; width: 100%;">
                 <span id="hashtagDisplay" style="font-size: 14px; color: #333;"></span>
                 <span id="descriptionCounter">0 / 1000</span>
