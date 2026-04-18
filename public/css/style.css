@@ -953,15 +953,6 @@ body.dashboard-page .spinner {
     margin: 0 auto 10px;
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
 
 /*  이미지 스타일 */
 body.dashboard-page .post-image {
@@ -2100,16 +2091,6 @@ body.search-page .search-item img {
     animation: skeleton-sweep 1.5s infinite;
 }
 
-@keyframes skeleton-sweep {
-    0% {
-        transform: translateX(-100%);
-    }
-
-    100% {
-        transform: translateX(100%);
-    }
-}
-
 /*====== 표시기css ======*/
 body.preview-page .preview-images {
     display: flex;
@@ -2993,14 +2974,6 @@ body.preview-page .text-preview {
     text-overflow: ellipsis;
 }
 
-
-
-
-@keyframes rotate {
-    100% {
-        transform: translate(-50%, -50%) rotate(-360deg);
-    }
-}
 
 /* 1. 이미지 컨테이너 블러 제거 및 크기 고정 */
 body.preview-page .card-img-container {

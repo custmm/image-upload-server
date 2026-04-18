@@ -31,7 +31,6 @@
     }
 }
 
-
 /* ✨ 황금빛이 부드럽게 퍼지는 애니메이션 */
 @keyframes goldGlow {
     0% {
@@ -66,6 +65,32 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes skeleton-sweep {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes rotate {
+    100% {
+        transform: translate(-50%, -50%) rotate(-360deg);
     }
 }
 
@@ -309,12 +334,6 @@ body.dashboard-page .loading-text {
     transform-origin: center -25px;
 }
 
-/* 회전 애니메이션 */
-@keyframes spin {
-    100% {
-        transform: rotate(360deg);
-    }
-}
 
 /* 로딩아이콘 부모요소 */
 .loader1,
