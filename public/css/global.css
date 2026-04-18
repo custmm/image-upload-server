@@ -110,13 +110,13 @@ ul li {
 }
 
 body:not(.no-bg) {
-    font-family: Arial, sans-serif;
+    font-family: 'Pretendard';
     background: linear-gradient(180deg, #2B2092 0%, #ffe229 95%);
     height: 100vh;
-    background-repeat: no-repeat;
 }
 
 body{
+    font-family: 'Pretendard';
     line-height: 1.5;
 }
 /* ====== 버튼 공통 ====== */
