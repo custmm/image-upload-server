@@ -31,9 +31,24 @@ export let noMoreImages = false;
 
 // 3. Setter 함수들 (main.js에서 호출용)
 export const setPage = (val) => page = val;
+
 export const setView = (val) => {
     currentView = val;
     limit = (val === "image") ? 20 : 10;
+
+    // [추가] 모드 변경 시 클래스 초기화 로직
+    const gallery = document.getElementById("imageGallery");
+    if (gallery) {
+        if (val === "image") {
+            // 바둑판 모드로 갈 때 스크롤 모드 클래스 제거
+            gallery.classList.remove("text-view-scroll", "text-view");
+            gallery.classList.add("image-view");
+            gallery.scrollLeft = 0; // 스크롤 위치 초기화
+        } else {
+            gallery.classList.remove("image-view");
+            gallery.classList.add("text-view");
+        }
+    }
 };
 
 // 4. 기초 UI 조작 함수

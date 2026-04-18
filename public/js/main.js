@@ -112,6 +112,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     applySavedTheme();
     initPreviewGuide();
 
+    // --- [추가/수정 포인트: 사이드바 버튼 강제 연결] ---
+    const sidebarBtn = document.getElementById("sidebarToggleBtn");
+    if (sidebarBtn) {
+        // 기존 리스너가 중복될 수 있으므로 정리 후 다시 등록
+        sidebarBtn.onclick = null; 
+        sidebarBtn.addEventListener("click", (e) => {
+            console.log("사이드바 버튼 클릭됨 (JS 리스너)");
+            window.toggleSidebar(e);
+        });
+    }
+    // ----------------------------------------------
+
     // 1. 설정 팝업 제어
     const settingBtn = document.getElementById("settingBtn");
     const settingPopup = document.getElementById("settingPopup");
@@ -140,9 +152,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (imageModeBtn && textModeBtn) {
         imageModeBtn.addEventListener("click", async () => {
-            Gallery.setView("image");
+            // [중요] 갤러리 요소에서 스크롤 클래스 직접 제거 (안전장치)
+            if (galleryEl) {
+                galleryEl.classList.remove("text-view-scroll");
+                galleryEl.scrollLeft = 0;
+            }
+
+            Gallery.setView("image"); // 여기서 위에서 수정한 setView가 실행됨
             imageModeBtn.classList.add("active");
             textModeBtn.classList.remove("active");
+
             Gallery.setPage(0);
             await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
         });
@@ -151,6 +170,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             Gallery.setView("text");
             textModeBtn.classList.add("active");
             imageModeBtn.classList.remove("active");
+
             Gallery.setPage(0);
             await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
             if (galleryEl) galleryEl.scrollLeft = 0;
