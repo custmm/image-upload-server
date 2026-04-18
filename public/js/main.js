@@ -23,7 +23,7 @@ function initPreviewGuide() {
             closeBtn.addEventListener("click", () => {
                 guidePopup.style.opacity = "0";
                 guidePopup.style.transition = "opacity 0.3s ease";
-                
+
                 setTimeout(() => {
                     guidePopup.style.display = "none";
                     document.body.style.overflow = "auto"; // 스크롤 복구
@@ -57,10 +57,10 @@ function applySavedTheme() {
 }
 
 // 로딩 표시기
-window.showLoading = function() {
+window.showLoading = function () {
     const indicator = document.getElementById("loadingIndicator");
     const loader = document.getElementById("mainLoader");
-    if(!indicator || !loader) return;
+    if (!indicator || !loader) return;
     indicator.style.display = "flex";
     if (loaderInterval) clearInterval(loaderInterval);
     loaderInterval = setInterval(() => {
@@ -69,10 +69,10 @@ window.showLoading = function() {
     }, 500);
 };
 
-window.hideLoading = function() {
+window.hideLoading = function () {
     const indicator = document.getElementById("loadingIndicator");
     if (loaderInterval) clearInterval(loaderInterval);
-    if(!indicator) return;
+    if (!indicator) return;
     indicator.style.opacity = "0";
     setTimeout(() => {
         indicator.style.display = "none";
@@ -82,18 +82,18 @@ window.hideLoading = function() {
 
 // --- [전역 등록 함수: HTML onclick 대응] ---
 
-window.toggleTheme = function() {
+window.toggleTheme = function () {
     const isDark = document.body.classList.contains("dark-mode");
     setTheme(isDark ? "light-mode" : "dark-mode");
 };
 
-window.toggleSidebar = function(event) {
+window.toggleSidebar = function (event) {
     if (event) event.stopPropagation();
     const sidebar = document.getElementById("sidebar");
     if (sidebar) sidebar.classList.toggle("open");
 };
 
-window.closePreviewPopup = function(type) {
+window.closePreviewPopup = function (type) {
     const map = {
         info: { overlay: "previewOverlayInfo", frame: "previewFrameInfo" },
         icon: { overlay: "previewOverlayIcon", frame: "previewFrameIcon" }
@@ -110,63 +110,69 @@ window.closePreviewPopup = function(type) {
 document.addEventListener("DOMContentLoaded", async () => {
     // 1. 기초 UI 설정
     applySavedTheme();
-
-    // [추가] 안내 팝업 실행
     initPreviewGuide();
 
     // [추가] 설정 팝업 제어 로직
     const settingBtn = document.getElementById("settingBtn");
     const settingPopup = document.getElementById("settingPopup");
-if (settingBtn && settingPopup) {
+
+    if (settingBtn && settingPopup) {
         settingBtn.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation(); // 이벤트가 딴 데로 안 튀게 막음
             settingPopup.classList.toggle("active");
         });
+        settingPopup.addEventListener("click", function (e) {
+            if (e.target === settingPopup) settingPopup.classList.remove("active");
+        });
     }
 
     // 2. 갤러리 초기 데이터 로드 (순서가 중요!)
     if (Gallery.loadCategories) {
-        // [수정] 카테고리를 먼저 완전히 가져온 뒤에 로직을 진행합니다.
-        await Gallery.loadCategories(); 
-        
-        // [추가] 카테고리 로드 후, 만약 선택된 카테고리가 있다면 첫 페이지 로드
+        await Gallery.loadCategories();
         if (Gallery.selectedCategory) {
             await Gallery.loadPage(Gallery.selectedCategory);
         } else {
-            // 카테고리는 로드됐는데 선택된 게 없다면 초기화 함수 강제 호출
             await Gallery.initializeCategorySelection();
         }
     }
 
-   // 3. 모드 전환 버튼 이벤트 연결
+    // 3. 모드 전환 버튼 이벤트 연결
     const imageModeBtn = document.getElementById("preview-image-mode");
     const textModeBtn = document.getElementById("preview-text-mode");
     const galleryEl = document.getElementById("imageGallery");
 
     if (imageModeBtn && textModeBtn) {
-        // 이미지 그리드 모드 버튼 클릭 시
         imageModeBtn.addEventListener("click", async () => {
-            Gallery.setView("image"); // 갤러리 모듈의 뷰 모드를 "image"로 변경
+            Gallery.setView("image");
             imageModeBtn.classList.add("active");
             textModeBtn.classList.remove("active");
-            
-            Gallery.setPage(0); // 페이지 번호 초기화
-            // 현재 카테고리 데이터를 유지하며 다시 로드
+            Gallery.setPage(0);
             await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
         });
 
-        // 텍스트 좌우 스크롤 모드 버튼 클릭 시
         textModeBtn.addEventListener("click", async () => {
-            Gallery.setView("text"); // 갤러리 모듈의 뷰 모드를 "text"로 변경
+            Gallery.setView("text");
             textModeBtn.classList.add("active");
             imageModeBtn.classList.remove("active");
-            
-            Gallery.setPage(0); // 페이지 번호 초기화
+            Gallery.setPage(0);
             await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
-            // [추가] 텍스트 모드로 바뀐 직후 스크롤 위치를 맨 앞으로 강제 이동
             if (galleryEl) galleryEl.scrollLeft = 0;
         });
+    }
+
+    // [중요: PC 휠 스크롤 복구] 
+    // 갤러리 영역에서 휠을 굴릴 때 가로로 이동하도록 강제 설정
+    if (galleryEl) {
+        galleryEl.addEventListener("wheel", (e) => {
+            // 줄글 모드(text-view)일 때만 작동하도록 조건 설정
+            if (galleryEl.classList.contains("text-view") || galleryEl.classList.contains("text-view-scroll")) {
+                if (e.deltaY !== 0) {
+                    e.preventDefault(); // 페이지 전체가 위아래로 움직이는 것 방지
+                    galleryEl.scrollLeft += e.deltaY; // 위아래 휠 값을 왼쪽/오른쪽 이동 값으로 변환
+                }
+            }
+        }, { passive: false }); // preventDefault()를 작동시키기 위해 passive: false 필수
     }
 
     // 2. 테마 토글 버튼 리스너 (CSP 위반 방지)
