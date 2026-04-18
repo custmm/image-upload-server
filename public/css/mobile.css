@@ -55,7 +55,6 @@
         flex-wrap: wrap;
     }
 
-
     /* click-page의 css */
 
     body.click-page .toggle-switch {
@@ -268,7 +267,8 @@
         max-width: 300px;
         margin: 5px auto;
     }
-/* preview-popup-page의css */
+
+    /* preview-popup-page의css */
     body.preview-popup-page {
         width: 95%
     }
@@ -326,6 +326,17 @@
 
     body.preview-page #currentCategory {
         font-size: 23px;
+    }
+
+    /* active 클래스가 추가되면 나타남 */
+    body.preview-page #settingPopup.active {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        width: 320px;
+        height: 240px;
+        top: 10%;
+        left: 50%;
     }
 
     body.preview-page .view-icon-btn i {
@@ -439,7 +450,7 @@
         z-index: 9999;
     }
 
-/* tag-page의css */
+    /* tag-page의css */
     body.tag-page .post-item {
         flex-direction: row;
         align-items: center;
