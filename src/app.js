@@ -70,7 +70,7 @@ app.use(helmet({
             // 4. 이미지 허용 (데이터 URL 및 외부 이미지 서버)
             imgSrc: ["'self'", "data:", "https://ik.imagekit.io", "https://cdn.jsdelivr.net"],
             // 5. 폰트 허용
-            fontSrc: ["'self'", "https://cdnjs.cloudflare.com"],
+            fontSrc: ["'self'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net"],
         },
     },
 }));
