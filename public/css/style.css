@@ -2796,19 +2796,68 @@ body.preview-page .image-gallery.image-view {
     grid-template-columns: repeat(5, 1fr);
     gap: 12px;
 }
-/* 3. 개별 카드: 겹치지 않고 나란히 서기 */
+/* [추가] 첫 번째 카드 아이템에 왼쪽 여백 부여 */
+body.preview-page .image-gallery.text-view .text-card-item:first-child {
+    margin-left: 20px; /* 원하는 만큼 띄워주세요 */
+}
+
+/* [추가] 마지막 카드 뒤에도 여백을 줘야 끝까지 시원하게 스크롤됩니다 */
+body.preview-page .image-gallery.text-view .text-card-item:last-child {
+    margin-right: 20px;
+}
+
+/* 텍스트 모드 (이미지 갤러리 전체 설정) */
+body.preview-page .image-gallery.text-view {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 10px;
+    -webkit-overflow-scrolling: touch;
+    
+    /* [수정] 컨테이너 자체 패딩은 제거하거나 0으로 설정 */
+    padding-left: 0 !important; 
+    padding-right: 0 !important;
+    
+    /* [추가] 아이템들이 왼쪽부터 정렬되도록 보장 */
+    justify-content: flex-start !important;
+}
+
+/* 1. 갤러리 컨테이너: 가로 스크롤 및 정렬 설정 */
+body.preview-page .image-gallery.text-view,
+body.preview-page .image-gallery.text-view-scroll {
+    display: flex !important;
+    flex-direction: row !important; /* 가로 나열 강제 */
+    overflow-x: auto !important;    /* 가로 스크롤 활성화 */
+    scroll-snap-type: x mandatory;   /* 자석 효과 */
+    padding: 20px 0 !important;      /* 위아래 여백만 유지 */
+    justify-content: flex-start !important; /* 왼쪽부터 차곡차곡 */
+    gap: 0;                          /* 간격은 마진으로 조절 */
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 10px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 스크롤바 숨기기 */
+body.preview-page .image-gallery.text-view::-webkit-scrollbar,
+body.preview-page .image-gallery.text-view-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* 2. 개별 카드: 크기 및 자석 효과 위치 */
 body.preview-page .text-card-item {
     position: relative !important;
     overflow: hidden;
+    flex: 0 0 280px;         /* 카드 너비 고정 */
+    height: 330px;           /* 카드 높이 고정 */
+    margin-right: 20px;      /* 카드 사이 간격 */
     
-    /* [수정] 고정 너비 설정 */
-    flex: 0 0 280px;
-    height: 330px;
-    
-    /* [수정] 첫 번째 이미지 잘림 방지: center 대신 start 권장 */
+    /* [핵심] center 대신 start를 써야 첫 번째 카드가 잘리지 않습니다 */
     scroll-snap-align: start; 
 
-    /* 기존 스타일 유지 */
+    /* 기존 스타일 및 레이아웃 초기화 */
     top: 0 !important;
     left: 0 !important;
     transform: none !important;
@@ -2818,14 +2867,15 @@ body.preview-page .text-card-item {
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-
-    /* [추가] 카드 사이의 간격 */
-    margin-right: 20px; 
 }
 
-/* [추가] 첫 번째 이미지가 왼쪽 벽에 너무 붙지 않게 여백 부여 */
+/* 3. 첫 번째와 마지막 카드 여백 (완벽한 가시성 확보) */
 body.preview-page .text-card-item:first-child {
-    margin-left: 25px; 
+    margin-left: 25px !important; /* 왼쪽 벽에서 띄워줌으로써 잘림 방지 */
+}
+
+body.preview-page .text-card-item:last-child {
+    margin-right: 25px !important; /* 끝까지 스크롤 가능하게 함 */
 }
 
 /* 1. 회전하는 테두리 효과 (::before) */
@@ -2860,39 +2910,6 @@ body.preview-page .text-card-item::after {
     z-index: -1;
     /* before보다는 위에, 실제 텍스트보다는 아래에 */
 }
-/* 텍스트 모드 (이미지 갤러리 전체 설정) */
-body.preview-page .image-gallery.text-view {
-    display: flex !important;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    background-color: transparent;
-    box-shadow: none;
-    border-radius: 10px;
-    -webkit-overflow-scrolling: touch;
-    
-    /* [수정] 컨테이너 자체 패딩은 제거하거나 0으로 설정 */
-    padding-left: 0 !important; 
-    padding-right: 0 !important;
-    
-    /* [추가] 아이템들이 왼쪽부터 정렬되도록 보장 */
-    justify-content: flex-start !important;
-}
-
-/* [추가] 첫 번째 카드 아이템에 왼쪽 여백 부여 */
-body.preview-page .image-gallery.text-view .text-card-item:first-child {
-    margin-left: 20px; /* 원하는 만큼 띄워주세요 */
-}
-
-/* [추가] 마지막 카드 뒤에도 여백을 줘야 끝까지 시원하게 스크롤됩니다 */
-body.preview-page .image-gallery.text-view .text-card-item:last-child {
-    margin-right: 20px;
-}
-
-/* 스크롤바 숨기기 */
-body.preview-page .image-gallery.text-view::-webkit-scrollbar {
-    display: none;
-}
-
 
 /* 한 줄 컨테이너 (이제 개별 카드 역할을 함) */
 body.preview-page .text-row {

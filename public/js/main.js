@@ -117,24 +117,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     // [추가] 설정 팝업 제어 로직
     const settingBtn = document.getElementById("settingBtn");
     const settingPopup = document.getElementById("settingPopup");
-
-    // 버튼과 팝업이 존재하는지 콘솔로 확인 (F12 눌러서 보임)
-    console.log("Setting Button:", settingBtn);
-    console.log("Setting Popup:", settingPopup);
-    
 if (settingBtn && settingPopup) {
         settingBtn.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation(); // 이벤트가 딴 데로 안 튀게 막음
             settingPopup.classList.toggle("active");
-            console.log("Popup class list:", settingPopup.classList);
-        });
-
-        // 팝업 내부 클릭 시 닫히는 거 방지
-        settingPopup.addEventListener("click", function(e) {
-            if (e.target === settingPopup) {
-                settingPopup.classList.remove("active");
-            }
         });
     }
 
@@ -155,6 +142,7 @@ if (settingBtn && settingPopup) {
    // 3. 모드 전환 버튼 이벤트 연결
     const imageModeBtn = document.getElementById("preview-image-mode");
     const textModeBtn = document.getElementById("preview-text-mode");
+    const galleryEl = document.getElementById("imageGallery");
 
     if (imageModeBtn && textModeBtn) {
         // 이미지 그리드 모드 버튼 클릭 시
@@ -176,6 +164,8 @@ if (settingBtn && settingPopup) {
             
             Gallery.setPage(0); // 페이지 번호 초기화
             await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
+            // [추가] 텍스트 모드로 바뀐 직후 스크롤 위치를 맨 앞으로 강제 이동
+            if (galleryEl) galleryEl.scrollLeft = 0;
         });
     }
 
