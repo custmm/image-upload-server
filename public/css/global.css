@@ -106,7 +106,7 @@ ul li {
 
 .appear-ani {
     opacity: 0;
-    animation: fadeInUp 0.5s ease-out forwards;
+    animation: fadeInUp 1.0s ease-out forwards;
 }
 
 body:not(.no-bg) {

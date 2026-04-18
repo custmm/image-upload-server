@@ -379,7 +379,8 @@ export function adjustGalleryRadius() {
             if (e.deltaY !== 0) {
                 e.preventDefault();
                 // 스크롤 양 조절 (deltaY 값을 더해줌)
-                gallery.scrollLeft += e.deltaY;
+               const scrollSensitivity = 0.5; 
+                gallery.scrollLeft += e.deltaY * scrollSensitivity;
             }
         }
     }, { passive: false }); // preventDefault를 위해 반드시 false
