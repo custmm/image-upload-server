@@ -1530,11 +1530,13 @@ body.upload-page .description-container {
     position: relative;
 }
 
-body.upload-page #source_url{
+body.upload-page #source_url {
     position: absolute;
-        top: 70%;
-    left: 71%;
-    padding: 10px 15px;
+    top: 66%;
+    left: 64%;
+    padding: 10px 24px;
+    width: 27%;
+    border-radius: 22px;
 }
 
 body.upload-page .text-editor {
