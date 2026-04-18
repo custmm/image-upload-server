@@ -163,23 +163,3 @@
 .popup-button:hover {
     background: #899aab;
 }
-
-/* 사이드바 슬라이드 너비 고정 */
-.menu-slide {
-  width: 280px !important; /* 사이드바를 열었을 때 보여줄 너비 */
-  background: #1a1a1a;    /* 사이드바 배경색 */
-  height: 100vh;
-  box-sizing: border-box;
-}
-
-.sidebar {
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  overflow-y: auto; /* 메뉴가 길어지면 내부 스크롤 */
-}
-
-/* 검색창 입력 시 슬라이드가 멋대로 움직이지 않게 설정 */
-.swiper-no-swiping input {
-  cursor: auto;
-}

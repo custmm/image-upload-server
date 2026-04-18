@@ -36,43 +36,37 @@
 
 
     <!-- 사이드 네비게이션 -->
-    <div class="swiper sidebar-swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide menu-slide">
-          <nav id="sidebar" class="sidebar">
-            <ul class="main-menu">
-              <li class="menu-item">
-                <button class="menu-title" onclick="toggleMenu('board')">게시판</button>
-                <ul id="board" class="sub-menu">
-                  <li><a href="#" onclick="goCategory('퍼즐')">퍼즐</a></li>
-                  <li><a href="#" onclick="goCategory('보석비즈')">보석비즈</a></li>
-                  <li><a href="#" onclick="goCategory('3D퍼즐')">3D퍼즐</a></li>
-                  <li><a href="#" onclick="goCategory('디폼블럭')">디폼블럭</a></li>
-                  <li><a href="#" onclick="goCategory('브릭피규어')">브릭피규어</a></li>
-                </ul>
-              </li>
+    <nav id="sidebar" class="sidebar">
+      <ul class="main-menu">
+        <li class="menu-item">
+          <button class="menu-title" onclick="toggleMenu('board')">게시판</button>
+          <ul id="board" class="sub-menu">
+            <li><a href="#" onclick="goCategory('퍼즐')">퍼즐</a></li>
+            <li><a href="#" onclick="goCategory('보석비즈')">보석비즈</a></li>
+            <li><a href="#" onclick="goCategory('3D퍼즐')">3D퍼즐</a></li>
+            <li><a href="#" onclick="goCategory('디폼블럭')">디폼블럭</a></li>
+            <li><a href="#" onclick="goCategory('브릭피규어')">브릭피규어</a></li>
+          </ul>
+        </li>
 
-              <li class="menu-item">
-                <button class="menu-title" onclick="toggleMenu('etc')">
-                  부가기능</button>
-                <ul id="etc" class="sub-menu">
-                  <li><a href="click.html">숨겨진기능 체험하기</a></li>
-                  <li><a href="killing_game.html">게임하기</a></li>
-                </ul>
-              </li>
+        <li class="menu-item">
+          <button class="menu-title" onclick="toggleMenu('etc')">
+            부가기능</button>
+          <ul id="etc" class="sub-menu">
+            <li><a href="click.html">숨겨진기능 체험하기</a></li>
+            <li><a href="killing_game.html">게임하기</a></li>
+          </ul>
+        </li>
 
-              <li class="sidebar-search">
-                <input type="text" id="sidebarSearchInput" placeholder="작품 검색..." />
-                <button id="sidebarSearchBtn" class="search-icon-btn">
-                  <i class="fas fa-search"></i>
-                </button>
-              </li>
+        <li class="sidebar-search">
+          <input type="text" id="sidebarSearchInput" placeholder="작품 검색..." />
+          <button id="sidebarSearchBtn" class="search-icon-btn">
+            <i data-icon="search"></i>
+          </button>
+        </li>
 
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
+      </ul>
+    </nav>
   </div>
 
 
@@ -260,18 +254,18 @@
       <h2 class="guide-title">Notice</h2>
       <div class="guide-content">
         <p>1. 확대해석 금지!</p>
-        <p>2. 이 공간은 제작자의 취미공간입니다.</p>
-
+        <p>2. 이 공간은 제작자의 취향입니다.</p>
+        
         <p>3. 게시글 이용안내</p>
         <ul class="guide-sub-list">
-          <p>3-a. <b>바둑판모드</b>(<i class="fas fa-th-large"></i>): 원형 썸네일(5*4 배열), hover 시 둥근 네모로 변형</p>
-          <p>3-b. <b>줄글모드</b>(<i class="fas fa-list"></i>): 좌우 슬라이드 동작 가능</p>
+          <p>3-a. <b>바둑판모드</b>(아이콘): 원형 썸네일(5*4 배열), hover 시 둥근 네모로 변형</p>
+          <p>3-b. <b>줄글모드</b>(아이콘): 좌우 슬라이드 동작 가능</p>
           <p>3-c. 페이지네이션 버튼으로 이전/다음 이동 가능</p>
         </ul>
 
         <p>4. 좌우 슬라이드 동작 안내</p>
         <ul class="guide-sub-list">
-          <li>4-a. 모바일: 좌우로 밀기</li>
+          <li>4-a. 모바일: 좌우 터치</li>
           <li>4-b. PC: 마우스 위/아래 휠</li>
         </ul>
       </div>
