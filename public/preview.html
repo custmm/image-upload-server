@@ -6,8 +6,7 @@
   <meta name="google-site-verification" content="kMxKqlA9cKbHdJGw51M2sE21fjyzL3SvY1ryWISJMT0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ɐ퓨챠휼Ɐ >> 업로드된 이미지</title>
-  <link rel="stylesheet" as="style" crossorigin
-    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
 
   <!-- 외부 링크 css -->
@@ -42,18 +41,19 @@
     <nav id="sidebar" class="sidebar">
       <ul class="main-menu">
         <li class="menu-item">
-          <button class="menu-title" data-target="board">게시판</button>
+          <button class="menu-title" onclick="toggleMenu('board')">게시판</button>
           <ul id="board" class="sub-menu">
-            <li><a href="#" class="cat-link" data-cat="퍼즐">퍼즐</a></li>
-            <li><a href="#" class="cat-link" data-cat="보석비즈">보석비즈</a></li>
-            <li><a href="#" class="cat-link" data-cat="3D퍼즐">3D퍼즐</a></li>
-            <li><a href="#" class="cat-link" data-cat="디폼블럭">디폼블럭</a></li>
-            <li><a href="#" class="cat-link" data-cat="브릭피규어">브릭피규어</a></li>
+            <li><a href="#" onclick="goCategory('퍼즐')">퍼즐</a></li>
+            <li><a href="#" onclick="goCategory('보석비즈')">보석비즈</a></li>
+            <li><a href="#" onclick="goCategory('3D퍼즐')">3D퍼즐</a></li>
+            <li><a href="#" onclick="goCategory('디폼블럭')">디폼블럭</a></li>
+            <li><a href="#" onclick="goCategory('브릭피규어')">브릭피규어</a></li>
           </ul>
         </li>
 
         <li class="menu-item">
-          <button class="menu-title" data-target="etc">부가기능</button>
+          <button class="menu-title" onclick="toggleMenu('etc')">
+            부가기능</button>
           <ul id="etc" class="sub-menu">
             <li><a href="click.html">숨겨진기능 체험하기</a></li>
             <li><a href="killing_game.html">게임하기</a></li>
@@ -256,11 +256,11 @@
       <h2 class="guide-title">Notice</h2>
       <div class="guide-content">
         <p>1. 확대해석 금지! <br>
-          2. 이 공간은 제작자의 취미공간입니다. <br>
-          3. 간혹 오류가 있을 수 있습니다. <br>
-          그 부분에 대해서는 협업자(ai)와 함께 해결중입니다.
+        2. 이 공간은 제작자의 취미공간입니다. <br>
+        3. 간혹 오류가 있을 수 있습니다. <br>
+          그 부분에 대해서는 협업자(ai)와 함께 해결중입니다. 
         </p>
-
+        
         <p>4. 게시글 이용안내</p>
         <ul class="guide-sub-list">
           <p>4-a. <b>바둑판모드</b>(아이콘): 원형 썸네일(5*4 배열), hover 시 둥근 네모로 변형</p>
