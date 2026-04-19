@@ -140,39 +140,44 @@ document.addEventListener("DOMContentLoaded", async () => {
     applySavedTheme();
     initPreviewGuide();
 
-    // --- [사이드바 내부 요소들에 대한 이벤트 위임 연결] ---
+    // --- [1. 사이드바 내부 요소들에 대한 이벤트 위임 연결] ---
     const sidebar = document.getElementById("sidebar");
     if (sidebar) {
         sidebar.addEventListener("click", (e) => {
-            // 게시판/부가기능 버튼 클릭 시 (data-target 속성 활용)
-            if (e.target.classList.contains("menu-title")) {
-                const targetId = e.target.getAttribute("data-target");
+            // A. 게시판/부가기능 버튼 클릭 시 (data-target 속성 활용)
+            // .menu-title 내부의 텍스트나 아이콘을 눌러도 작동하게 .closest 사용
+            const menuTitleBtn = e.target.closest(".menu-title");
+            if (menuTitleBtn) {
+                e.preventDefault();
+                const targetId = menuTitleBtn.getAttribute("data-target");
                 if (targetId) window.toggleMenu(targetId);
+                return; // 처리 완료 시 리턴
             }
 
-            // 서브메뉴 내 카테고리 링크 클릭 시 (data-cat 속성 활용)
-            if (e.target.classList.contains("cat-link")) {
+            // B. 서브메뉴 내 카테고리 링크 클릭 시 (data-cat 속성 활용)
+            const catLink = e.target.closest(".cat-link");
+            if (catLink) {
                 e.preventDefault();
-                const catName = e.target.getAttribute("data-cat");
-                window.goCategory(catName);
+                const catName = catLink.getAttribute("data-cat");
+                if (catName) window.goCategory(catName);
             }
         });
     }
 
-    // --- [사이드바 열기 버튼] ---
+    // --- [2. 사이드바 열기/닫기 버튼 (햄버거 버튼)] ---
     const sidebarBtn = document.getElementById("sidebarToggleBtn");
     if (sidebarBtn) {
-        // 기존 리스너가 중복될 수 있으므로 정리 후 다시 등록
+        // HTML에 적힌 onclick="toggleSidebar(event)"를 무시하고 이 리스너만 사용하게 함
         sidebarBtn.onclick = null;
         sidebarBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation(); // 클릭 이벤트가 body로 퍼져서 다시 닫히는 현상 방지
             console.log("사이드바 버튼 클릭됨 (JS 리스너)");
             window.toggleSidebar(e);
         });
     }
 
-    // ----------------------------------------------
-
-    // 1. 설정 팝업 제어
+    // --- [3. 설정 팝업 제어] ---
     const settingBtn = document.getElementById("settingBtn");
     const settingPopup = document.getElementById("settingPopup");
     if (settingBtn && settingPopup) {
@@ -181,15 +186,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             e.stopPropagation();
             settingPopup.classList.toggle("active");
         });
-        settingPopup.addEventListener("click", (e) => {
-            if (e.target === settingPopup) settingPopup.classList.remove("active");
+        // 팝업 바깥 클릭 시 닫기
+        window.addEventListener("click", (e) => {
+            if (settingPopup.classList.contains("active") && !settingPopup.contains(e.target) && e.target !== settingBtn) {
+                settingPopup.classList.remove("active");
+            }
         });
     }
 
-    // 2. 데이터 초기 로드 (중복 제거 버전)
+    // 4. 데이터 초기 로드 (기존 유지)
     if (Gallery.loadCategories) {
         await Gallery.loadCategories();
-        // initializeCategorySelection이 내부적으로 loadPage를 호출하므로 여기서 한 번만 실행
         await Gallery.initializeCategorySelection();
     }
 
