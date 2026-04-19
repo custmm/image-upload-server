@@ -92,6 +92,34 @@ window.toggleSidebar = (event) => {
     }
 };
 
+// 1. 사이드바 서브메뉴(게시판, 부가기능) 토글
+window.toggleMenu = (targetId) => {
+    const subMenu = document.getElementById(targetId);
+    if (subMenu) {
+        // sub-menu가 열려있으면 닫고, 닫혀있으면 여는 class 토글
+        subMenu.classList.toggle("active");
+
+        //다른 서브메뉴는 자동으로 닫고 싶다면 아래 주석 해제
+
+        document.querySelectorAll('.sub-menu').forEach(menu => {
+            if (menu.id !== targetId) menu.classList.remove('active');
+        });
+    }
+};
+
+// 2. 카테고리 클릭 시 이동 로직
+window.goCategory = async (categoryName) => {
+    console.log(`${categoryName} 카테고리 로드 시도`);
+    if (Gallery.loadPage) {
+        Gallery.setPage(0);
+        await Gallery.loadPage(categoryName);
+
+        // (선택) 카테고리 선택 후 사이드바를 자동으로 닫고 싶을 때
+        const sidebar = document.getElementById("sidebar");
+        if (sidebar) sidebar.classList.remove("open");
+    }
+};
+
 window.closePreviewPopup = (type) => {
     const map = {
         info: { overlay: "previewOverlayInfo", frame: "previewFrameInfo" },
@@ -112,14 +140,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     applySavedTheme();
     initPreviewGuide();
 
-    // --- [추가/수정 포인트: 사이드바 버튼 강제 연결] ---
+    // --- [사이드바 내부 요소들에 대한 이벤트 위임 연결] ---
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar) {
+        sidebar.addEventListener("click", (e) => {
+            // 게시판/부가기능 버튼 클릭 시 (data-target 속성 활용)
+            if (e.target.classList.contains("menu-title")) {
+                const targetId = e.target.getAttribute("data-target");
+                if (targetId) window.toggleMenu(targetId);
+            }
+
+            // 서브메뉴 내 카테고리 링크 클릭 시 (data-cat 속성 활용)
+            if (e.target.classList.contains("cat-link")) {
+                e.preventDefault();
+                const catName = e.target.getAttribute("data-cat");
+                window.goCategory(catName);
+            }
+        });
+    }
+
+    // --- [사이드바 열기 버튼] ---
     const sidebarBtn = document.getElementById("sidebarToggleBtn");
     if (sidebarBtn) {
         // 기존 리스너가 중복될 수 있으므로 정리 후 다시 등록
-        sidebarBtn.onclick = null; 
+        sidebarBtn.onclick = null;
         sidebarBtn.addEventListener("click", (e) => {
             console.log("사이드바 버튼 클릭됨 (JS 리스너)");
             window.toggleSidebar(e);
+        });
+    }
+
+    // 4. 테마 토글 버튼 리스너 (기존 코드 유지)
+    const themeToggle = document.getElementById("themeToggle");
+    if (themeToggle) {
+        themeToggle.addEventListener("change", () => {
+            const newMode = themeToggle.checked ? "dark-mode" : "light-mode";
+            setTheme(newMode);
         });
     }
     // ----------------------------------------------
@@ -176,16 +232,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (galleryEl) galleryEl.scrollLeft = 0;
         });
     }
-
-    // 4. 테마 토글 버튼 리스너
-    const themeToggle = document.getElementById("themeToggle");
-    if (themeToggle) {
-        themeToggle.addEventListener("change", () => {
-            const newMode = themeToggle.checked ? "dark-mode" : "light-mode";
-            setTheme(newMode);
-        });
-    }
-
+    
     // 5. 팝업 드래그 설정
     if (typeof makePopupDraggable === "function") {
         makePopupDraggable("previewOverlayInfo");
