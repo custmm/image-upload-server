@@ -3151,14 +3151,14 @@ body.preview-page .menu-title {
     backdrop-filter: none;
 }
 
+/* 기존 .open을 .active로 변경 */
 body.preview-page .sub-menu {
-    display: none;
+    display: none; /* 기본은 숨김 */
 }
 
-body.preview-page .sub-menu.open {
-    display: block;
+body.preview-page .sub-menu.active {
+    display: block; /* JS에서 active 클래스를 붙이면 보이게 함 */
 }
-
 
 body.preview-page #welcomeMessage {
     text-align: center;

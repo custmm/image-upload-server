@@ -144,40 +144,38 @@ document.addEventListener("DOMContentLoaded", async () => {
     const sidebar = document.getElementById("sidebar");
     if (sidebar) {
         sidebar.addEventListener("click", (e) => {
-            // A. 게시판/부가기능 버튼 클릭 시 (data-target 속성 활용)
-            // .menu-title 내부의 텍스트나 아이콘을 눌러도 작동하게 .closest 사용
+            // 1. 게시판/부가기능 버튼 클릭 시 서브메뉴 토글
             const menuTitleBtn = e.target.closest(".menu-title");
             if (menuTitleBtn) {
-                e.preventDefault();
                 const targetId = menuTitleBtn.getAttribute("data-target");
+                // window.toggleMenu 함수 호출 (기존 정의된 함수 사용)
                 if (targetId) window.toggleMenu(targetId);
-                return; // 처리 완료 시 리턴
+                return;
             }
 
-            // B. 서브메뉴 내 카테고리 링크 클릭 시 (data-cat 속성 활용)
+            // 2. 서브메뉴 내 카테고리(퍼즐 등) 클릭 시 페이지 로드
             const catLink = e.target.closest(".cat-link");
             if (catLink) {
-                e.preventDefault();
+                e.preventDefault(); // # 이동 방지
                 const catName = catLink.getAttribute("data-cat");
+                // window.goCategory 함수 호출 (기존 정의된 함수 사용)
                 if (catName) window.goCategory(catName);
             }
         });
     }
 
-    // --- [2. 사이드바 열기/닫기 버튼 (햄버거 버튼)] ---
+// --- [사이드바 열기 버튼 (햄버거 버튼)] ---
     const sidebarBtn = document.getElementById("sidebarToggleBtn");
     if (sidebarBtn) {
-        // HTML에 적힌 onclick="toggleSidebar(event)"를 무시하고 이 리스너만 사용하게 함
-        sidebarBtn.onclick = null;
+        sidebarBtn.onclick = null; // 인라인 이벤트 무력화
         sidebarBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            e.stopPropagation(); // 클릭 이벤트가 body로 퍼져서 다시 닫히는 현상 방지
-            console.log("사이드바 버튼 클릭됨 (JS 리스너)");
+            e.stopPropagation(); // 클릭 전파 방지
             window.toggleSidebar(e);
         });
     }
 
-    // --- [3. 설정 팝업 제어] ---
+// --- [설정 팝업 제어] ---
     const settingBtn = document.getElementById("settingBtn");
     const settingPopup = document.getElementById("settingPopup");
     if (settingBtn && settingPopup) {
@@ -186,9 +184,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             e.stopPropagation();
             settingPopup.classList.toggle("active");
         });
-        // 팝업 바깥 클릭 시 닫기
+        
+        // 팝업 외부 클릭 시 닫기
         window.addEventListener("click", (e) => {
-            if (settingPopup.classList.contains("active") && !settingPopup.contains(e.target) && e.target !== settingBtn) {
+            if (settingPopup.classList.contains("active") && !settingPopup.contains(e.target)) {
                 settingPopup.classList.remove("active");
             }
         });
