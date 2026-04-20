@@ -3626,6 +3626,7 @@ body.etc-page .dev_wrap {
     /* 세로 30px, 가로 40px 간격 */
     padding: 10px;
     position: relative;
+    margin: 0 auto;
     /* 가상 요소의 기준 */
 }
 
