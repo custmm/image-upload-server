@@ -113,14 +113,14 @@
         text-align: center;
     }
 
-    body.etc-page p.appfunction {
+    body.etc-page .appfunction {
         text-align: left;
         font-size: 15px;
         margin: 10px 0;
     }
 
     body.etc-page table.function_box {
-        width: 90%
+        width: 90%;
     }
 
     /* index-page의css */

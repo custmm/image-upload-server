@@ -3617,9 +3617,6 @@ body.etc-page .rc_car_intro_1 {
 
 }
 
-
-
-
 /* 1. 부모 컨테이너: 가로 간격을 넉넉히 주어 선이 보일 공간 확보 */
 body.etc-page .dev_wrap {
     display: grid;
@@ -3641,8 +3638,8 @@ body.etc-page .app_dev {
     justify-content: center;
     align-items: center;
     background-color: #d8f1d2;
-    width: 90px;
-    height: 90px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     padding: 10px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
