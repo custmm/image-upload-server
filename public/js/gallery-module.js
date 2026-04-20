@@ -69,10 +69,27 @@ export function clearCategoryTabs() {
 }
 
 // 5. 핵심: 페이지 로드 함수
-export async function loadPage(categoryId, subcategoryId = null) {
-    // [추가] categoryId가 없으면 에러를 뿜지 말고 조용히 종료합니다.
-    if (!categoryId) {
-        console.log("카테고리 ID가 아직 설정되지 않았습니다. 로드를 대기합니다.");
+export async function loadPage(categoryIdOrName, subcategoryId = null) {
+    // 1. [핵심 수정] 전달받은 값이 이름(문자열)이면 ID로 변환합니다.
+    let finalCategoryId = categoryIdOrName;
+
+    // 만약 숫자가 아닌 문자열(예: "브릭피규어")이 들어왔다면?
+    if (isNaN(categoryIdOrName)) {
+        // 이미 로드된 categories 배열에서 이름이 일치하는 카테고리를 찾습니다.
+        const matched = categories.find(cat => cat.name.trim() === categoryIdOrName.trim());
+        if (matched) {
+            finalCategoryId = matched.id; // 찾은 ID로 교체
+        } else {
+            // 아직 카테고리 목록이 안 불러와졌거나 매칭되는 게 없을 때
+            console.warn("카테고리 이름을 ID로 변환할 수 없습니다:", categoryIdOrName);
+            // 카테고리 목록이 올 때까지 잠시 대기 후 다시 시도하게 하거나 종료
+            if (categories.length === 0) return; 
+        }
+    }
+
+    // ID가 없으면 중단
+    if (!finalCategoryId) {
+        console.log("카테고리 ID가 유효하지 않습니다.");
         return;
     }
 
@@ -82,7 +99,6 @@ export async function loadPage(categoryId, subcategoryId = null) {
     const imageGallery = document.getElementById("imageGallery");
     if (!imageGallery) return;
 
-    // 로딩 시작 (main.js의 전역 함수 호출)
     if (typeof window.showLoading === "function") window.showLoading();
     clearGallery();
 
@@ -100,7 +116,8 @@ export async function loadPage(categoryId, subcategoryId = null) {
 
     try {
         const offset = page * limit;
-        let url = `/api/files?offset=${offset}&limit=${limit}&category_id=${categoryId}`;
+        // 2. [수정] 변환된 finalCategoryId를 사용하여 URL을 생성합니다.
+        let url = `/api/files?offset=${offset}&limit=${limit}&category_id=${finalCategoryId}`;
         if (subcategoryId) url += `&subcategory_id=${subcategoryId}`;
 
         const response = await fetch(url);
@@ -134,12 +151,9 @@ export async function loadPage(categoryId, subcategoryId = null) {
             if (typeof window.hideLoading === "function") window.hideLoading();
             isLoadingPage = false;
 
-            // --- [수정 포인트 1] 텍스트 모드일 때 입체 슬라이드 실행 ---
             if (currentView === "text") {
                 applyTextSlidingGallery();
             }
-            // -------------------------------------------------------
-            // 전역 AOS 새로고침
             if (window.Aos) window.Aos.refresh();
         }, delay);
     }
