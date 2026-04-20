@@ -75,8 +75,6 @@ if (backBtn) {
   });
 }
 
-
-
 document.getElementById("resetTagButton").addEventListener("click", async () => {
   const tagListDiv = document.getElementById("koreanTagList");
   const toggleBtn = document.getElementById("resetTagButton");
@@ -137,15 +135,27 @@ document.getElementById("resetTagButton").addEventListener("click", async () => 
       initialGroups[initial].push(tag);
     }
 
-    // HTML 렌더링
+    // 기존의 이 부분(HTML 렌더링)을 찾아서 아래와 같이 변경하세요.
     tagListDiv.innerHTML = Object.keys(initialGroups)
       .sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b))
       .map(initial => {
         const buttons = initialGroups[initial]
-          .map(tag => `<button onclick="location.href='tagResults?tag=${encodeURIComponent(tag)}'">#${tag}</button>`)
+          .map(tag => {
+            // onclick을 삭제하고 class와 data-tag 속성을 추가합니다.
+            return `<button class="tag-link-btn" data-tag="${tag}">#${tag}</button>`;
+          })
           .join(" ");
         return `<div><h4>${initial}</h4><hr><div class="tag-container">${buttons}</div></div>`;
       }).join("");
+
+    // 중요! HTML을 다 넣은 바로 다음에 아래의 클릭 이벤트 리스너를 추가합니다.
+    tagListDiv.addEventListener("click", (e) => {
+      // 클릭된 요소가 우리가 만든 버튼(tag-link-btn)인지 확인
+      if (e.target && e.target.classList.contains("tag-link-btn")) {
+        const selectedTag = e.target.getAttribute("data-tag");
+        location.href = `tagResults?tag=${encodeURIComponent(selectedTag)}`;
+      }
+    });
 
     tagListDiv.style.display = "block";
   } catch (err) {
@@ -194,7 +204,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error(" 검색 중 오류:", err);
     postList.innerHTML =
       `<img src="/images/search_error.png" alt="검색오류"><p>데이터를 불러오지 못했습니다.</p>`;
-  }finally{
+  } finally {
     hideLoading();
   }
 
