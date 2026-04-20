@@ -3493,7 +3493,7 @@ body.etc-page caption.title {
 }
 
 body.etc-page table.function_box {
-    width: 95%
+    margin: 0 auto;
 }
 
 body.etc-page p.appfunction {
@@ -3509,7 +3509,8 @@ body.etc-page hr {
 body.etc-page .explan-detail-container {
     border: 1px solid #ccc;
     border-radius: 8px;
-    margin: 18px;
+    margin: 18px auto;
+    width: 80%;
     padding: 10px;
 }
 
@@ -3617,14 +3618,12 @@ body.etc-page .rc_car_intro_1 {
 }
 
 
-body.etc-page .app_dev img {
-    width: 100px;
-    height: 100px;
-}
+
 
 /* 1. 부모 컨테이너: 가로 간격을 넉넉히 주어 선이 보일 공간 확보 */
 body.etc-page .dev_wrap {
     display: grid;
+    width: 85%;
     grid-template-columns: repeat(5, 1fr);
     gap: 30px 40px;
     /* 세로 30px, 가로 40px 간격 */
@@ -3641,7 +3640,7 @@ body.etc-page .app_dev {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f9f9f9;
+    background-color: #d8f1d2;
     width: 90px;
     height: 90px;
     border-radius: 50%;
