@@ -144,38 +144,67 @@ document.addEventListener("DOMContentLoaded", async () => {
     const sidebar = document.getElementById("sidebar");
     if (sidebar) {
         sidebar.addEventListener("click", (e) => {
-            // 1. 게시판/부가기능 버튼 클릭 시 서브메뉴 토글
+            // A. 게시판/부가기능 버튼 클릭 시 (메뉴 토글)
             const menuTitleBtn = e.target.closest(".menu-title");
             if (menuTitleBtn) {
-                const targetId = menuTitleBtn.getAttribute("data-target");
-                // window.toggleMenu 함수 호출 (기존 정의된 함수 사용)
-                if (targetId) window.toggleMenu(targetId);
+                // HTML의 data-target="board" 같은 값을 읽어옴
+                const targetId = menuTitleBtn.getAttribute("data-target") ||
+                    (menuTitleBtn.innerText.includes("게시판") ? "board" : "etc");
+                window.toggleMenu(targetId);
                 return;
             }
 
-            // 2. 서브메뉴 내 카테고리(퍼즐 등) 클릭 시 페이지 로드
-            const catLink = e.target.closest(".cat-link");
-            if (catLink) {
-                e.preventDefault(); // # 이동 방지
-                const catName = catLink.getAttribute("data-cat");
-                // window.goCategory 함수 호출 (기존 정의된 함수 사용)
-                if (catName) window.goCategory(catName);
+            // B. 카테고리 링크 클릭 시 (퍼즐, 보석비즈 등)
+            const catLink = e.target.closest("a"); // a 태그 찾기
+            if (catLink && catLink.parentElement.parentElement.classList.contains("sub-menu")) {
+                e.preventDefault();
+                // 텍스트를 카테고리명으로 사용하거나 data-category 속성 사용
+                const catName = catLink.innerText.trim();
+                window.goCategory(catName);
             }
         });
     }
 
-// --- [사이드바 열기 버튼 (햄버거 버튼)] ---
+    // --- [2. 사이드바 검색 기능 추가] ---
+    const sidebarSearchBtn = document.getElementById("sidebarSearchBtn");
+    const sidebarSearchInput = document.getElementById("sidebarSearchInput");
+
+    if (sidebarSearchBtn && sidebarSearchInput) {
+        const executeSearch = () => {
+            const query = sidebarSearchInput.value.trim();
+            if (query) {
+                // 검색어와 함께 태그 결과 페이지로 이동
+                location.href = `tagResults?tag=${encodeURIComponent(query)}`;
+            } else {
+                alert("검색어를 입력해주세요.");
+            }
+        };
+
+        // 돋보기 버튼 클릭 시
+        sidebarSearchBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            executeSearch();
+        });
+
+        // 엔터키 입력 시
+        sidebarSearchInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                executeSearch();
+            }
+        });
+    }
+
+    // --- [3. 사이드바 열기 버튼 (햄버거)] ---
     const sidebarBtn = document.getElementById("sidebarToggleBtn");
     if (sidebarBtn) {
-        sidebarBtn.onclick = null; // 인라인 이벤트 무력화
         sidebarBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            e.stopPropagation(); // 클릭 전파 방지
+            e.stopPropagation();
             window.toggleSidebar(e);
         });
     }
 
-// --- [설정 팝업 제어] ---
+    // --- [설정 팝업 제어] ---
     const settingBtn = document.getElementById("settingBtn");
     const settingPopup = document.getElementById("settingPopup");
     if (settingBtn && settingPopup) {
@@ -184,7 +213,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             e.stopPropagation();
             settingPopup.classList.toggle("active");
         });
-        
+
         // 팝업 외부 클릭 시 닫기
         window.addEventListener("click", (e) => {
             if (settingPopup.classList.contains("active") && !settingPopup.contains(e.target)) {
