@@ -123,6 +123,24 @@
         width: 90%;
     }
 
+    body.etc-page .app_dev {
+        width: 50px;
+        height: 50px;
+        padding: 0;
+    }
+
+    body.etc-page .app_dev img {
+        width: 30px;
+        height: 30px;
+    }
+
+    body.etc-page .app_dev::after {
+    width: 30px;
+    /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
+    height: 2px;
+    left: 115%;
+}
+
     /* index-page의css */
     body.index-page {
         display: flex;
@@ -496,4 +514,26 @@
         background-color: #f3f3f3;
         padding: 5px;
     }
+}
+
+@media (max-width:576px) {
+        body.etc-page .app_dev {
+        width: 25px;
+        height: 25px;
+        padding: 0;
+    }
+
+    body.etc-page .app_dev img {
+        width: 25px;
+        height: 25px;
+    }
+
+        body.etc-page .app_dev::after {
+    width: 20px;
+    /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
+    height: 2px;
+    left: 115%;
+}
+
+
 }
