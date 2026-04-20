@@ -362,7 +362,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCharts();
     bindIndicatorEvents();
     bindModeSwitchEvents();
-    bindSidebarEvents();
 });
 
 function updateLoadButton() {
@@ -923,53 +922,6 @@ async function deletePost(id) {
     });
 }
 
-// ── [사이드바 및 UI 제어] ───────────────────────────────
-function bindSidebarEvents() {
-    const sidebar = document.getElementById("sidebar");
-    const adminBar = document.querySelector(".adminbar-container");
-    const sectionContainers = document.querySelectorAll(".section-container");
-    const sidebarToggle = document.querySelector(".sidebar-toggle");
-
-    function updateSidebarTogglePosition() {
-        requestAnimationFrame(() => {
-            const scrollY = window.scrollY;
-            sidebarToggle.style.transform = `translateY(${scrollY}px)`;
-        });
-    }
-
-    window.addEventListener("scroll", updateSidebarTogglePosition);
-
-    //  사이드바 메뉴 클릭 시 자동으로 사이드바 닫기
-    document.querySelectorAll(".sidebar a").forEach(menuItem => {
-        menuItem.addEventListener("click", () => {
-            sidebar.classList.remove("open"); //  사이드바 닫기
-            adminBar.classList.remove("hidden"); //  adminbar-container 다시 보이기
-
-            //  모든 section-container 원래 위치로 복귀
-            sectionContainers.forEach(section => {
-                section.classList.toggle("shifted");
-
-                // 내부 요소 강제 폭 제한 (선택적)
-                const chart = section.querySelector(".post-chart-container");
-                if (chart) {
-                    chart.style.maxWidth = "100%";
-                }
-            });
-        });
-    });
-
-    //  모든 change-button에 클릭 효과 추가
-    document.querySelectorAll(".change-button").forEach(button => {
-        button.addEventListener("click", () => {
-            // 기존에 활성화된 버튼의 클래스를 제거하여 원래 색상으로 복귀
-            document.querySelectorAll(".change-button").forEach(btn => {
-                btn.classList.remove("active");
-            });
-            button.classList.add("active");
-        });
-    });
-}
-
 
 // Lazy Load 이미지 로드 (Intersection Observer)
 function createLazyImage(img, src) {
@@ -978,15 +930,6 @@ function createLazyImage(img, src) {
     imgElement.loading = "lazy"; //  Lazy Load 속성 추가
     observer.observe(imgElement); // Intersection Observer 적용
     return imgElement;
-}
-
-function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    const adminBar = document.querySelector(".adminbar-container");
-    const sectionContainers = document.querySelectorAll(".section-container");
-    sidebar.classList.toggle("open");
-    adminBar.classList.toggle("hidden");
-    sectionContainers.forEach(section => section.classList.toggle("shifted"));
 }
 
 // ── [스크롤 이벤트 & 디바운스/스로틀] ───────────────────────────────
