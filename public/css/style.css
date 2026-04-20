@@ -3653,7 +3653,7 @@ body.etc-page .app_dev::after {
     position: absolute;
     top: 50%;
     /* 수직 중앙 */
-       left: 150%;
+       left: 100%;
     /* 아이콘 오른쪽 끝에서 시작 */
     width: 40px;
     /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
