@@ -3622,145 +3622,33 @@ body.etc-page #my_project li:nth-child(3) p {
 }
 
 
-/* ====== 태그 검색 결과(tagResult.html) ====== */
-
-body.tag-page h2 {
-    color: #1da1f2;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
+/* ====== 태그 검색 결과(search.html) ====== */
+body.search-page h2#resultTitle {
     text-align: center;
+
 }
 
-body.tag-page h4 {
-    text-align: left;
-    color: black;
+body.search-page button#resetTagButton {
+    margin: 0 auto;
+
 }
 
-body.tag-page hr {
-    width: 100%;
-    margin: 5px 0;
-    /* 상하 간격 */
+body.search-page .search-container{
+    width: 80%;
+
 }
 
-body.tag-page .post-item {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    background: #f9f9f9;
-    padding: 12px;
-    margin-bottom: 15px;
-    border-left: 4px solid #1da1f2;
-    border-radius: 8px;
-    gap: 15px;
-    width: 75%;
-}
 
-body.tag-page .post-item img {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 6px;
-    flex-shrink: 0;
-}
-
-body.tag-page .post-meta {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-}
-
-body.tag-page .category {
-    font-weight: bold;
-    font-size: 1rem;
-    margin-bottom: 6px;
-}
-
-body.tag-page .desc {
-    color: #444;
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
-
-body.tag-page .post-meta a {
-    text-decoration: none;
-    color: inherit;
-}
-
-body.tag-page div.tag_title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 15px 0;
-}
-
-body.tag-page .tag_post {
-    display: none;
-    margin: 30px auto;
-    text-align: center;
-}
-
-body.tag-page .tag_post img {
+body.search-page .search_image{
     width: 100px;
+    
 }
 
-body.tag-page #postList {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    list-style: none;
-    margin: 20px 0;
+body.search-page .search_image img{
+
 }
 
-body.tag-page #postList img {
-    width: 100px;
-}
+body.search-page .post-meta{
+    margin: 0 auto;
 
-body.tag-page .post-list li {
-    background: #f7f7f7;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-left: 5px solid #1da1f2;
-    border-radius: 4px;
-}
-
-body.tag-page .post-list li a {
-    color: #333;
-    text-decoration: none;
-}
-
-body.tag-page #resetTagButton {
-    font-size: 0.8rem;
-    margin: 0 0 20px 5px;
-    padding: 4px 10px;
-    cursor: pointer;
-    background-color: #e1f5fe;
-    border: 1px solid #90caf9;
-    border-radius: 4px;
-    color: black;
-}
-
-body.tag-page #tag-container {
-    padding-top: 10px;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-}
-
-body.tag-page #koreanTagList button {
-    margin: 5px;
-    padding: 5px 10px;
-    font-size: 0.85rem;
-    background: none;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: black;
-}
-
-body.tag-page #koreanTagList button:hover {
-    cursor: pointer;
-    color: aqua;
 }
