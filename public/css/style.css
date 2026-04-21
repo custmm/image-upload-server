@@ -3599,7 +3599,7 @@ body.search-page ul.post-list {
 
 body.search-page .search_image {
     width: 150px;
-    border: 1px solid #555;
+    height: 150px;
     padding: 20px;
     margin: 15px;
     border-radius: 15px;
@@ -3608,6 +3608,8 @@ body.search-page .search_image {
 
 body.search-page .search_image img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
 
 }
 
