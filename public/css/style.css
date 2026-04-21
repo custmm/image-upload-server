@@ -3081,11 +3081,13 @@ body.preview-page .menu-title {
 
 /* 기존 .open을 .active로 변경 */
 body.preview-page .sub-menu {
-    display: none; /* 기본은 숨김 */
+    display: none;
+    /* 기본은 숨김 */
 }
 
 body.preview-page .sub-menu.active {
-    display: block; /* JS에서 active 클래스를 붙이면 보이게 함 */
+    display: block;
+    /* JS에서 active 클래스를 붙이면 보이게 함 */
 }
 
 body.preview-page #welcomeMessage {
@@ -3581,7 +3583,7 @@ body.etc-page .app_dev::after {
     position: absolute;
     top: 50%;
     /* 수직 중앙 */
-       left: 100%;
+    left: 100%;
     /* 아이콘 오른쪽 끝에서 시작 */
     width: 40px;
     /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
@@ -3633,22 +3635,34 @@ body.search-page button#resetTagButton {
 
 }
 
-body.search-page .search-container{
+body.search-page .search-container {
     width: 80%;
 
 }
 
-
-body.search-page .search_image{
-    width: 100px;
-    
+body.search-page a.post-item {
+    display: flex;
 }
 
-body.search-page .search_image img{
+body.search-page ul.post-list {
+    background-color: aliceblue;
+    display: flex;
+    border: 1px solid #555;
+    margin: 20px;
+}
+
+
+body.search-page .search_image {
+    width: 150px;
 
 }
 
-body.search-page .post-meta{
+body.search-page .search_image img {
+    width: 100%;
+
+}
+
+body.search-page .post-meta {
     margin: 0 auto;
 
 }
