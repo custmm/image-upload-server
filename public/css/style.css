@@ -3631,7 +3631,8 @@ body.search-page h2#resultTitle {
 }
 
 body.search-page button#resetTagButton {
-    margin: 0 auto;
+   margin: 10px auto;
+    display: flex;
 
 }
 
