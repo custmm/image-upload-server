@@ -1946,65 +1946,6 @@ body.post-page .hashtag-link:hover {
     color: #555;
 }
 
-/* ====== 검색결과 페이지(search_post.html) ====== */
-body.search-page .search-title {
-    margin: 50px auto;
-    font-weight: 600;
-    font-size: 25px;
-}
-
-body.search-page .search-container {
-    margin: 0 auto;
-    border: 2px solid #1da1f2;
-    border-radius: 15px;
-    width: 80%;
-}
-
-body.search-page #searchResults {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    min-height: 250px;
-}
-
-body.search-page #searchResults img {
-    width: 100px;
-    margin: 0 auto;
-
-}
-
-body.search-page .search-item {
-    display: flex;
-    width: 90%;
-    gap: 15px;
-    padding: 10px 40px;
-    margin: 0 auto;
-    cursor: pointer;
-    justify-items: center;
-    transition:
-        background 0.3s ease,
-        border-radius 0.3s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-body.search-page .search-item:hover {
-    background: #f5f5f5;
-    width: 90%;
-    border-radius: 15px;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-
-body.search-page .search-item img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 6px;
-}
-
-
 /* ====== 미리보기 페이지(preview.html) ====== */
 /*====== 뼈대 스타일 ======*/
 .skeleton-card {
@@ -3631,14 +3572,14 @@ body.search-page h2#resultTitle {
 }
 
 body.search-page button#resetTagButton {
-   margin: 10px auto;
+    margin: 10px auto;
     display: flex;
 
 }
 
 body.search-page .search-container {
     width: 80%;
-
+margin: 0 auto;
 }
 
 body.search-page a.post-item {
@@ -3648,13 +3589,20 @@ body.search-page a.post-item {
 body.search-page ul.post-list {
     background-color: aliceblue;
     display: flex;
+    justify-content: space-between;
     border: 1px solid #555;
-    margin: 20px;
+    margin: 20px auto;
+    width: 90%;
+    border-radius: 30px;
 }
 
 
 body.search-page .search_image {
     width: 150px;
+    border: 1px solid #555;
+    padding: 20px;
+    margin: 15px;
+    border-radius: 15px;
 
 }
 
@@ -3664,6 +3612,8 @@ body.search-page .search_image img {
 }
 
 body.search-page .post-meta {
-    margin: 0 auto;
+    margin: 80px auto;
+    text-align: center;
+    padding-left: 60px;
 
 }
