@@ -59,7 +59,7 @@ function renderHashtags(text) {
     const encoded = encodeURIComponent(cleanTag);
 
     const a = document.createElement('a');
-    a.href = `tagResults?tag=${encoded}`;
+    a.href = `search?tag=${encoded}`;
     a.className = 'hashtag-link';
     a.textContent = tag;
 

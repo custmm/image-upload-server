@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const query = sidebarSearchInput.value.trim();
             if (query) {
                 // 검색어와 함께 태그 결과 페이지로 이동
-                location.href = `tagResults?tag=${encodeURIComponent(query)}`;
+                location.href = `search?tag=${encodeURIComponent(query)}`;
             } else {
                 alert("검색어를 입력해주세요.");
             }
