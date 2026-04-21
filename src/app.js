@@ -163,56 +163,66 @@ app.get("/api/health", (req, res) => {
     res.status(200).send("Server is alive");
 });
 
-// 검색 및 인증 API
+// 검색 및 태그 통합 API
 app.get("/api/search", async (req, res) => {
     const { tag, keyword } = req.query;
 
     try {
+        // 1. 기본 쿼리 작성 (프론트엔드 UI에 필요한 필드들을 모두 SELECT)
         let query = `
-        SELECT 
-            f.id,
-            f.file_name,
-            f.file_path,
-            f.title,
-            d.text
-        FROM files f
-        LEFT JOIN descriptions d 
-        ON f.id = d.file_id
-        WHERE f.is_deleted = 0
+            SELECT 
+                f.id,
+                f.file_name,
+                f.file_path,
+                f.title,
+                d.text,
+                c.name AS category_name,
+                sc.name AS subcategory_name
+            FROM files f
+            LEFT JOIN descriptions d ON f.id = d.file_id
+            LEFT JOIN categories c ON f.category_id = c.id
+            LEFT JOIN subcategories sc ON f.subcategory_id = sc.id
+            WHERE f.is_deleted = 0
         `;
-
 
         const replacements = {};
 
+        // 2. 조건별 필터링
         if (tag) {
-            query += " AND text LIKE :tagSearch";
+            // 태그 검색: # 기호가 포함된 태그를 검색
+            query += " AND d.text LIKE :tagSearch";
             replacements.tagSearch = `%#${tag}%`;
-        }
-
-        if (keyword) {
-            query += " AND text LIKE :keywordSearch";
+        } else if (keyword) {
+            // 일반 키워드 검색: 제목 또는 본문에서 검색
+            query += " AND (f.title LIKE :keywordSearch OR d.text LIKE :keywordSearch)";
             replacements.keywordSearch = `%${keyword}%`;
         }
+
+        // 최신순 정렬 추가 (선택 사항)
+        query += " ORDER BY f.created_at DESC";
 
         const posts = await sequelize.query(query, {
             replacements,
             type: QueryTypes.SELECT
         });
 
+        // 3. 결과 반환
         res.json({ posts });
 
     } catch (err) {
-        console.error(" 검색 실패:", err);
+        console.error(chalk.red(" [API ERROR] 검색 실패:"), err);
         res.status(500).json({
-            error: "검색 오류",
+            error: "검색 중 서버 오류가 발생했습니다.",
             detail: err.message
         });
     }
 });
+
 app.get("/api/imagekit-auth", (req, res) => {
     const result = imagekit.getAuthenticationParameters();
     res.send(result);
 });
+
 app.post("/api/admin-token", (req, res) => {
     const token = jwt.sign(
         { role: "admin" },
