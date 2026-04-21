@@ -3576,8 +3576,7 @@ body.search-page .search-header{
 }
 
 body.search-page button#resetTagButton {
-    margin: 10px auto;
-    display: flex;
+        margin: 40px auto;
 
 }
 
