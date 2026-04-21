@@ -3571,6 +3571,10 @@ body.search-page h2#resultTitle {
 
 }
 
+body.search-page .search-header{
+    text-align: center;
+}
+
 body.search-page button#resetTagButton {
     margin: 10px auto;
     display: flex;
