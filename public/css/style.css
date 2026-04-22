@@ -1529,6 +1529,7 @@ body.upload-page select {
 
 /* ====== 클릭 페이지(click.html) ====== */
 body.click-page h1 {
+    color: aliceblue;
     margin: 30px auto;
 }
 
@@ -1734,6 +1735,7 @@ body.post-page #picture img {
 body.post-page h1 {
     text-align: center;
     margin: 20px 0;
+    color: aliceblue;
 }
 
 /*  그림 그리기 팝업창 스타일 */
@@ -3037,6 +3039,7 @@ body.preview-page #welcomeMessage {
     font-size: 30px;
     cursor: pointer;
     text-decoration: none;
+    color: aliceblue;
 }
 
 body.preview-page .opacitybtn {
@@ -3568,9 +3571,13 @@ body.etc-page #my_project li:nth-child(3) p {
 /* ====== 태그 검색 결과(search.html) ====== */
 body.search-page h2#resultTitle {
     text-align: center;
+    color: aliceblue;
+    margin-top: 60px;
 
 }
-
+body.search-page .no-result{
+    margin: 0 auto;
+}
 body.search-page .search-header {
     text-align: center;
 }
@@ -3583,7 +3590,8 @@ body.search-page button#resetTagButton {
 body.search-page a.post-item {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 270px;
+    height: 340px;
     background: aliceblue;
     border: 1px solid #555;
     border-radius: 25px;
@@ -3592,7 +3600,7 @@ body.search-page a.post-item {
 
 body.search-page ul.post-list {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 
@@ -3600,7 +3608,7 @@ body.search-page .search_image {
     width: 150px;
     height: 150px;
     padding: 20px;
-    margin: 15px;
+    margin: 15px auto;
     border-radius: 15px;
 
 }
@@ -3614,7 +3622,20 @@ body.search-page .search_image img {
 
 body.search-page .post-meta {
     text-align: center;
+    width: 225px;
 
+}
+
+body.search-page .post-meta > .category {
+    width: 215px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: #fff;
+    margin: 5px auto;
+    border: 1px solid #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ====== 온라인 연락(online_contact.html) ======  */

@@ -39,11 +39,11 @@ function renderNextPosts() {
     // 약간의 딜레이를 주어 자연스러운 로딩 연출
     setTimeout(() => {
         const html = nextPosts.map(post => `
-            <a class="post-item" href="post?id=${post.id}">
+            <div class="post-item" href="post?id=${post.id}">
                 <div class="search_image">
                     <img src="${post.file_path || '/images/no-image.png'}" alt="${post.title}">
                 </div>
-                <div class="post-meta">
+                <a class="post-meta">
                     <div class="category">
                         ${post.category_name || ""} ▶ ${post.subcategory_name || ""}
                     </div>
@@ -53,8 +53,8 @@ function renderNextPosts() {
                     <div class="desc">
                         ${(post.text || post.title || "").replace(/(<([^>]+)>)/gi, "").slice(0, 50)}...
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
         `).join('');
 
         postList.insertAdjacentHTML('beforeend', html);
