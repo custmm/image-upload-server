@@ -73,16 +73,12 @@ export async function loadPage(categoryIdOrName, subcategoryId = null) {
     // 1. [핵심 수정] 전달받은 값이 이름(문자열)이면 ID로 변환합니다.
     let finalCategoryId = categoryIdOrName;
 
-    // 만약 숫자가 아닌 문자열(예: "브릭피규어")이 들어왔다면?
-    if (isNaN(categoryIdOrName)) {
-        // 이미 로드된 categories 배열에서 이름이 일치하는 카테고리를 찾습니다.
+if (isNaN(categoryIdOrName)) {
         const matched = categories.find(cat => cat.name.trim() === categoryIdOrName.trim());
         if (matched) {
-            finalCategoryId = matched.id; // 찾은 ID로 교체
+            finalCategoryId = matched.id;
         } else {
-            // 아직 카테고리 목록이 안 불러와졌거나 매칭되는 게 없을 때
             console.warn("카테고리 이름을 ID로 변환할 수 없습니다:", categoryIdOrName);
-            // 카테고리 목록이 올 때까지 잠시 대기 후 다시 시도하게 하거나 종료
             if (categories.length === 0) return; 
         }
     }
@@ -93,13 +89,19 @@ export async function loadPage(categoryIdOrName, subcategoryId = null) {
         return;
     }
 
+    // --- 로딩 시작 지점 ---
     if (isLoadingPage) return;
     isLoadingPage = true;
 
     const imageGallery = document.getElementById("imageGallery");
     if (!imageGallery) return;
 
+    if (typeof window.showLoading === "function") {
+        window.showLoading();
+    }
+
     if (typeof window.showLoading === "function") window.showLoading();
+    
     clearGallery();
 
     imageGallery.classList.toggle("image-view", currentView === "image");

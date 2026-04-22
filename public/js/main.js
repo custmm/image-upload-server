@@ -7,6 +7,22 @@ let loaderStep = 1;
 
 // --- [UI 공통 함수] ---
 
+// 1. 여기에 정의를 추가합니다.
+window.updateLoadingImage = function() {
+    const loader = document.getElementById("mainLoader");
+    if (!loader) return;
+
+    // 1~8번 중 랜덤 선택
+    const randomIndex = Math.floor(Math.random() * 8) + 1;
+    // 경로 설정 (파일명 규칙에 맞게 _re 또는 re 확인 필요)
+    const imageUrl = `../images/indicator/preview-gunff_${randomIndex}re.png`;
+    
+    loader.style.backgroundImage = `url('${imageUrl}')`;
+    loader.style.backgroundSize = "contain";
+    loader.style.backgroundRepeat = "no-repeat";
+    loader.style.backgroundPosition = "center";
+};
+
 // Preview 페이지 안내 팝업
 function initPreviewGuide() {
     const guidePopup = document.getElementById("preview-guide-popup");
@@ -144,23 +160,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     const sidebar = document.getElementById("sidebar");
     if (sidebar) {
         sidebar.addEventListener("click", (e) => {
-            // A. 게시판/부가기능 버튼 클릭 시 (메뉴 토글)
             const menuTitleBtn = e.target.closest(".menu-title");
             if (menuTitleBtn) {
-                // HTML의 data-target="board" 같은 값을 읽어옴
                 const targetId = menuTitleBtn.getAttribute("data-target") ||
                     (menuTitleBtn.innerText.includes("게시판") ? "board" : "etc");
                 window.toggleMenu(targetId);
                 return;
             }
 
-            // B. 카테고리 링크 클릭 시 (퍼즐, 보석비즈 등)
-            const catLink = e.target.closest("a"); // a 태그 찾기
+            const catLink = e.target.closest("a");
             if (catLink && catLink.parentElement.parentElement.classList.contains("sub-menu")) {
-                e.preventDefault();
-                // 텍스트를 카테고리명으로 사용하거나 data-category 속성 사용
-                const catName = catLink.innerText.trim();
-                window.goCategory(catName);
+                const href = catLink.getAttribute("href");
+
+                // [수정] href가 '#'이거나 비어있는 경우에만 갤러리 로딩 실행
+                if (href === "#" || !href) {
+                    e.preventDefault();
+                    const catName = catLink.innerText.trim();
+                    window.goCategory(catName);
+                }
+                // 실제 .html 경로가 있는 '게임하기' 등은 브라우저가 그대로 이동하게 둠
             }
         });
     }
