@@ -2,7 +2,7 @@
 export const popupActions = {
     info: () => openFrame("previewOverlayInfo", "previewFrameInfo", "preview_popup.html"),
     etc: () => openFrame("previewOverlayIcon", "previewFrameIcon", "etc_util.html"),
-    contact: () => openFrame("previewOverlayIcon", "previewFrameIcon", "contact.html"),
+    contact: () => openFrame("previewOverlayIcon", "previewFrameIcon", "online_contact.html"),
 };
 
 function openFrame(overlayId, frameId, src) {
