@@ -314,15 +314,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // 4. 테마 토글 버튼 리스너
-    const themeToggle = document.getElementById("themeToggle");
-    if (themeToggle) {
-        themeToggle.addEventListener("change", () => {
-            const newMode = themeToggle.checked ? "dark-mode" : "light-mode";
-            setTheme(newMode);
-        });
-    }
-
     // 5. 팝업 드래그 설정
     if (typeof makePopupDraggable === "function") {
         makePopupDraggable("previewOverlayInfo");
