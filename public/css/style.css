@@ -3571,12 +3571,12 @@ body.search-page h2#resultTitle {
 
 }
 
-body.search-page .search-header{
+body.search-page .search-header {
     text-align: center;
 }
 
 body.search-page button#resetTagButton {
-        margin: 40px auto;
+    margin: 40px auto;
 
 }
 
@@ -3613,6 +3613,26 @@ body.search-page .search_image img {
 }
 
 body.search-page .post-meta {
+    text-align: center;
+
+}
+
+/* ====== 온라인 연락(online_contact.html) ======  */
+body.contact-page .online-contact {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 50px auto;
+}
+
+body.contact-page img {
+    width: 80px;
+    height: 80px;
+}
+
+body.contact-page #boring{
+    margin: 50px auto;
     text-align: center;
 
 }
