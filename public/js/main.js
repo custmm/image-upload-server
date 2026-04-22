@@ -156,6 +156,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     applySavedTheme();
     initPreviewGuide();
 
+    // --- [테마 관련 이벤트 리스너 추가] ---
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    // 1. 체크박스(스위치) 클릭 시
+    if (themeToggle) {
+        themeToggle.addEventListener("change", () => {
+            // 전역 window.toggleTheme 호출 대신 직접 로직 실행하거나 toggleTheme 실행
+            window.toggleTheme(); 
+        });
+    }
+
+    // 2. 테마 아이콘(해/달 그림) 자체를 클릭했을 때도 작동하게 하려면 추가
+    if (themeIcon) {
+        themeIcon.addEventListener("click", () => {
+            window.toggleTheme();
+        });
+    }
+
+    // --- [기타 인라인 핸들러 대체 (권장)] ---
+    // 뒤로가기 버튼 처리
+    const backBtn = document.querySelector(".back-button");
+    if (backBtn) {
+        backBtn.addEventListener("click", () => {
+            window.location.href = location.hash.includes('explan') ? 'click.html' : 'index.html';
+        });
+    }
+
+    // 팝업 닫기 버튼 처리
+    const popupCloseBtn = document.querySelector(".preview-close");
+    if (popupCloseBtn) {
+        popupCloseBtn.addEventListener("click", () => {
+            window.closePreviewPopup();
+        });
+    }
+
     // --- [1. 사이드바 내부 요소들에 대한 이벤트 위임 연결] ---
     const sidebar = document.getElementById("sidebar");
     if (sidebar) {
