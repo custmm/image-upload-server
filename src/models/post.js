@@ -17,39 +17,36 @@ export default class Post extends Model {
             type: DataTypes.TEXT, 
             allowNull: true 
         },
-        // [수정] 이미지 경로 컬럼 반드시 추가 (이게 없어서 안 보였을 확률 100%)
         file_path: {
             type: DataTypes.STRING(500),
             allowNull: true,
-            field: 'file_path' // 실제 DB 컬럼명과 매핑
+            field: 'file_path' // DB 컬럼명 일치 확인
         },
-        // [수정] 외래키 컬럼명 확인
         categoryId: { 
           type: DataTypes.INTEGER, 
           allowNull: false, 
-          field: 'category_id', // DB 컬럼명이 category_id라면 이 설정이 필수입니다.
+          field: 'category_id', // DB의 category_id와 매핑
           references: { 
             model: "categories", 
             key: "id" 
-            } 
+          } 
         },
         subcategoryId: { 
           type: DataTypes.INTEGER, 
           allowNull: true, 
-          field: 'subcategory_id', // DB 컬럼명이 subcategory_id라면 추가
+          field: 'subcategory_id', // DB의 subcategory_id와 매핑
           references: { 
             model: "subcategories", 
             key: "id" 
           } 
-        },
-        // createdAt/updatedAt은 아래 옵션에서 timestamps: true를 쓰면 자동으로 관리됩니다.
+        }
       },
       {
         sequelize,
         modelName: "Post",
         tableName: "posts",
-        timestamps: true, // true로 바꾸면 createdAt, updatedAt을 자동으로 관리해줍니다.
-        underscored: true, // camelCase인 categoryId를 DB의 category_id와 자동으로 연결해줍니다.
+        timestamps: true, // createdAt, updatedAt 자동 관리
+        underscored: true, // JS의 camelCase를 DB의 snake_case로 자동 변환
       }
     );
   }
