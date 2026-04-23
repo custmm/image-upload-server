@@ -46,10 +46,10 @@ async function loadTotalPreview() {
                     const postCard = document.createElement("div");
                     postCard.className = "post-card";
                     postCard.innerHTML = `
-                        <img src="${post.file_path}" alt="${post.title}" onerror="this.src='/img/default.png'">
+                        <img src="${post.file_path}" alt="${post.title}" onerror="this.src='/images/no_result.png'">
                         <p>${post.title}</p>
                     `;
-                    postCard.onclick = () => location.href = `/post.html?id=${post.id}`;
+                    postCard.onclick = () => location.href = `/post?id=${post.id}`;
                     listDiv.appendChild(postCard);
                 });
             } else {
