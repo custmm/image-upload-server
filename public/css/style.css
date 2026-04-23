@@ -3686,24 +3686,6 @@ body.total-preview .preview-header {
     z-index: 1000;
 }
 
-body.total-preview .back-btn {
-    background: #fff;
-    color: #2B2092;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: transform 0.2s ease;
-}
-
-body.total-preview .back-btn:hover {
-    transform: translateX(-5px);
-}
-
 /* 카테고리별 그룹 섹션 */
 body.total-preview .category-group {
     margin-bottom: 60px;
