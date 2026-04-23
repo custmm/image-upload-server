@@ -808,7 +808,7 @@ function openEditPopup(image) {
                                 <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
                             <hr class="dashed-line"> 
                                 <div id="editContent" contenteditable="true" class="edit-content"></div>
-                                    <p><span id="editHashtagDisplay"></span><span id="descriptionCounter">0 / 500</span></p>
+                                    <p><span id="editHashtagDisplay"></span><span id="descriptionCounter">0 / 1000</span></p>
                                 </div>
                             </div>
                             <div class="edit-button-group">
@@ -843,7 +843,7 @@ function openEditPopup(image) {
         const charCount = textWithoutTags.length;
 
         // 카운터 표시 업데이트
-        descriptionCounter.textContent = `${charCount} / 500`;
+        descriptionCounter.textContent = `${charCount} / 1000`;
 
         //  해시태그 표시에도 사용
         hashtagDisplay.textContent = hashtags.join(' ');

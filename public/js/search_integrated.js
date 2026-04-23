@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 tagListDiv.onclick = (e) => {
                     if (e.target.classList.contains("tag-link-btn")) {
                         const selectedTag = e.target.getAttribute("data-tag");
-                        location.href = `search.html?tag=${encodeURIComponent(selectedTag)}`;
+                        location.href = `search?tag=${encodeURIComponent(selectedTag)}`;
                     }
                 };
             } catch (err) {
