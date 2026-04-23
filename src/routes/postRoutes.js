@@ -16,37 +16,40 @@ const categoryToDbName = {
 // 게시물 조회 API
 router.get("/", async (req, res) => {
     try {
-        const { category } = req.query; // 프론트에서 보낸 '퍼즐' 등 한글 이름
+        const { category } = req.query;
         let filter = {};
 
         if (category) {
-            // 2. 한글명을 DB용 영어명으로 변환
             const dbName = categoryToDbName[category];
+            console.log(`[조회 시도] 프론트 입력: ${category} -> 변환된 이름: ${dbName}`);
 
-            // 3. Category 테이블에서 해당 영어명을 가진 실제 ID를 찾음
+            // 1. Category 테이블에서 실제 데이터가 있는지 확인
             const categoryRow = await Category.findOne({ 
                 where: { name: dbName || category } 
             });
 
             if (categoryRow) {
-                // 4. 찾은 카테고리 ID를 게시글 필터 조건에 넣음
+                console.log(`[카테고리 매칭 성공] ID: ${categoryRow.id}, Name: ${categoryRow.name}`);
+                
+                // 2. 모델 정의에 'field: category_id' 설정을 했으므로 categoryId를 조건으로 사용
                 filter.categoryId = categoryRow.id; 
             } else {
-                // 해당하는 카테고리가 없으면 빈 배열 반환
+                console.log(`[카테고리 매칭 실패] DB에 해당 이름이 없습니다.`);
                 return res.json([]);
             }
         }
 
-        // 5. 게시글 조회 (필요 시 Category 정보를 포함(include)해서 가져올 수 있음)
+        // 3. 게시글 조회
         const posts = await Post.findAll({
             where: filter,
-            order: [['createdAt', 'DESC']] // 최신순
+            order: [['createdAt', 'DESC']]
         });
         
+        console.log(`[최종 결과] 찾은 게시물 개수: ${posts.length}개`);
         res.json(posts);
     } catch (error) {
         console.error("게시물 조회 API 에러:", error);
-        res.status(500).json({ error: "게시물을 불러오는 중 오류 발생" });
+        res.status(500).json({ error: error.message });
     }
 });
 
