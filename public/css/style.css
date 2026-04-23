@@ -3662,8 +3662,6 @@ body.contact-page #boring{
 
 /* 전체 미리보기 페이지 배경 및 기본 폰트 */
 body.total-preview {
-    font-family: 'Pretendard', sans-serif;
-    background: linear-gradient(180deg, #2B2092 0%, #ffe229 95%); /* 기존 그라데이션 유지 */
     background-attachment: fixed;
     min-height: 100vh;
     margin: 0;
