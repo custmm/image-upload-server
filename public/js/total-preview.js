@@ -88,3 +88,16 @@ if (targetCategory) {
 }
 
 document.addEventListener("DOMContentLoaded", loadTotalPreview);
+
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. 기존 데이터 로딩 함수 실행
+    loadTotalPreview();
+
+    // 2. 뒤로가기 버튼에 클릭 이벤트 리스너 추가 (CSP 준수 방식)
+    const backButton = document.getElementById('backButton');
+    if (backButton) {
+        backButton.addEventListener('click', () => {
+            window.location.href = 'preview.html';
+        });
+    }
+});
