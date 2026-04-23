@@ -3657,3 +3657,119 @@ body.contact-page #boring{
     text-align: center;
 
 }
+
+/*  */
+
+/* 전체 미리보기 페이지 배경 및 기본 폰트 */
+body.total-preview {
+    font-family: 'Pretendard', sans-serif;
+    background: linear-gradient(180deg, #2B2092 0%, #ffe229 95%); /* 기존 그라데이션 유지 */
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    color: #fff;
+}
+
+/* 상단 헤더 바 (뒤로가기 + 타이틀) */
+body.total-preview .preview-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    position: sticky;
+    top: 10px;
+    z-index: 1000;
+}
+
+body.total-preview .back-btn {
+    background: #fff;
+    color: #2B2092;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease;
+}
+
+body.total-preview .back-btn:hover {
+    transform: translateX(-5px);
+}
+
+/* 카테고리별 그룹 섹션 */
+body.total-preview .category-group {
+    margin-bottom: 60px;
+}
+
+body.total-preview .category-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+body.total-preview .category-header h2 {
+    font-size: 24px;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+body.total-preview .category-header i {
+    width: 28px;
+    height: 28px;
+    color: #ffe229; /* 아이콘 포인트 컬러 */
+}
+
+/* 게시글 리스트 (나중에 스크롤로 바꿀 핵심 부분) */
+body.total-preview .post-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* 반응형 격자 */
+    gap: 20px;
+}
+
+/* 개별 게시글 카드 */
+body.total-preview .post-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    overflow: hidden;
+    color: #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+body.total-preview .post-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+body.total-preview .post-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* 정사각형 유지 */
+    object-fit: cover;
+}
+
+body.total-preview .post-card p {
+    padding: 10px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* 데이터 없을 때 메시지 */
+body.total-preview .no-data {
+    color: rgba(255,255,255,0.6);
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    border: 1px dashed rgba(255,255,255,0.3);
+    border-radius: 15px;
+}
