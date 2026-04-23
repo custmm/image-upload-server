@@ -3773,3 +3773,8 @@ body.total-preview .no-data {
     border: 1px dashed rgba(255,255,255,0.3);
     border-radius: 15px;
 }
+
+body.total-preview .highlight-section {
+    animation: highlightFade 2s ease-out;
+    border-radius: 15px;
+}

@@ -94,6 +94,15 @@
     }
 }
 
+@keyframes highlightFade {
+    from { 
+        background-color: rgba(255, 226, 41, 0.3); 
+    }
+    to { 
+        background-color: transparent; 
+    }
+}
+
 /* ====== 공통 스타일 ====== */
 * {
     margin: 0;
