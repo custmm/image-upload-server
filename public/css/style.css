@@ -3476,8 +3476,7 @@ body.etc-page .list_wrap a {
 }
 
 body.etc-page #my_project li:nth-child(2) #method1 .img_wrap img {
-    width: 300px;
-    height: 300px;
+    width: 35%;
     margin: 0 auto;
     display: flex;
 }
