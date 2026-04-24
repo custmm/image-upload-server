@@ -1,6 +1,6 @@
 @media (max-width:768px) {
 
-    /* dashboard-page의 css */
+    /*============== dashboard-page의 css ==============*/
     body.dashboard-page .section-title {
         font-size: 18px;
     }
@@ -35,7 +35,7 @@
         height: 20px;
     }
 
-    /* login-page의 css */
+    /*============== login-page의 css ==============*/
     body.login-page .login-container {
         border: 1px solid #ccc;
         border-radius: 8px;
@@ -55,8 +55,7 @@
         flex-wrap: wrap;
     }
 
-    /* click-page의 css */
-
+    /*============== click-page의 css ==============*/
     body.click-page .toggle-switch {
         top: 10px;
         right: 60px;
@@ -69,7 +68,7 @@
         height: 36px;
     }
 
-    /* etc-page의 css */
+    /*============== etc-page의 css ==============*/
     body.etc-page {
         width: 95%
     }
@@ -135,13 +134,16 @@
     }
 
     body.etc-page .app_dev::after {
-    width: 30px;
-    /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
-    height: 2px;
-    left: 115%;
-}
+        width: 30px;
+        /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
+        height: 2px;
+        left: 115%;
+    }
 
-    /* index-page의css */
+    body.etc-page .dev_wrap{
+        gap: 25px 30px;
+    }
+    /*============== index-page의css ==============*/
     body.index-page {
         display: flex;
         flex-direction: column;
@@ -150,7 +152,6 @@
         height: 100vh;
     }
 
-    /* 제목의 크기를 줄임 */
     body.index-page #mainTitle {
         font-size: 28px;
         margin-bottom: 20px;
@@ -182,7 +183,6 @@
         border: none;
     }
 
-    /* 캔버스가 화면을 꽉 채우는 대신 모바일에 맞게 조정 */
     body.index-page canvas {
         width: 100%;
         height: auto;
@@ -204,7 +204,7 @@
         align-items: center;
     }
 
-    /* mode-page의css */
+    /*============== mode-page의css ==============*/
     body.mode-page .mode-selection-container {
         width: 95% !important;
     }
@@ -234,7 +234,7 @@
         text-overflow: ellipsis;
     }
 
-    /* post-page의css */
+    /*============== post-page의css ==============*/
     body.post-page .post-container {
         display: flex;
         background-color: #ffffff;
@@ -301,7 +301,7 @@
         list-style: none;
     }
 
-    /* preview-page의css */
+    /*============== preview-page의css ==============*/
     body.preview-page .image-gallery {
         border-radius: 55px;
     }
@@ -346,11 +346,15 @@
         font-size: 23px;
     }
 
-    /* active 클래스가 추가되면 나타남 */
     body.preview-page #settingPopup.active {
         width: 270px;
         height: 250px;
-        left: 55%;
+        left: 33%;
+        top: 7%;
+    }
+
+    body.preview-page #settingBtn img {
+        right: 40px;
     }
 
     body.preview-page .view-icon-btn i {
@@ -474,7 +478,7 @@
         z-index: 9999;
     }
 
-    /* tag-page의css */
+    /*============ tag-page의css ==============*/
     body.tag-page .post-item {
         flex-direction: row;
         align-items: center;
@@ -501,8 +505,7 @@
         font-size: 0.85rem;
     }
 
-    /* upload-page의css */
-
+    /*============ upload-page의css ==============*/
     body.upload-page .upload-container {
         width: 90%;
         margin: 0 auto;
@@ -517,7 +520,7 @@
 }
 
 @media (max-width:576px) {
-        body.etc-page .app_dev {
+    body.etc-page .app_dev {
         width: 25px;
         height: 25px;
         padding: 0;
@@ -528,12 +531,12 @@
         height: 25px;
     }
 
-        body.etc-page .app_dev::after {
-    width: 20px;
-    /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
-    height: 2px;
-    left: 115%;
-}
+    body.etc-page .app_dev::after {
+        width: 20px;
+        /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
+        height: 2px;
+        left: 115%;
+    }
 
 
 }
