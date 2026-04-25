@@ -119,6 +119,40 @@ function renderBubbleChart(categories, probabilities) {
     });
 }
 
+// ---------------------------------------------------------
+// 🔥 [이 부분 필수 추가] 버블 위치 계산 및 충돌 방지 로직
+// ---------------------------------------------------------
+function applyForceLayout(bubbles, iterations = 120) {
+    const padding = 2;
+    for (let k = 0; k < iterations; k++) {
+        for (let i = 0; i < bubbles.length; i++) {
+            for (let j = i + 1; j < bubbles.length; j++) {
+                const a = bubbles[i];
+                const b = bubbles[j];
+                const dx = b.x - a.x;
+                const dy = b.y - a.y;
+                const dist = Math.sqrt(dx * dx + dy * dy) || 0.01;
+                const minDist = a.r + b.r + padding;
+                if (dist < minDist) {
+                    const force = (minDist - dist) / dist * 0.5;
+                    const moveX = dx * force;
+                    const moveY = dy * force;
+                    b.x += moveX;
+                    b.y += moveY;
+                    a.x -= moveX;
+                    a.y -= moveY;
+                }
+            }
+        }
+        // 중앙으로 수렴하게 하는 힘 (터짐 방지)
+        bubbles.forEach(b => {
+            b.x *= 0.98;
+            b.y *= 0.98;
+        });
+    }
+    return bubbles;
+}
+
 export async function showSubcategoryTable(categoryName) {
     const subData = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`).then(res => res.json());
     const oldWrapper = document.querySelector(".subcategory-wrapper");
