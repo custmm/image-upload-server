@@ -114,7 +114,28 @@ function renderBubbleChart(categories, probabilities) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } }
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => `${ctx.raw.label}: ${ctx.raw.value}%`
+                    }
+                }
+            },
+            scales: {
+                // X축 설정 완전히 제거
+                x: {
+                    display: false,      // 축 숫자/틱 숨김
+                    grid: { display: false }, // 격자선 제거
+                    border: { display: false } // 외곽 테두리선 제거
+                },
+                // Y축 설정 완전히 제거
+                y: {
+                    display: false,      // 축 숫자/틱 숨김
+                    grid: { display: false }, // 격자선 제거
+                    border: { display: false } // 외곽 테두리선 제거
+                }
+            }
         }
     });
 }
