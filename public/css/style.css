@@ -514,9 +514,11 @@ body.dashboard-page .section3 {
 
 body.dashboard-page .section2{
     margin-top: 20px;
+     padding-bottom: 30px;
 }
 
 body.dashboard-page .section3{
+        margin-top: 30px;
     padding-bottom: 30px;
 }
     
