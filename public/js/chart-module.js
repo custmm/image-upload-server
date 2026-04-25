@@ -56,10 +56,38 @@ function bindChartSwitchEvents() {
 // --- 아래는 기존 도넛/버블 렌더링 함수 유지 ---
 
 function renderDonutChart(labels, data, total) {
-    const ctx = document.getElementById("donutChart")?.getContext("2d");
-    if (!ctx) return;
+    const canvas = document.getElementById("donutChart");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
 
     if (window.donutChartInstance) window.donutChartInstance.destroy();
+
+    // 🔥 [추가] 중앙 텍스트 플러그인 정의
+    const centerTextPlugin = {
+        id: "centerText",
+        afterDraw(chart) {
+            const { ctx, chartArea: { left, right, top, bottom, width, height } } = chart;
+            ctx.save();
+
+            const centerX = (left + right) / 2;
+            const centerY = (top + bottom) / 2;
+
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            // 1. 첫 번째 줄: "게시글 수"
+            ctx.font = "14px Pretendard, sans-serif"; // 폰트 설정
+            ctx.fillStyle = "#666"; // 연한 회색
+            ctx.fillText("게시글 수", centerX, centerY - 12); // 위로 12px 이동
+
+            // 2. 두 번째 줄: 실제 숫자 (total)
+            ctx.font = "bold 26px Arial, sans-serif"; // 크고 굵게
+            ctx.fillStyle = "#000"; // 검은색
+            ctx.fillText(total.toLocaleString(), centerX, centerY + 15); // 아래로 15px 이동
+
+            ctx.restore();
+        }
+    };
 
     window.donutChartInstance = new Chart(ctx, {
         type: "doughnut",
@@ -67,12 +95,18 @@ function renderDonutChart(labels, data, total) {
             labels: labels,
             datasets: [{
                 data: data,
-                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"]
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
+                borderWidth: 2,
+                hoverOffset: 15
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            cutout: '70%', // 가운데 구멍 크기 조절 (글자가 잘 보이도록)
+            plugins: {
+                legend: { position: "right" }
+            },
             onClick: async (evt, elements) => {
                 if (elements.length > 0) {
                     const dataIndex = elements[0].index;
@@ -80,7 +114,8 @@ function renderDonutChart(labels, data, total) {
                     await showSubcategoryTable(categoryName);
                 }
             }
-        }
+        },
+        plugins: [centerTextPlugin] // 🔥 [중요] 플러그인 등록
     });
 }
 
