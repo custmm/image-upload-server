@@ -478,6 +478,13 @@ body.dashboard-page .adminbar-container.hidden {
     opacity: 0;
 }
 
+body.dashboard-page #devide{
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    gap: 20px;
+}
+
 body.dashboard-page #left_wrap {
     width: 45%;
 
