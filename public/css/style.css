@@ -483,7 +483,7 @@ body.dashboard-page #left_wrap {
 
 }
 
-body.dashboard-page #left_wrap .section1 {
+body.dashboard-page .section1 {
     margin: 0 auto;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.5);
@@ -493,8 +493,8 @@ body.dashboard-page #right_wrap {
     width: 45%;
 }
 
-body.dashboard-page #right_wrap .section2,
-body.dashboard-page #right_wrap .section3 {
+body.dashboard-page .section2,
+body.dashboard-page .section3 {
     margin: 0 auto;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.5);
