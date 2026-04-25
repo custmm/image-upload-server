@@ -567,6 +567,13 @@ body.dashboard-page .popup-header h2 {
     color: #555;
 }
 
+/* 일반 팝업 버튼 */
+body.dashboard-page .popup-container button {
+    border: none;
+    cursor: pointer;
+    box-shadow:none;
+}
+
 body.dashboard-page #closeImagePopupBtn {
     background: none;
     border: none;
@@ -577,8 +584,10 @@ body.dashboard-page #closeImagePopupBtn {
 }
 
 body.dashboard-page #closeImagePopupBtn:hover {
-    color: #fff;
+    color: aqua;
 }
+
+
 
 /* 갤러리 그리드 최적화 */
 body.dashboard-page .popup-gallery {
@@ -753,15 +762,6 @@ body.dashboard-page .popup-container {
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-}
-
-/* 일반 팝업 버튼 */
-body.dashboard-page .popup-container button {
-    border-radius: 5px;
-    border: none;
-    padding: 7px 15px;
-    margin-top: 10px;
-    cursor: pointer;
 }
 
 /* 수정/삭제 확인 팝업 컨테이너 */
