@@ -542,7 +542,7 @@ body.dashboard-page .popup-container.modal-style {
     width: 85%;
     max-width: 1200px; /* 너무 퍼지지 않게 제한 */
     height: 80%;
-    background: #1e1e1e;
+    background: #fff;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -557,14 +557,14 @@ body.dashboard-page .popup-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #252525;
+    background: #f5f5f5;
     border-bottom: 1px solid #333;
 }
 
 body.dashboard-page .popup-header h2 {
     margin: 0;
     font-size: 1.2rem;
-    color: #fff;
+    color: #555;
 }
 
 body.dashboard-page #closeImagePopupBtn {
