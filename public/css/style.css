@@ -478,12 +478,19 @@ body.dashboard-page .adminbar-container.hidden {
     opacity: 0;
 }
 
+body.dashboard-page #left_wrap {
+    width: 45%;
+
+}
+
 body.dashboard-page #left_wrap .section1 {
     margin: 0 auto;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.5);
-    width: 50%;
+}
 
+body.dashboard-page #right_wrap {
+    width: 45%;
 }
 
 body.dashboard-page #right_wrap .section2,
@@ -491,8 +498,6 @@ body.dashboard-page #right_wrap .section3 {
     margin: 0 auto;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.5);
-    width: 50%;
-
 }
 
 
