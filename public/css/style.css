@@ -998,9 +998,8 @@ body.dashboard-page .function-container {
 }
 
 body.dashboard-page .function-container img {
-    width: auto;
+    width: 100px;
     max-width: 100%;
-    height: 10vw;
     justify-self: center;
     object-fit: cover;
     border-radius: 5px;
