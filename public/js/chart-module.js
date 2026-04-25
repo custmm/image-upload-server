@@ -134,23 +134,3 @@ export async function showSubcategoryTable(categoryName) {
     `;
     document.getElementById("chartArea")?.appendChild(wrapper);
 }
-
-function applyForceLayout(bubbles, iterations = 120) {
-    const padding = 2;
-    for (let k = 0; k < iterations; k++) {
-        for (let i = 0; i < bubbles.length; i++) {
-            for (let j = i + 1; j < bubbles.length; j++) {
-                const a = bubbles[i]; const b = bubbles[j];
-                const dx = b.x - a.x; const dy = b.y - a.y;
-                const dist = Math.sqrt(dx * dx + dy * dy) || 0.01;
-                const minDist = a.r + b.r + padding;
-                if (dist < minDist) {
-                    const force = (minDist - dist) / dist * 0.5;
-                    b.x += dx * force; b.y += dy * force;
-                    a.x -= dx * force; a.y -= dy * force;
-                }
-            }
-        }
-    }
-    return bubbles;
-}
