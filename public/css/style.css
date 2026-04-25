@@ -510,10 +510,17 @@ body.dashboard-page .section3 {
     margin: 0 auto;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.5);
-    padding-bottom: 30px;
+}
+
+body.dashboard-page .section2{
     margin-top: 20px;
 }
 
+body.dashboard-page .section3{
+    padding-bottom: 30px;
+}
+    
+    
 
 body.dashboard-page .edit-modal {
     display: flex;
