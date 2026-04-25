@@ -758,9 +758,7 @@ function openEditPopup(image) {
                         <div class="edit-container">
                             <div class="editor-buttons">
                                 <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
-                                <button onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
                                 <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
-                                <button onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
                             <hr class="dashed-line"> 
                                 <div id="editContent" contenteditable="true" class="edit-content"></div>
                                     <p><span id="editHashtagDisplay"></span><span id="descriptionCounter">0 / 1000</span></p>
