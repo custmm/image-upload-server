@@ -492,6 +492,7 @@ body.dashboard-page #left_wrap {
 
 body.dashboard-page .section1 {
     margin: 20px auto;
+    padding-bottom: 30px;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.5);
 }
@@ -512,17 +513,17 @@ body.dashboard-page .section3 {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-body.dashboard-page .section2{
+body.dashboard-page .section2 {
     margin-top: 20px;
-     padding-bottom: 30px;
-}
-
-body.dashboard-page .section3{
-        margin-top: 30px;
     padding-bottom: 30px;
 }
-    
-    
+
+body.dashboard-page .section3 {
+    margin-top: 30px;
+    padding-bottom: 30px;
+}
+
+
 
 body.dashboard-page .edit-modal {
     display: flex;
