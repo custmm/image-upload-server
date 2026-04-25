@@ -63,8 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
-
 // 이미지로드
 let loadedImages = 0;
 let currentMode = "text";
@@ -360,7 +358,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 700));
 
     renderCharts();
-    bindIndicatorEvents();
     bindModeSwitchEvents();
 });
 
@@ -397,14 +394,6 @@ async function fetchIndicatorStatus() {
         localStorage.setItem("indicatorModernized", modernized ? "true" : "false");
         isModernized = modernized;
 
-        const modernizeBtn = document.getElementById("modernize-indicator");
-        if (modernizeBtn) {
-            modernizeBtn.textContent = isModernized ? "이미지 원래대로" : "이미지 현대화";
-        }
-
-        // 실제 이미지 소스 적용 (함수화된 적용 사용)
-        applyModernizedImages(isModernized);
-
     } catch (error) {
         console.error(" Indicator 상태 가져오기 오류:", error);
     }
@@ -423,40 +412,6 @@ async function updateIndicatorStatusOnServer(payload = {}) {
     } catch (error) {
         console.error(" Indicator 서버 업데이트 오류:", error);
     }
-}
-
-function applyModernizedImages(isModernized) {
-    const images = document.querySelectorAll("#section3 .sorting-container img");
-    images.forEach((img, index) => {
-        const base = `images/indicator/preview-gunff_${index + 1}`;
-        img.src = isModernized ? `${base}re.png` : `${base}.png`;
-    });
-}
-
-function bindIndicatorEvents() {
-    const modernizeBtn = document.getElementById("modernize-indicator");
-    let isModernized = localStorage.getItem("indicatorModernized") === "true";
-
-    // 현대화 버튼 이벤트 (서버 동기화 포함)
-    modernizeBtn.addEventListener("click", async () => {
-        // 로컬에서 먼저 토글
-        isModernized = !isModernized;
-        // UI 즉시 반영
-        applyModernizedImages(isModernized);
-        modernizeBtn.textContent = isModernized ? "이미지 원래대로" : "이미지 현대화";
-        localStorage.setItem("indicatorModernized", isModernized ? "true" : "false");
-
-        // 서버에 modernized 상태 전송 (다른 기기/탭이 poll로 갱신되도록)
-        await updateIndicatorStatusOnServer({ modernized: isModernized });
-
-        // (선택) 성공/실패 확인을 원하면 fetch 응답을 체크해 실패 시 롤백 처리 가능
-    });
-
-    // 최초 상태 동기화
-    fetchIndicatorStatus();
-
-    // 주기적으로 서버 상태 확인 (ex: 5초마다)
-    setInterval(fetchIndicatorStatus, 5000);
 }
 
 async function fetchImages(mode = "image", append = false) {
