@@ -156,7 +156,6 @@ body.index-page .popup-confirm-button {
     border: none;
 }
 
-/* 버튼을 감싸는 컨테이너 */
 body.index-page #modeSelection {
     display: flex;
     justify-content: center;
@@ -213,7 +212,6 @@ body.index-page canvas {
     /* 캔버스가 클릭을 방해하지 않도록 설정 */
 }
 
-/* 문 애니메이션 */
 body.index-page #door-container {
     position: fixed;
     top: 0;
@@ -253,7 +251,6 @@ body.index-page .door.right {
 }
 
 /* ====== 로그인 페이지(admin-login.html ====== */
-
 body.login-page h1 {
     margin-bottom: 10px;
     font-size: 25px;
@@ -370,7 +367,6 @@ body.login-page input[type="password"] {
     /* 왼쪽 모서리 둥글게 */
 }
 
-/* 문 애니메이션 */
 body.login-page #door-container {
     position: fixed;
     top: 0;
@@ -409,7 +405,6 @@ body.login-page .door.right {
     transition: transform 2s ease-in-out;
 }
 
-/* 관리자 버튼을 원형으로 스타일링 (3D 효과 적용) */
 body.login-page .admin-styled-button {
     display: block;
     justify-content: center;
@@ -430,7 +425,6 @@ body.login-page .admin-styled-button {
 
 }
 
-/* 호버 효과: 내부 그림자로 오목하게 표현 */
 body.login-page .admin-styled-button:hover {
     transform: scale(1.05);
     /* 오목해 보이도록 inset 그림자 적용 */
@@ -440,7 +434,6 @@ body.login-page .admin-styled-button:hover {
         0px 10px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* 클릭(눌림) 효과: 더 깊게 오목해 보이도록 inset 그림자 강화 */
 body.login-page .admin-styled-button:active {
     transform: scale(0.92);
     box-shadow: inset 5px 5px 12px rgba(0, 0, 0, 0.4),
@@ -452,27 +445,6 @@ body.login-page .admin-styled-button:active {
 /* ====== 대시보드(admin-dashboard.html) ====== */
 body.dashboard-page h1 {
     margin-bottom: 20px;
-}
-
-body.dashboard-page .back-button {
-    background: rgba(255, 255, 255, 0.2);
-    color: black;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-body.dashboard-page .logout-button {
-    background: rgba(255, 255, 255, 0.2);
-    color: black;
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    position: absolute;
-    top: 10px;
-    right: 25px;
 }
 
 /*  왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
@@ -509,6 +481,24 @@ body.dashboard-page .adminbar-container h1 {
     text-align: center;
     color: white;
 }
+
+body.dashboard-page #left_wrap .section1 {
+    margin: 0 auto;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 50%;
+
+}
+
+body.dashboard-page #right_wrap .section2,
+body.dashboard-page #right_wrap .section3 {
+    margin: 0 auto;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 50%;
+
+}
+
 
 body.dashboard-page .edit-modal {
     display: flex;
@@ -3574,9 +3564,11 @@ body.search-page h2#resultTitle {
     margin-top: 60px;
 
 }
-body.search-page .no-result{
+
+body.search-page .no-result {
     margin: 0 auto;
 }
+
 body.search-page .search-header {
     text-align: center;
 }
@@ -3625,7 +3617,7 @@ body.search-page .post-meta {
 
 }
 
-body.search-page .post-meta > .category {
+body.search-page .post-meta>.category {
     width: 215px;
     height: 30px;
     border-radius: 15px;
@@ -3651,7 +3643,7 @@ body.contact-page img {
     height: 80px;
 }
 
-body.contact-page #boring{
+body.contact-page #boring {
     margin: 50px auto;
     text-align: center;
 
@@ -3698,19 +3690,21 @@ body.total-preview .category-header {
 body.total-preview .category-header h2 {
     font-size: 24px;
     margin: 0;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 body.total-preview .category-header i {
     width: 28px;
     height: 28px;
-    color: #ffe229; /* 아이콘 포인트 컬러 */
+    color: #ffe229;
+    /* 아이콘 포인트 컬러 */
 }
 
 /* 게시글 리스트 (나중에 스크롤로 바꿀 핵심 부분) */
 body.total-preview .post-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* 반응형 격자 */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    /* 반응형 격자 */
     gap: 20px;
 }
 
@@ -3726,12 +3720,13 @@ body.total-preview .post-card {
 
 body.total-preview .post-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 body.total-preview .post-card img {
     width: 100%;
-    aspect-ratio: 1 / 1; /* 정사각형 유지 */
+    aspect-ratio: 1 / 1;
+    /* 정사각형 유지 */
     object-fit: cover;
 }
 
@@ -3745,11 +3740,11 @@ body.total-preview .post-card p {
 
 /* 데이터 없을 때 메시지 */
 body.total-preview .no-data {
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
     grid-column: 1 / -1;
     text-align: center;
     padding: 40px;
-    border: 1px dashed rgba(255,255,255,0.3);
+    border: 1px dashed rgba(255, 255, 255, 0.3);
     border-radius: 15px;
 }
 

@@ -152,7 +152,8 @@ body.preview-page .back-button,
 body.click-page .back-button,
 body.tag-page #backToListButton,
 body.search-page .back-button,
-body.total-preview .back-button {
+body.total-preview .back-button,
+body.dashboard-page .back-button {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -209,7 +210,8 @@ body.dashboard-page .logout-button:hover,
 body.dashboard-page .custom-button:hover,
 body.click-page .back-button:hover,
 body.tag-page #backToListButton:hover,
-body.total-preview .back-button:hover {
+body.total-preview .back-button:hover,
+body.dashboard-page .back-button:hover {
     background-color: aqua;
 }
 
