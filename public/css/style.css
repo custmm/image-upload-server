@@ -444,7 +444,10 @@ body.login-page .admin-styled-button:active {
 
 /* ====== 대시보드(admin-dashboard.html) ====== */
 body.dashboard-page h1 {
-    margin-bottom: 20px;
+    margin-bottom: 20px;    
+    flex-grow: 1;
+    text-align: center;
+    color: white;
 }
 
 /*  왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
@@ -473,13 +476,6 @@ body.dashboard-page .adminbar-container {
 body.dashboard-page .adminbar-container.hidden {
     transform: translateY(-100px);
     opacity: 0;
-}
-
-/* 🟡 중앙 텍스트 스타일 */
-body.dashboard-page .adminbar-container h1 {
-    flex-grow: 1;
-    text-align: center;
-    color: white;
 }
 
 body.dashboard-page #left_wrap .section1 {
