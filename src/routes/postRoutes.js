@@ -24,17 +24,15 @@ router.get("/", async (req, res) => {
             console.log(`[조회 시도] 프론트 입력: ${category} -> 변환된 이름: ${dbName}`);
 
             // 1. Category 테이블에서 실제 데이터가 있는지 확인
-            const categoryRow = await Category.findOne({ 
-                where: { name: dbName || category } 
+            const categoryRow = await Category.findOne({
+                where: { name: dbName || category }
             });
 
             if (categoryRow) {
-                console.log(`[카테고리 매칭 성공] ID: ${categoryRow.id}, Name: ${categoryRow.name}`);
-                
-                // 2. 모델 정의에 'field: category_id' 설정을 했으므로 categoryId를 조건으로 사용
-                filter.categoryId = categoryRow.id; 
+                // DB 컬럼명이 category_id라면 filter 객체에 categoryId(모델명)를 넣어줍니다.
+                filter.categoryId = categoryRow.id;
             } else {
-                console.log(`[카테고리 매칭 실패] DB에 해당 이름이 없습니다.`);
+                console.log("해당 이름의 카테고리를 찾지 못함:", category);
                 return res.json([]);
             }
         }
@@ -44,7 +42,7 @@ router.get("/", async (req, res) => {
             where: filter,
             order: [['createdAt', 'DESC']]
         });
-        
+
         console.log(`[최종 결과] 찾은 게시물 개수: ${posts.length}개`);
         res.json(posts);
     } catch (error) {
@@ -57,10 +55,10 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         const { title, content, categoryId, subcategoryId, file_path } = req.body;
-        const newPost = await Post.create({ 
-            title, 
-            content, 
-            categoryId, 
+        const newPost = await Post.create({
+            title,
+            content,
+            categoryId,
             subcategoryId,
             file_path // 이미지 경로 누락 방지
         });
