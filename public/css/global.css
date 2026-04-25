@@ -779,11 +779,6 @@ body.dashboard-page #devide {
     display: flex;
 }
 
-body.dashboard-page .gallery-container,
-body.dashboard-page .post-form-container.text-mode {
-    width: 100%;
-}
-
 
 /*-------------------------- upload-page공통 레이아웃 ----------------------------------------------*/
 body.upload-page .cat_name {
