@@ -523,7 +523,85 @@ body.dashboard-page .section3 {
     padding-bottom: 30px;
 }
 
+/* 오버레이: 배경을 약간 불투명하게 */
+body.dashboard-page .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* 더 어둡게 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
 
+/* 컨테이너: 화면의 85% 크기, 최대 너비 제한 */
+body.dashboard-page .popup-container.modal-style {
+    width: 85%;
+    max-width: 1200px; /* 너무 퍼지지 않게 제한 */
+    height: 80%;
+    background: #1e1e1e;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid #333;
+}
+
+/* 헤더 보정 */
+body.dashboard-page .popup-header {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #252525;
+    border-bottom: 1px solid #333;
+}
+
+body.dashboard-page .popup-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+body.dashboard-page #closeImagePopupBtn {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+body.dashboard-page #closeImagePopupBtn:hover {
+    color: #fff;
+}
+
+/* 갤러리 그리드 최적화 */
+body.dashboard-page .popup-gallery {
+    flex: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* 아이템 크기 적절히 */
+    gap: 15px;
+    padding: 20px;
+}
+
+body.dashboard-page .popup-gallery img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+body.dashboard-page .popup-gallery img:hover {
+    transform: scale(1.03);
+}
 
 body.dashboard-page .edit-modal {
     display: flex;

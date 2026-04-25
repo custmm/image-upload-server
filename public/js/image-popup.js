@@ -36,36 +36,48 @@ export function openImagePopup() {
     const overlay = document.createElement("div");
     overlay.id = "imageModePopup";
     overlay.className = "popup-overlay"; 
+    
+    // 스타일을 직접 제어하여 크기를 적절하게 조절합니다.
     overlay.innerHTML = `
-        <div class="popup-container full-screen">
+        <div class="popup-container modal-style">
             <div class="popup-header">
-                <h2>이미지 모드 (독립 스크롤)</h2>
-                <button id="closeImagePopupBtn">닫기</button>
+                <div class="header-info">
+                    <h2>이미지 모드</h2>
+                    <span id="popupCountDisplay">불러오는 중...</span>
+                </div>
+                <button id="closeImagePopupBtn">×</button>
             </div>
             <div id="popupGallery" class="popup-gallery"></div>
         </div>
     `;
+    
     document.body.appendChild(overlay);
-    document.body.style.overflow = "hidden"; // 메인 스크롤 잠금
+    document.body.style.overflow = "hidden"; 
 
-    // 닫기 버튼 이벤트
-    document.getElementById("closeImagePopupBtn").onclick = () => {
+    // 1. 닫기 버튼 이벤트
+    document.getElementById("closeImagePopupBtn").onclick = closePopup;
+
+    // 2. 배경(오버레이) 클릭 시 닫기 (컨테이너 밖 클릭 시)
+    overlay.onclick = (e) => {
+        if (e.target === overlay) closePopup();
+    };
+
+    function closePopup() {
         overlay.remove();
         document.body.style.overflow = 'auto';
-        hideLoading(); // 팝업 닫을 때 혹시 돌아가고 있을 로더 제거
-    };
+        hideLoading();
+    }
 
     const gallery = document.getElementById("popupGallery");
     gallery.onscroll = () => {
-        if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 20) {
+        if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 50) {
             fetchPopupImages();
         }
     };
 
-    // 초기 상태 리셋 후 로드
     popupOffset = 0;
     noMoreImages = false;
-    document.getElementById("popupGallery").innerHTML = ""; 
+    gallery.innerHTML = ""; 
     fetchPopupImages();
 }
 
