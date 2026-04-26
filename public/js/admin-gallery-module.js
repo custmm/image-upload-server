@@ -28,21 +28,24 @@ export async function fetchTextList(append = false) {
 }
 
 /**
- * 2. 리스트 아이템 렌더링
+ * 2. 리스트 아이템 렌더링 (목록형 보장)
  */
 function renderTextItems(images, container) {
+    if (!images || images.length === 0) return;
+
+    // fragment를 사용하여 한 번에 DOM에 삽입 (성능 최적화)
     const fragment = document.createDocumentFragment();
 
     images.forEach(image => {
         const postItem = document.createElement("div");
-        postItem.classList.add("post-item");
+        postItem.className = "post-item"; // CSS에서 스타일링한 클래스
 
         postItem.innerHTML = `
-            <img src="${image.file_path}" alt="Thumbnail">
-            <div class="file-name">${image.title}</div>
+            <img src="${image.file_path}" alt="Thumbnail" onerror="this.src='/images/no-image.png'">
+            <div class="file-name">${image.title || '제목 없음'}</div>
             <div class="buttons">
-                <button class="edit-button">수정</button>
-                <button class="delete-button">삭제</button>
+                <button class="edit-button" type="button">수정</button>
+                <button class="delete-button" type="button">삭제</button>
             </div>
         `;
 
