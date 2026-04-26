@@ -260,7 +260,7 @@ app.use((req, res) => {
 
     // 일반 웹 페이지 요청인 경우 404.html 파일을 전송
     // public 폴더 안에 404.html이 있다고 가정합니다.
-    res.status(404).sendFile(path.join(__dirname, "..", "public", "not-found.html"));
+    res.status(404).sendFile(path.join(__dirname, "..", "public", "not_found.html"));
 });
 
 
