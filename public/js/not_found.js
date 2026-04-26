@@ -20,6 +20,13 @@ function showLoading() {
 
 document.addEventListener("DOMContentLoaded", () => {
     showLoading(); // 페이지 열리자마자 아이콘이 뜨는지 확인
+    // --- [CSP 해결을 위한 클릭 이벤트 리스너 추가] ---
+    const btnBack = document.getElementById("btnBack");
+    if (btnBack) {
+        btnBack.addEventListener("click", () => {
+            history.back(); // 이전 페이지로 이동
+        });
+    }
 });
 
 window.addEventListener('offline', () => {
@@ -37,6 +44,6 @@ window.addEventListener('online', () => {
         window.location.href = lastPath; // 기억해둔 페이지로 복귀
         sessionStorage.removeItem('lastPath'); // 사용 후 삭제
     } else {
-        window.location.href = "/index.html"; // 기록 없으면 메인으로
+        window.location.href = "./index.html"; // 기록 없으면 메인으로
     }
 });
