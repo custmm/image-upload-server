@@ -564,7 +564,10 @@ body.dashboard-page .section2 {
 }
 
 body.dashboard-page .custom-button {
-    padding: 60px 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
     border-radius: 50%;
 }
 body.dashboard-page .util-group {
