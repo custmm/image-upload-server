@@ -587,30 +587,27 @@ body.dashboard-page #closeImagePopupBtn:hover {
     color: aqua;
 }
 
-
-
-/* 갤러리 그리드 최적화 */
 body.dashboard-page .popup-gallery {
-    flex: 1;
-    overflow-y: auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* 아이템 크기 적절히 */
-    gap: 15px;
-    padding: 20px;
-}
-
-body.dashboard-page .popup-gallery img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s;
+    /* 스크롤 시 부드러운 가속도 부여 (모바일/Safari) */
+    -webkit-overflow-scrolling: touch;
+    /* 렌더링 최적화 */
+    scroll-behavior: smooth;
 }
 
 body.dashboard-page .popup-gallery img:hover {
     transform: scale(1.03);
 }
+
+body.dashboard-page .popup-img-item {
+    /* 브라우저에게 이 요소가 변할 것임을 미리 알려 최적화 */
+    will-change: transform, opacity;
+    /* 이미지가 로드될 때까지 영역 확보 (레이아웃 시프트 방지) */
+    aspect-ratio: 1 / 1;
+    background: #f0f0f0; /* 로딩 전 배경색 */
+    object-fit: cover;
+}
+
+
 
 body.dashboard-page .edit-modal {
     display: flex;
