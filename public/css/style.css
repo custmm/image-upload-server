@@ -568,20 +568,19 @@ body.dashboard-page .popup-gallery {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 15px;
     padding: 20px;
-    background-color: #1e1e1e;
     /* 배경색을 어둡게 하면 이미지가 더 잘 보임 */
 }
 
 body.dashboard-page .popup-gallery img {
-    width: 250px;
-    height: 250px;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
 
 }
 
 /* 3. 호버 시 효과 (선택 사항) */
 body.dashboard-page .popup-gallery img:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     z-index: 10;
 }
