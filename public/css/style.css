@@ -535,6 +535,7 @@ body.dashboard-page .popup-overlay {
     justify-content: center;
     align-items: center;
     z-index: 10000;
+    backdrop-filter: blur(8px); /* 배경 블러 추가로 고급스러운 느낌 */
 }
 
 /* 컨테이너: 화면의 85% 크기, 최대 너비 제한 */
@@ -549,6 +550,74 @@ body.dashboard-page .popup-container.modal-style {
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     border: 1px solid #333;
+    /* [성능 최적화] GPU 가속 사용 */
+    transform: translateZ(0); 
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* 팝업 내 갤러리 스크롤 성능 향상 */
+body.dashboard-page .popup-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    /* [성능 최적화] 스크롤 시 페인팅 연산 감소 */
+    contain: content; 
+}
+
+body.dashboard-page .popup-img-item {
+    /* 브라우저에게 이 요소가 변할 것임을 미리 알려 최적화 */
+    will-change: transform, opacity;
+    /* 이미지가 로드될 때까지 영역 확보 (레이아웃 시프트 방지) */
+    aspect-ratio: 1 / 1;
+    background: #f0f0f0; /* 로딩 전 배경색 */
+    object-fit: cover;
+    width: 100%;
+    /* [성능 최적화] 이미지가 화면에 보일 때만 렌더링하도록 유도 */
+    content-visibility: auto; 
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/*  텍스트 모드 - 버튼 */
+body.dashboard-page .post-item .buttons {
+    display: flex;
+    gap: 5px;
+}
+
+/* 텍스트 모드 내부 아이템 레이아웃 수정 */
+body.dashboard-page .post-item {
+    display: flex;
+    width: 100%; /* 95%에서 100%로 변경 후 부모 패딩으로 조절 */
+    padding: 12px;
+    margin-bottom: 8px;
+    justify-content: flex-start; /* 간격 고정 */
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    border-radius: 10px;
+}
+
+body.dashboard-page .post-item img {
+    width: 60px;
+    height: 60px;
+    min-width: 60px; /* 크기 강제 고정 */
+    border-radius: 8px;
+    object-fit: cover; /* 이미지가 잘리더라도 비율 유지하며 꽉 채움 */
+    margin-right: 15px;
+    flex-shrink: 0; /* 텍스트가 길어져도 이미지가 찌그러지지 않음 */
+}
+
+body.dashboard-page .post-item .file-name {
+    flex-grow: 1; /* 남은 공간 모두 차지 */
+    text-align: left; /* 제목은 왼쪽 정렬이 가독성이 좋음 */
+    font-size: 14px;
+    padding: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 제목 길면 ... 처리 */
 }
 
 /* 헤더 보정 */
@@ -587,25 +656,12 @@ body.dashboard-page #closeImagePopupBtn:hover {
     color: aqua;
 }
 
-body.dashboard-page .popup-gallery {
-    /* 스크롤 시 부드러운 가속도 부여 (모바일/Safari) */
-    -webkit-overflow-scrolling: touch;
-    /* 렌더링 최적화 */
-    scroll-behavior: smooth;
-}
+
 
 body.dashboard-page .popup-gallery img:hover {
     transform: scale(1.03);
 }
 
-body.dashboard-page .popup-img-item {
-    /* 브라우저에게 이 요소가 변할 것임을 미리 알려 최적화 */
-    will-change: transform, opacity;
-    /* 이미지가 로드될 때까지 영역 확보 (레이아웃 시프트 방지) */
-    aspect-ratio: 1 / 1;
-    background: #f0f0f0; /* 로딩 전 배경색 */
-    object-fit: cover;
-}
 
 
 
@@ -987,39 +1043,7 @@ body.dashboard-page .post-image:hover {
     border: 4px solid #007bff;
 }
 
-/*  텍스트 모드 - 버튼 */
-body.dashboard-page .post-item .buttons {
-    display: flex;
-    gap: 5px;
-}
 
-/* 텍스트 모드 내부 아이템 */
-body.dashboard-page .post-item {
-    display: flex;
-    width: 95%;
-    padding: 5px;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-}
-
-/* 썸네일 이미지 */
-body.dashboard-page .post-item img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-}
-
-/* 텍스트 모드(파일명) */
-body.dashboard-page .post-item .file-name {
-    display: block;
-    font-size: 11px;
-    flex: 1;
-    flex-grow: 1;
-    text-align: center;
-    font-weight: bold;
-    color: #333;
-}
 
 body.dashboard-page .post-chart-container {
     display: flex;
