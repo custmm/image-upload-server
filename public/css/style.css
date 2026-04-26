@@ -3706,15 +3706,27 @@ body.etc-page #rc_car_intro_1 .text_wrap{
     flex-direction: row;
 }
 
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name{
+body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name{
     width: 250px;
 
 }
 
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(2) img{
+body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(2) img,
+body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(3) img,
+body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(4) img,
+body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(5) img,
+body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(6) img,
+body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(7) img,
+body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(8) img,
+body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(9) img,
+body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(10) img{
     width: 200px;
     height: 200px;
 
+}
+
+body.etc-page #rc_car_intro_1 > .text_wrap .planning > img{
+    width: 300px;
 }
 
 body.etc-page strong {
