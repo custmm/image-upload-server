@@ -3910,18 +3910,6 @@ body.total-preview .highlight-section {
 
 /* ====== 404페이지(not-found.html) ====== */
 /* 404 페이지 전용 스타일 */
-body.error-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(180deg, #2B2092 0%, #7E57C2 100%);
-    /* 기존 배경색 활용 */
-    color: white;
-    text-align: center;
-    margin: 0;
-}
-
 body.error-page h1 {
     font-size: 120px;
     margin: 0;
@@ -3932,18 +3920,6 @@ body.error-page .error-icon {
     font-size: 80px;
     animation: float 3s ease-in-out infinite;
     /* 둥둥 떠다니는 효과 */
-}
-
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-20px);
-    }
 }
 
 body.error-page .message {
