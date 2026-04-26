@@ -246,5 +246,22 @@ app.use("/api", indicatorRoutes);
 app.use("/api/korean-initials", koreanTagRoutes);
 app.use("/api/settings", settingRoutes);
 
+// --- [추가] 404 처리 미들웨어 ---
+
+// 이 코드는 모든 라우트보다 아래에 위치해야 합니다.
+app.use((req, res) => {
+    // API 요청(JSON 응답이 필요한 경우)과 일반 페이지 요청을 구분하면 더 좋습니다.
+    if (req.url.startsWith('/api')) {
+        return res.status(404).json({
+            error: "Not Found",
+            message: "요청하신 API 엔드포인트를 찾을 수 없습니다."
+        });
+    }
+
+    // 일반 웹 페이지 요청인 경우 404.html 파일을 전송
+    // public 폴더 안에 404.html이 있다고 가정합니다.
+    res.status(404).sendFile(path.join(__dirname, "..", "public", "not-found.html"));
+});
+
 
 export default app; // Express 인스턴스 내보내기
