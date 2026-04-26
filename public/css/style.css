@@ -558,16 +558,33 @@ body.dashboard-page .popup-container.modal-style {
 
 /* 팝업 내 갤러리 스크롤 성능 향상 */
 body.dashboard-page .popup-gallery {
+flex: 1;
+    overflow-y: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    /* 핵심: 이미지가 너무 커지지 않도록 최소 너비를 150px~200px로 제한 */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
     gap: 15px;
     padding: 20px;
-    height: 100%;
-    overflow-y: auto;
-    /* [성능 최적화] 스크롤 시 페인팅 연산 감소 */
-    contain: content; 
+    background-color: #1e1e1e; /* 배경색을 어둡게 하면 이미지가 더 잘 보임 */
+}
+/* 2. 개별 이미지 사이즈 강제 조절 */
+body.dashboard-page .popup-gallery img {
+    width: 100%;           /* 그리드 칸 너비에 맞춤 */
+    max-width: 100%;       /* 부모를 넘지 않음 */
+    aspect-ratio: 1 / 1;   /* 정사각형 비율 유지 */
+    object-fit: cover;     /* 비율 깨짐 방지 (확대된 느낌 해결) */
+    border-radius: 10px;   /* 모서리 둥글게 */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #333;
 }
 
+/* 3. 호버 시 효과 (선택 사항) */
+body.dashboard-page .popup-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    z-index: 10;
+}
 body.dashboard-page .popup-img-item {
     /* 브라우저에게 이 요소가 변할 것임을 미리 알려 최적화 */
     will-change: transform, opacity;
