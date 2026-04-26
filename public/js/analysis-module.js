@@ -23,7 +23,7 @@ export async function runDuplicateAnalysis() {
     // 2. 기본 로딩 인디케이터의 z-index를 강제로 최상단으로 고정 (분석 UI보다 위로)
     const baseLoader = document.getElementById("loadingIndicator");
     if (baseLoader) {
-        baseLoader.style.zIndex = "10000";
+        baseLoader.style.zIndex = "9999";
     }
 
     // 3. UI 요소 생성 (분석 UI는 로더 바로 아래인 9999로 설정)
