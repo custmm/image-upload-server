@@ -3715,6 +3715,14 @@ body.search-page button#resetTagButton {
 
 }
 
+body.search-page .post-item{
+   background-color: aliceblue;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 30px; 
+}
+
 body.search-page a.post-item {
     display: flex;
     flex-direction: column;
