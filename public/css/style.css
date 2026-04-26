@@ -3706,6 +3706,17 @@ body.etc-page #rc_car_intro_1 .text_wrap{
     flex-direction: row;
 }
 
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name{
+    width: 250px;
+
+}
+
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(2) img{
+    width: 200px;
+    height: 200px;
+
+}
+
 body.etc-page strong {
     text-align: center;
 }
