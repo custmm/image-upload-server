@@ -146,7 +146,6 @@ function renderPopupItems(images) {
             
         img.src = optimizedSrc;
         img.loading = "lazy"; // 브라우저 자체 지연 로딩
-        img.className = "popup-img-item"; // CSS에서 윌체인지(will-change) 적용 권장
         
         img.onclick = () => { window.location.href = `post?id=${image.id}`; };
         fragment.appendChild(img);
