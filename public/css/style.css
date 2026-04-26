@@ -3694,6 +3694,11 @@ body.etc-page #rc_car_intro_1{
 
 body.etc-page #rc_car_intro_1 .img_wrap{
     margin: 0 auto;
+    width: 250px;
+}
+
+body.etc-page #rc_car_intro_1 .img_wrap img{
+    width: 100%;
 }
 
 body.etc-page #rc_car_intro_1 .text_wrap{
