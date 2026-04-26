@@ -141,11 +141,14 @@ function renderPopupItems(images) {
         // [개선] ImageKit 최적화: 팝업용으로 크기를 줄여서 로드 (렉 줄이기의 핵심)
         // URL 뒤에 ?tr=w-200 옵션을 추가하여 데이터 전송량과 메모리 사용량 절감
         const optimizedSrc = image.file_path.includes("?") 
-            ? `${image.file_path}&tr=w-250,h-250,cm-extract` 
-            : `${image.file_path}?tr=w-250,h-250,cm-extract`;
+            ? `${image.file_path}&tr=w-250,h-250` 
+            : `${image.file_path}?tr=w-250,h-250`;
             
         img.src = optimizedSrc;
         img.loading = "lazy"; // 브라우저 자체 지연 로딩
+
+        // CSS 클래스나 인라인 스타일로 object-fit이 잘 작동하도록 보장
+        img.style.objectFit = "contain";
         
         img.onclick = () => { window.location.href = `post?id=${image.id}`; };
         fragment.appendChild(img);
