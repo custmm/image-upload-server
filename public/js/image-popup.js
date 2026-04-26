@@ -55,7 +55,7 @@ async function fetchPopupImages() {
     showLoading(); 
 
     try {
-        // [지연 추가] "서버 분석 중" 느낌을 주기 위해 최소 600ms 대기
+        // [지연 추가]
         const delayPromise = new Promise(resolve => setTimeout(resolve, 600));
         
         const fetchPromise = fetch(`/api/files?offset=${popupOffset}&limit=${popupLimit}`)

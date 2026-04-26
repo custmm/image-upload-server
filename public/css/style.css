@@ -3893,3 +3893,66 @@ body.total-preview .highlight-section {
     animation: highlightFade 2s ease-out;
     border-radius: 15px;
 }
+
+/* ====== 404페이지(not-found.html) ====== */
+/* 404 페이지 전용 스타일 */
+body.error-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(180deg, #2B2092 0%, #7E57C2 100%); /* 기존 배경색 활용 */
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+
+body.error-page h1 {
+    font-size: 120px;
+    margin: 0;
+    text-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+}
+
+body.error-page .error-icon {
+    font-size: 80px;
+    animation: float 3s ease-in-out infinite; /* 둥둥 떠다니는 효과 */
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+body.error-page .message {
+    font-size: 18px;
+    margin: 20px 0 40px;
+    line-height: 1.6;
+}
+
+body.error-page .actions .btn-home, 
+body.error-page .actions .btn-back {
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+    transition: 0.3s;
+    cursor: pointer;
+    border: none;
+}
+
+body.error-page .btn-home {
+    background: #ffe229; /* 포인트 컬러 */
+    color: #333;
+}
+
+body.error-page .btn-back {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid white;
+}
+
+body.error-page .btn-home:hover {
+    transform: scale(1.1);
+    background: #fff;
+}
