@@ -3704,6 +3704,7 @@ body.etc-page #rc_car_intro_1 .img_wrap img{
 body.etc-page #rc_car_intro_1 .text_wrap{
     display: flex;
     flex-direction: row;
+    gap: 30px;
 }
 
 body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name{
@@ -3725,7 +3726,7 @@ body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(10) 
 
 }
 
-body.etc-page #rc_car_intro_1 > .text_wrap .planning > img{
+body.etc-page #rc_car_intro_1 > .text_wrap > .planning > img{
     width: 300px;
 }
 
