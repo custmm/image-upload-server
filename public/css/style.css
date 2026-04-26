@@ -2112,16 +2112,13 @@ body.preview-page .sidebar-toggle {
     position: fixed;
     top: 45px;
     left: 20px;
-    /* 버튼 위치 고정 */
     background-color: transparent;
-    padding: 15px;
-    border: none;
+    padding: 15px 20px;
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 10001;
-    /* 사이드바보다 1 높게 설정하여 항상 보이게 함 */
+    border-radius: 50%;
 }
-
 body.preview-page .sidebar-toggle:hover {
     border: none;
 }
