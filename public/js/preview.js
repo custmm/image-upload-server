@@ -1,1 +1,1 @@
-import './main.js';
+import './preview_main.js';
