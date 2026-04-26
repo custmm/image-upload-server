@@ -143,6 +143,10 @@ button {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s ease;
 }
+#mainLoader{
+    width: 150px;
+    height: 150px;
+}
 
 body.login-page .back-button,
 body.dashboard-page .back-button,
