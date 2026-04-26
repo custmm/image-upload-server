@@ -497,16 +497,6 @@ body.dashboard-page .section1 {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-/* 컨테이너 내부를 세로 정렬로 변경 */
-body.dashboard-page .post-form-container.text-mode {
-    display: block; /* flex 해제 */
-    width: 100%;
-    height: auto;
-    max-height: 700px;
-    overflow-y: auto;
-    padding: 10px;
-}
-
 /* 실제 게시글이 들어가는 갤러리 영역 */
 body.dashboard-page #textGallery {
     display: flex;
@@ -979,8 +969,10 @@ body.dashboard-page .post-form-container {
 /* 텍스트 모드 컨테이너 */
 body.dashboard-page .post-form-container.text-mode {
     display: flex;
+    width: 90%;
+    margin: 0 auto;
     flex-direction: row;
-    min-height: 300px;
+    height: 800px;
     overflow-y: auto;
     box-sizing: border-box;
 }
