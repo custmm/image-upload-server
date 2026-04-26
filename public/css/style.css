@@ -3945,6 +3945,10 @@ body.error-page .actions {
     justify-content: center;
 }
 
+body.error-page p.loading-text{
+    margin-bottom: 15px;
+}
+
 body.error-page .actions .btn-home,
 body.error-page .actions .btn-back {
     padding: 12px 25px;
