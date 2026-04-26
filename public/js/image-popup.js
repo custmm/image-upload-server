@@ -31,7 +31,21 @@ function hideLoading() {
     if (indicator) indicator.style.display = "none";
 }
 
-// --- 메인 팝업 로직 ---
+// ── [유틸리티: 쓰로틀링 함수] ───────────────────────────────
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
+}
+
+// ── [메인 팝업 로직 수정] ──────────────────────────────────
 export function openImagePopup() {
     const overlay = document.createElement("div");
     overlay.id = "imageModePopup";
@@ -69,11 +83,14 @@ export function openImagePopup() {
     }
 
     const gallery = document.getElementById("popupGallery");
-    gallery.onscroll = () => {
-        if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 50) {
+
+// [개선] 쓰로틀링 적용: 스크롤 시 200ms마다 체크하여 연산 최적화
+    gallery.onscroll = throttle(() => {
+        // 하단에서 100px 여유를 두고 미리 로드
+        if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 100) {
             fetchPopupImages();
         }
-    };
+    }, 200);
 
     popupOffset = 0;
     noMoreImages = false;
@@ -81,14 +98,14 @@ export function openImagePopup() {
     fetchPopupImages();
 }
 
-
 async function fetchPopupImages() {
     if (isPopupLoading || noMoreImages) return;
 
     isPopupLoading = true;
-    showLoading(); // 🔥 API 호출 전 로딩 시작
+    showLoading(); 
 
     try {
+        // [참고] limit을 너무 크게 잡으면 초기 렌더링 렉이 발생하므로 24개 정도가 적당합니다.
         const response = await fetch(`/api/files?offset=${popupOffset}&limit=${popupLimit}`);
         if (!response.ok) throw new Error("서버 응답 오류");
 
@@ -100,13 +117,17 @@ async function fetchPopupImages() {
         } else {
             renderPopupItems(images);
             popupOffset += images.length;
+            
+            // 카운트 표시 업데이트
+            const countDisplay = document.getElementById("popupCountDisplay");
+            if(countDisplay) countDisplay.innerText = `총 ${popupOffset}개 항목`;
         }
 
     } catch (error) {
         console.error("팝업 이미지 로드 실패:", error);
     } finally {
         isPopupLoading = false;
-        hideLoading(); // 🔥 로드 완료(성공/실패 무관) 후 로딩 종료
+        hideLoading(); 
     }
 }
 
@@ -116,8 +137,17 @@ function renderPopupItems(images) {
 
     images.forEach(image => {
         const img = document.createElement("img");
-        img.src = image.file_path;
-        img.loading = "lazy";
+        
+        // [개선] ImageKit 최적화: 팝업용으로 크기를 줄여서 로드 (렉 줄이기의 핵심)
+        // URL 뒤에 ?tr=w-200 옵션을 추가하여 데이터 전송량과 메모리 사용량 절감
+        const optimizedSrc = image.file_path.includes("?") 
+            ? `${image.file_path}&tr=w-250,h-250,cm-extract` 
+            : `${image.file_path}?tr=w-250,h-250,cm-extract`;
+            
+        img.src = optimizedSrc;
+        img.loading = "lazy"; // 브라우저 자체 지연 로딩
+        img.className = "popup-img-item"; // CSS에서 윌체인지(will-change) 적용 권장
+        
         img.onclick = () => { window.location.href = `post?id=${image.id}`; };
         fragment.appendChild(img);
     });
