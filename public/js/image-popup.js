@@ -12,7 +12,14 @@ function showLoading() {
     const loader = document.getElementById("mainLoader");
     if (!indicator || !loader) return;
 
+    // 초기 투명도 설정 (부드러운 등장을 위해)
+    indicator.style.opacity = "0";
     indicator.style.display = "flex";
+    indicator.style.transition = "opacity 0.4s ease";
+
+    // 강제 리플로우 후 투명도 조절
+    setTimeout(() => indicator.style.opacity = "1", 10);
+
     if (loaderInterval) clearInterval(loaderInterval); // 중복 방지
 
     loaderInterval = setInterval(() => {
@@ -23,12 +30,87 @@ function showLoading() {
 }
 
 function hideLoading() {
-    if (loaderInterval) {
-        clearInterval(loaderInterval);
-        loaderInterval = null;
-    }
     const indicator = document.getElementById("loadingIndicator");
-    if (indicator) indicator.style.display = "none";
+    if (!indicator) return;
+
+    indicator.style.opacity = "0";
+    
+    // 애니메이션이 끝난 후 display: none 처리
+    setTimeout(() => {
+        if (indicator.style.opacity === "0") {
+            indicator.style.display = "none";
+            if (loaderInterval) {
+                clearInterval(loaderInterval);
+                loaderInterval = null;
+            }
+        }
+    }, 400);
+}
+
+// ── [의도적 지연을 포함한 데이터 로드] ──────────────────────────
+async function fetchPopupImages() {
+    if (isPopupLoading || noMoreImages) return;
+
+    isPopupLoading = true;
+    showLoading(); 
+
+    try {
+        // [지연 추가] "서버 분석 중" 느낌을 주기 위해 최소 600ms 대기
+        const delayPromise = new Promise(resolve => setTimeout(resolve, 600));
+        
+        const fetchPromise = fetch(`/api/files?offset=${popupOffset}&limit=${popupLimit}`)
+            .then(res => res.json());
+
+        // 지연 시간과 데이터 로드를 병렬로 실행하되, 둘 다 끝날 때까지 기다림
+        const [_, resJson] = await Promise.all([delayPromise, fetchPromise]);
+        
+        const images = Array.isArray(resJson) ? resJson : resJson.files;
+
+        if (images.length === 0) {
+            noMoreImages = true;
+        } else {
+            renderPopupItems(images);
+            popupOffset += images.length;
+            
+            const countDisplay = document.getElementById("popupCountDisplay");
+            if(countDisplay) countDisplay.innerText = `총 ${popupOffset}개 항목 분석 완료`;
+        }
+
+    } catch (error) {
+        console.error("팝업 이미지 로드 실패:", error);
+    } finally {
+        // 렌더링 후 로더를 바로 끄지 않고 살짝 더 유지 (부드러운 전환)
+        setTimeout(() => {
+            isPopupLoading = false;
+            hideLoading(); 
+        }, 300);
+    }
+}
+
+function renderPopupItems(images) {
+    const gallery = document.getElementById("popupGallery");
+    const fragment = document.createDocumentFragment();
+
+    images.forEach(image => {
+        const img = document.createElement("img");
+        
+        // [개선] ImageKit 최적화: 팝업용으로 크기를 줄여서 로드 (렉 줄이기의 핵심)
+        // URL 뒤에 ?tr=w-200 옵션을 추가하여 데이터 전송량과 메모리 사용량 절감
+        const optimizedSrc = image.file_path.includes("?") 
+            ? `${image.file_path}&tr=w-250,h-250` 
+            : `${image.file_path}?tr=w-250,h-250`;
+            
+        img.src = optimizedSrc;
+        img.loading = "lazy"; // 브라우저 자체 지연 로딩
+
+        // CSS 클래스나 인라인 스타일로 object-fit이 잘 작동하도록 보장
+        img.style.objectFit = "contain";
+        
+        img.onclick = () => { window.location.href = `post?id=${image.id}`; };
+        fragment.appendChild(img);
+    });
+
+    gallery.appendChild(fragment);
 }
 
 // ── [유틸리티: 쓰로틀링 함수] ───────────────────────────────
@@ -96,63 +178,4 @@ export function openImagePopup() {
     noMoreImages = false;
     gallery.innerHTML = ""; 
     fetchPopupImages();
-}
-
-async function fetchPopupImages() {
-    if (isPopupLoading || noMoreImages) return;
-
-    isPopupLoading = true;
-    showLoading(); 
-
-    try {
-        // [참고] limit을 너무 크게 잡으면 초기 렌더링 렉이 발생하므로 24개 정도가 적당합니다.
-        const response = await fetch(`/api/files?offset=${popupOffset}&limit=${popupLimit}`);
-        if (!response.ok) throw new Error("서버 응답 오류");
-
-        const resJson = await response.json();
-        const images = Array.isArray(resJson) ? resJson : resJson.files;
-
-        if (images.length === 0) {
-            noMoreImages = true;
-        } else {
-            renderPopupItems(images);
-            popupOffset += images.length;
-            
-            // 카운트 표시 업데이트
-            const countDisplay = document.getElementById("popupCountDisplay");
-            if(countDisplay) countDisplay.innerText = `총 ${popupOffset}개 항목`;
-        }
-
-    } catch (error) {
-        console.error("팝업 이미지 로드 실패:", error);
-    } finally {
-        isPopupLoading = false;
-        hideLoading(); 
-    }
-}
-
-function renderPopupItems(images) {
-    const gallery = document.getElementById("popupGallery");
-    const fragment = document.createDocumentFragment();
-
-    images.forEach(image => {
-        const img = document.createElement("img");
-        
-        // [개선] ImageKit 최적화: 팝업용으로 크기를 줄여서 로드 (렉 줄이기의 핵심)
-        // URL 뒤에 ?tr=w-200 옵션을 추가하여 데이터 전송량과 메모리 사용량 절감
-        const optimizedSrc = image.file_path.includes("?") 
-            ? `${image.file_path}&tr=w-250,h-250` 
-            : `${image.file_path}?tr=w-250,h-250`;
-            
-        img.src = optimizedSrc;
-        img.loading = "lazy"; // 브라우저 자체 지연 로딩
-
-        // CSS 클래스나 인라인 스타일로 object-fit이 잘 작동하도록 보장
-        img.style.objectFit = "contain";
-        
-        img.onclick = () => { window.location.href = `post?id=${image.id}`; };
-        fragment.appendChild(img);
-    });
-
-    gallery.appendChild(fragment);
 }
