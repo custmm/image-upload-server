@@ -3621,7 +3621,7 @@ body.etc-page .list_wrap a {
 }
 
 body.etc-page #my_project li:nth-child(2) #method1 .img_wrap img {
-    width: 35%;
+    width: 250px;
     margin: 0 auto;
     display: flex;
 }
@@ -3632,7 +3632,12 @@ body.etc-page #method1 h3 {
 
 body.etc-page .rc_car_intro_1 {
     display: flex;
+    justify-content: space-between;
+}
 
+body.etc-page table tr:nth-child(2) img{
+    width: 250px;
+    margin: 0 auto;
 }
 
 /* 1. 부모 컨테이너: 가로 간격을 넉넉히 주어 선이 보일 공간 확보 */
