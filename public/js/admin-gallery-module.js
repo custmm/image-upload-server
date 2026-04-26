@@ -22,8 +22,6 @@ export async function fetchTextList(append = false) {
 
         renderTextItems(images, container);
         loadedImages += images.length;
-        
-        // 버튼 텍스트 업데이트 등 추가 로직이 필요하면 여기서 수행
     } catch (err) {
         console.error("데이터 로드 실패:", err);
     }
@@ -59,46 +57,40 @@ function renderTextItems(images, container) {
 }
 
 /**
- * 3. 게시물 삭제 로직
+ * 3. 게시물 삭제 로직 (커스텀 팝업 연동)
  */
 export async function deletePost(id) {
-    // 기존에 정의된 showeditpopup이 전역에 있다고 가정하거나, 
-    // 필요시 별도 UI 모듈에서 import 해야 합니다.
-    if (typeof showeditpopup !== "function") {
-        if (!confirm("게시물을 삭제하시겠습니까?")) return;
-    } else {
-        showeditpopup('게시물을 삭제하시겠습니까?', async () => {
-            await executeDelete(id);
-        });
-        return;
-    }
-    await executeDelete(id);
-}
-
-async function executeDelete(id) {
-    try {
-        const response = await fetch(`/api/files/${id}`, { method: 'DELETE' });
-        const data = await response.json();
-
-        if (data.success) {
-            alert('게시물이 삭제되었습니다.');
-            location.reload();
-        } else {
-            alert(`삭제 실패: ${data.message}`);
+    const deleteAction = async () => {
+        try {
+            const response = await fetch(`/api/files/${id}`, { method: 'DELETE' });
+            const data = await response.json();
+            if (data.success) {
+                alert('게시물이 삭제되었습니다.');
+                location.reload();
+            } else {
+                alert(`삭제 실패: ${data.message}`);
+            }
+        } catch (error) {
+            console.error('삭제 오류:', error);
         }
-    } catch (error) {
-        console.error('삭제 오류:', error);
+    };
+
+    if (typeof window.showeditpopup === "function") {
+        window.showeditpopup('게시물을 정말 삭제하시겠습니까?', deleteAction);
+    } else {
+        if (confirm("게시물을 삭제하시겠습니까?")) deleteAction();
     }
 }
 
 /**
- * 4. 수정 메뉴 선택 팝업 (제목 vs 내용)
+ * 4. 수정 메뉴 선택 팝업
  */
 function openEditSelectPopup(image) {
     let modal = document.getElementById("editSelectModal");
     if (!modal) {
         modal = document.createElement("div");
         modal.id = "editSelectModal";
+        modal.className = "edit-modal-overlay"; // CSS 클래스명 확인
         modal.innerHTML = `
             <div class="edit-modal">
                 <div class="edit-modal-content">
@@ -123,14 +115,14 @@ function openEditSelectPopup(image) {
     };
     modal.querySelector("#selectContentEdit").onclick = () => {
         modal.style.display = "none";
-        openContentEditPopup(image);
+        openContentEditPopup(image); // 상세 에디터 실행
     };
 
     modal.style.display = "flex";
 }
 
 /**
- * 5. 제목 수정 팝업 및 통신
+ * 5. 제목 수정 팝업 (Input형식)
  */
 function openTitleEditPopup(image) {
     const newTitle = prompt("새 제목을 입력하세요:", image.title);
@@ -140,15 +132,66 @@ function openTitleEditPopup(image) {
 }
 
 /**
- * 6. 내용 수정 팝업 및 통신 (기존의 상세 에디터 로직)
+ * 6. 상세 내용 수정 에디터 (기존의 복잡한 로직 통합)
  */
 function openContentEditPopup(image) {
-    // 기존에 복잡했던 openEditPopup(image) 로직을 여기에 구현하거나 호출합니다.
-    // 여기서는 간단하게 처리 로직만 보여드립니다.
-    const newDesc = prompt("새 내용을 입력하세요:", image.text || "");
-    if (newDesc !== null) {
-        updatePost(image.id, { description: newDesc }, "post");
+    let modal = document.getElementById("editModal");
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "editModal";
+        modal.className = "edit-modal-overlay";
+        modal.innerHTML = `
+            <div class="edit-modal">
+                <div class="edit-modal-content">
+                    <h2>내용 수정</h2>
+                    <div class="edit-container">
+                        <div class="editor-buttons">
+                            <button type="button" id="btnBold"><b>B</b></button>
+                            <button type="button" id="btnStrike"><s>S</s></button>
+                        </div>
+                        <hr class="dashed-line"> 
+                        <div id="editContent" contenteditable="true" class="edit-content"></div>
+                        <p><span id="editHashtagDisplay"></span> <span id="descriptionCounter">0 / 1000</span></p>
+                    </div>
+                    <div class="edit-button-group">
+                        <button id="saveEdit">저장</button>
+                        <div class="button-separator"></div>
+                        <button id="closeEdit">취소</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
     }
+
+    const editContent = modal.querySelector("#editContent");
+    const counter = modal.querySelector("#descriptionCounter");
+    
+    // 🔥 중요: 서버에서 온 데이터 매핑 (image.description.text 또는 image.text)
+    editContent.innerHTML = image.description?.text || image.text || "";
+
+    // 실시간 글자 수 체크
+    editContent.oninput = () => {
+        const text = editContent.innerText;
+        counter.textContent = `${text.length} / 1000`;
+    };
+
+    modal.querySelector("#btnBold").onclick = () => document.execCommand('bold');
+    modal.querySelector("#btnStrike").onclick = () => document.execCommand('strikethrough');
+    
+    modal.querySelector("#closeEdit").onclick = () => modal.style.display = "none";
+    
+    modal.querySelector("#saveEdit").onclick = async () => {
+        const updatedDesc = editContent.innerHTML;
+        if (!editContent.innerText.trim()) {
+            alert("내용을 입력해주세요.");
+            return;
+        }
+        await updatePost(image.id, { description: updatedDesc }, "post");
+        modal.style.display = "none";
+    };
+
+    modal.style.display = "flex";
 }
 
 /**
@@ -166,10 +209,10 @@ export async function updatePost(postId, payload, type) {
 
         const data = await response.json();
         if (data.success) {
-            alert("수정되었습니다.");
+            alert("성공적으로 수정되었습니다.");
             location.reload();
         } else {
-            alert("수정 실패");
+            alert(`수정 실패: ${data.message}`);
         }
     } catch (error) {
         console.error("수정 오류:", error);
