@@ -17,9 +17,16 @@ export async function loadAIModel() {
 }
 
 export async function runDuplicateAnalysis() {
+    // 1. 기본 로딩 애니메이션 먼저 실행
     showLoading();
-    
-    // 1. UI 요소 생성 및 초기화
+
+    // 2. 기본 로딩 인디케이터의 z-index를 강제로 최상단으로 고정 (분석 UI보다 위로)
+    const baseLoader = document.getElementById("loadingIndicator");
+    if (baseLoader) {
+        baseLoader.style.zIndex = "10000";
+    }
+
+    // 3. UI 요소 생성 (분석 UI는 로더 바로 아래인 9999로 설정)
     let analysisWrapper = document.getElementById("analysisWrapper") || createAnalysisWrapper();
     initAnalysisUI(analysisWrapper);
 
@@ -34,7 +41,7 @@ export async function runDuplicateAnalysis() {
     try {
         const response = await fetch("/api/admin/check-all-duplicates");
         if (!response.ok) throw new Error("서버 응답 에러");
-        
+
         const result = await response.json();
         clearInterval(progressTimer);
 
@@ -70,13 +77,14 @@ function createAnalysisWrapper() {
 }
 
 function initAnalysisUI(wrapper) {
+    // 로딩 아이콘이 들어갈 공간을 확보하기 위해 padding-top 추가
     wrapper.innerHTML = `
-        <div style="width: 300px; text-align: center;">
-            <h3 id="analysisStatus">이미지 중복 분석 중...</h3>
-            <div style="width: 100%; background: #444; height: 10px; border-radius: 5px; margin-top: 15px; overflow: hidden;">
-                <div id="analysisProgressBar" style="width: 20%; height: 100%; background: #007bff; transition: width 0.3s;"></div>
+        <div style="width: 300px; text-align: center; margin-top: 100px;">
+            <h3 id="analysisStatus" style="font-weight: 300; letter-spacing: -0.5px;">이미지 중복 분석 중...</h3>
+            <div style="width: 100%; background: #333; height: 6px; border-radius: 10px; margin-top: 20px; overflow: hidden;">
+                <div id="analysisProgressBar" style="width: 20%; height: 100%; background: linear-gradient(90deg, #007bff, #00d4ff); transition: width 0.4s ease;"></div>
             </div>
-            <p id="analysisPercent" style="margin-top: 10px;">20%</p>
+            <p id="analysisPercent" style="margin-top: 15px; font-size: 14px; color: #aaa;">20%</p>
         </div>
     `;
 }
