@@ -500,7 +500,8 @@ body.dashboard-page .section1 {
 /* 실제 게시글이 들어가는 갤러리 영역 */
 body.dashboard-page #textGallery {
     display: flex;
-    flex-direction: column; /* 🔥 가로가 아닌 세로 목록으로 설정 */
+    flex-direction: column;
+    /* 🔥 가로가 아닌 세로 목록으로 설정 */
     width: 100%;
     gap: 10px;
 }
@@ -516,7 +517,7 @@ body.dashboard-page .post-item {
     border: 1px solid #eee;
     border-radius: 12px;
     box-sizing: border-box;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 body.dashboard-page .post-item img {
@@ -561,9 +562,16 @@ body.dashboard-page .section2 {
     margin-top: 20px;
     padding-bottom: 30px;
 }
-body.dashboard-page .custom-button{
-        padding: 60px 15px;
+
+body.dashboard-page .custom-button {
+    padding: 60px 15px;
     border-radius: 50%;
+}
+body.dashboard-page .util-group {
+    display: flex;
+    margin: 10px auto;
+    gap: 10px;
+
 }
 
 body.dashboard-page .section3 {
@@ -625,12 +633,12 @@ body.dashboard-page .popup-gallery img {
     width: 180px;
     height: 180px;
     border-radius: 20px;
-    
+
     /* 🔥 핵심 수정: cover에서 contain으로 변경 */
-    object-fit: contain; 
-    
+    object-fit: contain;
+
     /* 만약 이미지 자체가 너무 꽉 차 보인다면 패딩을 살짝 줍니다 */
-    padding: 10px; 
+    padding: 10px;
     box-sizing: border-box;
 }
 
@@ -1143,9 +1151,6 @@ body.dashboard-page .sorting-wrapper {
     padding: 15px 0;
 }
 
-body.dashboard-page .custom-button {
-    border: none;
-}
 
 body.dashboard-page .custom-chart-button {
     border: 1px solid #ccc;
@@ -1160,16 +1165,6 @@ body.dashboard-page .button-group {
     width: 100%;
     margin: 20px 0;
     padding: 20px 0;
-
-}
-
-body.dashboard-page .util-group {
-    display: flex;
-    margin: 10px auto;
-    justify-content: center;
-    flex-direction: column;
-    width: 35%;
-    gap: 10px;
 
 }
 
@@ -3715,12 +3710,12 @@ body.search-page button#resetTagButton {
 
 }
 
-body.search-page .post-item{
-   background-color: aliceblue;
+body.search-page .post-item {
+    background-color: aliceblue;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    margin: 30px; 
+    margin: 30px;
 }
 
 body.search-page a.post-item {
@@ -3905,7 +3900,8 @@ body.error-page {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(180deg, #2B2092 0%, #7E57C2 100%); /* 기존 배경색 활용 */
+    background: linear-gradient(180deg, #2B2092 0%, #7E57C2 100%);
+    /* 기존 배경색 활용 */
     color: white;
     text-align: center;
     margin: 0;
@@ -3914,17 +3910,25 @@ body.error-page {
 body.error-page h1 {
     font-size: 120px;
     margin: 0;
-    text-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 body.error-page .error-icon {
     font-size: 80px;
-    animation: float 3s ease-in-out infinite; /* 둥둥 떠다니는 효과 */
+    animation: float 3s ease-in-out infinite;
+    /* 둥둥 떠다니는 효과 */
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
 }
 
 body.error-page .message {
@@ -3933,7 +3937,7 @@ body.error-page .message {
     line-height: 1.6;
 }
 
-body.error-page .actions .btn-home, 
+body.error-page .actions .btn-home,
 body.error-page .actions .btn-back {
     padding: 12px 25px;
     border-radius: 30px;
@@ -3946,7 +3950,8 @@ body.error-page .actions .btn-back {
 }
 
 body.error-page .btn-home {
-    background: #ffe229; /* 포인트 컬러 */
+    background: #ffe229;
+    /* 포인트 컬러 */
     color: #333;
 }
 
