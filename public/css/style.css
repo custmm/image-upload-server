@@ -535,7 +535,8 @@ body.dashboard-page .post-item img {
     min-width: 60px;
     /* 크기 강제 고정 */
     border-radius: 8px;
-    object-fit: cover;
+    object-fit: contain;
+
     /* 이미지가 잘리더라도 비율 유지하며 꽉 채움 */
     margin-right: 15px;
     flex-shrink: 0;
