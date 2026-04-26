@@ -515,19 +515,18 @@ body.dashboard-page #textGallery {
     gap: 10px;
 }
 
-/* 텍스트 모드 내부 아이템 레이아웃 수정 */
+/* 개별 게시글 아이템 스타일 */
 body.dashboard-page .post-item {
     display: flex;
-    width: 100%;
-    /* 95%에서 100%로 변경 후 부모 패딩으로 조절 */
-    padding: 12px;
-    margin-bottom: 8px;
-    justify-content: flex-start;
-    /* 간격 고정 */
     align-items: center;
-    border-bottom: 1px solid #ddd;
-    background: #fff;
-    border-radius: 10px;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px;
+    background: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 body.dashboard-page .post-item img {
@@ -543,17 +542,17 @@ body.dashboard-page .post-item img {
     /* 텍스트가 길어져도 이미지가 찌그러지지 않음 */
 }
 
+/* 아이템 내부 제목 텍스트 가독성 */
 body.dashboard-page .post-item .file-name {
-    flex-grow: 1;
-    /* 남은 공간 모두 차지 */
+    flex: 1;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    margin-left: 15px;
     text-align: left;
-    /* 제목은 왼쪽 정렬이 가독성이 좋음 */
-    font-size: 14px;
-    padding: 0 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* 제목 길면 ... 처리 */
 }
 
 body.dashboard-page #right_wrap {
