@@ -564,28 +564,36 @@ body.dashboard-page .section2 {
 }
 
 body.dashboard-page .custom-button {
-    display: flex;             /* 플렉스 박스 사용 */
-    justify-content: center;   /* [수정] 가로 중앙 정렬 */
-    align-items: center;       /* [추가] 세로 중앙 정렬 */
-    
+    display: flex;
+    /* 플렉스 박스 사용 */
+    justify-content: center;
+    /* [수정] 가로 중앙 정렬 */
+    align-items: center;
+    /* [추가] 세로 중앙 정렬 */
+
     width: 100px;
     height: 100px;
-    border-radius: 50%;        /* 정원 만들기 */
-    
+    border-radius: 50%;
+    /* 정원 만들기 */
+
     margin: 10px;
-    padding: 10px;             /* [추가] 글자가 원 밖으로 나가지 않게 여백 */
+    padding: 10px;
+    /* [추가] 글자가 원 밖으로 나가지 않게 여백 */
     text-align: center;
-    word-break: keep-all;      /* [추가] 단어가 이상하게 잘리지 않게 설정 */
-    
+    word-break: keep-all;
+    /* [추가] 단어가 이상하게 잘리지 않게 설정 */
+
     /* gap은 버튼 내부 요소가 하나(텍스트)라면 삭제해도 무방합니다. */
-    border: none;              /* 필요 시 추가 */
+    border: none;
+    /* 필요 시 추가 */
     cursor: pointer;
 }
 
 body.dashboard-page .util-group {
     display: flex;
     justify-content: center;
-    gap: 15px;                 /* 버튼 사이의 간격 */
+    gap: 15px;
+    /* 버튼 사이의 간격 */
     margin-top: 20px;
 }
 
@@ -3912,11 +3920,12 @@ body.total-preview .highlight-section {
 /* 404 페이지 전용 스타일 */
 body.error-page h1 {
     font-size: 120px;
-    margin: 0;
+    text-align: center;
     text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 body.error-page .error-icon {
+    margin: 0 auto;
     font-size: 80px;
     animation: float 3s ease-in-out infinite;
     /* 둥둥 떠다니는 효과 */
@@ -3926,6 +3935,11 @@ body.error-page .message {
     font-size: 18px;
     margin: 20px 0 40px;
     line-height: 1.6;
+}
+
+body.error-page .actions {
+    display: flex;
+    justify-content: center;
 }
 
 body.error-page .actions .btn-home,
