@@ -302,8 +302,7 @@ body.tag-page .loading-indicator,
 body.search-page .loading-indicator,
 body.login-page .loading-indicator,
 body.upload-page .loading-indicator,
-body.dashboard-page .loading-indicator,
-body.error-page .loading-indicator
+body.dashboard-page .loading-indicator
  {
     position: fixed;
     display: none;
@@ -319,6 +318,7 @@ body.error-page .loading-indicator
     z-index: 10000;
     transition: opacity 0.3s ease;
 }
+
 
 /* 텍스트 */
 body.post-page .loading-text,

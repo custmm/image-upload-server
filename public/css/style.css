@@ -3931,6 +3931,10 @@ body.error-page .error-icon {
     /* 둥둥 떠다니는 효과 */
 }
 
+body.error-page .loading-indicator{
+    background-color: transparent;
+}
+
 body.error-page .message {
     font-size: 18px;
     margin: 20px 0 40px;
