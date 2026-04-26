@@ -9,12 +9,28 @@ let isLoadingList = false; // 중복 로딩 방지
 export async function fetchTextList(append = false) {
     if (isLoadingList) return;
     
-    const container = document.getElementById("textGallery");
-    if (!container) {
-        console.error("❌ 에러: 'textGallery' 요소를 찾을 수 없습니다.");
+    // 1. 부모 컨테이너 찾기
+    const parentContainer = document.querySelector(".post-form-container");
+    if (!parentContainer) {
+        console.error("❌ 에러: '.post-form-container' 요소를 찾을 수 없습니다.");
         return;
     }
 
+    // 2. textGallery 찾기, 없으면 동적 생성
+    let container = document.getElementById("textGallery");
+    if (!container) {
+        container = document.createElement("div");
+        container.id = "textGallery";
+        container.className = "gallery-container"; // 필요에 따라 클래스 추가
+        
+        // 텍스트 모드일 때만 보이도록 부모 클래스 조정
+        parentContainer.classList.add("text-mode");
+        parentContainer.classList.remove("image-mode");
+        
+        parentContainer.appendChild(container);
+    }
+
+    // 3. 덮어쓰기 모드(!append)일 때 초기화
     if (!append) {
         container.innerHTML = "";
         loadedImages = 0;
