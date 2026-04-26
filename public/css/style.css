@@ -3620,27 +3620,6 @@ body.etc-page .list_wrap a {
     /* 텍스트 줄바꿈 방지 및 정렬 보조 */
 }
 
-body.etc-page #my_project li:nth-child(2) #method1 .img_wrap img {
-    width: 250px;
-    margin: 0 auto;
-    display: flex;
-}
-
-
-body.etc-page #method1 h3 {
-    margin-bottom: 15px;
-}
-
-body.etc-page .rc_car_intro_1 {
-    display: flex;
-    justify-content: space-between;
-}
-
-body.etc-page table tr:nth-child(2) img{
-    width: 250px;
-    margin: 0 auto;
-}
-
 /* 1. 부모 컨테이너: 가로 간격을 넉넉히 주어 선이 보일 공간 확보 */
 body.etc-page .dev_wrap {
     display: grid;
@@ -3706,6 +3685,20 @@ body.etc-page .app_dev img {
     /* 아이콘 크기에 맞춰 조절하세요 */
     height: 50px;
     display: block;
+}
+
+body.etc-page #rc_car_intro_1{
+    display: flex;
+    flex-direction: column;
+}
+
+body.etc-page #rc_car_intro_1 .img_wrap{
+    margin: 0 auto;
+}
+
+body.etc-page #rc_car_intro_1 .text_wrap{
+    display: flex;
+    flex-direction: row;
 }
 
 body.etc-page strong {
@@ -3951,7 +3944,7 @@ body.error-page .actions {
     justify-content: center;
 }
 
-body.error-page p.loading-text{
+body.error-page p.loading-text {
     margin-bottom: 15px;
 }
 
