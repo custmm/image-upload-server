@@ -561,6 +561,10 @@ body.dashboard-page .section2 {
     margin-top: 20px;
     padding-bottom: 30px;
 }
+body.dashboard-page .custom-button{
+        padding: 60px 15px;
+    border-radius: 50%;
+}
 
 body.dashboard-page .section3 {
     margin-top: 30px;
@@ -972,7 +976,7 @@ body.dashboard-page .post-form-container.text-mode {
     width: 90%;
     margin: 0 auto;
     flex-direction: row;
-    height: 800px;
+    max-height: 656px;
     overflow-y: auto;
     box-sizing: border-box;
 }
