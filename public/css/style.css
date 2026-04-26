@@ -564,15 +564,13 @@ body.dashboard-page .section2 {
 }
 
 body.dashboard-page .custom-button {
-    text-align: center;
     display: flex;
-    justify-content: center;
     margin: 0 auto;
     border-radius: 50%;
 }
 body.dashboard-page .util-group {
     display: flex;
-    margin: 10px auto;
+    justify-content: center;
     gap: 10px;
 
 }
