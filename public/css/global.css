@@ -302,8 +302,7 @@ body.tag-page .loading-indicator,
 body.search-page .loading-indicator,
 body.login-page .loading-indicator,
 body.upload-page .loading-indicator,
-body.dashboard-page .loading-indicator,
-body.error-page .loading-indicator
+body.dashboard-page .loading-indicator
  {
     position: fixed;
     display: none;
