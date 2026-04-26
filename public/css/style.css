@@ -571,12 +571,19 @@ body.dashboard-page .popup-gallery {
     /* 배경색을 어둡게 하면 이미지가 더 잘 보임 */
 }
 
+/* 팝업 내 갤러리 이미지 스타일 수정 */
 body.dashboard-page .popup-gallery img {
     margin: 0 auto;
     width: 180px;
     height: 180px;
-    object-fit: cover;
-
+    border-radius: 20px;
+    
+    /* 🔥 핵심 수정: cover에서 contain으로 변경 */
+    object-fit: contain; 
+    
+    /* 만약 이미지 자체가 너무 꽉 차 보인다면 패딩을 살짝 줍니다 */
+    padding: 10px; 
+    box-sizing: border-box;
 }
 
 /* 3. 호버 시 효과 (선택 사항) */
@@ -668,12 +675,6 @@ body.dashboard-page #closeImagePopupBtn {
 body.dashboard-page #closeImagePopupBtn:hover {
     color: aqua;
 }
-
-
-
-
-
-
 
 body.dashboard-page .edit-modal {
     display: flex;
