@@ -17,9 +17,7 @@ function showLoading() {
     }, 150); // 속도 조절 가능
 }
 
-function hideLoading() {
-    clearInterval(loaderInterval);
-    loaderInterval = null;
 
-    document.getElementById("loadingIndicator").style.display = "none";
-}
+document.addEventListener("DOMContentLoaded", () => {
+    showLoading(); // 페이지 열리자마자 아이콘이 뜨는지 확인
+});
