@@ -35,15 +35,7 @@ window.addEventListener('offline', () => {
 });
 
 window.addEventListener('online', () => {
-    // 저장해둔 주소를 꺼냄
-    const lastPath = sessionStorage.getItem('lastPath');
 
     alert("인터넷이 다시 연결되었습니다!");
 
-    if (lastPath) {
-        window.location.href = lastPath; // 기억해둔 페이지로 복귀
-        sessionStorage.removeItem('lastPath'); // 사용 후 삭제
-    } else {
-        window.location.href = "./index.html"; // 기록 없으면 메인으로
-    }
 });

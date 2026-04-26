@@ -3963,12 +3963,6 @@ body.error-page .btn-home {
     color: #333;
 }
 
-body.error-page .btn-back {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid white;
-}
-
 body.error-page .btn-home:hover {
     transform: scale(1.1);
     background: #fff;
