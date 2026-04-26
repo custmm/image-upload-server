@@ -76,8 +76,8 @@ function renderTextItems(images, container) {
 
         // 이미지 최적화 (Thumb용 작은 사이즈 요청)
         const thumbUrl = image.file_path.includes("?") 
-            ? `${image.file_path}&tr=w-100,h-100,cm-extract` 
-            : `${image.file_path}?tr=w-100,h-100,cm-extract`;
+            ? `${image.file_path}&tr=w-100,h-100` 
+            : `${image.file_path}?tr=w-100,h-100`;
 
         postItem.innerHTML = `
             <img src="${thumbUrl}" alt="Thumbnail" onerror="this.src='/images/no-image.png'">
