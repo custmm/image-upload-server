@@ -572,6 +572,7 @@ body.dashboard-page .popup-gallery {
 }
 
 body.dashboard-page .popup-gallery img {
+    margin: 0 auto;
     width: 180px;
     height: 180px;
     object-fit: cover;
@@ -584,8 +585,6 @@ body.dashboard-page .popup-gallery img:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     z-index: 10;
 }
-
-
 
 /*  텍스트 모드 - 버튼 */
 body.dashboard-page .post-item .buttons {
