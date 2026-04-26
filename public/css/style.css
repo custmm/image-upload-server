@@ -3924,15 +3924,14 @@ body.error-page h1 {
     text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-body.error-page .error-icon {
-    margin: 0 auto;
-    font-size: 80px;
-    animation: float 3s ease-in-out infinite;
-    /* 둥둥 떠다니는 효과 */
+body.error-page .loading-indicator {
+    background-color: transparent;
+    justify-content: center;
+
 }
 
-body.error-page .loading-indicator{
-    background-color: transparent;
+body.error-page #mainLoader {
+    margin: 0 auto;
 }
 
 body.error-page .message {
