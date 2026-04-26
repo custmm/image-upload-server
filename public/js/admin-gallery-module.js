@@ -2,12 +2,13 @@
 let loadedImages = 0;
 const batchSize = 24;
 let isLoadingList = false; // 중복 로딩 방지
+let textNoMoreData = false; // 데이터가 더 이상 없는지 체크
 
 /**
  * 1. 텍스트 리스트 데이터 가져오기
  */
 export async function fetchTextList(append = false) {
-    if (isLoadingList) return;
+    if (isLoadingList||(append &&textNoMoreData)) return;
     
     // 1. 부모 컨테이너 찾기
     const parentContainer = document.querySelector(".post-form-container");
@@ -34,6 +35,7 @@ export async function fetchTextList(append = false) {
     if (!append) {
         container.innerHTML = "";
         loadedImages = 0;
+        textNoMoreData = false;
     }
 
     isLoadingList = true;
@@ -48,6 +50,11 @@ export async function fetchTextList(append = false) {
         // 🔥 [데이터 구조 매핑 수정] res.files가 있으면 그것을 사용, 없으면 배열로 간주
         const images = Array.isArray(resJson) ? resJson : (resJson.files || []);
 
+        // 불러온 이미지가 요청한 batchSize보다 작으면 끝에 도달한 것임
+        if (images.length < batchSize) {
+            textNoMoreData = true;
+        }
+
         if (images.length === 0) {
             if (!append) container.innerHTML = "<p style='text-align:center; padding:20px;'>불러올 게시물이 없습니다.</p>";
             return;
@@ -55,6 +62,9 @@ export async function fetchTextList(append = false) {
 
         renderTextItems(images, container);
         loadedImages += images.length;
+
+        // 불러오기 성공 후 버튼 상태 업데이트
+        updateLoadButton(!textNoMoreData);
         
         console.log(`✅ 게시물 로드 완료: ${images.length}개 (누적: ${loadedImages})`);
     } catch (err) {
