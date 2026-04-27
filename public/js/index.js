@@ -40,6 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("container");
     const audio = document.getElementById("easterEggAudio");
     const audio2 = document.getElementById("fireworkAudio");
+    const clickerModal = document.getElementById("clicker-modal");
+    const mainContainer = document.getElementById("main-container");
+    const btnUse = document.getElementById("btn-use-clicker");
+    const btnCancel = document.getElementById("btn-cancel-clicker");
+    const fireworksCanvas = document.getElementById("fireworksCanvas");
+
+    let isClickerEnabled = false; // 클릭커 활성 상태
 
     let globalClickCount = 0;
     let glowClickCount = 0;
@@ -134,56 +141,72 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(overlay);
     }
 
-    body.addEventListener("click", (event) => {
-        if (isPopupOpen) return;  //  팝업이 열려있으면 클릭 카운트 증가 X
+    /* ---------------- 클릭커 선택 팝업 로직 ---------------- */
+    btnUse.addEventListener("click", () => {
+        isClickerEnabled = true;
+        clickerModal.style.display = "none";
+        mainContainer.style.display = "block";    // 클릭커 영역 나타남
+        fireworksCanvas.style.display = "block";  // 캔버스 활성화
+        console.log("🚀 클릭커 활성화: 최적화 모드로 시작합니다.");
+    });
 
-        // UI 클릭은 불꽃 제외
-        if (
-            event.target.closest(".container") ||
-            event.target.closest("button") ||
-            event.target.closest("a") ||
-            event.target.classList.contains("glow-circle")
-        ) return;
+    btnCancel.addEventListener("click", () => {
+        isClickerEnabled = false;
+        clickerModal.style.display = "none";
+        mainContainer.remove(); // 아예 DOM에서 제거하여 메모리 확보 
+        alert("클릭커가 비활성화되었습니다. 쾌적하게 서핑하세요!");
+    });
+
+    /* ---------------- 클릭 이벤트 수정 ---------------- */
+    body.addEventListener("click", (event) => {
+        if (isPopupOpen || !isClickerEnabled) return;  //  팝업이 열려있으면 클릭 카운트 증가 X
+
+        // UI 클릭 제외 로직 (기존 유지)
+        if (event.target.closest(".container") || event.target.closest("button") ||
+            event.target.closest("a") || event.target.classList.contains("glow-circle")) return;
 
         const x = event.clientX;
         const y = event.clientY; // scroll 보정
 
-        createFirework(x, y);
-        playFireworkSound(); // 불꽃놀이 소리 재생
+        // [최적화] 프레임 유실 방지를 위해 requestAnimationFrame 사용 
+        window.requestAnimationFrame(() => {
+            createFirework(x, y);
+            playFireworkSound();
+        });
 
         globalClickCount++;
 
         // 클릭 횟수별 이벤트
         const clickEventsData = {
-            4: { 
-                color: "rgb(205,154,154)", 
-                message: "이상기운을 발견했습니다!", 
-                imageUrl: "images/alian/ester_01.png", 
-                easterEgg: true 
+            4: {
+                color: "rgb(205,154,154)",
+                message: "이상기운을 발견했습니다!",
+                imageUrl: "images/alian/ester_01.png",
+                easterEgg: true
             },
-            44: { 
-                color: "rgb(217,115,115)", 
-                message: "조금 더 클릭해보세요", 
-                imageUrl: "images/alian/ester_02.png", 
-                easterEgg: true 
+            44: {
+                color: "rgb(217,115,115)",
+                message: "조금 더 클릭해보세요",
+                imageUrl: "images/alian/ester_02.png",
+                easterEgg: true
             },
-            100: { 
-                color: "rgb(230,77,77)", 
-                message: "누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용", 
-                imageUrl: "images/alian/ester_03.png", 
-                easterEgg: true 
+            100: {
+                color: "rgb(230,77,77)",
+                message: "누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용누구세용",
+                imageUrl: "images/alian/ester_03.png",
+                easterEgg: true
             },
-            222: { 
-                color: "rgb(242,38,38)", 
-                message: "많이 심심하신가봐요", 
-                imageUrl: "images/alian/ester_04.png", 
-                easterEgg: true 
+            222: {
+                color: "rgb(242,38,38)",
+                message: "많이 심심하신가봐요",
+                imageUrl: "images/alian/ester_04.png",
+                easterEgg: true
             },
-            444: { 
-                color: "#ff0000", 
-                message: "곧 재밌는 일이 일어납니다", 
-                imageUrl: "images/alian/ester_05.png", 
-                easterEgg: true 
+            444: {
+                color: "#ff0000",
+                message: "곧 재밌는 일이 일어납니다",
+                imageUrl: "images/alian/ester_05.png",
+                easterEgg: true
             }
         };
 
@@ -191,9 +214,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (clickEventsData[globalClickCount]) {
             document.body.style.backgroundColor = clickEventsData[globalClickCount].color;
 
-            console.log("🔍 클릭 횟수:", globalClickCount);
-            console.log("🔍 clickEventsData 존재 여부:", clickEventsData[globalClickCount]);
-            console.log("🔍 이스터에그 속성 여부:", clickEventsData[globalClickCount]?.easterEgg);
+            console.log(" 클릭 횟수:", globalClickCount);
+            console.log(" clickEventsData 존재 여부:", clickEventsData[globalClickCount]);
+            console.log(" 이스터에그 속성 여부:", clickEventsData[globalClickCount]?.easterEgg);
 
             showPopup(
                 clickEventsData[globalClickCount].message,
@@ -201,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 () => {
                     //  존재 여부 체크 후 실행 (오류 방지)
                     if (globalClickCount === 444) {
-                        console.log("🎉 이스터에그 조건 충족! triggerEasterEgg() 실행");
+                        console.log(" 이스터에그 조건 충족! triggerEasterEgg() 실행");
                         globalClickCount = 444;  //  더 이상 증가하지 않도록 고정
                         triggerEasterEgg();
                     } else {
@@ -254,19 +277,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // 초기 배경색 설정
     document.body.style.backgroundColor = "#c0c0c0";
 
+    // [최적화] 불꽃놀이 파티클 생성 시 메모리 찌꺼기 제거 로직 추가
     function createFirework(x, y) {
-        console.log(" 불꽃놀이 생성 시작:", x, y);
         const fireworkContainer = document.createElement("div");
         fireworkContainer.classList.add("firework");
-
-        // 위치 설정 (translate 사용 안 함)
         fireworkContainer.style.left = `${x}px`;
         fireworkContainer.style.top = `${y}px`;
-
         document.body.appendChild(fireworkContainer);
-        console.log(" fireworkContainer 추가됨:", fireworkContainer);
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 50; i++) {
             const particle = document.createElement("div");
             particle.classList.add("particle");
 
@@ -287,7 +306,11 @@ document.addEventListener("DOMContentLoaded", () => {
             fireworkContainer.appendChild(particle);
         }
 
-        setTimeout(() => fireworkContainer.remove(), 1500);
+        // 1.5초 후 확실하게 DOM에서 제거하여 메모리 누수 방지 
+        setTimeout(() => {
+            fireworkContainer.innerHTML = ''; // 내부 요소 비우기 [cite: 1]
+            fireworkContainer.remove();
+        }, 1500);
     }
 
     function playFireworkSound() {
