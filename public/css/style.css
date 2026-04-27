@@ -26,6 +26,11 @@ body.index-page .modal-buttons{
     gap: 10px; 
 }
 
+body.index-page .popup-confirm-button{
+    border-radius: 20px;
+
+}
+
 body.index-page .firework {
     position: fixed;
     pointer-events: none;
