@@ -3712,15 +3712,15 @@ body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name{
 
 }
 
-body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(2) img,
-body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(3) img,
-body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(4) img,
-body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(5) img,
-body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(6) img,
-body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(7) img,
-body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(8) img,
-body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(9) img,
-body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name > tr:nth-child(10) img{
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(2) img,
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(3) img,
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(4) img,
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(5) img,
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(6) img,
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(7) img,
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(8) img,
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(9) img,
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(10) img{
     width: 200px;
     height: 200px;
 
