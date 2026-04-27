@@ -30,7 +30,30 @@ body.index-page .popup-confirm-button{
     border-radius: 20px;
 
 }
+/* 팝업 박스 내부 배치 기준 설정 */
+body.index-page .popup-box {
+    position: relative; /* 엑스 버튼 배치의 기준점 */
+    padding-top: 30px;  /* 버튼과 텍스트 사이 여백 */
+}
 
+/* 엑스(X) 버튼 스타일 */
+body.index-page .popup-close-x {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s, transform 0.2s;
+}
+
+/* 마우스 올렸을 때 효과 */
+body.index-page .popup-close-x:hover {
+    color: #f44336; /* 붉은색으로 강조 */
+    transform: scale(1.2); /* 살짝 커지게 */
+}
 body.index-page .firework {
     position: fixed;
     pointer-events: none;

@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let clickTimes = []; // 클릭 시간 기록 배열
     const CLICK_LIMIT_THRESHOLD = 12; // 1초에 12번 이상 클릭 시 프로그램으로 간주
     let isClickerBlocked = false; // 팝업이 떠 있는 동안 중복 팝업 방지
-    let isClickerEnabled = false; // "사용" 버튼을 눌렀는지 여부
     let currentFireworkMode = 'heavy'; // 컨셉 강도 (heavy vs light)
 
     let globalClickCount = 0;
@@ -92,11 +91,15 @@ document.addEventListener("DOMContentLoaded", () => {
         userModeButton.addEventListener("click", () => {
             const isExplanMode = window.location.hash.includes("explan");
 
+            // [핵심] 클릭커가 포함된 모드로 진입할 때만 확인 팝업을 띄움
             if (isExplanMode) {
-                // 일반 사용자 → click.html로 이동
-                openDoorAndRedirect("click.html");
+                // "클릭커 모드 활성화" 창 띄우기
+                showClickerConfirmPopup(() => {
+                    // '사용'을 눌렀을 때만 실제 이동
+                    openDoorAndRedirect("click.html");
+                });
             } else {
-                // 일반 모드에서는 preview.html로 이동
+                // 일반 모드에서는 팝업 없이 바로 이동
                 openDoorAndRedirect("preview.html");
             }
         });
@@ -157,19 +160,33 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("⚠️ 비정상적인 클릭 속도 감지: 클릭커 확인 팝업을 표시합니다.");
     }
 
-/* ---------------- 팝업 버튼 이벤트 (에러 방지 처리) ---------------- */
+    /* ---------------- 팝업 버튼 이벤트 (에러 방지 처리) ---------------- */
+
+    // 1. 팝업 박스 안에 엑스(X) 버튼 동적 생성
+    const popupBox = document.querySelector(".popup-box");
+    if (popupBox) {
+        const closeBtn = document.createElement("span");
+        closeBtn.innerHTML = "&times;"; // '×' 기호
+        closeBtn.className = "popup-close-x"; // CSS 스타일링용 클래스
+        popupBox.appendChild(closeBtn);
+
+        // 엑스 버튼 클릭 시 팝업 닫기 (설정 없이 넘어가기)
+        closeBtn.onclick = () => {
+            if (clickerModal) clickerModal.style.display = "none";
+            console.log("팝업이 수동으로 닫혔습니다. 기본 클릭커 모드가 적용됩니다.");
+        };
+    }
+    
     if (btnUse) {
         btnUse.onclick = () => {
-            isClickerEnabled = true;
             currentFireworkMode = 'heavy'; // 제작자 컨셉 그대로!
             if (clickerModal) clickerModal.style.display = "none";
             console.log("🎆 풀 파워 컨셉 모드 가동!");
         };
     }
 
-if (btnCancel) {
+    if (btnCancel) {
         btnCancel.onclick = () => {
-            isClickerEnabled = true; // 기능은 유지하되
             currentFireworkMode = 'light'; // 연산량만 낮춤 (컨셉 보존)
             if (clickerModal) clickerModal.style.display = "none";
             alert("최적화 모드: 은은한 불꽃 효과만 유지하여 시스템을 보호합니다.");
