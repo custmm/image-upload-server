@@ -21,6 +21,11 @@ body.index-page .container {
     transform: translate(-50%, -50%);
 }
 
+body.index-page .modal-buttons{
+   display: flex;
+    gap: 10px; 
+}
+
 body.index-page .firework {
     position: fixed;
     pointer-events: none;
