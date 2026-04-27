@@ -3726,8 +3726,12 @@ body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(10) img{
 
 }
 
-body.etc-page #rc_car_intro_1 > .text_wrap > .planning > img{
+body.etc-page #rc_car_intro_1 .text_wrap .planning img{
     width: 300px;
+}
+
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name td{
+    width: 350px;
 }
 
 body.etc-page strong {
