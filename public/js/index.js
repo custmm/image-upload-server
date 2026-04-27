@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const CLICK_LIMIT_THRESHOLD = 12; // 1초에 12번 이상 클릭 시 프로그램으로 간주
     let isClickerBlocked = false; // 팝업이 떠 있는 동안 중복 팝업 방지
     let isClickerEnabled = false; // "사용" 버튼을 눌렀는지 여부
+    let currentFireworkMode = 'heavy'; // 컨셉 강도 (heavy vs light)
 
     let globalClickCount = 0;
     let glowClickCount = 0;
@@ -156,27 +157,24 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("⚠️ 비정상적인 클릭 속도 감지: 클릭커 확인 팝업을 표시합니다.");
     }
 
-    /* ---------------- 클릭커 선택 팝업 로직 ---------------- */
-    btnUse.addEventListener("click", () => {
-        isClickerEnabled = true;
-        isClickerBlocked = false;
-        clickerModal.style.display = "none";
-        mainContainer.style.display = "block";    // 클릭커 영역(UI) 나타남
-        fireworksCanvas.style.display = "block";  // 캔버스 활성화
-        console.log("🚀 사용자가 클릭커 사용을 승인했습니다. 최적화 모드 가동.");
-    });
+/* ---------------- 팝업 버튼 이벤트 (에러 방지 처리) ---------------- */
+    if (btnUse) {
+        btnUse.onclick = () => {
+            isClickerEnabled = true;
+            currentFireworkMode = 'heavy'; // 제작자 컨셉 그대로!
+            if (clickerModal) clickerModal.style.display = "none";
+            console.log("🎆 풀 파워 컨셉 모드 가동!");
+        };
+    }
 
-    btnCancel.addEventListener("click", () => {
-        isClickerEnabled = false;
-        isClickerBlocked = false;
-        clickerModal.style.display = "none";
-
-        // 클릭커를 사용 안 하므로 관련 영역을 아예 제거하여 [응답 없음] 방지
-        if (mainContainer) mainContainer.remove();
-        if (fireworksCanvas) fireworksCanvas.remove();
-
-        alert("클릭커가 해제되었습니다. 웹사이트 성능을 보호합니다.");
-    });
+if (btnCancel) {
+        btnCancel.onclick = () => {
+            isClickerEnabled = true; // 기능은 유지하되
+            currentFireworkMode = 'light'; // 연산량만 낮춤 (컨셉 보존)
+            if (clickerModal) clickerModal.style.display = "none";
+            alert("최적화 모드: 은은한 불꽃 효과만 유지하여 시스템을 보호합니다.");
+        };
+    }
 
     /* ---------------- 클릭 이벤트 수정 ---------------- */
     body.addEventListener("click", (event) => {
@@ -317,7 +315,10 @@ document.addEventListener("DOMContentLoaded", () => {
         fireworkContainer.style.top = `${y}px`;
         document.body.appendChild(fireworkContainer);
 
-        for (let i = 0; i < 50; i++) {
+        // 핵심: 모드에 따라 파티클 개수를 조절 (성능과 컨셉 다 잡기)
+        const particleCount = (currentFireworkMode === 'heavy') ? 50 : 10;
+
+        for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement("div");
             particle.classList.add("particle");
 
