@@ -3735,6 +3735,15 @@ body.etc-page #rc_car_intro_1 .text_wrap table.part_name td{
     width: 350px;
 }
 
+body.etc-page #mini_mp3 {
+    display: none; /* 처음에 숨김 */
+}
+
+body.etc-page #mini_mp3.active {
+    display: table; /* active 클래스가 붙으면 보임 */
+    animation: fadeIn 0.5s;
+}
+
 body.etc-page strong {
     text-align: center;
 }
