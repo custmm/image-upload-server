@@ -46,13 +46,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnCancel = document.getElementById("btn-cancel-clicker");
     const fireworksCanvas = document.getElementById("fireworksCanvas");
 
-    let isClickerEnabled = false; // 클릭커 활성 상태
+    // --- 클릭커 프로그램 감지용 변수 추가 ---
+    let clickTimes = []; // 클릭 시간 기록 배열
+    const CLICK_LIMIT_THRESHOLD = 12; // 1초에 12번 이상 클릭 시 프로그램으로 간주
+    let isClickerBlocked = false; // 팝업이 떠 있는 동안 중복 팝업 방지
+    let isClickerEnabled = false; // "사용" 버튼을 눌렀는지 여부
 
     let globalClickCount = 0;
     let glowClickCount = 0;
     let clickedCircles = [];
     const totalGlowClicksNeeded = 5;
     let isPopupOpen = false;  //  팝업 상태 변수 추가
+
 
     /* ---------------- 문 열기 + 페이지 이동 ---------------- */
     function openDoorAndRedirect(url) {
@@ -141,32 +146,59 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(overlay);
     }
 
+    /* ---------------- 클릭커 감지 및 팝업 표시 함수 ---------------- */
+    function triggerClickerDetection() {
+        if (isClickerBlocked) return;
+        isClickerBlocked = true;
+
+        // 숨겨져 있던 팝업창을 보이게 함
+        clickerModal.style.display = "flex";
+        console.warn("⚠️ 비정상적인 클릭 속도 감지: 클릭커 확인 팝업을 표시합니다.");
+    }
+
     /* ---------------- 클릭커 선택 팝업 로직 ---------------- */
     btnUse.addEventListener("click", () => {
         isClickerEnabled = true;
+        isClickerBlocked = false;
         clickerModal.style.display = "none";
-        mainContainer.style.display = "block";    // 클릭커 영역 나타남
+        mainContainer.style.display = "block";    // 클릭커 영역(UI) 나타남
         fireworksCanvas.style.display = "block";  // 캔버스 활성화
-        console.log("🚀 클릭커 활성화: 최적화 모드로 시작합니다.");
+        console.log("🚀 사용자가 클릭커 사용을 승인했습니다. 최적화 모드 가동.");
     });
 
     btnCancel.addEventListener("click", () => {
         isClickerEnabled = false;
+        isClickerBlocked = false;
         clickerModal.style.display = "none";
-        mainContainer.remove(); // 아예 DOM에서 제거하여 메모리 확보 
-        alert("클릭커가 비활성화되었습니다. 쾌적하게 서핑하세요!");
+
+        // 클릭커를 사용 안 하므로 관련 영역을 아예 제거하여 [응답 없음] 방지
+        if (mainContainer) mainContainer.remove();
+        if (fireworksCanvas) fireworksCanvas.remove();
+
+        alert("클릭커가 해제되었습니다. 웹사이트 성능을 보호합니다.");
     });
 
     /* ---------------- 클릭 이벤트 수정 ---------------- */
     body.addEventListener("click", (event) => {
-        if (isPopupOpen || !isClickerEnabled) return;  //  팝업이 열려있으면 클릭 카운트 증가 X
+        if (isPopupOpen) return;  //  팝업이 열려있으면 클릭 카운트 증가 X
 
-        // UI 클릭 제외 로직 (기존 유지)
+        // 1. 클릭 속도 측정 (프로그램 인식 로직)
+        const now = Date.now();
+        clickTimes.push(now);
+        clickTimes = clickTimes.filter(time => now - time < 1000); // 최근 1초 기록 유지
+
+        if (clickTimes.length > CLICK_LIMIT_THRESHOLD && !isClickerEnabled) {
+            triggerClickerDetection();
+            return; // 팝업 확인 전까지는 아래 로직 실행 안 함
+        }
+
+        // 2. UI 클릭 예외 처리 (기존 유지)
         if (event.target.closest(".container") || event.target.closest("button") ||
             event.target.closest("a") || event.target.classList.contains("glow-circle")) return;
 
+        // 3. 사용 승인된 경우 또는 일반 클릭일 때만 불꽃놀이 실행
         const x = event.clientX;
-        const y = event.clientY; // scroll 보정
+        const y = event.clientY;
 
         // [최적화] 프레임 유실 방지를 위해 requestAnimationFrame 사용 
         window.requestAnimationFrame(() => {
