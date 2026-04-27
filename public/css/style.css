@@ -3704,7 +3704,7 @@ body.etc-page #rc_car_intro_1 .img_wrap img{
 body.etc-page #rc_car_intro_1 .text_wrap{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 body.etc-page #rc_car_intro_1 > .text_wrap > table.part_name{
