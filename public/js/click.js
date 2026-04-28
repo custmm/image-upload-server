@@ -3,31 +3,33 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. 요소 선택
   const container = document.querySelector(".explan-container");
   const toggleButtons = document.querySelectorAll(".detail-toggle");
-  const backBtn = document.getElementById("backBtn");
+
+  const backBtn = document.querySelector(".back-button");
   const themeToggle = document.getElementById("themeToggle");
 
-  // 2. 초기 상태 적용 (투명도 & 테마)
-  const savedOpacity = localStorage.getItem("sharedOpacity");
-  if (savedOpacity && container) {
-    container.style.opacity = savedOpacity;
-  }
-  applySavedTheme();
 
-  // 3. [보안 해결] 뒤로가기 버튼 이벤트 연결 (CSP 에러 방지)
+  // 1. 뒤로가기 버튼 이벤트 (가장 확실한 방법)
   if (backBtn) {
     backBtn.addEventListener("click", () => {
       window.location.href = 'preview.html';
     });
   }
 
-  // 4. [보안 해결] 다크모드 토글 이벤트 연결 (CSP 에러 방지)
+  // 2. 초기 상태 적용
+  const savedOpacity = localStorage.getItem("sharedOpacity");
+  if (savedOpacity && container) {
+    container.style.opacity = savedOpacity;
+  }
+  applySavedTheme();
+
+  // 3. 다크모드 토글
   if (themeToggle) {
     themeToggle.addEventListener("change", () => {
       toggleTheme();
     });
   }
 
-  // 5. 상세 내용 토글 로직 (▽/△)
+  // 4. 상세 내용 토글 (▽/△)
   toggleButtons.forEach(button => {
     button.addEventListener("click", () => {
       const detail = button.closest(".plus_container").querySelector(".detail-content");
@@ -37,46 +39,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 6. [뒤로가기 강화] 브라우저 뒤로가기 감지
-  window.addEventListener("popstate", () => {
-    applySavedTheme();
-    const currentOpacity = localStorage.getItem("sharedOpacity");
-    if (currentOpacity && container) {
-      container.style.opacity = currentOpacity;
-    }
-  });
-
-  // 7. 체험하기 링크에 #explan 자동 붙이기
+  // 5. 체험하기 링크 해시태그 추가
   document.querySelectorAll('.plus_container a').forEach(link => {
     if (!link.href.includes('#explan')) {
       link.href += '#explan';
     }
   });
 
-  // 8. 팝업 진입 시 가짜 히스토리 추가 (뒤로가기 활성화용)
+  // 6. 팝업 진입 시 히스토리 추가 (뒤로가기 제어용)
   if (window.location.hash.includes('explan')) {
+    // 상태 객체({ page: 'explan' })를 명확히 전달
     history.pushState({ page: 'explan' }, "", window.location.href);
   }
 
-  // [추가] 브라우저 뒤로가기/앞으로가기 감지
-  window.addEventListener("popstate", (event) => {
-    // 테마나 투명도 등 저장된 설정을 다시 적용하여 화면 갱신
+  // 7. [뒤로가기 강화] 브라우저 뒤로가기 감지
+  window.addEventListener("popstate", () => {
+    // A. 테마 및 불투명도 재적용
     applySavedTheme();
-    const savedOpacity = localStorage.getItem("sharedOpacity");
-    if (savedOpacity && container) {
-      container.style.opacity = savedOpacity;
+    const currentOpacity = localStorage.getItem("sharedOpacity");
+    if (currentOpacity && container) {
+      container.style.opacity = currentOpacity;
     }
 
-    // 만약 해시(#explan)에 따라 보여주는 내용이 다르다면 여기서 제어
-    console.log("뒤로가기 동작 감지됨");
+    // B. 페이지 이탈 로직
+    // 사용자가 뒤로가기를 눌러 state가 사라졌거나 explan 페이지가 아니라면 이동
+    if (!event.state || event.state.page !== 'explan') {
+      window.location.href = 'preview.html';
+    }
   });
-
-
-
-  // 팝업 진입 시 가짜 히스토리 하나 추가 (뒤로가기 방어용)
-  if (window.location.hash.includes('explan')) {
-    history.pushState(null, null, window.location.href);
-  }
 });
 
 /**
