@@ -349,8 +349,8 @@
     body.preview-page #settingPopup.active {
         width: 270px;
         height: 250px;
-        left: 33%;
-        top: 7%;
+        left: 55%;
+        top: 10%;
     }
 
     body.preview-page #settingBtn img {
