@@ -180,8 +180,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     // --- [테마 관련 이벤트 리스너 추가] ---
     const themeToggle = document.getElementById("themeToggle");
     const themeIcon = document.getElementById("themeIcon");
+    const backBtn = document.querySelector(".back-button");
+    const popupCloseBtn = document.querySelector(".preview-close");
+    const sidebar = document.getElementById("sidebar");    
+    const sidebarSearchBtn = document.getElementById("sidebarSearchBtn");
+    const sidebarSearchInput = document.getElementById("sidebarSearchInput");
+    const sidebarBtn = document.getElementById("sidebarToggleBtn");
+    const settingBtn = document.getElementById("settingBtn");
+    const settingPopup = document.getElementById("settingPopup");
+    const imageModeBtn = document.getElementById("preview-image-mode");
+    const textModeBtn = document.getElementById("preview-text-mode");
+    const galleryEl = document.getElementById("imageGallery");
+    const showIndBtn = document.getElementById("show-indicate");
+    const hideIndBtn = document.getElementById("hide-indicate");
+    const indicatorImg = document.getElementById("indicator-img"); // HTML에 해당 ID의 <img>가 있어야 함
+    const imagePath = "../images/indicator/preview-gunff_"; // 경로 확인 필요
 
-    // 1. 체크박스(스위치) 클릭 시
     if (themeToggle) {
         themeToggle.addEventListener("change", () => {
             // 전역 window.toggleTheme 호출 대신 직접 로직 실행하거나 toggleTheme 실행
@@ -189,32 +203,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // 2. 테마 아이콘(해/달 그림) 자체를 클릭했을 때도 작동하게 하려면 추가
     if (themeIcon) {
         themeIcon.addEventListener("click", () => {
             window.toggleTheme();
         });
     }
 
-    // --- [기타 인라인 핸들러 대체 (권장)] ---
-    // 뒤로가기 버튼 처리
-    const backBtn = document.querySelector(".back-button");
     if (backBtn) {
         backBtn.addEventListener("click", () => {
             window.location.href = location.hash.includes('explan') ? 'click.html' : 'index.html';
         });
     }
 
-    // 팝업 닫기 버튼 처리
-    const popupCloseBtn = document.querySelector(".preview-close");
     if (popupCloseBtn) {
         popupCloseBtn.addEventListener("click", () => {
             window.closePreviewPopup();
         });
     }
 
-    // --- [1. 사이드바 내부 요소들에 대한 이벤트 위임 연결] ---
-    const sidebar = document.getElementById("sidebar");
     if (sidebar) {
         sidebar.addEventListener("click", (e) => {
             const menuTitleBtn = e.target.closest(".menu-title");
@@ -239,10 +245,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         });
     }
-
-    // --- [2. 사이드바 검색 기능 추가] ---
-    const sidebarSearchBtn = document.getElementById("sidebarSearchBtn");
-    const sidebarSearchInput = document.getElementById("sidebarSearchInput");
 
     if (sidebarSearchBtn && sidebarSearchInput) {
         const executeSearch = () => {
@@ -269,8 +271,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // --- [3. 사이드바 열기 버튼 (햄버거)] ---
-    const sidebarBtn = document.getElementById("sidebarToggleBtn");
     if (sidebarBtn) {
         sidebarBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -279,9 +279,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // --- [설정 팝업 제어] ---
-    const settingBtn = document.getElementById("settingBtn");
-    const settingPopup = document.getElementById("settingPopup");
     if (settingBtn && settingPopup) {
         settingBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -297,16 +294,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // 4. 데이터 초기 로드 (기존 유지)
     if (Gallery.loadCategories) {
         await Gallery.loadCategories();
         await Gallery.initializeCategorySelection();
     }
-
-    // 3. 모드 전환 버튼 이벤트
-    const imageModeBtn = document.getElementById("preview-image-mode");
-    const textModeBtn = document.getElementById("preview-text-mode");
-    const galleryEl = document.getElementById("imageGallery");
 
     if (imageModeBtn && textModeBtn) {
         imageModeBtn.addEventListener("click", async () => {
@@ -335,7 +326,36 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // 5. 팝업 드래그 설정
+    if (showIndBtn && indicatorImg) {
+        showIndBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            // 1~8 사이의 랜덤 숫자 생성
+            const randomNum = Math.floor(Math.random() * 8) + 1;
+            
+            // 이미지 소스 설정 및 출력
+            indicatorImg.src = `${imagePath}${randomNum}re.png`;
+            indicatorImg.style.display = "block";
+            
+            // 부드럽게 나타나기 (CSS transition이 설정되어 있어야 함)
+            setTimeout(() => {
+                indicatorImg.style.opacity = "1";
+            }, 10);
+        });
+    }
+
+    if (hideIndBtn && indicatorImg) {
+        hideIndBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            // 부드럽게 사라지기
+            indicatorImg.style.opacity = "0";
+            
+            // 애니메이션 완료 후 display none (0.5초 기준)
+            setTimeout(() => {
+                indicatorImg.style.display = "none";
+            }, 500);
+        });
+    }
+
     if (typeof makePopupDraggable === "function") {
         makePopupDraggable("previewOverlayInfo");
         makePopupDraggable("previewOverlayIcon");
@@ -344,7 +364,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // 6. [중요] PC 휠 가로 스크롤 (이벤트 위임 - DOM 로딩 상관없이 작동)
 document.addEventListener("wheel", (e) => {
-    const galleryEl = document.getElementById("imageGallery");
+    
     if (!galleryEl) return;
 
     // 마우스가 갤러리 영역 위에 있을 때만 변환
