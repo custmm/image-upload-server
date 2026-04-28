@@ -8,7 +8,7 @@ let loaderStep = 1;
 // --- [UI 공통 함수] ---
 
 // 1. 여기에 정의를 추가합니다.
-window.updateLoadingImage = function() {
+window.updateLoadingImage = function () {
     const loader = document.getElementById("mainLoader");
     if (!loader) return;
 
@@ -16,7 +16,7 @@ window.updateLoadingImage = function() {
     const randomIndex = Math.floor(Math.random() * 8) + 1;
     // 경로 설정 (파일명 규칙에 맞게 _re 또는 re 확인 필요)
     const imageUrl = `../images/indicator/preview-gunff_${randomIndex}re.png`;
-    
+
     loader.style.backgroundImage = `url('${imageUrl}')`;
     loader.style.backgroundSize = "contain";
     loader.style.backgroundRepeat = "no-repeat";
@@ -27,19 +27,40 @@ window.updateLoadingImage = function() {
 function initPreviewGuide() {
     const guidePopup = document.getElementById("preview-guide-popup");
     const closeBtn = document.getElementById("close-guide-btn");
-    if (guidePopup) {
-        guidePopup.style.display = "flex";
-        document.body.style.overflow = "hidden";
-        if (closeBtn) {
-            closeBtn.addEventListener("click", () => {
-                guidePopup.style.opacity = "0";
-                guidePopup.style.transition = "opacity 0.3s ease";
-                setTimeout(() => {
-                    guidePopup.style.display = "none";
-                    document.body.style.overflow = "auto";
-                }, 300);
-            });
-        }
+    const todayChk = document.getElementById("today-close-chk"); // 체크박스 참조
+
+    if (!guidePopup) return;
+
+    // 1. 저장된 날짜 확인 (오늘 날짜와 같으면 팝업 띄우지 않음)
+    const hideUntil = localStorage.getItem("hideGuideUntil");
+    const today = new Date().toDateString(); // 예: "Tue Apr 28 2026"
+
+    if (hideUntil === today) {
+        guidePopup.style.display = "none";
+        return;
+    }
+
+    // 2. 팝업 표시 및 배경 스크롤 차단
+    guidePopup.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    // 3. 닫기 버튼 이벤트
+    if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+
+            // 체크박스에 체크되어 있다면 로컬 스토리지에 오늘 날짜 저장
+            if (todayChk && todayChk.checked) {
+                localStorage.setItem("hideGuideUntil", today);
+            }
+
+            // 닫기 애니메이션 처리
+            guidePopup.style.opacity = "0";
+            guidePopup.style.transition = "opacity 0.3s ease";
+            setTimeout(() => {
+                guidePopup.style.display = "none";
+                document.body.style.overflow = "auto";
+            }, 300);
+        });
     }
 }
 
@@ -164,7 +185,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (themeToggle) {
         themeToggle.addEventListener("change", () => {
             // 전역 window.toggleTheme 호출 대신 직접 로직 실행하거나 toggleTheme 실행
-            window.toggleTheme(); 
+            window.toggleTheme();
         });
     }
 
