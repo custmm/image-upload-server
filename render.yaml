@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: my-sub-website
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node src/app.js
+    envVars:
+      - key: NODE_VERSION
+        value: 20.0.0 # 최신 안정화 버전 권장
+      - key: DATABASE_URL
+        fromDatabase:
+          name: my-db
+          property: connectionString
+      # ImageKit 설정
+      - key: IMAGEKIT_PUBLIC_KEY
+        sync: false
+      - key: IMAGEKIT_PRIVATE_KEY
+        sync: false
+      - key: IMAGEKIT_URL_ENDPOINT
+        sync: false
+      # 보안 설정
+      - key: JWT_SECRET
+        sync: false
+      # SSL 설정 (Render 자동 HTTPS 사용 시 필요 없음, 필요 시 경로 지정)
+      - key: SSL_KEY_PATH
+        value: /etc/secrets/server.key
+      - key: SSL_CERT_PATH
+        value: /etc/secrets/cert.pem
+
+databases:
+  - name: my-db
+    plan: free
+    databaseName: karsidify_db
+    user: admin
