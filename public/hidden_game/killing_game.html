@@ -12,8 +12,8 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
     <!-- 파일 내 css -->
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/global.css">
     <style>
         /* 모바일(폭 768px 이하)에서만 표시 */
         @media (max-width: 576px) {
@@ -138,10 +138,10 @@
         <img id="selectedImage" class="selected-image" alt="선택된 이미지">
     </div>
     <div id="hints-container" style="display: none;">
-        <img src="images/game_hint.png" id="gameHint-1" class="game-hint" alt="Game Hint">
-        <img src="images/game_hint.png" id="gameHint-2" class="game-hint" alt="Game Hint">
-        <img src="images/game_hint.png" id="gameHint-3" class="game-hint" alt="Game Hint">
-        <img src="images/game_hint.png" id="gameHint-4" class="game-hint" alt="Game Hint">
+        <img src="../images/game/game_hint.png" id="gameHint-1" class="game-hint" alt="Game Hint">
+        <img src="../images/game/game_hint.png" id="gameHint-2" class="game-hint" alt="Game Hint">
+        <img src="../images/game/game_hint.png" id="gameHint-3" class="game-hint" alt="Game Hint">
+        <img src="../images/game/game_hint.png" id="gameHint-4" class="game-hint" alt="Game Hint">
     </div>
     <div id="gameHint" style="display:none;">힌트 내용</div>
     <div id="playerNumber"></div>
@@ -180,9 +180,9 @@
             <button class="start-game-btn">게임 시작</button>
         </div>
     </div>
-    <audio id="startAudio" src="sounds/game_start.mp3" preload="auto" type="audio/mp3"></audio>
-    <audio id="finishAudio" src="sounds/game_finish.mp3" preload="auto" type="audio/mp3"></audio>
-    <audio id="ruleAudio" src="sounds/game_rule.mp3" preload="auto" type="audio/mp3"></audio>
+    <audio id="startAudio" src="../sounds/game_start.mp3" preload="auto" type="audio/mp3"></audio>
+    <audio id="finishAudio" src="../sounds/game_finish.mp3" preload="auto" type="audio/mp3"></audio>
+    <audio id="ruleAudio" src="../sounds/game_rule.mp3" preload="auto" type="audio/mp3"></audio>
     <!-- 모바일 전용 가상 키패드 -->
     <div id="mobile-keypad">
         <div class="arrow-pad">
