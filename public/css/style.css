@@ -2160,6 +2160,12 @@ body.post-page .pagedown-icon-button {
     width: 40%;
 }
 
+body.post-page .pageup-icon-button:hover,
+body.post-page .pagedown-icon-button:hover{
+    background-color: #00cc8f;
+
+}
+
 /* ====== 미리보기 페이지(preview.html) ====== */
 /*====== 뼈대 스타일 ======*/
 .skeleton-card {
