@@ -62,7 +62,6 @@ export async function runDuplicateAnalysis() {
 }
 
 // ─── 헬퍼 함수 (UI 관련 로직 추가) ───────────────────────────
-
 function createAnalysisWrapper() {
     const wrapper = document.createElement("div");
     wrapper.id = "analysisWrapper";

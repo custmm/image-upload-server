@@ -24,13 +24,13 @@ function hideLoading() {
     document.getElementById("loadingIndicator").style.display = "none";
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
     const loginButton = document.getElementById("loginButton");
     const passwordInput = document.getElementById("password");
     const isExplanMode = window.location.hash.includes("explan");
     const container = document.querySelector(".login-container");
     const savedOpacity = localStorage.getItem("sharedOpacity");
+
     if (savedOpacity && container) {
         container.style.opacity = savedOpacity;
     }
@@ -40,18 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (backBtn) {
             backBtn.onclick = () => window.location.href = "click.html";
         }
-    }
-
-    function moveButtonRandomly() {
-        const maxX = window.innerWidth - loginButton.offsetWidth;
-        const maxY = window.innerHeight - loginButton.offsetHeight;
-
-        const randomX = Math.random() * maxX;
-        const randomY = Math.random() * maxY;
-
-        loginButton.style.position = "absolute";
-        loginButton.style.left = `${randomX}px`;
-        loginButton.style.top = `${randomY}px`;
     }
 
     passwordInput.addEventListener("input", () => {
@@ -121,6 +109,18 @@ document.addEventListener("DOMContentLoaded", function () {
             showPopup("서버 오류 발생!", "error");
         }
     });
+
+    function moveButtonRandomly() {
+        const maxX = window.innerWidth - loginButton.offsetWidth;
+        const maxY = window.innerHeight - loginButton.offsetHeight;
+
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+
+        loginButton.style.position = "absolute";
+        loginButton.style.left = `${randomX}px`;
+        loginButton.style.top = `${randomY}px`;
+    }
 
     function showAdminButton() {
         if (document.querySelector(".admin-styled-button")) {

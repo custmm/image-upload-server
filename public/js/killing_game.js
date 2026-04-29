@@ -1,7 +1,7 @@
 
         // 1. 진입 시 localStorage에 preview 이미지 경로 설정 (만약 없으면)
         if (!localStorage.getItem("selectedImage")) {
-            const totalPreviews = 12;
+            const totalPreviews = 8;
             const randomIndex = Math.floor(Math.random() * totalPreviews) + 1;
             localStorage.setItem("selectedImage", `images/indicator/preview-gunff_${randomIndex}.png`);
         }
@@ -153,14 +153,14 @@
 
             let instructionsClosed = false; // 🔹 팝업이 닫혔는지 확인
 
-            // 🔹 1️⃣ 조작법 팝업 닫기
+            // 조작법 팝업 닫기
             closePopupButton.addEventListener("click", function () {
                 instructionsPopup.style.display = "none";
                 instructionsClosed = true; // 🔹 팝업이 닫힘 상태로 변경
                 console.log("조작법 안내창 닫힘, 스페이스바 입력 가능");
             });
 
-            // 🔹 2️⃣ 이미지 클릭 시 게임 조작법 팝업 표시
+            // 이미지 클릭 시 게임 조작법 팝업 표시
             selectedImageElement.addEventListener("click", function () {
                 if (!instructionsClosed) { // 🔹 조작법 팝업이 닫힌 경우만 실행
                     console.log(" 조작법 안내창이 열려있어 게임 대기화면으로 이동하지 않습니다.");
@@ -170,10 +170,10 @@
                 console.log("게임 조작법 안내창 표시...");
             });
 
-            // 🔹 게임 시작 (클릭 시)
+            // 게임 시작 (클릭 시)
             selectedImageElement.addEventListener("click", function () {
                 if (!instructionsClosed) { // 🔹 조작법 팝업이 열려있으면 실행하지 않음
-                    console.log("🚫 조작법 안내창이 열려있어 게임이 시작되지 않습니다.");
+                    console.log(" 조작법 안내창이 열려있어 게임이 시작되지 않습니다.");
                     return;
                 }
 
@@ -191,7 +191,7 @@
 
                 if (!gameStarted) {
                     gameStarted = true;
-                    console.log("🎮 게임이 시작되었습니다! 스페이스바를 눌러 숫자를 활성화하세요.");
+                    console.log(" 게임이 시작되었습니다! 스페이스바를 눌러 숫자를 활성화하세요.");
                 }
             });
 
@@ -229,7 +229,7 @@
                 }
             }
 
-            // 🔹 체력 감소 함수
+            // 체력 감소 함수
             function decreaseHealth(amount) {
                 if (health > 0) {
                     health -= amount;
@@ -249,7 +249,7 @@
                 }
             }
 
-            // 🔹 모서리 닿음 체크 함수 (30초 누적 시 체력 감소)
+            // 모서리 닿음 체크 함수 (30초 누적 시 체력 감소)
             function checkWallAndCornerContact() {
                 if (!canMove) return;
 
@@ -295,12 +295,12 @@
                 }
             }
 
-            // 🔹 0.1초마다 벽 & 모서리 충돌 감지 (스페이스바를 누른 후에만 실행됨)
+            // 0.1초마다 벽 & 모서리 충돌 감지 (스페이스바를 누른 후에만 실행됨)
             setInterval(() => {
                 checkWallAndCornerContact();
             }, 100);
 
-            // 🔹 벽 경고 효과 업데이트 함수
+            // 벽 경고 효과 업데이트 함수
             function updateWallGlow(left, top, maxX, maxY) {
                 const glowThreshold = 40;
                 let glowBox = document.getElementById("wallGlow");
@@ -343,7 +343,7 @@
 
             function generateNumbers() {
                 let hintElement = document.getElementById("gameHint");
-                console.log("gameHint 요소 확인:", hintElement); // ❗ 디버깅용
+                console.log("gameHint 요소 확인:", hintElement); // 디버깅용
 
                 if (!hintElement) {
                     console.error(" gameHint 요소가 없습니다!");
@@ -617,14 +617,14 @@
                 console.log(` 숫자 ${number} 찾음!`);
 
                 if (!foundNumbers.includes(number)) {
-                    foundNumbers.push(number); // 📌 찾은 숫자 목록에 추가
-                    console.log(`📌 업데이트된 찾은 숫자 목록:`, foundNumbers);
+                    foundNumbers.push(number); // 찾은 숫자 목록에 추가
+                    console.log(` 업데이트된 찾은 숫자 목록:`, foundNumbers);
                 }
 
-                // 📌 **찾은 숫자의 원형 강조 효과 제거**
+                // **찾은 숫자의 원형 강조 효과 제거**
                 let foundElement = document.querySelector(`.hidden-number.number[data-value="${number}"]`);
                 if (foundElement && foundElement.dataset.highlighted) {
-                    console.log(`🔵 숫자 ${number}의 강조 효과 제거`);
+                    console.log(` 숫자 ${number}의 강조 효과 제거`);
 
                     //  opacity를 줄여 서서히 사라지게 설정
                     foundElement.style.transition = "opacity 1s ease-out"; // 1초 동안 서서히 사라짐
@@ -661,9 +661,9 @@
                     return;
                 }
 
-                console.log(`🔦 숫자 ${targetNumber} 강조 표시 (표식 생성)`);
+                console.log(` 숫자 ${targetNumber} 강조 표시 (표식 생성)`);
 
-                // 📌 **목표 숫자의 위치 가져오기**
+                // **목표 숫자의 위치 가져오기**
                 let targetElement = document.querySelector(`.hidden-number.number[data-value="${targetNumber}"]`);
 
                 if (!targetElement) {
@@ -704,7 +704,6 @@
                 console.log(` 힌트 사용됨 - 숫자 ${targetNumber} 위치 (${targetX}, ${targetY})에 원형 표식 표시됨`);
             }
 
-
             //  안전하게 목표 숫자를 가져오는 함수 (랜덤 방식 적용)
             function getNextTargetNumber() {
                 let numbers = Array.from(document.querySelectorAll('.hidden-number.number'));
@@ -716,7 +715,7 @@
                     return numA - numB;
                 });
 
-                console.log("📌 현재 찾은 숫자 목록:", foundNumbers);
+                console.log(" 현재 찾은 숫자 목록:", foundNumbers);
 
                 for (let numElem of numbers) {
                     let targetValue = parseInt(numElem.textContent.trim(), 10);
@@ -726,13 +725,13 @@
 
                     let wasHidden = false;
 
-                    // **🔹 숫자가 `display: none` 상태인지 확인**
+                    // ** 숫자가 `display: none` 상태인지 확인**
                     if (window.getComputedStyle(numElem).display === "none") {
                         numElem.style.display = "block";  // **임시로 보이게 변경**
                         wasHidden = true;
                     }
 
-                    let rect = numElem.getBoundingClientRect();  // 📌 위치 가져오기
+                    let rect = numElem.getBoundingClientRect();  // 위치 가져오기
                     let targetX = rect.left + window.scrollX;  // 뷰포트 좌표를 페이지 좌표로 변환
                     let targetY = rect.top + window.scrollY;
 
@@ -741,7 +740,7 @@
                         numElem.style.display = "none";
                     }
 
-                    console.log(`🎯 다음 목표 숫자: ${targetValue}, 위치: (${targetX}px, ${targetY}px)`);
+                    console.log(` 다음 목표 숫자: ${targetValue}, 위치: (${targetX}px, ${targetY}px)`);
 
                     //  **새로운 숫자 설정 후 강조 표시**
                     currentTargetNumber = targetValue;
@@ -793,7 +792,7 @@
                     const sound = new Audio("sounds/number_catch.mp3"); // 효과음 경로
                     sound.play().catch(e => console.warn("사운드 재생 실패:", e));
 
-                    // 📌 숫자 찾았을 때 표식 서서히 사라지게 하기
+                    // 숫자 찾았을 때 표식 서서히 사라지게 하기
                     let hintMarker = document.getElementById("hint-marker");
                     if (hintMarker) {
                         hintMarker.style.opacity = "0";  // 점점 투명해짐
@@ -817,10 +816,10 @@
                 victoryScreen.style.display = "block";
             }
 
-            // 🔹 스페이스바 처리 함수
+            // 스페이스바 처리 함수
             function handleSpacebar(event) {
                 if (!gameStarted) {
-                    console.log("🚫 게임이 아직 시작되지 않았습니다! 스페이스바를 사용할 수 없습니다.");
+                    console.log(" 게임이 아직 시작되지 않았습니다! 스페이스바를 사용할 수 없습니다.");
                     return;
                 }
                 if (isGameOver) {
@@ -836,7 +835,7 @@
                 }
             }
 
-            // 🔹 캐릭터 이동 처리 함수
+            // 캐릭터 이동 처리 함수
             function handleMovement(event) {
                 if (!canMove) return;
 
@@ -844,14 +843,14 @@
                 moveCharacter();
             }
 
-            // 🔹 캐릭터 회전 함수 (R 키)
+            // 캐릭터 회전 함수 (R 키)
             function rotateCharacter() {
                 rotationAngle += 3;
                 selectedImageElement.style.transform = `rotate(${rotationAngle}deg)`;
-                console.log(`🔄 캐릭터 회전: ${rotationAngle}도`);
+                console.log(` 캐릭터 회전: ${rotationAngle}도`);
             }
 
-            // 🔹 캐릭터 이동 함수
+            // 캐릭터 이동 함수
             function moveCharacter() {
                 const step = 8;
                 let left = parseInt(selectedImageElement.style.left) || selectedImageElement.getBoundingClientRect().left;

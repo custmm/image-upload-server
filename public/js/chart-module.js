@@ -54,7 +54,6 @@ function bindChartSwitchEvents() {
 }
 
 // --- 아래는 기존 도넛/버블 렌더링 함수 유지 ---
-
 function renderDonutChart(labels, data, total) {
     const canvas = document.getElementById("donutChart");
     if (!canvas) return;
