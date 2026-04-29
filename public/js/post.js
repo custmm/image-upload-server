@@ -118,14 +118,16 @@ async function loadPostData() {
 
     // 이전 글 데이터가 있으면 이동 이벤트 연결, 없으면 버튼 숨김
     if (postData.prev_id) {
-      prevBtn.style.display = "inline-block";
-      prevBtn.onclick = () => { window.location.href = `post?id=${postData.prev_id}`; };
+      prevBtn.onclick = () => { 
+        window.location.href = `post?id=${postData.prev_id}`; 
+      };
     }
 
     // 다음 글 데이터가 있으면 이동 이벤트 연결, 없으면 버튼 숨김
     if (postData.next_id) {
-      nextBtn.style.display = "inline-block";
-      nextBtn.onclick = () => { window.location.href = `post?id=${postData.next_id}`; };
+      nextBtn.onclick = () => {
+        window.location.href = `post?id=${postData.next_id}`; 
+      };
     }
 
   } catch (error) {
