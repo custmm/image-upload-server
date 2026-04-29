@@ -2137,6 +2137,16 @@ body.post-page .hashtag-link:hover {
     color: #555;
 }
 
+body.post-page .page_btn{
+    display: flex;
+    margin: 20px auto;
+}
+
+body.post-page .pageup-icon-button,
+body.post-page .pagedown-icon-button{
+    width: 40%;
+}
+
 /* ====== 미리보기 페이지(preview.html) ====== */
 /*====== 뼈대 스타일 ======*/
 .skeleton-card {
