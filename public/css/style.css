@@ -21,19 +21,22 @@ body.index-page .container {
     transform: translate(-50%, -50%);
 }
 
-body.index-page .modal-buttons{
-   display: flex;
-    gap: 10px; 
+body.index-page .modal-buttons {
+    display: flex;
+    gap: 10px;
 }
 
-body.index-page .popup-confirm-button{
+body.index-page .popup-confirm-button {
     border-radius: 20px;
 
 }
+
 /* 팝업 박스 내부 배치 기준 설정 */
 body.index-page .popup-box {
-    position: relative; /* 엑스 버튼 배치의 기준점 */
-    padding-top: 30px;  /* 버튼과 텍스트 사이 여백 */
+    position: relative;
+    /* 엑스 버튼 배치의 기준점 */
+    padding-top: 30px;
+    /* 버튼과 텍스트 사이 여백 */
 }
 
 /* 엑스(X) 버튼 스타일 */
@@ -51,9 +54,12 @@ body.index-page .popup-close-x {
 
 /* 마우스 올렸을 때 효과 */
 body.index-page .popup-close-x:hover {
-    color: #f44336; /* 붉은색으로 강조 */
-    transform: scale(1.2); /* 살짝 커지게 */
+    color: #f44336;
+    /* 붉은색으로 강조 */
+    transform: scale(1.2);
+    /* 살짝 커지게 */
 }
+
 body.index-page .firework {
     position: fixed;
     pointer-events: none;
@@ -1935,16 +1941,21 @@ body.post-page .drawing-popup {
     padding: 10px;
     border: 1px solid #ccc;
 }
+
 /* 카테고리 이름에 마우스를 올렸을 때 효과 */
 body.post-page #postCategory {
-  cursor: pointer; /* 마우스 커서를 손가락 모양으로 */
-  transition: color 0.2s;
+    cursor: pointer;
+    /* 마우스 커서를 손가락 모양으로 */
+    transition: color 0.2s;
 }
 
 body.post-page #postCategory:hover {
-  text-decoration: underline; /* 밑줄 표시 */
-  color: #007bff; /* 파란색 등으로 강조 (원하는 색상으로 변경 가능) */
+    text-decoration: underline;
+    /* 밑줄 표시 */
+    color: #007bff;
+    /* 파란색 등으로 강조 (원하는 색상으로 변경 가능) */
 }
+
 body.post-page .post-container {
     display: flex;
     flex-direction: column;
@@ -2137,13 +2148,15 @@ body.post-page .hashtag-link:hover {
     color: #555;
 }
 
-body.post-page .page_btn{
+body.post-page .page_btn {
     display: flex;
     margin: 20px auto;
+    justify-content: center;
+    gap: 20px;
 }
 
 body.post-page .pageup-icon-button,
-body.post-page .pagedown-icon-button{
+body.post-page .pagedown-icon-button {
     width: 40%;
 }
 
@@ -3739,28 +3752,28 @@ body.etc-page .app_dev img {
     display: block;
 }
 
-body.etc-page #rc_car_intro_1{
+body.etc-page #rc_car_intro_1 {
     display: flex;
     flex-direction: column;
 }
 
-body.etc-page #rc_car_intro_1 .img_wrap{
+body.etc-page #rc_car_intro_1 .img_wrap {
     margin: 0 auto;
     width: 250px;
 }
 
-body.etc-page #rc_car_intro_1 .img_wrap img{
+body.etc-page #rc_car_intro_1 .img_wrap img {
     width: 100%;
 }
 
-body.etc-page #rc_car_intro_1 .text_wrap{
+body.etc-page #rc_car_intro_1 .text_wrap {
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 25px;
 }
 
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name{
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name {
     width: 250px;
 
 }
@@ -3773,26 +3786,28 @@ body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(6) img,
 body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(7) img,
 body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(8) img,
 body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(9) img,
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(10) img{
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(10) img {
     width: 200px;
     height: 200px;
 
 }
 
-body.etc-page #rc_car_intro_1 .text_wrap .planning img{
+body.etc-page #rc_car_intro_1 .text_wrap .planning img {
     width: 300px;
 }
 
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name td{
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name td {
     width: 350px;
 }
 
 body.etc-page #mini_mp3 {
-    display: none; /* 처음에 숨김 */
+    display: none;
+    /* 처음에 숨김 */
 }
 
 body.etc-page #mini_mp3.active {
-    display: table; /* active 클래스가 붙으면 보임 */
+    display: table;
+    /* active 클래스가 붙으면 보임 */
     animation: fadeIn 0.5s;
 }
 
