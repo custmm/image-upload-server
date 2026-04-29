@@ -70,72 +70,73 @@ function renderHashtags(text) {
 //  서버에서 데이터 가져오기
 async function loadPostData() {
   let { id } = getParamsFromURL();
-
   if (!id) {
     document.getElementById("postDescription").innerHTML =
       "올바른 게시물을 찾을 수 없습니다.";
     return;
   }
 
-  console.log(`요청할 파일 정보: ${id}`);
-
   showLoading();
 
   try {
     const apiURL = `/api/files/${id}`;
-    console.log("요청 URL:", apiURL);
-
     const response = await fetch(apiURL);
-
-    if (!response.ok) {
-      throw new Error(`서버 응답 오류: ${response.status} - ${response.statusText}`);
-    }
+    if (!response.ok) throw new Error("서버 응답 오류");
 
     const postData = await response.json();
-    console.log("서버에서 불러온 게시물 데이터:", postData);
 
-    document.getElementById("postImage").src =
-      `${postData.file_path}`;
-    document.getElementById("postCategory").textContent =
-      postData.category_name || "카테고리 없음";
+    // --- [데이터 렌더링 기존 코드] ---
+    document.getElementById("postImage").src = `${postData.file_path}`;
+    document.getElementById("postCategory").textContent = postData.category_name || "카테고리 없음";
 
-    document.getElementById("postCategory").addEventListener("click", () => {
-      if (postData.category_name) {
-        const categoryParam = encodeURIComponent(postData.category_name);
-        window.location.href = `preview?category=${categoryParam}`;
+    // 카테고리 클릭 이벤트 추가
+    document.getElementById("postCategory").onclick = () => {
+      const cat = postData.category_name;
+      const sub = postData.subcategory_name;
+
+      if (cat) {
+        let url = `preview?category=${encodeURIComponent(cat)}`;
+        if (sub) {
+          url += `&subcategory=${encodeURIComponent(sub)}`;
+        }
+        window.location.href = url;
       }
-    });
+    };
 
-    document.getElementById("postSubcategory").textContent =
-      postData.subcategory_name || "서브카테고리 없음";
+    document.getElementById("postSubcategory").textContent = postData.subcategory_name || "서브카테고리 없음";
+    document.getElementById("postTitle").textContent = postData.title || "제목 없음";
+    document.title = postData.title || "게시물";
 
-    document.getElementById("postTitle").textContent =
-      postData.title || "제목 없음";
-
-    document.title =
-      postData.title || "게시물";
-
-    const descriptionText =
-      postData.text ||
-      postData.description?.text ||
-      "";
-
-    const cleanedDescription = descriptionText
-      .replace(/#([\w가-힣]+)/g, "")
-      .replace(/\n/g, "<br>")
-      .trim();
-
-    document.getElementById("postDescription").innerHTML =
-      cleanedDescription || "설명 없음";
-
-
-    // 해시태그는 따로 렌더링
+    // 설명 및 해시태그 처리 (기존 로직)
+    const descriptionText = postData.text || postData.description?.text || "";
+    document.getElementById("postDescription").innerHTML = descriptionText.replace(/#([\w가-힣]+)/g, "").replace(/\n/g, "<br>").trim();
     renderHashtags(descriptionText);
+
+    // --- [추가: 이전/다음 버튼 로직] ---
+    const prevBtn = document.getElementById("prevPostButton");
+    const nextBtn = document.getElementById("nextPostButton");
+
+    // 이전 글 데이터가 있으면 이동 이벤트 연결, 없으면 버튼 숨김
+    if (postData.prev_id) {
+      prevBtn.style.display = "inline-block";
+      prevBtn.onclick = () => { window.location.href = `post?id=${postData.prev_id}`; };
+    } else {
+      prevBtn.style.display = "none";
+    }
+
+    // 다음 글 데이터가 있으면 이동 이벤트 연결, 없으면 버튼 숨김
+    if (postData.next_id) {
+      nextBtn.style.display = "inline-block";
+      nextBtn.onclick = () => { window.location.href = `post?id=${postData.next_id}`; };
+    } else {
+      nextBtn.style.display = "none";
+    }
+
+
 
   } catch (error) {
     console.error("게시물 불러오기 오류:", error);
-    document.getElementById("postDescription").innerHTML =
-      "게시물을 불러오는 중 오류 발생";
+    document.getElementById("postDescription").innerHTML = "게시물을 불러오는 중 오류 발생";
   } finally {
     hideLoading();
   }
@@ -326,10 +327,10 @@ function applySavedTheme() {
 }
 
 function setTheme(mode) {
-    document.body.classList.remove("light-mode", "dark-mode");
-    document.body.classList.add(mode);
+  document.body.classList.remove("light-mode", "dark-mode");
+  document.body.classList.add(mode);
 
-    localStorage.setItem("theme", mode);
+  localStorage.setItem("theme", mode);
 }
 
 //  페이지 로드 시 데이터 불러오기

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const backBtn = document.querySelector(".back-button");
   const themeToggle = document.getElementById("themeToggle");
-
+const savedOpacity = localStorage.getItem("sharedOpacity");
 
   // 1. 뒤로가기 버튼 이벤트 (가장 확실한 방법)
   if (backBtn) {
@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 2. 초기 상태 적용
-  const savedOpacity = localStorage.getItem("sharedOpacity");
   if (savedOpacity && container) {
     container.style.opacity = savedOpacity;
   }
@@ -54,9 +53,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 7. [뒤로가기 강화] 브라우저 뒤로가기 감지
   window.addEventListener("popstate", () => {
+    const currentOpacity = localStorage.getItem("sharedOpacity");
+    
     // A. 테마 및 불투명도 재적용
     applySavedTheme();
-    const currentOpacity = localStorage.getItem("sharedOpacity");
     if (currentOpacity && container) {
       container.style.opacity = currentOpacity;
     }

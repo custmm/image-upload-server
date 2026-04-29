@@ -1935,7 +1935,16 @@ body.post-page .drawing-popup {
     padding: 10px;
     border: 1px solid #ccc;
 }
+/* 카테고리 이름에 마우스를 올렸을 때 효과 */
+body.post-page #postCategory {
+  cursor: pointer; /* 마우스 커서를 손가락 모양으로 */
+  transition: color 0.2s;
+}
 
+body.post-page #postCategory:hover {
+  text-decoration: underline; /* 밑줄 표시 */
+  color: #007bff; /* 파란색 등으로 강조 (원하는 색상으로 변경 가능) */
+}
 body.post-page .post-container {
     display: flex;
     flex-direction: column;

@@ -8,7 +8,8 @@
   <title>Ɐ퓨챠휼Ɐ >> 게시물</title>
 
   <!-- 외부 링크 css -->
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- 파일 내 css -->
@@ -26,7 +27,7 @@
     <button id="picture">
       <img src="images/toggle/draw-tool.png" alt="그리기">
     </button>
-    
+
     <!-- 다크 모드 토글 스위치 -->
     <div class="toggle-switch">
       <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
@@ -83,6 +84,14 @@
     </div>
     <!-- 버튼 추가 -->
     <div class="post-buttons">
+      <button id="prevPostButton" class="icon-button" title="이전 글">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <button id="nextPostButton" class="icon-button" title="다음 글">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
       <button id="backToListButton" class="icon-button">
         <i class="fa-solid fa-list"></i>
       </button>

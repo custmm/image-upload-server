@@ -57,13 +57,9 @@ async function fetchPopupImages() {
     try {
         // [지연 추가]
         const delayPromise = new Promise(resolve => setTimeout(resolve, 600));
-        
         const fetchPromise = fetch(`/api/files?offset=${popupOffset}&limit=${popupLimit}`)
             .then(res => res.json());
-
-        // 지연 시간과 데이터 로드를 병렬로 실행하되, 둘 다 끝날 때까지 기다림
         const [_, resJson] = await Promise.all([delayPromise, fetchPromise]);
-        
         const images = Array.isArray(resJson) ? resJson : resJson.files;
 
         if (images.length === 0) {
