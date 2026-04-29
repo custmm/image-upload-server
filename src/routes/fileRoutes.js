@@ -48,7 +48,7 @@ router.get("/", async (req, res) => {
             }
         }
 
-        console.log(`📌 서버: whereClause=${JSON.stringify(whereClause)}, offset=${offset}, limit=${limit}`);
+        console.log(` 서버: whereClause=${JSON.stringify(whereClause)}, offset=${offset}, limit=${limit}`);
         // 1) 전체 개수
         const total = await File.count({ where: whereClause });
 
@@ -111,7 +111,7 @@ router.get("/:id", async (req, res) => {
 
         const categoryId = foundFile.category_id;
 
-        // 2. 👈 [추가] 이전 게시물 찾기 (같은 카테고리 내에서 현재 ID보다 작은 것 중 가장 큰 값)
+        // 2. [추가] 이전 게시물 찾기 (같은 카테고리 내에서 현재 ID보다 작은 것 중 가장 큰 값)
         const prevPost = await File.findOne({
             where: {
                 category_id: categoryId,
@@ -121,7 +121,7 @@ router.get("/:id", async (req, res) => {
             attributes: ["id"]
         });
 
-        // 3. 👈 [추가] 다음 게시물 찾기 (같은 카테고리 내에서 현재 ID보다 큰 것 중 가장 작은 값)
+        // 3. [추가] 다음 게시물 찾기 (같은 카테고리 내에서 현재 ID보다 큰 것 중 가장 작은 값)
         const nextPost = await File.findOne({
             where: {
                 category_id: categoryId,
@@ -140,7 +140,7 @@ router.get("/:id", async (req, res) => {
             next_id: nextPost ? nextPost.id : null  // 👈 [추가] 다음 ID 전달
         });
 
-        console.log(`✅ 게시물 조회 성공: ID ${foundFile.id} (이전:${prevPost?.id}, 다음:${nextPost?.id})`);
+        console.log(` 게시물 조회 성공: ID ${foundFile.id} (이전:${prevPost?.id}, 다음:${nextPost?.id})`);
 
     } catch (error) {
         console.error(" 상세 조회 서버 오류:", error);
@@ -154,7 +154,7 @@ router.get("/file", async (req, res) => {
         let { category, subcategory, file } = req.query;
 
         console.log(
-            `📌 요청받은 파일: category=${category}, subcategory=${subcategory}, file=${file}`
+            ` 요청받은 파일: category=${category}, subcategory=${subcategory}, file=${file}`
         );
 
 
