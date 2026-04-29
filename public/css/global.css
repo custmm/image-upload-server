@@ -145,6 +145,7 @@ body:not(.no-bg) {
 body{
     font-family: 'Pretendard';
     line-height: 1.5;
+    transition: background-color 0.3s, color 0.3s;
 }
 /* ====== 버튼 공통 ====== */
 button {
@@ -252,8 +253,6 @@ body.auth-lock {
     visibility: hidden;
 }
 
-    
-
 body.click-page,
 body.login-page,
 body.upload-page,
@@ -268,11 +267,6 @@ body.tag-page,
 body.upload-page,
 body.index-page {
     position: relative;
-}
-
-body.preview-page,
-body.post-page {
-    transition: background-color 0.3s, color 0.3s;
 }
 
 body.mode-page {

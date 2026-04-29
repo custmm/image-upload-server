@@ -336,17 +336,12 @@ document.addEventListener("DOMContentLoaded", () => {
   bindDrawingEvents();        //  이 줄 추가
 });
 
-//  "목록으로" 버튼 클릭 시 이전 페이지로 이동
-document.getElementById("backToListButton").addEventListener("click", () => {
-  window.history.back(); //  이전 페이지로 이동
-});
-
 //  "공유" 버튼 클릭 시 현재 페이지 URL 복사
 document.getElementById("shareButton").addEventListener("click", async () => {
   try {
     const postURL = window.location.href;
     await navigator.clipboard.writeText(postURL);
-    showPopupMessage("📌 링크가 클립보드에 복사되었습니다!");
+    showPopupMessage(" 링크가 클립보드에 복사되었습니다!");
   } catch (err) {
     console.error(" 공유 실패:", err);
     showPopupMessage(" 링크 복사에 실패했습니다.");
