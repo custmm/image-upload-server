@@ -6,6 +6,36 @@ let loaderInterval = null;
 let loaderStep = 1;
 
 // --- [UI 공통 함수] ---
+// --- [신규 드래그 로직 함수 정의] ---
+function makeImageDraggable(imgId) {
+    const img = document.getElementById(imgId);
+    if (!img) return;
+
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    img.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        img.style.cursor = "grabbing";
+        offsetX = e.clientX - img.offsetLeft;
+        offsetY = e.clientY - img.offsetTop;
+        e.preventDefault();
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        img.style.left = `${e.clientX - offsetX}px`;
+        img.style.top = `${e.clientY - offsetY}px`;
+        img.style.position = "fixed"; // 위치 고정
+    });
+
+    document.addEventListener("mouseup", () => {
+        if (isDragging) {
+            isDragging = false;
+            img.style.cursor = "grab";
+        }
+    });
+}
 
 // 1. 여기에 정의를 추가합니다.
 window.updateLoadingImage = function () {
@@ -360,6 +390,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         makePopupDraggable("previewOverlayInfo");
         makePopupDraggable("previewOverlayIcon");
     }
+    
+    if (typeof makeImageDraggable === "function") {
+        makeImageDraggable("indicator-img");
+    }
+
 });
 
 // 6. [중요] PC 휠 가로 스크롤 (이벤트 위임 - DOM 로딩 상관없이 작동)
