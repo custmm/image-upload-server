@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.target.closest(".container") ||
             event.target.closest("button") ||
             event.target.closest("a") ||
-            event.target.classList.contains("glow-circle")||
+            event.target.classList.contains("glow-circle") ||
             event.target.closest(".popup-overlay")
         ) return;
 
@@ -371,8 +371,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function playFireworkSound() {
-        audio2.currentTime = 0;
-        audio2.play();
+        // [추가된 코드] 테토 모드('heavy')일 때만 소리를 재생합니다.
+        if (currentFireworkMode === 'heavy') {
+            audio2.currentTime = 0;
+            audio2.play();
+        }
     }
 
     function createCircles() {
