@@ -171,12 +171,15 @@ document.addEventListener("DOMContentLoaded", () => {
         popupBox.appendChild(closeBtn);
 
         // 엑스 버튼 클릭 시 팝업 닫기 (설정 없이 넘어가기)
-        closeBtn.onclick = () => {
+        closeBtn.onclick = (event) => {
+            // [추가된 코드] 이벤트 버블링 차단: 클릭이 body로 넘어가는 것을 막습니다.
+            event.stopPropagation();
+
             if (clickerModal) clickerModal.style.display = "none";
             console.log("팝업이 수동으로 닫혔습니다. 기본 클릭커 모드가 적용됩니다.");
         };
     }
-    
+
     if (btnUse) {
         btnUse.onclick = () => {
             currentFireworkMode = 'heavy'; // 제작자 컨셉 그대로!
@@ -208,8 +211,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // 2. UI 클릭 예외 처리 (기존 유지)
-        if (event.target.closest(".container") || event.target.closest("button") ||
-            event.target.closest("a") || event.target.classList.contains("glow-circle")) return;
+        if (event.target.closest(".container") ||
+            event.target.closest("button") ||
+            event.target.closest("a") ||
+            event.target.classList.contains("glow-circle")||
+            event.target.closest(".popup-overlay")
+        ) return;
 
         // 3. 사용 승인된 경우 또는 일반 클릭일 때만 불꽃놀이 실행
         const x = event.clientX;
