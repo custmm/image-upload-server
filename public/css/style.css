@@ -3444,19 +3444,43 @@ body.preview-page .page-footer li a:hover {
 body.preview-page .fixed-trash-container {
     position: fixed;
     bottom: 60px;
-    /* 바닥에서 20px 띄움 */
     right: 120px;
-    /* 우측에서 20px 띄움 */
     width: 100px;
-    /* 아이콘 크기 조절 */
     height: 100px;
     z-index: 1000;
-    /* 다른 요소보다 위에 표시 */
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease;
+    /* ✨ 이제 아이콘들이 absolute라 꽉 채울 거니까 flex 속성은 지워도 괜찮아! */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 커비처럼 통통 튀는 이징 효과 추가! */
+}
+
+/* 🌟 핵심 1: 아이콘을 완벽하게 겹치게 만드는 스타일 */
+body.preview-page .trash-icon {
+    position: absolute;
+    top: 0;               /* 무조건 맨 위 */
+    left: 0;              /* 무조건 맨 왼쪽에서 시작 */
+    width: 100%;          /* 100px에 꽉 차게 */
+    height: 100%;
+    object-fit: contain;  /* 비율이 안 깨지도록 꽉 잡아줌! */
+    transition: opacity 0.2s ease; /* 깜빡이는 속도를 살짝 더 빠르게! */
+}
+
+/* 2번 아이콘 기본 숨기기 */
+body.preview-page .hover-icon {
+    opacity: 0;
+}
+
+/* 🌟 핵심 2: :hover 대신 .open 클래스로 제어! (JS랑 완벽 동기화) */
+body.preview-page .fixed-trash-container.open .main-icon {
+    opacity: 0;
+}
+
+body.preview-page .fixed-trash-container.open .hover-icon {
+    opacity: 1;
+}
+
+/* .open 상태일 때 살짝 커지면서 입을 쩍! 벌리는 느낌 */
+body.preview-page .fixed-trash-container.open {
+    transform: scale(1.15); /* 1은 그대로라는 뜻이야! 1.15로 해야 커비처럼 커져! */
 }
 
 /* 아이콘 기본 스타일 */
@@ -3472,19 +3496,7 @@ body.preview-page .hover-icon {
     opacity: 0;
 }
 
-/* 호버 시: 1번 숨기고 2번 보이기 */
-body.preview-page .fixed-trash-container:hover .main-icon {
-    opacity: 0;
-}
 
-body.preview-page .fixed-trash-container:hover .hover-icon {
-    opacity: 1;
-}
-
-/* 호버 시 살짝 커지는 효과 */
-body.preview-page .fixed-trash-container:hover {
-    transform: scale(1);
-}
 
 /* 소개팝업페이지(preview_popup.html) */
 body.preview-popup-page {
