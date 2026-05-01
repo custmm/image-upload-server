@@ -4,6 +4,7 @@ const batchSize = 24;
 let isLoadingList = false; // 중복 로딩 방지
 let textNoMoreData = false; // 데이터가 더 이상 없는지 체크
 
+
 /**
  * 1. 텍스트 리스트 데이터 가져오기
  */
@@ -142,6 +143,20 @@ export async function deletePost(id) {
         window.showeditpopup('게시물을 정말 삭제하시겠습니까?', executeDelete);
     } else if (confirm("게시물을 삭제하시겠습니까?")) {
         executeDelete();
+    }
+}
+
+// [추가] 게시물 더보기 버튼 상태 업데이트 함수
+function updateLoadButton(hasMore) {
+    const loadToggleBtn = document.getElementById("loadToggleBtn");
+    
+    if (!loadToggleBtn) return; // 버튼 요소가 없으면 무시
+
+    if (hasMore) {
+        loadToggleBtn.style.display = "block"; // 데이터가 더 있으면 보이기
+        loadToggleBtn.innerText = "게시물 로드";
+    } else {
+        loadToggleBtn.style.display = "none"; // 더 불러올 데이터가 없으면 숨기기
     }
 }
 

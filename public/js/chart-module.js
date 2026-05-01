@@ -4,22 +4,31 @@
 
 export async function renderDashboardCharts() {
     try {
-        const response = await fetch("/api/files/category-counts");
-        const categoryData = await response.json();
+        const response = await fetch('https://karisdify.site/api/files/category-counts');
         
-        const categories = categoryData.map(item => item.category_name);
-        const total = categoryData.reduce((acc, val) => acc + Number(val.count), 0);
-        const probabilities = categoryData.map(item => ((Number(item.count) / total) * 100).toFixed(2));
+        // 1. 서버 응답이 정상(200번대)인지 확인
+        if (!response.ok) {
+            throw new Error(`API 요청 실패: HTTP 상태 코드 ${response.status}`);
+        }
 
-        // 1. 차트 생성
-        renderDonutChart(categories, probabilities, total);
-        renderBubbleChart(categories, probabilities);
+        const responseData = await response.json();
+        
+        // 2. 받은 데이터가 배열인지 확인 (API 구조에 따라 responseData.data 일 수도 있음)
+        const categoryData = Array.isArray(responseData) ? responseData : (responseData.data || []);
 
-        // 2. [추가] 도넛/버블 전환 버튼 이벤트 바인딩
-        bindChartSwitchEvents();
+        // 3. 배열이 맞는지 최종 확인 후 map 실행
+        if (!Array.isArray(categoryData) || categoryData.length === 0) {
+            console.warn('차트를 그릴 데이터가 없거나 배열 형식이 아닙니다.', categoryData);
+            return; // 데이터가 없으면 여기서 함수 종료 (에러 방지)
+        }
+
+        // 기존 코드 유지
+        const labels = categoryData.map(item => item.category);
+        const dataValues = categoryData.map(item => item.count);
+        // ... (이후 차트 그리는 로직은 그대로 유지) ...
 
     } catch (error) {
-        console.error("차트 로드 실패:", error);
+        console.error('차트 로드 실패:', error);
     }
 }
 
