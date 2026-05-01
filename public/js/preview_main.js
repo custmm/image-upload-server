@@ -423,7 +423,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const dist = Math.hypot(tX - iX, tY - iY);
 
                     // 2. 100px 이내에서 마우스를 딱! 놓았을 때
-                    if (dist < 150) {
+                    if (dist < 100) {
 
                         // 🟢 쏙 들어가는 순간 CSS 클래스를 통해 trash_icon2.svg 노출! (입 쩍!)
                         trashContainer.classList.add("open");

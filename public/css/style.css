@@ -3431,7 +3431,7 @@ body.preview-page .page-footer li a:hover {
 /* 쓰레기통 컨테이너 고정 */
 body.preview-page .fixed-trash-container {
     position: fixed;
-    bottom: 10px;
+    bottom: 60px;
     /* 바닥에서 20px 띄움 */
     right: 120px;
     /* 우측에서 20px 띄움 */
