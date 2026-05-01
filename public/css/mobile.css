@@ -231,20 +231,19 @@
 }
 
 @media (max-width: 576px) {
-        body.preview-page .message-container{
-            margin-top: 30px;
-            text-align: center;
-        }
-        body.preview-page #settingBtn{
-            right: 25px;
+    body.preview-page .message-container {
+        margin-top: 30px;
+        text-align: center;
+    }
 
-        }
-        body.preview-page .tab-design{
-            width: 80%;
-        }
-        body.preview-page span .tab-text{
-            font-size: 12px;
-        }
+    body.preview-page #settingBtn {
+        right: 25px;
+
+    }
+
+    body.preview-page .tab-design {
+        width: 80%;
+    }
 }
 
 /*============== post-page의css ==============*/
