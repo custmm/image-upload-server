@@ -395,6 +395,54 @@ document.addEventListener("DOMContentLoaded", async () => {
         makeImageDraggable("indicator-img");
     }
 
+    if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
+
+        gsap.registerPlugin(Draggable);
+        
+        const indicator = document.getElementById("indicator-img");
+        const trashContainer = document.querySelector(".fixed-trash-container");
+
+        if (indicator && trashContainer) {
+            Draggable.create(indicator, {
+                type: "x,y",
+                bounds: window,
+                
+                onDrag: function() {
+                    if (this.hitTest(trashContainer, "30%")) {
+                        trashContainer.classList.add("open");
+                    } else {
+                        trashContainer.classList.remove("open");
+                    }
+                },
+
+                onRelease: function() {
+                    if (this.hitTest(trashContainer, "30%")) {
+                        const trashRect = trashContainer.getBoundingClientRect();
+                        const indicatorRect = indicator.getBoundingClientRect();
+                        
+                        const dropX = trashRect.left + (trashRect.width / 2) - (indicatorRect.width / 2) - indicatorRect.left + this.x;
+                        const dropY = trashRect.top + (trashRect.height / 2) - (indicatorRect.height / 2) - indicatorRect.top + this.y;
+
+                        gsap.to(indicator, {
+                            duration: 0.5,
+                            x: dropX,
+                            y: dropY,
+                            scale: 0,
+                            opacity: 0,
+                            rotation: 360,
+                            ease: "back.in(1.7)",
+                            onComplete: () => {
+                                indicator.style.display = "none";
+                                trashContainer.classList.remove("open");
+                                gsap.set(indicator, { x: 0, y: 0, scale: 1, rotation: 0 }); 
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+
 });
 
 // 6. [중요] PC 휠 가로 스크롤 (이벤트 위임 - DOM 로딩 상관없이 작동)
