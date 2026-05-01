@@ -395,7 +395,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         makeImageDraggable("indicator-img");
     }
 
-if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
+    if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
         gsap.registerPlugin(Draggable);
 
         const indicator = document.getElementById("indicator-img");
@@ -431,23 +431,39 @@ if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
                         const dropX = trashRect.left + (trashRect.width / 2) - (indRect.width / 2) - indRect.left + this.x;
                         const dropY = trashRect.top + (trashRect.height / 2) - (indRect.height / 2) - indRect.top + this.y;
 
-                        gsap.to(indicator, {
-                            duration: 0.5,
-                            x: dropX,
-                            y: dropY,
-                            scale: 0,
-                            opacity: 0,
-                            rotation: 360,
-                            ease: "back.in(1.7)",
+                        // 🔥 커비(Kirby) 스타일 애니메이션 타임라인 생성
+                        const tl = gsap.timeline({
                             onComplete: () => {
                                 indicator.style.display = "none";
-                                
+
                                 // 🔴 다 먹고 나서 원래대로 trash_icon1.svg 노출! (입 닫음)
                                 trashContainer.classList.remove("open");
-                                
-                                gsap.set(indicator, { x: 0, y: 0, scale: 1, rotation: 0 }); 
+
+                                // 다음에 다시 나타날 때를 대비해 투명도(opacity)까지 완벽히 초기화
+                                gsap.set(indicator, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1 });
                             }
                         });
+
+                        // [1단계] 진공청소기 바람에 걸려서 바들바들 떨기 (저항하는 느낌)
+                        tl.to(indicator, {
+                            duration: 0.05,        // 아주 짧은 시간 동안
+                            x: this.x + 5,         // 살짝 옆으로 밀리며
+                            y: this.y - 5,
+                            rotation: 15,          // 살짝 기울어짐
+                            scale: 1.1,            // 빨려가기 전 살짝 빵빵해짐
+                            yoyo: true,            // 갔다가 되돌아오기
+                            repeat: 3              // 3번 반복 (바들바들 떨림)
+                        })
+                            // [2단계] 저항을 뚫고 초고속으로 회전하며 빨려 들어감
+                            .to(indicator, {
+                                duration: 0.4,         // 0.4초 만에 순식간에!
+                                x: dropX,
+                                y: dropY,
+                                scale: 0,              // 크기는 0으로 소멸
+                                opacity: 0,
+                                rotation: 1080,        // 3바퀴(360*3)를 미친듯이 회전
+                                ease: "power4.in"      // 가속도 이징! (처음엔 느리다가 입구에서 확! 빨려감)
+                            });
                     }
                 }
             });
