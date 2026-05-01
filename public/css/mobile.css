@@ -1,5 +1,5 @@
+/*============== index-page의css ==============*/
 @media (max-width:768px) {
-    /*============== index-page의css ==============*/
     body.index-page {
         display: flex;
         flex-direction: column;
@@ -15,28 +15,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-    }
-
-    body.index-page #modeSelection {
-        position: relative;
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        width: 85%;
-        justify-content: center;
-    }
-
-    body.index-page #adminModeButton {
-        width: auto;
-        display: none;
-        /* 초기에는 숨김 */
-        border: none;
-    }
-
-    body.index-page #userModeButton {
-        width: auto;
-        border: none;
     }
 
     body.index-page canvas {
@@ -58,9 +36,23 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-    }   
-    
-    /*============== preview-page의css ==============*/
+    }
+}
+
+@media (max-width: 576px) {
+    body.index-page .popup-box {
+        width: 80%;
+    }
+
+    body.index-page #modeSelection {
+        width: 85%;
+
+    }
+
+}
+
+/*============== preview-page의css ==============*/
+@media (max-width:768px) {
     body.preview-page .image-gallery {
         border-radius: 55px;
     }
@@ -236,8 +228,27 @@
         transition: transform 0.3s ease;
         z-index: 9999;
     }
+}
 
-    /*============== post-page의css ==============*/
+@media (max-width: 576px) {
+        body.preview-page .message-container{
+            margin-top: 30px;
+            text-align: center;
+        }
+        body.preview-page #settingBtn{
+            right: 25px;
+
+        }
+        body.preview-page .tab-design{
+            width: 80px;
+        }
+        body.preview-page span .tab-text{
+            font-size: 12px;
+        }
+}
+
+/*============== post-page의css ==============*/
+@media (max-width: 576px) {
     body.post-page .post-container {
         display: flex;
         background-color: #ffffff;
@@ -401,7 +412,7 @@
         left: 115%;
     }
 
-    body.etc-page .dev_wrap{
+    body.etc-page .dev_wrap {
         gap: 25px 30px;
     }
 
