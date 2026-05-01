@@ -395,15 +395,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         makeImageDraggable("indicator-img");
     }
 
-    if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
+if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
         gsap.registerPlugin(Draggable);
 
         const indicator = document.getElementById("indicator-img");
         const trashContainer = document.querySelector(".fixed-trash-container");
-
-        // 🔥 HTML에 있는 2개의 쓰레기통 아이콘 선택
-        const mainIcon = document.querySelector(".fixed-trash-container .main-icon");   // trash_icon1.svg
-        const hoverIcon = document.querySelector(".fixed-trash-container .hover-icon"); // trash_icon2.svg
 
         if (indicator && trashContainer) {
             Draggable.create(indicator, {
@@ -411,7 +407,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 bounds: window,
 
                 onDrag: function () {
-                    // 드래그 중에는 아무것도 하지 않음 (기본 trash_icon1.svg 유지)
+                    // 1. 드래그 중에는 절대 안 열림 (미리 입 벌리지 않음)
+                    trashContainer.classList.remove("open");
                 },
 
                 onRelease: function () {
@@ -425,14 +422,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     const dist = Math.hypot(tX - iX, tY - iY);
 
-                    // 쓰레기통 근처(100px 이내)에서 마우스를 놓았다면 애니메이션 시작
+                    // 2. 100px 이내에서 마우스를 딱! 놓았을 때
                     if (dist < 100) {
 
-                        // 🟢 [요청사항 적용] 빨려 들어갈 때 trash_icon2.svg 로 변경 (입 벌림)
-                        if (mainIcon && hoverIcon) {
-                            mainIcon.style.display = "none";
-                            hoverIcon.style.display = "block";
-                        }
+                        // 🟢 쏙 들어가는 순간 CSS 클래스를 통해 trash_icon2.svg 노출! (입 쩍!)
+                        trashContainer.classList.add("open");
 
                         const dropX = trashRect.left + (trashRect.width / 2) - (indRect.width / 2) - indRect.left + this.x;
                         const dropY = trashRect.top + (trashRect.height / 2) - (indRect.height / 2) - indRect.top + this.y;
@@ -447,14 +441,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                             ease: "back.in(1.7)",
                             onComplete: () => {
                                 indicator.style.display = "none";
-
-                                // 🔴 [요청사항 적용] 완전히 빨려 들어간 후 (끝날 때) 다시 trash_icon1.svg 로 변경 (입 닫음)
-                                if (mainIcon && hoverIcon) {
-                                    mainIcon.style.display = "block";
-                                    hoverIcon.style.display = "none";
-                                }
-
-                                gsap.set(indicator, { x: 0, y: 0, scale: 1, rotation: 0 });
+                                
+                                // 🔴 다 먹고 나서 원래대로 trash_icon1.svg 노출! (입 닫음)
+                                trashContainer.classList.remove("open");
+                                
+                                gsap.set(indicator, { x: 0, y: 0, scale: 1, rotation: 0 }); 
                             }
                         });
                     }
