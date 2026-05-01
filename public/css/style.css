@@ -3435,9 +3435,9 @@ body.preview-page .fixed-trash-container {
     /* 바닥에서 20px 띄움 */
     right: 120px;
     /* 우측에서 20px 띄움 */
-    width: 120px;
+    width: 100px;
     /* 아이콘 크기 조절 */
-    height: 120px;
+    height: 100px;
     z-index: 1000;
     /* 다른 요소보다 위에 표시 */
     cursor: pointer;
