@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const imageModeBtn = document.getElementById("image-mode");
     const checkBtn = document.getElementById("check-duplicate");
     const loadToggleBtn = document.getElementById("loadToggleBtn");
+    const backBtn = document.querySelector(".back-button");
+    
 
     // 2. 보안 체크 (실패 시 로그인 페이지로 튕김)
     if (!checkAuth()) return;
@@ -23,6 +25,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     await fetchTextList();
 
     // 4. 이벤트 바인딩 (이미 존재하던 버튼 ID 기준)
+    // [추가] 뒤로가기 버튼 클릭 이벤트 (CSP 오류 방지)
+    if (backBtn) {
+        backBtn.addEventListener("click", () => {
+            window.location.href = 'mode-selection.html';
+        });
+    }
     
     // [이미지 모드] 이제 성능 저하 없는 팝업 방식으로 실행됩니다.
     if (imageModeBtn) {
