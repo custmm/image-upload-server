@@ -63,7 +63,8 @@ app.use(helmet({
                 "'unsafe-eval'", // TensorFlow.js의 동적 코드 실행을 위해 필수!
                 "https://unpkg.com", 
                 "https://cdn.jsdelivr.net", 
-                "https://code.jquery.com"
+                "https://code.jquery.com",
+                "https://cdnjs.cloudflare.com"
             ],
             // 3. 스타일시트 허용
             styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://unpkg.com", "https://cdn.jsdelivr.net"],
