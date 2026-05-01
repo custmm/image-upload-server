@@ -315,92 +315,7 @@
     body.tag-page .desc {
         font-size: 0.85rem;
     }
-
-    /*============== login-page의 css ==============*/
-    body.login-page .login-container {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        background-color: aliceblue;
-        width: 75%;
-        margin: 70px auto;
-        box-sizing: border-box;
-        transition: width 0.5s ease-in-out;
-    }
-
-    body.login-page .login-row {
-        display: flex;
-        gap: 25px;
-        margin-left: 15px;
-        margin-right: 15px;
-        margin-top: 10px;
-        flex-wrap: wrap;
-    }
-
-    /*============== mode-page의css ==============*/
-    body.mode-page .mode-selection-container {
-        width: 95% !important;
-    }
-
-    body.mode-page .upload-selection-button,
-    body.mode-page .preview-selection-button,
-    body.mode-page .admin-selection-button {
-        background-color: #000000;
-        color: white;
-        padding: 10px 15px;
-        width: 150px;
-        /* 버튼 너비 일정하게 */
-        transition: transform 0.3s ease-in-out;
-        border-radius: 5px;
-        cursor: pointer;
-        border: none;
-        margin-top: 30px;
-        font-size: 10px;
-    }
-
-    body.mode-page h1 {
-        font-size: 25px;
-        margin-bottom: 20px;
-        /* 제목과 버튼 간의 간격 */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    /*============== dashboard-page의 css ==============*/
-    body.dashboard-page .section-title {
-        font-size: 18px;
-    }
-
-    body.dashboard-page .edit-modal-content {
-        width: 95%;
-    }
-
-    body.dashboard-page .change-button {
-        width: 20px;
-        height: 20px;
-    }
-
-    body.dashboard-page .post-form-container.image-mode .gallery-container {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2px;
-    }
-
-    body.dashboard-page .post-form-container.image-mode .gallery-container img {
-        width: 30px;
-        height: 30px;
-
-    }
-
-    body.dashboard-page .post-image {
-        width: 25px;
-        height: 25px;
-    }
-
-    body.dashboard-page .post-item img {
-        width: 20px;
-        height: 20px;
-    }
-
+    
     /*============== click-page의 css ==============*/
     body.click-page .toggle-switch {
         top: 10px;
@@ -523,6 +438,92 @@
         height: 2px;
         left: 115%;
     }
+
+    /*============== login-page의 css ==============*/
+    body.login-page .login-container {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: aliceblue;
+        width: 75%;
+        margin: 70px auto;
+        box-sizing: border-box;
+        transition: width 0.5s ease-in-out;
+    }
+
+    body.login-page .login-row {
+        display: flex;
+        gap: 25px;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    /*============== mode-page의css ==============*/
+    body.mode-page .mode-selection-container {
+        width: 95% !important;
+    }
+
+    body.mode-page .upload-selection-button,
+    body.mode-page .preview-selection-button,
+    body.mode-page .admin-selection-button {
+        background-color: #000000;
+        color: white;
+        padding: 10px 15px;
+        width: 150px;
+        /* 버튼 너비 일정하게 */
+        transition: transform 0.3s ease-in-out;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        margin-top: 30px;
+        font-size: 10px;
+    }
+
+    body.mode-page h1 {
+        font-size: 25px;
+        margin-bottom: 20px;
+        /* 제목과 버튼 간의 간격 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /*============== dashboard-page의 css ==============*/
+    body.dashboard-page .section-title {
+        font-size: 18px;
+    }
+
+    body.dashboard-page .edit-modal-content {
+        width: 95%;
+    }
+
+    body.dashboard-page .change-button {
+        width: 20px;
+        height: 20px;
+    }
+
+    body.dashboard-page .post-form-container.image-mode .gallery-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+    }
+
+    body.dashboard-page .post-form-container.image-mode .gallery-container img {
+        width: 30px;
+        height: 30px;
+
+    }
+
+    body.dashboard-page .post-image {
+        width: 25px;
+        height: 25px;
+    }
+
+    body.dashboard-page .post-item img {
+        width: 20px;
+        height: 20px;
+    }
+
 
     /*============ upload-page의css ==============*/
     body.upload-page .upload-container {
