@@ -241,8 +241,50 @@
 
     }
 
+    body.preview-page #indicator-img {
+        left: 80%;
+    }
+
+    body.preview-page #settingPopup.active {
+        left: 45%;
+        width: 225px;
+        height: 250px;
+    }
+
+    body.preview-page .setting-popup h3 {
+        font-size: 18px;
+        margin-top: 15px;
+    }
+
+     body.preview-page .setting-popup .setting_item:first-child p,
+     body.preview-page .setting-popup .setting_item:nth-child(2) p,
+     body.preview-page .setting-popup .setting_item:last-child p{
+        font-size: 15px;
+     }
+
+     body.preview-page .toggle-switch_ind{
+        width: 110px;
+     }
+
+     body.preview-page .indicate_btn{
+        width: 50px;
+     }
+
+     body.preview-page .indicate_btn text{
+        font-size: 15px;
+     }
+
+         
+
     body.preview-page .tab-design {
-        width: 80%;
+        width: 90%;
+        height: 60px;
+        gap: 5px;
+        padding: 0 5px;
+    }
+
+    body.preview-page .fixed-trash-container {
+        right: 25px;
     }
 }
 
