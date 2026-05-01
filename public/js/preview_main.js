@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const themeIcon = document.getElementById("themeIcon");
     const backBtn = document.querySelector(".back-button");
     const popupCloseBtn = document.querySelector(".preview-close");
-    const sidebar = document.getElementById("sidebar");    
+    const sidebar = document.getElementById("sidebar");
     const sidebarSearchBtn = document.getElementById("sidebarSearchBtn");
     const sidebarSearchInput = document.getElementById("sidebarSearchInput");
     const sidebarBtn = document.getElementById("sidebarToggleBtn");
@@ -361,11 +361,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             e.preventDefault();
             // 1~8 사이의 랜덤 숫자 생성
             const randomNum = Math.floor(Math.random() * 8) + 1;
-            
+
             // 이미지 소스 설정 및 출력
             indicatorImg.src = `${imagePath}${randomNum}re.png`;
             indicatorImg.style.display = "block";
-            
+
             // 부드럽게 나타나기 (CSS transition이 설정되어 있어야 함)
             setTimeout(() => {
                 indicatorImg.style.opacity = "1";
@@ -378,7 +378,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             e.preventDefault();
             // 부드럽게 사라지기
             indicatorImg.style.opacity = "0";
-            
+
             // 애니메이션 완료 후 display none (0.5초 기준)
             setTimeout(() => {
                 indicatorImg.style.display = "none";
@@ -390,57 +390,50 @@ document.addEventListener("DOMContentLoaded", async () => {
         makePopupDraggable("previewOverlayInfo");
         makePopupDraggable("previewOverlayIcon");
     }
-    
+
     if (typeof makeImageDraggable === "function") {
         makeImageDraggable("indicator-img");
     }
 
-if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
+    if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
         gsap.registerPlugin(Draggable);
-        
+
         const indicator = document.getElementById("indicator-img");
         const trashContainer = document.querySelector(".fixed-trash-container");
+
+        // 🔥 HTML에 있는 2개의 쓰레기통 아이콘 선택
+        const mainIcon = document.querySelector(".fixed-trash-container .main-icon");   // trash_icon1.svg
+        const hoverIcon = document.querySelector(".fixed-trash-container .hover-icon"); // trash_icon2.svg
 
         if (indicator && trashContainer) {
             Draggable.create(indicator, {
                 type: "x,y",
                 bounds: window,
-                
-                onDrag: function() {
-                    // 1. 쓰레기통과 표시기의 중심 좌표 계산
-                    const trashRect = trashContainer.getBoundingClientRect();
-                    const indRect = indicator.getBoundingClientRect();
-                    
-                    const tX = trashRect.left + trashRect.width / 2;
-                    const tY = trashRect.top + trashRect.height / 2;
-                    const iX = indRect.left + indRect.width / 2;
-                    const iY = indRect.top + indRect.height / 2;
-                    
-                    // 2. 두 중심점 사이의 거리(px) 계산
-                    const dist = Math.hypot(tX - iX, tY - iY);
 
-                    // 🔥 3. 거리가 100px 이내로 들어오면 입을 벌림! 
-                    // (조금 더 멀리서 벌리게 하려면 120, 더 가까이서 벌리게 하려면 80 등으로 조절하세요)
-                    if (dist < 100) {
-                        trashContainer.classList.add("open");
-                    } else {
-                        trashContainer.classList.remove("open");
-                    }
+                onDrag: function () {
+                    // 드래그 중에는 아무것도 하지 않음 (기본 trash_icon1.svg 유지)
                 },
 
-                onRelease: function() {
+                onRelease: function () {
                     const trashRect = trashContainer.getBoundingClientRect();
                     const indRect = indicator.getBoundingClientRect();
-                    
+
                     const tX = trashRect.left + trashRect.width / 2;
                     const tY = trashRect.top + trashRect.height / 2;
                     const iX = indRect.left + indRect.width / 2;
                     const iY = indRect.top + indRect.height / 2;
-                    
+
                     const dist = Math.hypot(tX - iX, tY - iY);
 
-                    // 놓았을 때 쓰레기통 근처(100px 이내)에 있다면 애니메이션 실행
+                    // 쓰레기통 근처(100px 이내)에서 마우스를 놓았다면 애니메이션 시작
                     if (dist < 100) {
+
+                        // 🟢 [요청사항 적용] 빨려 들어갈 때 trash_icon2.svg 로 변경 (입 벌림)
+                        if (mainIcon && hoverIcon) {
+                            mainIcon.style.display = "none";
+                            hoverIcon.style.display = "block";
+                        }
+
                         const dropX = trashRect.left + (trashRect.width / 2) - (indRect.width / 2) - indRect.left + this.x;
                         const dropY = trashRect.top + (trashRect.height / 2) - (indRect.height / 2) - indRect.top + this.y;
 
@@ -450,19 +443,20 @@ if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
                             y: dropY,
                             scale: 0,
                             opacity: 0,
-                            rotation: 360, // 빙글 돌면서
+                            rotation: 360,
                             ease: "back.in(1.7)",
                             onComplete: () => {
                                 indicator.style.display = "none";
-                                trashContainer.classList.remove("open");
-                                gsap.set(indicator, { x: 0, y: 0, scale: 1, rotation: 0 }); 
+
+                                // 🔴 [요청사항 적용] 완전히 빨려 들어간 후 (끝날 때) 다시 trash_icon1.svg 로 변경 (입 닫음)
+                                if (mainIcon && hoverIcon) {
+                                    mainIcon.style.display = "block";
+                                    hoverIcon.style.display = "none";
+                                }
+
+                                gsap.set(indicator, { x: 0, y: 0, scale: 1, rotation: 0 });
                             }
                         });
-                    } else {
-                        // (선택) 휴지통 밖에서 놓았을 때 제자리로 돌아가게 하려면 아래 주석을 푸세요!
-                        /*
-                        gsap.to(indicator, { duration: 0.5, x: 0, y: 0, ease: "elastic.out(1, 0.5)" });
-                        */
                     }
                 }
             });
@@ -472,7 +466,7 @@ if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
 
 // 6. [중요] PC 휠 가로 스크롤 (이벤트 위임 - DOM 로딩 상관없이 작동)
 document.addEventListener("wheel", (e) => {
-    
+
     if (!galleryEl) return;
 
     // 마우스가 갤러리 영역 위에 있을 때만 변환
