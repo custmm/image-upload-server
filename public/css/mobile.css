@@ -315,7 +315,7 @@
     body.tag-page .desc {
         font-size: 0.85rem;
     }
-    
+
     /*============== click-page의 css ==============*/
     body.click-page .toggle-switch {
         top: 10px;
@@ -418,25 +418,6 @@
     body.preview-popup-page ul {
         font-size: 15px;
         list-style: none;
-    }
-
-    /*============ etc-page의css ==============  */
-    body.etc-page .app_dev {
-        width: 25px;
-        height: 25px;
-        padding: 0;
-    }
-
-    body.etc-page .app_dev img {
-        width: 25px;
-        height: 25px;
-    }
-
-    body.etc-page .app_dev::after {
-        width: 20px;
-        /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
-        height: 2px;
-        left: 115%;
     }
 
     /*============== login-page의 css ==============*/
