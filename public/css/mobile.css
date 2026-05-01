@@ -1,148 +1,4 @@
 @media (max-width:768px) {
-
-    /*============== dashboard-page의 css ==============*/
-    body.dashboard-page .section-title {
-        font-size: 18px;
-    }
-
-    body.dashboard-page .edit-modal-content {
-        width: 95%;
-    }
-
-    body.dashboard-page .change-button {
-        width: 20px;
-        height: 20px;
-    }
-
-    body.dashboard-page .post-form-container.image-mode .gallery-container {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2px;
-    }
-
-    body.dashboard-page .post-form-container.image-mode .gallery-container img {
-        width: 30px;
-        height: 30px;
-
-    }
-
-    body.dashboard-page .post-image {
-        width: 25px;
-        height: 25px;
-    }
-
-    body.dashboard-page .post-item img {
-        width: 20px;
-        height: 20px;
-    }
-
-    /*============== login-page의 css ==============*/
-    body.login-page .login-container {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        background-color: aliceblue;
-        width: 75%;
-        margin: 70px auto;
-        box-sizing: border-box;
-        transition: width 0.5s ease-in-out;
-    }
-
-    body.login-page .login-row {
-        display: flex;
-        gap: 25px;
-        margin-left: 15px;
-        margin-right: 15px;
-        margin-top: 10px;
-        flex-wrap: wrap;
-    }
-
-    /*============== click-page의 css ==============*/
-    body.click-page .toggle-switch {
-        top: 10px;
-        right: 60px;
-        height: 30px;
-        width: 80px;
-    }
-
-    body.click-page #themeIcon {
-        width: 23px;
-        height: 36px;
-    }
-
-    /*============== etc-page의 css ==============*/
-    body.etc-page {
-        width: 95%
-    }
-
-    body.etc-page h2 {
-        text-align: center;
-        margin-top: 0;
-    }
-
-    body.etc-page ul {
-        font-size: 15px;
-        list-style: none;
-    }
-
-    body.etc-page table {
-        border-collapse: collapse;
-        border: 1px solid #555;
-        margin: 15px auto;
-        font-size: 15px;
-    }
-
-    body.etc-page table.mode_box {
-        padding: 12px;
-
-    }
-
-    body.etc-page caption.title {
-        font-size: 20px;
-    }
-
-    body.etc-page th,
-    body.etc-page tr,
-    body.etc-page td {
-        border-collapse: collapse;
-        border: 1px solid #555;
-        font-size: 12px;
-    }
-
-    body.etc-page tr,
-    body.etc-page td {
-        text-align: center;
-    }
-
-    body.etc-page .appfunction {
-        text-align: left;
-        font-size: 15px;
-        margin: 10px 0;
-    }
-
-    body.etc-page table.function_box {
-        width: 90%;
-    }
-
-    body.etc-page .app_dev {
-        width: 50px;
-        height: 50px;
-        padding: 0;
-    }
-
-    body.etc-page .app_dev img {
-        width: 30px;
-        height: 30px;
-    }
-
-    body.etc-page .app_dev::after {
-        width: 30px;
-        /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
-        height: 2px;
-        left: 115%;
-    }
-
-    body.etc-page .dev_wrap{
-        gap: 25px 30px;
-    }
     /*============== index-page의css ==============*/
     body.index-page {
         display: flex;
@@ -202,105 +58,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-
-    /*============== mode-page의css ==============*/
-    body.mode-page .mode-selection-container {
-        width: 95% !important;
-    }
-
-    body.mode-page .upload-selection-button,
-    body.mode-page .preview-selection-button,
-    body.mode-page .admin-selection-button {
-        background-color: #000000;
-        color: white;
-        padding: 10px 15px;
-        width: 150px;
-        /* 버튼 너비 일정하게 */
-        transition: transform 0.3s ease-in-out;
-        border-radius: 5px;
-        cursor: pointer;
-        border: none;
-        margin-top: 30px;
-        font-size: 10px;
-    }
-
-    body.mode-page h1 {
-        font-size: 25px;
-        margin-bottom: 20px;
-        /* 제목과 버튼 간의 간격 */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    /*============== post-page의css ==============*/
-    body.post-page .post-container {
-        display: flex;
-        background-color: #ffffff;
-        border-radius: 10px;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-        width: 90%;
-        margin: 20px auto;
-    }
-
-    body.post-page .toggle-switch {
-        top: 10px;
-        right: 55px;
-        height: 30px;
-        width: 80px;
-    }
-
-    body.post-page .toggle-switch input:checked+.slider_util::before {
-        transform: translateX(48px);
-    }
-
-    body.post-page .toggle-switch input:checked+.slider_util #themeIcon {
-        transform: translateX(48px);
-    }
-
-    body.post-page #themeIcon {
-        width: 23px;
-        height: 36px;
-    }
-
-    body.post-page .post-description {
-        font-size: 20px;
-    }
-
-    body.post-page .postcategory-container {
-        flex-direction: column;
-        /* 좁은 화면에서 세로 정렬 */
-        gap: 5px;
-        text-align: center;
-    }
-
-    body.post-page .button {
-        width: 100%;
-        /* 버튼도 꽉 차게 */
-        max-width: 300px;
-        margin: 5px auto;
-    }
-
-    /* preview-popup-page의css */
-    body.preview-popup-page {
-        width: 95%
-    }
-
-    body.preview-popup-page h2 {
-        text-align: center;
-        margin-top: 0;
-    }
-
-    body.preview-popup-page ul {
-        font-size: 15px;
-        list-style: none;
-    }
-
+    }   
+    
     /*============== preview-page의css ==============*/
     body.preview-page .image-gallery {
         border-radius: 55px;
@@ -478,6 +237,58 @@
         z-index: 9999;
     }
 
+    /*============== post-page의css ==============*/
+    body.post-page .post-container {
+        display: flex;
+        background-color: #ffffff;
+        border-radius: 10px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        width: 90%;
+        margin: 20px auto;
+    }
+
+    body.post-page .toggle-switch {
+        top: 10px;
+        right: 55px;
+        height: 30px;
+        width: 80px;
+    }
+
+    body.post-page .toggle-switch input:checked+.slider_util::before {
+        transform: translateX(48px);
+    }
+
+    body.post-page .toggle-switch input:checked+.slider_util #themeIcon {
+        transform: translateX(48px);
+    }
+
+    body.post-page #themeIcon {
+        width: 23px;
+        height: 36px;
+    }
+
+    body.post-page .post-description {
+        font-size: 20px;
+    }
+
+    body.post-page .postcategory-container {
+        flex-direction: column;
+        /* 좁은 화면에서 세로 정렬 */
+        gap: 5px;
+        text-align: center;
+    }
+
+    body.post-page .button {
+        width: 100%;
+        /* 버튼도 꽉 차게 */
+        max-width: 300px;
+        margin: 5px auto;
+    }
+
     /*============ tag-page의css ==============*/
     body.tag-page .post-item {
         flex-direction: row;
@@ -505,21 +316,196 @@
         font-size: 0.85rem;
     }
 
-    /*============ upload-page의css ==============*/
-    body.upload-page .upload-container {
-        width: 90%;
-        margin: 0 auto;
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #f3f3f3;
-        padding: 5px;
+    /*============== login-page의 css ==============*/
+    body.login-page .login-container {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: aliceblue;
+        width: 75%;
+        margin: 70px auto;
+        box-sizing: border-box;
+        transition: width 0.5s ease-in-out;
     }
-}
 
-@media (max-width:576px) {
+    body.login-page .login-row {
+        display: flex;
+        gap: 25px;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    /*============== mode-page의css ==============*/
+    body.mode-page .mode-selection-container {
+        width: 95% !important;
+    }
+
+    body.mode-page .upload-selection-button,
+    body.mode-page .preview-selection-button,
+    body.mode-page .admin-selection-button {
+        background-color: #000000;
+        color: white;
+        padding: 10px 15px;
+        width: 150px;
+        /* 버튼 너비 일정하게 */
+        transition: transform 0.3s ease-in-out;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+        margin-top: 30px;
+        font-size: 10px;
+    }
+
+    body.mode-page h1 {
+        font-size: 25px;
+        margin-bottom: 20px;
+        /* 제목과 버튼 간의 간격 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /*============== dashboard-page의 css ==============*/
+    body.dashboard-page .section-title {
+        font-size: 18px;
+    }
+
+    body.dashboard-page .edit-modal-content {
+        width: 95%;
+    }
+
+    body.dashboard-page .change-button {
+        width: 20px;
+        height: 20px;
+    }
+
+    body.dashboard-page .post-form-container.image-mode .gallery-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+    }
+
+    body.dashboard-page .post-form-container.image-mode .gallery-container img {
+        width: 30px;
+        height: 30px;
+
+    }
+
+    body.dashboard-page .post-image {
+        width: 25px;
+        height: 25px;
+    }
+
+    body.dashboard-page .post-item img {
+        width: 20px;
+        height: 20px;
+    }
+
+    /*============== click-page의 css ==============*/
+    body.click-page .toggle-switch {
+        top: 10px;
+        right: 60px;
+        height: 30px;
+        width: 80px;
+    }
+
+    body.click-page #themeIcon {
+        width: 23px;
+        height: 36px;
+    }
+
+    /*============== etc-page의 css ==============*/
+    body.etc-page {
+        width: 95%
+    }
+
+    body.etc-page h2 {
+        text-align: center;
+        margin-top: 0;
+    }
+
+    body.etc-page ul {
+        font-size: 15px;
+        list-style: none;
+    }
+
+    body.etc-page table {
+        border-collapse: collapse;
+        border: 1px solid #555;
+        margin: 15px auto;
+        font-size: 15px;
+    }
+
+    body.etc-page table.mode_box {
+        padding: 12px;
+
+    }
+
+    body.etc-page caption.title {
+        font-size: 20px;
+    }
+
+    body.etc-page th,
+    body.etc-page tr,
+    body.etc-page td {
+        border-collapse: collapse;
+        border: 1px solid #555;
+        font-size: 12px;
+    }
+
+    body.etc-page tr,
+    body.etc-page td {
+        text-align: center;
+    }
+
+    body.etc-page .appfunction {
+        text-align: left;
+        font-size: 15px;
+        margin: 10px 0;
+    }
+
+    body.etc-page table.function_box {
+        width: 90%;
+    }
+
+    body.etc-page .app_dev {
+        width: 50px;
+        height: 50px;
+        padding: 0;
+    }
+
+    body.etc-page .app_dev img {
+        width: 30px;
+        height: 30px;
+    }
+
+    body.etc-page .app_dev::after {
+        width: 30px;
+        /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
+        height: 2px;
+        left: 115%;
+    }
+
+    body.etc-page .dev_wrap{
+        gap: 25px 30px;
+    }
+
+    /* preview-popup-page의css */
+    body.preview-popup-page {
+        width: 95%
+    }
+
+    body.preview-popup-page h2 {
+        text-align: center;
+        margin-top: 0;
+    }
+
+    body.preview-popup-page ul {
+        font-size: 15px;
+        list-style: none;
+    }
+
+    /*============ etc-page의css ==============  */
     body.etc-page .app_dev {
         width: 25px;
         height: 25px;
@@ -538,5 +524,16 @@
         left: 115%;
     }
 
-
+    /*============ upload-page의css ==============*/
+    body.upload-page .upload-container {
+        width: 90%;
+        margin: 0 auto;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f3f3f3;
+        padding: 5px;
+    }
 }
