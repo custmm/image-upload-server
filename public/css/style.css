@@ -2580,8 +2580,6 @@ body.preview-page .tab-design {
     gap: 15px;
     /* [중요] 탭과 탭 사이의 거리를 벌려줌 */
     align-items: center;
-    /* 내부 버튼들을 세로 중앙 정렬 */
-    justify-content: center;
     box-sizing: border-box;
     overflow: visible;
     /* 버튼이 위로 튀어나올 수 있게 hidden 해제 */
@@ -2596,7 +2594,6 @@ body.preview-page .tab-btn {
     background: rgba(255, 255, 255, 0.9);
     /* 살짝 투명한 흰색 */
     color: #444;
-    font-size: 15px;
     font-weight: 500;
     cursor: pointer;
     position: relative;
