@@ -395,8 +395,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         makeImageDraggable("indicator-img");
     }
 
-    if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
-
+if (typeof gsap !== 'undefined' && typeof Draggable !== 'undefined') {
         gsap.registerPlugin(Draggable);
         
         const indicator = document.getElementById("indicator-img");
@@ -408,7 +407,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                 bounds: window,
                 
                 onDrag: function() {
-                    if (this.hitTest(trashContainer, "30%")) {
+                    // 1. 쓰레기통과 표시기의 중심 좌표 계산
+                    const trashRect = trashContainer.getBoundingClientRect();
+                    const indRect = indicator.getBoundingClientRect();
+                    
+                    const tX = trashRect.left + trashRect.width / 2;
+                    const tY = trashRect.top + trashRect.height / 2;
+                    const iX = indRect.left + indRect.width / 2;
+                    const iY = indRect.top + indRect.height / 2;
+                    
+                    // 2. 두 중심점 사이의 거리(px) 계산
+                    const dist = Math.hypot(tX - iX, tY - iY);
+
+                    // 🔥 3. 거리가 100px 이내로 들어오면 입을 벌림! 
+                    // (조금 더 멀리서 벌리게 하려면 120, 더 가까이서 벌리게 하려면 80 등으로 조절하세요)
+                    if (dist < 100) {
                         trashContainer.classList.add("open");
                     } else {
                         trashContainer.classList.remove("open");
@@ -416,12 +429,20 @@ document.addEventListener("DOMContentLoaded", async () => {
                 },
 
                 onRelease: function() {
-                    if (this.hitTest(trashContainer, "30%")) {
-                        const trashRect = trashContainer.getBoundingClientRect();
-                        const indicatorRect = indicator.getBoundingClientRect();
-                        
-                        const dropX = trashRect.left + (trashRect.width / 2) - (indicatorRect.width / 2) - indicatorRect.left + this.x;
-                        const dropY = trashRect.top + (trashRect.height / 2) - (indicatorRect.height / 2) - indicatorRect.top + this.y;
+                    const trashRect = trashContainer.getBoundingClientRect();
+                    const indRect = indicator.getBoundingClientRect();
+                    
+                    const tX = trashRect.left + trashRect.width / 2;
+                    const tY = trashRect.top + trashRect.height / 2;
+                    const iX = indRect.left + indRect.width / 2;
+                    const iY = indRect.top + indRect.height / 2;
+                    
+                    const dist = Math.hypot(tX - iX, tY - iY);
+
+                    // 놓았을 때 쓰레기통 근처(100px 이내)에 있다면 애니메이션 실행
+                    if (dist < 100) {
+                        const dropX = trashRect.left + (trashRect.width / 2) - (indRect.width / 2) - indRect.left + this.x;
+                        const dropY = trashRect.top + (trashRect.height / 2) - (indRect.height / 2) - indRect.top + this.y;
 
                         gsap.to(indicator, {
                             duration: 0.5,
@@ -429,7 +450,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             y: dropY,
                             scale: 0,
                             opacity: 0,
-                            rotation: 360,
+                            rotation: 360, // 빙글 돌면서
                             ease: "back.in(1.7)",
                             onComplete: () => {
                                 indicator.style.display = "none";
@@ -437,12 +458,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 gsap.set(indicator, { x: 0, y: 0, scale: 1, rotation: 0 }); 
                             }
                         });
+                    } else {
+                        // (선택) 휴지통 밖에서 놓았을 때 제자리로 돌아가게 하려면 아래 주석을 푸세요!
+                        /*
+                        gsap.to(indicator, { duration: 0.5, x: 0, y: 0, ease: "elastic.out(1, 0.5)" });
+                        */
                     }
                 }
             });
         }
     }
-
 });
 
 // 6. [중요] PC 휠 가로 스크롤 (이벤트 위임 - DOM 로딩 상관없이 작동)
