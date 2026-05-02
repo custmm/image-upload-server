@@ -2592,6 +2592,7 @@ body.preview-page #tab-design {
 body.preview-page .tab-container{
     display: flex;
     gap: 30px;
+    width: 100%;
 
 }
 /* 2. 공통 버튼 스타일: 기본적으로 공중에 뜬 느낌 */
