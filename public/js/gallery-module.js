@@ -73,13 +73,13 @@ export async function loadPage(categoryIdOrName, subcategoryId = null) {
     // 1. [핵심 수정] 전달받은 값이 이름(문자열)이면 ID로 변환합니다.
     let finalCategoryId = categoryIdOrName;
 
-if (isNaN(categoryIdOrName)) {
+    if (isNaN(categoryIdOrName)) {
         const matched = categories.find(cat => cat.name.trim() === categoryIdOrName.trim());
         if (matched) {
             finalCategoryId = matched.id;
         } else {
             console.warn("카테고리 이름을 ID로 변환할 수 없습니다:", categoryIdOrName);
-            if (categories.length === 0) return; 
+            if (categories.length === 0) return;
         }
     }
 
@@ -101,7 +101,7 @@ if (isNaN(categoryIdOrName)) {
     }
 
     if (typeof window.showLoading === "function") window.showLoading();
-    
+
     clearGallery();
 
     imageGallery.classList.toggle("image-view", currentView === "image");
@@ -228,26 +228,31 @@ export async function loadCategories() {
         clearCategoryTabs();
         const categoryTabContainer = document.querySelector(".tab-design");
 
-        categories.forEach((category, index) => {
-            const btn = document.createElement("button");
-            btn.className = "tab-btn";
+        if (categoryTabContainer) {
+            categories.forEach((category, index) => {
+                const btn = document.createElement("button");
+                btn.className = "tab-btn";
 
-            // [수정] 첫 번째 탭 active 설정 (부모 클래스 active-0 등은 삭제)
-            if (index === 0) btn.classList.add("active");
+                // [수정] 첫 번째 탭 active 설정 (부모 클래스 active-0 등은 삭제)
+                if (index === 0) btn.classList.add("active");
 
-            const iconName = iconMap[category.name] || "folder";
-            // [수정] 텍스트와 아이콘만 깔끔하게 넣기 (외부 SVG 파일 삽입 금지)
-            btn.innerHTML = `
-                <span class="tab-text">${category.name}</span>
-                <i data-lucide="${iconName}" class="tab-icon"></i>
-            `;
+                const iconName = iconMap[category.name] || "folder";
+                // [수정] 텍스트와 아이콘만 깔끔하게 넣기 (외부 SVG 파일 삽입 금지)
+                btn.innerHTML = `
+                    <span class="tab-text">${category.name}</span>
+                    <i data-lucide="${iconName}" class="tab-icon"></i>
+                `;
 
-            // [수정] index 인자 전달 불필요, 깔끔하게 categoryId와 btn만 전달
-            btn.onclick = () => loadCategory(category.id, btn);
-            categoryTabContainer.appendChild(btn);
-        });
+                // [수정] index 인자 전달 불필요, 깔끔하게 categoryId와 btn만 전달
+                btn.onclick = () => loadCategory(category.id, btn);
+                categoryTabContainer.appendChild(btn);
+            });
 
-        if (window.lucide) window.lucide.createIcons();
+            if (window.lucide) window.lucide.createIcons();
+        } else {
+            // 디버깅을 위해 콘솔에 경고창만 띄우고 에러는 방지함
+            console.warn(".tab-design 요소를 찾을 수 없어 탭을 렌더링하지 않았습니다.");
+        }
     } catch (error) {
         console.error("카테고리 로드 오류:", error);
     }
@@ -395,7 +400,7 @@ export function adjustGalleryRadius() {
             if (e.deltaY !== 0) {
                 e.preventDefault();
                 // 스크롤 양 조절 (deltaY 값을 더해줌)
-               const scrollSensitivity = 0.5; 
+                const scrollSensitivity = 0.5;
                 gallery.scrollLeft += e.deltaY * scrollSensitivity;
             }
         }
