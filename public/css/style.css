@@ -2880,7 +2880,7 @@ body.preview-page #settingBtn img {
     width: 45px;
 }
 
-body.preview-page #indic_position {
+body.preview-page #indicator-img{
     display: none;
     opacity: 0;
     transition:

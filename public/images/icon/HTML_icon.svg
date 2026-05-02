@@ -1,0 +1,22 @@
+<svg width="50" height="59" viewBox="0 0 50 59" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.082 0.5C13.0695 0.500211 14.6631 2.07661 14.6631 4C14.6631 5.92339 13.0695 7.49979 11.082 7.5C9.09438 7.5 7.5 5.92352 7.5 4C7.5 2.07648 9.09438 0.5 11.082 0.5Z" fill="white" stroke="black"/>
+<mask id="path-2-inside-1_6_11" fill="white">
+<path d="M11.0816 0L45.7755 -3.35069e-09L45.7755 8L11.0816 8L11.0816 0Z"/>
+</mask>
+<path d="M11.0816 0L45.7755 -3.35069e-09L45.7755 8L11.0816 8L11.0816 0Z" fill="white"/>
+<path d="M11.0816 0L11.0816 1L45.7755 1L45.7755 -3.35069e-09L45.7755 -1L11.0816 -1L11.0816 0ZM45.7755 8L45.7755 7L11.0816 7L11.0816 8L11.0816 9L45.7755 9L45.7755 8Z" fill="black" mask="url(#path-2-inside-1_6_11)"/>
+<circle cx="46" cy="4" r="3.5" fill="#D9D9D9" stroke="black"/>
+<circle cx="4" cy="55" r="3.5" fill="white" stroke="black"/>
+<mask id="path-6-inside-2_6_11" fill="white">
+<path d="M7 4H43V55H7V4Z"/>
+</mask>
+<path d="M7 4H43V55H7V4Z" fill="white"/>
+<path d="M43 4H42V55H43H44V4H43ZM7 55H8V4H7H6V55H7Z" fill="black" mask="url(#path-6-inside-2_6_11)"/>
+<mask id="path-8-inside-3_6_11" fill="white">
+<path d="M4 51H39V59H4V51Z"/>
+</mask>
+<path d="M4 51H39V59H4V51Z" fill="white"/>
+<path d="M4 51V52H39V51V50H4V51ZM39 59V58H4V59V60H39V59Z" fill="black" mask="url(#path-8-inside-3_6_11)"/>
+<circle cx="39" cy="55" r="3.5" fill="#D9D9D9" stroke="black"/>
+<path d="M9.05682 31V22.2727H10.1136V26.1591H14.767V22.2727H15.8239V31H14.767V27.0966H10.1136V31H9.05682ZM17.4624 23.2102V22.2727H24.0078V23.2102H21.2635V31H20.2067V23.2102H17.4624ZM25.6388 22.2727H26.9002L29.8661 29.517H29.9684L32.9343 22.2727H34.1957V31H33.207V24.3693H33.1218L30.3945 31H29.44L26.7127 24.3693H26.6275V31H25.6388V22.2727ZM36.3146 31V22.2727H37.3714V30.0625H41.4283V31H36.3146Z" fill="black"/>
+</svg>
