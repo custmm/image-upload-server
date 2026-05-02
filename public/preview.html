@@ -102,12 +102,12 @@
       <p class="loading-text">게시물을 불러오는 중...</p>
     </section>
 
-    <div>
-      <img id="indicator-img" src="" alt="표시기">
+    <div id="indic_position">
+      <img src="" alt="표시기">
     </div>
 
     <!-- 메인 카테고리 탭 (큰 카테고리) -->
-    <section class="tab-design">
+    <section id="tab-design">
       <div class="tab-container">
 
         <button class="tab-btn active" data-category="퍼즐">
@@ -144,13 +144,13 @@
     <!-- 서브 카테고리 + 갤러리 -->
     <section class="marge-container" id="marge-container">
 
-      <header class="category-subtab-container">
-        <h2 id="currentCategory"></h2>
+      <header id="category-subtab-container">
+        <h2 class="currentCategory"></h2>
 
         <div class="sub-tab-wrapper">
           <div class="sub-tab-container" id="subTabContainer"></div>
 
-          <div class="view-switch">
+          <div id="view-switch">
             <button id="preview-image-mode" class="view-icon-btn active">
               <i class="fas fa-th-large"></i>
             </button>

@@ -2376,7 +2376,7 @@ body.preview-page .close-sidebar {
 }
 
 /*====== 메뉴바css(뷰모드관련) ======*/
-body.preview-page .view-switch {
+body.preview-page #view-switch {
     display: flex;
     margin: 10px 0 10px 75%;
     border: 2px solid #d0d0d0;
@@ -2553,7 +2553,12 @@ body.preview-page .indicate_btn {
     color: #555;
     border-radius: 30px;
     border: 1px solid #000;
+        width: 65px;
 }
+body.preview-page .indicate_btn text{
+    text-align: center;
+}
+
 
 body.preview-page .indicate_btn:active {
     background-color: #00cc8f;
@@ -2562,7 +2567,7 @@ body.preview-page .indicate_btn:active {
 
 /*====== 탭디자인css(큰 카테고리 탭) ======*/
 /* 1. 부모 컨테이너: 버튼들을 감싸는 공중에 뜬 바 */
-body.preview-page .tab-design {
+body.preview-page #tab-design {
     display: flex;
     position: relative;
     margin: 30px auto;
@@ -2790,14 +2795,14 @@ body.preview-page .image-container img:hover {
 
 
 /*====== marge-container내 카테고리 제목 스타일 ======*/
-body.preview-page #currentCategory {
+body.preview-page .currentCategory {
     font-size: 30px;
     color: #00cc8f;
     margin: 25px 0 15px;
     padding-left: 20px;
 }
 
-body.preview-page #currentCategory:hover {
+body.preview-page .currentCategory:hover {
     color: cyan;
     text-shadow: 0 0 20px black;
 }
@@ -2869,7 +2874,7 @@ body.preview-page #settingBtn img {
     width: 45px;
 }
 
-body.preview-page #indicator-img {
+body.preview-page #indic_position {
     display: none;
     opacity: 0;
     transition:
@@ -2883,10 +2888,10 @@ body.preview-page #indicator-img {
 
 body.preview-page .toggle-switch_ind {
     display: flex;
-    justify-content: space-between;
     border: 1px solid #333;
     width: 155px;
     height: 35px;
+    gap: 10px;
     padding: 6px;
     border-radius: 30px;
 }
@@ -3324,7 +3329,7 @@ body.preview-page .marge-container {
     border-radius: 25px;
 }
 
-body.preview-page .category-subtab-container {
+body.preview-page #category-subtab-container {
     display: flex;
     align-items: center;
     width: 100%;
