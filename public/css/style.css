@@ -2591,12 +2591,14 @@ body.preview-page #tab-design {
 }
 body.preview-page .tab-container{
     display: flex;
+    gap: 30px;
 
 }
 /* 2. 공통 버튼 스타일: 기본적으로 공중에 뜬 느낌 */
 body.preview-page .tab-btn {
     flex: 1;
     height: 45px;
+    width: 105px;
     /* 바 높이보다 작게 설정해서 떠 있는 느낌 연출 */
     border: none;
     background: rgba(255, 255, 255, 0.9);
