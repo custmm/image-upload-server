@@ -2589,7 +2589,10 @@ body.preview-page #tab-design {
     overflow: visible;
     /* 버튼이 위로 튀어나올 수 있게 hidden 해제 */
 }
+body.preview-page .tab-container{
+    display: flex;
 
+}
 /* 2. 공통 버튼 스타일: 기본적으로 공중에 뜬 느낌 */
 body.preview-page .tab-btn {
     flex: 1;
