@@ -426,7 +426,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const tX = trashRect.left + trashRect.width / 2;
                     const tY = trashRect.top + trashRect.height / 2;
                     const iX = indRect.left + indRect.width / 2;
-                    const iY = indRect.top + indRect.height / 2;
+                    const iY = indRect.top + iY;
 
                     const dist = Math.hypot(tX - iX, tY - iY);
 
