@@ -432,17 +432,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const dist = Math.hypot(tX - iX, tY - iY);
 
                     if (dist < 100) {
-                        // 2. 정확히 안으로 빨려 들어가는 좌표 계산
+                        // 2. 쓰레기통 중앙으로 정확히 빨려 들어가는 좌표 계산
                         const targetX = this.x + (tX - iX);
                         const targetY = this.y + (tY - iY);
 
                         const tl = gsap.timeline();
-
-                        // 3. 현재 이미지가 1번인지 확실하게 체크 (파일명 문자열 검사)
                         const currentSrc = indicator.src;
-                        const isOnlyFirstImg = currentSrc.endsWith('preview-gunff_1re.png');
+                        // 오직 1번 이미지인지 체크
+                        const isTargetImg = currentSrc.includes("preview-gunff_1re.png");
 
-                        // [A 단계] 빨려 들어가기
+                        // [1단계] 안으로 쏙 빨려 들어가기 (모든 이미지 공통)
                         tl.to(indicator, {
                             duration: 0.4,
                             x: targetX,
@@ -452,41 +451,33 @@ document.addEventListener("DOMContentLoaded", async () => {
                             rotation: 720,
                             ease: "power2.in",
                             onStart: () => {
-                                trashContainer.classList.add("open"); // 일단 입 벌림 (icon2)
+                                trashContainer.classList.add("open"); // 입 벌리기 (icon2)
                             }
                         });
 
-                        // [B 단계] 오직 1번 이미지일 때만 입 껌뻑거리기 (열고-닫고-열고-닫고)
-                        if (isOnlyFirstImg) {
-                            tl.to({}, { 
-                                duration: 0.15, 
-                                onStart: () => trashContainer.classList.remove("open") 
-                            }) // 닫기 (icon1)
-                                .to({}, { 
-                                    duration: 0.15, 
-                                    onStart: () => trashContainer.classList.add("open") 
-                                })    // 열기 (icon2)
-                                .to({}, { 
-                                    duration: 0.15, 
-                                    onStart: () => trashContainer.classList.remove("open") 
-                                }) // 닫기 (icon1)
-                                .to({}, { 
-                                    duration: 0.15, 
-                                    onStart: () => trashContainer.classList.add("open") 
-                                });   // 열기 (icon2)
+                        // [2단계] 오직 1번 이미지일 경우에만 입을 껌뻑거림 (2회)
+                        if (isTargetImg) {
+                            tl.to({}, { duration: 0.15, onStart: () => trashContainer.classList.remove("open") }) // 닫기
+                                .to({}, { duration: 0.15, onStart: () => trashContainer.classList.add("open") })    // 열기
+                                .to({}, { duration: 0.15, onStart: () => trashContainer.classList.remove("open") }) // 닫기
+                                .to({}, { duration: 0.15, onStart: () => trashContainer.classList.add("open") });   // 열기
                         }
-                        // [최종] 복구
-                        tl.set({}, {
+
+                        // [3단계] 최종 마무리 (입 닫고 이미지 숨기기)
+                        tl.to({}, {
+                            duration: 0.2,
+                            onStart: () => {
+                                trashContainer.classList.remove("open"); // 입 닫기 (icon1)
+                            },
                             onComplete: () => {
                                 indicator.style.display = "none";
-                                trashContainer.classList.remove("chewing");
-                                const mainIcon = trashContainer.querySelector(".main-icon");
-                                if (mainIcon) {
-                                    mainIcon.style.backgroundImage = `url('../images/trash/trash_icon1.svg')`;
-                                }
+                                // 위치 및 상태 초기화 (다음 드래그를 위해)
                                 gsap.set(indicator, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1 });
                             }
                         });
+                    } else {
+                        // 쓰레기통 영역이 아니면 입을 닫음 (안전장치)
+                        trashContainer.classList.remove("open");
                     }
                 }
             });
