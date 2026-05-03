@@ -3,6 +3,10 @@
     /*============ index페이지 css ============*/
 
     /*============ preview페이지 css ============*/
+        body.preview-page .tab-container {
+        width: 85%;
+        gap: 20px;
+    }
 }
 
 @media (max-width: 375px) {
