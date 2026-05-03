@@ -2304,8 +2304,8 @@ body.preview-page .sidebar-search button {
     border-radius: 50%;
     cursor: pointer;
     position: absolute;
-    top: 24%;
-    right: 19%;
+    top: 23%;
+    right: 32%;
 }
 
 body.preview-page .sidebar-search input:hover {
