@@ -486,7 +486,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         });
 
                         const totalFrames = 12;
-                        const frameDuration = 10 / totalFrames; // 10초를 12등분
+                        const frameDuration = 15 / totalFrames; // 10초를 12등분
 
                         for (let i = 0; i < totalFrames; i++) {
                             tl.to({}, {
