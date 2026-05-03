@@ -3836,35 +3836,39 @@ body.etc-page #rc_car_intro_1 .text_wrap table.part_name td {
     width: 350px;
 }
 
-/* 1. 컨테이너를 가로 정렬(Flex)로 설정 */
-body.etc-page .planning-container {
+/* 가로 배치를 위한 컨테이너 설정 */
+body.etc-page .planning-flex-container {
     display: flex;
+    flex-direction: row; /* 가로 정렬 */
     align-items: flex-start; /* 위쪽 라인 맞춤 */
-    gap: 20px;              /* 표 사이 간격 */
-    margin-bottom: 20px;
+    justify-content: center; /* 전체 중앙 정렬 */
+    gap: 30px; /* 두 표 사이의 간격 */
+    margin: 20px auto;
 }
 
-/* 3. 오른쪽 표(mini_mp3) 초기 상태 */
+/* 왼쪽 표(controller) 너비 고정 (필요시) */
+body.etc-page #controller {
+    flex-shrink: 0; /* 크기 줄어듦 방지 */
+}
+
+/* 오른쪽 표(mini_mp3) 수정 */
 body.etc-page #mini_mp3 {
-    opacity: 0;             /* 투명하게 숨김 */
-    visibility: hidden;     /* 클릭도 안 되게 숨김 */
-    transform: translateX(20px); /* 살짝 오른쪽으로 밀어둠 */
-    transition: all 0.5s ease;   /* 부드러운 효과 */
+    display: none;
+    /* 처음에 숨김 */
 }
 
-/* 4. 링크 클릭 시 오른쪽 표가 나타나는 효과 */
-body.etc-page #mini_mp3:target {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0); /* 원래 위치로 오면서 나타남 */
-    background-color: #f9f9f9;
-    border: 2px solid #007bff; /* 파란색 강조 */
-}
-
+/* [방법 A] 자바스크립트로 .active 클래스를 붙일 경우 */
 body.etc-page #mini_mp3.active {
     display: table;
-    /* active 클래스가 붙으면 보임 */
-    animation: fadeIn 0.5s;
+    animation: fadeInRight 0.5s ease; /* 오른쪽에서 나타나는 애니메이션 */
+}
+
+/* [방법 B] 자바스크립트 없이 CSS만으로 할 경우 (:target 활용) */
+/* HTML 링크가 <a href="#mini_mp3">일 때 작동합니다 */
+body.etc-page #mini_mp3:target {
+    display: table;
+    animation: fadeInRight 0.5s ease;
+    border: 2px solid #007bff; /* 강조 효과 */
 }
 
 body.etc-page strong {
