@@ -301,12 +301,13 @@ document.addEventListener("DOMContentLoaded", () => {
         pdfBtn.addEventListener("click", (e) => {
             e.preventDefault();
 
-            // 실제 서버 경로는 나중에 연결! 지금은 빈 화면이나 안내 페이지 로드
-            const placeholderUrl = "about:blank";
+            // [수정 포인트] 변수명을 일치시킵니다.
+            const placeholderUrl = "about:blank"; 
 
-            // 기존에 작성된 전역 팝업 함수가 있다면 활용, 
-            // 없다면 아래와 같이 직접 iframe 팝업을 띄웁니다.
-            openPdfPreview(pdfUrl);
+            // placeholderUrl을 인자로 전달합니다.
+            openPdfPreview(placeholderUrl); 
+            
+            console.log("📍 PDF 팝업 호출됨");
         });
     }
 });
