@@ -245,11 +245,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    if (popupCloseBtn) {
-        popupCloseBtn.addEventListener("click", () => {
-            window.closePreviewPopup();
-        });
-    }
+    // --- [팝업 닫기 이벤트 위임 (여러 개의 닫기 버튼 대응)] ---
+    document.addEventListener("click", (e) => {
+        // 방금 클릭한 요소가 .preview-close 버튼이거나, 그 버튼 안의 아이콘일 경우
+        const closeBtn = e.target.closest(".preview-close");
+        if (closeBtn) {
+            e.preventDefault();
+            // HTML에 적어둔 data-type 속성값 (예: "info", "icon")을 가져옴
+            const type = closeBtn.getAttribute("data-type"); 
+            
+            // 타입이 있으면 해당 팝업만, 없으면 일단 info를 닫도록 시도
+            window.closePreviewPopup(type || "info"); 
+        }
+    });
 
     if (sidebar) {
         sidebar.addEventListener("click", (e) => {
