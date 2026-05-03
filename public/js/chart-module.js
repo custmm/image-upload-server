@@ -2,33 +2,46 @@
  * ── [차트 모듈 전체 코드] ──
  */
 
+/**
+ * ── [차트 모듈 전체 코드 수정본] ──
+ */
 export async function renderDashboardCharts() {
     try {
-        const response = await fetch('https://karisdify.site/api/files/category-counts');
+        // 1. URL을 절대 경로 대신 상대 경로로 변경 (CORS 및 도메인 이슈 방지)
+        const response = await fetch('/api/files/category-counts');
         
-        // 1. 서버 응답이 정상(200번대)인지 확인
         if (!response.ok) {
-            throw new Error(`API 요청 실패: HTTP 상태 코드 ${response.status}`);
+            // 400 에러 발생 시 서버가 보낸 에러 메시지가 있다면 출력
+            const errorBody = await response.text();
+            throw new Error(`API 요청 실패: ${response.status} - ${errorBody}`);
         }
 
         const responseData = await response.json();
         
-        // 2. 받은 데이터가 배열인지 확인 (API 구조에 따라 responseData.data 일 수도 있음)
+        // 2. 데이터 추출 (배열인지 확인)
         const categoryData = Array.isArray(responseData) ? responseData : (responseData.data || []);
 
-        // 3. 배열이 맞는지 최종 확인 후 map 실행
-        if (!Array.isArray(categoryData) || categoryData.length === 0) {
-            console.warn('차트를 그릴 데이터가 없거나 배열 형식이 아닙니다.', categoryData);
-            return; // 데이터가 없으면 여기서 함수 종료 (에러 방지)
+        if (categoryData.length === 0) {
+            console.warn('차트를 그릴 데이터가 없습니다.');
+            return;
         }
 
-        // 기존 코드 유지
-        const labels = categoryData.map(item => item.category);
-        const dataValues = categoryData.map(item => item.count);
-        // ... (이후 차트 그리는 로직은 그대로 유지) ...
+        // 3. 차트용 데이터 가공
+        const labels = categoryData.map(item => item.category || '기타');
+        const dataValues = categoryData.map(item => Number(item.count) || 0);
+        const totalCount = dataValues.reduce((a, b) => a + b, 0);
+
+        // 4. 차트 렌더링 호출
+        renderDonutChart(labels, dataValues, totalCount);
+        
+        // 만약 probabilities가 필요한 경우 (버블차트 등)
+        const probabilities = dataValues.map(v => ((v / totalCount) * 100).toFixed(1));
+        renderBubbleChart(labels, probabilities);
 
     } catch (error) {
-        console.error('차트 로드 실패:', error);
+        console.error('❌ 차트 로드 실패:', error);
+        // 사용자에게 시각적 안내가 필요한 경우 아래 주석 해제
+        // document.getElementById("chartArea").innerHTML = "<p>데이터를 불러올 수 없습니다.</p>";
     }
 }
 
@@ -218,17 +231,30 @@ function applyForceLayout(bubbles, iterations = 120) {
 }
 
 export async function showSubcategoryTable(categoryName) {
-    const subData = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`).then(res => res.json());
-    const oldWrapper = document.querySelector(".subcategory-wrapper");
-    if (oldWrapper) oldWrapper.remove();
+    try {
+        const response = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`);
+        if (!response.ok) return;
+        
+        const subData = await response.json();
+        const oldWrapper = document.querySelector(".subcategory-wrapper");
+        if (oldWrapper) oldWrapper.remove();
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "subcategory-wrapper";
-    wrapper.innerHTML = `
-        <h3>${categoryName} 상세</h3>
-        <table id="categoryInfoTable">
-            ${subData.map(item => `<tr><td>${item.subcategory_name}</td><td>${item.count}개</td></tr>`).join('')}
-        </table>
-    `;
-    document.getElementById("chartArea")?.appendChild(wrapper);
+        const wrapper = document.createElement("div");
+        wrapper.className = "subcategory-wrapper";
+
+        // 데이터가 없을 경우 처리
+        if (!Array.isArray(subData) || subData.length === 0) {
+            wrapper.innerHTML = `<h3>${categoryName} 상세</h3><p>데이터가 없습니다.</p>`;
+        } else {
+            wrapper.innerHTML = `
+                <h3>${categoryName} 상세</h3>
+                <table id="categoryInfoTable">
+                    ${subData.map(item => `<tr><td>${item.subcategory_name || '미지정'}</td><td>${item.count}개</td></tr>`).join('')}
+                </table>
+            `;
+        }
+        document.getElementById("chartArea")?.appendChild(wrapper);
+    } catch (err) {
+        console.error("상세 데이터 로드 실패:", err);
+    }
 }
