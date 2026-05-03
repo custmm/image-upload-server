@@ -469,6 +469,31 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         }
     }
+
+    // --- [링크 팝업창으로 띄우기 로직] ---
+    // 1. 해당 링크(a 태그)들을 모두 찾습니다.
+    const popupLinks = document.querySelectorAll('a[href*="preview_popup"], a[href*="etc_util"], a[href*="online_contact"]');
+    
+    // 2. 팝업을 띄울 오버레이와 아이프레임 요소를 찾습니다.
+    const popupOverlay = document.getElementById("previewOverlayInfo");
+    const popupFrame = document.getElementById("previewFrameInfo");
+
+    // 3. 찾은 링크들에 각각 클릭 이벤트를 달아줍니다.
+    popupLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault(); // 🛑 기본 동작(새 창 열기 또는 페이지 이동) 막기
+            
+            if (popupOverlay && popupFrame) {
+                // a 태그에 적힌 href 경로를 가져와서 iframe의 src에 꽂아줍니다.
+                const targetUrl = link.getAttribute("href");
+                popupFrame.src = targetUrl; 
+                
+                // 팝업 화면에 표시 (기존 display none -> flex로 변경)
+                popupOverlay.style.display = "flex"; 
+            }
+        });
+    });
+
 });
 
 // 6. [중요] PC 휠 가로 스크롤 (이벤트 위임 - DOM 로딩 상관없이 작동)
