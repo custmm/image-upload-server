@@ -2553,9 +2553,10 @@ body.preview-page .indicate_btn {
     color: #555;
     border-radius: 30px;
     border: 1px solid #000;
-        width: 65px;
+    width: 65px;
 }
-body.preview-page .indicate_btn text{
+
+body.preview-page .indicate_btn text {
     text-align: center;
 }
 
@@ -2589,12 +2590,14 @@ body.preview-page #tab-design {
     overflow: visible;
     /* 버튼이 위로 튀어나올 수 있게 hidden 해제 */
 }
-body.preview-page .tab-container{
+
+body.preview-page .tab-container {
     display: flex;
     gap: 30px;
     width: 100%;
 
 }
+
 /* 2. 공통 버튼 스타일: 기본적으로 공중에 뜬 느낌 */
 body.preview-page .tab-btn {
     flex: 1;
@@ -2880,7 +2883,7 @@ body.preview-page #settingBtn img {
     width: 45px;
 }
 
-body.preview-page #indicator-img{
+body.preview-page #indicator-img {
     display: none;
     opacity: 0;
     transition:
@@ -3458,18 +3461,24 @@ body.preview-page .fixed-trash-container {
     z-index: 1000;
     cursor: pointer;
     /* ✨ 이제 아이콘들이 absolute라 꽉 채울 거니까 flex 속성은 지워도 괜찮아! */
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 커비처럼 통통 튀는 이징 효과 추가! */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* 커비처럼 통통 튀는 이징 효과 추가! */
 }
 
 /* 🌟 핵심 1: 아이콘을 완벽하게 겹치게 만드는 스타일 */
 body.preview-page .trash-icon {
     position: absolute;
-    top: 0;               /* 무조건 맨 위 */
-    left: 0;              /* 무조건 맨 왼쪽에서 시작 */
-    width: 100%;          /* 100px에 꽉 차게 */
+    top: 0;
+    /* 무조건 맨 위 */
+    left: 0;
+    /* 무조건 맨 왼쪽에서 시작 */
+    width: 100%;
+    /* 100px에 꽉 차게 */
     height: 100%;
-    object-fit: contain;  /* 비율이 안 깨지도록 꽉 잡아줌! */
-    transition: opacity 0.2s ease; /* 깜빡이는 속도를 살짝 더 빠르게! */
+    object-fit: contain;
+    /* 비율이 안 깨지도록 꽉 잡아줌! */
+    transition: opacity 0.2s ease;
+    /* 깜빡이는 속도를 살짝 더 빠르게! */
 }
 
 /* 2번 아이콘 기본 숨기기 */
@@ -3488,7 +3497,8 @@ body.preview-page .fixed-trash-container.open .hover-icon {
 
 /* .open 상태일 때 살짝 커지면서 입을 쩍! 벌리는 느낌 */
 body.preview-page .fixed-trash-container.open {
-    transform: scale(1.15); /* 1은 그대로라는 뜻이야! 1.15로 해야 커비처럼 커져! */
+    transform: scale(1.15);
+    /* 1은 그대로라는 뜻이야! 1.15로 해야 커비처럼 커져! */
 }
 
 /* 아이콘 기본 스타일 */
@@ -3805,8 +3815,7 @@ body.etc-page #rc_car_intro_1 .img_wrap img {
 body.etc-page #rc_car_intro_1 .text_wrap {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    gap: 25px;
+    justify-content: space-around;
 }
 
 body.etc-page #rc_car_intro_1 .text_wrap table.part_name {
@@ -3814,41 +3823,41 @@ body.etc-page #rc_car_intro_1 .text_wrap table.part_name {
 
 }
 
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(2) img,
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(3) img,
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(4) img,
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(5) img,
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(6) img,
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(7) img,
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(8) img,
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(9) img,
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr:nth-child(10) img {
-    width: 200px;
-    height: 200px;
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name tr img {
+    width: 150px;
+    height: 150px;
+}
 
+body.etc-page #rc_car_intro_1 .text_wrap table.part_name td {
+    width: 150px;
+    height: 150px;
 }
 
 body.etc-page #rc_car_intro_1 .text_wrap .planning img {
     width: 300px;
 }
 
-body.etc-page #rc_car_intro_1 .text_wrap table.part_name td {
-    width: 350px;
-}
+
+
 
 /* 가로 배치를 위한 컨테이너 설정 */
 body.etc-page .planning-flex-container {
     display: flex;
-    flex-direction: row; /* 가로 정렬 */
-    align-items: flex-start; /* 위쪽 라인 맞춤 */
-    justify-content: center; /* 전체 중앙 정렬 */
-    gap: 30px; /* 두 표 사이의 간격 */
+    flex-direction: row;
+    /* 가로 정렬 */
+    align-items: flex-start;
+    /* 위쪽 라인 맞춤 */
+    justify-content: center;
+    /* 전체 중앙 정렬 */
+    gap: 30px;
+    /* 두 표 사이의 간격 */
     margin: 20px auto;
 }
 
 /* 왼쪽 표(controller) 너비 고정 (필요시) */
 body.etc-page #controller {
-    flex-shrink: 0; /* 크기 줄어듦 방지 */
+    flex-shrink: 0;
+    /* 크기 줄어듦 방지 */
 }
 
 /* 오른쪽 표(mini_mp3) 수정 */
@@ -3860,7 +3869,8 @@ body.etc-page #mini_mp3 {
 /* [방법 A] 자바스크립트로 .active 클래스를 붙일 경우 */
 body.etc-page #mini_mp3.active {
     display: table;
-    animation: fadeInRight 0.5s ease; /* 오른쪽에서 나타나는 애니메이션 */
+    animation: fadeInRight 0.5s ease;
+    /* 오른쪽에서 나타나는 애니메이션 */
 }
 
 body.etc-page strong {
