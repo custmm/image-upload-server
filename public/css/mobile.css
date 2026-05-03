@@ -4,7 +4,6 @@
 
     /*============ preview페이지 css ============*/
         body.preview-page .tab-container {
-        width: 90%;
         gap: 25px;
     }
 }
@@ -15,7 +14,6 @@
 
     /*============ preview페이지 css ============*/
     body.preview-page .tab-container {
-        width: 85%;
         gap: 20px;
     }
 
