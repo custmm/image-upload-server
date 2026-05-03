@@ -3863,14 +3863,6 @@ body.etc-page #mini_mp3.active {
     animation: fadeInRight 0.5s ease; /* 오른쪽에서 나타나는 애니메이션 */
 }
 
-/* [방법 B] 자바스크립트 없이 CSS만으로 할 경우 (:target 활용) */
-/* HTML 링크가 <a href="#mini_mp3">일 때 작동합니다 */
-body.etc-page #mini_mp3:target {
-    display: table;
-    animation: fadeInRight 0.5s ease;
-    border: 2px solid #007bff; /* 강조 효과 */
-}
-
 body.etc-page strong {
     text-align: center;
 }
