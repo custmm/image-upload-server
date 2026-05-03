@@ -7,18 +7,26 @@
  */
 export async function renderDashboardCharts() {
     try {
-        // 1. URL을 절대 경로 대신 상대 경로로 변경 (CORS 및 도메인 이슈 방지)
-        const response = await fetch('/api/files/category-counts');
+        // 1. 관리자 토큰 가져오기 (로그인 시 저장된 키값 확인 필요)
+        const token = localStorage.getItem("adminToken"); 
+
+        // 2. 인증 헤더를 포함하여 상대 경로로 호출
+        const response = await fetch('/api/files/category-counts', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`, // 서버 설정에 따라 Bearer 방식 사용
+                'Content-Type': 'application/json'
+            }
+        });
         
         if (!response.ok) {
-            // 400 에러 발생 시 서버가 보낸 에러 메시지가 있다면 출력
-            const errorBody = await response.text();
-            throw new Error(`API 요청 실패: ${response.status} - ${errorBody}`);
+            const errorData = await response.json();
+            throw new Error(errorData.error || `HTTP ${response.status}`);
         }
 
         const responseData = await response.json();
         
-        // 2. 데이터 추출 (배열인지 확인)
+        // 데이터 추출
         const categoryData = Array.isArray(responseData) ? responseData : (responseData.data || []);
 
         if (categoryData.length === 0) {
@@ -26,25 +34,27 @@ export async function renderDashboardCharts() {
             return;
         }
 
-        // 3. 차트용 데이터 가공
+        // 차트 데이터 가공
         const labels = categoryData.map(item => item.category || '기타');
         const dataValues = categoryData.map(item => Number(item.count) || 0);
         const totalCount = dataValues.reduce((a, b) => a + b, 0);
 
-        // 4. 차트 렌더링 호출
+        // 도넛 차트 렌더링
         renderDonutChart(labels, dataValues, totalCount);
         
-        // 만약 probabilities가 필요한 경우 (버블차트 등)
+        // 버블 차트용 확률 계산 및 렌더링
         const probabilities = dataValues.map(v => ((v / totalCount) * 100).toFixed(1));
         renderBubbleChart(labels, probabilities);
 
     } catch (error) {
-        console.error('❌ 차트 로드 실패:', error);
-        // 사용자에게 시각적 안내가 필요한 경우 아래 주석 해제
-        // document.getElementById("chartArea").innerHTML = "<p>데이터를 불러올 수 없습니다.</p>";
+        console.error('❌ 차트 로드 실패:', error.message);
+        // 에러 발생 시 사용자에게 안내 (선택 사항)
+        const chartArea = document.getElementById("chartArea");
+        if (chartArea && error.message.includes("ID가 필요")) {
+             chartArea.innerHTML = "<p style='color:red; text-align:center;'>인증 세션이 만료되었습니다. 다시 로그인해주세요.</p>";
+        }
     }
 }
-
 // 도넛/버블 보기 전환 리스너
 function bindChartSwitchEvents() {
     const showDonutBtn = document.getElementById("showDonut");
@@ -230,10 +240,17 @@ function applyForceLayout(bubbles, iterations = 120) {
     return bubbles;
 }
 
+/**
+ * 서브카테고리 상세 표 (인증 헤더 추가)
+ */
 export async function showSubcategoryTable(categoryName) {
     try {
-        const response = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`);
-        if (!response.ok) return;
+        const token = localStorage.getItem("adminToken");
+        const response = await fetch(`/api/files/subcategory-counts?category_name=${encodeURIComponent(categoryName)}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error("데이터 로드 실패");
         
         const subData = await response.json();
         const oldWrapper = document.querySelector(".subcategory-wrapper");
@@ -242,14 +259,17 @@ export async function showSubcategoryTable(categoryName) {
         const wrapper = document.createElement("div");
         wrapper.className = "subcategory-wrapper";
 
-        // 데이터가 없을 경우 처리
         if (!Array.isArray(subData) || subData.length === 0) {
             wrapper.innerHTML = `<h3>${categoryName} 상세</h3><p>데이터가 없습니다.</p>`;
         } else {
             wrapper.innerHTML = `
                 <h3>${categoryName} 상세</h3>
                 <table id="categoryInfoTable">
-                    ${subData.map(item => `<tr><td>${item.subcategory_name || '미지정'}</td><td>${item.count}개</td></tr>`).join('')}
+                    ${subData.map(item => `
+                        <tr>
+                            <td>${item.subcategory_name || '미지정'}</td>
+                            <td>${item.count}개</td>
+                        </tr>`).join('')}
                 </table>
             `;
         }
