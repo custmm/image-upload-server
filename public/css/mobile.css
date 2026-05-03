@@ -1,71 +1,18 @@
 @media (max-width: 576px) {
 
     /*============ index페이지 css ============*/
-    body.index-page .popup-box {}
-
-    body.index-page .modal-buttons {}
-
-    body.index-page .container {}
-
-    body.index-page #easterEggMessage {}
 
     /*============ preview페이지 css ============*/
-    body.preview-page #sidebar {}
+}
 
-    body.preview-page .message-container {}
+@media (max-width: 375px) {
 
-    body.preview-page #settingBtn {
-        right: 25px;
-    }
+    /*============ index페이지 css ============*/
 
-    body.preview-page #indic_position {}
-
-    body.preview-page #tab-design {}
-
-    body.preview-page #previewImagesContainer {}
-
-    body.preview-page #marge-container {}
-
-    body.preview-page #category-subtab-container {}
-
-    body.preview-page #subTabContainer {}
-
-    body.preview-page #view-switch {}
-
-    body.preview-page #pagination-info {}
-
-    body.preview-page #pagination-container {}
-
-    body.preview-page #settingPopup.active {
-        left: 45%;
-        width: 280px;
-        height: 225px;
-        top: 6%;
-    }
-
-    body.preview-page .setting-popup {
-        width: 280px;
-
-    }
-
-    body.preview-page .setting_item {
-        padding: 8px 0;
-    }
-
-    body.preview-page .toggle-switch_theme {}
-
-    body.preview-page .toggle-switch_trans {}
-
-    body.preview-page .toggle-switch_ind {
-        width: 140px;
-        height: 30px;
-        gap: 5px;
-    }
-
-    body.preview-page .page-footer {}
-
-    body.preview-page .fixed-trash-container {
-        right: 25px;
+    /*============ preview페이지 css ============*/
+    body.preview-page .tab-container {
+        width: 85%;
+        gap: 20px;
     }
 
 }
