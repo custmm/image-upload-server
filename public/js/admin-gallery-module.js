@@ -9,8 +9,8 @@ let textNoMoreData = false; // 데이터가 더 이상 없는지 체크
  * 1. 텍스트 리스트 데이터 가져오기
  */
 export async function fetchTextList(append = false) {
-    if (isLoadingList||(append &&textNoMoreData)) return;
-    
+    if (isLoadingList || (append && textNoMoreData)) return;
+
     // 1. 부모 컨테이너 찾기
     const parentContainer = document.querySelector(".post-form-container");
     if (!parentContainer) {
@@ -24,11 +24,11 @@ export async function fetchTextList(append = false) {
         container = document.createElement("div");
         container.id = "textGallery";
         container.className = "gallery-container"; // 필요에 따라 클래스 추가
-        
+
         // 텍스트 모드일 때만 보이도록 부모 클래스 조정
         parentContainer.classList.add("text-mode");
         parentContainer.classList.remove("image-mode");
-        
+
         parentContainer.appendChild(container);
     }
 
@@ -47,7 +47,7 @@ export async function fetchTextList(append = false) {
         if (!response.ok) throw new Error(`서버 응답 오류: ${response.status}`);
 
         const resJson = await response.json();
-        
+
         // 🔥 [데이터 구조 매핑 수정] res.files가 있으면 그것을 사용, 없으면 배열로 간주
         const images = Array.isArray(resJson) ? resJson : (resJson.files || []);
 
@@ -66,7 +66,7 @@ export async function fetchTextList(append = false) {
 
         // 불러오기 성공 후 버튼 상태 업데이트
         updateLoadButton(!textNoMoreData);
-        
+
         console.log(`✅ 게시물 로드 완료: ${images.length}개 (누적: ${loadedImages})`);
     } catch (err) {
         console.error("❌ 게시글 로드 실패:", err);
@@ -86,8 +86,8 @@ function renderTextItems(images, container) {
         postItem.className = "post-item"; // CSS와 일치하는 클래스
 
         // 이미지 최적화 (Thumb용 작은 사이즈 요청)
-        const thumbUrl = image.file_path.includes("?") 
-            ? `${image.file_path}&tr=w-100,h-100` 
+        const thumbUrl = image.file_path.includes("?")
+            ? `${image.file_path}&tr=w-100,h-100`
             : `${image.file_path}?tr=w-100,h-100`;
 
         postItem.innerHTML = `
@@ -149,7 +149,7 @@ export async function deletePost(id) {
 // [추가] 게시물 더보기 버튼 상태 업데이트 함수
 function updateLoadButton(hasMore) {
     const loadToggleBtn = document.getElementById("loadToggleBtn");
-    
+
     if (!loadToggleBtn) return; // 버튼 요소가 없으면 무시
 
     if (hasMore) {
@@ -241,7 +241,7 @@ function openContentEditPopup(image) {
 
     const editContent = modal.querySelector("#editContent");
     const counter = modal.querySelector("#descriptionCounter");
-    
+
     // 데이터 로드
     editContent.innerHTML = image.description?.text || image.text || "";
 
@@ -252,7 +252,7 @@ function openContentEditPopup(image) {
     modal.querySelector("#btnBold").onclick = () => document.execCommand('bold');
     modal.querySelector("#btnStrike").onclick = () => document.execCommand('strikethrough');
     modal.querySelector("#closeEdit").onclick = () => modal.style.display = "none";
-    
+
     modal.querySelector("#saveEdit").onclick = async () => {
         const updatedDesc = editContent.innerHTML;
         if (!editContent.innerText.trim()) {
@@ -271,7 +271,7 @@ function openContentEditPopup(image) {
  */
 export async function updatePost(postId, payload, type) {
     const url = type === "title" ? `/api/files/update-title/${postId}` : `/api/files/update-post/${postId}`;
-    
+
     try {
         const response = await fetch(url, {
             method: "PATCH",
@@ -288,5 +288,48 @@ export async function updatePost(postId, payload, type) {
         }
     } catch (error) {
         console.error("수정 오류:", error);
+    }
+}
+
+/**
+ * 8. PDF 데이터 다운로드 팝업 호출
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    const pdfBtn = document.getElementById("pdf");
+
+    if (pdfBtn) {
+        pdfBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // 실제 서버 경로는 나중에 연결! 지금은 빈 화면이나 안내 페이지 로드
+            const placeholderUrl = "about:blank";
+
+            // 기존에 작성된 전역 팝업 함수가 있다면 활용, 
+            // 없다면 아래와 같이 직접 iframe 팝업을 띄웁니다.
+            openPdfPreview(pdfUrl);
+        });
+    }
+});
+
+/**
+ * PDF 전용 핀 팝업 생성 및 표시
+ */
+function openPdfPreview(url) {
+    // 1. 기존 previewOverlayInfo 구조 활용 (이미 HTML에 있는 경우)
+    const overlay = document.getElementById("previewOverlayInfo");
+    const frame = document.getElementById("previewFrameInfo");
+
+    if (overlay && frame) {
+        frame.src = url;
+        overlay.style.display = "flex";
+
+        // 드래그 가능하게 설정 (기존 함수 재사용)
+        if (typeof makePopupDraggable === "function") {
+            makePopupDraggable("previewOverlayInfo");
+        }
+    } else {
+        // 2. 만약 전용 요소가 없다면 새로 창을 띄우거나 알림
+        alert("미리보기 팝업 요소를 찾을 수 없습니다. 새 탭에서 엽니다.");
+        window.open(url, "_blank", "noopener,noreferrer");
     }
 }
