@@ -3,18 +3,16 @@
     /*============ index페이지 css ============*/
 
     /*============ preview페이지 css ============*/
-        body.preview-page .tab-container {
+    body.preview-page .tab-container {
         gap: 25px;
     }
-}
 
-@media (max-width: 375px) {
+    body.preview-page .fixed-trash-container {
+        right: 25px;
 
-    /*============ index페이지 css ============*/
-
-    /*============ preview페이지 css ============*/
-    body.preview-page .tab-container {
-        gap: 20px;
     }
+    body.preview-page #settingBtn{
+        right: 25px;
 
+    }
 }
