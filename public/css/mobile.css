@@ -15,4 +15,11 @@
         right: 25px;
 
     }
+    body.preview-page #view-switch {
+          margin: 10px 0 10px 65%;  
+    }
+    body.preview-page .sidebar {
+        width: 100%;
+
+    }
 }
