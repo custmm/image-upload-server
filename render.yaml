@@ -22,11 +22,6 @@ services:
       # 보안 설정
       - key: JWT_SECRET
         sync: false
-      # SSL 설정 (Render 자동 HTTPS 사용 시 필요 없음, 필요 시 경로 지정)
-      - key: SSL_KEY_PATH
-        value: /etc/secrets/server.key
-      - key: SSL_CERT_PATH
-        value: /etc/secrets/cert.pem
 
 databases:
   - name: my-db
