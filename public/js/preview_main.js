@@ -423,74 +423,88 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const trashRect = trashContainer.getBoundingClientRect();
                     const indRect = indicator.getBoundingClientRect();
 
+                    // 1. 중심 좌표 계산
                     const tX = trashRect.left + trashRect.width / 2;
                     const tY = trashRect.top + trashRect.height / 2;
                     const iX = indRect.left + indRect.width / 2;
-                    const iY = indRect.top + trashRect.height / 2;
+                    const iY = indRect.top + indRect.height / 2;
 
                     const dist = Math.hypot(tX - iX, tY - iY);
 
                     if (dist < 100) {
-                        // 이미지가 빨려 들어갈 위치 계산
-                        const dropX = trashRect.left + (trashRect.width / 2) - (indRect.width / 2) - indRect.left + this.x;
-                        const dropY = trashRect.top + (trashRect.height / 2) - (indRect.top / 2) - indRect.top + this.y;
+                        // 2. 정확히 안으로 빨려 들어가는 좌표 계산
+                        const targetX = this.x + (tX - iX);
+                        const targetY = this.y + (tY - iY);
 
                         const tl = gsap.timeline();
 
-                        // [1단계] 빨려 들어가는 애니메이션
+                        // 3. 현재 이미지가 1번인지 확실하게 체크 (파일명 문자열 검사)
+                        const currentSrc = indicator.src;
+                        const isOnlyFirstImg = currentSrc.endsWith('preview-gunff_1re.png');
+
+                        // [A 단계] 빨려 들어가기
                         tl.to(indicator, {
                             duration: 0.4,
-                            x: dropX,
-                            y: dropY,
+                            x: targetX,
+                            y: targetY,
                             scale: 0,
                             opacity: 0,
-                            rotation: 1080,
-                            ease: "power4.in",
+                            rotation: 720,
+                            ease: "power2.in",
                             onStart: () => {
-                                trashContainer.classList.add("open"); // 입 벌리기 (icon2)
+                                trashContainer.classList.add("open"); // 일단 입 벌림 (icon2)
                             }
                         });
 
-                        // [2단계] 입 껌뻑거리기 (icon1 <-> icon2) 2회 반복
-                        // 클래스를 뗐다 붙였다 하여 이미지를 교체합니다.
-                        tl.to({}, { duration: 0.2, onStart: () => trashContainer.classList.remove("open") }) // 닫기
-                            .to({}, { duration: 0.2, onStart: () => trashContainer.classList.add("open") })    // 열기
-                            .to({}, { duration: 0.2, onStart: () => trashContainer.classList.remove("open") }) // 닫기
-                            .to({}, { duration: 0.2, onStart: () => trashContainer.classList.add("open") })    // 열기
-                            .to({}, {
-                                duration: 0.2,
-                                onStart: () => {
-                                    trashContainer.classList.remove("open"); // 최종적으로 닫기
-                                    trashContainer.classList.add("chewing"); // "작아지는 애니메이션" 모드 진입
-                                }
-                            });
+                        // [B 단계] 오직 1번 이미지일 때만 입 껌뻑거리기 (열고-닫고-열고-닫고)
+                        if (isOnlyFirstImg) {
+                            tl.to({}, { 
+                                duration: 0.15, 
+                                onStart: () => trashContainer.classList.remove("open") 
+                            }) // 닫기 (icon1)
+                                .to({}, { 
+                                    duration: 0.15, 
+                                    onStart: () => trashContainer.classList.add("open") 
+                                })    // 열기 (icon2)
+                                .to({}, { 
+                                    duration: 0.15, 
+                                    onStart: () => trashContainer.classList.remove("open") 
+                                }) // 닫기 (icon1)
+                                .to({}, { 
+                                    duration: 0.15, 
+                                    onStart: () => trashContainer.classList.add("open") 
+                                });   // 열기 (icon2)
+                        }
 
-                        // [3단계] 10초 동안 small0 ~ small11까지 순차 변경
-                        const totalFrames = 12; // 0부터 11까지 총 12개
-                        const totalDuration = 10; // 10초
-                        const frameDuration = totalDuration / totalFrames;
+                        // [C 단계] 공통 소화 과정 (10초 동안 small0~11 변환)
+                        tl.to({}, {
+                            duration: 0.1,
+                            onStart: () => {
+                                trashContainer.classList.remove("open");
+                                trashContainer.classList.add("chewing"); // 소화 모드 시작
+                            }
+                        });
+
+                        const totalFrames = 12;
+                        const frameDuration = 10 / totalFrames; // 10초를 12등분
 
                         for (let i = 0; i < totalFrames; i++) {
                             tl.to({}, {
                                 duration: frameDuration,
                                 onStart: () => {
-                                    // 쓰레기통의 배경 이미지를 직접 변경 (CSS 변수 활용 권장)
-                                    const smallIconUrl = `../images/trash/trash_icon_small${i}.svg`;
-                                    // .main-icon 요소의 배경이나 src를 변경 (구조에 따라 선택)
                                     const mainIcon = trashContainer.querySelector(".main-icon");
                                     if (mainIcon) {
-                                        mainIcon.style.backgroundImage = `url('${smallIconUrl}')`;
+                                        mainIcon.style.backgroundImage = `url('../images/trash/trash_icon_small${i}.svg')`;
                                     }
                                 }
                             });
                         }
 
-                        // [최종] 초기화
+                        // [최종] 복구
                         tl.set({}, {
                             onComplete: () => {
                                 indicator.style.display = "none";
                                 trashContainer.classList.remove("chewing");
-                                // 원래 이미지(icon1)로 복구 로직 필요 시 추가
                                 const mainIcon = trashContainer.querySelector(".main-icon");
                                 if (mainIcon) {
                                     mainIcon.style.backgroundImage = `url('../images/trash/trash_icon1.svg')`;
