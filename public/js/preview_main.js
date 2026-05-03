@@ -498,6 +498,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // 6. [중요] PC 휠 가로 스크롤 (이벤트 위임 - DOM 로딩 상관없이 작동)
 document.addEventListener("wheel", (e) => {
+    // 💡 여기서 imageGallery 요소를 직접 찾도록 한 줄을 추가합니다!
+    const galleryEl = document.getElementById("imageGallery"); 
 
     if (!galleryEl) return;
 
