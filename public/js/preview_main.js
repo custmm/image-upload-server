@@ -475,31 +475,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                                     onStart: () => trashContainer.classList.add("open") 
                                 });   // 열기 (icon2)
                         }
-
-                        // [C 단계] 공통 소화 과정 (10초 동안 small0~11 변환)
-                        tl.to({}, {
-                            duration: 0.1,
-                            onStart: () => {
-                                trashContainer.classList.remove("open");
-                                trashContainer.classList.add("chewing"); // 소화 모드 시작
-                            }
-                        });
-
-                        const totalFrames = 12;
-                        const frameDuration = 15 / totalFrames; // 10초를 12등분
-
-                        for (let i = 0; i < totalFrames; i++) {
-                            tl.to({}, {
-                                duration: frameDuration,
-                                onStart: () => {
-                                    const mainIcon = trashContainer.querySelector(".main-icon");
-                                    if (mainIcon) {
-                                        mainIcon.style.backgroundImage = `url('../images/trash/trash_icon_small${i}.svg')`;
-                                    }
-                                }
-                            });
-                        }
-
                         // [최종] 복구
                         tl.set({}, {
                             onComplete: () => {
