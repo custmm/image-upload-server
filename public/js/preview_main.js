@@ -252,10 +252,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (closeBtn) {
             e.preventDefault();
             // HTML에 적어둔 data-type 속성값 (예: "info", "icon")을 가져옴
-            const type = closeBtn.getAttribute("data-type"); 
-            
+            const type = closeBtn.getAttribute("data-type");
+
             // 타입이 있으면 해당 팝업만, 없으면 일단 info를 닫도록 시도
-            window.closePreviewPopup(type || "info"); 
+            window.closePreviewPopup(type || "info");
         }
     });
 
@@ -426,52 +426,78 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const tX = trashRect.left + trashRect.width / 2;
                     const tY = trashRect.top + trashRect.height / 2;
                     const iX = indRect.left + indRect.width / 2;
-                    const iY = indRect.top + indRect.height / 2;
+                    const iY = indRect.top + iY;
 
                     const dist = Math.hypot(tX - iX, tY - iY);
 
-                    // 2. 100px 이내에서 마우스를 딱! 놓았을 때
                     if (dist < 100) {
-
-                        // 🟢 쏙 들어가는 순간 CSS 클래스를 통해 trash_icon2.svg 노출! (입 쩍!)
-                        trashContainer.classList.add("open");
-
+                        // 이미지가 빨려 들어갈 위치 계산
                         const dropX = trashRect.left + (trashRect.width / 2) - (indRect.width / 2) - indRect.left + this.x;
-                        const dropY = trashRect.top + (trashRect.height / 2) - (indRect.height / 2) - indRect.top + this.y;
+                        const dropY = trashRect.top + (trashRect.height / 2) - (indRect.top / 2) - indRect.top + this.y;
 
-                        // 🔥 커비(Kirby) 스타일 애니메이션 타임라인 생성
-                        const tl = gsap.timeline({
-                            onComplete: () => {
-                                indicator.style.display = "none";
+                        const tl = gsap.timeline();
 
-                                // 🔴 다 먹고 나서 원래대로 trash_icon1.svg 노출! (입 닫음)
-                                trashContainer.classList.remove("open");
-
-                                // 다음에 다시 나타날 때를 대비해 투명도(opacity)까지 완벽히 초기화
-                                gsap.set(indicator, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1 });
+                        // [1단계] 빨려 들어가는 애니메이션
+                        tl.to(indicator, {
+                            duration: 0.4,
+                            x: dropX,
+                            y: dropY,
+                            scale: 0,
+                            opacity: 0,
+                            rotation: 1080,
+                            ease: "power4.in",
+                            onStart: () => {
+                                trashContainer.classList.add("open"); // 입 벌리기 (icon2)
                             }
                         });
 
-                        // [1단계] 진공청소기 바람에 걸려서 바들바들 떨기 (저항하는 느낌)
-                        tl.to(indicator, {
-                            duration: 0.05,        // 아주 짧은 시간 동안
-                            x: this.x + 5,         // 살짝 옆으로 밀리며
-                            y: this.y - 5,
-                            rotation: 15,          // 살짝 기울어짐
-                            scale: 1.1,            // 빨려가기 전 살짝 빵빵해짐
-                            yoyo: true,            // 갔다가 되돌아오기
-                            repeat: 3              // 3번 반복 (바들바들 떨림)
-                        })
-                            // [2단계] 저항을 뚫고 초고속으로 회전하며 빨려 들어감
-                            .to(indicator, {
-                                duration: 0.4,         // 0.4초 만에 순식간에!
-                                x: dropX,
-                                y: dropY,
-                                scale: 0,              // 크기는 0으로 소멸
-                                opacity: 0,
-                                rotation: 1080,        // 3바퀴(360*3)를 미친듯이 회전
-                                ease: "power4.in"      // 가속도 이징! (처음엔 느리다가 입구에서 확! 빨려감)
+                        // [2단계] 입 껌뻑거리기 (icon1 <-> icon2) 2회 반복
+                        // 클래스를 뗐다 붙였다 하여 이미지를 교체합니다.
+                        tl.to({}, { duration: 0.2, onStart: () => trashContainer.classList.remove("open") }) // 닫기
+                            .to({}, { duration: 0.2, onStart: () => trashContainer.classList.add("open") })    // 열기
+                            .to({}, { duration: 0.2, onStart: () => trashContainer.classList.remove("open") }) // 닫기
+                            .to({}, { duration: 0.2, onStart: () => trashContainer.classList.add("open") })    // 열기
+                            .to({}, {
+                                duration: 0.2,
+                                onStart: () => {
+                                    trashContainer.classList.remove("open"); // 최종적으로 닫기
+                                    trashContainer.classList.add("chewing"); // "작아지는 애니메이션" 모드 진입
+                                }
                             });
+
+                        // [3단계] 10초 동안 small0 ~ small11까지 순차 변경
+                        const totalFrames = 12; // 0부터 11까지 총 12개
+                        const totalDuration = 10; // 10초
+                        const frameDuration = totalDuration / totalFrames;
+
+                        for (let i = 0; i < totalFrames; i++) {
+                            tl.to({}, {
+                                duration: frameDuration,
+                                onStart: () => {
+                                    // 쓰레기통의 배경 이미지를 직접 변경 (CSS 변수 활용 권장)
+                                    const smallIconUrl = `../images/trash/trash_icon_small${i}.svg`;
+                                    // .main-icon 요소의 배경이나 src를 변경 (구조에 따라 선택)
+                                    const mainIcon = trashContainer.querySelector(".main-icon");
+                                    if (mainIcon) {
+                                        mainIcon.style.backgroundImage = `url('${smallIconUrl}')`;
+                                    }
+                                }
+                            });
+                        }
+
+                        // [최종] 초기화
+                        tl.set({}, {
+                            onComplete: () => {
+                                indicator.style.display = "none";
+                                trashContainer.classList.remove("chewing");
+                                // 원래 이미지(icon1)로 복구 로직 필요 시 추가
+                                const mainIcon = trashContainer.querySelector(".main-icon");
+                                if (mainIcon) {
+                                    mainIcon.style.backgroundImage = `url('../images/trash/trash_icon1.svg')`;
+                                }
+                                gsap.set(indicator, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1 });
+                            }
+                        });
                     }
                 }
             });
@@ -481,7 +507,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // --- [링크 팝업창으로 띄우기 로직] ---
     // 1. 해당 링크(a 태그)들을 모두 찾습니다.
     const popupLinks = document.querySelectorAll('a[href*="preview_popup"], a[href*="etc_util"], a[href*="online_contact"]');
-    
+
     // 2. 팝업을 띄울 오버레이와 아이프레임 요소를 찾습니다.
     const popupOverlay = document.getElementById("previewOverlayInfo");
     const popupFrame = document.getElementById("previewFrameInfo");
@@ -490,14 +516,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     popupLinks.forEach(link => {
         link.addEventListener("click", (e) => {
             e.preventDefault(); // 🛑 기본 동작(새 창 열기 또는 페이지 이동) 막기
-            
+
             if (popupOverlay && popupFrame) {
                 // a 태그에 적힌 href 경로를 가져와서 iframe의 src에 꽂아줍니다.
                 const targetUrl = link.getAttribute("href");
-                popupFrame.src = targetUrl; 
-                
+                popupFrame.src = targetUrl;
+
                 // 팝업 화면에 표시 (기존 display none -> flex로 변경)
-                popupOverlay.style.display = "flex"; 
+                popupOverlay.style.display = "flex";
             }
         });
     });
@@ -507,7 +533,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // 6. [중요] PC 휠 가로 스크롤 (이벤트 위임 - DOM 로딩 상관없이 작동)
 document.addEventListener("wheel", (e) => {
     // 💡 여기서 imageGallery 요소를 직접 찾도록 한 줄을 추가합니다!
-    const galleryEl = document.getElementById("imageGallery"); 
+    const galleryEl = document.getElementById("imageGallery");
 
     if (!galleryEl) return;
 
