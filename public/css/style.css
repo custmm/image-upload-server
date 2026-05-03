@@ -3836,9 +3836,29 @@ body.etc-page #rc_car_intro_1 .text_wrap table.part_name td {
     width: 350px;
 }
 
+/* 1. 컨테이너를 가로 정렬(Flex)로 설정 */
+body.etc-page .planning-container {
+    display: flex;
+    align-items: flex-start; /* 위쪽 라인 맞춤 */
+    gap: 20px;              /* 표 사이 간격 */
+    margin-bottom: 20px;
+}
+
+/* 3. 오른쪽 표(mini_mp3) 초기 상태 */
 body.etc-page #mini_mp3 {
-    display: none;
-    /* 처음에 숨김 */
+    opacity: 0;             /* 투명하게 숨김 */
+    visibility: hidden;     /* 클릭도 안 되게 숨김 */
+    transform: translateX(20px); /* 살짝 오른쪽으로 밀어둠 */
+    transition: all 0.5s ease;   /* 부드러운 효과 */
+}
+
+/* 4. 링크 클릭 시 오른쪽 표가 나타나는 효과 */
+body.etc-page #mini_mp3:target {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0); /* 원래 위치로 오면서 나타남 */
+    background-color: #f9f9f9;
+    border: 2px solid #007bff; /* 파란색 강조 */
 }
 
 body.etc-page #mini_mp3.active {
