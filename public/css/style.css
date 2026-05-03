@@ -3742,8 +3742,8 @@ body.etc-page .app_dev {
     justify-content: center;
     align-items: center;
     background-color: #d8f1d2;
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     padding: 10px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -3757,7 +3757,7 @@ body.etc-page .app_dev::after {
     position: absolute;
     top: 50%;
     /* 수직 중앙 */
-    left: 100%;
+    left: 110%;
     /* 아이콘 오른쪽 끝에서 시작 */
     width: 40px;
     /* .dev_wrap의 가로 gap 수치와 동일하게 설정 */
@@ -3782,9 +3782,9 @@ body.etc-page .app_dev:hover {
 
 /* 4. 이미지(SVG) 크기 조절 */
 body.etc-page .app_dev img {
-    width: 50px;
+    width: 35px;
     /* 아이콘 크기에 맞춰 조절하세요 */
-    height: 50px;
+    height: 35px;
     display: block;
 }
 
