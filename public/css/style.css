@@ -3292,8 +3292,9 @@ body.preview-page #welcomeMessage {
     color: aliceblue;
 }
 
-body.preview-page .opacitybtn path {
+body.preview-page img#opacityToggleBtn{
     height: 30px;
+    width: 30px;
     cursor: pointer;
     fill: #00ff00;
     /* 원하는 색상 코드로 변경 */
