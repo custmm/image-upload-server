@@ -84,6 +84,7 @@ function renderTextItems(images, container) {
     images.forEach(image => {
         const postItem = document.createElement("div");
         postItem.className = "post-item"; // CSS와 일치하는 클래스
+        postItem.setAttribute("data-id", image.id); // ID 저장
 
         // 이미지 최적화 (Thumb용 작은 사이즈 요청)
         const thumbUrl = image.file_path.includes("?")
@@ -200,13 +201,27 @@ function openEditSelectPopup(image) {
 /**
  * 5. 제목 수정
  */
-function openTitleEditPopup(image) {
+async function openTitleEditPopup(image) {
     const newTitle = prompt("새 제목을 입력하세요:", image.title);
+    
     if (newTitle !== null && newTitle.trim() !== "") {
-        updatePost(image.id, { title: newTitle.trim() }, "title");
+        const result = await updatePost(image.id, { title: newTitle.trim() }, "title");
+
+        // ✅ 여기에 추가합니다!
+        if (result.success) {
+            // 1. DOM에서 해당 ID를 가진 post-item 찾기
+            const targetItem = document.querySelector(`.post-item[data-id="${image.id}"]`);
+            
+            if (targetItem) {
+                // 2. 해당 아이템 내의 제목 텍스트 업데이트
+                targetItem.querySelector(".file-name").innerText = newTitle.trim();
+                
+                // 3. 메모리 데이터(image 객체)도 업데이트하여 이후 수정 시 반영되게 함
+                image.title = newTitle.trim(); 
+            }
+        }
     }
 }
-
 /**
  * 6. 상세 내용 수정 에디터
  */
@@ -259,8 +274,13 @@ function openContentEditPopup(image) {
             alert("내용을 입력해주세요.");
             return;
         }
-        await updatePost(image.id, { description: updatedDesc }, "post");
-        modal.style.display = "none";
+        const result = await updatePost(image.id, { description: updatedDesc }, "post");
+
+        if (result.success) {
+            // 새로고침 없이 데이터 반영
+            image.description = { text: updatedDesc }; // 데이터 객체 업데이트
+            modal.style.display = "none";
+        }
     };
 
     modal.style.display = "flex";
@@ -282,12 +302,14 @@ export async function updatePost(postId, payload, type) {
         const data = await response.json();
         if (data.success) {
             alert("수정되었습니다.");
-            location.reload();
+            return { success: true, payload };
         } else {
             alert(`수정 실패: ${data.message}`);
+            return { success: false };
         }
     } catch (error) {
         console.error("수정 오류:", error);
+        return { success: false };
     }
 }
 
@@ -302,11 +324,11 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
 
             // [수정 포인트] 변수명을 일치시킵니다.
-            const placeholderUrl = "about:blank"; 
+            const placeholderUrl = "about:blank";
 
             // placeholderUrl을 인자로 전달합니다.
-            openPdfPreview(placeholderUrl); 
-            
+            openPdfPreview(placeholderUrl);
+
             console.log("📍 PDF 팝업 호출됨");
         });
     }
