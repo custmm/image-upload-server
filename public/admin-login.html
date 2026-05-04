@@ -27,6 +27,10 @@
                     <label for="password">관리자 암호</label>
                 </div>
                 <button id="loginButton" type="submit">로그인</button>
+                <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+                   <div class="cf-turnstile" data-sitekey="0x4AAAAAADIogW5gjTtZkcq4"></div> 
+                </div>
+                 
             </div>
             <p id="error-message"></p>
         </form>
@@ -45,6 +49,7 @@
         <p class="loading-text">로그인 중...</p>
     </div>
     <script src="js/admin-login.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 
 </html>

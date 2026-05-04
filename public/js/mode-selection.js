@@ -116,11 +116,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    if (logoutButton) {
-        logoutButton.addEventListener("click", () => {
-            showPopup("로그아웃 후 메인 페이지로 이동하시겠습니까?", () => {
-                window.location.href = "index.html";
-            });
-        });
-    }
 });
