@@ -48,9 +48,9 @@ app.use(helmet({
             defaultSrc: ["'self'"],
             // 1. 외부 서버와 통신 허용 (TensorFlow 모델 다운로드 주소 추가)
             connectSrc: [
-                "'self'", 
-                "https://unpkg.com", 
-                "https://cdn.jsdelivr.net", 
+                "'self'",
+                "https://unpkg.com",
+                "https://cdn.jsdelivr.net",
                 "https://ik.imagekit.io",
                 "https://storage.googleapis.com", // AI 모델 파일을 받아오기 위해 필수!
                 "https://tfhub.dev",
@@ -58,20 +58,41 @@ app.use(helmet({
             ],
             // 2. 자바스크립트 허용 ('unsafe-eval' 추가!)
             scriptSrc: [
-                "'self'", 
-                "'unsafe-inline'", 
+                "'self'",
+                "'unsafe-inline'",
                 "'unsafe-eval'", // TensorFlow.js의 동적 코드 실행을 위해 필수!
-                "https://unpkg.com", 
-                "https://cdn.jsdelivr.net", 
+                "https://unpkg.com",
+                "https://cdn.jsdelivr.net",
                 "https://code.jquery.com",
-                "https://cdnjs.cloudflare.com"
+                "https://cdnjs.cloudflare.com",
+                "https://challenges.cloudflare.com"
+            ],
+            // 3. iframe 허용 (🔥 추가: 캡차가 화면에 보이게 함)
+            frameSrc: [
+                "'self'",
+                "https://challenges.cloudflare.com"
             ],
             // 3. 스타일시트 허용
-            styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://unpkg.com", "https://cdn.jsdelivr.net"],
+            styleSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://cdnjs.cloudflare.com",
+                "https://unpkg.com",
+                "https://cdn.jsdelivr.net"
+            ],
             // 4. 이미지 허용 (데이터 URL 및 외부 이미지 서버)
-            imgSrc: ["'self'", "data:", "https://ik.imagekit.io", "https://cdn.jsdelivr.net"],
+            imgSrc: [
+                "'self'",
+                "data:",
+                "https://ik.imagekit.io",
+                "https://cdn.jsdelivr.net"
+            ],
             // 5. 폰트 허용
-            fontSrc: ["'self'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net"],
+            fontSrc: [
+                "'self'",
+                "https://cdnjs.cloudflare.com",
+                "https://cdn.jsdelivr.net"
+            ],
         },
     },
 }));
@@ -95,12 +116,12 @@ app.use((req, res, next) => {
     }
 
     // 2. 클라이언트가 보낸 발신 시간 확인
-    const clientTime = req.headers['x-latency-check']; 
+    const clientTime = req.headers['x-latency-check'];
     const serverTime = Date.now();
 
     if (!clientTime) {
         // 보안을 강화하려면 여기서 차단(403)하고, 테스트 중이라면 그냥 통과(next) 시키세요.
-        return next(); 
+        return next();
     }
 
     const diff = serverTime - parseInt(clientTime);
@@ -158,7 +179,7 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 // --- 개별 라우트 (API 엔드포인트) ---
 app.get("/favicon.ico", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "public","images", "favicon.ico"));
+    res.sendFile(path.join(__dirname, "..", "public", "images", "favicon.ico"));
 });
 app.get("/api/health", (req, res) => {
     res.status(200).send("Server is alive");
