@@ -2855,10 +2855,8 @@ body.preview-page .setting-layer {
 
 body.preview-page .setting_item {
     display: flex;
-    margin: 0 auto;
-    align-items: center;
-    padding: 10px 0;
-    gap: 15px;
+    justify-content: space-between;
+
 }
 
 /* 기본 상태: 화면에서 아예 숨김 */
