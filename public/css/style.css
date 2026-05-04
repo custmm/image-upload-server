@@ -351,6 +351,7 @@ body.login-page #loginButton {
 body.login-page #button_wrap{
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
 
 }
 body.login-page #lockbox {
