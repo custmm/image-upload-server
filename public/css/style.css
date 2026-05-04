@@ -349,6 +349,12 @@ body.login-page #loginButton {
     border-radius: 5px;
 }
 
+body.login-page #lockbox {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
 body.login-page .login-row {
     display: flex;
     flex-wrap: wrap;
@@ -3281,11 +3287,13 @@ body.preview-page #welcomeMessage {
     color: aliceblue;
 }
 
-body.preview-page .opacitybtn path{
+body.preview-page .opacitybtn path {
     height: 30px;
     cursor: pointer;
-    fill: #00ff00; /* 원하는 색상 코드로 변경 */
-    transition: fill 0.3s ease; /* 호버 시 부드럽게 변하게 하려면 추가 */
+    fill: #00ff00;
+    /* 원하는 색상 코드로 변경 */
+    transition: fill 0.3s ease;
+    /* 호버 시 부드럽게 변하게 하려면 추가 */
 }
 
 body.preview-page .function-infor {
