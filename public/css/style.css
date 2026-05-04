@@ -348,7 +348,11 @@ body.login-page #loginButton {
     transition: transform 0.3s ease-in-out;
     border-radius: 5px;
 }
+body.login-page #button_wrap{
+    display: flex;
+    flex-direction: column;
 
+}
 body.login-page #lockbox {
     display: flex;
     justify-content: center;

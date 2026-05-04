@@ -8,7 +8,8 @@
     <title>Ɐ퓨챠휼Ɐ >> 로그인</title>
 
     <!-- 외부 링크 css -->
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
     <!-- 파일 내 css -->
     <link rel="stylesheet" href="./css/style.css">
@@ -26,11 +27,14 @@
                     <input type="password" id="password" required>
                     <label for="password">관리자 암호</label>
                 </div>
-                <button id="loginButton" type="submit">로그인</button>
-                <div id="lockbox">
-                   <div class="cf-turnstile" data-sitekey="0x4AAAAAADIogW5gjTtZkcq4"></div> 
+                <div id="button_wrap">
+                    <button id="loginButton" type="submit">로그인</button>
+                    <div id="lockbox">
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAADIogW5gjTtZkcq4"></div>
+                    </div>
                 </div>
-                 
+
+
             </div>
             <p id="error-message"></p>
         </form>

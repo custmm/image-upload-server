@@ -18,7 +18,7 @@ async function loadTotalPreview() {
     for (const catName of categories) {
         const section = document.createElement("section");
         section.className = "category-group";
-        section.id = `section-${catName}`; 
+        section.id = `section-${catName}`;
 
         const iconName = iconMap[catName] || "folder";
         section.innerHTML = `
@@ -36,13 +36,13 @@ async function loadTotalPreview() {
             const response = await fetch(`/api/posts?category=${encodeURIComponent(catName)}`);
             const posts = await response.json();
             const listDiv = document.getElementById(`list-${catName}`);
-            listDiv.innerHTML = ""; 
+            listDiv.innerHTML = "";
 
             if (posts && posts.length > 0) {
                 posts.forEach(post => {
                     const postCard = document.createElement("div");
                     postCard.className = "post-card";
-                    
+
                     // 1. 인라인 속성(onerror, onclick)을 제거한 클린한 HTML 생성
                     postCard.innerHTML = `
                         <img src="${post.file_path}" alt="${post.title}" class="post-thumb">
@@ -51,7 +51,7 @@ async function loadTotalPreview() {
 
                     // 2. [수정] onerror를 대체하는 이벤트 리스너 추가
                     const img = postCard.querySelector('.post-thumb');
-                    img.addEventListener('error', function() {
+                    img.addEventListener('error', function () {
                         this.src = '/images/no_result.png';
                     });
 
@@ -59,7 +59,7 @@ async function loadTotalPreview() {
                     postCard.addEventListener('click', () => {
                         location.href = `/post?id=${post.id}`;
                     });
-                    
+
                     listDiv.appendChild(postCard);
                 });
             } else {
@@ -73,11 +73,11 @@ async function loadTotalPreview() {
     if (window.lucide) lucide.createIcons();
 
     // 2. 모든 렌더링이 끝난 후, targetCategory가 있다면 해당 위치로 이동
-if (targetCategory) {
+    if (targetCategory) {
         setTimeout(() => {
             const targetEl = document.getElementById(`section-${targetCategory}`);
             if (targetEl) {
-                const offset = 80; 
+                const offset = 80;
                 const elementPosition = targetEl.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - offset;
                 window.scrollTo({ top: offsetPosition, behavior: "smooth" });
@@ -94,7 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
     loadTotalPreview();
 
     // 2. 뒤로가기 버튼에 클릭 이벤트 리스너 추가 (CSP 준수 방식)
-    const backButton = document.getElementById('backButton');
+    const backButton = document.querySelector('.back-button');
+
     if (backButton) {
         backButton.addEventListener('click', () => {
             window.location.href = 'preview.html';
