@@ -2856,9 +2856,13 @@ body.preview-page .setting-layer {
 body.preview-page .setting_item {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
+    height: 30px;
 
 }
-
+body.preview-page .toggle-switch_trans{
+    display: flex;
+}
 /* 기본 상태: 화면에서 아예 숨김 */
 body.preview-page #settingPopup {
     display: none !important;
