@@ -69,7 +69,7 @@ async function fetchPopupImages() {
             popupOffset += images.length;
             
             const countDisplay = document.getElementById("popupCountDisplay");
-            if(countDisplay) countDisplay.innerText = `총 ${popupOffset}개 항목 분석 완료`;
+            if(countDisplay) countDisplay.innerText = `총 ${popupOffset}개 이미지`;
         }
 
     } catch (error) {

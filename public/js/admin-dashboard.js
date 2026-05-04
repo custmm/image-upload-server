@@ -4,22 +4,24 @@ import { loadAIModel, runDuplicateAnalysis } from './analysis-module.js';
 import { renderDashboardCharts } from './chart-module.js';
 import { fetchTextList } from './admin-gallery-module.js';
 import { openImagePopup } from './image-popup.js';
+import { openDownloadPopup } from './download-popup.js'
 
 document.addEventListener("DOMContentLoaded", async () => {
 
     const imageModeBtn = document.getElementById("image-mode");
+    const downloadBtn =document.getElementById("download-mode")
     const checkBtn = document.getElementById("check-duplicate");
     const loadToggleBtn = document.getElementById("loadToggleBtn");
     const backBtn = document.querySelector(".back-button");
-    
+
 
     // 2. 보안 체크 (실패 시 로그인 페이지로 튕김)
     if (!checkAuth()) return;
 
     // 3. UI 및 데이터 초기 로드
     // AI 모델은 비동기로 백그라운드에서 로드되도록 둡니다.
-    loadAIModel(); 
-    
+    loadAIModel();
+
     // 차트와 텍스트 리스트 렌더링
     await renderDashboardCharts();
     await fetchTextList();
@@ -31,10 +33,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             window.location.href = 'mode-selection.html';
         });
     }
-    
+
     // [이미지 모드] 이제 성능 저하 없는 팝업 방식으로 실행됩니다.
     if (imageModeBtn) {
         imageModeBtn.addEventListener("click", openImagePopup);
+    }
+
+    if(downloadBtn){
+        downloadBtn.addEventListener("click", openDownloadPopup);
     }
 
     // [중복 확인] AI 분석 실행

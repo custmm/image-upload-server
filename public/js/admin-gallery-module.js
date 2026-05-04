@@ -197,7 +197,6 @@ function openEditSelectPopup(image) {
 
     modal.style.display = "flex";
 }
-
 /**
  * 5. 제목 수정
  */
@@ -313,26 +312,6 @@ export async function updatePost(postId, payload, type) {
     }
 }
 
-/**
- * 8. PDF 데이터 다운로드 팝업 호출
- */
-document.addEventListener("DOMContentLoaded", () => {
-    const pdfBtn = document.getElementById("pdf");
-
-    if (pdfBtn) {
-        pdfBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-
-            // [수정 포인트] 변수명을 일치시킵니다.
-            const placeholderUrl = "about:blank";
-
-            // placeholderUrl을 인자로 전달합니다.
-            openPdfPreview(placeholderUrl);
-
-            console.log("📍 PDF 팝업 호출됨");
-        });
-    }
-});
 
 /**
  * PDF 전용 핀 팝업 생성 및 표시
