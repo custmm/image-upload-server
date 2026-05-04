@@ -11,16 +11,30 @@
         right: 25px;
 
     }
-    body.preview-page #settingBtn{
+
+    body.preview-page #settingBtn {
         right: 25px;
 
     }
+
     body.preview-page #view-switch {
-          margin: 10px 0 10px 65%;  
+        margin: 10px 0 10px 65%;
     }
+
     body.preview-page .sidebar {
         width: 100%;
         left: -100%;
 
     }
+
+    body.preview-page .text-card-item {
+        flex: 0 0 185px;
+        height: 280px;
+    }
+
+    body.preview-page .card-title {
+        font-size: 18px;
+
+    }
+        
 }
