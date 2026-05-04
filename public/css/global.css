@@ -709,10 +709,9 @@ body.mode-page .admin-selection-button {
     color: white;
     padding: 10px 15px;
     width: 150px;
-    /* 버튼 너비 일정하게 */
-    height: 50px;
+    height: 150px;
     transition: transform 0.3s ease-in-out;
-    border-radius: 25px;
+    border-radius: 50%;
     cursor: pointer;
     border: none;
     margin-top: 30px;
