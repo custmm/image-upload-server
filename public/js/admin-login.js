@@ -1,89 +1,81 @@
-// 전역 변수 설정 (함수 밖 최상단에 위치)
+// 전역 변수 설정
 let loaderInterval = null;
 let loaderStep = 0;
-
 
 function showLoading() {
     const indicator = document.getElementById("loadingIndicator");
     const loader = document.getElementById("mainLoader");
+    if (!indicator || !loader) return;
 
     indicator.style.display = "flex";
-
     loaderInterval = setInterval(() => {
         loaderStep++;
         if (loaderStep > 4) loaderStep = 1;
-
         loader.className = "loader loader" + loaderStep;
-    }, 150); // 속도 조절 가능
+    }, 150);
 }
 
 function hideLoading() {
-    clearInterval(loaderInterval);
-    loaderInterval = null;
-
-    document.getElementById("loadingIndicator").style.display = "none";
+    if (loaderInterval) {
+        clearInterval(loaderInterval);
+        loaderInterval = null;
+    }
+    const indicator = document.getElementById("loadingIndicator");
+    if (indicator) indicator.style.display = "none";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     const loginButton = document.getElementById("loginButton");
     const passwordInput = document.getElementById("password");
     const backBtn = document.getElementById("backBtn");
-    const isExplanMode = window.location.hash.includes("explan");
     const container = document.querySelector(".login-container");
-    const savedOpacity = localStorage.getItem("sharedOpacity");
+    
+    // URL 해시 확인
+    const isExplanMode = window.location.hash.includes("explan");
 
+    // 초기 설정: 불투명도 복원
+    const savedOpacity = localStorage.getItem("sharedOpacity");
     if (savedOpacity && container) {
         container.style.opacity = savedOpacity;
     }
 
-    // --- 뒤로가기 버튼 로직 통합 ---
+    // --- [수정] 뒤로가기 버튼 로직 통합 ---
+    // 중복된 backBtn.onclick 로직을 제거하고 addEventListener 하나로 통합했습니다.
     if (backBtn) {
         backBtn.addEventListener("click", () => {
             if (isExplanMode) {
-                // 설명 모드일 때 이동할 경로
                 window.location.href = "click.html"; 
             } else {
-                // 일반 모드일 때 이동할 경로 (원래 index.html)
                 window.location.href = "index.html"; 
             }
         });
     }
 
-    if (isExplanMode) {
-        const backBtn = document.querySelector(".back-button");
-        if (backBtn) {
-            backBtn.onclick = () => window.location.href = "click.html";
-        }
-    }
-
-    passwordInput.addEventListener("input", () => {
-        const isBarPhone = window.innerWidth <= 480; // 바형 기준 (가로폭 작을 때)
+    // 비밀번호 입력 시 컨테이너 너비 조절 (모바일 전용)
+    passwordInput?.addEventListener("input", () => {
+        const isBarPhone = window.innerWidth <= 480;
         if (!isBarPhone) return;
 
         const length = passwordInput.value.length;
-
-        // 최소 너비 45%, 최대 90%, 글자 수에 따라 선형 증가
         const minWidth = 45;
         const maxWidth = 90;
-        const maxLength = 10; // 10자까지 확장, 그 이상은 고정
-
+        const maxLength = 10;
         const targetWidth = minWidth + ((Math.min(length, maxLength) / maxLength) * (maxWidth - minWidth));
         container.style.width = `${targetWidth}%`;
     });
 
-    loginButton.addEventListener("click", async function (event) {
-        event.preventDefault(); // 기본 클릭 동작 방지
-        const password = passwordInput.value.trim()
+    // 로그인 버튼 클릭 이벤트
+    loginButton?.addEventListener("click", async function (event) {
+        event.preventDefault(); 
+        const password = passwordInput.value.trim();
 
         if (password === "") {
-            moveButtonRandomly(); // 버튼 이동
+            moveButtonRandomly(); 
             return;
         }
 
-        // [추가] 로그인 프로세스 시작 시 로딩바 표시
         showLoading();
 
-        // 서버로 비밀번호 전송 후 확인
         try {
             const response = await fetch("/api/auth/login", {
                 method: "POST",
@@ -94,31 +86,29 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: JSON.stringify({ password }),
             });
 
-            // 결과 처리가 시작되기 전에 로딩바를 먼저 숨깁니다.
             hideLoading();
 
-            const result = await response.json();
-
-            // 403 에러 처리 추가 (보안 차단 시)
             if (response.status === 403) {
                 showPopup("보안 정책: 접근 속도가 너무 빠릅니다.", "error");
                 return;
             }
 
+            const result = await response.json();
+
             if (response.ok && result.success) {
                 localStorage.setItem("adminToken", result.token);
-
                 showPopup("로그인 성공!", "success", () => {
                     showAdminButton();
                 });
             } else {
                 showPopup("로그인 실패!", "error", () => {
-                    if (window.location.hash === "#explan") {
-                        showAdminButton(); //  설명용 링크일 때만 표시
+                    if (isExplanMode) {
+                        showAdminButton(); 
                     }
                 });
             }
         } catch (error) {
+            hideLoading();
             console.error("서버 자체 오류:", error);
             showPopup("서버 오류 발생!", "error");
         }
@@ -127,7 +117,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function moveButtonRandomly() {
         const maxX = window.innerWidth - loginButton.offsetWidth;
         const maxY = window.innerHeight - loginButton.offsetHeight;
-
         const randomX = Math.random() * maxX;
         const randomY = Math.random() * maxY;
 
@@ -137,41 +126,32 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showAdminButton() {
-        if (document.querySelector(".admin-styled-button")) {
-            showPopup("이미 관리자모드 버튼이 있습니다.", "info");
-            return;
-        }
+        if (document.querySelector(".admin-styled-button")) return;
 
         const adminButton = document.createElement("button");
         adminButton.textContent = "관리자 모드";
         adminButton.classList.add("admin-styled-button");
-        adminButton.onclick = function () {
-            const isExplanMode = window.location.hash.includes("explan");
+        
+        adminButton.addEventListener("click", () => {
+            const message = isExplanMode ? "버튼을 누르고 기대하세요" : "관리자 모드로 이동합니다.";
+            const redirectUrl = isExplanMode ? "https://karisdify.site/index#explan" : "mode-selection.html";
 
-            const message = isExplanMode
-                ? "버튼을 누르고 기대하세요"
-                : "관리자 모드로 이동합니다.";
-
-            const redirectUrl = window.location.hash.includes("explan")
-                ? "https://karisdify.site/index#explan"
-                : "mode-selection.html";
-
-            showPopup(message, "success", function () {
-                window.location.href = redirectUrl; // 관리자 페이지로 이동
+            showPopup(message, "success", () => {
+                window.location.href = redirectUrl;
             });
-        };
+        });
         document.body.appendChild(adminButton);
     }
 });
 
+// 팝업 함수 (보안을 위해 textContent 사용 필수)[cite: 1]
 function showPopup(message, type = "info", callback = null) {
-    //  기존 팝업 제거 (중복 방지)
     const existingPopup = document.querySelector(".popup-message");
     if (existingPopup) existingPopup.remove();
 
     const popup = document.createElement("div");
     popup.classList.add("popup-message", type);
-    popup.textContent = message;
+    popup.textContent = message; // innerHTML 대신 textContent 사용 (보안 강화)[cite: 1]
 
     const closeButton = document.createElement("button");
     closeButton.textContent = "확인";
