@@ -722,6 +722,7 @@ body.mode-page .button-group {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 250px;
 }
 
 

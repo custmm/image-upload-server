@@ -3,9 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 버튼 요소 가져오기
     const uploadButton = document.querySelector(".upload-selection-button");
-    const previewButton = document.querySelector(".preview-selection-button");
     const adminButton = document.querySelector(".admin-selection-button");
-    const logoutButton = document.querySelector(".logout-button");
 
     // 팝업 생성 함수
     function showPopup(message, callback) {
@@ -75,14 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
-            });
-        });
-    }
-
-    if (previewButton) {
-        previewButton.addEventListener("click", () => {
-            showPopup("게시글로 이동하시겠습니까?", () => {
-                window.location.href = "preview.html";
             });
         });
     }

@@ -189,8 +189,14 @@ window.goCategory = async (categoryName) => {
 
 window.closePreviewPopup = (type) => {
     const map = {
-        info: { overlay: "previewOverlayInfo", frame: "previewFrameInfo" },
-        icon: { overlay: "previewOverlayIcon", frame: "previewFrameIcon" }
+        info: { 
+            overlay: "previewOverlayInfo", 
+            frame: "previewFrameInfo" 
+        },
+        icon: { 
+            overlay: "previewOverlayIcon", 
+            frame: "previewFrameIcon" 
+        }
     };
     const target = map[type];
     if (target) {
