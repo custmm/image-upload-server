@@ -820,6 +820,15 @@ body.dashboard-page .edit-button-group {
     justify-content: center;
     margin-top: 20px;
 }
+body.dashboard-page .download-button{
+    display: flex;
+    flex-direction: row;
+    border-radius: 15px;
+    width: 100px;
+    height: 50px;
+    border: 1px solid #555;
+
+}
 
 body.dashboard-page #closeSelectModal {
     position: absolute;
@@ -2103,16 +2112,6 @@ body.post-page .popup-button {
 
 body.post-page .custom-button {
     transition: background-color 0.3s;
-}
-
-body.post-page .download-button{
-    display: flex;
-    flex-direction: row;
-    border-radius: 15px;
-    width: 100px;
-    height: 50px;
-    border: 1px solid #555;
-
 }
 
 /* 게시물 이미지 */
