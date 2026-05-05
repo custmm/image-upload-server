@@ -104,7 +104,7 @@ export function openDownloadPopup() {
                 </div>
                 <button id="closeDownloadPopupBtn" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
             </div>
-            <div class="download-button-group" style="display: flex; flex-direction: column; gap: 10px; padding: 20px;">
+            <div class="download-button-group">
                 <button class="download-button dl-btn" data-type="pdf">퍼즐 게시물</button>
                 <button class="download-button dl-btn" data-type="pdf">보석비즈 게시물</button>
                 <button class="download-button dl-btn" data-type="pdf">3D퍼즐 게시물</button>
