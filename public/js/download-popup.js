@@ -84,8 +84,11 @@ async function fetchPopupImages() {
 }
 
 // --- 메인 팝업 로직 ---
+/**
+ * 데이터 다운로드 선택 팝업 열기
+ */
 export function openDownloadPopup() {
-    // 0. 중복 생성 방지
+    // 중복 생성 방지
     if (document.getElementById("downloadModePopup")) return;
 
     const overlay = document.createElement("div");
@@ -93,15 +96,21 @@ export function openDownloadPopup() {
     overlay.className = "popup-overlay"; 
     
     overlay.innerHTML = `
-        <div class="popup-container modal-style">
+        <div class="popup-container modal-style" style="max-width: 400px;">
             <div class="popup-header">
                 <div class="header-info">
-                    <h2>다운로드 모드</h2>
-                    <span id="popupCountDisplay">불러오는 중...</span>
+                    <h2>데이터 다운로드</h2>
+                    <span>파일 형식을 선택하세요</span>
                 </div>
-                <button id="closeImagePopupBtn">×</button>
+                <button id="closeDownloadPopupBtn" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
             </div>
-            <div id="popupGallery" class="popup-gallery" style="overflow-y: auto;"></div>
+            <div class="download-button-group" style="display: flex; flex-direction: column; gap: 10px; padding: 20px;">
+                <button class="custom-button dl-btn" data-type="pdf">퍼즐 게시물</button>
+                <button class="custom-button dl-btn" data-type="pdf">보석비즈 게시물</button>
+                <button class="custom-button dl-btn" data-type="pdf"></button>
+                <button class="custom-button dl-btn" data-type="pdf"></button>
+                <button class="custom-button dl-btn" data-type="pdf"></button>
+            </div>
         </div>
     `;
     
@@ -109,32 +118,21 @@ export function openDownloadPopup() {
     document.body.style.overflow = "hidden"; 
 
     // 1. 닫기 버튼 이벤트
-    const closeBtn = document.getElementById("closeImagePopupBtn");
     const closePopup = () => {
         overlay.remove();
         document.body.style.overflow = 'auto';
-        hideLoading();
     };
 
-    if (closeBtn) closeBtn.onclick = closePopup;
+    document.getElementById("closeDownloadPopupBtn").onclick = closePopup;
+    overlay.onclick = (e) => { if (e.target === overlay) closePopup(); };
 
-    // 2. 배경 클릭 시 닫기
-    overlay.onclick = (e) => {
-        if (e.target === overlay) closePopup();
-    };
-
-    const gallery = document.getElementById("popupGallery");
-
-    // 3. 쓰로틀링이 적용된 무한 스크롤 (오류 수정됨)
-    gallery.onscroll = throttle(() => {
-        if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 100) {
-            fetchPopupImages();
-        }
-    }, 200);
-
-    // 4. 초기화 및 첫 페이지 로드
-    popupOffset = 0;
-    noMoreImages = false;
-    gallery.innerHTML = ""; 
-    fetchPopupImages();
+    // 2. 5개 버튼 각각에 대한 클릭 이벤트 설정
+    const dlButtons = overlay.querySelectorAll(".dl-btn");
+    dlButtons.forEach(btn => {
+        btn.onclick = () => {
+            const type = btn.getAttribute("data-type");
+            alert(`${type} 다운로드를 시작합니다!`); // 여기에 실제 다운로드 함수 연결
+            // closePopup(); // 필요 시 다운로드 시작 후 팝업 닫기
+        };
+    });
 }

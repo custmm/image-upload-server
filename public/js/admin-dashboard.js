@@ -9,10 +9,10 @@ import { openDownloadPopup } from './download-popup.js'
 document.addEventListener("DOMContentLoaded", async () => {
 
     const imageModeBtn = document.getElementById("image-mode");
-    const downloadBtn =document.getElementById("download-mode")
     const checkBtn = document.getElementById("check-duplicate");
     const loadToggleBtn = document.getElementById("loadToggleBtn");
     const backBtn = document.querySelector(".back-button");
+    const pdfBtn = document.getElementById("pdf");
 
 
     // 2. 보안 체크 (실패 시 로그인 페이지로 튕김)
@@ -36,11 +36,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // [이미지 모드] 이제 성능 저하 없는 팝업 방식으로 실행됩니다.
     if (imageModeBtn) {
-        imageModeBtn.addEventListener("click", openImagePopup);
+        imageModeBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            openImagePopup();
+        });
     }
 
-    if(downloadBtn){
-        downloadBtn.addEventListener("click", openDownloadPopup);
+    if (pdfBtn) {
+        pdfBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            openDownloadPopup();
+            console.log("PDF 다운로드 팝업 호출됨");
+        });
     }
 
     // [중복 확인] AI 분석 실행
