@@ -1,0 +1,15 @@
+# -----------------------------------------------------------
+# Karisdify Sub-website Security Policy
+# -----------------------------------------------------------
+
+# 연락처: 메일 주소를 본인 것으로 바꾸세요.
+Contact: mailto:xx00bki924@gmail.com
+
+# 유효기간: 약 1년 뒤 날짜로 설정하는 것이 좋습니다.
+Expires: 2027-05-05T00:00:00.000Z
+
+# 선호 언어
+Preferred-Languages: ko, en
+
+# 감사 인사 (선택 사항)
+# Acknowledgments: Thanks for visit My Website
