@@ -2105,6 +2105,15 @@ body.post-page .custom-button {
     transition: background-color 0.3s;
 }
 
+body.post-page .download-button{
+    display: flex;
+    flex-direction: row;
+    border-radius: 15px;
+    width: 100px;
+    height: 50px;
+
+}
+
 /* 게시물 이미지 */
 body.post-page .post-image {
     max-width: 100%;

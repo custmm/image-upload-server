@@ -105,11 +105,11 @@ export function openDownloadPopup() {
                 <button id="closeDownloadPopupBtn" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
             </div>
             <div class="download-button-group" style="display: flex; flex-direction: column; gap: 10px; padding: 20px;">
-                <button class="custom-button dl-btn" data-type="pdf">퍼즐 게시물</button>
-                <button class="custom-button dl-btn" data-type="pdf">보석비즈 게시물</button>
-                <button class="custom-button dl-btn" data-type="pdf"></button>
-                <button class="custom-button dl-btn" data-type="pdf"></button>
-                <button class="custom-button dl-btn" data-type="pdf"></button>
+                <button class="download-button dl-btn" data-type="pdf">퍼즐 게시물</button>
+                <button class="download-button dl-btn" data-type="pdf">보석비즈 게시물</button>
+                <button class="download-button dl-btn" data-type="pdf">3D퍼즐 게시물</button>
+                <button class="download-button dl-btn" data-type="pdf">디폼블럭 게시물</button>
+                <button class="download-button dl-btn" data-type="pdf">브릭피규어 게시물</button>
             </div>
         </div>
     `;
