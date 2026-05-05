@@ -27,12 +27,26 @@ function hideLoading() {
 document.addEventListener("DOMContentLoaded", function () {
     const loginButton = document.getElementById("loginButton");
     const passwordInput = document.getElementById("password");
+    const backBtn = document.getElementById("backBtn");
     const isExplanMode = window.location.hash.includes("explan");
     const container = document.querySelector(".login-container");
     const savedOpacity = localStorage.getItem("sharedOpacity");
 
     if (savedOpacity && container) {
         container.style.opacity = savedOpacity;
+    }
+
+    // --- 뒤로가기 버튼 로직 통합 ---
+    if (backBtn) {
+        backBtn.addEventListener("click", () => {
+            if (isExplanMode) {
+                // 설명 모드일 때 이동할 경로
+                window.location.href = "click.html"; 
+            } else {
+                // 일반 모드일 때 이동할 경로 (원래 index.html)
+                window.location.href = "index.html"; 
+            }
+        });
     }
 
     if (isExplanMode) {
