@@ -820,7 +820,8 @@ body.dashboard-page .edit-button-group {
     justify-content: center;
     margin-top: 20px;
 }
-body.dashboard-page .download-button{
+
+body.dashboard-page .download-button.dl-btn{
     display: flex;
     flex-direction: row;
     border-radius: 15px;
