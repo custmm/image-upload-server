@@ -1,0 +1,13 @@
+# 모든 AI 로봇의 학습 및 크롤링 거부
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+# 일반 검색 엔진(Google, Naver 등)은 허용하고 싶다면 아래 설정 유지
+User-agent: *
+Allow: /
