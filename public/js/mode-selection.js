@@ -4,7 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // 버튼 요소 가져오기
     const uploadButton = document.querySelector(".upload-selection-button");
     const adminButton = document.querySelector(".admin-selection-button");
-
+    const backBtn = document.getElementById("backBtn");
+    if (backBtn) {
+        backBtn.addEventListener("click", () => {
+            // 원하는 이전 페이지 경로로 수정하세요
+            window.location.href = 'admin-login.html';
+        });
+    }
     // 팝업 생성 함수
     function showPopup(message, callback) {
         // 기존 팝업이 있으면 삭제
