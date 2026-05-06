@@ -2141,6 +2141,22 @@ body.post-page .post-description {
     padding: 0 30px;
 }
 
+/* 펼쳐졌을 때 스타일 */
+body.post-page .post-description.expanded {
+    max-height: 2000px; /* 충분히 큰 값 */
+}
+
+/* 버튼 스타일 */
+body.post-page .toggle-desc-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    padding: 5px 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 body.post-page .post-desc {
     padding: 10px 0 80px;
 }

@@ -85,7 +85,7 @@ async function loadPostData() {
 
     const postData = await response.json();
 
-    // --- [데이터 렌더링 기존 코드] ---
+    // 데이터 렌더링
     document.getElementById("postImage").src = `${postData.file_path}`;
     document.getElementById("postCategory").textContent = postData.category_name || "카테고리 없음";
 
@@ -115,18 +115,38 @@ async function loadPostData() {
     // --- [추가: 이전/다음 버튼 로직] ---
     const prevBtn = document.getElementById("prevPostButton");
     const nextBtn = document.getElementById("nextPostButton");
+    const descEl = document.getElementById("postDescription");
+    const toggleBtn = document.getElementById("toggleDescButton");
 
+    if (descEl && toggleBtn) {
+      // 텍스트가 들어간 후 높이 체크를 위해 약간의 지연을 줌
+      setTimeout(() => {
+        // 실제 높이가 CSS로 제한된 높이(clientHeight)보다 크면 '더 보기' 버튼 노출
+        if (descEl.scrollHeight > descEl.clientHeight) {
+          toggleBtn.style.display = "block";
+        } else {
+          toggleBtn.style.display = "none";
+        }
+      }, 100);
+
+      // 버튼 클릭 이벤트 바인딩
+      toggleBtn.onclick = () => {
+        const isExpanded = descEl.classList.toggle("expanded");
+        toggleBtn.textContent = isExpanded ? "접기" : "더 보기";
+      };
+    }
+    
     // 이전 글 데이터가 있으면 이동 이벤트 연결, 없으면 버튼 숨김
     if (postData.prev_id) {
-      prevBtn.onclick = () => { 
-        window.location.href = `post?id=${postData.prev_id}`; 
+      prevBtn.onclick = () => {
+        window.location.href = `post?id=${postData.prev_id}`;
       };
     }
 
     // 다음 글 데이터가 있으면 이동 이벤트 연결, 없으면 버튼 숨김
     if (postData.next_id) {
       nextBtn.onclick = () => {
-        window.location.href = `post?id=${postData.next_id}`; 
+        window.location.href = `post?id=${postData.next_id}`;
       };
     }
 
