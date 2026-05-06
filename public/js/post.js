@@ -109,25 +109,26 @@ async function loadPostData() {
 
     // 설명 및 해시태그 처리 (기존 로직)
     const descriptionText = postData.text || postData.description?.text || "";
-    document.getElementById("postDescription").innerHTML = descriptionText.replace(/#([\w가-힣]+)/g, "").replace(/\n/g, "<br>").trim();
-    renderHashtags(descriptionText);
-
-    // --- [추가: 이전/다음 버튼 로직] ---
-    const prevBtn = document.getElementById("prevPostButton");
-    const nextBtn = document.getElementById("nextPostButton");
     const descEl = document.getElementById("postDescription");
     const toggleBtn = document.getElementById("toggleDescButton");
 
+    // 초기화: 펼쳐진 상태 제거 및 텍스트 삽입
+    descEl.classList.remove("expanded");
+    descEl.innerHTML = descriptionText.replace(/#([\w가-힣]+)/g, "").replace(/\n/g, "<br>").trim();
+    renderHashtags(descriptionText);
+
+    // [핵심] 펼치기/접기 버튼 제어 로직
     if (descEl && toggleBtn) {
-      // 텍스트가 들어간 후 높이 체크를 위해 약간의 지연을 줌
+      // 텍스트가 렌더링된 후 높이를 측정하기 위해 setTimeout 사용
       setTimeout(() => {
-        // 실제 높이가 CSS로 제한된 높이(clientHeight)보다 크면 '더 보기' 버튼 노출
+        // 실제 전체 높이(scrollHeight)가 눈에 보이는 제한 높이(clientHeight)보다 크면 글이 넘친 것임
         if (descEl.scrollHeight > descEl.clientHeight) {
-          toggleBtn.style.display = "block";
+          toggleBtn.style.display = "block"; // 버튼 보여줌
+          toggleBtn.textContent = "더 보기";
         } else {
-          toggleBtn.style.display = "none";
+          toggleBtn.style.display = "none"; // 글이 짧으면 버튼 숨김
         }
-      }, 100);
+      }, 200);
 
       // 버튼 클릭 이벤트 바인딩
       toggleBtn.onclick = () => {
@@ -135,7 +136,11 @@ async function loadPostData() {
         toggleBtn.textContent = isExpanded ? "접기" : "더 보기";
       };
     }
-    
+
+    // --- [추가: 이전/다음 버튼 로직] ---
+    const prevBtn = document.getElementById("prevPostButton");
+    const nextBtn = document.getElementById("nextPostButton");
+
     // 이전 글 데이터가 있으면 이동 이벤트 연결, 없으면 버튼 숨김
     if (postData.prev_id) {
       prevBtn.onclick = () => {
@@ -188,7 +193,6 @@ function bindDrawingEvents() {
   // 캔버스 크기 설정
   canvas.width = 500;
   canvas.height = 300;
-
 
   function getCanvasCoordinates(e) {
     const rect = canvas.getBoundingClientRect();
