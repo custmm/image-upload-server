@@ -71,8 +71,11 @@ app.use(helmet({
             frameSrc: [
                 "'self'",
                 "https://challenges.cloudflare.com",
-                "https://www.instagram.com", // 인스타그램 임베드 허용
-                "https://www.threads.net"     // 스레드 임베드 허용
+                "https://www.instagram.com",
+                "https://instagram.com",     // 추가
+                "https://www.threads.net",
+                "https://www.threads.com",   // 추가 (오류 메시지에 나온 주소)
+                "https://threads.net"        // 추가
             ],
             // 4. 스타일시트 허용
             styleSrc: [
