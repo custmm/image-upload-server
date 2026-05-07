@@ -70,9 +70,11 @@ app.use(helmet({
             // 3. iframe 허용 (🔥 추가: 캡차가 화면에 보이게 함)
             frameSrc: [
                 "'self'",
-                "https://challenges.cloudflare.com"
+                "https://challenges.cloudflare.com",
+                "https://www.instagram.com", // 인스타그램 임베드 허용
+                "https://www.threads.net"     // 스레드 임베드 허용
             ],
-            // 3. 스타일시트 허용
+            // 4. 스타일시트 허용
             styleSrc: [
                 "'self'",
                 "'unsafe-inline'",
@@ -80,14 +82,14 @@ app.use(helmet({
                 "https://unpkg.com",
                 "https://cdn.jsdelivr.net"
             ],
-            // 4. 이미지 허용 (데이터 URL 및 외부 이미지 서버)
+            // 5. 이미지 허용 (데이터 URL 및 외부 이미지 서버)
             imgSrc: [
                 "'self'",
                 "data:",
                 "https://ik.imagekit.io",
                 "https://cdn.jsdelivr.net"
             ],
-            // 5. 폰트 허용
+            // 6. 폰트 허용
             fontSrc: [
                 "'self'",
                 "https://cdnjs.cloudflare.com",
