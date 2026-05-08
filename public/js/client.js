@@ -104,58 +104,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             popup.remove();
         });
     }
-    //  팝업 메시지 스타일 추가
-    const style = document.createElement("style");
-    style.innerHTML = `
-    .popup-message {
-        position: fixed;
-        top: 50%;
-        right: 50%;
-        transform: translate(50%, -50%);
-        width: 300px;
-        background-color: #ffffff;
-        color: black;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        font-size: 18px;
-        z-index: 9999;
-        opacity: 1;
-        transition: opacity 0.5s ease-in-out;
-        margin: 20px;
-    }
-
-    .popup-message.hide {
-        opacity: 0;
-    }
-    .popup-buttons {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-    .popup-button {
-        background-color: #000000;
-        border-radius: 5px;
-        padding: 8px 17px;
-        cursor: pointer;
-        color: white;
-    }
-    .popup-button:hover {
-        background-color: #755a6a;
-    }
-    .popup-close{
-        background-color: #000000;
-        border-radius: 5px;
-        padding: 8px 17px;
-        cursor: pointer;
-        color: white;
-    }
-    .popup-close:hover {
-        background-color: #755a6a;
-    }`;
-    document.head.appendChild(style);
-
 
 
     /**  요소가 존재하는 경우에만 이벤트 추가 */

@@ -348,12 +348,14 @@ body.login-page #loginButton {
     transition: transform 0.3s ease-in-out;
     border-radius: 5px;
 }
-body.login-page #button_wrap{
+
+body.login-page #button_wrap {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
 
 }
+
 body.login-page #lockbox {
     display: flex;
     justify-content: center;
@@ -820,14 +822,16 @@ body.dashboard-page .edit-button-group {
     justify-content: center;
     margin-top: 20px;
 }
-.download-button-group{
-display: flex;
+
+.download-button-group {
+    display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 20px;
     margin: 0 auto;
 }
-body.dashboard-page .download-button.dl-btn{
+
+body.dashboard-page .download-button.dl-btn {
     display: flex;
     flex-direction: row;
     border-radius: 15px;
@@ -1672,14 +1676,6 @@ body.upload-page .description-container {
     position: relative;
 }
 
-body.upload-page #source_url {
-    position: absolute;
-    top: 66%;
-    left: 64%;
-    padding: 10px 24px;
-    width: 27%;
-    border-radius: 22px;
-}
 
 body.upload-page .text-editor {
     width: 100%;
@@ -1739,6 +1735,59 @@ body.upload-page select {
     font-size: 16px;
     border-radius: 5px;
     text-align: center;
+}
+
+body.upload-page .popup-message {
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    width: 300px;
+    background-color: #ffffff;
+    color: black;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    margin: 20px;
+}
+
+body.upload-page .popup-message.hide {
+    opacity: 0;
+}
+
+body.upload-page .popup-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+body.upload-page .popup-button {
+    background-color: #000000;
+    border-radius: 5px;
+    padding: 8px 17px;
+    cursor: pointer;
+    color: white;
+}
+
+body.upload-page .popup-button:hover {
+    background-color: #755a6a;
+}
+
+body.upload-page .popup-close {
+    background-color: #000000;
+    border-radius: 5px;
+    padding: 8px 17px;
+    cursor: pointer;
+    color: white;
+}
+
+body.upload-page .popup-close:hover {
+    background-color: #755a6a;
 }
 
 /* ====== 클릭 페이지(click.html) ====== */
@@ -2145,7 +2194,8 @@ body.post-page .post-description {
 
 /* 펼쳐졌을 때 스타일 */
 body.post-page .post-description.expanded {
-    max-height: 2000px; /* 충분히 큰 값 */
+    max-height: 2000px;
+    /* 충분히 큰 값 */
 }
 
 /* 버튼 스타일 */
@@ -2894,9 +2944,11 @@ body.preview-page .setting_item {
     height: 30px;
 
 }
-body.preview-page .toggle-switch_trans{
+
+body.preview-page .toggle-switch_trans {
     display: flex;
 }
+
 /* 기본 상태: 화면에서 아예 숨김 */
 body.preview-page #settingPopup {
     display: none !important;
@@ -3328,7 +3380,7 @@ body.preview-page #welcomeMessage {
     color: aliceblue;
 }
 
-body.preview-page img#opacityToggleBtn{
+body.preview-page img#opacityToggleBtn {
     height: 30px;
     width: 30px;
     cursor: pointer;
