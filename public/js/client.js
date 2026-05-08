@@ -71,9 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
     checkAuth();
 });
 
-
-
 document.addEventListener("DOMContentLoaded", async () => {
+    // ==========================================
+    // 1️⃣ DOM 요소 선택 (상단에 모아두기)
+    // ==========================================
     const fileInput = document.getElementById("fileInput");
     const previewContainer = document.getElementById("previewContainer");
     const uploadButton = document.getElementById("uploadButton");
@@ -83,8 +84,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const descriptionEditor = document.getElementById("descriptionEditor");
     const descriptionCounter = document.getElementById("descriptionCounter");
 
+    // ==========================================
+    // 2️⃣ 설정 데이터
+    // ==========================================
+    const categoryTranslations = {
+        "puzzle": "퍼즐",
+        "bizz": "보석비즈",
+        "solidbodypuzzle": "3D퍼즐",
+        "deforme": "디폼블럭",
+        "brickfigure": "브릭피규어"
+    };
 
-    //  팝업 스타일 메시지 표시 함수
+    // ==========================================
+    // 3️⃣ 유틸리티 및 UI 조작 함수
+    // ==========================================
     function showPopup(message) {
         //  기존 팝업이 있으면 제거
         const existingPopup = document.querySelector(".popup-message");
@@ -102,76 +115,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         // 확인 버튼 클릭 시 팝업 제거
         popup.querySelector(".popup-close").addEventListener("click", () => {
             popup.remove();
-        });
-    }
-
-
-    /**  요소가 존재하는 경우에만 이벤트 추가 */
-    if (fileInput) {
-        fileInput.addEventListener("change", event => {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = () => {
-                previewContainer.innerHTML = `<img src="${reader.result}" alt="미리보기">`;
-            };
-            reader.readAsDataURL(file);
-        });
-    }
-
-
-    /**  3️⃣ 카테고리 및 서브카테고리 로드 */
-    categorySelect.addEventListener("change", (event) => {
-        const categoryId = event.target.value;
-        loadSubcategories(categoryId);
-    });
-
-    loadCategories();
-
-    if (descriptionEditor && descriptionCounter) {
-        descriptionEditor.addEventListener("input", () => {
-            const rawText = descriptionEditor.innerText.trim();
-
-            //  한글 포함 해시태그 추출
-            const hashtags = rawText.match(/#[\w가-힣]+/g) || [];
-
-            //  해시태그 제거한 텍스트 길이 계산
-            const textWithoutTags = rawText.replace(/#[\w가-힣]+/g, '').trim();
-            const length = textWithoutTags.length;
-
-            //  글자 수 표시
-            descriptionCounter.textContent = `${length} / 1000`;
-            descriptionCounter.style.color = length > 1000 ? "red" : "gray";
-
-            //  해시태그 표시 (왼쪽)
-            const hashtagDisplay = document.getElementById("hashtagDisplay");
-            if (hashtagDisplay) {
-                hashtagDisplay.textContent = hashtags.join(' ');
-            }
-        });
-
-        //  엔터 키 입력 시 `<br>` 삽입 (최신 방식)
-        descriptionEditor.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
-                event.preventDefault(); // 기본 엔터 동작 방지
-
-                // 현재 커서 위치에 `<br>` 삽입
-                const selection = window.getSelection();
-                if (!selection.rangeCount) return;
-
-                const range = selection.getRangeAt(0);
-                const br = document.createElement("br");
-
-                range.deleteContents(); // 기존 선택 영역 삭제
-                range.insertNode(br); // <br> 삽입
-
-                // 커서를 <br> 다음 줄로 이동
-                range.setStartAfter(br);
-                range.setEndAfter(br);
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }
         });
     }
 
@@ -207,21 +150,42 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    //  insertHTML 함수 정의
+    function resetForm() {
+        previewContainer.innerHTML = "";
+        descriptionEditor.innerHTML = "";
+        fileInput.value = "";
+        titleInput.value = "";
+        categorySelect.value = "";
+        subcategorySelect.innerHTML = "<option value=''>선택 없음</option>";
+    }
+
+    function sanitizeDescription(html) {
+        const allowedTags = ["b", "strong", "i", "em", "s", "strike", "u", "br", "span", "div", "p"];
+        let doc = new DOMParser().parseFromString(html, "text/html");
+
+        doc.body.querySelectorAll("*").forEach(node => {
+            if (!allowedTags.includes(node.tagName.toLowerCase())) {
+                node.replaceWith(document.createTextNode(node.innerText));
+            }
+        });
+
+        // 줄바꿈 태그 치환 부분 제거 – 엔터 1번으로 생성된 <br>도 그대로 유지됨
+        return doc.body.innerHTML.trim();
+    }
+
+    function stripHtmlTags(html) {
+        let doc = new DOMParser().parseFromString(html, "text/html");
+        return doc.body.textContent || "";
+    }
+
     window.insertHTML = function (text) {
         const selection = window.getSelection();
         if (!selection.rangeCount) return;
-
         const range = selection.getRangeAt(0);
         const fragment = document.createDocumentFragment();
         const tempDiv = document.createElement("div");
-
         tempDiv.innerHTML = text; // 삽입할 HTML을 임시 div에 넣기
-
-        while (tempDiv.firstChild) {
-            fragment.appendChild(tempDiv.firstChild);
-        }
-
+        while (tempDiv.firstChild) fragment.appendChild(tempDiv.firstChild);
         range.deleteContents(); // 기존 선택 영역 삭제
         range.insertNode(fragment); // 새로운 HTML 삽입
     };
@@ -256,153 +220,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         range.insertNode(fragment);
     }
 
-    //  붙여넣기 이벤트 적용
-    if (descriptionEditor) {
-        descriptionEditor.removeEventListener("paste", handlePaste); // 기존 이벤트 제거
-        descriptionEditor.addEventListener("paste", handlePaste);
-    }
-
-    //  클라이언트에서도 허용된 태그만 유지
-    function sanitizeDescription(html) {
-        const allowedTags = ["b", "strong", "i", "em", "s", "strike", "u", "br", "span", "div", "p"];
-        let doc = new DOMParser().parseFromString(html, "text/html");
-
-        doc.body.querySelectorAll("*").forEach(node => {
-            if (!allowedTags.includes(node.tagName.toLowerCase())) {
-                node.replaceWith(document.createTextNode(node.innerText));
-            }
-        });
-
-        // 줄바꿈 태그 치환 부분 제거 – 엔터 1번으로 생성된 <br>도 그대로 유지됨
-        return doc.body.innerHTML.trim();
-    }
-
-    uploadButton.addEventListener("click", async () => {
-        const file = fileInput?.files[0];
-        const title = titleInput?.value.trim();
-        const categoryId = categorySelect.value;
-        const subcategoryId = subcategorySelect.value || "";
-
-        //  올바른 category_name 가져오기 (categoryId와 매칭)
-        const categoryName = categorySelect.options[categorySelect.selectedIndex]?.text.trim();
-        const subcategoryName = subcategorySelect.options[subcategorySelect.selectedIndex]?.text.trim() || "general";
-
-        let description = descriptionEditor.innerHTML.trim(); //  HTML 태그 유지
-        description = sanitizeDescription(description); // 여기서 함수 사용 (불필요한 태그 제거)
-
-        //  순수 텍스트 길이 검사 (HTML 태그 제외)
-        function stripHtmlTags(html) {
-            let doc = new DOMParser().parseFromString(html, "text/html");
-            return doc.body.textContent || "";
-        }
-        const textOnlyDescription = stripHtmlTags(description);
-
-        if (!file) {
-            showPopup("파일을 선택해주세요.");
-            return;
-        }
-
-        if (!title) {
-            showPopup("제목을 입력해주세요.");
-            return;
-        }
-
-        if (title.length > 50) {
-            showPopup("제목은 최대 50자까지 입력 가능합니다.");
-            return;
-        }
-
-        if (!categoryId) {
-            showPopup("카테고리를 선택해주세요.");
-            return;
-        }
-
-        if (!subcategoryId) {
-            showPopup("서브카테고리를 선택해주세요.");
-            return;
-        }
-
-        if (textOnlyDescription.length === 0) {
-            showPopup("설명을 입력해주세요.");
-            return;
-        }
-
-        if (textOnlyDescription.length > 1000) {
-            showPopup("설명은 최대 1000자까지만 입력 가능합니다.");
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("title", title);
-        formData.append("category_id", categoryId);
-        formData.append("subcategory_id", subcategoryId);
-        formData.append("category_name", categoryName);  //  서버에 카테고리 이름 전송
-        formData.append("subcategory_name", subcategoryName);
-        formData.append("description", description);
-
-        console.log("📌 FormData 확인:");
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
-        }
-
-        try {
-            showLoading(); //  로딩 시작
-
-            const response = await fetch("/api/files/upload", {
-                method: "POST",
-                body: formData
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                // 서버 응답에서 id를 가져옵니다. (서버가 result.file.id를 준다고 가정)
-                const postId = result.file.id;
-
-                // 복잡한 쿼리 대신 id 하나만 보냅니다.
-                // .html을 명시하는 것이 경로 인식 오류를 줄여줍니다.
-                const postURL = `post.html?id=${postId}`;
-
-                showuploadPopup("업로드 성공!", postURL);
-            }
-
-            setTimeout(() => {
-                hideLoading(); //  1초 후 로딩 제거
-
-                if (!response.ok) {
-                    console.error(" 서버 오류 응답:", result);
-                    showPopup(`업로드 실패: ${result.error || "알 수 없는 오류"}`);
-                    return;
-                }
-
-                console.log(" 서버 응답:", result);
-
-                //  업로드된 파일 정보 가져오기
-                const { file_name, category_name, subcategory_name } = result.file; // DB에서 가져온 값 사용
-
-                //  URL 생성 시 올바른 카테고리명 사용
-                const postURL = `post?category=${encodeURIComponent(category_name)}&subcategory=${encodeURIComponent(subcategory_name)}&file=${encodeURIComponent(file_name)}`;
-
-                showuploadPopup(" 업로드 성공!", postURL);
-            }, 1000); //  1초 후 실행
-            resetForm();
-        } catch (error) {
-            console.error(" 업로드 중 네트워크 오류:", error);
-            showPopup("업로드 실패! 서버에 문제가 있습니다.");
-        }
-    });
-
-    //  카테고리 한글 매핑
-    const categoryTranslations = {
-        "puzzle": "퍼즐",
-        "bizz": "보석비즈",
-        "solidbodypuzzle": "3D퍼즐",
-        "deforme": "디폼블럭",
-        "brickfigure": "브릭피규어"
-    };
-
-    /**  3️⃣ 카테고리 & 서브카테고리 동적 불러오기 */
+    // ==========================================
+    // 4️⃣ API 통신 함수 (데이터 로드)
+    // ==========================================
     async function loadCategories() {
         try {
             const response = await fetch("/api/categories");
@@ -445,16 +265,122 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.error(" 서브카테고리를 불러오는 중 오류 발생:", error);
         }
     }
-    /**  6️⃣ 폼 초기화 함수 */
-    function resetForm() {
-        previewContainer.innerHTML = "";
-        descriptionEditor.innerHTML = "";
-        fileInput.value = "";
-        titleInput.value = "";
-        categorySelect.value = "";
-        subcategorySelect.innerHTML = "<option value=''>선택 없음</option>";
+
+    // ==========================================
+    // 5️⃣ 이벤트 리스너 등록
+    // ==========================================
+    if (fileInput) {
+        fileInput.addEventListener("change", event => {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = () => previewContainer.innerHTML = `<img src="${reader.result}" alt="미리보기">`;
+            reader.readAsDataURL(file);
+        });
     }
 
-    /**  초기 데이터 로드 */
-    if (categorySelect) loadCategories();
+    if (categorySelect) {
+        categorySelect.addEventListener("change", (event) => loadSubcategories(event.target.value));
+    }
+
+    if (descriptionEditor && descriptionCounter) {
+        descriptionEditor.addEventListener("input", () => {
+            const rawText = descriptionEditor.innerText.trim();
+            const hashtags = rawText.match(/#[\w가-힣]+/g) || [];
+            const textWithoutTags = rawText.replace(/#[\w가-힣]+/g, '').trim();
+            const length = textWithoutTags.length;
+
+            descriptionCounter.textContent = `${length} / 1000`;
+            descriptionCounter.style.color = length > 1000 ? "red" : "gray";
+
+            const hashtagDisplay = document.getElementById("hashtagDisplay");
+            if (hashtagDisplay) hashtagDisplay.textContent = hashtags.join(' ');
+        });
+
+        descriptionEditor.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                const selection = window.getSelection();
+                if (!selection.rangeCount) return;
+                const range = selection.getRangeAt(0);
+                const br = document.createElement("br");
+                range.deleteContents();
+                range.insertNode(br);
+                range.setStartAfter(br);
+                range.setEndAfter(br);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        });
+
+        descriptionEditor.removeEventListener("paste", handlePaste);
+        descriptionEditor.addEventListener("paste", handlePaste);
+    }
+
+    if (uploadButton) {
+        uploadButton.addEventListener("click", async () => {
+            const file = fileInput?.files[0];
+            const title = titleInput?.value.trim();
+            const categoryId = categorySelect.value;
+            const subcategoryId = subcategorySelect.value || "";
+            const categoryName = categorySelect.options[categorySelect.selectedIndex]?.text.trim();
+            const subcategoryName = subcategorySelect.options[subcategorySelect.selectedIndex]?.text.trim() || "general";
+
+            let description = sanitizeDescription(descriptionEditor.innerHTML.trim());
+            const textOnlyDescription = stripHtmlTags(description);
+
+            // 유효성 검사
+            if (!file) return showPopup("파일을 선택해주세요.");
+            if (!title) return showPopup("제목을 입력해주세요.");
+            if (title.length > 50) return showPopup("제목은 최대 50자까지 입력 가능합니다.");
+            if (!categoryId) return showPopup("카테고리를 선택해주세요.");
+            if (!subcategoryId) return showPopup("서브카테고리를 선택해주세요.");
+            if (textOnlyDescription.length === 0) return showPopup("설명을 입력해주세요.");
+            if (textOnlyDescription.length > 1000) return showPopup("설명은 최대 1000자까지만 입력 가능합니다.");
+
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("title", title);
+            formData.append("category_id", categoryId);
+            formData.append("subcategory_id", subcategoryId);
+            formData.append("category_name", categoryName);
+            formData.append("subcategory_name", subcategoryName);
+            formData.append("description", description);
+
+            try {
+                if (typeof showLoading === 'function') showLoading();
+
+                const response = await fetch("/api/files/upload", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                setTimeout(() => {
+                    if (typeof hideLoading === 'function') hideLoading();
+
+                    if (!response.ok) {
+                        return showPopup(`업로드 실패: ${result.error || "알 수 없는 오류"}`);
+                    }
+
+                    const postId = result.file.id;
+                    const postURL = `post.html?id=${postId}`;
+                    showuploadPopup("업로드 성공!", postURL);
+                    resetForm();
+                }, 1000);
+            } catch (error) {
+                console.error("업로드 중 네트워크 오류:", error);
+                if (typeof hideLoading === 'function') hideLoading();
+                showPopup("업로드 실패! 서버에 문제가 있습니다.");
+            }
+        });
+    }
+
+    // ==========================================
+    // 6️⃣ 초기화 실행 (모든 준비가 끝난 후 마지막에 호출)
+    // ==========================================
+    if (categorySelect) {
+        loadCategories();
+    }
 });
