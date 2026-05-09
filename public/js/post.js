@@ -305,45 +305,47 @@ function initDrawingCanvas() {
   });
 }
 
-//  다크 모드 토글 함수
+// 🌙 다크 모드 토글 함수 (수정됨)
 function toggleTheme() {
-  const body = document.body;
-  const isDarkMode = body.classList.toggle("dark-mode");
-  const themeIcon = document.getElementById("themeIcon");
+  const body = document.body;
+  const isDarkMode = body.classList.toggle("dark-mode");
+  const themeIcon = document.getElementById("themeIcon");
+  // [수정 포인트 1] themeToggle 요소를 찾는 코드 추가
+  const themeToggle = document.getElementById("themeToggle"); 
 
-  if (isDarkMode) {
-    localStorage.setItem("theme", "dark");
-    themeToggle.checked = true;
-    if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_dark.svg')";
-    }
-  } else {
-    localStorage.setItem("theme", "light");
-    themeToggle.checked = false;
-    if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_light.svg')";
-    }
-  }
+  if (isDarkMode) {
+    localStorage.setItem("theme", "dark");
+    if (themeToggle) themeToggle.checked = true;
+    if (themeIcon) {
+      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_dark.svg')";
+    }
+  } else {
+    localStorage.setItem("theme", "light");
+    if (themeToggle) themeToggle.checked = false;
+    if (themeIcon) {
+      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_light.svg')";
+    }
+  }
 }
 
 function applySavedTheme() {
-  const savedTheme = localStorage.getItem("theme") || "light";
-  const themeIcon = document.getElementById("themeIcon");
-  const themeToggle = document.getElementById("themeToggle");
+  const savedTheme = localStorage.getItem("theme") || "light";
+  const themeIcon = document.getElementById("themeIcon");
+  const themeToggle = document.getElementById("themeToggle");
 
-  if (savedTheme === "dark") {
-    document.body.classList.add("dark-mode");
-    if (themeToggle) themeToggle.checked = true;
-    if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_dark.svg')";
-    }
-  } else {
-    document.body.classList.remove("dark-mode");
-    if (themeToggle) themeToggle.checked = false;
-    if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_light.svg')";
-    }
-  }
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    if (themeToggle) themeToggle.checked = true;
+    if (themeIcon) {
+      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_dark.svg')";
+    }
+  } else {
+    document.body.classList.remove("dark-mode");
+    if (themeToggle) themeToggle.checked = false;
+    if (themeIcon) {
+      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_light.svg')";
+    }
+  }
 }
 
 function setTheme(mode) {
@@ -353,11 +355,17 @@ function setTheme(mode) {
   localStorage.setItem("theme", mode);
 }
 
-//  페이지 로드 시 데이터 불러오기
+// 🚀 페이지 로드 시 실행되는 부분 (수정됨)
 document.addEventListener("DOMContentLoaded", () => {
-  applySavedTheme(); //  테마 초기화
-  loadPostData();
-  bindDrawingEvents();        //  이 줄 추가
+  applySavedTheme(); // 테마 초기화
+  loadPostData();
+  bindDrawingEvents(); 
+
+  // [수정 포인트 2] 테마 변경 버튼(체크박스)에 이벤트 안전하게 연결
+  const themeToggleInput = document.getElementById("themeToggle");
+  if (themeToggleInput) {
+    themeToggleInput.addEventListener("change", toggleTheme);
+  }
 });
 
 //  "공유" 버튼 클릭 시 현재 페이지 URL 복사
