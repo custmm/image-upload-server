@@ -36,5 +36,16 @@
         font-size: 18px;
 
     }
-        
+
+    /*============ post페이지 css ============*/
+    body.post-page .post-container {
+        width: 90%;
+    }
+
+
+    body.post-page .post-description {
+        font-size: 20px;
+
+    }
+
 }
