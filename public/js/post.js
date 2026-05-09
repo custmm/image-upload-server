@@ -112,13 +112,19 @@ async function loadPostData() {
     const descEl = document.getElementById("postDescription");
     const toggleBtn = document.getElementById("toggleDescButton");
 
-    // 초기화: 펼쳐진 상태 제거 및 텍스트 삽입
-    descEl.classList.remove("expanded");
-    descEl.innerHTML = descriptionText.replace(/#([\w가-힣]+)/g, "").replace(/\n/g, "<br>").trim();
-    renderHashtags(descriptionText);
 
     // [핵심] 펼치기/접기 버튼 제어 로직
     if (descEl && toggleBtn) {
+
+      // 초기화: 펼쳐진 상태 제거 및 텍스트 삽입
+      descEl.classList.remove("expanded");
+      descEl.innerHTML = descriptionText
+        .replace(/#([\w가-힣]+)/g, "")
+        .replace(/\n/g, "<br>")
+        .trim();
+
+      renderHashtags(descriptionText);
+
       // 텍스트가 렌더링된 후 높이를 측정하기 위해 setTimeout 사용
       setTimeout(() => {
         // 실제 전체 높이(scrollHeight)가 눈에 보이는 제한 높이(clientHeight)보다 크면 글이 넘친 것임
@@ -134,6 +140,10 @@ async function loadPostData() {
       toggleBtn.onclick = () => {
         const isExpanded = descEl.classList.toggle("expanded");
         toggleBtn.textContent = isExpanded ? "접기" : "더 보기";
+        // 접을 때 화면이 튕기지 않게 해당 위치로 스크롤 이동하고 싶다면 추가 (선택사항)
+        if (!isExpanded) {
+            descEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
       };
     }
 
