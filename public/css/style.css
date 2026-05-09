@@ -2191,8 +2191,7 @@ body.post-page .post-description {
     border: 1px solid #00ff00;
     border-radius: 15px;
 
-    /* 👇 [핵심] 이 3줄이 있어야 처음엔 글이 접혀 있습니다! */
-    max-height: 4em; /* 약 3줄 정도 높이만 보여줌 (원하는 만큼 숫자 조절 가능) */
+    max-height: 0px; /* 약 3줄 정도 높이만 보여줌 (원하는 만큼 숫자 조절 가능) */
     overflow: hidden; /* 박스를 벗어나는 긴 글자는 숨김 처리 */
     transition: max-height 0.4s ease; /* 촥! 하고 부드럽게 펼쳐지는 애니메이션 효과 */
 }
@@ -2209,10 +2208,10 @@ body.post-page .toggle-desc-btn {
     border: none;
     color: #007bff;
     cursor: pointer;
-    padding: 5px 0;
+    border-radius: 10px 10px 0px 0px;
     font-size: 14px;
     font-weight: bold;
-
+    margin-left: 85%;
     /* 👇 [핵심] 글이 짧을 수도 있으니 처음엔 무조건 숨겨둬야 합니다! */
     display: none; 
 }
