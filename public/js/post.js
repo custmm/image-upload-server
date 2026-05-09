@@ -130,7 +130,7 @@ async function loadPostData() {
         // 실제 전체 높이(scrollHeight)가 눈에 보이는 제한 높이(clientHeight)보다 크면 글이 넘친 것임
         if (descEl.scrollHeight > descEl.clientHeight) {
           toggleBtn.style.display = "block"; // 버튼 보여줌
-          toggleBtn.textContent = "더 보기";
+          toggleBtn.textContent = "펼치기";
         } else {
           toggleBtn.style.display = "none"; // 글이 짧으면 버튼 숨김
         }
@@ -139,7 +139,7 @@ async function loadPostData() {
       // 버튼 클릭 이벤트 바인딩
       toggleBtn.onclick = () => {
         const isExpanded = descEl.classList.toggle("expanded");
-        toggleBtn.textContent = isExpanded ? "접기" : "더 보기";
+        toggleBtn.textContent = isExpanded ? "접기" : "펼치기";
         // 접을 때 화면이 튕기지 않게 해당 위치로 스크롤 이동하고 싶다면 추가 (선택사항)
         if (!isExpanded) {
             descEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
