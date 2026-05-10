@@ -147,60 +147,98 @@ function renderDonutChart(labels, data, total) {
     });
 }
 
+// --- 수정된 버블 차트 렌더링 함수 ---
 function renderBubbleChart(categories, probabilities) {
-    const ctx = document.getElementById("radarChart")?.getContext("2d");
-    if (!ctx) return;
+    // 1. 캔버스 확인 (id가 radarChart인지 확실히 확인하세요!)
+    const canvas = document.getElementById("radarChart");
+    if (!canvas) {
+        console.warn("버블 차트용 canvas를 찾을 수 없습니다.");
+        return;
+    }
+    const ctx = canvas.getContext("2d");
 
+    // 기존 인스턴스 파괴
     if (window.barChartInstance) window.barChartInstance.destroy();
 
+    // 2. 데이터 유효성 확인
+    if (!categories || categories.length === 0 || !probabilities || probabilities.length === 0) {
+        console.warn("버블 차트를 그릴 데이터가 부족합니다.");
+        return;
+    }
+
+    // 3. 버블 데이터 생성
     const bubbleData = categories.map((cat, i) => {
-        const val = parseFloat(probabilities[i]);
+        // 확률 값이 유효한지 확인 (문자열일 경우 숫자로 변환)
+        const val = parseFloat(probabilities[i]) || 0; 
         return {
             x: (Math.random() - 0.5) * 10,
             y: (Math.random() - 0.5) * 10,
-            r: Math.max(12, val * 1.8),
+            r: Math.max(12, val * 1.8), // 최소 크기 보장
             label: cat,
             value: val
         };
     });
 
-    const arrangedBubbles = applyForceLayout(bubbleData);
+    console.log("계산된 버블 초기 데이터:", bubbleData); // 디버깅용 로그
 
-    window.barChartInstance = new Chart(ctx, {
-        type: "bubble",
-        data: {
-            datasets: [{
-                data: arrangedBubbles,
-                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"]
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: {
-                        label: (ctx) => `${ctx.raw.label}: ${ctx.raw.value}%`
+    // 4. 힘 기반 레이아웃 적용
+    let arrangedBubbles;
+    try {
+        arrangedBubbles = applyForceLayout(bubbleData);
+    } catch (error) {
+        console.error("버블 레이아웃 계산 중 오류:", error);
+        arrangedBubbles = bubbleData; // 오류 시 초기 데이터로 폴백
+    }
+
+    // 5. 차트 렌더링
+    try {
+        window.barChartInstance = new Chart(ctx, {
+            type: "bubble",
+            data: {
+                datasets: [{
+                    data: arrangedBubbles,
+                    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false, // 부모 요소에 height가 반드시 있어야 함!
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                // context.raw가 존재하는지 확인
+                                if (context.raw) {
+                                    return `${context.raw.label}: ${context.raw.value}%`;
+                                }
+                                return '';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        display: false,      
+                        grid: { display: false }, 
+                        border: { display: false },
+                        // 버블이 화면 밖으로 나가는 것을 방지하기 위해 최소/최대값 여유 두기
+                        min: -15, 
+                        max: 15
+                    },
+                    y: {
+                        display: false,      
+                        grid: { display: false }, 
+                        border: { display: false },
+                        min: -15,
+                        max: 15
                     }
                 }
-            },
-            scales: {
-                // X축 설정 완전히 제거
-                x: {
-                    display: false,      // 축 숫자/틱 숨김
-                    grid: { display: false }, // 격자선 제거
-                    border: { display: false } // 외곽 테두리선 제거
-                },
-                // Y축 설정 완전히 제거
-                y: {
-                    display: false,      // 축 숫자/틱 숨김
-                    grid: { display: false }, // 격자선 제거
-                    border: { display: false } // 외곽 테두리선 제거
-                }
             }
-        }
-    });
+        });
+    } catch (err) {
+        console.error("버블 차트 초기화 중 오류 발생:", err);
+    }
 }
 
 // ---------------------------------------------------------
