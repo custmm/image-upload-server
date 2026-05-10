@@ -47,5 +47,9 @@
         font-size: 20px;
 
     }
-
+    
+    /*============ upload페이지 css ============*/
+    body.upload-page .upload-container {
+        width: 90%;
+    }
 }
