@@ -5,7 +5,7 @@
 export async function renderDashboardCharts() {
     try {
         // 1. 관리자 토큰 가져오기 (로그인 시 저장된 키값 확인 필요)
-        const token = localStorage.getItem("adminToken"); 
+        const token = localStorage.getItem("adminToken");
 
         // 2. 인증 헤더를 포함하여 상대 경로로 호출
         const response = await fetch('/api/files/category-counts', {
@@ -15,14 +15,14 @@ export async function renderDashboardCharts() {
                 'Content-Type': 'application/json'
             }
         });
-        
+
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.error || `HTTP ${response.status}`);
         }
 
         const responseData = await response.json();
-        
+
         // 데이터 추출
         const categoryData = Array.isArray(responseData) ? responseData : (responseData.data || []);
 
@@ -38,11 +38,11 @@ export async function renderDashboardCharts() {
 
         // 도넛 차트 렌더링
         renderDonutChart(labels, dataValues, totalCount);
-        
+
         // 버블 차트용 확률 계산 및 렌더링
         const probabilities = dataValues.map(v => ((v / totalCount) * 100).toFixed(1));
         renderBubbleChart(labels, probabilities);
-        
+
         // 🔥 [수정 포인트 1] 차트를 다 그린 후, 전환 버튼 이벤트를 활성화합니다!
         bindChartSwitchEvents();
     } catch (error) {
@@ -50,7 +50,7 @@ export async function renderDashboardCharts() {
         // 에러 발생 시 사용자에게 안내 (선택 사항)
         const chartArea = document.getElementById("chartArea");
         if (chartArea && error.message.includes("ID가 필요")) {
-             chartArea.innerHTML = "<p style='color:red; text-align:center;'>인증 세션이 만료되었습니다. 다시 로그인해주세요.</p>";
+            chartArea.innerHTML = "<p style='color:red; text-align:center;'>인증 세션이 만료되었습니다. 다시 로그인해주세요.</p>";
         }
     }
 }
@@ -63,7 +63,7 @@ function bindChartSwitchEvents() {
         showDonutBtn.onclick = () => {
             document.getElementById("donutWrapper").style.display = "flex";
             document.getElementById("barWrapper").style.display = "none";
-            
+
             const chartArea = document.getElementById("chartArea");
             if (chartArea) chartArea.style.justifyContent = "center";
 
@@ -176,17 +176,17 @@ function renderBubbleChart(categories, probabilities) {
 
     // 3. 버블 데이터 생성
     const bubbleData = categories.map((cat, i) => {
-        // 확률 값이 유효한지 확인 (문자열일 경우 숫자로 변환)
-        const val = parseFloat(probabilities[i]) || 0; 
+        const val = parseFloat(probabilities[i]) || 0;
         return {
-            x: (Math.random() - 0.5) * 10,
-            y: (Math.random() - 0.5) * 10,
-            r: Math.max(12, val * 1.8), // 최소 크기 보장
+            // ✅ 수정: Math.random()에 범위값만 곱해주어 항상 0 이상의 양수만 나오게 설정
+            // 예: 0부터 30 사이의 랜덤한 좌표 생성
+            x: Math.random() * 30,
+            y: Math.random() * 30,
+            r: Math.max(12, val * 1.8),
             label: cat,
             value: val
         };
     });
-
     console.log("계산된 버블 초기 데이터:", bubbleData); // 디버깅용 로그
 
     // 4. 힘 기반 레이아웃 적용
@@ -227,19 +227,19 @@ function renderBubbleChart(categories, probabilities) {
                 },
                 scales: {
                     x: {
-                        display: false,      
-                        grid: { display: false }, 
+                        display: false,
+                        grid: { display: false },
                         border: { display: false },
-                        // 버블이 화면 밖으로 나가는 것을 방지하기 위해 최소/최대값 여유 두기
-                        min: -15, 
-                        max: 15
+                        // ✅ 버블이 생성되는 범위(0~30)보다 넉넉하게 스케일을 잡아줍니다.
+                        min: -5,  // 버블이 화면 왼쪽 모서리에 딱 붙어 잘리지 않게 살짝 여유를 줌
+                        max: 40
                     },
                     y: {
-                        display: false,      
-                        grid: { display: false }, 
+                        display: false,
+                        grid: { display: false },
                         border: { display: false },
-                        min: -15,
-                        max: 15
+                        min: -5,
+                        max: 40
                     }
                 }
             }
@@ -294,7 +294,7 @@ export async function showSubcategoryTable(categoryName) {
         });
 
         if (!response.ok) throw new Error("데이터 로드 실패");
-        
+
         const subData = await response.json();
         const oldWrapper = document.querySelector(".subcategory-wrapper");
         if (oldWrapper) oldWrapper.remove();
