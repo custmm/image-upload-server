@@ -32,7 +32,7 @@ export async function renderDashboardCharts() {
         }
 
         // 차트 데이터 가공
-        const labels = categoryData.map(item => item.category || '기타');
+        const labels = categoryData.map(item => item.category_name || '기타');
         const dataValues = categoryData.map(item => Number(item.count) || 0);
         const totalCount = dataValues.reduce((a, b) => a + b, 0);
 
