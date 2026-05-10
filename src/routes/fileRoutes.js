@@ -86,68 +86,6 @@ router.get("/", async (req, res) => {
     }
 });
 
-// ID 기반 게시물 상세 조회 API (이전/다음글 포함)
-router.get("/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-        const currentId = parseInt(id, 10);
-
-        if (isNaN(currentId)) {
-            return res.status(400).json({ error: " 유효한 ID가 필요합니다." });
-        }
-
-        // 1. 현재 게시물 정보 조회
-        const foundFile = await File.findByPk(currentId, {
-            include: [
-                { model: Category, as: "category", attributes: ["name"] },
-                { model: Subcategory, as: "subcategory", attributes: ["name"] },
-                { model: Description, as: "description" }
-            ]
-        });
-
-        if (!foundFile) {
-            return res.status(404).json({ error: " 해당 게시물을 찾을 수 없습니다." });
-        }
-
-        const categoryId = foundFile.category_id;
-
-        // 2. [추가] 이전 게시물 찾기 (같은 카테고리 내에서 현재 ID보다 작은 것 중 가장 큰 값)
-        const prevPost = await File.findOne({
-            where: {
-                category_id: categoryId,
-                id: { [Op.lt]: currentId } // id < currentId
-            },
-            order: [["id", "DESC"]], // 내림차순 정렬하여 바로 직전 글 선택
-            attributes: ["id"]
-        });
-
-        // 3. [추가] 다음 게시물 찾기 (같은 카테고리 내에서 현재 ID보다 큰 것 중 가장 작은 값)
-        const nextPost = await File.findOne({
-            where: {
-                category_id: categoryId,
-                id: { [Op.gt]: currentId } // id > currentId
-            },
-            order: [["id", "ASC"]], // 오름차순 정렬하여 바로 다음 글 선택
-            attributes: ["id"]
-        });
-
-        // 4. 데이터 가공 및 응답
-        res.json({
-            ...foundFile.toJSON(),
-            category_name: foundFile.category?.name || null,
-            subcategory_name: foundFile.subcategory?.name || null,
-            prev_id: prevPost ? prevPost.id : null, // 👈 [추가] 이전 ID 전달
-            next_id: nextPost ? nextPost.id : null  // 👈 [추가] 다음 ID 전달
-        });
-
-        console.log(` 게시물 조회 성공: ID ${foundFile.id} (이전:${prevPost?.id}, 다음:${nextPost?.id})`);
-
-    } catch (error) {
-        console.error(" 상세 조회 서버 오류:", error);
-        res.status(500).json({ error: " 서버 오류 발생" });
-    }
-});
-
 //  특정 파일을 카테고리 + 서브카테고리 + 파일명으로 조회하는 API
 router.get("/file", async (req, res) => {
     try {
@@ -463,6 +401,68 @@ router.patch("/update-title/:id", async (req, res) => {
     } catch (error) {
         console.error(" 제목 업데이트 오류:", error);
         res.status(500).json({ success: false, error: " 서버 오류 발생" });
+    }
+});
+
+// ID 기반 게시물 상세 조회 API (이전/다음글 포함)
+router.get("/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const currentId = parseInt(id, 10);
+
+        if (isNaN(currentId)) {
+            return res.status(400).json({ error: " 유효한 ID가 필요합니다." });
+        }
+
+        // 1. 현재 게시물 정보 조회
+        const foundFile = await File.findByPk(currentId, {
+            include: [
+                { model: Category, as: "category", attributes: ["name"] },
+                { model: Subcategory, as: "subcategory", attributes: ["name"] },
+                { model: Description, as: "description" }
+            ]
+        });
+
+        if (!foundFile) {
+            return res.status(404).json({ error: " 해당 게시물을 찾을 수 없습니다." });
+        }
+
+        const categoryId = foundFile.category_id;
+
+        // 2. [추가] 이전 게시물 찾기 (같은 카테고리 내에서 현재 ID보다 작은 것 중 가장 큰 값)
+        const prevPost = await File.findOne({
+            where: {
+                category_id: categoryId,
+                id: { [Op.lt]: currentId } // id < currentId
+            },
+            order: [["id", "DESC"]], // 내림차순 정렬하여 바로 직전 글 선택
+            attributes: ["id"]
+        });
+
+        // 3. [추가] 다음 게시물 찾기 (같은 카테고리 내에서 현재 ID보다 큰 것 중 가장 작은 값)
+        const nextPost = await File.findOne({
+            where: {
+                category_id: categoryId,
+                id: { [Op.gt]: currentId } // id > currentId
+            },
+            order: [["id", "ASC"]], // 오름차순 정렬하여 바로 다음 글 선택
+            attributes: ["id"]
+        });
+
+        // 4. 데이터 가공 및 응답
+        res.json({
+            ...foundFile.toJSON(),
+            category_name: foundFile.category?.name || null,
+            subcategory_name: foundFile.subcategory?.name || null,
+            prev_id: prevPost ? prevPost.id : null, // 👈 [추가] 이전 ID 전달
+            next_id: nextPost ? nextPost.id : null  // 👈 [추가] 다음 ID 전달
+        });
+
+        console.log(` 게시물 조회 성공: ID ${foundFile.id} (이전:${prevPost?.id}, 다음:${nextPost?.id})`);
+
+    } catch (error) {
+        console.error(" 상세 조회 서버 오류:", error);
+        res.status(500).json({ error: " 서버 오류 발생" });
     }
 });
 
