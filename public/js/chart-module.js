@@ -42,7 +42,9 @@ export async function renderDashboardCharts() {
         // 버블 차트용 확률 계산 및 렌더링
         const probabilities = dataValues.map(v => ((v / totalCount) * 100).toFixed(1));
         renderBubbleChart(labels, probabilities);
-
+        
+        // 🔥 [수정 포인트 1] 차트를 다 그린 후, 전환 버튼 이벤트를 활성화합니다!
+        bindChartSwitchEvents();
     } catch (error) {
         console.error('❌ 차트 로드 실패:', error.message);
         // 에러 발생 시 사용자에게 안내 (선택 사항)
@@ -64,6 +66,9 @@ function bindChartSwitchEvents() {
             
             const chartArea = document.getElementById("chartArea");
             if (chartArea) chartArea.style.justifyContent = "center";
+
+            // 🔥 [수정 포인트 2-1] 도넛 차트가 다시 보일 때 크기 재계산
+            if (window.donutChartInstance) window.donutChartInstance.resize();
         };
     }
 
@@ -78,6 +83,9 @@ function bindChartSwitchEvents() {
 
             const chartArea = document.getElementById("chartArea");
             if (chartArea) chartArea.style.justifyContent = "center";
+
+            // 🔥 [수정 포인트 2-2] 숨겨져 있던 버블 차트가 나타날 때 크기 재계산 (매우 중요!)
+            if (window.barChartInstance) window.barChartInstance.resize();
         };
     }
 }
