@@ -232,14 +232,14 @@ function renderBubbleChart(categories, probabilities) {
                         border: { display: false },
                         // ✅ 버블이 생성되는 범위(0~30)보다 넉넉하게 스케일을 잡아줍니다.
                         min: -5,  // 버블이 화면 왼쪽 모서리에 딱 붙어 잘리지 않게 살짝 여유를 줌
-                        max: 40
+                        max: 10
                     },
                     y: {
                         display: false,
                         grid: { display: false },
                         border: { display: false },
                         min: -5,
-                        max: 40
+                        max: 10
                     }
                 }
             }
