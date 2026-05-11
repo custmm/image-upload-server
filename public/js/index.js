@@ -31,13 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const body = document.body;
     const adminModeButton = document.getElementById("adminModeButton");
     const userModeButton = document.getElementById("userModeButton");
-    const doorContainer = document.getElementById("door-container");
-    const leftDoor = document.querySelector(".door.left");
-    const rightDoor = document.querySelector(".door.right");
     const modeSelection = document.getElementById("modeSelection");
     const mainTitle = document.getElementById("mainTitle");
     const glowCircles = document.querySelectorAll(".glow-circle");
-    const container = document.getElementById("container");
     const audio = document.getElementById("easterEggAudio");
     const audio2 = document.getElementById("fireworkAudio");
     const clickerModal = document.getElementById("clicker-modal");
@@ -61,16 +57,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------------- 문 열기 + 페이지 이동 ---------------- */
     function openDoorAndRedirect(url) {
-        doorContainer.style.display = "flex";
-        setTimeout(() => {
-            leftDoor.style.transform = "rotateY(90deg)"; // 왼쪽 문 열기
-            rightDoor.style.transform = "rotateY(-90deg)"; // 오른쪽 문 열기
-        }, 50); // DOM 렌더링 시간을 확보 (50ms)
+        const container = document.querySelector(".container");
+        const doorContainer = document.getElementById("door-container");
+        const leftDoor = document.querySelector(".door.left");
+        const rightDoor = document.querySelector(".door.right");
 
-        // 1초 후 페이지 이동
+        // 1. 컨테이너에 사라지는 효과 클래스 추가
+        if (container) container.classList.add("door-opened-effect");
+
+        // 2. 약간의 시차 후 문을 표시하고 엽니다.
+        setTimeout(() => {
+            if (doorContainer) doorContainer.style.display = "flex";
+
+            window.requestAnimationFrame(() => {
+                if (leftDoor) leftDoor.style.transform = "rotateY(90deg)";
+                if (rightDoor) rightDoor.style.transform = "rotateY(-90deg)";
+            });
+        }, 150);
+
+        // 3. 애니메이션 완료 후 페이지 이동
         setTimeout(() => {
             window.location.href = url;
-        }, 1000);
+        }, 1300);
     }
 
     // 버튼 클릭 이벤트 설정 (존재할 경우에만)

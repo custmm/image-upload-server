@@ -11,6 +11,8 @@ body.dashboard-page {
 }
 
 /* ====== 첫화면(index.html) ====== */
+
+/* 1. 컨테이너 기본 설정 (3D 효과 추가) */
 body.index-page .container {
     display: flex;
     flex-direction: column;
@@ -19,6 +21,55 @@ body.index-page .container {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    /* [추가] 애니메이션을 위한 속성 */
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-in-out;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    z-index: 5; /* 문(#door-container)보다 아래에 위치 */
+}
+
+/* 2. [추가] 자바스크립트에서 .door-opened-effect 클래스가 붙었을 때의 효과 */
+body.index-page .container.door-opened-effect {
+    /* 화면 안쪽으로 멀어지면서 투명해짐 */
+    transform: translate(-50%, -50%) scale(0.8) translateZ(-150px);
+    opacity: 0;
+    pointer-events: none; /* 애니메이션 도중 클릭 방지 */
+}
+
+/* 3. 문 컨테이너 설정 */
+body.index-page #door-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* 초기 숨김 (JS에서 flex로 변경) */
+    z-index: 100;  /* 컨테이너보다 위에 배치 */
+    pointer-events: none; /* 문 사이로 뒷배경이 보일 때 클릭 가능하도록 */
+}
+
+/* 4. 개별 문 스타일 (부드러운 가속도 적용) */
+body.index-page .door {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background-color: #333; /* 조금 더 어두운 톤으로 변경 */
+    border: 1px solid #222;
+    /* [수정] 2초는 너무 느리므로 1.2초로 조정하고 베지어 곡선 적용 */
+    transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+body.index-page .door.left {
+    left: 0;
+    transform-origin: left center;
+    transform: rotateY(0deg);
+}
+
+body.index-page .door.right {
+    right: 0;
+    transform-origin: right center;
+    transform: rotateY(0deg);
 }
 
 body.index-page .modal-buttons {
@@ -251,43 +302,6 @@ body.index-page canvas {
     /* 캔버스가 클릭을 방해하지 않도록 설정 */
 }
 
-body.index-page #door-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
-    /* 초기에는 숨김 */
-    z-index: 10;
-}
-
-body.index-page .door {
-    position: absolute;
-    width: 50%;
-    height: 100%;
-    background-color: #555;
-    border: 2px solid #333;
-    transition: transform 2s ease-in-out;
-}
-
-body.index-page .door.left {
-    left: 0;
-    transform-origin: left center;
-    /* Left edge for right door */
-    transform: rotateY(0deg);
-    /* 초기 상태 */
-    transition: transform 2s ease-in-out;
-}
-
-body.index-page .door.right {
-    right: 0;
-    transform-origin: right center;
-    /* Right edge for left door */
-    transform: rotateY(0deg);
-    /* 초기 상태 */
-    transition: transform 2s ease-in-out;
-}
 
 /* ====== 로그인 페이지(admin-login.html ====== */
 body.login-page h1 {
