@@ -37,6 +37,13 @@
 
     }
 
+    body.preview-page #settingPopup.active {
+        left: 40%;
+        width: 300px;
+        height: 220px;
+
+    }
+
     /*============ post페이지 css ============*/
     body.post-page .post-container {
         width: 90%;
@@ -47,7 +54,7 @@
         font-size: 20px;
 
     }
-    
+
     /*============ upload페이지 css ============*/
     body.upload-page .upload-container {
         width: 90%;
