@@ -157,104 +157,75 @@ function renderDonutChart(labels, data, total) {
 
 // --- 수정된 버블 차트 렌더링 함수 ---
 function renderBubbleChart(categories, probabilities) {
-    // 1. 캔버스 확인 (id가 radarChart인지 확실히 확인하세요!)
     const canvas = document.getElementById("radarChart");
-    if (!canvas) {
-        console.warn("버블 차트용 canvas를 찾을 수 없습니다.");
-        return;
-    }
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
 
-    // 기존 인스턴스 파괴
     if (window.barChartInstance) window.barChartInstance.destroy();
 
-    // 2. 데이터 유효성 확인
-    if (!categories || categories.length === 0 || !probabilities || probabilities.length === 0) {
-        console.warn("버블 차트를 그릴 데이터가 부족합니다.");
-        return;
-    }
-
-    // 3. 버블 데이터 생성
+    // 3. 버블 데이터 생성 (중앙 집중형)
     const bubbleData = categories.map((cat, i) => {
         const val = parseFloat(probabilities[i]) || 0;
         return {
-            // ✅ 수정: Math.random()에 범위값만 곱해주어 항상 0 이상의 양수만 나오게 설정
-            // 예: 0부터 30 사이의 랜덤한 좌표 생성
-            x: Math.random() * 30,
-            y: Math.random() * 30,
+            // ✅ 수정: -5에서 +5 사이의 좁은 범위에서 생성 (중앙에 뭉쳐서 시작)
+            x: (Math.random() - 0.5) * 10, 
+            y: (Math.random() - 0.5) * 10,
             r: Math.max(12, val * 1.8),
             label: cat,
             value: val
         };
     });
-    console.log("계산된 버블 초기 데이터:", bubbleData); // 디버깅용 로그
 
     // 4. 힘 기반 레이아웃 적용
-    let arrangedBubbles;
-    try {
-        arrangedBubbles = applyForceLayout(bubbleData);
-    } catch (error) {
-        console.error("버블 레이아웃 계산 중 오류:", error);
-        arrangedBubbles = bubbleData; // 오류 시 초기 데이터로 폴백
-    }
+    const arrangedBubbles = applyForceLayout(bubbleData);
 
     // 5. 차트 렌더링
-    try {
-        window.barChartInstance = new Chart(ctx, {
-            type: "bubble",
-            data: {
-                datasets: [{
-                    data: arrangedBubbles,
-                    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"]
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false, // 부모 요소에 height가 반드시 있어야 함!
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            label: (context) => {
-                                // context.raw가 존재하는지 확인
-                                if (context.raw) {
-                                    return `${context.raw.label}: ${context.raw.value}%`;
-                                }
-                                return '';
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        display: false,
-                        grid: { display: false },
-                        border: { display: false },
-                        // ✅ 버블이 생성되는 범위(0~30)보다 넉넉하게 스케일을 잡아줍니다.
-                        min: -5,  // 버블이 화면 왼쪽 모서리에 딱 붙어 잘리지 않게 살짝 여유를 줌
-                        max: 10
-                    },
-                    y: {
-                        display: false,
-                        grid: { display: false },
-                        border: { display: false },
-                        min: -5,
-                        max: 10
+    window.barChartInstance = new Chart(ctx, {
+        type: "bubble",
+        data: {
+            datasets: [{
+                data: arrangedBubbles,
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => `${context.raw.label}: ${context.raw.value}%`
                     }
                 }
+            },
+            scales: {
+                x: {
+                    display: false,
+                    grid: { display: false },
+                    // ✅ 중요: 중앙(0)을 기준으로 버블이 다 보이도록 스케일 고정
+                    min: -20,
+                    max: 20
+                },
+                y: {
+                    display: false,
+                    grid: { display: false },
+                    min: -20,
+                    max: 20
+                }
             }
-        });
-    } catch (err) {
-        console.error("버블 차트 초기화 중 오류 발생:", err);
-    }
+        }
+    });
 }
 
 // ---------------------------------------------------------
 // 🔥 [이 부분 필수 추가] 버블 위치 계산 및 충돌 방지 로직
 // ---------------------------------------------------------
-function applyForceLayout(bubbles, iterations = 120) {
-    const padding = 2;
+function applyForceLayout(bubbles, iterations = 150) {
+    const padding = 3; // 버블 간 최소 간격
+    
     for (let k = 0; k < iterations; k++) {
+        // 1. 버블 간 충돌 방지 (서로 밀어냄)
         for (let i = 0; i < bubbles.length; i++) {
             for (let j = i + 1; j < bubbles.length; j++) {
                 const a = bubbles[i];
@@ -263,6 +234,7 @@ function applyForceLayout(bubbles, iterations = 120) {
                 const dy = b.y - a.y;
                 const dist = Math.sqrt(dx * dx + dy * dy) || 0.01;
                 const minDist = a.r + b.r + padding;
+
                 if (dist < minDist) {
                     const force = (minDist - dist) / dist * 0.5;
                     const moveX = dx * force;
@@ -274,15 +246,16 @@ function applyForceLayout(bubbles, iterations = 120) {
                 }
             }
         }
-        // 중앙으로 수렴하게 하는 힘 (터짐 방지)
+
+        // 2. 중앙 수렴 효과 (중앙 (0,0)으로 모든 버블을 당김)
         bubbles.forEach(b => {
-            b.x *= 0.98;
-            b.y *= 0.98;
+            // ✅ 핵심: 좌표를 0 방향으로 조금씩 이동시킴 (0.95는 수렴 강도)
+            b.x *= 0.95; 
+            b.y *= 0.95;
         });
     }
     return bubbles;
 }
-
 /**
  * 서브카테고리 상세 표 (인증 헤더 추가)
  */
