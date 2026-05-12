@@ -146,13 +146,19 @@ ul li {
     list-style: none;
 }
 
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+
 .appear-ani {
     opacity: 0;
     animation: fadeInUp 1.0s ease-out forwards;
 }
 
 body:not(.no-bg) {
-    background: linear-gradient(180deg, #2B2092 0%, #ffe229 95%);
+    background: #2B2092;
     background-attachment: fixed;
     margin: 0;
     min-height: 100vh;
