@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ==========================================
     // 1️⃣ DOM 요소 선택 (상단에 모아두기)
     // ==========================================
+    const backBtn = document.querySelector(".back-button");
     const fileInput = document.getElementById("fileInput");
     const previewContainer = document.getElementById("previewContainer");
     const uploadButton = document.getElementById("uploadButton");
@@ -269,6 +270,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ==========================================
     // 5️⃣ 이벤트 리스너 등록
     // ==========================================
+
+    if (backBtn) {
+        backBtn.addEventListener("click", () => {
+            // 단순히 이동하고 싶다면 아래 코드
+            window.location.href = "mode-selection.html";
+
+            // 만약 브라우저 히스토리 상의 진짜 '이전 페이지'로 가고 싶다면 아래 코드 권장
+            // window.history.back(); 
+        });
+    }
+
     if (fileInput) {
         fileInput.addEventListener("change", event => {
             const file = event.target.files[0];
