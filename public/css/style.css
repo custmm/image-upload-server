@@ -4008,6 +4008,10 @@ body.etc-page #my_project li:nth-child(3) p {
     padding-bottom: 20px;
 }
 
+body.etc-page li#method4 > button.detail-toggle{
+    text-align: left;
+}
+
 
 /* ====== 태그 검색 결과(search.html) ====== */
 body.search-page h2#resultTitle {
