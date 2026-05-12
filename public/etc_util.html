@@ -507,10 +507,186 @@
                     <li id="method3">
                         <h3>RC카 제작과정</h3>
 
+
                     </li>
                     <li id="method4">
-                        <h3>RC카 완성</h3>
+                        <h3>RC카 완성 코드</h3>
+                        <button class="detail-toggle">설정 및 라이브러리 (Setup & Libs)</button>
+                        <div class="detail-content">
+                            #include <SoftwareSerial.h> <br>
+                                #include <DFRobotDFPlayerMini.h> <br>
+                                    #include <IRremote.h> <br>
+                                        <br><br>
 
+                                        const int ENA = 5; <br>
+                                        const int ENB = 6; <br>
+                                        const int IN1 = 13; <br>
+                                        const int IN2 = 12; <br>
+                                        const int IN3 = 8; <br>
+                                        const int IN4 = 7; <br>
+
+                                        const int trig = 11; <br>
+                                        const int echo = 10; <br>
+                                        const int buzzer = 4; <br>
+                                        const int touch = 9; <br>
+                                        const int BUSY = A1; <br>
+                                        const int IR_RECV = A0; <br>
+                        </div>
+
+                        <button class="detail-toggle">초기화 로직 (Initialization)</button>
+                        <div class="detail-content">
+                            void setup() { <br>
+                            // 모터 제어 핀 설정 <br>
+                            pinMode(IN1, OUTPUT); <br>
+                            pinMode(IN2, OUTPUT); <br>
+                            pinMode(IN3, OUTPUT); <br>
+                            pinMode(IN4, OUTPUT); <br>
+                            pinMode(ENA, OUTPUT); <br>
+                            pinMode(ENB, OUTPUT); <br>
+                            <br>
+                            // 센서 및 부저 설정 <br>
+                            pinMode(touch, INPUT); <br>
+                            pinMode(trig, OUTPUT); <br>
+                            pinMode(echo, INPUT); <br>
+                            pinMode(buzzer, OUTPUT); <br>
+                            <br>
+
+                            // 통신 및 모듈 초기화 <br>
+                            Serial.begin(9600); <br>
+                            mySoftwareSerial.begin(9600); <br>
+                            <br>
+                            if (!myDFPlayer.begin(mySoftwareSerial)) { <br>
+                            Serial.println("DFPlayer를 연결할 수 없습니다."); <br>
+                            } <br>
+
+                            myDFPlayer.volume(18); // 볼륨 설정 (0~30) <br>
+                            irrecv.enableIRIn(); // 적외선 센서 활성화 <br>
+                            }
+
+                        </div>
+
+                        <button class="detail-toggle">장애물 감지 및 자동 정지 (Safety Logic)</button>
+                        <div class="detail-content">
+                            //초음파 센서를 이용한 장애물 감지 <br>
+                            static unsigned long prev_ult_millis = 0; <br>
+                            const unsigned long inter_ult_millis = 50; <br>
+                            unsigned long curr_ult_millis = millis(); <br>
+                            <br>
+                            if (curr_ult_millis - prev_ult_millis >= inter_ult_millis) { <br>
+                            prev_ult_millis = curr_ult_millis; <br>
+                            <br>
+                            digitalWrite(trig, LOW); <br>
+                            delayMicroseconds(2); <br>
+                            digitalWrite(trig, HIGH); <br>
+                            delayMicroseconds(10); <br>
+                            digitalWrite(trig, LOW); <br>
+                            <br>
+                            long duration = pulseIn(echo, HIGH); <br>
+                            long distance = (duration / 2) / 29.1; <br>
+                            <br>
+                            if (distance <= 8 && distance> 0) { // 8cm 이내 장애물 감지 시 <br>
+                                tone(buzzer, 4000); <br>
+                                RC_stop(); <br>
+                                } else { <br>
+                                noTone(buzzer); <br>
+                                } <br>
+                                }
+                        </div>
+
+                        <button class="detail-toggle">리모컨 및 터치 제어 (Input Control)</button>
+                        <div class="detail-content">
+                            // IR 리모컨 제어 <br>
+                            if (irrecv.decode(&results)) { <br>
+                            switch (results.value) { <br>
+                            case 0xFFA25D: myDFPlayer.play(1); break; // 1번: 재생 <br>
+                            case 0xFF629D: myDFPlayer.next(); break; // 2번: 다음곡 <br>
+                            case 0xFFE21D: myDFPlayer.previous(); break; // 3번: 이전곡 <br>
+
+                            case 0xFF9867: speed = 200; break; // 0번: 속도 보통 <br>
+                            case 0xFF6897: speed = 150; break; // *번: 속도 느리게 <br>
+                            case 0xFFB04F: speed = 255; break; // #번: 속도 최대 <br>
+
+                            case 0xFF18E7: RC_forward(); break; // 위쪽 화살표 <br>
+                            case 0xFF4AB5: RC_backward(); break; // 아래쪽 화살표 <br>
+                            case 0xFF10EF: RC_left(); break; // 왼쪽 화살표 <br>
+                            case 0xFF5AA5: RC_right(); break; // 오른쪽 화살표 <br>
+                            case 0xFF38C7: RC_stop(); break; // OK 버튼: 정지 <br>
+                            } <br>
+                            irrecv.resume(); <br>
+                            }
+                        </div>
+
+                        <button class="detail-toggle">하드웨어 구동 함수 (Action Functions)</button>
+                        <div class="detail-content">
+                            // 터치 센서를 이용한 음악 제어 <br>
+                            int playstate = digitalRead(BUSY); // HIGH는 재생 중 아님, LOW는 재생 중 <br>
+                            if (digitalRead(touch) == HIGH) { <br>
+                            delay(100); // 디바운싱 <br>
+                            if (digitalRead(touch) == HIGH) { <br>
+                            count++; <br>
+                            delay(300); <br>
+                            } <br>
+                            } <br>
+                            <br>
+
+                            if (count == 1 && playstate == LOW) { // 재생 중일 때 한 번 터치하면 일시정지 <br>
+                            myDFPlayer.pause(); <br>
+                            count = 0; <br>
+                            } <br>
+                            else if (count == 1 && playstate == HIGH) { // 정지 중일 때 한 번 터치하면 재생 <br>
+                            myDFPlayer.start(); <br>
+                            count = 0; <br>
+                            } <br>
+                            <br>
+                            if (count >= 2) count = 0; // 횟수 초기화 <br>
+                            <br>
+
+
+                            // --- RC카 이동 함수 정의 --- <br>
+                            void RC_forward() { <br>
+                            digitalWrite(IN1, HIGH); <br>
+                            digitalWrite(IN2, LOW); <br>
+                            digitalWrite(IN3, LOW); <br>
+                            digitalWrite(IN4, HIGH); <br>
+                            analogWrite(ENA, speed); <br>
+                            analogWrite(ENB, speed); <br>
+                            } <br>
+                            <br>
+                            void RC_backward() { <br>
+                            digitalWrite(IN1, LOW); <br>
+                            digitalWrite(IN2, HIGH); <br>
+                            digitalWrite(IN3, HIGH); <br>
+                            digitalWrite(IN4, LOW); <br>
+                            analogWrite(ENA, speed); <br>
+                            analogWrite(ENB, speed); <br>
+                            } <br>
+                            <br>
+                            void RC_left() { <br>
+                            digitalWrite(IN1, HIGH); <br>
+                            digitalWrite(IN2, LOW); <br>
+                            digitalWrite(IN3, HIGH); <br>
+                            digitalWrite(IN4, LOW); <br>
+                            analogWrite(ENA, speed - 50); <br>
+                            analogWrite(ENB, speed); <br>
+                            } <br>
+                            <br>
+
+                            void RC_right() { <br>
+                            digitalWrite(IN1, LOW); <br>
+                            digitalWrite(IN2, HIGH); <br>
+                            digitalWrite(IN3, LOW); <br>
+                            digitalWrite(IN4, HIGH); <br>
+                            analogWrite(ENA, speed); <br>
+                            analogWrite(ENB, speed - 50); <br>
+                            } <br>
+                            <br>
+                            void RC_stop() { <br>
+                            digitalWrite(IN1, LOW); <br>
+                            digitalWrite(IN2, LOW); <br>
+                            digitalWrite(IN3, LOW); <br>
+                            digitalWrite(IN4, LOW); <br>
+                            } <br>
+                        </div>
                     </li>
                 </ul>
 
@@ -588,7 +764,7 @@
                     <button class="detail-toggle">
                         back스토리
                     </button>
-                    
+
                     <div class="detail-content">
                         <div class="story_borad">
                             <h3>Scene #1 : 어느 화창한 오후, 카페 '로컬호스트'</h3>
