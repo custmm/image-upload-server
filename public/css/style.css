@@ -3707,6 +3707,7 @@ body.preview-popup-page .answer {
     background-color: #90caf9;
     padding: 20px 0;
     border-top: 1px solid rgba(0, 220, 255, 0.6);
+    text-align: left;
 }
 
 body.preview-popup-page .answer strong {
