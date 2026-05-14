@@ -2863,7 +2863,7 @@ body.preview-page .image-container {
     overflow: hidden;
     width: 14vw; /* 크기 약간 조절 */
     height: 14vw;
-    border-radius: 24px; /* 정원(50%) 대신 깊은 곡률의 사각형 */
+    border-radius: 50%; /* 정원(50%) 대신 깊은 곡률의 사각형 */
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     background-color: #eee; /* 로딩 전 빈 공간 느낌 방지 */
 }
@@ -2891,7 +2891,7 @@ body.preview-page .image-container img {
     height: 100%;
     object-fit: cover;
     /* 블러를 낮추고 회색조만 살짝 주어 구멍처럼 보이지 않게 함 */
-    filter: grayscale(40%) brightness(0.9); 
+    filter: grayscale(80%) brightness(0.9)blur(10px); 
     border-radius: inherit; /* 부모의 radius를 따라감 */
     transition: filter 0.3s ease, transform 0.3s ease;
 }
