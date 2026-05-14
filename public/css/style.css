@@ -26,7 +26,8 @@ body.index-page .container {
     transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-in-out;
     transform-style: preserve-3d;
     perspective: 1000px;
-    z-index: 5; /* 문(#door-container)보다 아래에 위치 */
+    z-index: 5;
+    /* 문(#door-container)보다 아래에 위치 */
 }
 
 /* 2. [추가] 자바스크립트에서 .door-opened-effect 클래스가 붙었을 때의 효과 */
@@ -34,7 +35,8 @@ body.index-page .container.door-opened-effect {
     /* 화면 안쪽으로 멀어지면서 투명해짐 */
     transform: translate(-50%, -50%) scale(0.8) translateZ(-150px);
     opacity: 0;
-    pointer-events: none; /* 애니메이션 도중 클릭 방지 */
+    pointer-events: none;
+    /* 애니메이션 도중 클릭 방지 */
 }
 
 /* 3. 문 컨테이너 설정 */
@@ -44,9 +46,12 @@ body.index-page #door-container {
     left: 0;
     width: 100%;
     height: 100%;
-    display: none; /* 초기 숨김 (JS에서 flex로 변경) */
-    z-index: 100;  /* 컨테이너보다 위에 배치 */
-    pointer-events: none; /* 문 사이로 뒷배경이 보일 때 클릭 가능하도록 */
+    display: none;
+    /* 초기 숨김 (JS에서 flex로 변경) */
+    z-index: 100;
+    /* 컨테이너보다 위에 배치 */
+    pointer-events: none;
+    /* 문 사이로 뒷배경이 보일 때 클릭 가능하도록 */
 }
 
 /* 4. 개별 문 스타일 (부드러운 가속도 적용) */
@@ -54,7 +59,8 @@ body.index-page .door {
     position: absolute;
     width: 50%;
     height: 100%;
-    background-color: #333; /* 조금 더 어두운 톤으로 변경 */
+    background-color: #333;
+    /* 조금 더 어두운 톤으로 변경 */
     border: 1px solid #222;
     /* [수정] 2초는 너무 느리므로 1.2초로 조정하고 베지어 곡선 적용 */
     transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
@@ -2205,9 +2211,12 @@ body.post-page .post-description {
     border: 1px solid #00ff00;
     border-radius: 15px;
 
-    max-height: 0px; /* 약 3줄 정도 높이만 보여줌 (원하는 만큼 숫자 조절 가능) */
-    overflow: hidden; /* 박스를 벗어나는 긴 글자는 숨김 처리 */
-    transition: max-height 0.4s ease; /* 촥! 하고 부드럽게 펼쳐지는 애니메이션 효과 */
+    max-height: 0px;
+    /* 약 3줄 정도 높이만 보여줌 (원하는 만큼 숫자 조절 가능) */
+    overflow: hidden;
+    /* 박스를 벗어나는 긴 글자는 숨김 처리 */
+    transition: max-height 0.4s ease;
+    /* 촥! 하고 부드럽게 펼쳐지는 애니메이션 효과 */
 }
 
 /* 펼쳐졌을 때 스타일 */
@@ -2227,7 +2236,7 @@ body.post-page .toggle-desc-btn {
     font-weight: bold;
     margin-left: 85%;
     /* 👇 [핵심] 글이 짧을 수도 있으니 처음엔 무조건 숨겨둬야 합니다! */
-    display: none; 
+    display: none;
 }
 
 body.post-page .post-desc {
@@ -2861,11 +2870,14 @@ body.preview-page .sub-tab.active {
 body.preview-page .image-container {
     position: relative;
     overflow: hidden;
-    width: 14vw; /* 크기 약간 조절 */
+    width: 14vw;
+    /* 크기 약간 조절 */
     height: 14vw;
-    border-radius: 50%; /* 정원(50%) 대신 깊은 곡률의 사각형 */
+    border-radius: 50%;
+    /* 정원(50%) 대신 깊은 곡률의 사각형 */
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    background-color: #eee; /* 로딩 전 빈 공간 느낌 방지 */
+    background-color: #eee;
+    /* 로딩 전 빈 공간 느낌 방지 */
 }
 
 /* [핵심] 지그재그 배치: 짝수 번째 아이템을 아래로 밀어 패턴 파괴 */
@@ -2876,7 +2888,8 @@ body.preview-page .image-container:nth-child(even) {
 /* 2. 호버 시: 사각형으로 더 선명해지며 떠오르는 효과 */
 body.preview-page .image-container:hover {
     border-radius: 12px;
-    transform: scale(1.05); /* 기본 확대 */
+    transform: scale(1.05);
+    /* 기본 확대 */
     z-index: 10;
 }
 
@@ -2891,8 +2904,9 @@ body.preview-page .image-container img {
     height: 100%;
     object-fit: cover;
     /* 블러를 낮추고 회색조만 살짝 주어 구멍처럼 보이지 않게 함 */
-    filter: grayscale(80%) brightness(0.9)blur(10px); 
-    border-radius: inherit; /* 부모의 radius를 따라감 */
+    filter: grayscale(80%) brightness(0.9)blur(10px);
+    border-radius: inherit;
+    /* 부모의 radius를 따라감 */
     transition: filter 0.3s ease, transform 0.3s ease;
 }
 
@@ -2904,13 +2918,15 @@ body.preview-page .image-container:hover img {
 body.preview-page .image-container:hover .hover-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4); /* 너무 까맣지 않게 */
+    background: rgba(0, 0, 0, 0.55);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.35s ease;
     pointer-events: none;
+    z-index: 2;
+    /* 이미지보다 위로 오도록 설정 */
 }
 
 body.preview-page .image-container:hover .hover-message {
@@ -3054,13 +3070,19 @@ body.preview-page .toggle-switch_ind {
 
 /* [수정] 이미지 갤러리 기본 설정 */
 body.preview-page .image-gallery {
-    display: flex;          /* grid에서 flex로 변경 */
-    flex-wrap: wrap;        /* 여러 줄 배치 허용 */
-    justify-content: center; /* 중앙 정렬로 여백 확보 */
-    padding: 40px 20px;     /* 상하 여백을 늘려 지그재그 공간 확보 */
-    gap: 40px 25px;         /* 세로 간격(40px)을 가로보다 넓게 설정 */
+    display: flex;
+    /* grid에서 flex로 변경 */
+    flex-wrap: wrap;
+    /* 여러 줄 배치 허용 */
+    justify-content: center;
+    /* 중앙 정렬로 여백 확보 */
+    padding: 40px 20px;
+    /* 상하 여백을 늘려 지그재그 공간 확보 */
+    gap: 40px 25px;
+    /* 세로 간격(40px)을 가로보다 넓게 설정 */
     background-color: #f4f4f4;
-    border-radius: 60px;    /* 너무 과한 120px보다 60px 정도로 조절 */
+    border-radius: 60px;
+    /* 너무 과한 120px보다 60px 정도로 조절 */
     width: 85%;
     margin: 0 auto;
     transition: all 0.5s;
@@ -3080,8 +3102,10 @@ body.preview-page .image-gallery text-view {
 
 /* [수정] 사진 모드 전용 설정 */
 body.preview-page .image-gallery.image-view {
-    display: flex;          /* 여기도 flex로 변경 */
-    gap: 45px 30px;         /* 아이템 사이의 숨통을 틔워줌 */
+    display: flex;
+    /* 여기도 flex로 변경 */
+    gap: 45px 30px;
+    /* 아이템 사이의 숨통을 틔워줌 */
 }
 
 /* [추가] 첫 번째 카드 아이템에 왼쪽 여백 부여 */
@@ -4028,7 +4052,7 @@ body.etc-page #my_project li:nth-child(3) p {
     padding-bottom: 20px;
 }
 
-body.etc-page li#method4 button.detail-toggle{
+body.etc-page li#method4 button.detail-toggle {
     text-align: left;
 }
 

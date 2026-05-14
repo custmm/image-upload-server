@@ -166,13 +166,13 @@ function renderCard(image, index, container) {
     if (currentView === "image") {
         const imgContainer = document.createElement("div");
         imgContainer.className = "image-container appear-ani";
-        
+
         // --- [지그재그 로직 추가] ---
         // 1. 짝수 인덱스일 때 아래로 30px 밀기 (지그재그 효과)
         if (index % 2 !== 0) {
-            imgContainer.style.marginTop = "40px"; 
+            imgContainer.style.marginTop = "40px";
         }
-        
+
         // 2. 미세하게 다른 크기 부여 (패턴 파괴)
         const widths = ["180px", "200px", "190px"];
         imgContainer.style.width = widths[index % widths.length];
@@ -183,9 +183,9 @@ function renderCard(image, index, container) {
 
         const img = document.createElement("img");
         img.dataset.src = image.file_path;
-        
+
         // 초기 둥근 사각형 설정 (환공포증 방지)
-        img.style.borderRadius = "30px"; 
+        img.style.borderRadius = "30px";
         img.style.transition = "border-radius 0.3s ease, transform 0.3s ease";
 
         // Hover 시 사각형으로 변하는 인터렉션 유지
@@ -205,8 +205,17 @@ function renderCard(image, index, container) {
 
         const overlay = document.createElement("div");
         overlay.className = "hover-overlay";
-        overlay.innerHTML = `<span class="hover-message">자세히 보기</span>`;
-
+        overlay.innerHTML = `<span class="hover-message">클릭 시 자세히 볼 수 있습니다</span>`;
+        // Hover 인터렉션: 문구가 나타날 때 Radius도 함께 변화
+        imgContainer.onmouseenter = () => {
+            img.style.borderRadius = "10px";
+            overlay.style.opacity = "1"; // CSS에 opacity 설정이 있어도 확실히 제어
+        };
+        imgContainer.onmouseleave = () => {
+            img.style.borderRadius = "30px";
+            overlay.style.opacity = "0";
+        };
+        
         imgContainer.appendChild(img);
         imgContainer.appendChild(overlay);
         container.appendChild(imgContainer);
