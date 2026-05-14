@@ -2857,23 +2857,72 @@ body.preview-page .sub-tab.active {
 
 
 /*====== marge-container내 이미지썸네일관련css ======*/
+/* 1. 이미지 컨테이너: 원형 패턴을 깨기 위해 기본값을 둥근 사각형으로 제안 */
 body.preview-page .image-container {
     position: relative;
     overflow: hidden;
-    border-radius: 50%;
-    transition: all 0.5s;
+    width: 14vw; /* 크기 약간 조절 */
+    height: 14vw;
+    border-radius: 24px; /* 정원(50%) 대신 깊은 곡률의 사각형 */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: #eee; /* 로딩 전 빈 공간 느낌 방지 */
 }
 
+/* [핵심] 지그재그 배치: 짝수 번째 아이템을 아래로 밀어 패턴 파괴 */
+body.preview-page .image-container:nth-child(even) {
+    transform: translateY(40px);
+}
+
+/* 2. 호버 시: 사각형으로 더 선명해지며 떠오르는 효과 */
 body.preview-page .image-container:hover {
-    border-radius: 8px;
+    border-radius: 12px;
+    transform: scale(1.05); /* 기본 확대 */
+    z-index: 10;
+}
+
+/* 짝수 번째 아이템 호버 시 기존 translateY 유지하며 확대 */
+body.preview-page .image-container:nth-child(even):hover {
+    transform: translateY(40px) scale(1.05);
+}
+
+/* 3. 이미지 자체 스타일: 과도한 블러와 어둠 제거 */
+body.preview-page .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 블러를 낮추고 회색조만 살짝 주어 구멍처럼 보이지 않게 함 */
+    filter: grayscale(40%) brightness(0.9); 
+    border-radius: inherit; /* 부모의 radius를 따라감 */
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* 호버 시 이미지 선명화 */
+body.preview-page .image-container:hover img {
+    filter: grayscale(0%) brightness(1) blur(0);
 }
 
 body.preview-page .image-container:hover .hover-overlay {
-    opacity: 1;
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4); /* 너무 까맣지 않게 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 body.preview-page .image-container:hover .hover-message {
     transform: translateY(0);
+}
+
+body.preview-page .image-container img:hover {
+    cursor: pointer;
+    background: #f7f7f7;
+    border: 3px solid #0066cc;
+    border-radius: 8px;
+    filter: blur(4px);
 }
 
 body.preview-page .hover-overlay {
@@ -2897,28 +2946,6 @@ body.preview-page .hover-message {
     transform: translateY(10px);
     transition: transform 0.35s ease;
 }
-
-body.preview-page .image-container img {
-    background-color: #000;
-    width: 13vw;
-    height: 13vw;
-    object-fit: cover;
-    border: none;
-    border-radius: 50%;
-    filter: grayscale(80%) brightness(0.5) blur(10px);
-    transition: transform 0.3s ease, border-color 0.3s, width 0.3s, height 0.3s;
-}
-
-
-body.preview-page .image-container img:hover {
-    cursor: pointer;
-    background: #f7f7f7;
-    border: 3px solid #0066cc;
-    border-radius: 8px;
-    filter: blur(4px);
-}
-
-
 
 /*====== marge-container내 카테고리 제목 스타일 ======*/
 body.preview-page .currentCategory {
@@ -3026,22 +3053,17 @@ body.preview-page .toggle-switch_ind {
     border-radius: 30px;
 }
 
-
-
-/* 이미지 갤러리 (4x5 배열) */
+/* [수정] 이미지 갤러리 기본 설정 */
 body.preview-page .image-gallery {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: auto;
-    padding: 15px;
-    gap: 15px;
+    display: flex;          /* grid에서 flex로 변경 */
+    flex-wrap: wrap;        /* 여러 줄 배치 허용 */
+    justify-content: center; /* 중앙 정렬로 여백 확보 */
+    padding: 40px 20px;     /* 상하 여백을 늘려 지그재그 공간 확보 */
+    gap: 40px 25px;         /* 세로 간격(40px)을 가로보다 넓게 설정 */
     background-color: #f4f4f4;
-    border-radius: 120px;
-    /* border-radius: 10px; */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    align-items: center;
+    border-radius: 60px;    /* 너무 과한 120px보다 60px 정도로 조절 */
     width: 85%;
+    margin: 0 auto;
     transition: all 0.5s;
 }
 
@@ -3057,11 +3079,10 @@ body.preview-page .image-gallery text-view {
     border-radius: 10px;
 }
 
-/* 사진 모드 */
+/* [수정] 사진 모드 전용 설정 */
 body.preview-page .image-gallery.image-view {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
+    display: flex;          /* 여기도 flex로 변경 */
+    gap: 45px 30px;         /* 아이템 사이의 숨통을 틔워줌 */
 }
 
 /* [추가] 첫 번째 카드 아이템에 왼쪽 여백 부여 */

@@ -166,15 +166,38 @@ function renderCard(image, index, container) {
     if (currentView === "image") {
         const imgContainer = document.createElement("div");
         imgContainer.className = "image-container appear-ani";
-        imgContainer.setAttribute("data-aos", "fade-right");
+        
+        // --- [지그재그 로직 추가] ---
+        // 1. 짝수 인덱스일 때 아래로 30px 밀기 (지그재그 효과)
+        if (index % 2 !== 0) {
+            imgContainer.style.marginTop = "40px"; 
+        }
+        
+        // 2. 미세하게 다른 크기 부여 (패턴 파괴)
+        const widths = ["180px", "200px", "190px"];
+        imgContainer.style.width = widths[index % widths.length];
+        // --------------------------
+
+        imgContainer.setAttribute("data-aos", "fade-up"); // fade-right보다 fade-up이 지그재그에 더 자연스러워요
         imgContainer.setAttribute("data-aos-delay", (index * 50).toString());
 
         const img = document.createElement("img");
         img.dataset.src = image.file_path;
+        
+        // 초기 둥근 사각형 설정 (환공포증 방지)
+        img.style.borderRadius = "30px"; 
+        img.style.transition = "border-radius 0.3s ease, transform 0.3s ease";
 
-        // Intersection Observer (main.js 등에 선언된 전역 객체 참조)
+        // Hover 시 사각형으로 변하는 인터렉션 유지
+        imgContainer.onmouseenter = () => {
+            img.style.borderRadius = "10px";
+        };
+        imgContainer.onmouseleave = () => {
+            img.style.borderRadius = "30px";
+        };
+
         if (window.observer) window.observer.observe(img);
-        else img.src = image.file_path; // 옵저버 없으면 즉시 로드
+        else img.src = image.file_path;
 
         img.onclick = () => {
             if (!isExplanMode) window.location.href = `post?id=${image.id}`;
@@ -182,21 +205,17 @@ function renderCard(image, index, container) {
 
         const overlay = document.createElement("div");
         overlay.className = "hover-overlay";
-        overlay.innerHTML = `<span class="hover-message">클릭 시 자세히 볼 수 있습니다</span>`;
+        overlay.innerHTML = `<span class="hover-message">자세히 보기</span>`;
 
         imgContainer.appendChild(img);
         imgContainer.appendChild(overlay);
         container.appendChild(imgContainer);
     } else {
+        // text-view 모드 (기존 코드 유지)
         const card = document.createElement("div");
-        // [중요] 라이브러리가 직접 제어할 수 있도록 img 태그를 카드의 직계 자식이나 주요 요소로 배치합니다.
         card.className = "text-card-item appear-ani";
         card.setAttribute("data-aos", "fade-up");
         card.style.animationDelay = `${index * 50}ms`;
-
-        // 라이브러리는 가로/세로 모드를 판단하므로 layout 속성을 넣어주면 더 정확합니다.
-        const hashtags = (image.text || "").match(/#([\w가-힣]+)/g) || [];
-        const tagsHtml = hashtags.slice(0, 2).map(tag => `<span class="text-hashtag">${tag}</span>`).join("");
 
         card.innerHTML = `
             <div class="card-img-container">
