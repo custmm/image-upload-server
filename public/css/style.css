@@ -3107,7 +3107,10 @@ body.preview-page .image-gallery.image-view {
     gap: 45px 30px;
     /* 아이템 사이의 숨통을 틔워줌 */
 }
+body.preview-page .text-card-item{
+    border: 1px solid #555;
 
+}
 /* [추가] 첫 번째 카드 아이템에 왼쪽 여백 부여 */
 body.preview-page .image-gallery.text-view .text-card-item:first-child {
     margin-left: 20px;
