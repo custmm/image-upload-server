@@ -39,16 +39,18 @@ CSP 보안 설정: 인라인 스크립트 제거 및 Content Security Policy 오
 
 기술 스택
 ==
- Frontend
-=
+
+ ① Frontend
+ 
 Core: HTML5, Vanilla JavaScript (ES6+ Modules)
 
 Styling: CSS3 (Flexbox/Grid, Dark/Light Mode, Animation)
 
 Library: GSAP (인터랙션 애니메이션)
 
- Backend
-=
+
+②Backend
+
 Runtime: Node.js (Express.js)
 
 Database: MySQL / railway (Sequelize ORM)
