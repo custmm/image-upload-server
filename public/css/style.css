@@ -3110,8 +3110,7 @@ body.preview-page .image-gallery.image-view {
 body.preview-page .image-gallery.text-view .text-card-item{
     border: 1px solid #555;
     border-radius: 15px;
-    display: flex;
-    gap: 15px;
+    margin: 0 20px;
 
 }
 /* [추가] 첫 번째 카드 아이템에 왼쪽 여백 부여 */
@@ -3123,6 +3122,17 @@ body.preview-page .image-gallery.text-view .text-card-item:first-child {
 /* [추가] 마지막 카드 뒤에도 여백을 줘야 끝까지 시원하게 스크롤됩니다 */
 body.preview-page .image-gallery.text-view .text-card-item:last-child {
     margin-right: 20px;
+}
+
+/* 3. 첫 번째와 마지막 카드 여백 (완벽한 가시성 확보) */
+body.preview-page .text-card-item:first-child {
+    margin-left: 25px !important;
+    /* 왼쪽 벽에서 띄워줌으로써 잘림 방지 */
+}
+
+body.preview-page .text-card-item:last-child {
+    margin-right: 25px !important;
+    /* 끝까지 스크롤 가능하게 함 */
 }
 
 /* 텍스트 모드 (이미지 갤러리 전체 설정) */
@@ -3171,16 +3181,6 @@ body.preview-page .image-gallery.text-view-scroll::-webkit-scrollbar {
 }
 
 
-/* 3. 첫 번째와 마지막 카드 여백 (완벽한 가시성 확보) */
-body.preview-page .text-card-item:first-child {
-    margin-left: 25px !important;
-    /* 왼쪽 벽에서 띄워줌으로써 잘림 방지 */
-}
-
-body.preview-page .text-card-item:last-child {
-    margin-right: 25px !important;
-    /* 끝까지 스크롤 가능하게 함 */
-}
 
 /* 한 줄 컨테이너 (이제 개별 카드 역할을 함) */
 body.preview-page .text-row {
