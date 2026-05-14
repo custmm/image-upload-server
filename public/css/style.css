@@ -3109,6 +3109,9 @@ body.preview-page .image-gallery.image-view {
 }
 body.preview-page .image-gallery.text-view .text-card-item{
     border: 1px solid #555;
+    border-radius: 15px;
+    display: flex;
+    gap: 15px;
 
 }
 /* [추가] 첫 번째 카드 아이템에 왼쪽 여백 부여 */
