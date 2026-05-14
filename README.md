@@ -42,22 +42,22 @@ CSP 보안 설정: 인라인 스크립트 제거 및 Content Security Policy 오
 
  ① Frontend
  
-Core: HTML5, Vanilla JavaScript (ES6+ Modules)
+  Core: HTML5, Vanilla JavaScript (ES6+ Modules)
 
-Styling: CSS3 (Flexbox/Grid, Dark/Light Mode, Animation)
+  Styling: CSS3 (Flexbox/Grid, Dark/Light Mode, Animation)
 
-Library: GSAP (인터랙션 애니메이션)
+  Library: GSAP (인터랙션 애니메이션)
 
 
 ②Backend
 
-Runtime: Node.js (Express.js)
+  Runtime: Node.js (Express.js)
 
-Database: MySQL / railway (Sequelize ORM)
+  Database: MySQL / railway (Sequelize ORM)
 
-Storage: ImageKit, Multer (이미지 최적화 및 업로드 관리)
+  Storage: ImageKit, Multer (이미지 최적화 및 업로드 관리)
 
-Deployment: Render
+  Deployment: Render
 
 주요 기능
 ==
