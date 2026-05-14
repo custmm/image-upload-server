@@ -2920,9 +2920,8 @@ body.preview-page .image-container:hover .hover-message {
 body.preview-page .image-container img:hover {
     cursor: pointer;
     background: #f7f7f7;
-    border: 3px solid #0066cc;
     border-radius: 8px;
-    filter: blur(4px);
+    filter: blur(15px);
 }
 
 body.preview-page .hover-overlay {
