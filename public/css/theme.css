@@ -131,3 +131,6 @@
         color: #ccc;
         border-color: #444;
     }
+    body.preview-page.dark-mode .card-title{
+        color: #fff;
+    }
