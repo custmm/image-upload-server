@@ -215,25 +215,50 @@ function renderCard(image, index, container) {
             img.style.borderRadius = "30px";
             overlay.style.opacity = "0";
         };
-        
+
         imgContainer.appendChild(img);
         imgContainer.appendChild(overlay);
         container.appendChild(imgContainer);
     } else {
-        // text-view 모드 (기존 코드 유지)
+        // text-view 모드 (3D Flip 카드 구조로 변경)
         const card = document.createElement("div");
         card.className = "text-card-item appear-ani";
         card.setAttribute("data-aos", "fade-up");
         card.style.animationDelay = `${index * 50}ms`;
 
-        card.innerHTML = `
-            <div class="card-img-container">
-                <img src="${image.file_path}" class="card-img" loading="lazy">
-            </div>
-            <div class="card-info">
-                <div class="card-title">${image.title || "제목 없음"}</div>
-            </div>`;
+        // 1. 이미지 데이터나 텍스트에서 해시태그 파싱 (#태그 추출)
+        const contentText = image.text || image.description?.text || "";
+        const hashtags = contentText.match(/#([\w가-힣]+)/g) || [];
 
+        // 태그들을 span 뱃지 html로 변환 (태그가 없으면 안내 문구)
+        const tagsHtml = hashtags.length > 0
+            ? hashtags.map(tag => `<span class="flip-tag-badge">${tag}</span>`).join("")
+            : `<span class="flip-no-tag">등록된 태그가 없습니다</span>`;
+
+        // 2. 3D 회전을 위한 내부 Front / Back 구조 설계
+        card.innerHTML = `
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <div class="card-img-container">
+                        <img src="${image.file_path}" class="card-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <div class="card-title">${image.title || "제목 없음"}</div>
+                    </div>
+                </div>
+                <div class="flip-card-back">
+                    <div class="flip-back-content">
+                        <h4 class="flip-back-title">TAGS</h4>
+                        <div class="flip-tag-container">
+                            ${tagsHtml}
+                        </div>
+                        <span class="flip-click-notice">클릭 시 상세 보기</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // 뒷면을 보더라도 클릭하면 상세 페이지로 이동하도록 유지
         card.onclick = () => {
             if (!isExplanMode) window.location.href = `post?id=${image.id}`;
         };

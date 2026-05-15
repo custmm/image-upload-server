@@ -3129,6 +3129,130 @@ body.preview-page .text-card-item:last-child {
     /* 끝까지 스크롤 가능하게 함 */
 }
 
+/* ==========================================================================
+   텍스트 모드 카드 3D Flip (뒤집기) 스타일 
+   ========================================================================== */
+
+/* 1. 부모 카드: 3D 원근감(Perspective) 설정 */
+body.preview-page .text-card-item {
+    position: relative !important;
+    flex: 0 0 280px;
+    height: 330px;
+    background: transparent !important; /* 배경은 inner에서 처리하므로 투명하게 */
+    perspective: 1000px; /* 숫자가 작을수록 입체감이 격렬해집니다 */
+    cursor: pointer;
+    box-shadow: none !important; /* 그림자 효과도 inner로 이관 */
+}
+
+/* 2. 회전하는 핵심 컨테이너 */
+body.preview-page .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d; /* 자식 요소들의 3D 평면 유지 */
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ★ Hover 시 Y축으로 180도 회전 ★ */
+body.preview-page .text-card-item:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* 3. 앞면과 뒷면 공통 속성: 뒷면 숨기기 */
+body.preview-page .flip-card-front,
+body.preview-page .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; /* 뒤집혔을 때 반대편이 안 보이도록 설정 */
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* 4. 앞면 스타일 (기존 텍스트 카드 디자인 커스텀) */
+body.preview-page .flip-card-front {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 5. 뒷면 스타일 (태그가 노출되는 영역) */
+body.preview-page .flip-card-back {
+    background: linear-gradient(135deg, #1e2022 0%, #2b3035 100%); /* 고급스러운 다크 그라데이션 */
+    color: white;
+    transform: rotateY(180deg); /* 초기 상태를 뒤집어 놓음으로써 앞면과 마주 보게 함 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 2px solid #00cc8f; /* 포인트 테두리 선 (선택 사항) */
+}
+
+/* 뒷면 내부 정렬 컨테이너 */
+body.preview-page .flip-back-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+body.preview-page .flip-back-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #00cc8f;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* 태그들이 모여 정렬되는 방 */
+body.preview-page .flip-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-height: 180px;
+    overflow-y: auto; /* 태그가 너무 많을 경우 내부 스크롤 허용 */
+    padding: 5px;
+}
+
+/* 개별 태그 뱃지 */
+body.preview-page .flip-tag-badge {
+    background: rgba(255, 255, 255, 0.1);
+    color: #dedede;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+body.preview-page .flip-tag-badge:hover {
+    background: #00cc8f;
+    color: #1e2022;
+    border-color: #00cc8f;
+    transform: scale(1.05);
+}
+
+/* 태그가 없을 때 메시지 */
+body.preview-page .flip-no-tag {
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+}
+
+/* 하단내내 안내 가이드 문구 */
+body.preview-page .flip-click-notice {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
 /* 텍스트 모드 (이미지 갤러리 전체 설정) */
 /* 미디어 쿼리 밖에 작성하여 PC/모바일 공통 적용 */
 body.preview-page .image-gallery.text-view {
