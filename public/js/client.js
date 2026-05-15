@@ -270,7 +270,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ==========================================
     // 5️⃣ 이벤트 리스너 등록
     // ==========================================
+    // [CSP 보안 오류 방지용] 에디터 스타일 버튼 이벤트 바인딩
+    const btnBold = document.getElementById("btnBold");
+    const btnStrike = document.getElementById("btnStrike");
 
+    if (btnBold) {
+        btnBold.addEventListener("click", (event) => {
+            event.preventDefault(); // 폼 전송 등의 기본 동작 방지
+            document.execCommand("bold", false, null);
+            descriptionEditor.focus(); // 효과 부여 후 에디터에 포커스 유지
+        });
+    }
+
+    if (btnStrike) {
+        btnStrike.addEventListener("click", (event) => {
+            event.preventDefault();
+            document.execCommand("strikethrough", false, null);
+            descriptionEditor.focus();
+        });
+    }
+    
     if (backBtn) {
         backBtn.addEventListener("click", () => {
             // 단순히 이동하고 싶다면 아래 코드

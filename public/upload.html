@@ -51,8 +51,8 @@
         <h3>설명란</h3>
         <div class="description-container">
             <div class="editor-buttons">
-                <button onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
-                <button onclick="formatText('strikethrough')"><i class="fas fa-strikethrough"></i></button>
+                <button type="button" id="btnBold"><i class="fas fa-bold"></i></button>
+                <button type="button" id="btnStrike"><i class="fas fa-strikethrough"></i></button>
             </div>
             <!-- 점선 구분선 추가 -->
             <hr class="dashed-line">
@@ -78,12 +78,6 @@
         </div>
         <p class="loading-text">업로드 중...</p>
     </div>
-    <script>
-        // 글꼴 효과 적용 함수
-        function formatText(command) {
-            document.execCommand(command, false, null);
-        }
-    </script>
     <script src="js/client.js"></script>
 </body>
 
