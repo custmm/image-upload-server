@@ -163,13 +163,12 @@ function renderBubbleChart(categories, probabilities) {
 
     if (window.barChartInstance) window.barChartInstance.destroy();
 
-    // 3. 버블 데이터 생성 (중앙 집중형으로 더 긴밀하게 유도)
+    // 3. 버블 데이터 생성 (정중앙 주변에서 조밀하게 시작)
     const bubbleData = categories.map((cat, i) => {
         const val = parseFloat(probabilities[i]) || 0;
         return {
-            // ✨ 분산도를 기존 * 10에서 * 4 정도로 줄여 (0,0) 주변에 더욱 옹기종기 모이게 만듭니다.
-            x: (Math.random() - 0.5) * 4, 
-            y: (Math.random() - 0.5) * 4,
+            x: (Math.random() - 0.5) * 2, // 분산 시작범위를 2로 좁혀 완벽한 중앙 배치 유도
+            y: (Math.random() - 0.5) * 2,
             r: Math.max(12, val * 1.8),
             label: cat,
             value: val
@@ -177,6 +176,7 @@ function renderBubbleChart(categories, probabilities) {
     });
 
     // 4. 힘 기반 레이아웃 적용
+    // 만약 버블들이 바깥으로 탈출한다면 아래처럼 중앙으로 당기는 힘을 살짝 보정해 주면 좋습니다.
     const arrangedBubbles = applyForceLayout(bubbleData);
 
     // 5. 차트 렌더링
@@ -203,16 +203,16 @@ function renderBubbleChart(categories, probabilities) {
                 x: {
                     display: false,
                     grid: { display: false },
-                    // ✨ 중요: 정중앙(0)을 기준으로 좌우 대칭 범위를 균등하게 좁혀 버블들을 화면 가운데로 모읍니다.
-                    min: -12,
-                    max: 12
+                    // ⚠️ 강제 고정(min/max) 대신 느슨한 가이드(suggested)를 주어 
+                    // 버블들이 튕겨 나가더라도 차트 크기가 자동으로 늘어나며 다 보여주게 만듭니다.
+                    suggestedMin: -30,
+                    suggestedMax: 30
                 },
                 y: {
                     display: false,
                     grid: { display: false },
-                    // ✨ 중요: 위아래 대칭 범위를 균등하게 고정하여 위아래로 길쭉하게 퍼지는 현상을 방지합니다.
-                    min: -12,
-                    max: 12
+                    suggestedMin: -30,
+                    suggestedMax: 30
                 }
             }
         }
