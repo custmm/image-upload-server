@@ -1455,15 +1455,6 @@ body.dashboard-page #radarChart {
     margin: 0 auto;
 }
 
-body.dashboard-page #lineChart {
-    width: 350px !important;
-    height: 350px !important;
-    max-width: 100%;
-    display: none;
-    margin: 0 auto;
-    background: transparent;
-}
-
 body.dashboard-page .chart-wrapper {
     display: flex;
     justify-content: center;
