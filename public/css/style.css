@@ -586,7 +586,7 @@ body.dashboard-page .post-item {
     justify-content: space-between;
     width: 100%;
     padding: 15px;
-    background: #ffffff;
+    background: #fff8c9;
     border: 1px solid #eee;
     border-radius: 12px;
     box-sizing: border-box;
@@ -698,7 +698,7 @@ body.dashboard-page .popup-container.modal-style {
     max-width: 1200px;
     /* 너무 퍼지지 않게 제한 */
     height: 80%;
-    background: #fff;
+    background: #fff8c9;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -874,7 +874,7 @@ body.dashboard-page #closeSelectModal {
 
 body.dashboard-page .edit-content {
     min-height: 150px;
-    background: #fff;
+    background: #fff8c9;
     box-shadow: none;
     outline: none;
     text-shadow: none;
@@ -966,7 +966,7 @@ body.dashboard-page .popup-edit-container {
     left: 50%;
     width: 250px;
     transform: translate(-50%, -50%);
-    background: #fff;
+    background: #fff8c9;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -2578,7 +2578,7 @@ body.preview-page .infor-popup {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 60%;
-    background: #fff;
+    background: #fff8c9;
     color: black;
     border: 1px solid #ccc;
     padding: 25px 30px;
@@ -2659,7 +2659,7 @@ body.preview-page .preview-popup {
     width: 85%;
     max-width: 900px;
     height: 80vh;
-    background: #fff;
+    background: #fff8c9;
     border-radius: 12px;
     overflow: hidden;
 }
@@ -2671,7 +2671,7 @@ body.preview-page .preview-popup iframe {
 }
 
 body.preview-page .preview-popup iframe #previewFrame {
-    background: #fff;
+    background: #fff8c9;
 }
 
 /*====== 팝업안 요소css ======*/
@@ -3193,7 +3193,7 @@ body.preview-page .text-row {
     /* 너무 커지는 것 방지 */
     overflow: visible;
     /* 메뉴를 숨기던 hidden 해제 */
-    background: #ffffff;
+    background: #fff8c9;
     border-radius: 25px;
     /* 둥근 카드 디자인 */
     border: none;
