@@ -205,13 +205,13 @@ function renderBubbleChart(categories, probabilities) {
                     grid: { display: false },
                     // ✅ 중요: 중앙(0)을 기준으로 버블이 다 보이도록 스케일 고정
                     min: -20,
-                    max: 20
+                    max: 10
                 },
                 y: {
                     display: false,
                     grid: { display: false },
                     min: -20,
-                    max: 20
+                    max: 5
                 }
             }
         }
