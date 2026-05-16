@@ -2345,112 +2345,184 @@ body.preview-page .sidebar-toggle:hover {
     border: none;
 }
 
-/*====== 메뉴바css(사이드바 스타일) ======*/
+/*==========================================================================
+   [최적화 및 완벽 무빙 적용] 사이드바 본체 및 오픈 스타일 
+   ========================================================================== */
 body.preview-page .sidebar {
     position: fixed;
     top: 0;
     left: -300px;
-    /* -100% 대신 구체적인 너비값만큼만 밀어두기 */
+    /* 초기 상태: 화면 왼쪽 너머로 완전히 숨김 */
     width: 280px;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
+    /* 가독성을 위해 불투명도 살짝 상승 */
     z-index: 10000;
-    /* 무조건 최상단 */
-    transition: left 0.3s ease-in-out;
-    /* 0.5초보다 0.3초가 더 빠릿합니다 */
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 쫀득하고 빠른 사이드바 오픈 모션 */
     display: block !important;
-    /* 혹시 모를 숨김 방지 */
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.08);
+    /* 열렸을 때 입체감 추가 */
+    box-sizing: border-box;
+    padding: 30px 20px;
+    /* 내부 기본 패딩 정돈 */
 }
 
 body.preview-page .sidebar.open {
     left: 0 !important;
-    /* open 클래스가 붙으면 0 위치로 */
-    padding: 0 75px;
+    /* open 시 과도한 padding-left(75px) 제거 -> 내부 컴포넌트 찌그러짐 현상 원인 차단 */
 }
 
-/*====== 메뉴바css(사이드바 메뉴) ======*/
-body.preview-page .sidebar ul {
+/*==========================================================================
+   사이드바 메인 메뉴 및 서브메뉴(아코디언) 유연한 무빙 CSS 
+   ========================================================================== */
+body.preview-page .sidebar ul.main-menu {
     list-style: none;
     padding: 0;
-    margin-top: 20px;
+    margin: 20px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    /* 자식 요소들의 흐름을 세로 배치로 격리 */
 }
 
-body.preview-page .sidebar ul li {
-    margin: 20px 0;
+body.preview-page .sidebar ul.main-menu li.menu-item {
+    margin: 10px 0;
     text-align: left;
-    /* 왼쪽 정렬이 더 깔끔함 */
 }
 
-body.preview-page .sidebar ul li a {
+body.preview-page .sidebar .menu-title {
+    background: none;
+    border: none;
+    padding: 10px 0;
+    width: 100%;
+    text-align: left;
     color: inherit;
-    /* 부모 색상 따라감 */
-    text-decoration: none;
     font-size: 20px;
-    font-weight: 500;
-    transition: color 0.3s;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease;
 }
 
-body.preview-page .sidebar ul li a:hover {
+body.preview-page .sidebar .menu-title:hover {
     color: #00cc8f;
 }
 
-/*====== 메뉴바css(사이드바 검색창) ======*/
-body.preview-page .sidebar-search {
-    display: flex;
-    margin-top: 30px;
-    padding: 0;
-    gap: 10px;
+/* [신규 추가] 서브메뉴를 감싸며 스르륵 열리는 슬라이딩 애니메이션 창고 */
+body.preview-page .sub-menu-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    /* max-height 높이 변경과 검색창의 밀림 싱크로율을 부드럽게 일치시킴 */
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s ease,
+        visibility 0.3s ease;
 }
 
+/* JS에 의해 active 클래스가 붙으면 물 흐르듯 자연스럽게 펼쳐짐 */
+body.preview-page .sub-menu-wrapper.active {
+    max-height: 250px;
+    /* 서브 카테고리가 다 열리기에 넉넉하고 안정적인 높이 */
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 실제 내부 sub-menu 리스트 디자인 */
+body.preview-page .sidebar .sub-menu {
+    list-style: none;
+    padding: 5px 0 5px 15px;
+    /* 들여쓰기 처리 */
+    margin: 0;
+}
+
+body.preview-page .sidebar .sub-menu li {
+    margin: 12px 0;
+}
+
+body.preview-page .sidebar .sub-menu li a {
+    color: #555;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+body.preview-page .sidebar .sub-menu li a:hover {
+    color: #00cc8f;
+}
+
+/*==========================================================================
+   사이드바 검색창 레이아웃 (정적 포지션 에러 전면 수정)
+   ========================================================================== */
+body.preview-page .sidebar-search {
+    position: relative;
+    /* 무빙을 비틀던 absolute 단독 원인 해결을 위해 부모를 기준점으로 고정 */
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    padding: 0;
+    width: 100%;
+    /* 상단 아코디언 서브메뉴 껍데기가 늘어나거나 줄어들 때 아래로 유연하게 파도타듯 이동합니다 */
+    transition: margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 작품 검색 Input 상자 */
 body.preview-page .sidebar-search input {
-    width: 70%;
-    padding: 22px 15px;
+    width: 100%;
+    /* 부모 너비를 가득 채우도록 변경 */
+    padding: 14px 55px 14px 20px;
+    /* 우측 검색버튼 공간(55px) 확보 */
     border-radius: 30px;
     border: 1px solid #ddd;
     background: #f9f9f9;
     font-size: 14px;
     outline: none;
-    position: relative;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
-body.preview-page .sidebar-search button {
-
-    color: white;
-    border: 1px solid #555;
-    padding: 0 15px;
-    border-radius: 50%;
-    cursor: pointer;
-    position: absolute;
-    top: 23%;
-    right: 32%;
+body.preview-page .sidebar-search input:focus {
+    border-color: #00cc8f;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 204, 143, 0.1);
 }
 
-body.preview-page .sidebar-search input:hover {
-    transform: scale(1.1);
-}
-
+/* 기존 무작위 top, right %, position을 지우고 깔끔하게 재정비한 검색 아이콘 버튼 */
 body.preview-page .search-icon-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    border-radius: 50%;
-    background: none;
-    color: black;
+    /* 이제 기준점은 유연하게 움직이는 .sidebar-search가 됩니다 */
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    /* 정확히 상자 세로 중앙 정렬 */
+    width: 40px;
+    height: 40px;
+    border: none;
+    /* 각진 기본 테두리 제거 */
+    background: transparent;
+    color: #333;
     cursor: pointer;
-    transition: 0.2s;
-    right: 20px;
-    top: 19px;
-    width: 50px;
-    height: 50px;
-    border: 1px solid #000;
+    transition: color 0.2s, transform 0.2s;
 }
 
+body.preview-page .search-icon-btn:hover {
+    color: #00cc8f;
+}
+
+body.preview-page .search-icon-btn:active {
+    transform: translateY(-50%) scale(0.9);
+    /* 클릭 시 팅기는 텐션감 부여 */
+}
+
+/* CSS로 커스텀 렌더링된 돋보기 모양 유지 보정 */
 body.preview-page .search-icon-btn i[data-icon="search"] {
     position: relative;
-    width: 10px;
-    height: 10px;
-    border: 2px solid black;
+    width: 14px;
+    height: 14px;
+    border: 2px solid currentColor;
     border-radius: 50%;
     display: inline-block;
 }
@@ -2459,10 +2531,10 @@ body.preview-page .search-icon-btn i[data-icon="search"]::after {
     content: "";
     position: absolute;
     width: 7px;
-    height: 3px;
-    background: black;
-    bottom: -4px;
-    right: -6px;
+    height: 2px;
+    background: currentColor;
+    bottom: -2px;
+    right: -4px;
     transform: rotate(45deg);
 }
 
@@ -2824,7 +2896,7 @@ body.preview-page .sub-tab {
     cursor: pointer;
     position: relative;
     overflow: hidden;
-        width: 85px;
+    width: 85px;
     height: 36px;
     /* 기준 */
 }
@@ -3140,10 +3212,13 @@ body.preview-page .text-card-item {
     position: relative !important;
     flex: 0 0 280px;
     height: 330px;
-    background: transparent !important; /* 배경은 inner에서 처리하므로 투명하게 */
-    perspective: 1000px; /* 숫자가 작을수록 입체감이 격렬해집니다 */
+    background: transparent !important;
+    /* 배경은 inner에서 처리하므로 투명하게 */
+    perspective: 1000px;
+    /* 숫자가 작을수록 입체감이 격렬해집니다 */
     cursor: pointer;
-    box-shadow: none !important; /* 그림자 효과도 inner로 이관 */
+    box-shadow: none !important;
+    /* 그림자 효과도 inner로 이관 */
 }
 
 /* 2. 회전하는 핵심 컨테이너 */
@@ -3153,7 +3228,8 @@ body.preview-page .flip-card-inner {
     height: 100%;
     text-align: center;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d; /* 자식 요소들의 3D 평면 유지 */
+    transform-style: preserve-3d;
+    /* 자식 요소들의 3D 평면 유지 */
     border-radius: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -3170,7 +3246,8 @@ body.preview-page .flip-card-back {
     width: 100%;
     height: 100%;
     -webkit-backface-visibility: hidden;
-    backface-visibility: hidden; /* 뒤집혔을 때 반대편이 안 보이도록 설정 */
+    backface-visibility: hidden;
+    /* 뒤집혔을 때 반대편이 안 보이도록 설정 */
     border-radius: 20px;
     overflow: hidden;
 }
@@ -3184,15 +3261,18 @@ body.preview-page .flip-card-front {
 
 /* 5. 뒷면 스타일 (태그가 노출되는 영역) */
 body.preview-page .flip-card-back {
-    background: linear-gradient(135deg, #1e2022 0%, #2b3035 100%); /* 고급스러운 다크 그라데이션 */
+    background: linear-gradient(135deg, #1e2022 0%, #2b3035 100%);
+    /* 고급스러운 다크 그라데이션 */
     color: white;
-    transform: rotateY(180deg); /* 초기 상태를 뒤집어 놓음으로써 앞면과 마주 보게 함 */
+    transform: rotateY(180deg);
+    /* 초기 상태를 뒤집어 놓음으로써 앞면과 마주 보게 함 */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    border: 2px solid #00cc8f; /* 포인트 테두리 선 (선택 사항) */
+    border: 2px solid #00cc8f;
+    /* 포인트 테두리 선 (선택 사항) */
 }
 
 /* 뒷면 내부 정렬 컨테이너 */
@@ -3219,7 +3299,8 @@ body.preview-page .flip-tag-container {
     justify-content: center;
     gap: 8px;
     max-height: 180px;
-    overflow-y: auto; /* 태그가 너무 많을 경우 내부 스크롤 허용 */
+    overflow-y: auto;
+    /* 태그가 너무 많을 경우 내부 스크롤 허용 */
     padding: 5px;
 }
 
