@@ -22,7 +22,7 @@
         padding: 6px 10px;
         width: 60px;
     }
-    
+
     body.preview-page .fixed-trash-container {
         right: 25px;
 
@@ -77,4 +77,90 @@
     body.upload-page .upload-container {
         width: 90%;
     }
+}
+
+@media (max-width: 375px) {
+    
+    /*============ index페이지 css ============*/
+
+    /*============ preview페이지 css ============*/
+    body.preview-page .popup-container.guide-mode {
+        max-width: 350px;
+    }
+
+    body.preview-page .tab-container {
+        gap: 10px;
+    }
+
+    body.preview-page .tab-btn {
+        font-size: 8px;
+        flex-wrap: wrap;
+    }
+
+    body.preview-page .tab-btn.active {
+        font-size: 11px;
+        flex-wrap: wrap;
+    }
+
+    body.preview-page .sub-tab {
+        font-size: 8px;
+        padding: 6px 10px;
+        width: 60px;
+    }
+
+    body.preview-page .fixed-trash-container {
+        right: 25px;
+
+    }
+
+    body.preview-page #settingBtn {
+        right: 25px;
+
+    }
+
+    body.preview-page #view-switch {
+        margin: 10px 0 10px 65%;
+    }
+
+    body.preview-page .sidebar {
+        width: 100%;
+        left: -100%;
+
+    }
+
+    body.preview-page .text-card-item {
+        flex: 0 0 185px;
+        height: 280px;
+    }
+
+    body.preview-page .card-title {
+        font-size: 18px;
+
+    }
+
+    body.preview-page #settingPopup.active {
+        left: 40%;
+        width: 300px;
+        height: 220px;
+
+    }
+
+
+
+    /*============ post페이지 css ============*/
+    body.post-page .post-container {
+        width: 90%;
+    }
+
+
+    body.post-page .post-description {
+        font-size: 20px;
+
+    }
+
+    /*============ upload페이지 css ============*/
+    body.upload-page .upload-container {
+        width: 90%;
+    }
+
 }
