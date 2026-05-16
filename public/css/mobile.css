@@ -4,7 +4,7 @@
 
     /*============ preview페이지 css ============*/
     body.preview-page .tab-container {
-        gap: 25px;
+        gap: 10px;
     }
 
     body.preview-page .fixed-trash-container {
