@@ -2379,7 +2379,7 @@ body.preview-page .sidebar.open {
 body.preview-page .sidebar ul.main-menu {
     list-style: none;
     padding: 0;
-    margin: 20px 0 0 0;
+    margin: 90px 0 0 0;
     display: flex;
     flex-direction: column;
     /* 자식 요소들의 흐름을 세로 배치로 격리 */
