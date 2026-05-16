@@ -44,6 +44,12 @@
 
     }
 
+    body.preview-page .sub-tab {
+    font-size: 8px;
+    padding: 6px 10px;
+    width: 60px;
+}
+
     /*============ post페이지 css ============*/
     body.post-page .post-container {
         width: 90%;
