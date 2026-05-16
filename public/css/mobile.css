@@ -7,6 +7,22 @@
         gap: 10px;
     }
 
+    body.preview-page .tab-btn {
+        font-size: 8px;
+        flex-wrap: wrap;
+    }
+
+    body.preview-page .tab-btn.active {
+        font-size: 11px;
+        flex-wrap: wrap;
+    }
+
+    body.preview-page .sub-tab {
+        font-size: 8px;
+        padding: 6px 10px;
+        width: 60px;
+    }
+    
     body.preview-page .fixed-trash-container {
         right: 25px;
 
@@ -44,11 +60,7 @@
 
     }
 
-    body.preview-page .sub-tab {
-    font-size: 8px;
-    padding: 6px 10px;
-    width: 60px;
-}
+
 
     /*============ post페이지 css ============*/
     body.post-page .post-container {
