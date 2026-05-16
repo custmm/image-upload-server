@@ -2824,7 +2824,8 @@ body.preview-page .sub-tab {
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    width: 75px;
+        width: 85px;
+    height: 36px;
     /* 기준 */
 }
 
