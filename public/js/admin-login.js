@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const passwordInput = document.getElementById("password");
     const backBtn = document.getElementById("backBtn");
     const container = document.querySelector(".login-container");
-    
+
     // URL 해시 확인
     const isExplanMode = window.location.hash.includes("explan");
 
@@ -39,14 +39,13 @@ document.addEventListener("DOMContentLoaded", function () {
         container.style.opacity = savedOpacity;
     }
 
-    // --- [수정] 뒤로가기 버튼 로직 통합 ---
-    // 중복된 backBtn.onclick 로직을 제거하고 addEventListener 하나로 통합했습니다.
+    // 뒤로가기 버튼 로직 통합
     if (backBtn) {
         backBtn.addEventListener("click", () => {
             if (isExplanMode) {
-                window.location.href = "click.html"; 
+                window.location.href = "click.html";
             } else {
-                window.location.href = "index.html"; 
+                window.location.href = "index.html";
             }
         });
     }
@@ -66,11 +65,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 로그인 버튼 클릭 이벤트
     loginButton?.addEventListener("click", async function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         const password = passwordInput.value.trim();
 
         if (password === "") {
-            moveButtonRandomly(); 
+            moveButtonRandomly();
             return;
         }
 
@@ -96,14 +95,21 @@ document.addEventListener("DOMContentLoaded", function () {
             const result = await response.json();
 
             if (response.ok && result.success) {
-                localStorage.setItem("adminToken", result.token);
+                // --- [수정 포인트] explan 모드가 아닐 때만 실제 토큰을 저장하여 권한 부여 ---
+                if (!isExplanMode) {
+                    localStorage.setItem("adminToken", result.token);
+                } else {
+                    // explan 모드일 경우 기존에 남아있을지 모를 토큰을 안전하게 제거합니다.
+                    localStorage.removeItem("adminToken");
+                }
+
                 showPopup("로그인 성공!", "success", () => {
                     showAdminButton();
                 });
             } else {
                 showPopup("로그인 실패!", "error", () => {
                     if (isExplanMode) {
-                        showAdminButton(); 
+                        showAdminButton();
                     }
                 });
             }
@@ -131,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const adminButton = document.createElement("button");
         adminButton.textContent = "관리자 모드";
         adminButton.classList.add("admin-styled-button");
-        
+
         adminButton.addEventListener("click", () => {
             const message = isExplanMode ? "버튼을 누르고 기대하세요" : "관리자 모드로 이동합니다.";
             const redirectUrl = isExplanMode ? "https://karisdify.site/index#explan" : "mode-selection.html";
