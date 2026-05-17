@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = url;
         }, 1300);
     }
-
+    // --- [수정 및 정의 추가] 클릭커 모드 확인 커스텀 팝업 함수 ---
     // 버튼 클릭 이벤트 설정 (존재할 경우에만)
     if (adminModeButton) {
         adminModeButton.addEventListener("click", () => {
@@ -101,9 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // [핵심] 클릭커가 포함된 모드로 진입할 때만 확인 팝업을 띄움
             if (isExplanMode) {
-                // "클릭커 모드 활성화" 창 띄우기
-                showClickerConfirmPopup(() => {
-                    // '사용'을 눌렀을 때만 실제 이동
+                userModeButton.addEventListener("click", () => {
+                    // 알림 및 우회 조건 없이 곧바로 click.html로 안전 이동 처리
                     openDoorAndRedirect("click.html");
                 });
             } else {
