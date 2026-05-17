@@ -15,7 +15,14 @@ async function loadTotalPreview() {
 
     container.innerHTML = "";
 
-    for (const catName of categories) {
+    // [핵심 수정] URL에 category 값이 있고, 그것이 유효한 카테고리라면 해당 카테고리만 배열에 담아 루프를 돕니다.
+    // 값이 없거나 일치하는 게 없다면 기존 전체 리스트를 사용합니다.
+    let displayCategories = categories;
+    if (targetCategory && categories.includes(targetCategory)) {
+        displayCategories = [targetCategory];
+    }
+
+    for (const catName of displayCategories) {
         const section = document.createElement("section");
         section.className = "category-group";
         section.id = `section-${catName}`;
@@ -43,19 +50,16 @@ async function loadTotalPreview() {
                     const postCard = document.createElement("div");
                     postCard.className = "post-card";
 
-                    // 1. 인라인 속성(onerror, onclick)을 제거한 클린한 HTML 생성
                     postCard.innerHTML = `
                         <img src="${post.file_path}" alt="${post.title}" class="post-thumb">
                         <p>${post.title}</p>
                     `;
 
-                    // 2. [수정] onerror를 대체하는 이벤트 리스너 추가
                     const img = postCard.querySelector('.post-thumb');
                     img.addEventListener('error', function () {
                         this.src = '/images/no_result.png';
                     });
 
-                    // 3. [수정] onclick 속성 대신 addEventListener 사용 (CSP 준수)
                     postCard.addEventListener('click', () => {
                         location.href = `/post?id=${post.id}`;
                     });
@@ -72,8 +76,8 @@ async function loadTotalPreview() {
 
     if (window.lucide) lucide.createIcons();
 
-    // 2. 모든 렌더링이 끝난 후, targetCategory가 있다면 해당 위치로 이동
-    if (targetCategory) {
+    // 단일 카테고리 모드일 때는 스크롤 이동 및 하이라이트가 필요 없으므로, 전체 보기 모드일 때만 동작하도록 설정합니다.
+    if (targetCategory && displayCategories.length > 1) {
         setTimeout(() => {
             const targetEl = document.getElementById(`section-${targetCategory}`);
             if (targetEl) {
@@ -87,15 +91,13 @@ async function loadTotalPreview() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", loadTotalPreview);
-
+// [수정] 중복되던 DOMContentLoaded 이벤트 핸들러를 하나로 통합하고 CSP를 준수하도록 정돈했습니다.
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. 기존 데이터 로딩 함수 실행
+    // 1. 데이터 로딩 함수 실행
     loadTotalPreview();
 
-    // 2. 뒤로가기 버튼에 클릭 이벤트 리스너 추가 (CSP 준수 방식)
+    // 2. 뒤로가기 버튼에 클릭 이벤트 리스너 추가
     const backButton = document.querySelector('.back-button');
-
     if (backButton) {
         backButton.addEventListener('click', () => {
             window.location.href = 'preview.html';
