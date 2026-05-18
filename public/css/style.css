@@ -3651,8 +3651,6 @@ body.preview-page .marge-container {
     max-width: 85%;
     margin: 0 auto;
     gap: 25px;
-    background-color: #fff;
-    border-radius: 25px;
 }
 
 body.preview-page #category-subtab-container {
