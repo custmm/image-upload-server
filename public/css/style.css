@@ -2764,10 +2764,6 @@ body.preview-page #tab-design {
     /* 위아래 여백을 줘서 더 띄워 보임 */
     width: 85%;
     height: 70px;
-    /* 높이를 조금 더 여유 있게 조정 */
-    background: #2db6d5e8;
-    /* 배경색 유지 */
-    border-radius: 50px;
 
     /* 핵심 수정 포인트 */
     padding: 0 15px;
