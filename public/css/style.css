@@ -3018,17 +3018,6 @@ body.preview-page .hover-message {
 }
 
 /*====== marge-container내 카테고리 제목 스타일 ======*/
-body.preview-page .currentCategory {
-    font-size: 30px;
-    color: #11aa31;
-    margin: 25px 0 15px;
-    padding-left: 20px;
-}
-
-body.preview-page .currentCategory:hover {
-    color: cyan;
-    text-shadow: 0 0 20px black;
-}
 
 /*  왼쪽 버튼 그룹 (뒤로가기 + 메뉴 버튼) */
 body.preview-page .left-section {

@@ -332,9 +332,6 @@ export async function loadCategory(categoryId, tabButton, isPopState = false) {
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     tabButton.classList.add("active");
 
-    const currentCategoryEl = document.getElementById("currentCategory");
-    if (currentCategoryEl) currentCategoryEl.textContent = newCategoryName;
-
     await loadSubcategories(categoryId);
     page = 0;
     noMoreImages = false;

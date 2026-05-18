@@ -126,10 +126,6 @@
         background-color: #323232;
     }
 
-    body.preview-page.dark-mode #currentCategory {
-        color: #444;
-    }
-
     body.preview-page.dark-mode .page-footer {
         color: #ccc;
         border-color: #444;
