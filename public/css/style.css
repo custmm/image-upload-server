@@ -2760,7 +2760,7 @@ body.preview-page .indicate_btn:active {
 body.preview-page #tab-design {
     display: flex;
     position: relative;
-    margin: 0 auto;
+        margin: 30px auto;
     /* 위아래 여백을 줘서 더 띄워 보임 */
     width: 85%;
     height: 70px;
@@ -2799,7 +2799,7 @@ body.preview-page .tab-btn {
     align-items: center;
     justify-content: center;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        border-radius: 15px 15px 0 0;
+    border-radius: 10px;
 
     /* 살짝 띄워주는 효과 */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -2894,6 +2894,7 @@ body.preview-page .sub-tab {
     height: 35px;
     /* 기준 */
 }
+
 body.preview-page .sub-tab:hover:not(.active) {
     background: #ffffff !important;
     transform: translateY(-4px);
@@ -2901,6 +2902,7 @@ body.preview-page .sub-tab:hover:not(.active) {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
     color: #2db6d5;
 }
+
 body.preview-page .sub-tab:hover {
     flex-wrap: wrap;
     background-color: #00ff953c;
@@ -3626,7 +3628,7 @@ body.preview-page .marge-container {
     flex-wrap: wrap;
     flex-direction: column;
     max-width: 85%;
-   margin: -16px auto;
+    margin: -16px auto;
     gap: 25px;
     border-radius: 0 0 35px 35px;
 }
