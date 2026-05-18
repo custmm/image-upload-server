@@ -2900,10 +2900,17 @@ body.preview-page .sub-tab {
     height: 35px;
     /* 기준 */
 }
-
+body.preview-page .sub-tab:hover:not(.active) {
+    background: #ffffff !important;
+    transform: translateY(-4px);
+    /* 호버 시에도 살짝 띄움 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    color: #2db6d5;
+}
 body.preview-page .sub-tab:hover {
     flex-wrap: wrap;
     background-color: #00ff953c;
+    color: aqua;
 }
 
 body.preview-page .sub-tab:hover::before {
