@@ -3626,7 +3626,7 @@ body.preview-page .marge-container {
     flex-wrap: wrap;
     flex-direction: column;
     max-width: 85%;
-   margin: -16px auto
+   margin: -16px auto;
     gap: 25px;
     border-radius: 0 0 35px 35px;
 }
