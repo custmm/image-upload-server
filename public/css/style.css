@@ -2924,7 +2924,7 @@ body.preview-page .sub-tab:hover::before {
 }
 
 body.preview-page .sub-tab.active {
-    background-color: #00ff95e8;
+    background-color: #11aa31;
     color: #ffffff;
     font-weight: bold;
 }
@@ -3030,7 +3030,7 @@ body.preview-page .hover-message {
 /*====== marge-container내 카테고리 제목 스타일 ======*/
 body.preview-page .currentCategory {
     font-size: 30px;
-    color: #00cc8f;
+    color: #11aa31;
     margin: 25px 0 15px;
     padding-left: 20px;
 }
