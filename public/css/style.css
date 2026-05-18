@@ -2878,7 +2878,7 @@ body.preview-page .sub-tab-container {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    gap: 5px;
+    gap: 20px;
     padding-top: 65px;
     margin-bottom: 10px;
 }
