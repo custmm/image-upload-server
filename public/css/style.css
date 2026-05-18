@@ -2760,13 +2760,11 @@ body.preview-page .indicate_btn:active {
 body.preview-page #tab-design {
     display: flex;
     position: relative;
-    margin: 30px auto;
+    margin: 0 auto;
     /* 위아래 여백을 줘서 더 띄워 보임 */
     width: 85%;
     height: 70px;
 
-    /* 핵심 수정 포인트 */
-    padding: 0 15px;
     /* 양옆 여백 */
     gap: 15px;
     /* [중요] 탭과 탭 사이의 거리를 벌려줌 */
@@ -2801,7 +2799,7 @@ body.preview-page .tab-btn {
     align-items: center;
     justify-content: center;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    border-radius: 50px;
+        border-radius: 15px 15px 0 0;
 
     /* 살짝 띄워주는 효과 */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -3628,8 +3626,9 @@ body.preview-page .marge-container {
     flex-wrap: wrap;
     flex-direction: column;
     max-width: 85%;
-    margin: 0 auto;
+   margin: -16px auto
     gap: 25px;
+    border-radius: 0 0 35px 35px;
 }
 
 body.preview-page #category-subtab-container {
