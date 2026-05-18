@@ -2809,7 +2809,7 @@ body.preview-page .tab-btn {
 
 /* 3. 활성화된 버튼: 더 높이 뜨고 색상 변경 */
 body.preview-page .tab-btn.active {
-    background: #11aa31 !important;
+    background: transparent;
     /* 요청하신 녹색 계열 */
     color: #ffffff;
     /* 녹색 배경에 흰색 글자 가독성 */
