@@ -4160,9 +4160,6 @@ body.etc-page #rc_car_intro_1 .text_wrap .planning img {
     width: 300px;
 }
 
-
-
-
 /* 가로 배치를 위한 컨테이너 설정 */
 body.etc-page .planning-flex-container {
     display: flex;
@@ -4264,7 +4261,6 @@ body.search-page .post-item {
     max-width: 280px;
     height: 360px;            /* 위아래 여백을 고려해 높이 소폭 확장 */
     background-color: aliceblue;
-    border: 1px solid #555;
     border-radius: 25px;      /* 모서리 라운딩 통일 */
     overflow: hidden;         /* 라운딩 밖으로 이미지가 빠져나가지 않게 차단 */
     scroll-snap-align: start; /* 자석 효과 정렬 기준점 */
@@ -4279,7 +4275,6 @@ body.search-page .post-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
-
 
 body.search-page .search_image {
     width: 100%;             /* 부모 카드에 꽉 차게 변경 */
