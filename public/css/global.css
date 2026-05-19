@@ -183,6 +183,11 @@ button {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s ease;
 }
+
+button:hover{
+    background-color: aqua;
+}
+
 #mainLoader{
     width: 150px;
     height: 150px;
@@ -211,52 +216,6 @@ body.dashboard-page #selectContentEdit,
 body.dashboard-page #saveTitleBtn,
 body.dashboard-page #closeTitleBtn {
     color: black;
-}
-
-body.index-page .popup-confirm-button:hover,
-body.index-page button:hover,
-body.dashboard-page #saveEdit:hover,
-body.dashboard-page #closeEdit:hover,
-body.dashboard-page #clearCanvas:hover,
-body.dashboard-page #selectTitleEdit:hover,
-body.dashboard-page #selectContentEdit:hover,
-body.dashboard-page #saveTitleBtn:hover,
-body.dashboard-page #closeTitleBtn:hover,
-body.dashboard-page .popup-confirm-button:hover,
-body.dashboard-page .edit-button:hover,
-body.dashboard-page .custom-chart-button:hover,
-body.mode-page .popup-confirm:hover,
-body.mode-page .back-button:hover,
-body.mode-page .upload-selection-button:hover,
-body.mode-page .preview-selection-button:hover,
-body.mode-page .admin-selection-button:hover,
-body.mode-page .logout-button:hover,
-body.post-page .button:hover,
-body.login-page .popup-button:hover,
-body.game-page #nextButton:hover,
-body.game-page #previewButton:hover,
-body.game-page #closePopupButton:hover,
-body.game-page #pre-button:hover,
-body.game-page #victoryScreen button:hover,
-body.game-page .start-game-btn:hover,
-body.game-page .hint-confirm-button:hover,
-body.post-page .popup-button:hover,
-body.post-page .custom-button:hover,
-body.login-page .back-button:hover,
-body.login-page #loginButton:hover,
-body.upload-page .back-button:hover,
-body.upload-page .editor-buttons button:hover,
-body.upload-page .upload-button:hover,
-body.preview-page .back-button:hover,
-body.preview-page .indicate_btn:hover,
-body.dashboard-page .back-button:hover,
-body.dashboard-page .logout-button:hover,
-body.dashboard-page .custom-button:hover,
-body.click-page .back-button:hover,
-body.tag-page #backToListButton:hover,
-body.total-preview .back-button:hover,
-body.dashboard-page .back-button:hover {
-    background-color: aqua;
 }
 
 body.preview-page .page-footer,
