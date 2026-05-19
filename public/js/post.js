@@ -195,6 +195,7 @@ function bindDrawingEvents() {
   const openDrawingBtn = document.getElementById("picture");
   const closeDrawingBtn = document.getElementById("close-drawing");
   const clearCanvasBtn = document.getElementById("clearCanvas");
+  const downloadCanvasBtn = document.getElementById("downloadCanvas"); // 👈 다운로드 버튼 가져오기
   const canvas = document.getElementById("drawingCanvas");
   const ctx = canvas.getContext("2d");
 
@@ -281,6 +282,24 @@ function bindDrawingEvents() {
   clearCanvasBtn.addEventListener("click", function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   });
+  
+  // 👈 [신규 추가] 캔버스 이미지 파일 직접 다운로드 기능
+  if (downloadCanvasBtn) {
+    downloadCanvasBtn.addEventListener("click", function () {
+      // 1. 캔버스의 내용을 64비트 인코딩된 PNG 데이터 URL로 추출
+      const dataURL = canvas.toDataURL("image/png");
+
+      // 2. 가상의 <a> 태그(링크)를 동적으로 생성
+      const link = document.createElement("a");
+      link.href = dataURL;
+      link.download = `drawing_${Date.now()}.png`; // 저장될 파일명 설정 (중복 방지 타임스탬프)
+
+      // 3. 브라우저 트릭을 이용해 다운로드 강제 클릭 트리거 후 요소 제거
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  }
 }
 
 // **🎨 그리기 기능 추가 (Drawing Feature)**
