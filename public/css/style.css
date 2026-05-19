@@ -2030,6 +2030,36 @@ body.post-page .drawing-popup {
     border: 1px solid #ccc;
 }
 
+body.post-page .popup_title {
+    display: flex;
+    margin: 0 auto;
+    gap: 10px;
+}
+body.post-page #downloadCanvas {
+    background: none;
+    border: none;
+    color: inherit; /* 다크 모드/라이트 모드 글자색 자동 동기화 */
+    cursor: pointer;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* 마우스 호버 시 포인트 효과 */
+body.post-page #downloadCanvas:hover {
+    transform: scale(1.15); /* 살짝 커지는 애니메이션 */
+    color: #007bff;        /* 호버 시 바뀔 포인트 컬러 (원하는 색상으로 변경 가능) */
+}
+
+/* 아이콘 크기 제어 */
+body.post-page #downloadCanvas svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
 /* 카테고리 이름에 마우스를 올렸을 때 효과 */
 body.post-page #postCategory {
     cursor: pointer;
@@ -2760,7 +2790,7 @@ body.preview-page .indicate_btn:active {
 body.preview-page #tab-design {
     display: flex;
     position: relative;
-        margin: 30px auto;
+    margin: 30px auto;
     /* 위아래 여백을 줘서 더 띄워 보임 */
     width: 85%;
     height: 70px;

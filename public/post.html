@@ -40,8 +40,18 @@
   <!-- 그림 그리기 팝업 -->
   <div id="drawing-popup" class="drawing-popup">
     <div class="popup-header">
-      <div class="popup-title">그리기</div>
-      <button id="downloadCanvas">다운로드</button>
+      <div class="popup_title">
+        <div class="popup-title">그리기</div>
+        <button id="downloadCanvas" title="이미지 다운로드">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+        </button>
+      </div>
+
       <button id="close-drawing" class="close-popup">✖</button>
     </div>
     <canvas id="drawingCanvas"></canvas>
@@ -89,19 +99,19 @@
 
       <button id="shareButton" class="icon-button">
         <i class="fa-solid fa-share-nodes"></i>
-      </button>      
+      </button>
 
     </div>
   </div>
-      <div class="page_btn">
-        <button id="prevPostButton" class="pageup-icon-button" title="이전 글">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
+  <div class="page_btn">
+    <button id="prevPostButton" class="pageup-icon-button" title="이전 글">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
 
-        <button id="nextPostButton" class="pagedown-icon-button" title="다음 글">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      </div>
+    <button id="nextPostButton" class="pagedown-icon-button" title="다음 글">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
 
   <!-- 팝업 메시지 컨테이너 -->
   <div id="popupMessage" class="popup-message" style="display: none;">
