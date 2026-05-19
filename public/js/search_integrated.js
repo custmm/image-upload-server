@@ -28,7 +28,7 @@ function hideLoading() {
     if (indicator) indicator.style.display = "none";
 }
 
-// 3. 게시글 렌더링 함수 (통합 UI 적용)
+// 3. 게시글 렌더링 함수 (👉 클릭 이벤트 바인딩 로직 추가)
 function renderNextPosts() {
     if (isLoading) return;
     isLoading = true;
@@ -39,11 +39,12 @@ function renderNextPosts() {
     // 약간의 딜레이를 주어 자연스러운 로딩 연출
     setTimeout(() => {
         const html = nextPosts.map(post => `
-            <div class="post-item" href="post?id=${post.id}">
+            <!-- 🔹 [변경] href 속성 대신 data-id 속성으로 id를 보관하고 마우스 커서 손가락 효과를 줍니다 -->
+            <div class="post-item" data-id="${post.id}" style="cursor: pointer;">
                 <div class="search_image">
                     <img src="${post.file_path || '/images/no-image.png'}" alt="${post.title}">
                 </div>
-                <a class="post-meta">
+                <div class="post-meta">
                     <div class="category">
                         ${post.category_name || ""} ▶ ${post.subcategory_name || ""}
                     </div>
@@ -53,11 +54,25 @@ function renderNextPosts() {
                     <div class="desc">
                         ${(post.text || post.title || "").replace(/(<([^>]+)>)/gi, "").slice(0, 50)}...
                     </div>
-                </a>
+                </div>
             </div>
         `).join('');
 
         postList.insertAdjacentHTML('beforeend', html);
+
+        // 🔹 [핵심 추가] 새로 그려진 카드들을 찾아서 안전하게 클릭 이벤트를 걸어줍니다!
+        const addedItems = postList.querySelectorAll(".post-item[data-id]");
+        addedItems.forEach(item => {
+            // 중복 실행 방지를 위한 안전장치
+            if (!item.dataset.linked) {
+                item.dataset.linked = "true";
+                item.addEventListener("click", () => {
+                    const postId = item.getAttribute("data-id");
+                    window.location.href = `post?id=${postId}`; // 👉 post 상세페이지로 이동!
+                });
+            }
+        });
+
         currentIndex += pageSize;
         isLoading = false;
     }, 300);
