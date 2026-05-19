@@ -11,3 +11,6 @@ Disallow: /
 # 일반 검색 엔진(Google, Naver 등)은 허용하고 싶다면 아래 설정 유지
 User-agent: *
 Allow: /
+
+User-agent: Yeti
+Allow:/
