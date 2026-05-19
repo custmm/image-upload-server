@@ -97,17 +97,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
     const query = params.get("q");     // 검색어
     const tag = params.get("tag");     // 태그
-    
+
     const resultTitle = document.getElementById("resultTitle");
     const postList = document.getElementById("postList");
     const resetTagBtn = document.getElementById("resetTagButton");
-    const backBtn = document.getElementById("backButton");
+    const backBtn = document.getElementById("backBtn");
 
     // [뒤로가기 설정]
     if (backBtn) {
-        backBtn.onclick = () => window.history.back();
+        backBtn.addEventListener("click", () => {
+            window.history.back(); // 브라우저 고유의 뒤로가기 정상 작동 트리거
+        });
     }
-
     // [검색어/태그 유무 판별]
     if (!query && !tag) {
         resultTitle.textContent = "검색어나 태그가 없습니다.";
@@ -126,13 +127,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     // [API 데이터 호출]
     showLoading();
     try {
-        const apiUrl = tag 
-            ? `/api/search?tag=${encodeURIComponent(tag)}` 
+        const apiUrl = tag
+            ? `/api/search?tag=${encodeURIComponent(tag)}`
             : `/api/search?keyword=${encodeURIComponent(query)}`;
-        
+
         const response = await fetch(apiUrl);
         const data = await response.json();
-        
+
         allPosts = Array.isArray(data.posts) ? data.posts : [];
 
         if (allPosts.length === 0) {
