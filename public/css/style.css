@@ -4211,15 +4211,13 @@ body.etc-page li#method4 button.detail-toggle {
 
 
 /* ====== 태그 검색 결과(search.html) ====== */
+
+/* 1. 검색 페이지 기본 타이틀 */
 body.search-page h2#resultTitle {
     text-align: center;
     color: aliceblue;
     margin-top: 60px;
 
-}
-
-body.search-page .no-result {
-    margin: 0 auto;
 }
 
 body.search-page .search-header {
@@ -4228,66 +4226,132 @@ body.search-page .search-header {
 
 body.search-page button#resetTagButton {
     margin: 40px auto;
-
 }
 
+/* 2. 결과가 없을 때의 예외 처리 박스 */
+body.search-page .no-result {
+    width: 100%;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* 3. [핵심] 가로 스크롤을 감싸는 컨테이너 박스 */
+body.search-page .search-container {
+    width: 100%;
+    overflow-x: auto;          /* 가로 스크롤 활성화 */
+    overflow-y: hidden;        /* 상하 스크롤 완전히 차단 */
+    scroll-snap-type: x mandatory; /* 카드 이동 시 자석 효과 */
+    padding: 20px 0;
+    -webkit-overflow-scrolling: touch; /* 모바일 부드러운 스크롤 */
+}
+
+/* 4. [핵심] 포스트 리스트 - 카드를 한 줄로 나열(Flex) */
+body.search-page #postList {
+    display: flex;
+    flex-direction: row;      /* 세로가 아닌 가로 배치 */
+    align-items: stretch;     /* 카드들의 높이를 통일 */
+    gap: 20px;                /* 카드 사이 간격 */
+    width: max-content;       /* 내부 컨텐츠 너비만큼 늘어나도록 설정 */
+    padding: 0 20px;
+    list-style: none;         /* 기본 ul 점 제거 */
+    margin: 0;
+}
+
+/* 5. [핵심] 개별 게시글 알약형/카드형 레이아웃 정돈 */
 body.search-page .post-item {
+    flex: 0 0 280px;          /* 가로 스크롤 시 카드가 찌그러지지 않게 고정 너비 부여 */
+    width: 280px;
+    max-width: 280px;
+    height: 360px;            /* 위아래 여백을 고려해 높이 소폭 확장 */
     background-color: aliceblue;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    margin: 30px;
-}
-
-body.search-page a.post-item {
-    display: flex;
-    flex-direction: column;
-    width: 270px;
-    height: 340px;
-    background: aliceblue;
     border: 1px solid #555;
-    border-radius: 25px;
-    margin: 0 10px;
+    border-radius: 25px;      /* 모서리 라운딩 통일 */
+    overflow: hidden;         /* 라운딩 밖으로 이미지가 빠져나가지 않게 차단 */
+    scroll-snap-align: start; /* 자석 효과 정렬 기준점 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 세련된 그림자 추가 */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-body.search-page ul.post-list {
-    display: flex;
-    justify-content: center;
+/* 카드 마우스 호버 효과 */
+body.search-page .post-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 
 body.search-page .search_image {
-    width: 150px;
-    height: 150px;
-    padding: 20px;
-    margin: 15px auto;
-    border-radius: 15px;
-
+    width: 100%;             /* 부모 카드에 꽉 차게 변경 */
+    height: 170px;           /* 이미지 높이 지정 */
+    overflow: hidden;
+    background-color: #eaeaea; /* 이미지 로드 전 임시 배경색 */
 }
 
 body.search-page .search_image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-
+    object-fit: cover;       /* 비율 유지하며 꽉 채우기 */
+    display: block;
 }
 
+/* 7. 카드 하단 텍스트 및 메타 정보 그릇 */
 body.search-page .post-meta {
-    text-align: center;
-    width: 225px;
-
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;        /* 왼쪽 정렬이 UI/UX상 가독성에 좋습니다 */
+    flex: 1;                 /* 남은 세로 공간 채우기 */
 }
 
-body.search-page .post-meta>.category {
-    width: 215px;
-    height: 30px;
-    border-radius: 15px;
+/* 카테고리 뱃지 스타일 */
+body.search-page .post-meta .category {
+    align-self: flex-start;  /* 왼쪽 정렬 유지 */
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
     background-color: #fff;
-    margin: 5px auto;
-    border: 1px solid #555;
-    display: flex;
+    padding: 4px 12px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+}
+
+/* 타이틀 폰트 조절 */
+body.search-page .search_title h3 {
+    margin: 4px 0 0 0;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;   /* 제목은 깔끔하게 한 줄만 표시 */
+    -webkit-box-orient: vertical;
+}
+
+/* 설명글 처리 */
+body.search-page .desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;   /* 본문 요약은 최대 두 줄까지만 허용 */
+    -webkit-box-orient: vertical;
+}
+
+/* 8. 무한 스크롤 감지용 트리거 (가로 모드 전용) */
+body.search-page #scrollTrigger {
+    width: 40px;
+    height: 100%;
+    flex: 0 0 40px;          /* 가로 공간을 유지해 줌으로써 관찰 포인트 확보 */
+    background: transparent;
 }
 
 /* ====== 온라인 연락(online_contact.html) ======  */
