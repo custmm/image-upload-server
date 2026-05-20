@@ -2451,6 +2451,30 @@ body.preview-page ul.main-menu >li:last-child input:focus {
     box-shadow: 0 4px 10px rgba(0, 204, 143, 0.1);
 }
 
+/* 실제 내부 sub-menu 리스트 디자인 */
+body.preview-page ul.main-menu >li:nth-child(2)>ul.sub-menu {
+    list-style: none;
+    padding: 5px 0 5px 15px;
+    /* 들여쓰기 처리 */
+    margin: 0;
+}
+
+body.preview-page ul.main-menu >li:nth-child(2)>ul.sub-menu>li {
+    margin: 12px 0;
+}
+
+body.preview-page ul.main-menu >li:nth-child(2)>ul.sub-menu>li a {
+    color: #555;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+body.preview-page ul.main-menu >li:nth-child(2)>ul.sub-menu>li a:hover {
+    color: #00cc8f;
+}
+
 body.preview-page .sidebar .menu-title {
     background: none;
     border: none;
@@ -2488,29 +2512,6 @@ body.preview-page .sub-menu-wrapper.active {
     visibility: visible;
 }
 
-/* 실제 내부 sub-menu 리스트 디자인 */
-body.preview-page .sidebar .sub-menu {
-    list-style: none;
-    padding: 5px 0 5px 15px;
-    /* 들여쓰기 처리 */
-    margin: 0;
-}
-
-body.preview-page .sidebar .sub-menu li {
-    margin: 12px 0;
-}
-
-body.preview-page .sidebar .sub-menu li a {
-    color: #555;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-body.preview-page .sidebar .sub-menu li a:hover {
-    color: #00cc8f;
-}
 
 /*==========================================================================
    사이드바 검색창 레이아웃 (정적 포지션 에러 전면 수정)
