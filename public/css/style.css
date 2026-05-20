@@ -4232,6 +4232,11 @@ body.search-page .no-result {
     width: 100%;
     text-align: center;
     padding: 40px 20px;
+    margin: 0 auto;
+}
+
+body.search-page .no-result img{
+    width: 100px;
 }
 
 /* 3. [핵심] 가로 스크롤을 감싸는 컨테이너 박스 */
