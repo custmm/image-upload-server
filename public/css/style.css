@@ -2593,6 +2593,17 @@ body.preview-page .setting-popup h3 {
     font-size: 22px;
 }
 
+body.preview-page .setting_item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    height: 30px;
+}
+
+body.preview-page .setting_item:last-child{
+    margin-top: 20px;
+}
+ 
 /* 작품 검색 Input 상자 */
 body.preview-page input#sidebarSearchInput {
     width: 100%;
@@ -3073,14 +3084,6 @@ body.preview-page .setting-layer {
     z-index: 9000;
     display: none;
     /* 기본 숨김 */
-}
-
-body.preview-page .setting_item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    height: 30px;
-
 }
 
 body.preview-page .toggle-switch_trans {
