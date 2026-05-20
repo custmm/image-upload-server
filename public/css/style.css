@@ -2594,7 +2594,7 @@ body.preview-page .setting-popup h3 {
 }
 
 /* 작품 검색 Input 상자 */
-body.preview-page .setting-popup > setting-popup:last-child >input#sidebarSearchInput {
+body.preview-page input#sidebarSearchInput {
     width: 100%;
     /* 부모 너비를 가득 채우도록 변경 */
     padding: 14px 55px 14px 20px;
@@ -2608,7 +2608,7 @@ body.preview-page .setting-popup > setting-popup:last-child >input#sidebarSearch
     transition: all 0.3s ease;
 }
 
-body.preview-page .setting-popup > setting-popup:last-child > input#sidebarSearchInput:focus {
+body.preview-page input#sidebarSearchInput:focus {
     border-color: #00cc8f;
     background: #ffffff;
     box-shadow: 0 4px 10px rgba(0, 204, 143, 0.1);
