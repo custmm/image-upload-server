@@ -2403,7 +2403,7 @@ body.preview-page .sidebar.open {
 /*==========================================================================
    사이드바 메인 메뉴 및 서브메뉴(아코디언) 유연한 무빙 CSS 
    ========================================================================== */
-body.preview-page .sidebar ul.main-menu {
+body.preview-page ul.main-menu {
     list-style: none;
     padding: 0;
     margin: 90px 0 0 0;
@@ -2412,9 +2412,43 @@ body.preview-page .sidebar ul.main-menu {
     /* 자식 요소들의 흐름을 세로 배치로 격리 */
 }
 
-body.preview-page .sidebar ul.main-menu li.menu-item {
+body.preview-page ul.main-menu >li:first-child, 
+body.preview-page ul.main-menu >li:nth-child(2){
     margin: 10px 0;
     text-align: left;
+}
+
+body.preview-page ul.main-menu >li:last-child{
+    position: relative;
+    /* 무빙을 비틀던 absolute 단독 원인 해결을 위해 부모를 기준점으로 고정 */
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    padding: 0;
+    width: 100%;
+    /* 상단 아코디언 서브메뉴 껍데기가 늘어나거나 줄어들 때 아래로 유연하게 파도타듯 이동합니다 */
+    transition: margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 작품 검색 Input 상자 */
+body.preview-page ul.main-menu >li:last-child input {
+    width: 100%;
+    /* 부모 너비를 가득 채우도록 변경 */
+    padding: 14px 55px 14px 20px;
+    /* 우측 검색버튼 공간(55px) 확보 */
+    border-radius: 30px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+body.preview-page ul.main-menu >li:last-child input:focus {
+    border-color: #00cc8f;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 204, 143, 0.1);
 }
 
 body.preview-page .sidebar .menu-title {
@@ -2481,38 +2515,7 @@ body.preview-page .sidebar .sub-menu li a:hover {
 /*==========================================================================
    사이드바 검색창 레이아웃 (정적 포지션 에러 전면 수정)
    ========================================================================== */
-body.preview-page .sidebar-search {
-    position: relative;
-    /* 무빙을 비틀던 absolute 단독 원인 해결을 위해 부모를 기준점으로 고정 */
-    display: flex;
-    align-items: center;
-    margin-top: 25px;
-    padding: 0;
-    width: 100%;
-    /* 상단 아코디언 서브메뉴 껍데기가 늘어나거나 줄어들 때 아래로 유연하게 파도타듯 이동합니다 */
-    transition: margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
-/* 작품 검색 Input 상자 */
-body.preview-page .sidebar-search input {
-    width: 100%;
-    /* 부모 너비를 가득 채우도록 변경 */
-    padding: 14px 55px 14px 20px;
-    /* 우측 검색버튼 공간(55px) 확보 */
-    border-radius: 30px;
-    border: 1px solid #ddd;
-    background: #f9f9f9;
-    font-size: 14px;
-    outline: none;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-}
-
-body.preview-page .sidebar-search input:focus {
-    border-color: #00cc8f;
-    background: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 204, 143, 0.1);
-}
 
 /* 기존 무작위 top, right %, position을 지우고 깔끔하게 재정비한 검색 아이콘 버튼 */
 body.preview-page .search-icon-btn {
