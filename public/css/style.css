@@ -2601,7 +2601,7 @@ body.preview-page .setting_item {
 }
 
 body.preview-page .setting_item:last-child{
-    margin-top: 20px;
+    margin-top: 40px;
 }
  
 /* 작품 검색 Input 상자 */
