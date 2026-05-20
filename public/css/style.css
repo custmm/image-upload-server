@@ -2632,13 +2632,13 @@ body.preview-page .search-icon-btn {
     justify-content: center;
     position: absolute;
     /* 이제 기준점은 유연하게 움직이는 .sidebar-search가 됩니다 */
-    right: 5px;
-    top: 50%;
+    right: 26px;
+    top: 74%;
     transform: translateY(-50%);
     /* 정확히 상자 세로 중앙 정렬 */
-    width: 40px;
-    height: 40px;
-    border: none;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
     /* 각진 기본 테두리 제거 */
     background: transparent;
     color: #333;
@@ -2658,8 +2658,8 @@ body.preview-page .search-icon-btn:active {
 /* CSS로 커스텀 렌더링된 돋보기 모양 유지 보정 */
 body.preview-page .search-icon-btn i[data-icon="search"] {
     position: relative;
-    width: 14px;
-    height: 14px;
+    width: 10px;
+    height: 10px;
     border: 2px solid currentColor;
     border-radius: 50%;
     display: inline-block;
@@ -2668,7 +2668,7 @@ body.preview-page .search-icon-btn i[data-icon="search"] {
 body.preview-page .search-icon-btn i[data-icon="search"]::after {
     content: "";
     position: absolute;
-    width: 7px;
+    width: 6px;
     height: 2px;
     background: currentColor;
     bottom: -2px;
