@@ -2447,6 +2447,7 @@ body.preview-page ul.main-menu>li:nth-child(2)>ul.sub-menu>li {
     margin: 12px 0;
 }
 
+body.preview-page ul.main-menu>li:first-child>ul.sub-menu>li a,
 body.preview-page ul.main-menu>li:nth-child(2)>ul.sub-menu>li a {
     color: #555;
     text-decoration: none;
@@ -2454,7 +2455,7 @@ body.preview-page ul.main-menu>li:nth-child(2)>ul.sub-menu>li a {
     font-weight: 500;
     transition: color 0.2s ease;
 }
-
+body.preview-page ul.main-menu>li:first-child>ul.sub-menu>li a:hover,
 body.preview-page ul.main-menu>li:nth-child(2)>ul.sub-menu>li a:hover {
     color: #00cc8f;
 }
