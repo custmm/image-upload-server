@@ -17,7 +17,7 @@ async function loadTotalPreview() {
 
     container.innerHTML = "";
 
-    // URL 파라미터가 유효하면 해당 카테고리만 배열에 저장 (단일 카테고리 로딩)
+    // URL 파라미터 유효성 검사 및 바인딩
     let displayCategories = categories;
     if (targetCategory && categories.includes(targetCategory)) {
         displayCategories = [targetCategory];
@@ -30,7 +30,6 @@ async function loadTotalPreview() {
 
         const iconName = iconMap[catName] || "folder";
         
-        // [핵심 변경] preview 페이지의 느낌을 내기 위해 내부 리스트 컨테이너 클래스를 'image-gallery' 구조로 명명
         section.innerHTML = `
             <div class="category-header">
                 <i data-lucide="${iconName}"></i>
@@ -43,13 +42,13 @@ async function loadTotalPreview() {
         container.appendChild(section);
 
         try {
-            // 프로젝트 백엔드 라우터 규칙에 맞춰 /api/posts 혹은 /api/files 중 매핑되는 주소를 사용합니다.
+            // 서버 엔드포인트 호출
             const response = await fetch(`/api/posts?category=${encodeURIComponent(catName)}`);
             if (!response.ok) throw new Error(`서버 통신 실패`);
             
             const resJson = await response.json();
             
-            // 데이터 배열 추출 예외 처리
+            // 데이터 배열 추출 방어막
             let posts = [];
             if (Array.isArray(resJson)) {
                 posts = resJson;
@@ -63,15 +62,12 @@ async function loadTotalPreview() {
 
             if (posts && posts.length > 0) {
                 posts.forEach(post => {
-                    // preview.html의 바둑판 모드 아이템 구조와 일치하는 컨테이너 생성
                     const imageContainer = document.createElement("div");
                     imageContainer.className = "image-container appear-ani aos-init aos-animate is-visible";
                     
-                    // file_path 속성이 누락되었을 때 path 등으로 유연하게 잡히도록 처리
                     const imgSrc = post.file_path || post.path || '/images/no_result.png';
                     const postTitle = post.title || '제목 없음';
 
-                    // 썸네일 전용 레이아웃 생성
                     imageContainer.innerHTML = `
                         <div class="thumb-wrapper" style="position: relative; overflow: hidden; cursor: pointer;">
                             <img src="${imgSrc}" alt="${postTitle}" class="post-thumb" style="width: 100%; height: 100%; object-fit: cover;">
@@ -82,12 +78,12 @@ async function loadTotalPreview() {
                         <p class="thumb-title" style="margin-top: 8px; font-weight: bold; text-align: center;">${postTitle}</p>
                     `;
 
-                    // [기능 구현] 이미지 썸네일(카드) 누르면 해당 post 상세 페이지로 바로 연결!
+                    // 🛠️ [주소 수정] 프로젝트 라우팅 구조에 맞춰 앞에 /를 빼고 상대 경로로 정확히 연결합니다.
                     imageContainer.addEventListener('click', () => {
-                        window.location.href = `/post?id=${post.id}`;
+                        window.location.href = `post?id=${post.id}`;
                     });
 
-                    // 마우스 오버 시 오버레이 효과 리스너
+                    // 호버 효과 및 에러 처리 리스너
                     const wrapper = imageContainer.querySelector('.thumb-wrapper');
                     const overlay = imageContainer.querySelector('.hover-overlay');
                     if (wrapper && overlay) {
@@ -95,7 +91,6 @@ async function loadTotalPreview() {
                         wrapper.addEventListener('mouseleave', () => overlay.style.opacity = '0');
                     }
 
-                    // 이미지 로드 깨짐 처리 방어코드
                     const img = imageContainer.querySelector('.post-thumb');
                     img.addEventListener('error', function () {
                         this.src = '/images/no_result.png';
@@ -117,7 +112,6 @@ async function loadTotalPreview() {
 
     if (window.lucide) lucide.createIcons();
 
-    // 전체 보기 모드에서 파라미터가 있을 때 포커싱 타겟 스크롤
     if (targetCategory && displayCategories.length > 1) {
         setTimeout(() => {
             const targetEl = document.getElementById(`section-${targetCategory}`);
@@ -132,7 +126,6 @@ async function loadTotalPreview() {
     }
 }
 
-// 이벤트 초기화 위임
 document.addEventListener("DOMContentLoaded", () => {
     loadTotalPreview();
 
