@@ -4258,7 +4258,7 @@ body.search-page #postList {
     width: max-content;       /* 내부 컨텐츠 너비만큼 늘어나도록 설정 */
     padding: 0 20px;
     list-style: none;         /* 기본 ul 점 제거 */
-    margin: 0;
+    margin: 0 auto;
 }
 
 /* 5. [핵심] 개별 게시글 알약형/카드형 레이아웃 정돈 */
