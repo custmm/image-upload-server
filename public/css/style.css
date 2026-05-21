@@ -2035,10 +2035,12 @@ body.post-page .popup_title {
     margin: 0 auto;
     gap: 10px;
 }
+
 body.post-page #downloadCanvas {
     background: none;
     border: none;
-    color: inherit; /* 다크 모드/라이트 모드 글자색 자동 동기화 */
+    color: inherit;
+    /* 다크 모드/라이트 모드 글자색 자동 동기화 */
     cursor: pointer;
     padding: 6px;
     display: inline-flex;
@@ -2050,8 +2052,10 @@ body.post-page #downloadCanvas {
 
 /* 마우스 호버 시 포인트 효과 */
 body.post-page #downloadCanvas:hover {
-    transform: scale(1.15); /* 살짝 커지는 애니메이션 */
-    color: #007bff;        /* 호버 시 바뀔 포인트 컬러 (원하는 색상으로 변경 가능) */
+    transform: scale(1.15);
+    /* 살짝 커지는 애니메이션 */
+    color: #007bff;
+    /* 호버 시 바뀔 포인트 컬러 (원하는 색상으로 변경 가능) */
 }
 
 /* 아이콘 크기 제어 */
@@ -2060,6 +2064,7 @@ body.post-page #downloadCanvas svg {
     height: 20px;
     display: block;
 }
+
 /* 카테고리 이름에 마우스를 올렸을 때 효과 */
 body.post-page #postCategory {
     cursor: pointer;
@@ -2412,13 +2417,13 @@ body.preview-page ul.main-menu {
     /* 자식 요소들의 흐름을 세로 배치로 격리 */
 }
 
-body.preview-page ul.main-menu >li:first-child, 
-body.preview-page ul.main-menu >li:nth-child(2){
+body.preview-page ul.main-menu>li:first-child,
+body.preview-page ul.main-menu>li:nth-child(2) {
     margin: 10px 0;
     text-align: left;
 }
 
-body.preview-page ul.main-menu >li:last-child{
+body.preview-page ul.main-menu>li:last-child {
     position: relative;
     /* 무빙을 비틀던 absolute 단독 원인 해결을 위해 부모를 기준점으로 고정 */
     display: flex;
@@ -2431,18 +2436,18 @@ body.preview-page ul.main-menu >li:last-child{
 }
 
 /* 실제 내부 sub-menu 리스트 디자인 */
-body.preview-page ul.main-menu >li:nth-child(2)>ul.sub-menu {
+body.preview-page ul.main-menu>li:nth-child(2)>ul.sub-menu {
     list-style: none;
     padding: 5px 0 5px 15px;
     /* 들여쓰기 처리 */
     margin: 0;
 }
 
-body.preview-page ul.main-menu >li:nth-child(2)>ul.sub-menu>li {
+body.preview-page ul.main-menu>li:nth-child(2)>ul.sub-menu>li {
     margin: 12px 0;
 }
 
-body.preview-page ul.main-menu >li:nth-child(2)>ul.sub-menu>li a {
+body.preview-page ul.main-menu>li:nth-child(2)>ul.sub-menu>li a {
     color: #555;
     text-decoration: none;
     font-size: 16px;
@@ -2450,15 +2455,15 @@ body.preview-page ul.main-menu >li:nth-child(2)>ul.sub-menu>li a {
     transition: color 0.2s ease;
 }
 
-body.preview-page ul.main-menu >li:nth-child(2)>ul.sub-menu>li a:hover {
+body.preview-page ul.main-menu>li:nth-child(2)>ul.sub-menu>li a:hover {
     color: #00cc8f;
 }
 
-body.preview-page ul.main-menu >li:last-child>h3{
+body.preview-page ul.main-menu>li:last-child>h3 {
     color: #555;
 }
 
-body.preview-page ul.main-meun> li > button.menu-title {
+body.preview-page ul.main-meun>li>button.menu-title {
     background: none;
     border: none;
     padding: 10px 0;
@@ -2470,7 +2475,7 @@ body.preview-page ul.main-meun> li > button.menu-title {
     transition: color 0.2s ease;
 }
 
-body.preview-page ul.main-meun> li > button.menu-title:hover {
+body.preview-page ul.main-meun>li>button.menu-title:hover {
     color: #00cc8f;
 }
 
@@ -2603,10 +2608,10 @@ body.preview-page .setting_item {
     height: 30px;
 }
 
-body.preview-page .setting_item:last-child{
+body.preview-page .setting_item:last-child {
     margin-top: 40px;
 }
- 
+
 /* 작품 검색 Input 상자 */
 body.preview-page input#sidebarSearchInput {
     width: 100%;
@@ -3116,7 +3121,7 @@ body.preview-page #settingPopup.active {
     width: 320px;
     height: 240px;
     top: 10%;
-    left: 65%;
+    left: 50%;
 }
 
 body.preview-page #settingBtn {
@@ -4239,43 +4244,58 @@ body.search-page .no-result {
     margin: 0 auto;
 }
 
-body.search-page .no-result img{
+body.search-page .no-result img {
     width: 100px;
 }
 
 /* 3. [핵심] 가로 스크롤을 감싸는 컨테이너 박스 */
 body.search-page .search-container {
     width: 100%;
-    overflow-x: auto;          /* 가로 스크롤 활성화 */
-    overflow-y: hidden;        /* 상하 스크롤 완전히 차단 */
-    scroll-snap-type: x mandatory; /* 카드 이동 시 자석 효과 */
+    overflow-x: auto;
+    /* 가로 스크롤 활성화 */
+    overflow-y: hidden;
+    /* 상하 스크롤 완전히 차단 */
+    scroll-snap-type: x mandatory;
+    /* 카드 이동 시 자석 효과 */
     padding: 20px 0;
-    -webkit-overflow-scrolling: touch; /* 모바일 부드러운 스크롤 */
+    -webkit-overflow-scrolling: touch;
+    /* 모바일 부드러운 스크롤 */
 }
 
 /* 4. [핵심] 포스트 리스트 - 카드를 한 줄로 나열(Flex) */
 body.search-page #postList {
     display: flex;
-    flex-direction: row;      /* 세로가 아닌 가로 배치 */
-    align-items: stretch;     /* 카드들의 높이를 통일 */
-    gap: 20px;                /* 카드 사이 간격 */
-    width: max-content;       /* 내부 컨텐츠 너비만큼 늘어나도록 설정 */
+    flex-direction: row;
+    /* 세로가 아닌 가로 배치 */
+    align-items: stretch;
+    /* 카드들의 높이를 통일 */
+    gap: 20px;
+    /* 카드 사이 간격 */
+    width: max-content;
+    /* 내부 컨텐츠 너비만큼 늘어나도록 설정 */
     padding: 0 20px;
-    list-style: none;         /* 기본 ul 점 제거 */
+    list-style: none;
+    /* 기본 ul 점 제거 */
     margin: 0 auto;
 }
 
 /* 5. [핵심] 개별 게시글 알약형/카드형 레이아웃 정돈 */
 body.search-page .post-item {
-    flex: 0 0 280px;          /* 가로 스크롤 시 카드가 찌그러지지 않게 고정 너비 부여 */
+    flex: 0 0 280px;
+    /* 가로 스크롤 시 카드가 찌그러지지 않게 고정 너비 부여 */
     width: 280px;
     max-width: 280px;
-    height: 360px;            /* 위아래 여백을 고려해 높이 소폭 확장 */
+    height: 360px;
+    /* 위아래 여백을 고려해 높이 소폭 확장 */
     background-color: aliceblue;
-    border-radius: 25px;      /* 모서리 라운딩 통일 */
-    overflow: hidden;         /* 라운딩 밖으로 이미지가 빠져나가지 않게 차단 */
-    scroll-snap-align: start; /* 자석 효과 정렬 기준점 */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 세련된 그림자 추가 */
+    border-radius: 25px;
+    /* 모서리 라운딩 통일 */
+    overflow: hidden;
+    /* 라운딩 밖으로 이미지가 빠져나가지 않게 차단 */
+    scroll-snap-align: start;
+    /* 자석 효과 정렬 기준점 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* 세련된 그림자 추가 */
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -4288,16 +4308,20 @@ body.search-page .post-item:hover {
 }
 
 body.search-page .search_image {
-    width: 100%;             /* 부모 카드에 꽉 차게 변경 */
-    height: 170px;           /* 이미지 높이 지정 */
+    width: 100%;
+    /* 부모 카드에 꽉 차게 변경 */
+    height: 170px;
+    /* 이미지 높이 지정 */
     overflow: hidden;
-    background-color: #eaeaea; /* 이미지 로드 전 임시 배경색 */
+    background-color: #eaeaea;
+    /* 이미지 로드 전 임시 배경색 */
 }
 
 body.search-page .search_image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;       /* 비율 유지하며 꽉 채우기 */
+    object-fit: cover;
+    /* 비율 유지하며 꽉 채우기 */
     display: block;
 }
 
@@ -4307,13 +4331,16 @@ body.search-page .post-meta {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    text-align: left;        /* 왼쪽 정렬이 UI/UX상 가독성에 좋습니다 */
-    flex: 1;                 /* 남은 세로 공간 채우기 */
+    text-align: left;
+    /* 왼쪽 정렬이 UI/UX상 가독성에 좋습니다 */
+    flex: 1;
+    /* 남은 세로 공간 채우기 */
 }
 
 /* 카테고리 뱃지 스타일 */
 body.search-page .post-meta .category {
-    align-self: flex-start;  /* 왼쪽 정렬 유지 */
+    align-self: flex-start;
+    /* 왼쪽 정렬 유지 */
     font-size: 11px;
     font-weight: bold;
     color: #666;
@@ -4335,7 +4362,8 @@ body.search-page .search_title h3 {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 1;   /* 제목은 깔끔하게 한 줄만 표시 */
+    -webkit-line-clamp: 1;
+    /* 제목은 깔끔하게 한 줄만 표시 */
     -webkit-box-orient: vertical;
 }
 
@@ -4348,7 +4376,8 @@ body.search-page .desc {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;   /* 본문 요약은 최대 두 줄까지만 허용 */
+    -webkit-line-clamp: 2;
+    /* 본문 요약은 최대 두 줄까지만 허용 */
     -webkit-box-orient: vertical;
 }
 
@@ -4356,7 +4385,8 @@ body.search-page .desc {
 body.search-page #scrollTrigger {
     width: 40px;
     height: 100%;
-    flex: 0 0 40px;          /* 가로 공간을 유지해 줌으로써 관찰 포인트 확보 */
+    flex: 0 0 40px;
+    /* 가로 공간을 유지해 줌으로써 관찰 포인트 확보 */
     background: transparent;
 }
 
