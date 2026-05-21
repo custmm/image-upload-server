@@ -374,10 +374,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         showIndBtn.addEventListener("click", (e) => {
             e.preventDefault();
             // 1~8 사이의 랜덤 숫자 생성
-            const randomNum = Math.floor(Math.random() * 8) + 1;
+            const randomNum = Math.floor(Math.random() * 9) + 1;
 
             // 이미지 소스 설정 및 출력
-            indicatorImg.src = `${imagePath}${randomNum}re.png`;
+            indicatorImg.src = `${imagePath}${randomNum}re.svg`;
             indicatorImg.style.display = "block";
 
             // 부드럽게 나타나기 (CSS transition이 설정되어 있어야 함)
