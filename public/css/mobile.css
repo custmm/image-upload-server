@@ -1,64 +1,211 @@
+/* ==========================================================================
+   [모바일 표준 해상도 대응] 화면 너비 576px 이하
+   ========================================================================== */
 @media (max-width: 576px) {
+    /* 1. 뼈대 및 상단 레이아웃 */
+    body.preview-page .menubar-container {
+        height: auto;
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-    /* dash-board페이지 모바일 css */
-    body.dashboard-page .adminbar-container {}
+    /* 뷰 모드 버튼 (바둑판/줄글) 우측 배치 보정 */
+    body.preview-page #view-switch {
+        margin: 15px auto 10px right; /* % 마진 대신 right 자동 정렬 */
+    }
 
-    body.dashboard-page #devide {}
+    /* 상단 표시기(애니메이션 캐릭터 등) 위치 및 크기 최적화 */
+    body.preview-page .preview-images {
+        top: 15px;
+        right: 15px;
+        margin-left: 0;
+    }
+    body.preview-page .preview-images img {
+        height: 50px; /* 모바일 화면에 맞춰 축소 */
+    }
 
-    body.dashboard-page #left_wrap {}
+    /* 2. 사이드바 (Sidebar) */
+    body.preview-page .sidebar {
+        width: 100%; /* 모바일에서는 전체 화면을 채우도록 설정 */
+        left: -100%; /* 숨김 상태 위치 변경 */
+    }
+    body.preview-page .sidebar.open {
+        left: 0 !important;
+    }
+    body.preview-page .close-sidebar {
+        top: 20px;
+        right: 20px;
+    }
+    body.preview-page ul.main-menu {
+        margin-top: 60px;
+    }
+    body.preview-page .search-icon-btn {
+        top: auto;
+        bottom: 5px; /* 부모 relative 안에서 검색창 우측 배치 */
+        right: 10px;
+        width: 45px;
+        height: 45px;
+    }
 
-    body.dashboard-page #right_wrap {}
+    /* 3. 메인 대카테고리 탭 (공중에 뜬 바) */
+    body.preview-page #tab-design {
+        width: 95%;
+        height: auto;
+        padding: 5px;
+    }
+    body.preview-page .tab-container {
+        gap: 8px; /* 간격 대폭 축소 */
+        overflow-x: auto; /* 카테고리가 많을 시 모바일 터치 스크롤 허용 */
+        padding: 5px 0;
+        -webkit-overflow-scrolling: touch;
+    }
+    body.preview-page .tab-container::-webkit-scrollbar {
+        display: none; /* 스크롤바 숨김 */
+    }
+    body.preview-page .tab-btn {
+        flex: 0 0 auto; /* 크기 고정 후 가로 나열 */
+        width: auto;
+        padding: 0 16px;
+        height: 40px;
+        font-size: 14px;
+    }
+    body.preview-page .tab-btn.active {
+        transform: translateY(-4px); /* 모바일에서는 팝업 높이 살짝 완화 */
+        height: 42px;
+    }
 
-    body.dashboard-page .section1 {}
+    /* 4. 소카테고리 서브 탭 */
+    body.preview-page .sub-tab-container {
+        padding-top: 15px; /* 겹침 현상 방지를 위해 패딩 조절 */
+        position: static;
+        transform: none;
+        left: auto;
+        gap: 10px;
+        justify-content: center;
+        width: 100%;
+    }
+    body.preview-page .sub-tab {
+        width: calc(33.33% - 10px); /* 한 줄에 딱 3개씩 균등 분할 */
+        height: 35px;
+        font-size: 12px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-    body.dashboard-page .section2 {}
+    /* 5. 바둑판 이미지 모드 (Image View) */
+    body.preview-page .image-gallery {
+        width: 95%;
+        padding: 20px 10px;
+        gap: 20px 15px; /* 숨통 틔우기 */
+    }
+    body.preview-page .image-container {
+        width: calc(50% - 8px); /* 모바일 한 줄에 2개씩 배치 */
+        height: calc(50vw - 20px); /* 정사각형 비율 유지 */
+        border-radius: 16px; /* 50% 원형에서 부드러운 사각형으로 자동 전환 (환공포증 개선) */
+    }
+    body.preview-page .image-container:nth-child(even) {
+        transform: none !important; /* 모바일은 화면이 좁으므로 지그재그 효과 해제 (가시성 확보) */
+    }
+    body.preview-page .image-container:nth-child(even):hover {
+        transform: scale(1.03) !important;
+    }
+    body.preview-page .image-container img {
+        filter: none !important; /* 모바일은 호버가 없으므로 처음부터 선명하게 노출 */
+    }
+    body.preview-page .hover-overlay {
+        opacity: 1 !important; /* 터치 전 가이드 메시지 상시 노출 또는 선택 유도 */
+        background: rgba(0, 0, 0, 0.3);
+    }
 
-    body.dashboard-page .section3 {}
+    /* 6. 줄글/카드 가로 스크롤 모드 (Text View) */
+    body.preview-page .image-gallery.text-view,
+    body.preview-page .image-gallery.text-view-scroll {
+        padding: 15px !important;
+    }
+    body.preview-page .text-row {
+        flex: 0 0 75%; /* 모바일에서 다음 카드가 살짝 보이도록 75% 설정 (넘겨보기 유도) */
+        max-width: 260px;
+    }
+    body.preview-page .text-thumb {
+        height: 140px !important;
+    }
 
-    body.dashboard-page .section-row {}
+    /* 7. 중앙 정보 및 안내 팝업창 */
+    body.preview-page .infor-popup,
+    body.preview-page .preview-popup {
+        width: 92%;
+        padding: 20px 15px;
+        height: 75vh;
+    }
 
-    /* login페이지 모바일 css */
-    body.login-page .login-container {}
+    /* 8. 페이지네이션 버튼 (기존 gap: 70vw 치명적 에러 수정) */
+    body.preview-page #pagination-container {
+        position: static; /* absolute 해제하여 본문 하단에 안착 */
+        margin: 30px auto;
+        gap: 20px; /* 좌우 간격 축소 */
+        width: 100%;
+        justify-content: center;
+    }
+    body.preview-page .pagination-button {
+        padding: 0 30px;
+        height: 40px;
+    }
 
-    body.login-page #lockbox {}
-
-    /* click페이지 모바일css */
-
-    body.click-page .plus_container {}
-
-    body.click-page .detail-content {}
-
-
-
+    /* 9. 우측 하단 플로팅 쓰레기통 */
+    body.preview-page .fixed-trash-container {
+        bottom: 20px;
+        right: 20px; /* 화면 구석으로 밀착 */
+        width: 70px;
+        height: 70px; /* 모바일 사이즈 축소 */
+    }
 }
 
+/* ==========================================================================
+   [초소형 모바일 해상도 대응] 화면 너비 375px 이하 (아이폰 SE, 미니 등)
+   ========================================================================== */
 @media (max-width: 375px) {
+    /* 뷰 전환 아이콘 마진 축소 */
+    body.preview-page #view-switch {
+        margin: 10px auto 5px right;
+    }
 
-    /* dash-board페이지 모바일 css */
-    body.dashboard-page .adminbar-container {}
+    /* 상단 알약 탭 글자 크기 보정 */
+    body.preview-page .tab-btn {
+        padding: 0 10px;
+        font-size: 12px;
+    }
 
-    body.dashboard-page #devide {}
+    /* 소카테고리 한 줄에 2개씩으로 변경 (글자 짤림 방지) */
+    body.preview-page .sub-tab {
+        width: calc(50% - 10px);
+        font-size: 11px;
+    }
 
-    body.dashboard-page #left_wrap {}
+    /* 바둑판 이미지 크기 최적화 */
+    body.preview-page .image-gallery {
+        gap: 15px 10px;
+    }
+    body.preview-page .image-container {
+        width: calc(50% - 5px);
+        height: calc(50vw - 15px);
+    }
+    body.preview-page .hover-message {
+        font-size: 12px; /* 폰트 축소 */
+    }
 
-    body.dashboard-page #right_wrap {}
+    /* 가로 스크롤 카드 너비 축소 */
+    body.preview-page .text-row {
+        flex: 0 0 82%; 
+        max-width: 230px;
+    }
 
-    body.dashboard-page .section1 {}
-
-    body.dashboard-page .section2 {}
-
-    body.dashboard-page .section3 {}
-
-    body.dashboard-page .section-row {}
-
-    /* login페이지 모바일 css */
-    body.login-page .login-container {}
-
-    body.login-page #lockbox {}
-
-    /* click페이지 모바일css */
-
-    body.click-page .plus_container {}
-
-    body.click-page .detail-content {}
+    /* 설정 팝업 크기 조절 */
+    body.preview-page #settingPopup.active {
+        width: 290px;
+        left: 5%;
+        transform: translateY(-5%);
+    }
 }
