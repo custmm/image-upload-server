@@ -2791,9 +2791,19 @@ body.preview-page .preview-popup iframe #previewFrame {
 }
 
 /*====== 팝업안 요소css ======*/
+
+body.preview-page .toggle-switch_ind {
+    display: flex;
+    border: 1px solid #333;
+    height: 35px;
+    gap: 10px;
+    padding: 6px;
+    border-radius: 10px;
+}
+
 body.preview-page .indicate_btn {
     color: #555;
-    border-radius: 30px;
+    border-radius: 10px;
     border: 1px solid #000;
     width: 65px;
 }
@@ -3146,16 +3156,6 @@ body.preview-page #indicator-img {
     left: 90%;
     z-index: 100;
 
-}
-
-body.preview-page .toggle-switch_ind {
-    display: flex;
-    border: 1px solid #333;
-    width: 155px;
-    height: 35px;
-    gap: 10px;
-    padding: 6px;
-    border-radius: 30px;
 }
 
 /* [수정] 이미지 갤러리 기본 설정 */
