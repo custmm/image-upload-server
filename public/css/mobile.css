@@ -112,13 +112,6 @@
     body.preview-page .image-container:nth-child(even):hover {
         transform: scale(1.03) !important;
     }
-    body.preview-page .image-container img {
-        filter: none !important; /* 모바일은 호버가 없으므로 처음부터 선명하게 노출 */
-    }
-    body.preview-page .hover-overlay {
-        opacity: 1 !important; /* 터치 전 가이드 메시지 상시 노출 또는 선택 유도 */
-        background: rgba(0, 0, 0, 0.3);
-    }
 
     /* 6. 줄글/카드 가로 스크롤 모드 (Text View) */
     body.preview-page .image-gallery.text-view,
