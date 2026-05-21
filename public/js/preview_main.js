@@ -189,13 +189,13 @@ window.goCategory = async (categoryName) => {
 
 window.closePreviewPopup = (type) => {
     const map = {
-        info: { 
-            overlay: "previewOverlayInfo", 
-            frame: "previewFrameInfo" 
+        info: {
+            overlay: "previewOverlayInfo",
+            frame: "previewFrameInfo"
         },
-        icon: { 
-            overlay: "previewOverlayIcon", 
-            frame: "previewFrameIcon" 
+        icon: {
+            overlay: "previewOverlayIcon",
+            frame: "previewFrameIcon"
         }
     };
     const target = map[type];
@@ -373,11 +373,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (showIndBtn && indicatorImg) {
         showIndBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            // 1~8 사이의 랜덤 숫자 생성
+
+            // 1~8(또는 9) 사이의 랜덤 숫자 생성
+            // 💡 기존 코드의 Math.floor(Math.random() * 9) + 1은 1부터 9까지 나옵니다.
             const randomNum = Math.floor(Math.random() * 9) + 1;
 
-            // 이미지 소스 설정 및 출력
-            indicatorImg.src = `${imagePath}${randomNum}re.svg`;
+            // 💡 1. 각 번호에 맞는 확장자를 정의해 줍니다. (실제 파일 구조에 맞게 수정 가능)
+            const extensionMap = {
+                1: "svg",
+                2: "svg",
+                3: "png",
+                4: "png",
+                5: "svg",
+                6: "svg",
+                7: "svg",
+                8: "svg",
+                9: "svg"
+            };
+
+            // 만약 정의되지 않은 숫자가 나오면 기본값으로 'png' 사용
+            const ext = extensionMap[randomNum] || "png";
+
+            // 💡 2. 동적으로 완성된 확장자를 매핑하여 이미지 소스를 설정합니다.
+            indicatorImg.src = `${imagePath}${randomNum}re.${ext}`;
             indicatorImg.style.display = "block";
 
             // 부드럽게 나타나기 (CSS transition이 설정되어 있어야 함)
