@@ -1807,23 +1807,20 @@ body.click-page h1 {
     margin: 30px auto;
 }
 
-body.click-page .explan-container {
-    max-width: 85%;
-    margin: 0 auto;
-    padding-bottom: 15px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 body.click-page .plus_container {
-    padding: 15px;
+    background-color: aliceblue;
+    border-radius: 30px;
+    padding: 20px;
+    margin: 0 auto 20px;
+    width: 85%;
 }
 
 body.click-page .explan-detail-container {
     border: 1px solid #ccc;
     border-radius: 8px;
-    margin: 18px;
+    margin: 18px auto;
+    width: 80%;
 }
 
 body.click-page #exper_container {
@@ -2446,13 +2443,14 @@ body.preview-page ul.main-menu>li>ul.sub-menu>li {
     margin: 12px 0;
 }
 
-body.preview-page ul.main-menu>li>ul.sub-menu>li a{
+body.preview-page ul.main-menu>li>ul.sub-menu>li a {
     color: #555;
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
     transition: color 0.2s ease;
 }
+
 body.preview-page ul.main-menu>li>ul.sub-menu>li a:hover {
     color: #00cc8f;
 }

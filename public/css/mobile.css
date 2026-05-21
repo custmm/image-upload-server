@@ -1,167 +1,64 @@
 @media (max-width: 576px) {
 
-    /*============ index페이지 css ============*/
+    /* dash-board페이지 모바일 css */
+    body.dashboard-page .adminbar-container {}
 
-    /*============ preview페이지 css ============*/
-    body.preview-page .tab-container {
-        gap: 10px;
-    }
+    body.dashboard-page #devide {}
 
-    body.preview-page .tab-btn {
-        font-size: 8px;
-        flex-wrap: wrap;
-    }
+    body.dashboard-page #left_wrap {}
 
-    body.preview-page .tab-btn.active {
-        font-size: 11px;
-        flex-wrap: wrap;
-    }
+    body.dashboard-page #right_wrap {}
 
-    body.preview-page .sub-tab {
-        font-size: 8px;
-        padding: 6px 10px;
-        width: 60px;
-    }
+    body.dashboard-page .section1 {}
 
-    body.preview-page .fixed-trash-container {
-        right: 25px;
+    body.dashboard-page .section2 {}
 
-    }
+    body.dashboard-page .section3 {}
 
-    body.preview-page #settingBtn {
-        top: 10px;
-        right: 25px;
+    body.dashboard-page .section-row {}
 
-    }
+    /* login페이지 모바일 css */
+    body.login-page .login-container {}
 
-    body.preview-page #view-switch {
-        margin: 10px 0 10px 65%;
-    }
+    body.login-page #lockbox {}
 
-    body.preview-page .sidebar {
-        width: 100%;
-        left: -100%;
+    /* click페이지 모바일css */
 
-    }
+    body.click-page .plus_container {}
 
-    body.preview-page .text-card-item {
-        flex: 0 0 185px;
-        height: 280px;
-    }
-
-    body.preview-page .card-title {
-        font-size: 18px;
-
-    }
-
-    body.preview-page #settingPopup.active {
-        left: 40%;
-        width: 300px;
-        height: 220px;
-
-    }
+    body.click-page .detail-content {}
 
 
 
-    /*============ post페이지 css ============*/
-    body.post-page .post-container {
-        width: 90%;
-    }
-
-
-    body.post-page .post-description {
-        font-size: 20px;
-
-    }
-
-    /*============ upload페이지 css ============*/
-    body.upload-page .upload-container {
-        width: 90%;
-    }
 }
 
 @media (max-width: 375px) {
-    
-    /*============ index페이지 css ============*/
 
-    /*============ preview페이지 css ============*/
-    body.preview-page .popup-container.guide-mode {
-        max-width: 350px;
-    }
+    /* dash-board페이지 모바일 css */
+    body.dashboard-page .adminbar-container {}
 
-    body.preview-page .tab-container {
-        gap: 10px;
-    }
+    body.dashboard-page #devide {}
 
-    body.preview-page .tab-btn {
-        font-size: 8px;
-        flex-wrap: wrap;
-    }
+    body.dashboard-page #left_wrap {}
 
-    body.preview-page .tab-btn.active {
-        font-size: 11px;
-        flex-wrap: wrap;
-    }
+    body.dashboard-page #right_wrap {}
 
-    body.preview-page .sub-tab {
-        font-size: 8px;
-        padding: 6px 10px;
-        width: 60px;
-    }
+    body.dashboard-page .section1 {}
 
-    body.preview-page .fixed-trash-container {
-        right: 25px;
+    body.dashboard-page .section2 {}
 
-    }
+    body.dashboard-page .section3 {}
 
-    body.preview-page #settingBtn {
-        right: 25px;
+    body.dashboard-page .section-row {}
 
-    }
+    /* login페이지 모바일 css */
+    body.login-page .login-container {}
 
-    body.preview-page #view-switch {
-        margin: 10px 0 10px 65%;
-    }
+    body.login-page #lockbox {}
 
-    body.preview-page .sidebar {
-        width: 100%;
-        left: -100%;
+    /* click페이지 모바일css */
 
-    }
+    body.click-page .plus_container {}
 
-    body.preview-page .text-card-item {
-        flex: 0 0 185px;
-        height: 280px;
-    }
-
-    body.preview-page .card-title {
-        font-size: 18px;
-
-    }
-
-    body.preview-page #settingPopup.active {
-        left: 40%;
-        width: 300px;
-        height: 220px;
-
-    }
-
-
-
-    /*============ post페이지 css ============*/
-    body.post-page .post-container {
-        width: 90%;
-    }
-
-
-    body.post-page .post-description {
-        font-size: 20px;
-
-    }
-
-    /*============ upload페이지 css ============*/
-    body.upload-page .upload-container {
-        width: 90%;
-    }
-
+    body.click-page .detail-content {}
 }
