@@ -2457,7 +2457,8 @@ body.preview-page ul.main-menu >li:nth-child(2)>ul.sub-menu>li a:hover {
 body.preview-page ul.main-menu >li:last-child>h3{
     color: #555;
 }
-body.preview-page .sidebar .menu-title {
+
+body.preview-page ul.main-meun> li > button.menu-title {
     background: none;
     border: none;
     padding: 10px 0;
@@ -2469,7 +2470,7 @@ body.preview-page .sidebar .menu-title {
     transition: color 0.2s ease;
 }
 
-body.preview-page .sidebar .menu-title:hover {
+body.preview-page ul.main-meun> li > button.menu-title:hover {
     color: #00cc8f;
 }
 
