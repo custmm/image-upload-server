@@ -101,17 +101,6 @@
         padding: 20px 10px;
         gap: 20px 15px; /* 숨통 틔우기 */
     }
-    body.preview-page .image-container {
-        width: calc(50% - 8px); /* 모바일 한 줄에 2개씩 배치 */
-        height: calc(50vw - 20px); /* 정사각형 비율 유지 */
-        border-radius: 16px; /* 50% 원형에서 부드러운 사각형으로 자동 전환 (환공포증 개선) */
-    }
-    body.preview-page .image-container:nth-child(even) {
-        transform: none !important; /* 모바일은 화면이 좁으므로 지그재그 효과 해제 (가시성 확보) */
-    }
-    body.preview-page .image-container:nth-child(even):hover {
-        transform: scale(1.03) !important;
-    }
 
     /* 6. 줄글/카드 가로 스크롤 모드 (Text View) */
     body.preview-page .image-gallery.text-view,
