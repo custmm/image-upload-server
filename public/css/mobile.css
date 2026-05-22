@@ -2,6 +2,11 @@
    [모바일 표준 해상도 대응] 화면 너비 576px 이하
    ========================================================================== */
 @media (max-width: 576px) {
+    body.preview-page .sub-tab {
+        font-size: 10px;
+        width: 90px;
+        height: 30px;
+    }
 
 }
 
