@@ -3623,6 +3623,7 @@ body.preview-page .function-infor {
     position: relative;
     flex-direction: column;
     gap: 10px;
+    margin: 0 auto;
 }
 
 body.preview-page #pagination-info {
