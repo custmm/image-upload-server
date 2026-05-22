@@ -123,19 +123,6 @@
         height: 75vh;
     }
 
-    /* 8. 페이지네이션 버튼 (기존 gap: 70vw 치명적 에러 수정) */
-    body.preview-page #pagination-container {
-        position: static; /* absolute 해제하여 본문 하단에 안착 */
-        margin: 30px auto;
-        gap: 20px; /* 좌우 간격 축소 */
-        width: 100%;
-        justify-content: center;
-    }
-    body.preview-page .pagination-button {
-        padding: 0 30px;
-        height: 40px;
-    }
-
     /* 9. 우측 하단 플로팅 쓰레기통 */
     body.preview-page .fixed-trash-container {
         bottom: 20px;
