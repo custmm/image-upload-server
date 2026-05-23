@@ -37,6 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const audio2 = document.getElementById("fireworkAudio");
     const clickerModal = document.getElementById("clicker-modal");
     const mainContainer = document.getElementById("main-container");
+    
+    // ⭐ [핵심 수정] HTML에 적혀있는 id인 'btn-use-clicker'와 'btn-cancel-clicker'로 정확히 가져옵니다!
     const btnUse = document.getElementById("btn-use-clicker");
     const btnCancel = document.getElementById("btn-cancel-clicker");
     const fireworksCanvas = document.getElementById("fireworksCanvas");
@@ -154,6 +156,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ---------------- 팝업 버튼 이벤트 (완벽한 인터랙션 복원 및 해제 처리) ---------------- */
+    
+    // 1. HTML 안에 정의된 .popup-box에 우상단 X 버튼 동적 탑재
     const popupBox = document.querySelector(".popup-box");
     if (popupBox) {
         if (!document.querySelector(".popup-close-x")) {
@@ -163,51 +167,51 @@ document.addEventListener("DOMContentLoaded", () => {
             popupBox.appendChild(closeBtn);
 
             closeBtn.onclick = (event) => {
-                event.stopPropagation(); // ⭐ body로 이벤트가 번지는 것 원천 차단
+                event.stopPropagation(); // body로 버블링 막기
                 if (clickerModal) clickerModal.style.display = "none";
                 
-                // 차단 상태 완벽 초기화
                 isClickerBlocked = false; 
                 clickTimes = []; 
             };
         }
     }
 
-    // '테토 모드' 버튼 클릭 시
+    // 2. '테토 모드' 버튼 클릭 시 (정확한 ID 이벤트 할당 완료)
     if (btnUse) {
         btnUse.onclick = (event) => {
-            event.stopPropagation(); // ⭐ body로 이벤트가 번지는 것 원천 차단
+            event.stopPropagation(); // 부모 클릭 이벤트를 트리거하지 않도록 가두기
             currentFireworkMode = 'heavy'; 
             if (clickerModal) clickerModal.style.display = "none";
             
             isClickerBlocked = false;
             clickTimes = [];
+            console.log("🎆 테토 모드(풀 파워) 가동! 차단 풀림.");
         };
     }
 
-    // '에겐 모드' 버튼 클릭 시
+    // 3. '에겐 모드' 버튼 클릭 시 (정확한 ID 이벤트 할당 완료)
     if (btnCancel) {
         btnCancel.onclick = (event) => {
-            event.stopPropagation(); // ⭐ body로 이벤트가 번지는 것 원천 차단
+            event.stopPropagation(); // 부모 클릭 이벤트를 트리거하지 않도록 가두기
             currentFireworkMode = 'light'; 
             if (clickerModal) clickerModal.style.display = "none";
             
             isClickerBlocked = false;
             clickTimes = [];
-            alert("최적화 모드: 은은한 불꽃 효과만 유지하여 시스템을 보호합니다. 인터랙션이 복원되었습니다.");
+            console.log("🕊️ 에겐 모드(최적화) 가동! 차단 풀림.");
         };
     }
 
     /* ---------------- 클릭 이벤트 (조건부 차단 및 안전장치) ---------------- */
     body.addEventListener("click", (event) => {
-        // ⭐ 1. 모달 내부 버튼이나 컨테이너 영역을 누른 거라면 불꽃놀이나 속도 측정을 아예 건너뜁니다!
+        // ⭐ 모달 내부 레이어나 오버레이, 버튼을 누른 거라면 클릭 측정을 패스하여 가둡니다.
         if (event.target.closest("#clicker-modal") || event.target.closest(".popup-overlay")) {
             return;
         }
 
         if (isPopupOpen) return;  
 
-        // 2. 클릭 속도 측정 (프로그램 인식 로직)
+        // 클릭 속도 측정 (프로그램 인식 로직)
         const now = Date.now();
         clickTimes.push(now);
         clickTimes = clickTimes.filter(time => now - time < 1000); 
@@ -218,14 +222,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 3. UI 클릭 예외 처리
+        // UI 클릭 예외 처리
         if (event.target.closest(".container") ||
             event.target.closest("button") ||
             event.target.closest("a") ||
             event.target.classList.contains("glow-circle")
         ) return;
 
-        // 4. 불꽃놀이 실행
+        // 불꽃놀이 실행
         const x = event.clientX;
         const y = event.clientY;
 
