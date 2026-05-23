@@ -91,8 +91,13 @@ body.index-page .magic-circle-canvas {
     pointer-events: none;
 }
 
-body.index-page #index-page #fireworksCanvas { z-index: 9999; }
-body.index-page .magic-circle-canvas { z-index: 9000; }
+body.index-page #index-page #fireworksCanvas {
+    z-index: 9999;
+}
+
+body.index-page .magic-circle-canvas {
+    z-index: 9000;
+}
 
 /* 6. 글로우 서클 이징 시스템 */
 body.index-page .glow-circle {
@@ -2285,28 +2290,258 @@ body.post-page .pagedown-icon-button:hover {
 }
 
 /* ====== 미리보기 페이지(preview.html) ====== */
-/*====== 뼈대 스타일 ======*/
-.skeleton-card {
-    width: 100%;
-    height: 280px;
-    /* 실제 카드 높이와 맞추세요 */
-    background: #e0e0e0;
-    border-radius: 16px;
+/* ==========================================================================
+   [1] 공통 스켈레톤 UI 애니메이션 (유지)
+   ========================================================================== */
+body.preview-page .skeleton-card {
     position: relative;
     overflow: hidden;
+    background: #e0e0e0;
+    border-radius: 16px;
+    width: 100%;
+    height: 280px;
 }
 
-/* 빛이 흐르는 애니메이션 */
-.skeleton-card::after {
+body.preview-page .skeleton-card::after {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
     animation: skeleton-sweep 1.5s infinite;
 }
+
+/* ==========================================================================
+   [2] 사이드바 본체 및 애니메이션 엔진 (보존 및 정돈)
+   ========================================================================== */
+body.preview-page .sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    /* 초기 상태: 화면 왼쪽 너머로 완전히 숨김 */
+    width: 280px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 10000;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 쫀득한 오픈 속도 적용 */
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    padding: 30px 20px;
+    display: block !important;
+}
+
+body.preview-page .sidebar.open {
+    left: 0 !important;
+}
+
+/* 메인메뉴 트랜지션 보정 */
+body.preview-page ul.main-menu>li:last-child {
+    position: relative;
+    transition: margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 아코디언 서브메뉴 스르륵 슬라이딩 창고 */
+body.preview-page .sub-menu-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.3s ease;
+}
+
+body.preview-page .sub-menu-wrapper.active {
+    max-height: 250px;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==========================================================================
+   [3] 사진/이미지 모드: 환공포증 방지 지그재그 배치 시스템 (핵심 보존)
+   ========================================================================== */
+body.preview-page .image-container {
+    position: relative;
+    overflow: hidden;
+    width: 14vw;
+    height: 14vw;
+    background-color: #eee;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 짝수 번째 아이템을 수직으로 밀어주어 일렬 격자 무늬 깨뜨리기 */
+body.preview-page .image-container:nth-child(even) {
+    transform: translateY(40px);
+}
+
+/* 호버 인터랙션 시스템 */
+body.preview-page .image-container:hover {
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+body.preview-page .image-container:nth-child(even):hover {
+    transform: translateY(40px) scale(1.05);
+}
+
+body.preview-page .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(80%) brightness(0.9) blur(10px);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+body.preview-page .image-container:hover img {
+    filter: grayscale(0%) brightness(1) blur(0);
+}
+
+body.preview-page .hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+body.preview-page .image-container:hover .hover-overlay {
+    opacity: 1;
+}
+
+body.preview-page .hover-message {
+    transform: translateY(10px);
+    transition: transform 0.35s ease;
+}
+
+body.preview-page .image-container:hover .hover-message {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   [4] 텍스트/카드 모드: 3D Flip 카드 뒤집기 레이어 (완벽 연동)
+   ========================================================================== */
+body.preview-page .text-card-item {
+    position: relative !important;
+    flex: 0 0 280px;
+    height: 330px;
+    background: transparent !important;
+    perspective: 1000px;
+    /* 입체 축 고정 */
+}
+
+body.preview-page .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+body.preview-page .text-card-item:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+body.preview-page .flip-card-front,
+body.preview-page .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /* 뒤쪽 면 투과 방지 */
+    border-radius: 20px;
+}
+
+body.preview-page .flip-card-front {
+    background-color: #ffffff;
+}
+
+body.preview-page .flip-card-back {
+    background: linear-gradient(135deg, #1e2022 0%, #2b3035 100%);
+    transform: rotateY(180deg);
+    border: 2px solid #00cc8f;
+}
+
+body.preview-page .flip-tag-badge {
+    transition: all 0.2s ease;
+}
+
+body.preview-page .flip-tag-badge:hover {
+    background: #00cc8f !important;
+    color: #1e2022 !important;
+    border-color: #00cc8f !important;
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   [5] 가로 휠 스크롤 전용 레이아웃 강제 지정
+   ========================================================================== */
+body.preview-page .image-gallery.text-view {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+body.preview-page .image-gallery.text-view::-webkit-scrollbar {
+    display: none;
+    /* 스크롤바 클립 숨김 */
+}
+
+body.preview-page .text-row {
+    flex: 0 0 85%;
+    max-width: 350px;
+    scroll-snap-align: center;
+}
+
+/* ==========================================================================
+   [6] 푸터 고정식 유령 쓰레기통 애니메이션 (보존)
+   ========================================================================== */
+body.preview-page .fixed-trash-container {
+    position: fixed;
+    bottom: 60px;
+    right: 120px;
+    width: 100px;
+    height: 100px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* 통통 튀는 이징 효과 */
+}
+
+body.preview-page .trash-icon {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.2s ease;
+}
+
+body.preview-page .hover-icon {
+    opacity: 0;
+}
+
+body.preview-page .fixed-trash-container.open .main-icon,
+body.preview-page .fixed-trash-container:hover .main-icon {
+    opacity: 0;
+}
+
+body.preview-page .fixed-trash-container.open .hover-icon,
+body.preview-page .fixed-trash-container:hover .hover-icon {
+    opacity: 1;
+}
+
+body.preview-page .fixed-trash-container.open,
+body.preview-page .fixed-trash-container:hover {
+    transform: scale(1.15);
+    /* 입 벌릴 때 팽창 */
+}
+
 
 /*====== 표시기css ======*/
 body.preview-page .preview-images {
@@ -2346,62 +2581,7 @@ body.preview-page .sidebar-toggle:hover {
     border: none;
 }
 
-/*==========================================================================
-   [최적화 및 완벽 무빙 적용] 사이드바 본체 및 오픈 스타일 
-   ========================================================================== */
-body.preview-page .sidebar {
-    position: fixed;
-    top: 0;
-    left: -300px;
-    /* 초기 상태: 화면 왼쪽 너머로 완전히 숨김 */
-    width: 280px;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.98);
-    /* 가독성을 위해 불투명도 살짝 상승 */
-    z-index: 10000;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    /* 쫀득하고 빠른 사이드바 오픈 모션 */
-    display: block !important;
-    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.08);
-    /* 열렸을 때 입체감 추가 */
-    box-sizing: border-box;
-    padding: 30px 20px;
-    /* 내부 기본 패딩 정돈 */
-}
 
-body.preview-page .sidebar.open {
-    left: 0 !important;
-    /* open 시 과도한 padding-left(75px) 제거 -> 내부 컴포넌트 찌그러짐 현상 원인 차단 */
-}
-
-/*==========================================================================
-   사이드바 메인 메뉴 및 서브메뉴(아코디언) 유연한 무빙 CSS 
-   ========================================================================== */
-body.preview-page ul.main-menu {
-    list-style: none;
-    padding: 0;
-    margin: 90px 0 0 0;
-    display: flex;
-    flex-direction: column;
-    /* 자식 요소들의 흐름을 세로 배치로 격리 */
-}
-
-body.preview-page ul.main-menu>li:first-child {
-    margin: 10px 0;
-    text-align: left;
-}
-
-body.preview-page ul.main-menu>li:last-child {
-    position: relative;
-    /* 무빙을 비틀던 absolute 단독 원인 해결을 위해 부모를 기준점으로 고정 */
-    display: flex;
-    align-items: center;
-    margin-top: 25px;
-    padding: 0;
-    width: 100%;
-    /* 상단 아코디언 서브메뉴 껍데기가 늘어나거나 줄어들 때 아래로 유연하게 파도타듯 이동합니다 */
-    transition: margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 /* 실제 내부 sub-menu 리스트 디자인 */
 body.preview-page ul.main-menu>li>ul.sub-menu {
@@ -2950,102 +3130,11 @@ body.preview-page .sub-tab.active {
     font-weight: bold;
 }
 
-
-/*====== marge-container내 이미지썸네일관련css ======*/
-/* 1. 이미지 컨테이너: 원형 패턴을 깨기 위해 기본값을 둥근 사각형으로 제안 */
-body.preview-page .image-container {
-    position: relative;
-    overflow: hidden;
-    width: 14vw;
-    /* 크기 약간 조절 */
-    height: 14vw;
-    border-radius: 50%;
-    /* 정원(50%) 대신 깊은 곡률의 사각형 */
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    background-color: #eee;
-    /* 로딩 전 빈 공간 느낌 방지 */
-}
-
-/* [핵심] 지그재그 배치: 짝수 번째 아이템을 아래로 밀어 패턴 파괴 */
-body.preview-page .image-container:nth-child(even) {
-    transform: translateY(40px);
-}
-
-/* 2. 호버 시: 사각형으로 더 선명해지며 떠오르는 효과 */
-body.preview-page .image-container:hover {
-    border-radius: 12px;
-    transform: scale(1.05);
-    /* 기본 확대 */
-    z-index: 10;
-}
-
-/* 짝수 번째 아이템 호버 시 기존 translateY 유지하며 확대 */
-body.preview-page .image-container:nth-child(even):hover {
-    transform: translateY(40px) scale(1.05);
-}
-
-/* 3. 이미지 자체 스타일: 과도한 블러와 어둠 제거 */
-body.preview-page .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* 블러를 낮추고 회색조만 살짝 주어 구멍처럼 보이지 않게 함 */
-    filter: grayscale(80%) brightness(0.9)blur(10px);
-    border-radius: inherit;
-    /* 부모의 radius를 따라감 */
-    transition: filter 0.3s ease, transform 0.3s ease;
-}
-
-/* 호버 시 이미지 선명화 */
-body.preview-page .image-container:hover img {
-    filter: grayscale(0%) brightness(1) blur(0);
-}
-
-body.preview-page .image-container:hover .hover-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    pointer-events: none;
-    z-index: 2;
-    /* 이미지보다 위로 오도록 설정 */
-}
-
-body.preview-page .image-container:hover .hover-message {
-    transform: translateY(0);
-}
-
 body.preview-page .image-container img:hover {
     cursor: pointer;
     background: #f7f7f7;
     border-radius: 8px;
     filter: blur(15px);
-}
-
-body.preview-page .hover-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    pointer-events: none;
-}
-
-body.preview-page .hover-message {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    transform: translateY(10px);
-    transition: transform 0.35s ease;
 }
 
 /*====== marge-container내 카테고리 제목 스타일 ======*/
@@ -3192,73 +3281,6 @@ body.preview-page .text-card-item:last-child {
    텍스트 모드 카드 3D Flip (뒤집기) 스타일 
    ========================================================================== */
 
-/* 1. 부모 카드: 3D 원근감(Perspective) 설정 */
-body.preview-page .text-card-item {
-    position: relative !important;
-    flex: 0 0 280px;
-    height: 330px;
-    background: transparent !important;
-    /* 배경은 inner에서 처리하므로 투명하게 */
-    perspective: 1000px;
-    /* 숫자가 작을수록 입체감이 격렬해집니다 */
-    cursor: pointer;
-    box-shadow: none !important;
-    /* 그림자 효과도 inner로 이관 */
-}
-
-/* 2. 회전하는 핵심 컨테이너 */
-body.preview-page .flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d;
-    /* 자식 요소들의 3D 평면 유지 */
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* ★ Hover 시 Y축으로 180도 회전 ★ */
-body.preview-page .text-card-item:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
-
-/* 3. 앞면과 뒷면 공통 속성: 뒷면 숨기기 */
-body.preview-page .flip-card-front,
-body.preview-page .flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    /* 뒤집혔을 때 반대편이 안 보이도록 설정 */
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-/* 4. 앞면 스타일 (기존 텍스트 카드 디자인 커스텀) */
-body.preview-page .flip-card-front {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-}
-
-/* 5. 뒷면 스타일 (태그가 노출되는 영역) */
-body.preview-page .flip-card-back {
-    background: linear-gradient(135deg, #1e2022 0%, #2b3035 100%);
-    /* 고급스러운 다크 그라데이션 */
-    color: white;
-    transform: rotateY(180deg);
-    /* 초기 상태를 뒤집어 놓음으로써 앞면과 마주 보게 함 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
-    border: 2px solid #00cc8f;
-    /* 포인트 테두리 선 (선택 사항) */
-}
 
 /* 뒷면 내부 정렬 컨테이너 */
 body.preview-page .flip-back-content {
@@ -3289,25 +3311,6 @@ body.preview-page .flip-tag-container {
     padding: 5px;
 }
 
-/* 개별 태그 뱃지 */
-body.preview-page .flip-tag-badge {
-    background: rgba(255, 255, 255, 0.1);
-    color: #dedede;
-    padding: 6px 12px;
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-body.preview-page .flip-tag-badge:hover {
-    background: #00cc8f;
-    color: #1e2022;
-    border-color: #00cc8f;
-    transform: scale(1.05);
-}
-
 /* 태그가 없을 때 메시지 */
 body.preview-page .flip-no-tag {
     font-size: 13px;
@@ -3320,52 +3323,6 @@ body.preview-page .flip-click-notice {
     font-size: 11px;
     color: rgba(255, 255, 255, 0.4);
 }
-
-/* 텍스트 모드 (이미지 갤러리 전체 설정) */
-/* 미디어 쿼리 밖에 작성하여 PC/모바일 공통 적용 */
-body.preview-page .image-gallery.text-view {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    /* PC에서도 아래로 떨어지지 않고 옆으로 나열 */
-    flex-direction: row !important;
-    overflow-x: auto !important;
-    /* 가로 스크롤바 활성화 */
-    overflow-y: hidden !important;
-    /* 세로 스크롤은 차단 */
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding: 20px 0 !important;
-    gap: 0;
-}
-
-/* 1. 갤러리 컨테이너: 가로 스크롤 및 정렬 설정 */
-body.preview-page .image-gallery.text-view,
-body.preview-page .image-gallery.text-view-scroll {
-    display: flex !important;
-    flex-direction: row !important;
-    /* 가로 나열 강제 */
-    overflow-x: auto !important;
-    /* 가로 스크롤 활성화 */
-    scroll-snap-type: x mandatory;
-    /* 자석 효과 */
-    padding: 20px 0 !important;
-    /* 위아래 여백만 유지 */
-    justify-content: flex-start !important;
-    /* 왼쪽부터 차곡차곡 */
-    gap: 0;
-    /* 간격은 마진으로 조절 */
-    background-color: transparent;
-    box-shadow: none;
-    border-radius: 10px;
-    -webkit-overflow-scrolling: touch;
-}
-
-/* 스크롤바 숨기기 */
-body.preview-page .image-gallery.text-view::-webkit-scrollbar,
-body.preview-page .image-gallery.text-view-scroll::-webkit-scrollbar {
-    display: none;
-}
-
 
 
 /* 한 줄 컨테이너 (이제 개별 카드 역할을 함) */
@@ -3751,69 +3708,6 @@ body.preview-page .page-footer li a {
 body.preview-page .page-footer li a:hover {
     text-decoration: underline;
     opacity: 0.8;
-}
-
-/* 쓰레기통 컨테이너 고정 */
-body.preview-page .fixed-trash-container {
-    position: fixed;
-    bottom: 60px;
-    right: 120px;
-    width: 100px;
-    height: 100px;
-    z-index: 1000;
-    cursor: pointer;
-    /* ✨ 이제 아이콘들이 absolute라 꽉 채울 거니까 flex 속성은 지워도 괜찮아! */
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* 커비처럼 통통 튀는 이징 효과 추가! */
-}
-
-/* 🌟 핵심 1: 아이콘을 완벽하게 겹치게 만드는 스타일 */
-body.preview-page .trash-icon {
-    position: absolute;
-    top: 0;
-    /* 무조건 맨 위 */
-    left: 0;
-    /* 무조건 맨 왼쪽에서 시작 */
-    width: 100%;
-    /* 100px에 꽉 차게 */
-    height: 100%;
-    object-fit: contain;
-    /* 비율이 안 깨지도록 꽉 잡아줌! */
-    transition: opacity 0.2s ease;
-    /* 깜빡이는 속도를 살짝 더 빠르게! */
-}
-
-/* 2번 아이콘 기본 숨기기 */
-body.preview-page .hover-icon {
-    opacity: 0;
-}
-
-/* 🌟 핵심 2: :hover 대신 .open 클래스로 제어! (JS랑 완벽 동기화) */
-body.preview-page .fixed-trash-container.open .main-icon {
-    opacity: 0;
-}
-
-body.preview-page .fixed-trash-container.open .hover-icon {
-    opacity: 1;
-}
-
-/* .open 상태일 때 살짝 커지면서 입을 쩍! 벌리는 느낌 */
-body.preview-page .fixed-trash-container.open {
-    transform: scale(1.15);
-    /* 1은 그대로라는 뜻이야! 1.15로 해야 커비처럼 커져! */
-}
-
-/* 아이콘 기본 스타일 */
-body.preview-page .trash-icon {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transition: opacity 0.3s ease;
-}
-
-/* 호버 전: 2번 아이콘 숨기기 */
-body.preview-page .hover-icon {
-    opacity: 0;
 }
 
 /* 소개팝업페이지(preview_popup.html) */

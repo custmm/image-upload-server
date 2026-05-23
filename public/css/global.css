@@ -6,6 +6,11 @@
     100% { transform: translate(var(--mx), var(--my)) scale(0.2); opacity: 0; }
 }
 
+@keyframes skeleton-sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
 @keyframes glowAnimation {
     0% {
         opacity: 0.5;
@@ -54,15 +59,6 @@
     }
 }
 
-@keyframes skeleton-sweep {
-    0% {
-        transform: translateX(-100%);
-    }
-
-    100% {
-        transform: translateX(100%);
-    }
-}
 
 @keyframes rotate {
     100% {
