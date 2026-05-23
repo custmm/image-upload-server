@@ -139,28 +139,8 @@ body.index-page .glow-effect {
     z-index: 9999;
 }
 
-/* 기존 커스텀 팝업창 디자인 오버라이드(X 버튼만 커스텀 유지) */
-body.index-page .popup-close-x {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #888;
-    cursor: pointer;
-    line-height: 1;
-    transition: color 0.2s, transform 0.2s;
-}
 
-body.index-page .popup-close-x:hover {
-    color: #f44336;
-    transform: scale(1.2);
-}
 
-body.index-page .modal-buttons {
-    display: flex;
-    gap: 10px;
-}
 
 body.index-page .popup-confirm-button {
     border-radius: 20px;
@@ -185,8 +165,9 @@ body.index-page #mainTitle {
     overflow: hidden;
 }
 
+/* 1. 기본 오버레이 설정: 초기 상태는 무조건 none으로 숨김 */
 body.index-page .popup-overlay {
-    display: flex;
+    display: none; /* ◀ 초기 상태 숨김으로 수정 (JS가 flex로 띄울 예정) */
     align-items: center;
     justify-content: center;
     position: fixed;
@@ -195,17 +176,43 @@ body.index-page .popup-overlay {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-
-    z-index: 1500;
+    z-index: 2500; /* ◀ 다른 UI나 문 컨테이너(100)보다 무조건 위에 오도록 가중치 상향 */
 }
 
+/* 2. 팝업 박스 기본 내부 정렬 및 배치 기준 설정 */
 body.index-page .popup-box {
+    position: relative; /* 엑스 버튼 배치의 기준점 */
     background-color: white;
     color: #000;
-    padding: 20px;
-    border-radius: 5px;
+    padding: 25px;
+    border-radius: 12px; /* 살짝 더 부드러운 라운딩 */
     text-align: center;
     width: 350px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* 3. 우상단 커스텀 X 버튼 스타일 */
+body.index-page .popup-close-x {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s, transform 0.2s;
+}
+
+body.index-page .popup-close-x:hover {
+    color: #f44336;
+    transform: scale(1.2);
+}
+
+/* 4. 부트스트랩 호환용 헬퍼 버튼 유틸 */
+body.index-page .modal-buttons {
+    display: flex;
+    gap: 10px;
 }
 
 body.index-page .popup-image {
