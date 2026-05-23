@@ -171,53 +171,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------------- 팝업 버튼 이벤트 (에러 방지 처리) ---------------- */
 
-    // 1. 팝업 박스 안에 엑스(X) 버튼 동적 생성
+/* ---------------- 팝업 버튼 이벤트 (완벽한 인터랙션 복원 및 해제 처리) ---------------- */
+
+    // 1. 팝업 박스 안에 엑스(X) 버튼 동적 생성 및 이벤트 바인딩
     const popupBox = document.querySelector(".popup-box");
     if (popupBox) {
-        const closeBtn = document.createElement("span");
-        closeBtn.innerHTML = "&times;"; // '×' 기호
-        closeBtn.className = "popup-close-x"; // CSS 스타일링용 클래스
-        popupBox.appendChild(closeBtn);
+        // 중복 생성 방지
+        if (!document.querySelector(".popup-close-x")) {
+            const closeBtn = document.createElement("span");
+            closeBtn.innerHTML = "&times;"; // '×' 기호
+            closeBtn.className = "popup-close-x"; // CSS 스타일링용 클래스
+            popupBox.appendChild(closeBtn);
 
-        // 엑스 버튼 클릭 시 팝업 닫기 (설정 없이 넘어가기)
-        closeBtn.onclick = (event) => {
-            event.stopPropagation();
-            if (clickerModal) clickerModal.style.display = "none";
-            console.log("팝업이 수동으로 닫혔습니다. 기본 클릭커 모드가 적용됩니다.");
-        };
+            // 엑스 버튼 클릭 시 팝업 닫기 및 인터랙션 즉시 복원
+            closeBtn.onclick = (event) => {
+                event.stopPropagation();
+                if (clickerModal) clickerModal.style.display = "none";
+                
+                // 🔥 [핵심 추가] 뒤쪽 인터랙션 잠금 해제 및 쌓인 클릭 초기화
+                isClickerBlocked = false; 
+                clickTimes = []; 
+                console.log("팝업이 X 버튼으로 닫혔습니다. 클릭 차단이 해제되어 뒤쪽 인터랙션이 가능합니다.");
+            };
+        }
     }
 
-    /* ---------------- 팝업 버튼 이벤트 (에러 방지 및 인터랙션 복원 처리) ---------------- */
+    // 2. '풀 파워 컨셉 모드 사용' 버튼 클릭 시
     if (btnUse) {
         btnUse.onclick = (event) => {
-            event.stopPropagation(); // 이벤트 버블링 차단
-            currentFireworkMode = 'heavy'; // 풀 파워 컨셉 모드 가동
+            if (event) event.stopPropagation();
+            currentFireworkMode = 'heavy'; // 제작자 컨셉 그대로!
             if (clickerModal) clickerModal.style.display = "none";
-
-            // 일반 모드라면 차단을 유지하거나 필요에 따라 해제하지만,
-            // 사용을 수동으로 눌렀으므로 클릭 상태를 초기화해 줍니다.
+            
+            // 🔥 [핵심 추가] 뒤쪽 인터랙션 잠금 해제 및 쌓인 클릭 초기화
             isClickerBlocked = false;
+            clickTimes = [];
             console.log("🎆 풀 파워 컨셉 모드 가동! 클릭 차단 해제.");
         };
     }
 
+    // 3. '최적화 모드/사용 안 함' 버튼 클릭 시
     if (btnCancel) {
         btnCancel.onclick = (event) => {
-            event.stopPropagation(); // 이벤트 버블링 차단
-
-            // 1. 팝업창을 화면에서 완전히 숨깁니다.
+            if (event) event.stopPropagation();
+            currentFireworkMode = 'light'; // 연산량만 낮춤 (컨셉 보존)
             if (clickerModal) clickerModal.style.display = "none";
-
-            // [핵심] 2. 뒤쪽의 인터랙션(body 클릭, 별 그리기 등)을 사용할 수 있도록 차단 플래그를 해제합니다!
+            
+            // 🔥 [핵심 추가] 뒤쪽 인터랙션 잠금 해제 및 쌓인 클릭 초기화
             isClickerBlocked = false;
-
-            // 3. 최근 쌓인 클릭 타임 로그를 비워주어 즉시 다시 팝업이 뜨는 것을 방지합니다.
             clickTimes = [];
-
-            // (선택 사항) 연산량만 낮추는 컨셉 보존용 설정 유지
-            currentFireworkMode = 'light';
-
-            console.log("팝업이 수동으로 닫혔습니다. 클릭 차단 플래그가 해제되어 뒤쪽 인터랙션이 가능합니다.");
+            alert("최적화 모드: 은은한 불꽃 효과만 유지하여 시스템을 보호합니다. 인터랙션이 복원되었습니다.");
         };
     }
 
