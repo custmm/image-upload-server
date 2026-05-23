@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("⚠️ 비정상적인 클릭 속도 감지: 클릭커 확인 팝업을 표시합니다.");
     }
 
-    /* ---------------- 팝업 버튼 이벤트 (완벽한 인터랙션 복원 및 해제 처리) ---------------- */
+/* ---------------- 팝업 버튼 이벤트 (완벽한 인터랙션 복원 및 해제 처리) ---------------- */
     
     // 1. HTML 안에 정의된 .popup-box에 우상단 X 버튼 동적 탑재
     const popupBox = document.querySelector(".popup-box");
@@ -167,38 +167,48 @@ document.addEventListener("DOMContentLoaded", () => {
             popupBox.appendChild(closeBtn);
 
             closeBtn.onclick = (event) => {
-                event.stopPropagation(); // body로 버블링 막기
-                if (clickerModal) clickerModal.style.display = "none";
+                event.stopPropagation(); // body 전체 클릭으로 번지는 버블링 차단
                 
-                isClickerBlocked = false; 
-                clickTimes = []; 
+                // 팝업 숨기기 (Bootstrap의 d-flex 클래스를 무력화하기 위해 none !important 처리)
+                if (clickerModal) {
+                    clickerModal.style.setProperty("display", "none", "important");
+                }
+                
+                isClickerBlocked = false; // 차단 해제
+                clickTimes = []; // 클릭 기록 리셋
             };
         }
     }
 
-    // 2. '테토 모드' 버튼 클릭 시 (정확한 ID 이벤트 할당 완료)
+    // 2. '테토 모드' 버튼 클릭 시 (팝업을 닫고 풀 파워 모드로 뒤쪽 인터랙션 재개)
     if (btnUse) {
         btnUse.onclick = (event) => {
-            event.stopPropagation(); // 부모 클릭 이벤트를 트리거하지 않도록 가두기
-            currentFireworkMode = 'heavy'; 
-            if (clickerModal) clickerModal.style.display = "none";
+            event.stopPropagation(); // 부모 body 클릭 방지
+            currentFireworkMode = 'heavy'; // 불꽃놀이 강하게 설정
             
-            isClickerBlocked = false;
-            clickTimes = [];
-            console.log("🎆 테토 모드(풀 파워) 가동! 차단 풀림.");
+            if (clickerModal) {
+                clickerModal.style.setProperty("display", "none", "important"); // 팝업 즉시 숨김
+            }
+            
+            isClickerBlocked = false; // 마우스 잠금 해제
+            clickTimes = []; // 누적 데이터 초기화
+            console.log("🎆 테토 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
         };
     }
 
-    // 3. '에겐 모드' 버튼 클릭 시 (정확한 ID 이벤트 할당 완료)
+    // 3. '에겐 모드' 버튼 클릭 시 (팝업을 닫고 최적화 모드로 뒤쪽 인터랙션 재개)
     if (btnCancel) {
         btnCancel.onclick = (event) => {
-            event.stopPropagation(); // 부모 클릭 이벤트를 트리거하지 않도록 가두기
-            currentFireworkMode = 'light'; 
-            if (clickerModal) clickerModal.style.display = "none";
+            event.stopPropagation(); // 부모 body 클릭 방지
+            currentFireworkMode = 'light'; // 불꽃놀이 연산량 낮춤
             
-            isClickerBlocked = false;
-            clickTimes = [];
-            console.log("🕊️ 에겐 모드(최적화) 가동! 차단 풀림.");
+            if (clickerModal) {
+                clickerModal.style.setProperty("display", "none", "important"); // 팝업 즉시 숨김
+            }
+            
+            isClickerBlocked = false; // 마우스 잠금 해제
+            clickTimes = []; // 누적 데이터 초기화
+            console.log("🕊️ 에겐 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
         };
     }
 
