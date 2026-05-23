@@ -11,7 +11,7 @@ async function requestAdminToken() {
     try {
         const response = await fetch("/api/admin-token", {
             method: "POST",
-            headers: getSecurityHeaders(), 
+            headers: getSecurityHeaders(),
             body: JSON.stringify({ role: "admin" })
         });
 
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const audio2 = document.getElementById("fireworkAudio");
     const clickerModal = document.getElementById("clicker-modal");
     const mainContainer = document.getElementById("main-container");
-    
+
     // ⭐ [핵심 수정] HTML에 적혀있는 id인 'btn-use-clicker'와 'btn-cancel-clicker'로 정확히 가져옵니다!
     const btnUse = document.getElementById("btn-use-clicker");
     const btnCancel = document.getElementById("btn-cancel-clicker");
@@ -110,11 +110,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------------- 이스터에그 활성화 팝업 ---------------- */
     function showPopup(message, imageUrl, callback) {
-        if (isPopupOpen) return;  
-        isPopupOpen = true;  
+        if (isPopupOpen) return;
+        isPopupOpen = true;
 
         const overlay = document.createElement("div");
-        overlay.className = "popup-overlay";
+        overlay.className = "popup-overlay easteregg-layer";
 
         const popup = document.createElement("div");
         popup.className = "popup-box";
@@ -134,10 +134,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const confirmButton = document.createElement("button");
         confirmButton.textContent = "확인";
         confirmButton.className = "popup-confirm-button";
-        confirmButton.addEventListener("click", () => {
+        confirmButton.addEventListener("click", (event) => {
+            event.stopPropagation();
             overlay.remove();
-            isPopupOpen = false;  
-            if (callback) callback(); 
+            isPopupOpen = false;
+            if (callback) callback();
         });
         popup.appendChild(confirmButton);
         overlay.appendChild(popup);
@@ -155,25 +156,25 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("⚠️ 비정상적인 클릭 속도 감지: 클릭커 확인 팝업을 표시합니다.");
     }
 
-/* ---------------- 팝업 버튼 이벤트 (완벽한 인터랙션 복원 및 해제 처리) ---------------- */
-    
+    /* ---------------- 팝업 버튼 이벤트 (완벽한 인터랙션 복원 및 해제 처리) ---------------- */
+
     // 1. HTML 안에 정의된 .popup-box에 우상단 X 버튼 동적 탑재
     const popupBox = document.querySelector(".popup-box");
     if (popupBox) {
         if (!document.querySelector(".popup-close-x")) {
             const closeBtn = document.createElement("span");
-            closeBtn.innerHTML = "&times;"; 
-            closeBtn.className = "popup-close-x"; 
+            closeBtn.innerHTML = "&times;";
+            closeBtn.className = "popup-close-x";
             popupBox.appendChild(closeBtn);
 
             closeBtn.onclick = (event) => {
                 event.stopPropagation(); // body 전체 클릭으로 번지는 버블링 차단
-                
+
                 // 팝업 숨기기 (Bootstrap의 d-flex 클래스를 무력화하기 위해 none !important 처리)
                 if (clickerModal) {
                     clickerModal.style.setProperty("display", "none", "important");
                 }
-                
+
                 isClickerBlocked = false; // 차단 해제
                 clickTimes = []; // 클릭 기록 리셋
             };
@@ -185,11 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
         btnUse.onclick = (event) => {
             event.stopPropagation(); // 부모 body 클릭 방지
             currentFireworkMode = 'heavy'; // 불꽃놀이 강하게 설정
-            
+
             if (clickerModal) {
                 clickerModal.style.setProperty("display", "none", "important"); // 팝업 즉시 숨김
             }
-            
+
             isClickerBlocked = false; // 마우스 잠금 해제
             clickTimes = []; // 누적 데이터 초기화
             console.log("🎆 테토 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
@@ -201,11 +202,11 @@ document.addEventListener("DOMContentLoaded", () => {
         btnCancel.onclick = (event) => {
             event.stopPropagation(); // 부모 body 클릭 방지
             currentFireworkMode = 'light'; // 불꽃놀이 연산량 낮춤
-            
+
             if (clickerModal) {
                 clickerModal.style.setProperty("display", "none", "important"); // 팝업 즉시 숨김
             }
-            
+
             isClickerBlocked = false; // 마우스 잠금 해제
             clickTimes = []; // 누적 데이터 초기화
             console.log("🕊️ 에겐 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
@@ -213,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ---------------- 클릭 이벤트 (조건부 차단 및 안전장치) ---------------- */
-/* ---------------- 클릭 이벤트 (차단 예외 처리 및 이스터에그 카운터 동시 복원) ---------------- */
+    /* ---------------- 클릭 이벤트 (차단 예외 처리 및 이스터에그 카운터 동시 복원) ---------------- */
     body.addEventListener("click", (event) => {
         // 1. 클릭커 확인 모달 내부나 이스터에그 알림 팝업 오버레이를 누른 거라면 클릭 데이터 수집 제외
         if (event.target.closest("#clicker-modal") || event.target.closest(".popup-overlay") || isPopupOpen) {
