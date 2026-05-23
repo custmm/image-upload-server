@@ -213,33 +213,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ---------------- 클릭 이벤트 (조건부 차단 및 안전장치) ---------------- */
+/* ---------------- 클릭 이벤트 (차단 예외 처리 및 이스터에그 카운터 동시 복원) ---------------- */
     body.addEventListener("click", (event) => {
-        // ⭐ 모달 내부 레이어나 오버레이, 버튼을 누른 거라면 클릭 측정을 패스하여 가둡니다.
-        if (event.target.closest("#clicker-modal") || event.target.closest(".popup-overlay")) {
+        // 1. 클릭커 확인 모달 내부나 이스터에그 알림 팝업 오버레이를 누른 거라면 클릭 데이터 수집 제외
+        if (event.target.closest("#clicker-modal") || event.target.closest(".popup-overlay") || isPopupOpen) {
             return;
         }
 
-        if (isPopupOpen) return;  
-
-        // 클릭 속도 측정 (프로그램 인식 로직)
+        // 2. 속도 및 기록용 타임스탬프 누적
         const now = Date.now();
         clickTimes.push(now);
-        clickTimes = clickTimes.filter(time => now - time < 1000); 
+        clickTimes = clickTimes.filter(time => now - time < 1000); // 최근 1초 데이터 유지
 
-        // 만약 강제로 감지 플래그가 켜졌다면 차단창 띄우고 중단
-        if (clickTimes.length > CLICK_LIMIT_THRESHOLD) {
+        // 3. [핵심 수정] 팝업이 이미 떠 있거나 사용자가 명확하게 프로그램을 가동 중인 경우에만 감지 레이어로 보냅니다.
+        // 손클릭으로 빠르게 이스터에그 카운트를 채울 때 감지기가 가로채지 못하도록 잠금장치가 활성화되었을 때만 트리거합니다.
+        if (clickTimes.length > CLICK_LIMIT_THRESHOLD && isClickerBlocked) {
             triggerClickerDetection();
             return;
         }
 
-        // UI 클릭 예외 처리
+        // 4. UI 및 일반 작동 요소 클릭 시 불꽃놀이 오작동 방지용 예외 필터
         if (event.target.closest(".container") ||
             event.target.closest("button") ||
             event.target.closest("a") ||
             event.target.classList.contains("glow-circle")
         ) return;
 
-        // 불꽃놀이 실행
+        // 5. 시각 효과 - 불꽃놀이 파티클 및 사운드 가동
         const x = event.clientX;
         const y = event.clientY;
 
@@ -248,9 +248,11 @@ document.addEventListener("DOMContentLoaded", () => {
             playFireworkSound();
         });
 
+        // 🔥 6. 카운트 정상 누적 (상단 필터 우회 완료)
         globalClickCount++;
+        console.log("🎯 현재 누적 클릭 수:", globalClickCount);
 
-        // 클릭 횟수별 이벤트 데이터
+        // 클릭 횟수별 이스터에그 데이터 매핑
         const clickEventsData = {
             4: { color: "rgb(205,154,154)", message: "이상기운을 발견했습니다!", imageUrl: "images/alian/ester_01.png" },
             44: { color: "rgb(217,115,115)", message: "조금 더 클릭해보세요", imageUrl: "images/alian/ester_02.png" },
@@ -259,6 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
             444: { color: "#ff0000", message: "곧 재밌는 일이 일어납니다", imageUrl: "images/alian/ester_05.png" }
         };
 
+        // 7. 지정된 카운트 도달 시 배경색 교체 및 전용 얼럿 팝업 노출
         if (clickEventsData[globalClickCount]) {
             document.body.style.backgroundColor = clickEventsData[globalClickCount].color;
 
@@ -266,8 +269,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 clickEventsData[globalClickCount].message,
                 clickEventsData[globalClickCount].imageUrl,
                 () => {
+                    // 최종 444단계 확인 버튼 누르면 기믹 가동
                     if (globalClickCount === 444) {
-                        globalClickCount = 444;
                         triggerEasterEgg();
                     }
                 }
