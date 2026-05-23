@@ -2,287 +2,248 @@
 <html lang="ko">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="google-site-verification" content="kMxKqlA9cKbHdJGw51M2sE21fjyzL3SvY1ryWISJMT0" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ɐ퓨챠휼Ɐ >> 업로드된 이미지</title>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="kMxKqlA9cKbHdJGw51M2sE21fjyzL3SvY1ryWISJMT0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ɐ퓨챠휼Ɐ >> 업로드된 이미지</title>
 
-  <!-- 외부 링크 css -->
-  <link rel="stylesheet" as="style" crossorigin
-    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<link rel="stylesheet" href="./css/bootstrap.min.css">
-  <!-- 파일 내 css -->
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="./css/theme.css">
-  <link rel="stylesheet" href="./css/component.css">
-  <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/theme.css">
+    <link rel="stylesheet" href="./css/component.css">
+    <link rel="stylesheet" href="./css/global.css">
 </head>
 
 <body class="preview-page dark-mode">
 
-  <!-- 상단 메뉴 바 -->
-  <header class="menubar-container">
-    <button class="back-button"
-      onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">뒤로가기
-    </button>
-  </header>
+    <header class="menubar-container d-flex align-items-center px-3">
+        <button class="back-button btn btn-sm btn-outline-light rounded-pill px-3 fw-bold"
+            onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">
+            <i class="fas fa-arrow-left me-1"></i> 뒤로가기
+        </button>
+    </header>
 
-  <div class="menu-wrapper">
-    <button id="sidebarToggleBtn" class="sidebar-toggle">
-      <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
-    </button>
+    <div class="menu-wrapper">
+        <button id="sidebarToggleBtn" class="sidebar-toggle btn p-0 border-0">
+            <span style="color: #a0a0a0; font-size: 30px;">&#9776;</span>
+        </button>
 
+        <nav id="sidebar" class="sidebar">
+            <ul class="main-menu list-unstyled p-3">
+                <li class="mb-4">
+                    <button class="menu-title w-100 text-start btn text-white fw-bold p-0 mb-2">
+                        부가기능
+                    </button>
+                    <ul id="etc" class="sub-menu list-unstyled ps-2">
+                        <li class="my-2">
+                            <a href="click.html" class="text-decoration-none text-secondary">숨겨진기능 체험하기</a>
+                        </li>
+                        <li class="my-2">
+                            <a href="hidden_game/killing_game.html" class="text-decoration-none text-secondary">게임하기</a>
+                        </li>
+                    </ul>
+                </li>
 
-    <!-- 사이드 네비게이션 -->
-    <nav id="sidebar" class="sidebar">
-      <ul class="main-menu">
-
-        <li>
-          <button class="menu-title">
-            부가기능</button>
-          <ul id="etc" class="sub-menu">
-            <li>
-              <a href="click.html">숨겨진기능 체험하기</a>
-            </li>
-            <li>
-              <a href="hidden_game/killing_game.html">게임하기</a>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <h3>라이트/다크 모드</h3>
-
-          <div class="toggle-switch_theme">
-            <input type="checkbox" id="themeToggle">
-            <label class="slider" for="themeToggle">
-              <span id="themeIcon"></span>
-            </label>
-          </div>
-        </li>
-
-
-      </ul>
-    </nav>
-  </div>
-
-
-  <!-- 메인 콘텐츠 영역 -->
-  <main>
-
-    <!-- 기능 제어 영역 -->
-    <section class="function-infor">
-      <div class="message-container">
-        <a href="click.html" id="welcomeMessage">어서오세요</a>
-      </div>
-
-      <div id="settingBtn">
-        <img src="images/toggle/toggle_set.svg" alt="설정 버튼">
-      </div>
-
-    </section>
-
-    <section id="loadingIndicator" class="loading-indicator">
-      <div class="loader loader1" id="mainLoader">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-
-      <p class="loading-text">게시물을 불러오는 중...</p>
-    </section>
-
-    <div id="indic_position">
-      <img id="indicator-img" src="" alt="표시기">
+                <li>
+                    <h3 class="fs-6 text-muted uppercase tracking-wider mb-2">라이트/다크 모드</h3>
+                    <div class="toggle-switch_theme">
+                        <input type="checkbox" id="themeToggle">
+                        <label class="slider" for="themeToggle">
+                            <span id="themeIcon"></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </nav>
     </div>
 
-    <!-- 메인 카테고리 탭 (큰 카테고리) -->
-    <section id="tab-design">
-      <div class="tab-container tab-design">
 
-        <button class="tab-btn active" data-category="퍼즐">
-          퍼즐
-          <i data-lucide="puzzle" class="tab-icon"></i>
-        </button>
+    <main class="container-fluid py-4">
 
-        <button class="tab-btn" data-category="보석비즈">
-          보석비즈
-          <i data-lucide="gem" class="tab-icon"></i>
-        </button>
+        <section class="function-infor d-flex justify-content-between align-items-center mb-4 px-2">
+            <div class="message-container">
+                <a href="click.html" id="welcomeMessage" class="text-decoration-none fs-4 fw-bold text-light">어서오세요</a>
+            </div>
 
-        <button class="tab-btn" data-category="3D퍼즐">
-          3D퍼즐
-          <i data-lucide="box" class="tab-icon"></i>
-        </button>
-
-        <button class="tab-btn" data-category="디폼블럭">
-          디폼블럭
-          <i data-lucide="grid-3x3" class="tab-icon"></i>
-        </button>
-
-        <button class="tab-btn" data-category="브릭피규어">
-          브릭피규어
-          <i data-lucide="toy-brick" class="tab-icon"></i>
-        </button>
-
-      </div>
-    </section>
-
-    <!-- 프리뷰 이미지 컨테이너 -->
-    <section class="preview-images" id="previewImagesContainer"></section>
-
-    <!-- 서브 카테고리 + 갤러리 -->
-    <section class="marge-container" id="marge-container">
-
-      <header id="category-subtab-container">
-
-        <div class="sub-tab-wrapper">
-          <div class="sub-tab-container" id="subTabContainer"></div>
-
-          <div id="view-switch">
-            <button id="preview-image-mode" class="view-icon-btn active">
-              <i class="fas fa-th-large"></i>
+            <button id="settingBtn" class="btn p-0 border-0 bg-transparent">
+                <img src="images/toggle/toggle_set.svg" alt="설정 버튼" style="width: 32px; height: 32px;">
             </button>
-            <button id="preview-text-mode" class="view-icon-btn">
-              <i class="fas fa-list"></i>
+        </section>
+
+        <section id="loadingIndicator" class="loading-indicator text-center py-5">
+            <div class="loader loader1 mx-auto mb-3" id="mainLoader">
+                <div></div><div></div><div></div><div></div>
+                <div></div><div></div><div></div><div></div>
+            </div>
+            <p class="loading-text text-muted small">게시물을 불러오는 중...</p>
+        </section>
+
+        <div id="indic_position" class="position-absolute">
+            <img id="indicator-img" src="" alt="표시기" class="img-fluid">
+        </div>
+
+        <section id="tab-design" class="mb-4">
+            <div class="tab-container tab-design d-flex flex-wrap gap-2 justify-content-center">
+                <button class="tab-btn btn btn-dark active d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill" data-category="퍼즐">
+                    <span>퍼즐</span>
+                    <i data-lucide="puzzle" class="tab-icon"></i>
+                </button>
+
+                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill" data-category="보석비즈">
+                    <span>보석비즈</span>
+                    <i data-lucide="gem" class="tab-icon"></i>
+                </button>
+
+                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill" data-category="3D퍼즐">
+                    <span>3D퍼즐</span>
+                    <i data-lucide="box" class="tab-icon"></i>
+                </button>
+
+                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill" data-category="디폼블럭">
+                    <span>디폼블럭</span>
+                    <i data-lucide="grid-3x3" class="tab-icon"></i>
+                </button>
+
+                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill" data-category="브릭피규어">
+                    <span>브릭피규어</span>
+                    <i data-lucide="toy-brick" class="tab-icon"></i>
+                </button>
+            </div>
+        </section>
+
+        <section class="preview-images container mb-4" id="previewImagesContainer"></section>
+
+        <section class="marge-container" id="marge-container">
+            <header id="category-subtab-container" class="mb-3">
+                <div class="sub-tab-wrapper d-flex justify-content-between align-items-center">
+                    <div class="sub-tab-container d-flex gap-2" id="subTabContainer"></div>
+
+                    <div id="view-switch" class="btn-group shadow-sm">
+                        <button id="preview-image-mode" class="view-icon-btn btn btn-sm btn-dark active">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button id="preview-text-mode" class="view-icon-btn btn btn-sm btn-dark">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <section class="image-gallery-wrapper">
+                <div id="imageGallery" class="image-gallery"></div>
+            </section>
+
+            <nav id="pagination-info" class="text-center text-muted small my-2"></nav>
+            <nav id="pagination-container" class="d-flex justify-content-center mt-3"></nav>
+        </section>
+    </main>
+
+    <div id="previewOverlayInfo" class="preview-overlay justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100" style="display:none; z-index: 2000; background-color: rgba(0,0,0,0.75);">
+        <div class="preview-popup card bg-dark p-2 border-0 shadow-lg position-relative" style="width: 90%; max-width: 800px; height: 80vh;">
+            <button class="preview-close btn btn-link text-white text-decoration-none position-absolute top-0 end-0 m-2" data-type="info" style="z-index: 10;">
+                <i class="fas fa-times fs-4"></i>
             </button>
-          </div>
+            <iframe id="previewFrameInfo" src="" loading="lazy" class="w-100 h-100 rounded-3 border-0"></iframe>
         </div>
-      </header>
-
-      <section class="image-gallery-wrapper">
-        <div id="imageGallery" class="image-gallery">
-        </div>
-      </section>
-
-      <nav id="pagination-info"></nav>
-      <nav id="pagination-container"></nav>
-    </section>
-  </main>
-
-  <!-- 미리보기 팝업 -->
-  <div id="previewOverlayInfo" class="preview-overlay" style="display:none;">
-    <div class="preview-popup">
-      <button class="preview-close" data-type="info">✖</button>
-      <iframe id="previewFrameInfo" src="" loading="lazy"></iframe>
-    </div>
-  </div>
-
-
-  <div id="settingPopup" class="setting-layer">
-    <div class="setting-popup">
-      <h3>Setting</h3>
-
-      <!-- 표시기관련 -->
-      <div class="setting_item">
-        <div class="setting_text_wrap">
-          <p>표시기</p>
-        </div>
-
-        <div class="toggle-switch_ind">
-          <button id="show-indicate" class="indicate_btn">Show
-          </button>
-          <button id="hide-indicate" class="indicate_btn">Hide
-          </button>
-        </div>
-      </div>
-
-      <!-- 검색 -->
-      <div class="setting_item">
-        <input type="text" id="sidebarSearchInput" placeholder="작품 검색..." />
-        <button id="sidebarSearchBtn" class="search-icon-btn">
-          <i data-icon="search"></i>
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-
-  <!-- 푸터 -->
-  <footer class="page-footer">
-    <p>같은 유형의 물체 설명이 반복될 수 있습니다.<br>© 2025 퓨챠휼 All rights reserved.</p>
-    <ul id="footer_link">
-      <li>
-        <a href="./preview_popup.html" id="previewLink">소개</a>
-      </li>
-      <li>
-        <a href="./etc_util.html" id="etcLink">Lab</a>
-      </li>
-      <li>
-        <a href="./online_contact.html" id="contactLink">Contact</a>
-      </li>
-    </ul>
-
-    <div class="fixed-trash-container">
-      <a href="https://github.com/custmm/image-upload-server" target="_blank">
-        <img src="images/icon/trash_icon1.svg" alt="쓰레기통" class="trash-icon main-icon">
-        <img src="images/icon/trash_icon2.svg" alt="쓰레기통 열림" class="trash-icon hover-icon">
-      </a>
     </div>
 
-  </footer>
+    <div id="settingPopup" class="setting-layer" style="z-index: 1600;">
+        <div class="setting-popup card bg-dark text-light p-4 border-secondary shadow-lg">
+            <h3 class="fs-5 fw-bold border-bottom border-secondary pb-2 mb-3">Setting</h3>
 
-  <div id="preview-guide-popup" class="popup-overlay" style="display: none;">
-    <div class="popup-container guide-mode">
-      <h2 class="guide-title">Notice</h2>
-      <div class="guide-content">
-        <p>1. 확대해석 금지! <br>
-          2. 이 공간은 제작자의 취미공간입니다. <br>
-          3. 간혹 오류가 있을 수 있습니다. <br>
-          그 부분에 대해서는 협업자(ai)와 함께 해결중입니다.
-        </p>
+            <div class="setting_item d-flex justify-content-between align-items-center mb-3">
+                <div class="setting_text_wrap">
+                    <p class="m-0 fw-bold">표시기 레이어</p>
+                </div>
+                <div class="toggle-switch_ind btn-group">
+                    <button id="show-indicate" class="indicate_btn btn btn-xs btn-outline-success active">Show</button>
+                    <button id="hide-indicate" class="indicate_btn btn btn-xs btn-outline-secondary">Hide</button>
+                </div>
+            </div>
 
-        <p>4. 게시글 이용안내</p>
-        <ul class="guide-sub-list">
-          <p>4-a. <b>바둑판모드</b>(아이콘): 원형 썸네일(5*4 배열), hover 시 둥근 네모로 변형</p>
-          <p>4-b. <b>줄글모드</b>(아이콘): 좌우 슬라이드 동작 가능</p>
-          <p>4-c. 페이지네이션 버튼으로 이전/다음 이동 가능</p>
+            <div class="setting_item">
+                <div class="input-group">
+                    <input type="text" id="sidebarSearchInput" class="form-control bg-secondary text-white border-0" placeholder="작품 검색..." />
+                    <button id="sidebarSearchBtn" class="btn btn-warning search-icon-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="page-footer text-center py-4 bg-dark text-muted border-top border-secondary mt-5 position-relative">
+        <p class="small mb-3">같은 유형의 물체 설명이 반복될 수 있습니다.<br>© 2025 퓨챠휼 All rights reserved.</p>
+        
+        <ul id="footer_link" class="nav justify-content-center gap-3 list-unstyled mb-0">
+            <li><a href="./preview_popup.html" id="previewLink" class="text-decoration-none text-muted small hover-light">소개</a></li>
+            <li><a href="./etc_util.html" id="etcLink" class="text-decoration-none text-muted small hover-light">Lab</a></li>
+            <li><a href="./online_contact.html" id="contactLink" class="text-decoration-none text-muted small hover-light">Contact</a></li>
         </ul>
 
-        <p>5. 좌우 슬라이드 동작 안내</p>
-        <ul class="guide-sub-list">
-          <li>5-a. 모바일: 좌우 터치</li>
-          <li>5-b. PC: 마우스 위/아래 휠</li>
-        </ul>
-      </div>
+        <div class="fixed-trash-container position-absolute bottom-0 end-0 m-3">
+            <a href="https://github.com/custmm/image-upload-server" target="_blank" class="d-block">
+                <img src="images/icon/trash_icon1.svg" alt="쓰레기통" class="trash-icon main-icon" style="width: 28px;">
+                <img src="images/icon/trash_icon2.svg" alt="쓰레기통 열림" class="trash-icon hover-icon" style="width: 28px; display: none;">
+            </a>
+        </div>
+    </footer>
 
-      <div class="guide-footer" style="margin-top: 15px; text-align: right; font-size: 14px;">
-        <label style="cursor: pointer; color: #666;">
-          <input type="checkbox" id="today-close-chk" style="margin: 5px auto;">
-          오늘 하루 그만 보기
-        </label>
-      </div>
+    <div id="preview-guide-popup" class="popup-overlay justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100" style="display: none; z-index: 2500; background-color: rgba(0,0,0,0.65);">
+        <div class="popup-container guide-mode card bg-dark text-white p-4 shadow-lg border-0" style="width: 90%; max-width: 500px;">
+            <h2 class="guide-title fs-4 fw-bold text-warning border-bottom border-secondary pb-2 mb-3">Notice</h2>
+            <div class="guide-content small text-secondary">
+                <p class="text-light">1. 확대해석 금지! <br>
+                   2. 이 공간은 제작자의 취미공간입니다. <br>
+                   3. 간혹 오류가 있을 수 있습니다. <br>
+                   그 부분에 대해서는 협업자(ai)와 함께 해결중입니다.
+                </p>
 
-      <button id="close-guide-btn" class="popup-button">확인했습니다</button>
+                <p class="text-white fw-bold mt-3 mb-1">4. 게시글 이용안내</p>
+                <ul class="guide-sub-list list-unstyled ps-2">
+                    <li>4-a. <b>바둑판모드</b>(아이콘): 원형 썸네일(5*4 배열), hover 시 둥근 네모로 변형</li>
+                    <li>4-b. <b>줄글모드</b>(아이콘): 좌우 슬라이드 동작 가능</li>
+                    <li>4-c. 페이지네이션 버튼으로 이전/다음 이동 가능</li>
+                </ul>
+
+                <p class="text-white fw-bold mt-3 mb-1">5. ...동작 안내</p>
+                <ul class="guide-sub-list list-unstyled ps-2">
+                    <li>5-a. 모바일: 좌우 터치</li>
+                    <li>5-b. PC: 마우스 위/아래 휠</li>
+                </ul>
+            </div>
+
+            <div class="guide-footer d-flex justify-content-between align-items-center border-top border-secondary pt-3 mt-3">
+                <label style="cursor: pointer;" class="text-muted small d-inline-flex align-items-center gap-2">
+                    <input type="checkbox" id="today-close-chk" class="form-check-input bg-secondary border-0 m-0">
+                    오늘 하루 그만 보기
+                </label>
+                <button id="close-guide-btn" class="popup-button btn btn-warning btn-sm fw-bold px-3 rounded-pill">확인했습니다</button>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://code.jquery.com/jquery-migrate-3.4.1.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
-
-  <script type="module" src="js/preview_main.js"></script>
-  <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script type="module" src="js/preview_main.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

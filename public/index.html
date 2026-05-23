@@ -7,25 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ɐ퓨챠휼Ɐ</title>
 
-    <!-- 외부 링크 css -->
     <link rel="stylesheet" as="style" crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-<link rel="stylesheet" href="./css/bootstrap.min.css">
-    <!-- 파일 내 css -->
+    
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/global.css">
 </head>
 
 <body class="index-page no-bg">
-    <div id="clicker-modal" class="popup-overlay" style="display: flex;">
-        <div class="popup-box">
-            <h3>불꽃놀이 즐기기</h3>
-            <p>분위기에 따라 약하게 또는 강하게<br>
-                즐길수있습니다.
-</p>
-            <div class="modal-buttons">
-                <button id="btn-use-clicker" class="popup-confirm-button">테토 모드</button>
-                <button id="btn-cancel-clicker" class="popup-confirm-button">에겐 모드</button>
+
+    <div id="clicker-modal" class="popup-overlay d-flex justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100" style="z-index: 1500; background-color: rgba(0, 0, 0, 0.5);">
+        <div class="popup-box card bg-white text-dark text-center p-4 rounded-3 shadow-lg border-0" style="width: 350px;">
+            <h3 class="fs-4 fw-bold mb-2">불꽃놀이 즐기기</h3>
+            <p class="text-secondary small mb-4">
+                분위기에 따라 약하게 또는 강하게<br>
+                즐길 수 있습니다.
+            </p>
+            <div class="modal-buttons w-100 d-flex gap-2 justify-content-center">
+                <button id="btn-use-clicker" class="popup-confirm-button btn btn-dark w-50 py-2 rounded-pill fw-bold">테토 모드</button>
+                <button id="btn-cancel-clicker" class="popup-confirm-button btn btn-outline-dark w-50 py-2 rounded-pill fw-bold">에겐 모드</button>
             </div>
         </div>
     </div>
@@ -34,22 +35,26 @@
         <div class="door left"></div>
         <div class="door right"></div>
     </div>
-    <div class="container">
-        <h1 id="mainTitle">누구세용?</h1>
-        <div id="modeSelection" class="button_container">
-            <button id="adminModeButton">관리자</button>
-            <button id="userModeButton">일반 사용자</button>
+
+    <div class="container d-flex flex-column align-items-center text-center">
+        <h1 id="mainTitle" class="fs-2 fw-bold text-white mb-4">누구세용?</h1>
+        
+        <div id="modeSelection" class="button_container d-flex justify-content-center align-items-center p-3 bg-light bg-opacity-75 rounded-3 shadow-sm gap-3" style="width: 320px;">
+            <button id="adminModeButton" class="btn btn-danger w-100 py-2 fw-bold shadow-sm">관리자</button>
+            <button id="userModeButton" class="btn btn-secondary w-100 py-2 fw-bold shadow-sm">일반 사용자</button>
         </div>
     </div>
+
     <audio id="fireworkAudio" src="sounds/firework.mp3" preload="auto" type="audio/mp3"></audio>
     <audio id="easterEggAudio" src="sounds/ester_egg.mp3" preload="auto" type="audio/mp3"></audio>
-    <div id="easterEggMessage" style="display: none;">
-        <p>이스터에그가 활성화되었습니다!</p>
+    
+    <div id="easterEggMessage" class="position-fixed top-0 start-50 translate-middle-x mt-3 bg-warning text-dark px-4 py-2 rounded-pill shadow fw-bold" style="display: none; z-index: 3000;">
+        <p class="m-0">이스터에그가 활성화되었습니다!</p>
     </div>
+    
     <canvas id="fireworksCanvas"></canvas>
 
     <script src="./js/bootstrap.bundle.min.js"></script>
-
     <script src="js/index.js"></script>
 </body>
 

@@ -1,5 +1,11 @@
 @charset "utf-8";
 
+/* 애니메이션 정의 보존 */
+@keyframes explode {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--mx), var(--my)) scale(0.2); opacity: 0; }
+}
+
 @keyframes glowAnimation {
     0% {
         opacity: 0.5;
@@ -35,18 +41,6 @@
 
     100% {
         transform: scale(1);
-    }
-}
-
-@keyframes explode {
-    from {
-        transform: translate(0, 0) rotate(0deg);
-        opacity: 1;
-    }
-
-    to {
-        transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(720deg);
-        opacity: 0;
     }
 }
 

@@ -12,31 +12,23 @@ body.dashboard-page {
 
 /* ====== 첫화면(index.html) ====== */
 
-/* 1. 컨테이너 기본 설정 (3D 효과 추가) */
+/* 1. 컨테이너 기본 설정 (3D Perspective 특수 효과 유지) */
 body.index-page .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-    /* [추가] 애니메이션을 위한 속성 */
     transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-in-out;
     transform-style: preserve-3d;
     perspective: 1000px;
     z-index: 5;
-    /* 문(#door-container)보다 아래에 위치 */
 }
 
-/* 2. [추가] 자바스크립트에서 .door-opened-effect 클래스가 붙었을 때의 효과 */
+/* 2. 자바스크립트 연동 애니메이션 클래스 유지 */
 body.index-page .container.door-opened-effect {
-    /* 화면 안쪽으로 멀어지면서 투명해짐 */
     transform: translate(-50%, -50%) scale(0.8) translateZ(-150px);
     opacity: 0;
     pointer-events: none;
-    /* 애니메이션 도중 클릭 방지 */
 }
 
 /* 3. 문 컨테이너 설정 */
@@ -47,22 +39,17 @@ body.index-page #door-container {
     width: 100%;
     height: 100%;
     display: none;
-    /* 초기 숨김 (JS에서 flex로 변경) */
     z-index: 100;
-    /* 컨테이너보다 위에 배치 */
     pointer-events: none;
-    /* 문 사이로 뒷배경이 보일 때 클릭 가능하도록 */
 }
 
-/* 4. 개별 문 스타일 (부드러운 가속도 적용) */
+/* 4. 개별 문 스타일 (베지어 트랜지션 유지) */
 body.index-page .door {
     position: absolute;
     width: 50%;
     height: 100%;
     background-color: #333;
-    /* 조금 더 어두운 톤으로 변경 */
     border: 1px solid #222;
-    /* [수정] 2초는 너무 느리므로 1.2초로 조정하고 베지어 곡선 적용 */
     transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
 }
 
@@ -76,6 +63,93 @@ body.index-page .door.right {
     right: 0;
     transform-origin: right center;
     transform: rotateY(0deg);
+}
+
+/* 5. 이스터에그 및 그래픽 레이어 유지 (부트스트랩 유틸리티와 무관한 고유 캔버스) */
+body.index-page .firework {
+    position: fixed;
+    pointer-events: none;
+    z-index: 2000;
+}
+
+body.index-page .particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: explode 0.9s ease-out forwards;
+    transform-origin: center;
+}
+
+body.index-page #index-page #fireworksCanvas,
+body.index-page .magic-circle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+
+body.index-page #index-page #fireworksCanvas { z-index: 9999; }
+body.index-page .magic-circle-canvas { z-index: 9000; }
+
+/* 6. 글로우 서클 이징 시스템 */
+body.index-page .glow-circle {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #cbcbcbe8;
+    border-radius: 50%;
+    filter: blur(10px);
+    animation: pulse 3s infinite alternate ease-in-out;
+    cursor: pointer;
+}
+
+body.index-page .glow-circle::after {
+    content: "";
+    position: absolute;
+    inset: -15px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 220, 255, 0.6) 0%, rgba(0, 200, 255, 0.3) 40%, transparent 70%);
+    filter: blur(12px);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+body.index-page .glow-circle.clicked::after {
+    opacity: 1;
+}
+
+body.index-page .glow-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    animation: glowAnimation 2.0s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* 기존 커스텀 팝업창 디자인 오버라이드(X 버튼만 커스텀 유지) */
+body.index-page .popup-close-x {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s, transform 0.2s;
+}
+
+body.index-page .popup-close-x:hover {
+    color: #f44336;
+    transform: scale(1.2);
 }
 
 body.index-page .modal-buttons {
@@ -96,107 +170,6 @@ body.index-page .popup-box {
     /* 버튼과 텍스트 사이 여백 */
 }
 
-/* 엑스(X) 버튼 스타일 */
-body.index-page .popup-close-x {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #888;
-    cursor: pointer;
-    line-height: 1;
-    transition: color 0.2s, transform 0.2s;
-}
-
-/* 마우스 올렸을 때 효과 */
-body.index-page .popup-close-x:hover {
-    color: #f44336;
-    /* 붉은색으로 강조 */
-    transform: scale(1.2);
-    /* 살짝 커지게 */
-}
-
-body.index-page .firework {
-    position: fixed;
-    pointer-events: none;
-    z-index: 2000;
-}
-
-body.index-page .particle {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    animation: explode 0.9s ease-out forwards;
-    transform-origin: center;
-}
-
-body.index-page #index-page #fireworksCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9999;
-    /* 모든 요소 위에 */
-    pointer-events: none;
-}
-
-body.index-page .magic-circle-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9000;
-    /* fireworksCanvas(9999) 바로 아래 */
-    pointer-events: none;
-}
-
-body.index-page .glow-circle {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background-color: #cbcbcbe8;
-    border-radius: 50%;
-    filter: blur(10px);
-    animation: pulse 3s infinite alternate ease-in-out;
-    cursor: pointer;
-}
-
-/* ✨ 빛 퍼짐 전용 레이어 */
-body.index-page .glow-circle::after {
-    content: "";
-    position: absolute;
-    inset: -15px;
-    border-radius: 50%;
-    background: radial-gradient(circle,
-            rgba(0, 220, 255, 0.6) 0%,
-            rgba(0, 200, 255, 0.3) 40%,
-            transparent 70%);
-    filter: blur(12px);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: -1;
-}
-
-/* 클릭 후 */
-body.index-page .glow-circle.clicked::after {
-    opacity: 1;
-}
-
-body.index-page .glow-effect {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
-    animation: glowAnimation 2.0s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 9999;
-}
 
 /* 제목 스타일 */
 body.index-page #mainTitle {
