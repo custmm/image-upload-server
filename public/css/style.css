@@ -139,9 +139,6 @@ body.index-page .glow-effect {
     z-index: 9999;
 }
 
-
-
-
 body.index-page .popup-confirm-button {
     border-radius: 20px;
 
@@ -154,7 +151,6 @@ body.index-page .popup-box {
     padding-top: 30px;
     /* 버튼과 텍스트 사이 여백 */
 }
-
 
 /* 제목 스타일 */
 body.index-page #mainTitle {
