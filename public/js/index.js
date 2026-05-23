@@ -96,17 +96,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (userModeButton) {
-        userModeButton.addEventListener("click", () => {
+        userModeButton.addEventListener("click", () => { // 1. 첫 번째 바깥 클릭 감지
             const isExplanMode = window.location.hash.includes("explan");
 
-            // [핵심] 클릭커가 포함된 모드로 진입할 때만 확인 팝업을 띄움
             if (isExplanMode) {
-                userModeButton.addEventListener("click", () => {
-                    // 알림 및 우회 조건 없이 곧바로 click.html로 안전 이동 처리
+                userModeButton.addEventListener("click", () => { // ❌ 오류: 안쪽에서 또 감지 (두 번 클릭해야 작동하게 만듦)
                     openDoorAndRedirect("click.html");
                 });
             } else {
-                // 일반 모드에서는 팝업 없이 바로 이동
                 openDoorAndRedirect("preview.html");
             }
         });
