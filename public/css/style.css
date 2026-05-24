@@ -2423,6 +2423,10 @@ body.preview-page .image-container:hover .hover-overlay {
 body.preview-page .hover-message {
     transform: translateY(10px);
     transition: transform 0.35s ease;
+        color: #fff;
+    display: flex;
+    text-align: center;
+    margin-top: 30px;
 }
 
 body.preview-page .image-container:hover .hover-message {
