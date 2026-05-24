@@ -70,6 +70,8 @@ body.index-page .firework {
     position: fixed;
     pointer-events: none;
     z-index: 2000;
+    width: 0;
+    height: 0;
 }
 
 body.index-page .particle {
@@ -77,11 +79,16 @@ body.index-page .particle {
     width: 10px;
     height: 10px;
     border-radius: 50%;
+    /* 💥 누락되었던 explode 애니메이션을 확실하게 바인딩 */
     animation: explode 0.9s ease-out forwards;
     transform-origin: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-body.index-page #index-page #fireworksCanvas,
+/* 💥 선택자 구조를 더 안정적이고 유연하게 교정 */
+body.index-page #fireworksCanvas,
 body.index-page .magic-circle-canvas {
     position: fixed;
     top: 0;
@@ -91,7 +98,7 @@ body.index-page .magic-circle-canvas {
     pointer-events: none;
 }
 
-body.index-page #index-page #fireworksCanvas {
+body.index-page #fireworksCanvas {
     z-index: 9999;
 }
 

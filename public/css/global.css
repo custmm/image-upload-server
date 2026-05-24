@@ -2,8 +2,16 @@
 
 /* 애니메이션 정의 보존 */
 @keyframes explode {
-    0% { transform: translate(0, 0) scale(1); opacity: 1; }
-    100% { transform: translate(var(--mx), var(--my)) scale(0.2); opacity: 0; }
+    0% {
+        /* 처음 클릭한 지점 중심에 모여있음 */
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        /* JS에서 실시간 계산해 주입한 하드웨어 변수 수치만큼 완벽히 분사 및 소멸 */
+        transform: translate(calc(-50% + var(--translate-x)), calc(-50% + var(--translate-y))) scale(0.2);
+        opacity: 0;
+    }
 }
 
 @keyframes skeleton-sweep {
