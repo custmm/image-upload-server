@@ -2517,6 +2517,8 @@ body.preview-page .text-row {
 /* ==========================================================================
    [6] 푸터 고정식 유령 쓰레기통 애니메이션 (보존)
    ========================================================================== */
+
+/* 쓰레기통 컨테이너 고정 */
 body.preview-page .fixed-trash-container {
     position: fixed;
     bottom: 60px;
@@ -2526,12 +2528,12 @@ body.preview-page .fixed-trash-container {
     z-index: 1000;
     cursor: pointer;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* 통통 튀는 이징 효과 */
 }
 
 body.preview-page .trash-icon {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -2542,20 +2544,27 @@ body.preview-page .hover-icon {
     opacity: 0;
 }
 
-body.preview-page .fixed-trash-container.open .main-icon,
-body.preview-page .fixed-trash-container:hover .main-icon {
+body.preview-page .fixed-trash-container.open .main-icon {
     opacity: 0;
 }
 
-body.preview-page .fixed-trash-container.open .hover-icon,
-body.preview-page .fixed-trash-container:hover .hover-icon {
+body.preview-page .fixed-trash-container.open .hover-icon {
     opacity: 1;
 }
 
-body.preview-page .fixed-trash-container.open,
-body.preview-page .fixed-trash-container:hover {
+body.preview-page .fixed-trash-container.open {
     transform: scale(1.15);
-    /* 입 벌릴 때 팽창 */
+}
+
+body.preview-page .trash-icon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease;
+}
+
+body.preview-page .hover-icon {
+    opacity: 0;
 }
 
 
