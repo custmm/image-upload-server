@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-    
+
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/theme.css">
     <link rel="stylesheet" href="./css/component.css">
@@ -24,10 +24,7 @@
 <body class="preview-page dark-mode">
 
     <header class="menubar-container d-flex align-items-center px-3">
-        <button class="back-button btn btn-sm btn-outline-light rounded-pill px-3 fw-bold"
-            onclick="window.location.href= location.hash.includes('explan') ? 'click.html' :'index.html'">
-            <i class="fas fa-arrow-left me-1"></i> 뒤로가기
-        </button>
+        <button class="back-button" id="backBtn">뒤로가기</button>
     </header>
 
     <div class="menu-wrapper">
@@ -79,8 +76,14 @@
 
         <section id="loadingIndicator" class="loading-indicator text-center py-5">
             <div class="loader loader1 mx-auto mb-3" id="mainLoader">
-                <div></div><div></div><div></div><div></div>
-                <div></div><div></div><div></div><div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
             <p class="loading-text text-muted small">게시물을 불러오는 중...</p>
         </section>
@@ -91,27 +94,33 @@
 
         <section id="tab-design" class="mb-4">
             <div class="tab-container tab-design d-flex flex-wrap gap-2 justify-content-center">
-                <button class="tab-btn btn btn-dark active d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill" data-category="퍼즐">
+                <button
+                    class="tab-btn btn btn-dark active d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill"
+                    data-category="퍼즐">
                     <span>퍼즐</span>
                     <i data-lucide="puzzle" class="tab-icon"></i>
                 </button>
 
-                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill" data-category="보석비즈">
+                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill"
+                    data-category="보석비즈">
                     <span>보석비즈</span>
                     <i data-lucide="gem" class="tab-icon"></i>
                 </button>
 
-                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill" data-category="3D퍼즐">
+                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill"
+                    data-category="3D퍼즐">
                     <span>3D퍼즐</span>
                     <i data-lucide="box" class="tab-icon"></i>
                 </button>
 
-                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill" data-category="디폼블럭">
+                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill"
+                    data-category="디폼블럭">
                     <span>디폼블럭</span>
                     <i data-lucide="grid-3x3" class="tab-icon"></i>
                 </button>
 
-                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill" data-category="브릭피규어">
+                <button class="tab-btn btn btn-dark d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill"
+                    data-category="브릭피규어">
                     <span>브릭피규어</span>
                     <i data-lucide="toy-brick" class="tab-icon"></i>
                 </button>
@@ -145,9 +154,13 @@
         </section>
     </main>
 
-    <div id="previewOverlayInfo" class="preview-overlay justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100" style="display:none; z-index: 2000; background-color: rgba(0,0,0,0.75);">
-        <div class="preview-popup card bg-dark p-2 border-0 shadow-lg position-relative" style="width: 90%; max-width: 800px; height: 80vh;">
-            <button class="preview-close btn btn-link text-white text-decoration-none position-absolute top-0 end-0 m-2" data-type="info" style="z-index: 10;">
+    <div id="previewOverlayInfo"
+        class="preview-overlay justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100"
+        style="display:none; z-index: 2000; background-color: rgba(0,0,0,0.75);">
+        <div class="preview-popup card bg-dark p-2 border-0 shadow-lg position-relative"
+            style="width: 90%; max-width: 800px; height: 80vh;">
+            <button class="preview-close btn btn-link text-white text-decoration-none position-absolute top-0 end-0 m-2"
+                data-type="info" style="z-index: 10;">
                 <i class="fas fa-times fs-4"></i>
             </button>
             <iframe id="previewFrameInfo" src="" loading="lazy" class="w-100 h-100 rounded-3 border-0"></iframe>
@@ -170,7 +183,8 @@
 
             <div class="setting_item">
                 <div class="input-group">
-                    <input type="text" id="sidebarSearchInput" class="form-control bg-secondary text-white border-0" placeholder="작품 검색..." />
+                    <input type="text" id="sidebarSearchInput" class="form-control bg-secondary text-white border-0"
+                        placeholder="작품 검색..." />
                     <button id="sidebarSearchBtn" class="btn btn-warning search-icon-btn">
                         <i class="fas fa-search"></i>
                     </button>
@@ -182,29 +196,36 @@
 
     <footer class="page-footer text-center py-4 bg-dark text-muted border-top border-secondary mt-5 position-relative">
         <p class="small mb-3">같은 유형의 물체 설명이 반복될 수 있습니다.<br>© 2025 퓨챠휼 All rights reserved.</p>
-        
+
         <ul id="footer_link" class="nav justify-content-center gap-3 list-unstyled mb-0">
-            <li><a href="./preview_popup.html" id="previewLink" class="text-decoration-none text-muted small hover-light">소개</a></li>
-            <li><a href="./etc_util.html" id="etcLink" class="text-decoration-none text-muted small hover-light">Lab</a></li>
-            <li><a href="./online_contact.html" id="contactLink" class="text-decoration-none text-muted small hover-light">Contact</a></li>
+            <li><a href="./preview_popup.html" id="previewLink"
+                    class="text-decoration-none text-muted small hover-light">소개</a></li>
+            <li><a href="./etc_util.html" id="etcLink" class="text-decoration-none text-muted small hover-light">Lab</a>
+            </li>
+            <li><a href="./online_contact.html" id="contactLink"
+                    class="text-decoration-none text-muted small hover-light">Contact</a></li>
         </ul>
 
         <div class="fixed-trash-container position-absolute bottom-0 end-0 m-3">
             <a href="https://github.com/custmm/image-upload-server" target="_blank" class="d-block">
                 <img src="images/icon/trash_icon1.svg" alt="쓰레기통" class="trash-icon main-icon" style="width: 28px;">
-                <img src="images/icon/trash_icon2.svg" alt="쓰레기통 열림" class="trash-icon hover-icon" style="width: 28px; display: none;">
+                <img src="images/icon/trash_icon2.svg" alt="쓰레기통 열림" class="trash-icon hover-icon"
+                    style="width: 28px; display: none;">
             </a>
         </div>
     </footer>
 
-    <div id="preview-guide-popup" class="popup-overlay justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100" style="display: none; z-index: 2500; background-color: rgba(0,0,0,0.65);">
-        <div class="popup-container guide-mode card bg-dark text-white p-4 shadow-lg border-0" style="width: 90%; max-width: 500px;">
+    <div id="preview-guide-popup"
+        class="popup-overlay justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100"
+        style="display: none; z-index: 2500; background-color: rgba(0,0,0,0.65);">
+        <div class="popup-container guide-mode card bg-dark text-white p-4 shadow-lg border-0"
+            style="width: 90%; max-width: 500px;">
             <h2 class="guide-title fs-4 fw-bold text-warning border-bottom border-secondary pb-2 mb-3">Notice</h2>
             <div class="guide-content small text-secondary">
                 <p class="text-light">1. 확대해석 금지! <br>
-                   2. 이 공간은 제작자의 취미공간입니다. <br>
-                   3. 간혹 오류가 있을 수 있습니다. <br>
-                   그 부분에 대해서는 협업자(ai)와 함께 해결중입니다.
+                    2. 이 공간은 제작자의 취미공간입니다. <br>
+                    3. 간혹 오류가 있을 수 있습니다. <br>
+                    그 부분에 대해서는 협업자(ai)와 함께 해결중입니다.
                 </p>
 
                 <p class="text-white fw-bold mt-3 mb-1">4. 게시글 이용안내</p>
@@ -221,12 +242,14 @@
                 </ul>
             </div>
 
-            <div class="guide-footer d-flex justify-content-between align-items-center border-top border-secondary pt-3 mt-3">
+            <div
+                class="guide-footer d-flex justify-content-between align-items-center border-top border-secondary pt-3 mt-3">
                 <label style="cursor: pointer;" class="text-muted small d-inline-flex align-items-center gap-2">
                     <input type="checkbox" id="today-close-chk" class="form-check-input bg-secondary border-0 m-0">
                     오늘 하루 그만 보기
                 </label>
-                <button id="close-guide-btn" class="popup-button btn btn-warning btn-sm fw-bold px-3 rounded-pill">확인했습니다</button>
+                <button id="close-guide-btn"
+                    class="popup-button btn btn-warning btn-sm fw-bold px-3 rounded-pill">확인했습니다</button>
             </div>
         </div>
     </div>
