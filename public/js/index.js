@@ -38,22 +38,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const clickerModal = document.getElementById("clicker-modal");
     const mainContainer = document.getElementById("main-container");
 
-    // ⭐ [핵심 수정] HTML에 적혀있는 id인 'btn-use-clicker'와 'btn-cancel-clicker'로 정확히 가져옵니다!
     const btnUse = document.getElementById("btn-use-clicker");
     const btnCancel = document.getElementById("btn-cancel-clicker");
     const fireworksCanvas = document.getElementById("fireworksCanvas");
 
-    // --- 클릭커 프로그램 감지용 변수 추가 ---
+    // --- 클릭커 프로그램 감지용 변수 ---
     let clickTimes = []; // 클릭 시간 기록 배열
     const CLICK_LIMIT_THRESHOLD = 12; // 1초에 12번 이상 클릭 시 프로그램으로 간주
-    let isClickerBlocked = false; // 팝업이 떠 있는 동안 중복 팝업 방지
+    let isClickerBlocked = false; // 팝업이 떠 있는 동안 중복 팝업 방지 및 인터랙션 제어
     let currentFireworkMode = 'heavy'; // 컨셉 강도 (heavy vs light)
 
     let globalClickCount = 0;
     let glowClickCount = 0;
     let clickedCircles = [];
     const totalGlowClicksNeeded = 5;
-    let isPopupOpen = false;  //  팝업 상태 변수 추가
+    let isPopupOpen = false;  // 팝업 상태 변수
 
 
     /* ---------------- 문 열기 + 페이지 이동 ---------------- */
@@ -151,14 +150,14 @@ document.addEventListener("DOMContentLoaded", () => {
         isClickerBlocked = true;
 
         if (clickerModal) {
-            clickerModal.style.display = "flex";
+            clickerModal.style.setProperty("display", "flex", "important");
         }
         console.warn("⚠️ 비정상적인 클릭 속도 감지: 클릭커 확인 팝업을 표시합니다.");
     }
 
-    /* ---------------- 팝업 버튼 이벤트 (완벽한 인터랙션 복원 및 해제 처리) ---------------- */
+    /* ---------------- 팝업 버튼 이벤트 (인터랙션 복원 및 해제 처리) ---------------- */
 
-    // 1. HTML 안에 정의된 .popup-box에 우상단 X 버튼 동적 탑재
+    // 1. 팝업 우상단 X 버튼 처리
     const popupBox = document.querySelector(".popup-box");
     if (popupBox) {
         if (!document.querySelector(".popup-close-x")) {
@@ -168,79 +167,76 @@ document.addEventListener("DOMContentLoaded", () => {
             popupBox.appendChild(closeBtn);
 
             closeBtn.onclick = (event) => {
-                event.stopPropagation(); // body 전체 클릭으로 번지는 버블링 차단
-
-                // 팝업 숨기기 (Bootstrap의 d-flex 클래스를 무력화하기 위해 none !important 처리)
+                event.stopPropagation();
                 if (clickerModal) {
                     clickerModal.style.setProperty("display", "none", "important");
                 }
-
-                isClickerBlocked = false; // 차단 해제
-                clickTimes = []; // 클릭 기록 리셋
+                isClickerBlocked = false; 
+                clickTimes = []; 
             };
         }
     }
 
-    // 2. '테토 모드' 버튼 클릭 시 (팝업을 닫고 풀 파워 모드로 뒤쪽 인터랙션 재개)
+    // 2. '테토 모드' 버튼 클릭 시
     if (btnUse) {
         btnUse.onclick = (event) => {
-            event.stopPropagation(); // 부모 body 클릭 방지
-            currentFireworkMode = 'heavy'; // 불꽃놀이 강하게 설정
+            event.stopPropagation(); 
+            currentFireworkMode = 'heavy'; 
 
             if (clickerModal) {
-                clickerModal.style.setProperty("display", "none", "important"); // 팝업 즉시 숨김
+                clickerModal.style.setProperty("display", "none", "important"); 
             }
-
-            isClickerBlocked = false; // 마우스 잠금 해제
-            clickTimes = []; // 누적 데이터 초기화
+            isClickerBlocked = false; 
+            clickTimes = []; 
             console.log("🎆 테토 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
         };
     }
 
-    // 3. '에겐 모드' 버튼 클릭 시 (팝업을 닫고 최적화 모드로 뒤쪽 인터랙션 재개)
+    // 3. '에겐 모드' 버튼 클릭 시
     if (btnCancel) {
         btnCancel.onclick = (event) => {
-            event.stopPropagation(); // 부모 body 클릭 방지
-            currentFireworkMode = 'light'; // 불꽃놀이 연산량 낮춤
+            event.stopPropagation(); 
+            currentFireworkMode = 'light'; 
 
             if (clickerModal) {
-                clickerModal.style.setProperty("display", "none", "important"); // 팝업 즉시 숨김
+                clickerModal.style.setProperty("display", "none", "important"); 
             }
-
-            isClickerBlocked = false; // 마우스 잠금 해제
-            clickTimes = []; // 누적 데이터 초기화
+            isClickerBlocked = false; 
+            clickTimes = []; 
             console.log("🕊️ 에겐 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
         };
     }
 
-    /* ---------------- 클릭 이벤트 (조건부 차단 및 안전장치) ---------------- */
-    /* ---------------- 클릭 이벤트 (차단 예외 처리 및 이스터에그 카운터 동시 복원) ---------------- */
+    /* ---------------- 클릭 이벤트 (핵심 로직 수정 수정) ---------------- */
     body.addEventListener("click", (event) => {
-        // 1. 클릭커 확인 모달 내부나 이스터에그 알림 팝업 오버레이를 누른 거라면 클릭 데이터 수집 제외
+        // 🛠️ 차단 1순위: 클리커 모달창 내부나 이스터에그 알림을 누른 거라면 모든 연산에서 제외
         if (event.target.closest("#clicker-modal") || event.target.closest(".popup-overlay") || isPopupOpen) {
             return;
         }
 
-        // 2. 속도 및 기록용 타임스탬프 누적
+        // 🛠️ 차단 2순위: 클리커 감지 팝업이 화면에 떠 있는 상태라면 뒤쪽 스크린 클릭 완전히 차단
+        if (isClickerBlocked) {
+            return;
+        }
+
+        // 속도 및 기록용 타임스탬프 누적
         const now = Date.now();
         clickTimes.push(now);
         clickTimes = clickTimes.filter(time => now - time < 1000); // 최근 1초 데이터 유지
 
-        // 3. [핵심 수정] 팝업이 이미 떠 있거나 사용자가 명확하게 프로그램을 가동 중인 경우에만 감지 레이어로 보냅니다.
-        // 손클릭으로 빠르게 이스터에그 카운트를 채울 때 감지기가 가로채지 못하도록 잠금장치가 활성화되었을 때만 트리거합니다.
-        if (clickTimes.length > CLICK_LIMIT_THRESHOLD && isClickerBlocked) {
+        // 🛠️ 수정 반영: 아직 안 막혔는데(isClickerBlocked === false) 임계치를 넘겼다면 매크로로 판단하고 팝업 소환!
+        if (clickTimes.length > CLICK_LIMIT_THRESHOLD) {
             triggerClickerDetection();
             return;
         }
 
-        // 4. UI 및 일반 작동 요소 클릭 시 불꽃놀이 오작동 방지용 예외 필터
-        if (event.target.closest(".container") ||
-            event.target.closest("button") ||
+        // 🛠️ UI 요소 예외 필터: 버튼이나 링크, 매직 서클 클릭 시 불꽃놀이가 중복 작동하지 않도록 처리
+        if (event.target.closest("button") ||
             event.target.closest("a") ||
             event.target.classList.contains("glow-circle")
         ) return;
 
-        // 5. 시각 효과 - 불꽃놀이 파티클 및 사운드 가동
+        // ✨ 시각 효과 실행 (정상적인 바탕화면 클릭 시 무조건 작동)
         const x = event.clientX;
         const y = event.clientY;
 
@@ -249,40 +245,20 @@ document.addEventListener("DOMContentLoaded", () => {
             playFireworkSound();
         });
 
-        // 🔥 6. 카운트 정상 누적 (상단 필터 우회 완료)
+        // 카운트 누적
         globalClickCount++;
         console.log("🎯 현재 누적 클릭 수:", globalClickCount);
 
         // 클릭 횟수별 이스터에그 데이터 매핑
         const clickEventsData = {
-            4: { 
-                color: "rgb(205,154,154)", 
-                message: "이상기운을 발견했습니다!", 
-                imageUrl: "images/alian/ester_01.png" 
-            },
-            44: { 
-                color: "rgb(217,115,115)", 
-                message: "조금 더 클릭해보세요", 
-                imageUrl: "images/alian/ester_02.png" 
-            },
-            100: { 
-                color: "rgb(230,77,77)", 
-                message: "누구세용누구세용누구세용...", 
-                imageUrl: "images/alian/ester_03.png" 
-            },
-            222: { 
-                color: "rgb(242,38,38)", 
-                message: "많이 심심하신가봐요", 
-                imageUrl: "images/alian/ester_04.png" 
-            },
-            444: { 
-                color: "#ff0000",
-                message: "곧 재밌는 일이 일어납니다", 
-                imageUrl: "images/alian/ester_05.png" 
-            }
+            4: { color: "rgb(205,154,154)", message: "이상기운을 발견했습니다!", imageUrl: "images/alian/ester_01.png" },
+            44: { color: "rgb(217,115,115)", message: "조금 더 클릭해보세요", imageUrl: "images/alian/ester_02.png" },
+            100: { color: "rgb(230,77,77)", message: "누구세용누구세용누구세용...", imageUrl: "images/alian/ester_03.png" },
+            222: { color: "rgb(242,38,38)", message: "많이 심심하신가봐요", imageUrl: "images/alian/ester_04.png" },
+            444: { color: "#ff0000", message: "곧 재밌는 일이 일어납니다", imageUrl: "images/alian/ester_05.png" }
         };
 
-        // 7. 지정된 카운트 도달 시 배경색 교체 및 전용 얼럿 팝업 노출
+        // 지정된 카운트 도달 시 배경색 교체 및 전용 얼럿 팝업 노출
         if (clickEventsData[globalClickCount]) {
             document.body.style.backgroundColor = clickEventsData[globalClickCount].color;
 
@@ -290,7 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 clickEventsData[globalClickCount].message,
                 clickEventsData[globalClickCount].imageUrl,
                 () => {
-                    // 최종 444단계 확인 버튼 누르면 기믹 가동
                     if (globalClickCount === 444) {
                         triggerEasterEgg();
                     }
