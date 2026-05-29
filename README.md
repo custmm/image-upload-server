@@ -273,7 +273,21 @@ image-upload-server/
 - 데이터베이스: Railway MySQL
 
 **주요 기능**
-- 자동 카테고리 분류
-- 페이지네이션 및 검색
-- 관리자 대시보드
-- 이스터에그 (미니 게임, RC카 시뮬레이션)
+[Client]
+ ↓
+Frontend (HTML/CSS/JS)
+ ↓ API 요청
+Backend (Node.js / Express)
+ ├── Routes
+ │ ├── /upload
+    ├── /files
+    └── /category
+ ├── Controllers
+ ├── Models (Sequelize)
+ │ ├── File
+    └── Category
+ ↓
+Database (MySQL)
+ ↓
+File Storage (/uploads)
+
