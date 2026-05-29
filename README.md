@@ -273,6 +273,7 @@ image-upload-server/
 - 데이터베이스: Railway MySQL
 
 **주요 기능**
+
 [Client]
 
  ↓
@@ -285,7 +286,7 @@ Backend (Node.js / Express)
 
  ├── Routes
  
- │ ├── /upload
+    ├── /upload
  
     ├── /files
     
@@ -295,7 +296,7 @@ Backend (Node.js / Express)
  
  ├── Models (Sequelize)
  
- │ ├── File
+    ├── File
  
     └── Category
     
