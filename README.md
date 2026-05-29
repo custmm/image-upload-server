@@ -274,20 +274,37 @@ image-upload-server/
 
 **주요 기능**
 [Client]
+
  ↓
+ 
 Frontend (HTML/CSS/JS)
+
  ↓ API 요청
+ 
 Backend (Node.js / Express)
+
  ├── Routes
+ 
  │ ├── /upload
+ 
     ├── /files
+    
     └── /category
+    
  ├── Controllers
+ 
  ├── Models (Sequelize)
+ 
  │ ├── File
+ 
     └── Category
+    
  ↓
+ 
 Database (MySQL)
+
  ↓
+ 
 File Storage (/uploads)
+
 
