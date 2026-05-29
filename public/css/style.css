@@ -1793,7 +1793,10 @@ body.click-page h1 {
     color: aliceblue;
     margin: 30px auto;
 }
+body.click-page .exper_font{
+    background-color: #fff;
 
+}
 
 body.click-page .plus_container {
     background-color: aliceblue;
@@ -1804,9 +1807,9 @@ body.click-page .plus_container {
 }
 
 body.click-page .explan-detail-container {
-    border: 1px solid #ccc;
+    background-color: #ccc;
     border-radius: 8px;
-    margin: 18px auto;
+    margin: -25px auto;
     width: 80%;
 }
 
