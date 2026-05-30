@@ -1804,6 +1804,7 @@ body.click-page .exper_font {
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(8px);
     transition: background-color 0.3s ease;
+    color: #555;
 }
 
 body.click-page .plus_container:hover .exper_font {
