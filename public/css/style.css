@@ -1798,48 +1798,45 @@ body.click-page h1 {
     margin: 30px auto;
 }
 
+/* 2. 대카테고리 헤더 타이틀 바 보정 (수동 픽셀 제거) */
 body.click-page .exper_font {
-    background-color: #fff;
-    width: 245px;
-    height: 30px;
-    left: 40%;
-    border-radius: 15px;
-    display: flex;
-    position: relative;
-    z-index: 100;
-    justify-content: center;
-
+    background-color: rgba(255, 255, 255, 0.15); /* 세련된 반투명 레이어 */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    transition: background-color 0.3s ease;
 }
 
-body.click-page .plus_container {
-    background-color: aliceblue;
-    border-radius: 30px;
-    padding: 20px;
-    margin: 0 auto 20px;
-    width: 85%;
+body.click-page .plus_container:hover .exper_font {
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
+/* 3. 펼쳐지기 전 본문 세팅 (수동 margin 마이너스 격리 해제) */
 body.click-page .explan-detail-container {
-    background-color: #b6f0ff;
-    border-radius: 8px;
-    margin: -25px auto;
-    width: 80%;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* 4. [보존 핵심] 자바스크립트 토글 연동 창고 */
+/* 동적 스크립트(click.js) 가 display: block / none 을 번갈아 주입하므로 규격 충돌 방지 */
+body.click-page .detail-content {
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+/* 5. 텍스트 라인 상세 패딩 인스턴스 */
 body.click-page #exper_container {
-    padding: 15px 30px;
-    text-align: left;
+    font-size: 14px;
+    letter-spacing: 0.5px;
 }
 
 
+/* 6. 디테일 삼각형 토글 버튼 연출 보정 */
 body.click-page .detail-toggle {
-    margin-left: 10px;
-    font-size: 12px;
-    padding: 4px 8px;
-    cursor: pointer;
-    background: none;
-    color: black;
-    border: none;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s;
+    font-weight: bold;
+}
+
+body.click-page .detail-toggle:hover {
+    color: #ffc107 !important; /* 부트스트랩 warning 시그니처 옐로우 하이라이팅 */
 }
 
 body.click-page .detail-content {
