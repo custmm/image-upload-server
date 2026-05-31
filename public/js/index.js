@@ -171,8 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (clickerModal) {
                     clickerModal.style.setProperty("display", "none", "important");
                 }
-                isClickerBlocked = false; 
-                clickTimes = []; 
+                isClickerBlocked = false;
+                clickTimes = [];
             };
         }
     }
@@ -180,14 +180,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. '테토 모드' 버튼 클릭 시
     if (btnUse) {
         btnUse.onclick = (event) => {
-            event.stopPropagation(); 
-            currentFireworkMode = 'heavy'; 
+            event.stopPropagation();
+            currentFireworkMode = 'heavy';
 
             if (clickerModal) {
-                clickerModal.style.setProperty("display", "none", "important"); 
+                clickerModal.style.setProperty("display", "none", "important");
             }
-            isClickerBlocked = false; 
-            clickTimes = []; 
+            isClickerBlocked = false;
+            clickTimes = [];
             console.log("🎆 테토 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
         };
     }
@@ -195,14 +195,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. '에겐 모드' 버튼 클릭 시
     if (btnCancel) {
         btnCancel.onclick = (event) => {
-            event.stopPropagation(); 
-            currentFireworkMode = 'light'; 
+            event.stopPropagation();
+            currentFireworkMode = 'light';
 
             if (clickerModal) {
-                clickerModal.style.setProperty("display", "none", "important"); 
+                clickerModal.style.setProperty("display", "none", "important");
             }
-            isClickerBlocked = false; 
-            clickTimes = []; 
+            isClickerBlocked = false;
+            clickTimes = [];
             console.log("🕊️ 에겐 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
         };
     }
@@ -210,7 +210,8 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ---------------- 클릭 이벤트 (핵심 로직 수정 수정) ---------------- */
     body.addEventListener("click", (event) => {
         // 🛠️ 차단 1순위: 클리커 모달창 내부나 이스터에그 알림을 누른 거라면 모든 연산에서 제외
-        if (event.target.closest("#clicker-modal") || event.target.closest(".popup-overlay") || isPopupOpen) {
+        if (event.target.closest("#clicker-modal") ||
+            event.target.closest(".popup-overlay") || isPopupOpen) {
             return;
         }
 
@@ -233,8 +234,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // 🛠️ UI 요소 예외 필터: 버튼이나 링크, 매직 서클 클릭 시 불꽃놀이가 중복 작동하지 않도록 처리
         if (event.target.closest("button") ||
             event.target.closest("a") ||
-            event.target.classList.contains("glow-circle")
-        ) return;
+            event.target.closest(".glow-circle")
+        ) {
+            return;
+        }
 
         // ✨ 시각 효과 실행 (정상적인 바탕화면 클릭 시 무조건 작동)
         const x = event.clientX;
