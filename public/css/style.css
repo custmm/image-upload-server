@@ -1800,7 +1800,8 @@ body.click-page h1 {
 
 /* 2. 대카테고리 헤더 타이틀 바 보정 (수동 픽셀 제거) */
 body.click-page .exper_font {
-    background-color: rgba(255, 255, 255, 0.15); /* 세련된 반투명 레이어 */
+    background-color: rgba(255, 255, 255, 0.15);
+    /* 세련된 반투명 레이어 */
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(8px);
     transition: background-color 0.3s ease;
@@ -1838,7 +1839,8 @@ body.click-page .detail-toggle {
 }
 
 body.click-page .detail-toggle:hover {
-    color: #ffc107 !important; /* 부트스트랩 warning 시그니처 옐로우 하이라이팅 */
+    color: #ffc107 !important;
+    /* 부트스트랩 warning 시그니처 옐로우 하이라이팅 */
 }
 
 body.click-page .detail-content {
@@ -2582,6 +2584,10 @@ body.preview-page .hover-icon {
     opacity: 0;
 }
 
+body.preview-page .guide-footer {
+    display: flex;
+    flex-direction: column;
+}
 
 /*====== 표시기css ======*/
 body.preview-page .preview-images {
