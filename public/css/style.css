@@ -2038,6 +2038,8 @@ body.post-page .popup_title {
 }
 body.post-page .post-line{
     border: 1px dashed #555;
+    padding: 15px;
+    border-radius: 15px;
 }
 
 body.post-page #downloadCanvas {
