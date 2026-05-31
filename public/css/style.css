@@ -2042,11 +2042,6 @@ body.post-page .post-line{
     border-radius: 15px;
 }
 
-body.post-page .postcategory-container{
-    margin-top: -25px;
-
-}
-
 body.post-page #downloadCanvas {
     background: none;
     border: none;
@@ -2106,6 +2101,7 @@ body.post-page .postcategory-container {
     height: auto;
     padding: 10px;
     margin: 10px 0 5px;
+    margin-top: -25px;
 }
 
 body.post-page .postcategory-container>div {
