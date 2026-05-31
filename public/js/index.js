@@ -358,11 +358,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const circle = event.target.closest(".glow-circle");
         if (!circle || circle.classList.contains("clicked")) return;
 
+        // ✨ [보정 완료] 누락되었던 targetIdx 변수를 선언 및 맵핑하여 ReferenceError 소멸 처리!
+        const targetIdx = parseInt(circle.getAttribute("data-index"), 10);
+        if (isNaN(targetIdx)) return;
+
         glowClickCount++;
         circle.classList.add("clicked");
 
         const rect = circle.getBoundingClientRect();
-        // 사용자가 랜덤하게 클릭하더라도 배치 순서(dataset.index)를 함께 객체로 push합니다.
         clickedCircles.push({
             x: rect.left + rect.width / 2,
             y: rect.top + rect.height / 2,
@@ -370,13 +373,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (glowClickCount === totalGlowClicksNeeded) {
-            // UI에 마지막 클릭 불이 명확히 켜진 뒤 부드럽게 마법진을 그리기 위해 미세 딜레이 할당
             setTimeout(() => {
                 drawStarEffect();
             }, 50);
         }
     }
-
     function drawStarEffect() {
         if (clickedCircles.length < 5) return;
 
