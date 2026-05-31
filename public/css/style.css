@@ -2096,10 +2096,10 @@ body.post-page .post-container {
 body.post-page .postcategory-container {
     display: flex;
     flex-direction: row;
-    border: 1px solid #ccc;
+    background-color: #fff;
     border-radius: 5px;
     height: auto;
-    padding: 10px;
+    padding: 7px;
     margin: 10px 0 5px;
     margin-top: -25px;
 }
