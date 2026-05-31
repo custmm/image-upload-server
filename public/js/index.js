@@ -402,19 +402,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
 
-        clickedCircles.sort((a, b) => {
-            return Math.atan2(a.y - centerY, a.x - centerX) - Math.atan2(b.y - centerY, b.x - centerX);
-        });
+        // ✨ 핵심 교정: 랜덤 클릭 데이터를 원본 원형 순서(0, 1, 2, 3, 4)로 완벽하게 재정렬합니다.
+        clickedCircles.sort((a, b) => a.index - b.index);
 
+        // 정렬된 순서에서 완벽한 별(오각성)을 완성시키는 절대적 드로잉 순서 맵 고정
         const starOrder = [0, 2, 4, 1, 3, 0];
 
         ctx.beginPath();
+        // 첫 시작점 잡기
         ctx.moveTo(clickedCircles[starOrder[0]].x, clickedCircles[starOrder[0]].y);
+        
+        // 순서 맵을 순회하며 끊김 없이 정교하게 선 연결
         for (let i = 1; i < starOrder.length; i++) {
-            ctx.lineTo(clickedCircles[starOrder[i]].x, clickedCircles[starOrder[i]].y);
+            const point = clickedCircles[starOrder[i]];
+            ctx.lineTo(point.x, point.y);
         }
         ctx.stroke();
 
+        // 외곽 원 그리기
         drawCircleAroundStar(ctx, centerX, centerY);
 
         setTimeout(() => {
