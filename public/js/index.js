@@ -32,15 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const userModeButton = document.getElementById("userModeButton");
     const modeSelection = document.getElementById("modeSelection");
     const mainTitle = document.getElementById("mainTitle");
-    const glowCircles = document.querySelectorAll(".glow-circle");
     const audio = document.getElementById("easterEggAudio");
     const audio2 = document.getElementById("fireworkAudio");
     const clickerModal = document.getElementById("clicker-modal");
-    const mainContainer = document.getElementById("main-container");
 
     const btnUse = document.getElementById("btn-use-clicker");
     const btnCancel = document.getElementById("btn-cancel-clicker");
-    const fireworksCanvas = document.getElementById("fireworksCanvas");
 
     // --- 클릭커 프로그램 감지용 변수 ---
     let clickTimes = []; // 클릭 시간 기록 배열
@@ -171,8 +168,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (clickerModal) {
                     clickerModal.style.setProperty("display", "none", "important");
                 }
-                isClickerBlocked = false;
-                clickTimes = [];
+                isClickerBlocked = false; 
+                clickTimes = []; 
             };
         }
     }
@@ -180,14 +177,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. '테토 모드' 버튼 클릭 시
     if (btnUse) {
         btnUse.onclick = (event) => {
-            event.stopPropagation();
-            currentFireworkMode = 'heavy';
+            event.stopPropagation(); 
+            currentFireworkMode = 'heavy'; 
 
             if (clickerModal) {
-                clickerModal.style.setProperty("display", "none", "important");
+                clickerModal.style.setProperty("display", "none", "important"); 
             }
-            isClickerBlocked = false;
-            clickTimes = [];
+            isClickerBlocked = false; 
+            clickTimes = []; 
             console.log("🎆 테토 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
         };
     }
@@ -195,51 +192,45 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. '에겐 모드' 버튼 클릭 시
     if (btnCancel) {
         btnCancel.onclick = (event) => {
-            event.stopPropagation();
-            currentFireworkMode = 'light';
+            event.stopPropagation(); 
+            currentFireworkMode = 'light'; 
 
             if (clickerModal) {
-                clickerModal.style.setProperty("display", "none", "important");
+                clickerModal.style.setProperty("display", "none", "important"); 
             }
-            isClickerBlocked = false;
-            clickTimes = [];
+            isClickerBlocked = false; 
+            clickTimes = []; 
             console.log("🕊️ 에겐 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
         };
     }
 
-    /* ---------------- 클릭 이벤트 (핵심 로직 수정 수정) ---------------- */
+    /* ---------------- 클릭 이벤트 (UI 필터 예외 처리) ---------------- */
     body.addEventListener("click", (event) => {
-        // 🛠️ 차단 1순위: 클리커 모달창 내부나 이스터에그 알림을 누른 거라면 모든 연산에서 제외
-        if (event.target.closest("#clicker-modal") ||
-            event.target.closest(".popup-overlay") || isPopupOpen) {
+        if (event.target.closest("#clicker-modal") || event.target.closest(".popup-overlay") || isPopupOpen) {
             return;
         }
 
-        // 🛠️ 차단 2순위: 클리커 감지 팝업이 화면에 떠 있는 상태라면 뒤쪽 스크린 클릭 완전히 차단
         if (isClickerBlocked) {
             return;
         }
 
-        // 속도 및 기록용 타임스탬프 누적
+        // 🛠️ glow-circle 요소나 그 자식들을 클릭한 영역은 바탕화면 연산에서 제외하여 씹힘 완전히 방지
+        if (event.target.closest("button") ||
+            event.target.closest("a") ||
+            event.target.closest(".glow-circle")
+        ) {
+            return; 
+        }
+
         const now = Date.now();
         clickTimes.push(now);
-        clickTimes = clickTimes.filter(time => now - time < 1000); // 최근 1초 데이터 유지
+        clickTimes = clickTimes.filter(time => now - time < 1000); 
 
-        // 🛠️ 수정 반영: 아직 안 막혔는데(isClickerBlocked === false) 임계치를 넘겼다면 매크로로 판단하고 팝업 소환!
         if (clickTimes.length > CLICK_LIMIT_THRESHOLD) {
             triggerClickerDetection();
             return;
         }
 
-        // 🛠️ UI 요소 예외 필터: 버튼이나 링크, 매직 서클 클릭 시 불꽃놀이가 중복 작동하지 않도록 처리
-        if (event.target.closest("button") ||
-            event.target.closest("a") ||
-            event.target.closest(".glow-circle")
-        ) {
-            return;
-        }
-
-        // ✨ 시각 효과 실행 (정상적인 바탕화면 클릭 시 무조건 작동)
         const x = event.clientX;
         const y = event.clientY;
 
@@ -248,11 +239,9 @@ document.addEventListener("DOMContentLoaded", () => {
             playFireworkSound();
         });
 
-        // 카운트 누적
         globalClickCount++;
-        console.log("🎯 현재 누적 클릭 수:", globalClickCount);
+        console.log("🎯 현재 누적 바탕화면 클릭 수:", globalClickCount);
 
-        // 클릭 횟수별 이스터에그 데이터 매핑
         const clickEventsData = {
             4: { color: "rgb(205,154,154)", message: "이상기운을 발견했습니다!", imageUrl: "images/alian/ester_01.png" },
             44: { color: "rgb(217,115,115)", message: "조금 더 클릭해보세요", imageUrl: "images/alian/ester_02.png" },
@@ -261,7 +250,6 @@ document.addEventListener("DOMContentLoaded", () => {
             444: { color: "#ff0000", message: "곧 재밌는 일이 일어납니다", imageUrl: "images/alian/ester_05.png" }
         };
 
-        // 지정된 카운트 도달 시 배경색 교체 및 전용 얼럿 팝업 노출
         if (clickEventsData[globalClickCount]) {
             document.body.style.backgroundColor = clickEventsData[globalClickCount].color;
 
@@ -277,23 +265,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 이스터에그 가동 로직
     function triggerEasterEgg() {
         document.querySelectorAll(".glow-circle").forEach(circle => circle.remove());
         if (document.getElementById("container")) document.getElementById("container").remove();
         if (document.getElementById("modeSelection")) document.getElementById("modeSelection").remove();
         if (document.getElementById("mainTitle")) document.getElementById("mainTitle").remove();
 
-        const audio = document.getElementById("easterEggAudio");
         if (!audio) return;
-
         audio.loop = true;
         audio.play().catch(error => console.error("오디오 재생 오류:", error));
     }
 
     const canvas = document.getElementById("fireworksCanvas");
-
-    // 캔버스 크기 설정
     if (canvas) {
         canvas.width = document.documentElement.clientWidth;
         canvas.height = document.documentElement.clientHeight;
@@ -362,24 +345,33 @@ document.addEventListener("DOMContentLoaded", () => {
             circle.classList.add("glow-circle");
             circle.style.left = `${x}px`;
             circle.style.top = `${y}px`;
-            circle.dataset.index = i + 1;
+            // 원형 좌표 배치 순서대로 데이터셋 보존 (0, 1, 2, 3, 4 순서 고정)
+            circle.dataset.index = i; 
             circle.addEventListener("click", handleGlowCircleClick);
             document.body.appendChild(circle);
         }
     }
 
     function handleGlowCircleClick(event) {
-        const circle = event.target;
-        if (circle.classList.contains("clicked")) return;
+        const circle = event.target.closest(".glow-circle");
+        if (!circle || circle.classList.contains("clicked")) return;
 
         glowClickCount++;
         circle.classList.add("clicked");
 
         const rect = circle.getBoundingClientRect();
-        clickedCircles.push({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+        // 사용자가 랜덤하게 클릭하더라도 배치 순서(dataset.index)를 함께 객체로 push합니다.
+        clickedCircles.push({ 
+            x: rect.left + rect.width / 2, 
+            y: rect.top + rect.height / 2,
+            index: parseInt(circle.dataset.index, 10)
+        });
 
         if (glowClickCount === totalGlowClicksNeeded) {
-            drawStarEffect();
+            // UI에 마지막 클릭 불이 명확히 켜진 뒤 부드럽게 마법진을 그리기 위해 미세 딜레이 할당
+            setTimeout(() => {
+                drawStarEffect();
+            }, 50);
         }
     }
 
@@ -439,6 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function drawCircleAroundStar(ctx, centerX, centerY) {
+        if (clickedCircles.length < 5) return;
         const radius = clickedCircles.reduce((sum, p) => sum + Math.hypot(p.x - centerX, p.y - centerY), 0) / 5;
         setTimeout(() => {
             ctx.beginPath();
