@@ -2036,6 +2036,9 @@ body.post-page .popup_title {
     margin: 0 auto;
     gap: 10px;
 }
+body.post-page .post-line{
+    border: 1px dashed #555;
+}
 
 body.post-page #downloadCanvas {
     background: none;
