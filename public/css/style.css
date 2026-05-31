@@ -2036,11 +2036,7 @@ body.post-page .popup_title {
     margin: 0 auto;
     gap: 10px;
 }
-body.post-page .post-line{
-    border: 1px dashed #555;
-    padding: 15px;
-    border-radius: 15px;
-}
+
 
 body.post-page #downloadCanvas {
     background: none;
@@ -2091,6 +2087,12 @@ body.post-page .post-container {
     margin: 0 auto;
     padding: 30px;
     width: 65%;
+}
+
+body.post-page .post-line{
+    border: 1px dashed #555;
+    padding: 20px;
+    border-radius: 15px;
 }
 
 body.post-page .postcategory-container {
