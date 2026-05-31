@@ -378,6 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 50);
         }
     }
+    
     function drawStarEffect() {
         if (clickedCircles.length < 5) return;
 
