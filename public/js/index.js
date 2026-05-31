@@ -168,8 +168,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (clickerModal) {
                     clickerModal.style.setProperty("display", "none", "important");
                 }
-                isClickerBlocked = false; 
-                clickTimes = []; 
+                isClickerBlocked = false;
+                clickTimes = [];
             };
         }
     }
@@ -177,14 +177,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. '테토 모드' 버튼 클릭 시
     if (btnUse) {
         btnUse.onclick = (event) => {
-            event.stopPropagation(); 
-            currentFireworkMode = 'heavy'; 
+            event.stopPropagation();
+            currentFireworkMode = 'heavy';
 
             if (clickerModal) {
-                clickerModal.style.setProperty("display", "none", "important"); 
+                clickerModal.style.setProperty("display", "none", "important");
             }
-            isClickerBlocked = false; 
-            clickTimes = []; 
+            isClickerBlocked = false;
+            clickTimes = [];
             console.log("🎆 테토 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
         };
     }
@@ -192,21 +192,23 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. '에겐 모드' 버튼 클릭 시
     if (btnCancel) {
         btnCancel.onclick = (event) => {
-            event.stopPropagation(); 
-            currentFireworkMode = 'light'; 
+            event.stopPropagation();
+            currentFireworkMode = 'light';
 
             if (clickerModal) {
-                clickerModal.style.setProperty("display", "none", "important"); 
+                clickerModal.style.setProperty("display", "none", "important");
             }
-            isClickerBlocked = false; 
-            clickTimes = []; 
+            isClickerBlocked = false;
+            clickTimes = [];
             console.log("🕊️ 에겐 모드 가동! 팝업을 닫고 뒤쪽 인터랙션을 복원합니다.");
         };
     }
 
     /* ---------------- 클릭 이벤트 (UI 필터 예외 처리) ---------------- */
     body.addEventListener("click", (event) => {
-        if (event.target.closest("#clicker-modal") || event.target.closest(".popup-overlay") || isPopupOpen) {
+        if (event.target.closest("#clicker-modal") ||
+            event.target.closest(".popup-overlay") ||
+            isPopupOpen) {
             return;
         }
 
@@ -219,12 +221,12 @@ document.addEventListener("DOMContentLoaded", () => {
             event.target.closest("a") ||
             event.target.closest(".glow-circle")
         ) {
-            return; 
+            return;
         }
 
         const now = Date.now();
         clickTimes.push(now);
-        clickTimes = clickTimes.filter(time => now - time < 1000); 
+        clickTimes = clickTimes.filter(time => now - time < 1000);
 
         if (clickTimes.length > CLICK_LIMIT_THRESHOLD) {
             triggerClickerDetection();
@@ -346,7 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
             circle.style.left = `${x}px`;
             circle.style.top = `${y}px`;
             // 원형 좌표 배치 순서대로 데이터셋 보존 (0, 1, 2, 3, 4 순서 고정)
-            circle.dataset.index = i; 
+            circle.dataset.index = i;
             circle.addEventListener("click", handleGlowCircleClick);
             document.body.appendChild(circle);
         }
@@ -361,10 +363,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const rect = circle.getBoundingClientRect();
         // 사용자가 랜덤하게 클릭하더라도 배치 순서(dataset.index)를 함께 객체로 push합니다.
-        clickedCircles.push({ 
-            x: rect.left + rect.width / 2, 
+        clickedCircles.push({
+            x: rect.left + rect.width / 2,
             y: rect.top + rect.height / 2,
-            index: parseInt(circle.dataset.index, 10)
+            index: targetIdx
         });
 
         if (glowClickCount === totalGlowClicksNeeded) {
@@ -401,13 +403,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const starOrder = [0, 2, 4, 1, 3, 0];
 
         ctx.beginPath();
-        // 첫 시작점 잡기
-        ctx.moveTo(clickedCircles[starOrder[0]].x, clickedCircles[starOrder[0]].y);
-        
-        // 순서 맵을 순회하며 끊김 없이 정교하게 선 연결
+
+        // ✨ 수정 포인트: Falsy 구조를 피하기 위해 객체 존재 여부만 명확하게 검증 (index가 0이어도 통과)
+        const startPoint = clickedCircles[starOrder[0]];
+        if (startPoint !== undefined && startPoint !== null) {
+            ctx.moveTo(startPoint.x, startPoint.y);
+        }
+
+        // 순서 맵을 순회하며 끊김 없이 선 연결
         for (let i = 1; i < starOrder.length; i++) {
             const point = clickedCircles[starOrder[i]];
-            ctx.lineTo(point.x, point.y);
+            if (point !== undefined && point !== null) {
+                ctx.lineTo(point.x, point.y);
+            }
         }
         ctx.stroke();
 
