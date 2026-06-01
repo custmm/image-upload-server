@@ -336,7 +336,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
 
+        // 1. 기존 원 제거
         document.querySelectorAll(".glow-circle").forEach(circle => circle.remove());
+
+        // 🔥 핵심 수정: 리사이즈 시 기존 클릭 카운트와 저장된 좌표 배열을 초기화합니다.
+        glowClickCount = 0;
+        clickedCircles = [];
 
         for (let i = 0; i < numCircles; i++) {
             const angle = (i * 72) * (Math.PI / 180);
@@ -347,7 +352,6 @@ document.addEventListener("DOMContentLoaded", () => {
             circle.classList.add("glow-circle");
             circle.style.left = `${x}px`;
             circle.style.top = `${y}px`;
-            // 원형 좌표 배치 순서대로 데이터셋 보존 (0, 1, 2, 3, 4 순서 고정)
             circle.dataset.index = i;
             circle.addEventListener("click", handleGlowCircleClick);
             document.body.appendChild(circle);
@@ -378,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 50);
         }
     }
-    
+
     function drawStarEffect() {
         if (clickedCircles.length < 5) return;
 
@@ -451,5 +455,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     window.addEventListener("load", createCircles);
-    window.addEventListener("resize", createCircles);
 });
