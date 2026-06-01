@@ -1,0 +1,7 @@
+@media (max-width: 576px) {
+    body.click-page .exper_font{
+        display: flex;
+        flex-direction: column;
+
+    }
+}
