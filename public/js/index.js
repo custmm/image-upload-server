@@ -216,11 +216,17 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 🛠️ glow-circle 요소나 그 자식들을 클릭한 영역은 바탕화면 연산에서 제외하여 씹힘 완전히 방지
+        // 🛠️ [해결 포인트 1] 원형 링크나 가상 영역 근처를 누른 경우 body 이벤트가 아예 실행되지 않도록 필터링 대폭 강화
         if (event.target.closest("button") ||
             event.target.closest("a") ||
-            event.target.closest(".glow-circle")
+            event.target.closest(".glow-circle") ||
+            event.target.classList.contains("glow-circle")
         ) {
+            return;
+        }
+
+        // 🛠️ [해결 포인트 2] 만약 이미 원을 하나라도 누르기 시작했다면 이스터에그 방해 방지를 위해 일반 바탕화면 카운트를 일시 정지시킵니다.
+        if (glowClickCount > 0 && glowClickCount < totalGlowClicksNeeded) {
             return;
         }
 
@@ -336,10 +342,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
 
-        // 1. 기존 원 제거
         document.querySelectorAll(".glow-circle").forEach(circle => circle.remove());
 
-        // 🔥 핵심 수정: 리사이즈 시 기존 클릭 카운트와 저장된 좌표 배열을 초기화합니다.
         glowClickCount = 0;
         clickedCircles = [];
 
@@ -359,10 +363,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function handleGlowCircleClick(event) {
+        // 🛠️ [해결 포인트 3] 이벤트 전파를 수동으로 완벽히 차단하여 body의 바탕화면 클릭 로직을 우회합니다.
+        event.stopPropagation();
+        event.preventDefault();
+
         const circle = event.target.closest(".glow-circle");
         if (!circle || circle.classList.contains("clicked")) return;
 
-        // ✨ [보정 완료] 누락되었던 targetIdx 변수를 선언 및 맵핑하여 ReferenceError 소멸 처리!
         const targetIdx = parseInt(circle.getAttribute("data-index"), 10);
         if (isNaN(targetIdx)) return;
 
@@ -402,21 +409,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
 
-        // ✨ 핵심 교정: 랜덤 클릭 데이터를 원본 원형 순서(0, 1, 2, 3, 4)로 완벽하게 재정렬합니다.
         clickedCircles.sort((a, b) => a.index - b.index);
 
-        // 정렬된 순서에서 완벽한 별(오각성)을 완성시키는 절대적 드로잉 순서 맵 고정
         const starOrder = [0, 2, 4, 1, 3, 0];
 
         ctx.beginPath();
 
-        // ✨ 수정 포인트: Falsy 구조를 피하기 위해 객체 존재 여부만 명확하게 검증 (index가 0이어도 통과)
         const startPoint = clickedCircles[starOrder[0]];
         if (startPoint !== undefined && startPoint !== null) {
             ctx.moveTo(startPoint.x, startPoint.y);
         }
 
-        // 순서 맵을 순회하며 끊김 없이 선 연결
         for (let i = 1; i < starOrder.length; i++) {
             const point = clickedCircles[starOrder[i]];
             if (point !== undefined && point !== null) {
@@ -425,7 +428,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         ctx.stroke();
 
-        // 외곽 원 그리기
         drawCircleAroundStar(ctx, centerX, centerY);
 
         setTimeout(() => {
@@ -438,6 +440,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.querySelectorAll(".glow-circle").forEach(circle => circle.remove());
                 starCanvas.remove();
                 glowEffect.remove();
+                // 원 그리기 연출이 끝났으므로 글로벌 카운트 초기화 유연성 확보
+                globalClickCount = 0; 
             }, 2000);
         }, 1000);
 
