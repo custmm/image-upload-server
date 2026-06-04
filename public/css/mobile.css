@@ -2,6 +2,9 @@
     body.click-page .exper_font{
         display: flex;
         flex-direction: column;
-
+    }
+    body.post-page .post-description {
+        width: 90vw;
+        font-size: 20px;
     }
 }
