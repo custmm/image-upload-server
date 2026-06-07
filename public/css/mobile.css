@@ -1,10 +1,18 @@
 @media (max-width: 576px) {
-    body.click-page .exper_font{
+    /*========== click페이지 ==========*/
+    body.click-page .exper_font {
         display: flex;
         flex-direction: column;
     }
+    body.click-page .explan_png img {
+        width: 300px;
+    }
+
+    /*========== post페이지 ==========*/
     body.post-page .post-description {
         width: 90vw;
         font-size: 20px;
     }
+
+
 }
