@@ -25,7 +25,6 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import fileRoutes from "./routes/fileRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
-import indicatorRoutes from "./routes/indicatorRoutes.js";
 import koreanTagRoutes from "./routes/korean-initials.js";
 import settingRoutes from "./routes/settingRoutes.js";
 
@@ -265,7 +264,6 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/files", fileRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/admin", adminRoutes);
-app.use("/api", indicatorRoutes);
 app.use("/api/korean-initials", koreanTagRoutes);
 app.use("/api/settings", settingRoutes);
 
