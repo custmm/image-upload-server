@@ -1,9 +1,16 @@
 @media (max-width: 576px) {
+
     /*========== click페이지 ==========*/
     body.click-page .exper_font {
         display: flex;
         flex-direction: column;
     }
+
+    body.click-page .explan_png {
+        display: flex;
+        justify-content: center;
+    }
+
     body.click-page .explan_png img {
         width: 210px;
     }
