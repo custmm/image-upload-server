@@ -168,28 +168,25 @@
     </div>
 
     <div id="settingPopup" class="setting-layer" style="z-index: 1600;">
-        <div class="setting-popup card bg-dark text-light p-4 border-secondary shadow-lg">
-            <h3 class="fs-5 fw-bold border-bottom border-secondary pb-2 mb-3">Setting</h3>
+        <h3>Setting</h3>
 
-            <div class="setting_item d-flex justify-content-between align-items-center mb-3">
-                <div class="setting_text_wrap">
-                    <p class="m-0 fw-bold">표시기 레이어</p>
-                </div>
-                <div class="toggle-switch_ind btn-group">
-                    <button id="show-indicate" class="indicate_btn btn btn-xs btn-outline-success active">Show</button>
-                    <button id="hide-indicate" class="indicate_btn btn btn-xs btn-outline-secondary">Hide</button>
-                </div>
+        <div class="setting_item">
+            <div class="setting_text_wrap">
+                <p class="m-0 fw-bold">표시기 레이어</p>
             </div>
+            <div class="toggle-switch_ind">
+                <button id="show-indicate" class="indicate_btn">Show</button>
+                <button id="hide-indicate" class="indicate_btn">Hide</button>
+            </div>
+        </div>
 
-            <div class="setting_item">
-                <div class="input-group">
-                    <input type="text" id="sidebarSearchInput" class="form-control bg-secondary text-white border-0"
-                        placeholder="작품 검색..." />
-                    <button id="sidebarSearchBtn" class="btn btn-warning search-icon-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
+        <div class="setting_item">
+
+            <input type="text" id="sidebarSearchInput" placeholder="작품 검색..." />
+            <button id="sidebarSearchBtn">
+                <i class="fas fa-search"></i>
+            </button>
+
         </div>
     </div>
 
@@ -241,8 +238,7 @@
                 </ul>
             </div>
 
-            <div
-                class="guide-footer">
+            <div class="guide-footer">
                 <label style="cursor: pointer;" class="text-muted small d-inline-flex align-items-center gap-2">
                     <input type="checkbox" id="today-close-chk" class="form-check-input bg-secondary border-0 m-0">
                     오늘 하루 그만 보기
