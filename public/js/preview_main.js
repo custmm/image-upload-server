@@ -45,7 +45,7 @@ window.updateLoadingImage = function () {
     // 1~8번 중 랜덤 선택
     const randomIndex = Math.floor(Math.random() * 8) + 1;
     // 경로 설정 (파일명 규칙에 맞게 _re 또는 re 확인 필요)
-    const imageUrl = `../images/indicator/preview-gunff_${randomIndex}re.png`;
+    const imageUrl = `../images/indicator/preview-gunff_${randomIndex}re.svg`;
 
     loader.style.backgroundImage = `url('${imageUrl}')`;
     loader.style.backgroundSize = "contain";

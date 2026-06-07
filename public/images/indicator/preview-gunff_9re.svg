@@ -3,23 +3,25 @@
   <defs>
     <style>
       .cls-1 {
-        fill: #f26722;
+        fill: #f16a24;
       }
 
       .cls-2 {
-        fill: #f16823;
+        fill: #f16924;
       }
     </style>
   </defs>
   <g id="Layer_1-2" data-name="Layer 1">
-    <circle class="cls-1" cx="59.6" cy="59.6" r="37.25"/>
-    <polygon class="cls-2" points="68.09 16.99 59.6 0 51.1 16.99 68.09 16.99"/>
-    <polygon class="cls-2" points="35.48 23.46 17.46 17.45 23.46 35.48 35.48 23.46"/>
-    <polygon class="cls-2" points="16.99 51.1 0 59.59 16.99 68.09 16.99 51.1"/>
-    <polygon class="cls-2" points="23.46 83.72 17.45 101.74 35.48 95.74 23.46 83.72"/>
-    <polygon class="cls-2" points="51.1 102.21 59.59 119.2 68.09 102.21 51.1 102.21"/>
-    <polygon class="cls-2" points="83.72 95.74 101.74 101.75 95.74 83.72 83.72 95.74"/>
-    <polygon class="cls-2" points="102.21 68.09 119.2 59.6 102.21 51.1 102.21 68.09"/>
-    <polygon class="cls-2" points="95.74 35.48 101.75 17.46 83.72 23.46 95.74 35.48"/>
+    <g id="uuid-6173c457-9084-4976-be0d-1938d497d7e4" data-name="Layer 1-2">
+      <circle class="cls-2" cx="59.6" cy="59.6" r="37.25"/>
+      <polygon class="cls-1" points="68.09 16.99 59.6 0 51.1 16.99 68.09 16.99"/>
+      <polygon class="cls-1" points="35.48 23.46 17.46 17.45 23.46 35.48 35.48 23.46"/>
+      <polygon class="cls-1" points="16.99 51.1 0 59.59 16.99 68.09 16.99 51.1"/>
+      <polygon class="cls-1" points="23.46 83.72 17.45 101.74 35.48 95.74 23.46 83.72"/>
+      <polygon class="cls-1" points="51.1 102.21 59.59 119.2 68.09 102.21 51.1 102.21"/>
+      <polygon class="cls-1" points="83.72 95.74 101.74 101.75 95.74 83.72 83.72 95.74"/>
+      <polygon class="cls-1" points="102.21 68.09 119.2 59.6 102.21 51.1 102.21 68.09"/>
+      <polygon class="cls-1" points="95.74 35.48 101.75 17.46 83.72 23.46 95.74 35.48"/>
+    </g>
   </g>
 </svg>
