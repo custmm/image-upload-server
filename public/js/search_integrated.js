@@ -1,7 +1,7 @@
 // 1. 전역 상태 변수
 let allPosts = [];
 let currentIndex = 0;
-const pageSize = 10;
+const pageSize = 10; // 🔹 한 페이지에 표시할 게시글 개수 고정
 let isLoading = false;
 let tagLoaded = false;
 let loaderStep = 1;
@@ -28,54 +28,122 @@ function hideLoading() {
     if (indicator) indicator.style.display = "none";
 }
 
-// 3. 게시글 렌더링 함수 (👉 클릭 이벤트 바인딩 로직 추가)
-function renderNextPosts() {
-    if (isLoading) return;
-    isLoading = true;
-
+// 3. 게시글 렌더링 함수 (덮어쓰기 방식으로 수정 및 페이지네이션 연동)
+function renderPostsByPage(index) {
+    currentIndex = index;
     const postList = document.getElementById("postList");
+    if (!postList) return;
+
+    // 현재 인덱스로부터 딱 10개만 슬라이스
     const nextPosts = allPosts.slice(currentIndex, currentIndex + pageSize);
 
-    // 약간의 딜레이를 주어 자연스러운 로딩 연출
-    setTimeout(() => {
-        const html = nextPosts.map(post => `
-            <!-- 🔹 [변경] href 속성 대신 data-id 속성으로 id를 보관하고 마우스 커서 손가락 효과를 줍니다 -->
-            <div class="post-item" data-id="${post.id}" style="cursor: pointer;">
-                <div class="search_image">
-                    <img src="${post.file_path || '/images/no-image.png'}" alt="${post.title}">
+    const html = nextPosts.map(post => `
+        <div class="post-item" data-id="${post.id}" style="cursor: pointer;">
+            <div class="search_image">
+                <img src="${post.file_path || '/images/no-image.png'}" alt="${post.title}">
+            </div>
+            <div class="post-meta">
+                <div class="category">
+                    ${post.category_name || ""} ▶ ${post.subcategory_name || ""}
                 </div>
-                <div class="post-meta">
-                    <div class="category">
-                        ${post.category_name || ""} ▶ ${post.subcategory_name || ""}
-                    </div>
-                    <div class="search_title">
-                        <h3>${post.title}</h3>
-                    </div>
-                    <div class="desc">
-                        ${(post.text || post.title || "").replace(/(<([^>]+)>)/gi, "").slice(0, 50)}...
-                    </div>
+                <div class="search_title">
+                    <h3>${post.title}</h3>
+                </div>
+                <div class="desc">
+                    ${(post.text || post.title || "").replace(/(<([^>]+)>)/gi, "").slice(0, 50)}...
                 </div>
             </div>
-        `).join('');
+        </div>
+    `).join('');
 
-        postList.insertAdjacentHTML('beforeend', html);
+    // 🔹 [변경] 기존 리스트에 누적하지 않고, 새로고침 하듯 지우고 10개만 넣습니다.
+    postList.innerHTML = html;
 
-        // 🔹 [핵심 추가] 새로 그려진 카드들을 찾아서 안전하게 클릭 이벤트를 걸어줍니다!
-        const addedItems = postList.querySelectorAll(".post-item[data-id]");
-        addedItems.forEach(item => {
-            // 중복 실행 방지를 위한 안전장치
-            if (!item.dataset.linked) {
-                item.dataset.linked = "true";
-                item.addEventListener("click", () => {
-                    const postId = item.getAttribute("data-id");
-                    window.location.href = `post?id=${postId}`; // 👉 post 상세페이지로 이동!
-                });
-            }
+    // 카드들에 클릭 이벤트 바인딩
+    const addedItems = postList.querySelectorAll(".post-item[data-id]");
+    addedItems.forEach(item => {
+        item.addEventListener("click", () => {
+            const postId = item.getAttribute("data-id");
+            window.location.href = `post?id=${postId}`;
         });
+    });
 
-        currentIndex += pageSize;
-        isLoading = false;
-    }, 300);
+    // 하단 페이지네이션 버튼 업데이트
+    renderPaginationButtons();
+}
+
+// 🔹 [신규 추가] 하단 페이지네이션 버튼 동적 생성 함수
+function renderPaginationButtons() {
+    // HTML에 <div id="paginationContainer"></div> 요소가 있어야 합니다. 없으면 새로 만듭니다.
+    let pagContainer = document.getElementById("paginationContainer");
+    if (!pagContainer) {
+        pagContainer = document.createElement("div");
+        pagContainer.id = "paginationContainer";
+        pagContainer.style.textAlign = "center";
+        pagContainer.style.margin = "20px 0";
+        // postList 바로 뒤에 삽입
+        const postList = document.getElementById("postList");
+        if (postList) postList.parentNode.insertBefore(pagContainer, postList.nextSibling);
+    }
+
+    pagContainer.innerHTML = "";
+    if (allPosts.length <= pageSize) return; // 전체 데이터가 10개 이하면 버튼이 필요 없음
+
+    const totalPages = Math.ceil(allPosts.length / pageSize);
+    const currentPage = Math.floor(currentIndex / pageSize);
+
+    // ◀ 이전 버튼
+    const prevBtn = document.createElement("button");
+    prevBtn.textContent = "◀";
+    prevBtn.style.margin = "0 5px";
+    prevBtn.style.padding = "5px 10px";
+    prevBtn.style.cursor = "pointer";
+    prevBtn.disabled = (currentPage === 0);
+    prevBtn.onclick = () => {
+        if (currentPage > 0) {
+            renderPostsByPage((currentPage - 1) * pageSize);
+            window.scrollTo(0, 0); // 페이지 변경 시 상단으로 스크롤
+        }
+    };
+    pagContainer.appendChild(prevBtn);
+
+    // 숫자 번호 버튼들
+    for (let i = 0; i < totalPages; i++) {
+        const pageBtn = document.createElement("button");
+        pageBtn.textContent = i + 1;
+        pageBtn.style.margin = "0 5px";
+        pageBtn.style.padding = "5px 10px";
+        pageBtn.style.cursor = "pointer";
+        
+        // 현재 활성화된 페이지 디자인 구분
+        if (i === currentPage) {
+            pageBtn.style.fontWeight = "bold";
+            pageBtn.style.backgroundColor = "#007bff";
+            pageBtn.style.color = "#fff";
+            pageBtn.style.border = "1px solid #007bff";
+        }
+
+        pageBtn.onclick = () => {
+            renderPostsByPage(i * pageSize);
+            window.scrollTo(0, 0);
+        };
+        pagContainer.appendChild(pageBtn);
+    }
+
+    // ▶ 다음 버튼
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "▶";
+    nextBtn.style.margin = "0 5px";
+    nextBtn.style.padding = "5px 10px";
+    nextBtn.style.cursor = "pointer";
+    nextBtn.disabled = (currentPage >= totalPages - 1);
+    nextBtn.onclick = () => {
+        if (currentPage < totalPages - 1) {
+            renderPostsByPage((currentPage + 1) * pageSize);
+            window.scrollTo(0, 0);
+        }
+    };
+    pagContainer.appendChild(nextBtn);
 }
 
 // 4. 초성 순서 및 태그 관련 설정
@@ -103,19 +171,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     const resetTagBtn = document.getElementById("resetTagButton");
     const backBtn = document.getElementById("backBtn");
 
-    // [뒤로가기 설정]
     if (backBtn) {
         backBtn.addEventListener("click", () => {
-            window.history.back(); // 브라우저 고유의 뒤로가기 정상 작동 트리거
+            window.history.back();
         });
     }
-    // [검색어/태그 유무 판별]
+
     if (!query && !tag) {
         resultTitle.textContent = "검색어나 태그가 없습니다.";
         return;
     }
 
-    // UI 모드 설정
     if (tag) {
         resultTitle.textContent = `#${tag} 관련 게시물`;
         if (resetTagBtn) resetTagBtn.style.display = "inline-block";
@@ -142,7 +208,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <p>관련 게시물이 없습니다.</p>
             </div>`;
         } else {
-            renderNextPosts();
+            // 🔹 무한 스크롤 함수 대신 첫 번째 페이지(0번 인덱스) 로드 함수 호출
+            renderPostsByPage(0);
         }
     } catch (err) {
         console.error("데이터 로드 오류:", err);
@@ -151,28 +218,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         hideLoading();
     }
 
-    // [무한 스크롤 설정]
-    const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && currentIndex < allPosts.length) {
-            renderNextPosts();
-        }
-    });
-    const scrollTrigger = document.getElementById("scrollTrigger");
-    if (scrollTrigger) observer.observe(scrollTrigger);
+    // 🔹 [변경] 기존의 IntersectionObserver(무한 스크롤) 코드 및 관련 트리거는 완벽히 제거되었습니다.
+    // 기존에 있던 html 내의 #scrollTrigger 요소는 남겨두셔도 아무런 오작동을 하지 않습니다.
 
     // [전체 태그 보기 버튼 이벤트] - 태그 모드 전용
     if (resetTagBtn) {
         resetTagBtn.addEventListener("click", async () => {
             const tagListDiv = document.getElementById("koreanTagList");
+            const pagContainer = document.getElementById("paginationContainer");
+            
             if (tagListDiv.style.display === "block") {
                 tagListDiv.style.display = "none";
                 postList.style.display = "";
+                if (pagContainer) pagContainer.style.display = ""; // 페이지네이션 보이기
                 resetTagBtn.textContent = "전체 태그 보기";
                 return;
             }
 
             tagListDiv.style.display = "block";
             postList.style.display = "none";
+            if (pagContainer) pagContainer.style.display = "none"; // 페이지네이션 숨기기
             resetTagBtn.textContent = "개별 태그 보기";
 
             if (tagLoaded) return;
