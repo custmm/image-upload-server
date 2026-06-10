@@ -556,10 +556,9 @@ body.dashboard-page #left_wrap {
 
 body.dashboard-page .section1 {
     margin: 20px auto;
-    padding-bottom: 30px;
+    padding-bottom: 35px;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.5);
-    height: 625px;
 }
 
 /* 실제 게시글이 들어가는 갤러리 영역 */
@@ -1090,7 +1089,7 @@ body.dashboard-page .post-form-container.text-mode {
     width: 90%;
     margin: 0 auto;
     flex-direction: row;
-    max-height: 530px;
+    max-height: 635px;
     overflow-y: auto;
     box-sizing: border-box;
 }
@@ -1251,7 +1250,7 @@ body.dashboard-page .function-container img:hover {
 
 body.dashboard-page .sorting-wrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
     gap: 10px;
     padding: 15px 0;
