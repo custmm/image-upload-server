@@ -1,7 +1,7 @@
 // 1. 전역 상태 변수
 let allPosts = [];
 let currentIndex = 0;
-const pageSize = 10; // 🔹 한 페이지에 표시할 게시글 개수 고정
+const pageSize = 10; // 한 페이지당 표시할 카드 개수 (10개씩 교체)
 let isLoading = false;
 let tagLoaded = false;
 let loaderStep = 1;
@@ -58,6 +58,8 @@ function renderPostsByPage(index) {
 
     // 🔹 [변경] 기존 리스트에 누적하지 않고, 새로고침 하듯 지우고 10개만 넣습니다.
     postList.innerHTML = html;
+     // 페이지 바뀔 때 가로 스크롤바 위치 맨 앞으로 강제 리셋
+    postList.scrollLeft = 0;
 
     // 카드들에 클릭 이벤트 바인딩
     const addedItems = postList.querySelectorAll(".post-item[data-id]");
@@ -80,10 +82,24 @@ function renderPaginationButtons() {
         pagContainer = document.createElement("div");
         pagContainer.id = "paginationContainer";
         pagContainer.style.textAlign = "center";
-        pagContainer.style.margin = "20px 0";
-        // postList 바로 뒤에 삽입
-        const postList = document.getElementById("postList");
-        if (postList) postList.parentNode.insertBefore(pagContainer, postList.nextSibling);
+               pagContainer.style.margin = "30px 0";
+        pagContainer.style.display = "flex";
+        pagContainer.style.justifyContent = "center";
+        pagContainer.style.alignItems = "center";
+        pagContainer.style.gap = "8px";
+
+        // 🔹 [핵심 변경] search-container 영역을 찾아 통째로 바깥 아랫줄에 삽입합니다.
+        const searchContainer = document.querySelector(".search-container");
+        if (searchContainer) {
+            // search-container 바로 뒤(외부)에 독립 배치
+            searchContainer.parentNode.insertBefore(pagContainer, searchContainer.nextSibling);
+        } else {
+            // 구조상 만약 없을 경우 안전장치로 postList의 부모 바깥에 배치
+            const postList = document.getElementById("postList");
+            if (postList && postList.parentNode) {
+                postList.parentNode.parentNode.insertBefore(pagContainer, postList.parentNode.nextSibling);
+            }
+        }
     }
 
     pagContainer.innerHTML = "";
@@ -95,9 +111,8 @@ function renderPaginationButtons() {
     // ◀ 이전 버튼
     const prevBtn = document.createElement("button");
     prevBtn.textContent = "◀";
-    prevBtn.style.margin = "0 5px";
-    prevBtn.style.padding = "5px 10px";
-    prevBtn.style.cursor = "pointer";
+    prevBtn.className = "page-nav-btn";
+
     prevBtn.disabled = (currentPage === 0);
     prevBtn.onclick = () => {
         if (currentPage > 0) {
@@ -111,21 +126,19 @@ function renderPaginationButtons() {
     for (let i = 0; i < totalPages; i++) {
         const pageBtn = document.createElement("button");
         pageBtn.textContent = i + 1;
-        pageBtn.style.margin = "0 5px";
-        pageBtn.style.padding = "5px 10px";
-        pageBtn.style.cursor = "pointer";
+         pageBtn.className = "page-num-btn";
+
         
         // 현재 활성화된 페이지 디자인 구분
         if (i === currentPage) {
+            pageBtn.classList.add("active");
             pageBtn.style.fontWeight = "bold";
             pageBtn.style.backgroundColor = "#007bff";
             pageBtn.style.color = "#fff";
-            pageBtn.style.border = "1px solid #007bff";
         }
 
         pageBtn.onclick = () => {
             renderPostsByPage(i * pageSize);
-            window.scrollTo(0, 0);
         };
         pagContainer.appendChild(pageBtn);
     }
@@ -133,14 +146,11 @@ function renderPaginationButtons() {
     // ▶ 다음 버튼
     const nextBtn = document.createElement("button");
     nextBtn.textContent = "▶";
-    nextBtn.style.margin = "0 5px";
-    nextBtn.style.padding = "5px 10px";
-    nextBtn.style.cursor = "pointer";
+nextBtn.className = "page-nav-btn";
     nextBtn.disabled = (currentPage >= totalPages - 1);
     nextBtn.onclick = () => {
         if (currentPage < totalPages - 1) {
             renderPostsByPage((currentPage + 1) * pageSize);
-            window.scrollTo(0, 0);
         }
     };
     pagContainer.appendChild(nextBtn);
@@ -218,25 +228,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         hideLoading();
     }
 
-    // 🔹 [변경] 기존의 IntersectionObserver(무한 스크롤) 코드 및 관련 트리거는 완벽히 제거되었습니다.
-    // 기존에 있던 html 내의 #scrollTrigger 요소는 남겨두셔도 아무런 오작동을 하지 않습니다.
-
     // [전체 태그 보기 버튼 이벤트] - 태그 모드 전용
     if (resetTagBtn) {
         resetTagBtn.addEventListener("click", async () => {
             const tagListDiv = document.getElementById("koreanTagList");
             const pagContainer = document.getElementById("paginationContainer");
-            
+            const searchContainer = document.querySelector(".search-container");
+
             if (tagListDiv.style.display === "block") {
                 tagListDiv.style.display = "none";
-                postList.style.display = "";
-                if (pagContainer) pagContainer.style.display = ""; // 페이지네이션 보이기
+                if (searchContainer) searchContainer.style.display = ""; // 가로스크롤 박스 노출
+                if (pagContainer) pagContainer.style.display = "flex"; // 페이지네이션 보이기
                 resetTagBtn.textContent = "전체 태그 보기";
                 return;
             }
 
             tagListDiv.style.display = "block";
-            postList.style.display = "none";
+            if (searchContainer) searchContainer.style.display = "none"; // 가로스크롤 박스 숨김
             if (pagContainer) pagContainer.style.display = "none"; // 페이지네이션 숨기기
             resetTagBtn.textContent = "개별 태그 보기";
 

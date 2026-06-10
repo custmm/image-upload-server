@@ -556,10 +556,9 @@ body.dashboard-page #left_wrap {
 
 body.dashboard-page .section1 {
     margin: 20px auto;
-    padding-bottom: 30px;
+    padding-bottom: 35px;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.5);
-    height: 625px;
 }
 
 /* 실제 게시글이 들어가는 갤러리 영역 */
@@ -1090,7 +1089,7 @@ body.dashboard-page .post-form-container.text-mode {
     width: 90%;
     margin: 0 auto;
     flex-direction: row;
-    max-height: 530px;
+    max-height: 635px;
     overflow-y: auto;
     box-sizing: border-box;
 }
@@ -1251,7 +1250,7 @@ body.dashboard-page .function-container img:hover {
 
 body.dashboard-page .sorting-wrapper {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
     gap: 10px;
     padding: 15px 0;
@@ -1850,10 +1849,16 @@ body.click-page .detail-content {
     display: none;
 }
 
-body.click-page .explan_png img{
+body.click-page .explan_png {
+    display: flex;
+    justify-content: center;
+}
+
+body.click-page .explan_png img {
     width: 500px;
 
 }
+
 /* ====== 게임 페이지(killing_game.html) ====== */
 
 body.game-page h1 {
@@ -2094,7 +2099,7 @@ body.post-page .post-container {
     width: 65%;
 }
 
-body.post-page .post-line{
+body.post-page .post-line {
     border: 1px dashed #555;
     padding: 35px 50px;
     border-radius: 15px;
@@ -2244,8 +2249,9 @@ body.post-page .post-description {
     font-size: 25px;
     text-align: left;
     white-space: pre-wrap;
-    padding: 0 30px;
-    border: 1px solid #00ff00;
+    padding: 10px 30px;
+    box-shadow: inset 0 0 15px #333;
+    background-color: #fff;
     border-radius: 15px;
 
     max-height: 0px;
@@ -4237,6 +4243,7 @@ body.search-page .search_image {
     /* 이미지 높이 지정 */
     overflow: hidden;
     background-color: #eaeaea;
+    filter: brightness(0.5) blur(10px);
     /* 이미지 로드 전 임시 배경색 */
 }
 
