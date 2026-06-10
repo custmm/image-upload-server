@@ -28,13 +28,13 @@ function hideLoading() {
     if (indicator) indicator.style.display = "none";
 }
 
-// 3. 게시글 렌더링 함수 (덮어쓰기 방식으로 수정 및 페이지네이션 연동)
+// 3. 게시글 렌더링 함수 (가로 스크롤 알맹이만 깔끔하게 체인지)
 function renderPostsByPage(index) {
     currentIndex = index;
     const postList = document.getElementById("postList");
     if (!postList) return;
 
-    // 현재 인덱스로부터 딱 10개만 슬라이스
+    // 전체 데이터에서 현재 페이지 영역 10개 추출
     const nextPosts = allPosts.slice(currentIndex, currentIndex + pageSize);
 
     const html = nextPosts.map(post => `
@@ -56,12 +56,11 @@ function renderPostsByPage(index) {
         </div>
     `).join('');
 
-    // 🔹 [변경] 기존 리스트에 누적하지 않고, 새로고침 하듯 지우고 10개만 넣습니다.
+    // 가로 스크롤 내부 덮어쓰기 교체
     postList.innerHTML = html;
-     // 페이지 바뀔 때 가로 스크롤바 위치 맨 앞으로 강제 리셋
     postList.scrollLeft = 0;
 
-    // 카드들에 클릭 이벤트 바인딩
+    // 클릭 이벤트 바인딩
     const addedItems = postList.querySelectorAll(".post-item[data-id]");
     addedItems.forEach(item => {
         item.addEventListener("click", () => {
@@ -70,19 +69,22 @@ function renderPostsByPage(index) {
         });
     });
 
-    // 하단 페이지네이션 버튼 업데이트
+    // 🔹 외부 영역에 페이지 제네레이션 버튼 생성 및 업데이트 트리거
     renderPaginationButtons();
 }
 
-// 🔹 [신규 추가] 하단 페이지네이션 버튼 동적 생성 함수
+// 4. 페이지네이션 버튼 동적 생성 함수 (🔹 search-container 완전 바깥에 독립 배치)
 function renderPaginationButtons() {
-    // HTML에 <div id="paginationContainer"></div> 요소가 있어야 합니다. 없으면 새로 만듭니다.
     let pagContainer = document.getElementById("paginationContainer");
+    
+    // 버튼을 담을 컨테이너가 없으면 동적으로 생성
     if (!pagContainer) {
         pagContainer = document.createElement("div");
         pagContainer.id = "paginationContainer";
+        
+        // 하단 중앙 정렬을 위한 스타일 속성
         pagContainer.style.textAlign = "center";
-               pagContainer.style.margin = "30px 0";
+        pagContainer.style.margin = "30px 0";
         pagContainer.style.display = "flex";
         pagContainer.style.justifyContent = "center";
         pagContainer.style.alignItems = "center";
@@ -103,33 +105,30 @@ function renderPaginationButtons() {
     }
 
     pagContainer.innerHTML = "";
-    if (allPosts.length <= pageSize) return; // 전체 데이터가 10개 이하면 버튼이 필요 없음
+    if (allPosts.length <= pageSize) return; // 전체 게시글이 10개 이하면 버튼을 그리지 않음
 
     const totalPages = Math.ceil(allPosts.length / pageSize);
     const currentPage = Math.floor(currentIndex / pageSize);
 
-    // ◀ 이전 버튼
+    // [◀] 이전 버튼
     const prevBtn = document.createElement("button");
     prevBtn.textContent = "◀";
     prevBtn.className = "page-nav-btn";
-
     prevBtn.disabled = (currentPage === 0);
     prevBtn.onclick = () => {
         if (currentPage > 0) {
             renderPostsByPage((currentPage - 1) * pageSize);
-            window.scrollTo(0, 0); // 페이지 변경 시 상단으로 스크롤
         }
     };
     pagContainer.appendChild(prevBtn);
 
-    // 숫자 번호 버튼들
+    // [1], [2], [3]... 숫자 번호 버튼들
     for (let i = 0; i < totalPages; i++) {
         const pageBtn = document.createElement("button");
         pageBtn.textContent = i + 1;
-         pageBtn.className = "page-num-btn";
-
+        pageBtn.className = "page-num-btn";
         
-        // 현재 활성화된 페이지 디자인 구분
+        // 현재 선택되어 보고 있는 페이지 스타일 디자인 분기
         if (i === currentPage) {
             pageBtn.classList.add("active");
             pageBtn.style.fontWeight = "bold";
@@ -143,10 +142,11 @@ function renderPaginationButtons() {
         pagContainer.appendChild(pageBtn);
     }
 
-    // ▶ 다음 버튼
+    // [▶] 다음 버튼
     const nextBtn = document.createElement("button");
     nextBtn.textContent = "▶";
 nextBtn.className = "page-nav-btn";
+    nextBtn.className = "page-nav-btn";
     nextBtn.disabled = (currentPage >= totalPages - 1);
     nextBtn.onclick = () => {
         if (currentPage < totalPages - 1) {
@@ -156,7 +156,7 @@ nextBtn.className = "page-nav-btn";
     pagContainer.appendChild(nextBtn);
 }
 
-// 4. 초성 순서 및 태그 관련 설정
+// 5. 초성 순서 및 태그 관련 설정
 const ORDER = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "A~Z", "0~9", "기타"];
 
 const getInitial = (char) => {
@@ -170,7 +170,7 @@ const getInitial = (char) => {
     return "기타";
 };
 
-// 5. 메인 실행 로직
+// 6. 메인 실행 로직
 document.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
     const query = params.get("q");     // 검색어
@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (resetTagBtn) resetTagBtn.style.display = "none";
     }
 
-    // [API 데이터 호출]
+    // API 데이터 호출
     showLoading();
     try {
         const apiUrl = tag
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <p>관련 게시물이 없습니다.</p>
             </div>`;
         } else {
-            // 🔹 무한 스크롤 함수 대신 첫 번째 페이지(0번 인덱스) 로드 함수 호출
+            // 첫 진입 시 0번(첫 페이지) 리스트 로드 실행
             renderPostsByPage(0);
         }
     } catch (err) {
