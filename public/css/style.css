@@ -1848,6 +1848,10 @@ body.click-page .detail-content {
     padding-left: 10px;
     display: none;
 }
+body.click-page .explan_png{
+display: flex;
+    justify-content: center;
+}
 
 body.click-page .explan_png img{
     width: 500px;
