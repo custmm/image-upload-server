@@ -1862,7 +1862,10 @@ body.click-page .explan_png img {
     width: 500px;
 
 }
-
+body.click-page .explan_text_wrap p{
+    color: #333;
+    text-align: left;
+}
 /* ====== 게임 페이지(killing_game.html) ====== */
 
 body.game-page h1 {
