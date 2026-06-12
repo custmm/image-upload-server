@@ -22,4 +22,16 @@
     }
 
 
+    /*========== preview페이지 ==========*/
+    body.preview-page #settingPopup.active {
+        left: 25%;
+        width: 310px;
+        height: 210px;
+    }
+
+    body.preview-page #sidebarSearchBtn {
+        bottom: 21px;
+    }
+
+
 }
