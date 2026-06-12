@@ -370,6 +370,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const circle = event.target.closest(".glow-circle");
         if (!circle || circle.classList.contains("clicked")) return;
 
+        // 👇 [추가] body 클릭 이벤트를 막았으므로, 여기서 직접 불꽃놀이 효과와 사운드를 수동으로 실행합니다.
+        const fireworkX = event.clientX;
+        const fireworkY = event.clientY;
+        window.requestAnimationFrame(() => {
+            createFirework(fireworkX, fireworkY);
+            playFireworkSound();
+        });
+
         const targetIdx = parseInt(circle.getAttribute("data-index"), 10);
         if (isNaN(targetIdx)) return;
 
