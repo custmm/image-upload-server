@@ -225,11 +225,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 🛠️ [해결 포인트 2] 만약 이미 원을 하나라도 누르기 시작했다면 이스터에그 방해 방지를 위해 일반 바탕화면 카운트를 일시 정지시킵니다.
-        if (glowClickCount > 0 && glowClickCount < totalGlowClicksNeeded) {
-            return;
-        }
-
         const now = Date.now();
         clickTimes.push(now);
         clickTimes = clickTimes.filter(time => now - time < 1000);
