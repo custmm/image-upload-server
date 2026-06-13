@@ -38,41 +38,36 @@ function closePopup() {
   if (popup) popup.style.display = "none";
 }
 
-// 🔹 [추가] 이미지 상세 팝업 열기 함수
+// 🔹 이미지 상세 팝업 열기 함수
 function openImageModal(src) {
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImage");
   if (modal && modalImg) {
     modalImg.src = src;
-    modal.style.display = "flex"; // 정렬을 위해 flex 권장 (CSS와 매칭)
-    document.body.style.overflow = "hidden"; // 배경 스크롤 방지
+    modal.style.display = "flex"; // 정렬을 위해 flex 구조 적용
+    document.body.style.overflow = "hidden"; // 배경 스크롤 차단
   }
 }
 
-// 🔹 [추가] 이미지 상세 팝업 닫기 함수
+// 🔹 이미지 상세 팝업 닫기 함수
 function closeImageModal() {
   const modal = document.getElementById("imageModal");
   if (modal) {
     modal.style.display = "none";
-    document.body.style.overflow = "auto"; // 스크롤 원복
+    document.body.style.overflow = "auto"; // 스크롤 복원
   }
 }
 
-//  URL에서 파라미터 가져오기
 function getParamsFromURL() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
-
-  return {
-    id: id ? parseInt(id, 10) : null
-  };
+  return { id: id ? parseInt(id, 10) : null };
 }
 
 function renderHashtags(text) {
   const hashtagContainer = document.querySelector('.hastag');
   if (!hashtagContainer) return;
   hashtagContainer.innerHTML = '';
-
   if (!text) return;
 
   const matches = text.match(/#([\w가-힣]+)/g);
@@ -92,11 +87,10 @@ function renderHashtags(text) {
   });
 }
 
-//  서버에서 데이터 가져오기
 async function loadPostData() {
   let { id } = getParamsFromURL();
   const descEl = document.getElementById("postDescription");
-
+  
   if (!id) {
     if (descEl) descEl.innerHTML = "올바른 게시물을 찾을 수 없습니다.";
     return;
@@ -111,7 +105,6 @@ async function loadPostData() {
 
     const postData = await response.json();
 
-    // 데이터 요소 가져오기
     const postImage = document.getElementById("postImage");
     const postCategory = document.getElementById("postCategory");
     const postSubcategory = document.getElementById("postSubcategory");
@@ -122,30 +115,26 @@ async function loadPostData() {
     if (postImage) {
       postImage.src = `${postData.file_path}`;
 
-      // 🔹 [핵심 추가] #postImage 클릭 이벤트 리스너 추가 (중복 방지 플래그 활용)
+      // 🔹 #postImage 클릭 이벤트 바인딩 (중복 방지 플래그 활용)
       if (!postImage.dataset.bound) {
         postImage.dataset.bound = "true";
-        postImage.style.cursor = "pointer"; // 클릭 가능하다는 시각적 표시
+        postImage.style.cursor = "pointer";
         postImage.addEventListener("click", () => {
           openImageModal(postImage.src);
         });
       }
     }
-
+    
     if (postCategory) {
       postCategory.textContent = postData.category_name || "카테고리 없음";
-
       if (!postCategory.dataset.bound) {
         postCategory.dataset.bound = "true";
         postCategory.addEventListener("click", () => {
           const cat = postData.category_name;
           const sub = postData.subcategory_name;
-
           if (cat) {
             let url = `preview?category=${encodeURIComponent(cat)}`;
-            if (sub) {
-              url += `&subcategory=${encodeURIComponent(sub)}`;
-            }
+            if (sub) url += `&subcategory=${encodeURIComponent(sub)}`;
             window.location.href = url;
           }
         });
@@ -156,11 +145,9 @@ async function loadPostData() {
     if (postTitle) postTitle.textContent = postData.title || "제목 없음";
     document.title = postData.title || "게시물";
 
-    // 설명 및 해시태그 처리
     const descriptionText = postData.text || postData.description?.text || "";
 
     if (descEl && toggleBtn) {
-      // 초기화: 펼쳐진 상태 제거 및 텍스트 삽입
       descEl.classList.remove("expanded");
       descEl.innerHTML = descriptionText
         .replace(/#([\w가-힣]+)/g, "")
@@ -169,17 +156,15 @@ async function loadPostData() {
 
       renderHashtags(descriptionText);
 
-      // 텍스트가 렌더링된 후 높이를 측정하기 위해 setTimeout 사용
       setTimeout(() => {
         if (descEl.scrollHeight > descEl.clientHeight) {
-          toggleBtn.style.display = "block"; // 버튼 보여줌
+          toggleBtn.style.display = "block";
           toggleBtn.textContent = "펼치기";
         } else {
-          toggleBtn.style.display = "none"; // 글이 짧으면 버튼 숨김
+          toggleBtn.style.display = "none";
         }
       }, 200);
 
-      // 🔹 [핵심 수정 포인트 2] 펼치기 버튼 이벤트도 안전하게 처리
       if (!toggleBtn.dataset.bound) {
         toggleBtn.dataset.bound = "true";
         toggleBtn.addEventListener("click", () => {
@@ -192,7 +177,6 @@ async function loadPostData() {
       }
     }
 
-    // --- [이전/다음 버튼 로직 안전하게 연결] ---
     const prevBtn = document.getElementById("prevPostButton");
     const nextBtn = document.getElementById("nextPostButton");
 
@@ -212,24 +196,20 @@ async function loadPostData() {
 
   } catch (error) {
     console.error("게시물 불러오기 오류:", error);
-    const descEl = document.getElementById("postDescription");
     if (descEl) descEl.innerHTML = "게시물을 불러오는 중 오류 발생";
   } finally {
     hideLoading();
   }
 }
 
-//  HTML 태그 유지 및 불필요한 태그 제거
 function sanitizeDescription(html) {
   const allowedTags = ["b", "strong", "i", "em", "s", "strike", "u", "br", "span", "div", "p"];
   let doc = new DOMParser().parseFromString(html, "text/html");
-
   doc.body.querySelectorAll("*").forEach(node => {
     if (!allowedTags.includes(node.tagName.toLowerCase())) {
       node.replaceWith(document.createTextNode(node.innerText));
     }
   });
-
   return doc.body.innerHTML.trim();
 }
 
@@ -244,7 +224,6 @@ function bindDrawingEvents() {
   const ctx = canvas.getContext("2d");
 
   let isDrawing = false;
-
   canvas.width = 500;
   canvas.height = 300;
 
@@ -256,10 +235,7 @@ function bindDrawingEvents() {
         y: e.touches[0].clientY - rect.top
       };
     } else {
-      return {
-        x: e.offsetX,
-        y: e.offsetY
-      };
+      return { x: e.offsetX, y: e.offsetY };
     }
   }
 
@@ -315,7 +291,7 @@ function bindDrawingEvents() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
   }
-
+  
   if (downloadCanvasBtn) {
     downloadCanvasBtn.addEventListener("click", function () {
       const dataURL = canvas.toDataURL("image/png");
@@ -338,15 +314,11 @@ function toggleTheme() {
   if (isDarkMode) {
     localStorage.setItem("theme", "dark");
     if (themeToggle) themeToggle.checked = true;
-    if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_dark.svg')";
-    }
+    if (themeIcon) themeIcon.style.backgroundImage = "url('../images/toggle/toggle_dark.svg')";
   } else {
     localStorage.setItem("theme", "light");
     if (themeToggle) themeToggle.checked = false;
-    if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_light.svg')";
-    }
+    if (themeIcon) themeIcon.style.backgroundImage = "url('../images/toggle/toggle_light.svg')";
   }
 }
 
@@ -358,26 +330,22 @@ function applySavedTheme() {
   if (savedTheme === "dark") {
     document.body.classList.add("dark-mode");
     if (themeToggle) themeToggle.checked = true;
-    if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_dark.svg')";
-    }
+    if (themeIcon) themeIcon.style.backgroundImage = "url('../images/toggle/toggle_dark.svg')";
   } else {
     document.body.classList.remove("dark-mode");
     if (themeToggle) themeToggle.checked = false;
-    if (themeIcon) {
-      themeIcon.style.backgroundImage = "url('../images/toggle/toggle_light.svg')";
-    }
+    if (themeIcon) themeIcon.style.backgroundImage = "url('../images/toggle/toggle_light.svg')";
   }
 }
 
-// 🚀 페이지 로드 시 실행되는 부분
+// 🚀 DOM 완성 후 초기 리스너 연결
 document.addEventListener("DOMContentLoaded", () => {
   applySavedTheme();
   loadPostData();
   bindDrawingEvents();
 
   const themeToggleInput = document.getElementById("themeToggle");
-  const closePopupBtn = document.getElementById("closePopupBtn"); // HTML 구조에 맞게 ID 확인 필요
+  const closePopupBtn = document.getElementById("closePopupBtn");
   const closeImageModalBtn = document.getElementById("closeImageModalBtn");
   const imageModal = document.getElementById("imageModal");
 
@@ -395,7 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (imageModal) {
     imageModal.addEventListener("click", (e) => {
-      // 클릭한 대상이 이미지 자체가 아니라 바깥 배경(오버레이)일 때만 닫기
+      // 투명 검은 배경 오버레이를 타겟했을 때만 닫기
       if (e.target === imageModal) {
         closeImageModal();
       }
@@ -403,8 +371,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
-// "공유" 버튼 클릭 시 현재 페이지 URL 복사
 const shareButton = document.getElementById("shareButton");
 if (shareButton) {
   shareButton.addEventListener("click", async () => {
