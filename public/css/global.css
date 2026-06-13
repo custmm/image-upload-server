@@ -134,6 +134,12 @@
     }
 }
 
+/* 부드러운 확대 바운딩 애니메이션 */
+@keyframes modalZoomIn {
+  from { transform: scale(0.94); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
 /* ====== 공통 스타일 ====== */
 * {
     margin: 0;

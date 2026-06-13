@@ -2010,6 +2010,46 @@ body.post-page .ptitle {
     font-size: 18px;
     gap: 10px;
 }
+/* 이미지 상세 보기용 고정 모달 레이아웃 */
+body.post-page .image-modal {
+  position: fixed;
+  z-index: 11000; /* 로딩바 및 기타 레이어보다 위에 배치 */
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.88); /* 세련되고 짙은 암전 효과 */
+  display: none; /* 스크립트 실행 전까지 은닉 */
+  justify-content: center;
+  align-items: center;
+}
+
+/* 팝업 중앙에 박힐 큰 이미지 상세 속성 */
+body.post-page .image-modal-content {
+  max-width: 92%;
+  max-height: 88%;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  animation: modalZoomIn 0.22s cubic-bezier(0.1, 0.8, 0.25, 1);
+}
+
+/* 팝업 닫기 전용 X 단추 */
+body.post-page .image-modal-close {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 45px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: color 0.15s ease;
+  user-select: none;
+}
+
+body.post-page .image-modal-close:hover {
+  color: #ff5252; /* 기호에 맞는 하이라이트 색상 매칭 */
+}
 
 body.post-page #picture {
     padding: 0;
