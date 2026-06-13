@@ -38,6 +38,26 @@ function closePopup() {
   if (popup) popup.style.display = "none";
 }
 
+// 🔹 [추가] 이미지 상세 팝업 열기 함수
+function openImageModal(src) {
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+  if (modal && modalImg) {
+    modalImg.src = src;
+    modal.style.display = "flex"; // 정렬을 위해 flex 권장 (CSS와 매칭)
+    document.body.style.overflow = "hidden"; // 배경 스크롤 방지
+  }
+}
+
+// 🔹 [추가] 이미지 상세 팝업 닫기 함수
+function closeImageModal() {
+  const modal = document.getElementById("imageModal");
+  if (modal) {
+    modal.style.display = "none";
+    document.body.style.overflow = "auto"; // 스크롤 원복
+  }
+}
+
 //  URL에서 파라미터 가져오기
 function getParamsFromURL() {
   const params = new URLSearchParams(window.location.search);
@@ -76,7 +96,7 @@ function renderHashtags(text) {
 async function loadPostData() {
   let { id } = getParamsFromURL();
   const descEl = document.getElementById("postDescription");
-  
+
   if (!id) {
     if (descEl) descEl.innerHTML = "올바른 게시물을 찾을 수 없습니다.";
     return;
@@ -99,13 +119,22 @@ async function loadPostData() {
     const toggleBtn = document.getElementById("toggleDescButton");
 
     // 데이터 렌더링
-    if (postImage) postImage.src = `${postData.file_path}`;
-    
+    if (postImage) {
+      postImage.src = `${postData.file_path}`;
+
+      // 🔹 [핵심 추가] #postImage 클릭 이벤트 리스너 추가 (중복 방지 플래그 활용)
+      if (!postImage.dataset.bound) {
+        postImage.dataset.bound = "true";
+        postImage.style.cursor = "pointer"; // 클릭 가능하다는 시각적 표시
+        postImage.addEventListener("click", () => {
+          openImageModal(postImage.src);
+        });
+      }
+    }
+
     if (postCategory) {
       postCategory.textContent = postData.category_name || "카테고리 없음";
 
-      // 🔹 [핵심 수정 포인트 1] CSP 위반을 방지하기 위해 .onclick 대신 addEventListener 사용
-      // 기존에 연결된 리스너 오작동 방지를 위해 고유 데이터 플래그 활용
       if (!postCategory.dataset.bound) {
         postCategory.dataset.bound = "true";
         postCategory.addEventListener("click", () => {
@@ -157,7 +186,7 @@ async function loadPostData() {
           const isExpanded = descEl.classList.toggle("expanded");
           toggleBtn.textContent = isExpanded ? "접기" : "펼치기";
           if (!isExpanded) {
-              descEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            descEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }
         });
       }
@@ -286,7 +315,7 @@ function bindDrawingEvents() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
   }
-  
+
   if (downloadCanvasBtn) {
     downloadCanvasBtn.addEventListener("click", function () {
       const dataURL = canvas.toDataURL("image/png");
@@ -343,20 +372,37 @@ function applySavedTheme() {
 
 // 🚀 페이지 로드 시 실행되는 부분
 document.addEventListener("DOMContentLoaded", () => {
-  applySavedTheme(); 
+  applySavedTheme();
   loadPostData();
   bindDrawingEvents();
 
   const themeToggleInput = document.getElementById("themeToggle");
+  const closePopupBtn = document.getElementById("closePopupBtn"); // HTML 구조에 맞게 ID 확인 필요
+  const closeImageModalBtn = document.getElementById("closeImageModalBtn");
+  const imageModal = document.getElementById("imageModal");
+
   if (themeToggleInput) {
     themeToggleInput.addEventListener("change", toggleTheme);
   }
-  
-  const closePopupBtn = document.getElementById("closePopupBtn"); // HTML 구조에 맞게 ID 확인 필요
+
   if (closePopupBtn) {
     closePopupBtn.addEventListener("click", closePopup);
   }
+
+  if (closeImageModalBtn) {
+    closeImageModalBtn.addEventListener("click", closeImageModal);
+  }
+
+  if (imageModal) {
+    imageModal.addEventListener("click", (e) => {
+      // 클릭한 대상이 이미지 자체가 아니라 바깥 배경(오버레이)일 때만 닫기
+      if (e.target === imageModal) {
+        closeImageModal();
+      }
+    });
+  }
 });
+
 
 // "공유" 버튼 클릭 시 현재 페이지 URL 복사
 const shareButton = document.getElementById("shareButton");
