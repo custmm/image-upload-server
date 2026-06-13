@@ -3317,6 +3317,7 @@ body.preview-page #settingPopup.active {
     width: 320px;
     height: 240px;
     top: 10%;
+    left: 45%;
 }
 
 body.preview-page #settingBtn {
