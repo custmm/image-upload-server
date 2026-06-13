@@ -2018,7 +2018,7 @@ body.post-page .image-modal {
   top: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.88); /* 세련되고 짙은 암전 효과 */
+  background-color: rgba(255, 255, 255, 0.88); /* 세련되고 짙은 암전 효과 */
   display: none; /* 스크립트 실행 전까지 은닉 */
   justify-content: center;
   align-items: center;
