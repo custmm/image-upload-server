@@ -2518,13 +2518,15 @@ body.preview-page .flip-card-front {
 }
 
 body.preview-page .flip-card-back {
-    background: linear-gradient(135deg, #1e2022 0%, #2b3035 100%);
+    background-color: #90caf9;
     transform: rotateY(180deg);
-    border: 2px solid #00cc8f;
 }
 
 body.preview-page .flip-tag-badge {
     transition: all 0.2s ease;
+    background-color: #bfcfe0;
+    border-radius: 15px;
+    padding: 5px;
 }
 
 body.preview-page .flip-tag-badge:hover {
@@ -2532,6 +2534,49 @@ body.preview-page .flip-tag-badge:hover {
     color: #1e2022 !important;
     border-color: #00cc8f !important;
     transform: scale(1.05);
+}
+
+/* 뒷면 내부 정렬 컨테이너 */
+body.preview-page .flip-back-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30%;
+}
+
+body.preview-page .flip-back-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #00cc8f;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* 태그들이 모여 정렬되는 방 */
+body.preview-page .flip-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-height: 180px;
+    overflow-y: auto;
+    /* 태그가 너무 많을 경우 내부 스크롤 허용 */
+    padding: 5px;
+}
+
+/* 태그가 없을 때 메시지 */
+body.preview-page .flip-no-tag {
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+}
+
+/* 하단내내 안내 가이드 문구 */
+body.preview-page .flip-click-notice {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
 }
 
 /* ==========================================================================
@@ -3358,53 +3403,6 @@ body.preview-page .text-card-item:first-child {
 body.preview-page .text-card-item:last-child {
     margin-right: 25px !important;
     /* 끝까지 스크롤 가능하게 함 */
-}
-
-/* ==========================================================================
-   텍스트 모드 카드 3D Flip (뒤집기) 스타일 
-   ========================================================================== */
-
-
-/* 뒷면 내부 정렬 컨테이너 */
-body.preview-page .flip-back-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-body.preview-page .flip-back-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: #00cc8f;
-    letter-spacing: 2px;
-    margin: 0;
-    text-transform: uppercase;
-}
-
-/* 태그들이 모여 정렬되는 방 */
-body.preview-page .flip-tag-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    max-height: 180px;
-    overflow-y: auto;
-    /* 태그가 너무 많을 경우 내부 스크롤 허용 */
-    padding: 5px;
-}
-
-/* 태그가 없을 때 메시지 */
-body.preview-page .flip-no-tag {
-    font-size: 13px;
-    color: #888;
-    font-style: italic;
-}
-
-/* 하단내내 안내 가이드 문구 */
-body.preview-page .flip-click-notice {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.4);
 }
 
 
