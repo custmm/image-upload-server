@@ -24,7 +24,7 @@
 
     /*========== preview페이지 ==========*/
     body.preview-page #settingPopup.active {
-        left: 25%;
+        margin: 0 auto;
         width: 310px;
         height: 210px;
     }

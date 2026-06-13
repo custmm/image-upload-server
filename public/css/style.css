@@ -3272,7 +3272,6 @@ body.preview-page #settingPopup.active {
     width: 320px;
     height: 240px;
     top: 10%;
-    left: 50%;
 }
 
 body.preview-page #settingBtn {
@@ -3716,33 +3715,6 @@ body.preview-page .no-image-message {
     color: #555;
     text-align: center;
     width: 100%;
-}
-
-/* 페이지 제네레이터 디자인 관련*/
-body.preview-page #pagination-container {
-    display: flex;
-    text-align: center;
-    margin: 0 auto;
-    justify-content: center;
-    gap: 70vw;
-    position: absolute;
-    top: 60%;
-    right: 10%;
-
-}
-
-body.preview-page .pagination-button {
-    background: none;
-    color: black;
-    border: 1px solid #333;
-    padding: 10px 20%;
-    height: 40px;
-    border-radius: 20px;
-}
-
-body.preview-page .paginaticardon-button:hover {
-    background: yellowgreen;
-    color: aqua;
 }
 
 /* footer */
