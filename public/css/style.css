@@ -2427,6 +2427,9 @@ body.preview-page .sidebar {
 body.preview-page .sidebar.open {
     left: 0 !important;
 }
+body.preview-page ul.main-menu{
+margin-top: 80px;
+}
 
 /* 메인메뉴 트랜지션 보정 */
 body.preview-page ul.main-menu>li:last-child {
