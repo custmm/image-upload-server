@@ -343,15 +343,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         await Gallery.initializeCategorySelection();
     }
 
+// --- [3. 모드 전환 버튼 이벤트 수정본] ---
     if (imageModeBtn && textModeBtn) {
         imageModeBtn.addEventListener("click", async () => {
-            // [중요] 갤러리 요소에서 스크롤 클래스 직접 제거 (안전장치)
+            // [중요] 갤러리 요소에서 스크롤 클래스 및 인라인 스타일 직접 제거 (안전장치)
             if (galleryEl) {
-                galleryEl.classList.remove("text-view-scroll");
+                galleryEl.classList.remove("text-view-scroll", "text-view");
+                galleryEl.classList.add("image-view");
+                galleryEl.style.justifyContent = ""; // 인라인 스타일 초기화
                 galleryEl.scrollLeft = 0;
             }
 
-            Gallery.setView("image"); // 여기서 위에서 수정한 setView가 실행됨
+            Gallery.setView("image");
             imageModeBtn.classList.add("active");
             textModeBtn.classList.remove("active");
 
@@ -360,13 +363,27 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         textModeBtn.addEventListener("click", async () => {
+            // [안전장치] 텍스트 모드로 바뀔 때 첫 게시물 잘림을 방지하기 위해 컨테이너 속성 강제 정렬
+            if (galleryEl) {
+                galleryEl.classList.remove("image-view");
+                galleryEl.classList.add("text-view");
+                // 첫 카드가 왼쪽 벽에 딱 붙어서 잘리지 않도록 정렬을 왼쪽 시작점으로 강제 고정합니다.
+                galleryEl.style.justifyContent = "flex-start";
+                galleryEl.style.paddingLeft = "0px";
+                galleryEl.scrollLeft = 0;
+            }
+
             Gallery.setView("text");
             textModeBtn.classList.add("active");
             imageModeBtn.classList.remove("active");
 
             Gallery.setPage(0);
             await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
-            if (galleryEl) galleryEl.scrollLeft = 0;
+           
+            // 데이터가 완전히 로드되고 카드가 생성된 직후 다시 한번 스크롤을 맨 앞으로 당겨줍니다.
+            if (galleryEl) {
+                galleryEl.scrollLeft = 0;
+            }
         });
     }
 

@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 119.2 119.2">
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.13 99.55">
   <defs>
     <style>
       .cls-1 {
-        fill: #f16a24;
+        fill: #b09f51;
       }
 
       .cls-2 {
-        fill: #f16924;
+        fill: none;
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3 {
+        fill: #b4529f;
       }
     </style>
   </defs>
   <g id="Layer_1-2" data-name="Layer 1">
-    <g id="uuid-6173c457-9084-4976-be0d-1938d497d7e4" data-name="Layer 1-2">
-      <circle class="cls-2" cx="59.6" cy="59.6" r="37.25"/>
-      <polygon class="cls-1" points="68.09 16.99 59.6 0 51.1 16.99 68.09 16.99"/>
-      <polygon class="cls-1" points="35.48 23.46 17.46 17.45 23.46 35.48 35.48 23.46"/>
-      <polygon class="cls-1" points="16.99 51.1 0 59.59 16.99 68.09 16.99 51.1"/>
-      <polygon class="cls-1" points="23.46 83.72 17.45 101.74 35.48 95.74 23.46 83.72"/>
-      <polygon class="cls-1" points="51.1 102.21 59.59 119.2 68.09 102.21 51.1 102.21"/>
-      <polygon class="cls-1" points="83.72 95.74 101.74 101.75 95.74 83.72 83.72 95.74"/>
-      <polygon class="cls-1" points="102.21 68.09 119.2 59.6 102.21 51.1 102.21 68.09"/>
-      <polygon class="cls-1" points="95.74 35.48 101.75 17.46 83.72 23.46 95.74 35.48"/>
+    <g id="uuid-a9384074-5bfb-4467-82c9-0b89e24ad686" data-name="Layer 1-2">
+      <line class="cls-2" x1="83.26" y1="30.32" x2="83.25" y2="30.33"/>
+      <rect class="cls-1" x="42.33" y="31.32" width="11.41" height="16.89" transform="translate(35.32 -21.28) rotate(38.62)"/>
+      <polygon class="cls-3" points="78.32 1.86 69.45 25.43 89.13 41.15 63.97 40.01 55.1 63.57 48.42 39.3 23.26 38.14 44.29 24.29 37.61 0 57.29 15.72 78.32 1.86"/>
+      <circle class="cls-1" cx="40.7" cy="44.71" r="3.05"/>
+      <circle class="cls-1" cx="44.84" cy="48.02" r="3.05"/>
+      <rect class="cls-1" x="19.79" y="39.47" width="5.75" height="65.44" transform="translate(50.01 1.64) rotate(38.62)"/>
     </g>
   </g>
 </svg>

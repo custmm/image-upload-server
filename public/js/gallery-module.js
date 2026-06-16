@@ -405,14 +405,15 @@ export function renderPagination(totalPages) {
     const infoBox = document.getElementById("pagination-info");
     if (!pag || !infoBox) return;
 
+    // 초기화
     pag.innerHTML = "";
-    infoBox.innerHTML = `<span> ${page + 1} / ${totalPages} </span>`;
+    infoBox.innerHTML = ""; // 기존의 독립된 인포박스는 비워둡니다.
 
-    // ◀ 이전 버튼 (원형 화살표)
+    // 1. ◀ 이전 버튼 생성
     const prev = document.createElement("button");
     prev.className = "pagination-circle-btn";
-    prev.innerHTML = `<i data-lucide="chevron-left"></i>`; // 화살표 아이콘
-    prev.disabled = (page === 0); // 첫 페이지면 비활성화
+    prev.innerHTML = `<i data-lucide="chevron-left"></i>`;
+    prev.disabled = (page === 0);
     prev.onclick = async () => {
         if (page > 0) {
             page--;
@@ -420,11 +421,17 @@ export function renderPagination(totalPages) {
         }
     };
 
-    // ▶ 다음 버튼 (원형 화살표)
+    // 2. 중간에 배치할 [pagination-info] 요소 생성
+    const centerInfo = document.createElement("div");
+    centerInfo.className = "pagination-info-center";
+    centerInfo.id = "pagination-info"; // ID 유지하여 CSS 호환성 확보
+    centerInfo.innerHTML = `<span> ${page + 1} / ${totalPages} </span>`;
+
+    // 3. ▶ 다음 버튼 생성
     const next = document.createElement("button");
     next.className = "pagination-circle-btn";
-    next.innerHTML = `<i data-lucide="chevron-right"></i>`; // 화살표 아이콘
-    next.disabled = (page + 1 >= totalPages); // 마지막 페이지면 비활성화
+    next.innerHTML = `<i data-lucide="chevron-right"></i>`;
+    next.disabled = (page + 1 >= totalPages);
     next.onclick = async () => {
         if ((page + 1) < totalPages) {
             page++;
@@ -432,12 +439,15 @@ export function renderPagination(totalPages) {
         }
     };
 
+    // --- [핵심] 순서대로 배치: [이전] -> [정보] -> [다음] ---
     pag.appendChild(prev);
+    pag.appendChild(centerInfo);
     pag.appendChild(next);
 
     // 아이콘 생성 실행
     if (window.lucide) window.lucide.createIcons();
 }
+
 export function adjustGalleryRadius() {
     const gallery = document.querySelector(".image-gallery");
     if (!gallery) return;
