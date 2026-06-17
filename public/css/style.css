@@ -2530,6 +2530,18 @@ body.preview-page .text-card-item {
     background: transparent !important;
     perspective: 1000px;
     /* 입체 축 고정 */
+
+    /* 💡 [수정 포인트 1] 개별 카드가 스크롤에 걸릴 때 자석 기준점을 무조건 왼쪽('start')으로 강제 고정합니다.
+       이 속성이 누락되거나 center로 작동하면 첫 카드의 중앙을 맞추려다 앞부분 카드를 화면 왼쪽 바깥으로 터뜨립니다. */
+    scroll-snap-align: start !important;
+    margin-right: 20px; /* 카드와 카드 사이의 정돈된 우측 간격 */
+    box-sizing: border-box !important;
+}
+
+/* 💡 [수정 포인트 2] 첫 번째 게시물(a 카드)이 화면 왼쪽 끝 테두리에 바짝 붙어 가려지거나 잘리는 현상을 방지합니다.
+   부모 컨테이너에 padding-left를 주면 가로 정렬 연산이 꼬이므로, 맨 첫 카드에 마진 여백을 주는 것이 정석입니다. */
+body.preview-page .text-card-item:first-child {
+    margin-left: 40px !important;
 }
 
 body.preview-page .flip-card-inner {
@@ -2625,17 +2637,29 @@ body.preview-page .flip-click-notice {
 /* ==========================================================================
    [5] 가로 휠 스크롤 전용 레이아웃 강제 지정
    ========================================================================== */
-body.preview-page .image-gallery.text-view {
+body.preview-page .image-gallery.text-view,
+body.preview-page .image-gallery.text-view-scroll {
     display: flex !important;
     flex-wrap: nowrap !important;
     flex-direction: row !important;
+
+    /* 💡 [수정 포인트 3] 컨테이너 내부의 정렬 방향을 무조건 왼쪽 시작점으로 밀어줍니다.
+       center나 space-around 같은 정렬 오염을 지워내어 정방향(a, b, c...) 순서 정렬을 확실하게 보장합니다. */
+    justify-content: flex-start !important;
+    align-items: center !important;
+
     overflow-x: auto !important;
     overflow-y: hidden !important;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    
+    padding-left: 0px !important; /* 패딩 간섭 방지 초기화 */
+    padding-right: 40px !important; /* 마지막 카드 도달 시 생기는 여유 여백 */
+    box-sizing: border-box !important;
 }
 
-body.preview-page .image-gallery.text-view::-webkit-scrollbar {
+body.preview-page .image-gallery.text-view::-webkit-scrollbar,
+body.preview-page .image-gallery.text-view-scroll::-webkit-scrollbar {
     display: none;
     /* 스크롤바 클립 숨김 */
 }
@@ -2846,7 +2870,6 @@ body.preview-page #view-switch {
     margin: 10px 0 10px 75%;
     box-shadow: inset rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     border-radius: 30px;
-    width: 90px;
     padding: 3px;
     gap: 10px;
 }
