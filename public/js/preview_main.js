@@ -344,49 +344,65 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 // --- [3. 모드 전환 버튼 이벤트 수정본] ---
-    if (imageModeBtn && textModeBtn) {
-        imageModeBtn.addEventListener("click", async () => {
-            // [중요] 갤러리 요소에서 스크롤 클래스 및 인라인 스타일 직접 제거 (안전장치)
-            if (galleryEl) {
-                galleryEl.classList.remove("text-view-scroll", "text-view");
-                galleryEl.classList.add("image-view");
-                galleryEl.style.justifyContent = ""; // 인라인 스타일 초기화
-                galleryEl.scrollLeft = 0;
-            }
+if (imageModeBtn && textModeBtn) {
+    imageModeBtn.addEventListener("click", async () => {
+        if (galleryEl) {
+            // 바둑판(이미지) 모드로 전환할 때는 가로 스크롤 관련 스타일 및 클래스 초기화
+            galleryEl.classList.remove("text-view-scroll", "text-view");
+            galleryEl.classList.add("image-view");
+            galleryEl.style.justifyContent = ""; 
+            galleryEl.style.scrollSnapType = ""; // 자석 효과 해제
+            galleryEl.style.paddingLeft = "";
+            galleryEl.scrollLeft = 0;
+        }
 
-            Gallery.setView("image");
-            imageModeBtn.classList.add("active");
-            textModeBtn.classList.remove("active");
+        Gallery.setView("image");
+        imageModeBtn.classList.add("active");
+        textModeBtn.classList.remove("active");
 
-            Gallery.setPage(0);
-            await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
-        });
+        Gallery.setPage(0);
+        await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
+    });
 
-        textModeBtn.addEventListener("click", async () => {
-            // [안전장치] 텍스트 모드로 바뀔 때 첫 게시물 잘림을 방지하기 위해 컨테이너 속성 강제 정렬
-            if (galleryEl) {
-                galleryEl.classList.remove("image-view");
-                galleryEl.classList.add("text-view");
-                // 첫 카드가 왼쪽 벽에 딱 붙어서 잘리지 않도록 정렬을 왼쪽 시작점으로 강제 고정합니다.
-                galleryEl.style.justifyContent = "flex-start";
-                galleryEl.style.paddingLeft = "0px";
-                galleryEl.scrollLeft = 0;
-            }
+    textModeBtn.addEventListener("click", async () => {
+        if (galleryEl) {
+            galleryEl.classList.remove("image-view");
+            galleryEl.classList.add("text-view");
+            
+            // 🔥 핵심 안전장치: 브라우저가 첫 카드를 중앙정렬하려는 고집을 꺾기 위해
+            // 스크롤 위치를 0으로 맞추는 동안 강제로 scroll-snap-type을 일시 제거합니다.
+            galleryEl.style.scrollSnapType = "none"; 
+            galleryEl.style.justifyContent = "flex-start";
+            galleryEl.style.paddingLeft = "0px";
+            galleryEl.scrollLeft = 0;
+        }
 
-            Gallery.setView("text");
-            textModeBtn.classList.add("active");
-            imageModeBtn.classList.remove("active");
+        Gallery.setView("text");
+        textModeBtn.classList.add("active");
+        imageModeBtn.classList.remove("active");
 
-            Gallery.setPage(0);
-            await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
-           
-            // 데이터가 완전히 로드되고 카드가 생성된 직후 다시 한번 스크롤을 맨 앞으로 당겨줍니다.
-            if (galleryEl) {
-                galleryEl.scrollLeft = 0;
-            }
-        });
-    }
-
+        // 비동기로 페이지 데이터를 불러와 카드를 새로 렌더링합니다.
+        Gallery.setPage(0);
+        await Gallery.loadPage(Gallery.selectedCategory, Gallery.selectedSubcategory);
+       
+        // 카드가 화면에 완전히 박힌 후(DOM 렌더링 완료 시점), 스크롤 정방향 초기화 진행
+        if (galleryEl) {
+            galleryEl.scrollLeft = 0;
+            
+            // 데이터 삽입 직후 브라우저 연산 타이밍을 고려해 60ms의 미세한 지연 후 자석 효과를 정방향 시작점(x mandatory)으로 복원합니다.
+            setTimeout(() => {
+                // 자식 카드들이 왼쪽 기준정렬(start)되도록 스타일 보장 및 스냅 재활성화
+                const cards = galleryEl.querySelectorAll(".text-card-item");
+                cards.forEach(card => {
+                    card.style.scrollSnapAlign = "start"; // CSS center 덮어쓰기
+                });
+                galleryEl.style.scrollSnapType = "x mandatory";
+                galleryEl.scrollLeft = 0; // 복원 후 다시 한번 안전하게 고정
+            }, 60);
+        }
+    });
+}
+    
     if (showIndBtn && indicatorImg) {
         showIndBtn.addEventListener("click", (e) => {
             e.preventDefault();
