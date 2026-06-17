@@ -2637,14 +2637,15 @@ body.preview-page .flip-click-notice {
 /* ==========================================================================
    [5] 가로 휠 스크롤 전용 레이아웃 강제 지정
    ========================================================================== */
+* 💡 [핵심 보정 3] 기존 .text-view 뿐만 아니라, 자바스크립트가 동적으로 밀어넣는 
+   .text-view-scroll 클래스 규칙까지 바인딩하여 좌우 휠 스크롤을 무조건 부활시킵니다. */
 body.preview-page .image-gallery.text-view,
 body.preview-page .image-gallery.text-view-scroll {
     display: flex !important;
     flex-wrap: nowrap !important;
     flex-direction: row !important;
-
-    /* 💡 [수정 포인트 3] 컨테이너 내부의 정렬 방향을 무조건 왼쪽 시작점으로 밀어줍니다.
-       center나 space-around 같은 정렬 오염을 지워내어 정방향(a, b, c...) 순서 정렬을 확실하게 보장합니다. */
+    
+    /* 💡 중앙 정렬 오염을 방지하고 왼쪽 시작점부터 스크롤이 쌓이도록 강제 지정 */
     justify-content: flex-start !important;
     align-items: center !important;
 
@@ -2653,15 +2654,15 @@ body.preview-page .image-gallery.text-view-scroll {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     
-    padding-left: 0px !important; /* 패딩 간섭 방지 초기화 */
-    padding-right: 40px !important; /* 마지막 카드 도달 시 생기는 여유 여백 */
+    padding-left: 0px !important; /* 내부 패딩 간섭 전면 해제 */
+    padding-right: 50px !important; /* 마지막 카드 도달 시의 터치 여백 */
     box-sizing: border-box !important;
 }
 
+/* 스크롤바 클립 숨김 처리 통합 확장 */
 body.preview-page .image-gallery.text-view::-webkit-scrollbar,
 body.preview-page .image-gallery.text-view-scroll::-webkit-scrollbar {
-    display: none;
-    /* 스크롤바 클립 숨김 */
+    display: none !important;
 }
 
 body.preview-page .text-row {
