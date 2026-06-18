@@ -2625,21 +2625,26 @@ body.preview-page .flip-click-notice {
 /* ==========================================================================
    [5] 가로 휠 스크롤 전용 레이아웃 강제 지정
    ========================================================================== */
-body.preview-page .image-gallery.text-view {
+body.preview-page .image-gallery.text-view,
+body.preview-page .image-gallery.text-view-scroll {
     display: flex !important;
     flex-wrap: nowrap !important;
     flex-direction: row !important;
-    overflow-x: auto !important;
+    justify-content: flex-start !important; /* ⚠️ a, b 카드 시작점 견인 */
+    align-items: center !important;
+    overflow-x: auto !important; /* 💡 가로 스크롤 영역 활성화 */
     overflow-y: hidden !important;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    padding-left: 0px !important;
+    padding-right: 40px !important;
+    box-sizing: border-box !important;
 }
 
-body.preview-page .image-gallery.text-view::-webkit-scrollbar {
-    display: none;
-    /* 스크롤바 클립 숨김 */
+body.preview-page .image-gallery.text-view::-webkit-scrollbar,
+body.preview-page .image-gallery.text-view-scroll::-webkit-scrollbar {
+    display: none !important; /* 가로 스크롤바 디자인 클립 숨김 */
 }
-
 body.preview-page .text-row {
     flex: 0 0 85%;
     max-width: 350px;
