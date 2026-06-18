@@ -4,6 +4,7 @@ import * as Gallery from './gallery-module.js';
 // 2. 전역 변수 선언
 let loaderInterval = null;
 let loaderStep = 1;
+let wheelSnapTimeout = null;
 
 // --- [UI 공통 함수] ---
 // --- [신규 드래그 로직 함수 정의] ---
@@ -553,19 +554,33 @@ if (imageModeBtn && textModeBtn) {
 
 });
 
-// 6. [중요] PC 휠 가로 스크롤 (이벤트 위임 - DOM 로딩 상관없이 작동)
 document.addEventListener("wheel", (e) => {
-    // 💡 여기서 imageGallery 요소를 직접 찾도록 한 줄을 추가합니다!
     const galleryEl = document.getElementById("imageGallery");
-
     if (!galleryEl) return;
 
-    // 마우스가 갤러리 영역 위에 있을 때만 변환
+    // 마우스가 갤러리 영역(#imageGallery) 위에 있을 때만 가로 스크롤로 전환
     if (e.target.closest("#imageGallery")) {
         const isTextView = galleryEl.classList.contains("text-view") || galleryEl.classList.contains("text-view-scroll");
+        
         if (isTextView && e.deltaY !== 0) {
+            // 브라우저의 고유 세로 스크롤 이동은 차단
             e.preventDefault();
-            galleryEl.scrollLeft += e.deltaY;
+            
+            // 💡 [치유 핵심] 휠이 움직이는 동안에는 CSS 자석 효과(scroll-snap)를 완전히 꺼버립니다.
+            // 이렇게 해야 자바스크립트의 스크롤 이동 연산(scrollLeft)이 씹히지 않고 부활합니다.
+            galleryEl.style.scrollSnapType = "none";
+            
+            // 사용자의 휠 감도에 맞춰 부드럽게 굴러가도록 보정율(0.9)을 곱해 가로로 이동시킵니다.
+            galleryEl.scrollLeft += e.deltaY * 0.9;
+            
+            // 휠 조작이 끝날 때까지 타이머를 디바운스(Debounce) 처리합니다.
+            if (wheelSnapTimeout) clearTimeout(wheelSnapTimeout);
+            
+            wheelSnapTimeout = setTimeout(() => {
+                // 💡 사용자가 마우스 휠에서 손을 떼고 100ms가 지나면 자석 효과를 안전하게 원상복구합니다.
+                // 이 타이밍에 카드가 화면 왼쪽 테두리에 자석처럼 착 감기게 됩니다.
+                galleryEl.style.scrollSnapType = "x mandatory";
+            }, 100);
         }
     }
-}, { passive: false });
+}, { passive: false }); // preventDefault 실행을 위해 passive는 반드시 false 고정
